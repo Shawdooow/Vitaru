@@ -13,7 +13,7 @@ namespace Vitaru
                 vitaru.Start();
         }
 
-        protected Vitaru(string[] args) : base("vitaru", args)
+        protected Vitaru(string[] args) : base("vitaru", args, "DX12")
         {
         }
     }
