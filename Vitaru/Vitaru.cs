@@ -10,7 +10,7 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             using (Vitaru vitaru = new Vitaru(args))
-                vitaru.Start();
+                vitaru.Start(new MainMenuRoot());
         }
 
         protected Vitaru(string[] args) : base("vitaru", args)
