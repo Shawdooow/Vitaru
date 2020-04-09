@@ -18,12 +18,19 @@ namespace Vitaru
                 ShaderProgram = Sprite.SpriteProgram,
                 ParentScaling = Axes.Both,
 
-                Child = new Sprite(Game.TextureStore.GetTexture("medicine.png"))
+                Children = new[]
                 {
-                    ParentScaling = Axes.Both,
-                    Size = new Vector2(0.5f),
-                    Color = Color.MidnightBlue,
-                }
+                    new Sprite(Game.TextureStore.GetTexture("vitaru spring 2018.png"))
+                    {
+                        ParentScaling = Axes.Both,
+                    },
+                    new Box
+                    {
+                        ParentScaling = Axes.Both,
+                        Color = Color.Black,
+                        Alpha = 0.5f,
+                    }
+                },
             });
         }
     }
