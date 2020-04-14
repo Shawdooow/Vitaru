@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
@@ -86,13 +85,13 @@ namespace Vitaru
                 }
 
                 if (InputHandler.Actions[VitaruAction.Up])
-                    playerPosition.Y += (float)yTranslationDistance;
+                    playerPosition.Y += (float) yTranslationDistance;
                 if (InputHandler.Actions[VitaruAction.Left])
-                    playerPosition.X -= (float)xTranslationDistance;
+                    playerPosition.X -= (float) xTranslationDistance;
                 if (InputHandler.Actions[VitaruAction.Down])
-                    playerPosition.Y -= (float)yTranslationDistance;
+                    playerPosition.Y -= (float) yTranslationDistance;
                 if (InputHandler.Actions[VitaruAction.Right])
-                    playerPosition.X += (float)xTranslationDistance;
+                    playerPosition.X += (float) xTranslationDistance;
 
                 //if (!VitaruPlayfield.BOUNDLESS)
                 //{
