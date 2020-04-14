@@ -15,6 +15,9 @@
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>vitaru.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
   </ItemGroup>
