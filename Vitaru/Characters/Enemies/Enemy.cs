@@ -14,7 +14,7 @@ namespace Vitaru.Characters.Enemies
 
         public override void Update()
         {
-            Drawable.Position = new Vector2(200 * MathF.Sin((float)Clock.Current / 500f));
+            Drawable.Position = new Vector2(200 * MathF.Sin((float) Clock.Current / 500f));
         }
     }
 }

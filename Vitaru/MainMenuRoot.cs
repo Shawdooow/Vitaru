@@ -3,7 +3,6 @@
 
 using System.Drawing;
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Application.Groups.Packs;
 using Prion.Game;
 using Prion.Game.Graphics;
@@ -11,7 +10,6 @@ using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
-using Prion.Game.Input.Handlers;
 using Vitaru.Characters;
 
 namespace Vitaru
@@ -48,29 +46,5 @@ namespace Vitaru
             });
             Add(new KillZone(this, characters));
         }
-    }
-
-    public class VitaruInputManager : ConfigedInputHandler<VitaruActions>
-    {
-        public override string Filename => "vitaruinput";
-
-        protected override void OnInitialiseDefaults()
-        {
-            InputSettings.SetValue(VitaruActions.Up, Key.W);
-            InputSettings.SetValue(VitaruActions.Down, Key.S);
-            InputSettings.SetValue(VitaruActions.Left, Key.A);
-            InputSettings.SetValue(VitaruActions.Right, Key.D);
-            InputSettings.SetValue(VitaruActions.Slow, Key.ShiftLeft);
-        }
-    }
-
-    public enum VitaruActions
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        Slow,
-        Shoot,
     }
 }
