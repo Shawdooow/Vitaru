@@ -4,13 +4,16 @@
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
+using Prion.Application.Groups.Packs;
 using Prion.Game;
+using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
+using Vitaru.Players;
 
 namespace Vitaru
 {
@@ -18,9 +21,18 @@ namespace Vitaru
     {
         public MainMenuRoot()
         {
-            Player player = new Player();
+            Renderer.Window.Title = "Vitaru";
+
+            
+            DrawablePlayer drawablePlayer = new DrawablePlayer();
+            Player player = new Player(drawablePlayer);
 
             Add(player.InputHandler);
+
+            Add(new Pack<Player>
+            {
+                Child = player,
+            });
 
             Add(new SpriteLayer
             {
@@ -31,100 +43,44 @@ namespace Vitaru
                     new Sprite(Game.TextureStore.GetTexture("vitaru spring 2018.png"))
                     {
                         ParentScaling = Axes.Both,
+                        Scale = new Vector2(0.75f),
                     },
                     new Box
                     {
                         ParentScaling = Axes.Both,
                         Color = Color.Black,
                         Alpha = 0.5f,
+                        Scale = new Vector2(5),
                     },
-                    player,
+                    drawablePlayer,
                 },
             });
         }
 
-        private class Player : Sprite, IHasInputKeys<VitaruAction>
+
+    }
+
+    public class VitaruInputManager : ConfigedInputHandler<VitaruActions>
+    {
+        public override string Filename => "vitaruinput";
+
+        protected override void OnInitialiseDefaults()
         {
-            public BindInputHandler<VitaruAction> InputHandler { get; set; }
-
-            public Player() : base(Game.TextureStore.GetTexture("Sakuya Izayoi.png"))
-            {
-                ParentOrigin = Mounts.Center;
-                InputHandler = new VitaruInputManager();
-                Size = new Vector2(100);
-                Color = Color.Blue;
-            }
-
-            public override void PreRender()
-            {
-                base.PreRender();
-                Position = GetNewPlayerPosition(0.0025f);
-            }
-
-            public bool Pressed(VitaruAction t)
-            {
-                return true;
-            }
-
-            public bool Released(VitaruAction t)
-            {
-                return true;
-            }
-
-            protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
-            {
-                Vector2 playerPosition = Position;
-
-                double yTranslationDistance = playerSpeed * Clock.ElapsedTime;
-                double xTranslationDistance = playerSpeed * Clock.ElapsedTime;
-
-                if (InputHandler.Actions[VitaruAction.Slow])
-                {
-                    xTranslationDistance /= 2d;
-                    yTranslationDistance /= 2d;
-                }
-
-                if (InputHandler.Actions[VitaruAction.Up])
-                    playerPosition.Y += (float) yTranslationDistance;
-                if (InputHandler.Actions[VitaruAction.Left])
-                    playerPosition.X -= (float) xTranslationDistance;
-                if (InputHandler.Actions[VitaruAction.Down])
-                    playerPosition.Y -= (float) yTranslationDistance;
-                if (InputHandler.Actions[VitaruAction.Right])
-                    playerPosition.X += (float) xTranslationDistance;
-
-                //if (!VitaruPlayfield.BOUNDLESS)
-                //{
-                //    playerPosition = Vector2.ComponentMin(playerPosition, ChapterSet.PlayfieldBounds.Zw);
-                //    playerPosition = Vector2.ComponentMax(playerPosition, ChapterSet.PlayfieldBounds.Xy);
-                //}
-
-                return playerPosition;
-            }
+            InputSettings.SetValue(VitaruActions.Up, Key.W);
+            InputSettings.SetValue(VitaruActions.Down, Key.S);
+            InputSettings.SetValue(VitaruActions.Left, Key.A);
+            InputSettings.SetValue(VitaruActions.Right, Key.D);
+            InputSettings.SetValue(VitaruActions.Slow, Key.ShiftLeft);
         }
+    }
 
-        private class VitaruInputManager : ConfigedInputHandler<VitaruAction>
-        {
-            public override string Filename => "vitaruinput";
-
-            protected override void OnInitialiseDefaults()
-            {
-                InputSettings.SetValue(VitaruAction.Up, Key.W);
-                InputSettings.SetValue(VitaruAction.Down, Key.S);
-                InputSettings.SetValue(VitaruAction.Left, Key.A);
-                InputSettings.SetValue(VitaruAction.Right, Key.D);
-                InputSettings.SetValue(VitaruAction.Slow, Key.ShiftLeft);
-            }
-        }
-
-        private enum VitaruAction
-        {
-            Up,
-            Down,
-            Left,
-            Right,
-            Slow,
-            Shoot,
-        }
+    public enum VitaruActions
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        Slow,
+        Shoot,
     }
 }
