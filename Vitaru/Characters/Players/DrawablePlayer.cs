@@ -11,7 +11,7 @@ namespace Vitaru.Characters.Players
     {
         public DrawablePlayer() : base(Game.TextureStore.GetTexture("Sakuya Izayoi.png"))
         {
-            Color = Color.Blue;
+            Sprite.Color = Color.Blue;
             Scale = new Vector2(0.5f);
         }
     }

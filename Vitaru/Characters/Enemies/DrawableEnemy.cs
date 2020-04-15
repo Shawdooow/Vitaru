@@ -11,7 +11,7 @@ namespace Vitaru.Characters.Enemies
     {
         public DrawableEnemy() : base(Game.TextureStore.GetTexture("enemy.png"))
         {
-            Color = Color.Chartreuse;
+            Sprite.Color = Color.Chartreuse;
             Scale = new Vector2(0.1f);
         }
     }

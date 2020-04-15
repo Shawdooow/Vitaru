@@ -13,8 +13,6 @@ using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Input.Handlers;
 using Vitaru.Characters;
-using Vitaru.Characters.Enemies;
-using Vitaru.Characters.Players;
 
 namespace Vitaru
 {
@@ -24,22 +22,9 @@ namespace Vitaru
         {
             Renderer.Window.Title = "Vitaru";
 
-            DrawablePlayer drawablePlayer = new DrawablePlayer();
-            Player player = new Player(drawablePlayer);
+            Pack<Character> characters = new Pack<Character>();
 
-            Add(player.InputHandler);
-
-            DrawableEnemy drawableEnemy = new DrawableEnemy();
-            Enemy enemy = new Enemy(drawableEnemy);
-
-            Add(new Pack<Character>
-            {
-                Children = new Character[]
-                {
-                    player,
-                    enemy,
-                }
-            });
+            Add(characters);
 
             Add(new SpriteLayer
             {
@@ -59,10 +44,9 @@ namespace Vitaru
                         Alpha = 0.5f,
                         Scale = new Vector2(5),
                     },
-                    drawableEnemy,
-                    drawablePlayer,
                 },
             });
+            Add(new KillZone(this, characters));
         }
     }
 
