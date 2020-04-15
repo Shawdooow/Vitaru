@@ -56,8 +56,6 @@ namespace Vitaru
                 },
             });
         }
-
-
     }
 
     public class VitaruInputManager : ConfigedInputHandler<VitaruActions>
