@@ -23,6 +23,7 @@ namespace Vitaru
         public MainMenuRoot()
         {
             Renderer.Window.Title = "Vitaru";
+            Renderer.Window.Icon = new Icon(Game.AssetStorage.GetStream("Textures\\vitaru.ico"));
 
             Add(new SpriteLayer
             {
