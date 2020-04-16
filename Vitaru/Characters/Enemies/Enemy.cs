@@ -8,8 +8,18 @@ namespace Vitaru.Characters.Enemies
 {
     public class Enemy : Character
     {
-        public Enemy(DrawableEnemy drawable) : base(drawable)
+        public const int ENEMY_TEAM = 0;
+
+        public DrawableEnemy GenerateDrawable()
         {
+            DrawableEnemy draw = new DrawableEnemy(this);
+            Drawable = draw;
+            return draw;
+        }
+
+        public Enemy()
+        {
+            Team = ENEMY_TEAM;
         }
 
         public override void Update()

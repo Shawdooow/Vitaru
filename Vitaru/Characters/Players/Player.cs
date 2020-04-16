@@ -1,35 +1,95 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Collections.Generic;
 using System.Numerics;
+using Prion.Game.Graphics.Layers;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
+using Vitaru.Projectiles;
 
 namespace Vitaru.Characters.Players
 {
     public class Player : Character, IHasInputKeys<VitaruActions>
     {
+        public const int PLAYER_TEAM = 1;
+
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
+        private readonly List<Bullet> bullet_que = new List<Bullet>();
 
-        public Player(DrawablePlayer drawable) : base(drawable)
+        public DrawablePlayer GenerateDrawable()
         {
+            DrawablePlayer draw = new DrawablePlayer(this)
+            {
+                Position = new Vector2(0, 200),
+            };
+            Drawable = draw;
+            return draw;
+        }
+
+        public Player(SpriteLayer<DrawableBullet> bulletLayer)
+        {
+            Team = PLAYER_TEAM;
             InputHandler = new VitaruInputManager();
+            InputHandler.Add(this);
         }
 
         public override void Update()
         {
+            for (int i = 0; i < bullet_que.Count; i++)
+            {
+            }
+
             Drawable.Position = GetNewPlayerPosition(100f);
+
+            //TODO: HitDetection
+            //for (int i = 0; i < playfield.Children.Count; i++)
+            //{
+            //    
+            //    //Difference
+            //    Vector2 pos = 
+            //
+            //    //Oddly this seems to help but not always?!?!?!?!?!?!?!?!?!!?!?!?!?!?!!??!?!?!?!?!?!?!?!?!?!?!?!!?!?!?!?!?!?!?!?!!?!?!?!?!?!?!!?!?!?!?!?!?!!?!?
+            //    pos += new Vector2(hitbox1.Width / 4 + hitbox2.Width / 4);
+            //
+            //    double distance = Math.Sqrt(Math.Pow(pos.X, 2) + Math.Pow(pos.Y, 2));
+            //    double edgeDistance = distance - (hitbox1.Width / 2 + hitbox2.Width / 2);
+            //
+            //    if (edgeDistance <= 0)
+            //        return true;
+            //}
         }
 
         public bool Pressed(VitaruActions t)
         {
-            return true;
+            switch (t)
+            {
+                default:
+                    return true;
+
+                case VitaruActions.Shoot:
+                    shoot();
+                    return true;
+            }
         }
 
         public bool Released(VitaruActions t)
         {
             return true;
+        }
+
+        private void shoot()
+        {
+            Bullet bullet = new Bullet();
+
+            bullet_que.Add(bullet);
+
+            Add(bullet.GenerateDrawableBullet());
+        }
+
+        protected void Add(DrawableBullet drawable)
+        {
         }
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
