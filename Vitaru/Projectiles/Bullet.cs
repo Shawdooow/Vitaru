@@ -28,8 +28,31 @@ namespace Vitaru.Projectiles
 
         public Shape Shape { get; set; }
 
+        protected virtual void UpdatePath()
+        {
+            
+
+            switch (CurveType)
+            {
+                default:
+                    EndTime = StartTime + Distance / Speed;
+                    break;
+                case CurveType.Target:
+                    StartTime -= Distance / Speed / 2f;
+                    break;
+            }
+        }
+
         public override void Update()
         {
+            Drawable.Position = GetPosition(Clock.Current);
+        }
+
+        protected virtual Vector2 GetPosition(double time)
+        {
+            return new Vector2(
+                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X, EndPosition.X),
+                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y, EndPosition.Y));
         }
     }
 
