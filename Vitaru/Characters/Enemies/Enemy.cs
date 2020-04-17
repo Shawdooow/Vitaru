@@ -12,7 +12,10 @@ namespace Vitaru.Characters.Enemies
 
         public DrawableEnemy GenerateDrawable()
         {
-            DrawableEnemy draw = new DrawableEnemy(this);
+            DrawableEnemy draw = new DrawableEnemy(this)
+            {
+                Y = -200f,
+            };
             Drawable = draw;
             return draw;
         }
@@ -24,7 +27,7 @@ namespace Vitaru.Characters.Enemies
 
         public override void Update()
         {
-            Drawable.Position = new Vector2(200 * MathF.Sin((float) Clock.Current / 500f));
+            Drawable.Position = new Vector2(200 * MathF.Sin((float) Clock.Current / 500f), Drawable.Y);
         }
     }
 }
