@@ -2,16 +2,20 @@
   <PropertyGroup Label="Project">
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <AssemblyTitle>Vitaru.Multiplayer</AssemblyTitle>
-    <Description>Vitaru's Multiplayer</Description>
+    <AssemblyTitle>Vitaru.Server</AssemblyTitle>
+    <Description>Vitaru's Server</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
+    <StartupObject>Vitaru.Server.VitaruServer</StartupObject>
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
     <DefineConstant>PUBLISH</DefineConstant>
     <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>vitaru.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Application\Prion.Application.csproj" />

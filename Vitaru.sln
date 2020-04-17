@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Game", "..\Prion\Prio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vitaru", "Vitaru\Vitaru.csproj", "{0DEAAAD3-995D-49E2-9ADC-3CF2D1816C82}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vitaru.Multiplayer", "Vitaru.Multiplayer\Vitaru.Multiplayer.csproj", "{4FA72FAD-6C19-4A75-B008-0F3E668D6A6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vitaru.Server", "Vitaru.Server\Vitaru.Server.csproj", "{4FA72FAD-6C19-4A75-B008-0F3E668D6A6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
