@@ -18,7 +18,7 @@ namespace Vitaru.Characters.Players
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
-        private int shootBullet = 0;
+        private int shootBullet;
 
         public virtual DrawablePlayer GenerateDrawable()
         {
@@ -84,7 +84,7 @@ namespace Vitaru.Characters.Players
                     return true;
 
                 case VitaruActions.Shoot:
-                    shoot();
+                    shootBullet++;
                     return true;
             }
         }
@@ -92,11 +92,6 @@ namespace Vitaru.Characters.Players
         public bool Released(VitaruActions t)
         {
             return true;
-        }
-
-        private void shoot()
-        {
-            shootBullet++;
         }
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
