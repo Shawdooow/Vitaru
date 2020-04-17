@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Numerics;
 using Prion.Application.Entitys;
 using Vitaru.Utilities;
@@ -56,10 +57,6 @@ namespace Vitaru.Projectiles
 
         protected virtual void End() => Started = false;
 
-        protected virtual void UnLoad()
-        {
-            PreLoaded = false;
-            Dispose();
-        }
+        protected virtual void UnLoad() => PreLoaded = false;
     }
 }

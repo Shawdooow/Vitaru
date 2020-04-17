@@ -15,5 +15,10 @@ namespace Vitaru.Projectiles
             Color = Color.Magenta;
             Texture = Game.TextureStore.GetTexture("circle.png");
         }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+        }
     }
 }

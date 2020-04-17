@@ -61,7 +61,6 @@ namespace Vitaru.Roots
                 StartTime = double.MinValue,
             });
 
-            //Packs
             //Add(new Pack<Updatable>
             //{
             //    Children = new Updatable[]
@@ -70,6 +69,8 @@ namespace Vitaru.Roots
             //        vitaruNet,
             //    }
             //});
+
+            //Packs
             Add(gamefield);
             Add(gamefield.PlayerPack);
             Add(gamefield.LoadedEnemies);

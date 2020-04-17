@@ -52,6 +52,7 @@ namespace Vitaru.Projectiles
 
         public override void Update()
         {
+            base.Update();
             if (Drawable is null) return;
             Drawable.Position = GetPosition(Clock.Current);
         }
@@ -63,6 +64,13 @@ namespace Vitaru.Projectiles
                     EndPosition.X),
                 (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
                     EndPosition.Y));
+        }
+
+        protected override void UnLoad()
+        {
+            base.UnLoad();
+            Drawable.Delete();
+            Drawable = null;
         }
     }
 

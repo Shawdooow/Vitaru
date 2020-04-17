@@ -67,6 +67,8 @@ namespace Vitaru.Play
 
         private readonly List<Projectile> projectileQue = new List<Projectile>();
 
+        private readonly List<DrawableProjectile> drawableProjectileQue = new List<DrawableProjectile>();
+
         public void Add(Projectile projectile)
         {
             ProjectilePack.Add(projectile);
@@ -88,11 +90,12 @@ namespace Vitaru.Play
                 Enemy enemy = enemyQue[0];
                 DrawableEnemy draw = enemy.GenerateDrawable();
 
-                //draw.OnDispose += () =>
-                //{
-                //    LoadedEnemies.Remove(enemy);
-                //    UnloadedEnemies.Add(enemy);
-                //};
+                draw.OnDelete += () =>
+                {
+                    LoadedEnemies.Remove(enemy);
+                    UnloadedEnemies.Add(enemy);
+                    CharacterLayer.Remove(draw);
+                };
 
                 CharacterLayer.Add(draw);
                 enemyQue.Remove(enemy);
@@ -100,8 +103,20 @@ namespace Vitaru.Play
 
             while (projectileQue.Count > 0)
             {
-                ProjectileLayer.Add(projectileQue[0].GenerateDrawable());
-                projectileQue.Remove(projectileQue[0]);
+                Projectile projectile = projectileQue[0];
+                DrawableProjectile draw = projectile.GenerateDrawable();
+
+                draw.OnDelete += () => drawableProjectileQue.Add(draw);
+
+                ProjectileLayer.Add(draw);
+                projectileQue.Remove(projectile);
+            }
+
+            while (drawableProjectileQue.Count > 0)
+            {
+                DrawableProjectile draw = drawableProjectileQue[0];
+                ProjectileLayer.Remove(draw);
+                drawableProjectileQue.Remove(draw);
             }
         }
     }
