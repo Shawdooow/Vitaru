@@ -20,6 +20,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
+    <ProjectReference Include="..\Vitaru.Multiplayer\Vitaru.Multiplayer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Assets\**\*">
