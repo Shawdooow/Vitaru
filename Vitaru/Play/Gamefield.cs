@@ -88,11 +88,11 @@ namespace Vitaru.Play
                 Enemy enemy = enemyQue[0];
                 DrawableEnemy draw = enemy.GenerateDrawable();
 
-                draw.OnDispose += () =>
-                {
-                    LoadedEnemies.Remove(enemy);
-                    UnloadedEnemies.Add(enemy);
-                };
+                //draw.OnDispose += () =>
+                //{
+                //    LoadedEnemies.Remove(enemy);
+                //    UnloadedEnemies.Add(enemy);
+                //};
 
                 CharacterLayer.Add(draw);
                 enemyQue.Remove(enemy);
@@ -103,16 +103,6 @@ namespace Vitaru.Play
                 ProjectileLayer.Add(projectileQue[0].GenerateDrawable());
                 projectileQue.Remove(projectileQue[0]);
             }
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            PlayerPack?.Dispose();
-            CharacterLayer?.Dispose();
-            LoadedEnemies?.Dispose();
-            ProjectilePack?.Dispose();
-            ProjectileLayer?.Dispose();
-            base.Dispose(finalize);
         }
     }
 }
