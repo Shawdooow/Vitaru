@@ -3,22 +3,42 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Entitys;
+using Prion.Application.Groups.Packs;
+using Prion.Application.Networking.Packets.Connection;
 using Prion.Game;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Characters.Enemies;
 using Vitaru.Characters.Players;
+using Vitaru.Multiplayer.Client;
+using Vitaru.Multiplayer.Server;
 using Vitaru.Play;
 
 namespace Vitaru.Roots
 {
     public class MainMenuRoot : Root
     {
-        private readonly Gamefield gamefield = new Gamefield();
+        private readonly Gamefield gamefield;
+
+        private readonly VitaruServerNetHandler vitaruServer;
+        private readonly VitaruNetHandler vitaruNet;
 
         public MainMenuRoot()
         {
+            string address = "127.0.0.1:36840";
+            vitaruServer = new VitaruServerNetHandler
+            {
+                Address = address
+            };
+            vitaruNet = new VitaruNetHandler
+            {
+                Address = address
+            };
+
+            gamefield = new Gamefield();
+
             Add(new SpriteLayer
             {
                 Children = new[]
@@ -47,6 +67,14 @@ namespace Vitaru.Roots
             });
 
             //Packs
+            Add(new Pack<Updatable>
+            {
+                Children = new Updatable[]
+                {
+                    vitaruServer,
+                    vitaruNet,
+                }
+            });
             Add(gamefield);
             Add(gamefield.PlayerPack);
             Add(gamefield.LoadedEnemies);
@@ -55,6 +83,13 @@ namespace Vitaru.Roots
             //Layers
             Add(gamefield.ProjectileLayer);
             Add(gamefield.CharacterLayer);
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            vitaruNet.Connect();
+            vitaruNet.Ping();
         }
 
         public override void PreRender()
