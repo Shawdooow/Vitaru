@@ -50,6 +50,8 @@ namespace Vitaru.Characters.Players
                 };
 
                 Gamefield.Add(bullet);
+
+                shootBullet--;
             }
 
             if (Drawable == null) return;

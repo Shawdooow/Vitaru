@@ -46,6 +46,7 @@ namespace Vitaru.Projectiles
 
         public override void Update()
         {
+            if (Drawable is null) return;
             Drawable.Position = GetPosition(Clock.Current);
         }
 
