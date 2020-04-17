@@ -4,7 +4,7 @@
 using System;
 using Prion.Application.Networking.Packets;
 
-namespace Vitaru.Multiplayer.Packets
+namespace Vitaru.Server.Packets
 {
     [Serializable]
     public class NewEnemyPacket : Packet

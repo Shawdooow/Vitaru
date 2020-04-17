@@ -3,10 +3,11 @@
 
 using System.Net;
 using System.Net.Sockets;
+using Prion.Application.Networking.NetworkingHandlers.Server;
 
-namespace Vitaru.Multiplayer.Server
+namespace Vitaru.Server.Server
 {
-    public class VitaruClient : Prion.Application.Networking.NetworkingHandlers.Server.Client
+    public class VitaruClient : Client
     {
         public VitaruClient(Prion.Application.Networking.NetworkingHandlers.Server.Server server, TcpClient client,
             IPEndPoint end) : base(server, client, end)

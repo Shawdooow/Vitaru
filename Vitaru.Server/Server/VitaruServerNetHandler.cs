@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using Prion.Application.Networking.NetworkingHandlers.Server;
 
-namespace Vitaru.Multiplayer.Server
+namespace Vitaru.Server.Server
 {
     public class VitaruServerNetHandler : ServerNetHandler<VitaruServer, VitaruClient>
     {
