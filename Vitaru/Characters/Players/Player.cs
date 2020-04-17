@@ -44,7 +44,7 @@ namespace Vitaru.Characters.Players
                     StartPosition = Drawable.Position,
                     StartTime = Clock.Current,
                     Distance = 400,
-                    Speed = 100,
+                    Speed = 5,
                 };
 
                 Gamefield.Add(bullet);
@@ -54,7 +54,7 @@ namespace Vitaru.Characters.Players
 
             if (Drawable == null) return;
 
-            Drawable.Position = GetNewPlayerPosition(100f);
+            Drawable.Position = GetNewPlayerPosition(0.1f);
 
             //TODO: HitDetection
             //for (int i = 0; i < playfield.Children.Count; i++)
@@ -96,8 +96,8 @@ namespace Vitaru.Characters.Players
         {
             Vector2 playerPosition = Drawable.Position;
 
-            double yTranslationDistance = playerSpeed * (Clock.LastElapsedTime / 1000f);
-            double xTranslationDistance = playerSpeed * (Clock.LastElapsedTime / 1000f);
+            double yTranslationDistance = playerSpeed * Clock.LastElapsedTime;
+            double xTranslationDistance = playerSpeed * Clock.LastElapsedTime;
 
             if (InputHandler.Actions[VitaruActions.Slow])
             {

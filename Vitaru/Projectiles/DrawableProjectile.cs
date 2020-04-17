@@ -7,8 +7,9 @@ namespace Vitaru.Projectiles
 {
     public abstract class DrawableProjectile : Sprite
     {
-        public DrawableProjectile(Projectile projectile)
+        protected DrawableProjectile(Projectile projectile)
         {
+            Position = projectile.StartPosition;
         }
     }
 }

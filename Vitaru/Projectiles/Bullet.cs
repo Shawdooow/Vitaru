@@ -31,6 +31,12 @@ namespace Vitaru.Projectiles
 
         public Shape Shape { get; set; }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            UpdatePath();
+        }
+
         protected virtual void UpdatePath()
         {
             switch (CurveType)
