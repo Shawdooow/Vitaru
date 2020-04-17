@@ -14,7 +14,7 @@ using Vitaru.Characters.Enemies;
 using Vitaru.Characters.Players;
 using Vitaru.Projectiles;
 
-namespace Vitaru
+namespace Vitaru.Roots
 {
     public class MainMenuRoot : Root
     {
@@ -22,9 +22,6 @@ namespace Vitaru
 
         public MainMenuRoot()
         {
-            Renderer.Window.Title = "Vitaru";
-            Renderer.Window.Icon = new Icon(Game.AssetStorage.GetStream("Textures\\vitaru.ico"));
-
             Add(new SpriteLayer
             {
                 Children = new[]

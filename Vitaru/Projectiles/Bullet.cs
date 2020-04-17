@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Prion.Application.Debug;
 using Prion.Application.Utilities;
 
 namespace Vitaru.Projectiles
@@ -10,7 +11,7 @@ namespace Vitaru.Projectiles
     {
         protected DrawableBullet Drawable { get; private set; }
 
-        public DrawableBullet GenerateDrawableBullet() => Drawable = new DrawableBullet(this);
+        public override DrawableProjectile GenerateDrawable() => Drawable == null ? Drawable = new DrawableBullet(this) : throw PrionDebugger.InvalidOperation("Drawable should be null");
 
         public Vector2 EndPosition { get; protected set; }
 

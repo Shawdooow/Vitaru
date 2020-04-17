@@ -5,15 +5,11 @@ using Prion.Game.Graphics.Sprites;
 
 namespace Vitaru.Projectiles
 {
-    public abstract class DrawableProjectile<P> : Sprite
-        where P : Projectile
-    {
-        protected DrawableProjectile(P projectile)
-        {
-        }
-    }
-
     public abstract class DrawableProjectile : Sprite
     {
+        public DrawableProjectile(Projectile projectile)
+        {
+
+        }
     }
 }

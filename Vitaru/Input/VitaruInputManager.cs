@@ -4,7 +4,7 @@
 using OpenTK.Input;
 using Prion.Game.Input.Handlers;
 
-namespace Vitaru
+namespace Vitaru.Input
 {
     public class VitaruInputManager : ConfigedInputHandler<VitaruActions>
     {

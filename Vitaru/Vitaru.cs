@@ -1,7 +1,10 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Drawing;
 using Prion.Game;
+using Prion.Game.Graphics;
+using Vitaru.Roots;
 
 namespace Vitaru
 {
@@ -15,6 +18,13 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base("vitaru", args, "GL46")
         {
+        }
+
+        protected override void RunUpdate()
+        {
+            Renderer.Window.Title = "Vitaru";
+            Renderer.Window.Icon = new Icon(Game.AssetStorage.GetStream("Textures\\vitaru.ico"));
+            base.RunUpdate();
         }
     }
 }

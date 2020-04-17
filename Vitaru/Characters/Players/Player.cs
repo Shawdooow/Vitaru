@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
+using Vitaru.Input;
 using Vitaru.Projectiles;
 
 namespace Vitaru.Characters.Players
@@ -85,10 +86,10 @@ namespace Vitaru.Characters.Players
 
             bullet_que.Add(bullet);
 
-            Add(bullet.GenerateDrawableBullet());
+            Add(bullet.GenerateDrawable());
         }
 
-        protected void Add(DrawableBullet drawable)
+        protected void Add(DrawableProjectile drawable)
         {
         }
 

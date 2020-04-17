@@ -9,6 +9,8 @@ namespace Vitaru.Projectiles
 {
     public abstract class Projectile : Updatable, IHasTeam
     {
+        public abstract DrawableProjectile GenerateDrawable();
+
         public virtual int Team { get; set; }
 
         public float Angle { get; set; }

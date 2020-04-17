@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace Vitaru.Projectiles
 {
-    public class DrawableBullet : DrawableProjectile<Bullet>
+    public class DrawableBullet : DrawableProjectile
     {
         public DrawableBullet(Bullet bullet) : base(bullet)
         {
