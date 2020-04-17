@@ -8,6 +8,7 @@ using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
 using Vitaru.Input;
 using Vitaru.Projectiles;
+using Vitaru.Roots;
 
 namespace Vitaru.Characters.Players
 {
@@ -17,9 +18,9 @@ namespace Vitaru.Characters.Players
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
-        private readonly List<Bullet> bullet_que = new List<Bullet>();
+        private int shootBullet = 0;
 
-        public DrawablePlayer GenerateDrawable()
+        public virtual DrawablePlayer GenerateDrawable()
         {
             DrawablePlayer draw = new DrawablePlayer(this)
             {
@@ -29,7 +30,7 @@ namespace Vitaru.Characters.Players
             return draw;
         }
 
-        public Player(SpriteLayer<DrawableBullet> bulletLayer)
+        public Player(Gamefield gamefield) : base(gamefield)
         {
             Team = PLAYER_TEAM;
             InputHandler = new VitaruInputManager();
@@ -38,9 +39,20 @@ namespace Vitaru.Characters.Players
 
         public override void Update()
         {
-            for (int i = 0; i < bullet_que.Count; i++)
+            while (shootBullet > 0)
             {
+                Bullet bullet = new Bullet
+                {
+                    StartPosition = Drawable.Position,
+                    StartTime = Clock.Current,
+                    Distance = 400,
+                    Speed = 100,
+                };
+
+                Gamefield.Add(bullet);
             }
+
+            if (Drawable == null) return;
 
             Drawable.Position = GetNewPlayerPosition(100f);
 
@@ -82,15 +94,7 @@ namespace Vitaru.Characters.Players
 
         private void shoot()
         {
-            Bullet bullet = new Bullet();
-
-            bullet_que.Add(bullet);
-
-            Add(bullet.GenerateDrawable());
-        }
-
-        protected void Add(DrawableProjectile drawable)
-        {
+            shootBullet++;
         }
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)

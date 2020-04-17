@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Application.Entitys;
+using Vitaru.Roots;
 using Vitaru.Utilities;
 
 namespace Vitaru.Characters
@@ -20,6 +21,13 @@ namespace Vitaru.Characters
         public virtual float Energy { get; protected set; }
 
         protected virtual DrawableCharacter Drawable { get; set; }
+
+        protected readonly Gamefield Gamefield;
+
+        protected Character(Gamefield gamefield)
+        {
+            Gamefield = gamefield;
+        }
 
         public override void Update()
         {

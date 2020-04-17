@@ -59,7 +59,7 @@ namespace Vitaru.Projectiles
         protected virtual void UnLoad()
         {
             PreLoaded = false;
-            //TODO: Dispose();
+            Dispose();
         }
     }
 }
