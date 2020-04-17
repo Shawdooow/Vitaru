@@ -25,7 +25,7 @@ namespace Vitaru.Projectiles
 
         public Easings SpeedEasing { get; set; }
 
-        public float Diameter { get; set; }
+        public float Diameter { get; set; } = 10;
 
         public Shape Shape { get; set; }
 

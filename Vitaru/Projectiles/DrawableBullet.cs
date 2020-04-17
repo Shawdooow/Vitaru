@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Game;
 
 namespace Vitaru.Projectiles
 {
@@ -10,8 +11,9 @@ namespace Vitaru.Projectiles
     {
         public DrawableBullet(Bullet bullet) : base(bullet)
         {
-            Size = new Vector2(10);
+            Size = new Vector2(bullet.Diameter);
             Color = Color.Magenta;
+            Texture = Game.TextureStore.GetTexture("circle.png");
         }
     }
 }
