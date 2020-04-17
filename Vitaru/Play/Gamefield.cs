@@ -28,7 +28,10 @@ namespace Vitaru.Play
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
-            //TODO: Multiplayer
+            if (vitaruNet != null)
+            {
+                //TODO: Multiplayer
+            }
         }
 
         public override void Update()
