@@ -22,7 +22,7 @@ namespace Vitaru.Characters
 
         protected virtual DrawableCharacter Drawable { get; set; }
 
-        protected readonly Gamefield Gamefield;
+        protected Gamefield Gamefield { get; private set; }
 
         protected Character(Gamefield gamefield)
         {
@@ -31,6 +31,13 @@ namespace Vitaru.Characters
 
         public override void Update()
         {
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            Gamefield = null;
+            Drawable = null;
         }
     }
 }

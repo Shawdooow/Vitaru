@@ -36,6 +36,7 @@ namespace Vitaru.Play
 
         public override void Update()
         {
+            //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
@@ -51,8 +52,11 @@ namespace Vitaru.Play
 
         private readonly List<Enemy> enemyQue = new List<Enemy>();
 
+        private readonly List<DrawableEnemy> drawableEnemyQue = new List<DrawableEnemy>();
+
         public void Add(Enemy enemy)
         {
+            //We may not need to draw these yet so just store them in a list for now
             UnloadedEnemies.Add(enemy);
         }
 
@@ -76,15 +80,17 @@ namespace Vitaru.Play
             projectileQue.Add(projectile);
         }
 
-        //Add the drawable on the draw thread to avoid threadsaftey issues
+        //Move the drawables on the draw thread to avoid threadsaftey issues
         public void PreRender()
         {
+            //Add Players
             while (playerQue.Count > 0)
             {
                 CharacterLayer.Add(playerQue[0].GenerateDrawable());
                 playerQue.Remove(playerQue[0]);
             }
 
+            //Add / Remove Enemies
             while (enemyQue.Count > 0)
             {
                 Enemy enemy = enemyQue[0];
@@ -94,13 +100,21 @@ namespace Vitaru.Play
                 {
                     LoadedEnemies.Remove(enemy);
                     UnloadedEnemies.Add(enemy);
-                    CharacterLayer.Remove(draw);
+                    drawableEnemyQue.Add(draw);
                 };
 
                 CharacterLayer.Add(draw);
                 enemyQue.Remove(enemy);
             }
 
+            while (drawableEnemyQue.Count > 0)
+            {
+                DrawableEnemy draw = drawableEnemyQue[0];
+                CharacterLayer.Remove(draw);
+                drawableEnemyQue.Remove(draw);
+            }
+
+            //Add / Remove Projectiles
             while (projectileQue.Count > 0)
             {
                 Projectile projectile = projectileQue[0];

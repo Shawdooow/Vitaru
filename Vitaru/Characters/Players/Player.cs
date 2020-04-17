@@ -52,6 +52,7 @@ namespace Vitaru.Characters.Players
                 shootBullet--;
             }
 
+            //TODO: fix this being needed?
             if (Drawable == null) return;
 
             Drawable.Position = GetNewPlayerPosition(0.1f);
@@ -82,6 +83,7 @@ namespace Vitaru.Characters.Players
                     return true;
 
                 case VitaruActions.Shoot:
+                    //Since this is actually the draw thread, que these
                     shootBullet++;
                     return true;
             }
