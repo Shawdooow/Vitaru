@@ -2,7 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Application.Entitys;
-using Vitaru.Roots;
 using Vitaru.Utilities;
 
 namespace Vitaru.Characters

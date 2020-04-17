@@ -23,7 +23,7 @@ namespace Vitaru
         protected override void RunUpdate()
         {
             Renderer.Window.Title = "Vitaru";
-            Renderer.Window.Icon = new Icon(Game.AssetStorage.GetStream("Textures\\vitaru.ico"));
+            Renderer.Window.Icon = new Icon(AssetStorage.GetStream("Textures\\vitaru.ico"));
             base.RunUpdate();
         }
     }

@@ -9,7 +9,6 @@ namespace Vitaru.Projectiles
     {
         public DrawableProjectile(Projectile projectile)
         {
-
         }
     }
 }

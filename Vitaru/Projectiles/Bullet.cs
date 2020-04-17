@@ -11,7 +11,9 @@ namespace Vitaru.Projectiles
     {
         protected DrawableBullet Drawable { get; private set; }
 
-        public override DrawableProjectile GenerateDrawable() => Drawable == null ? Drawable = new DrawableBullet(this) : throw PrionDebugger.InvalidOperation("Drawable should be null");
+        public override DrawableProjectile GenerateDrawable() => Drawable == null
+            ? Drawable = new DrawableBullet(this)
+            : throw PrionDebugger.InvalidOperation("Drawable should be null");
 
         public Vector2 EndPosition { get; protected set; }
 
@@ -31,8 +33,6 @@ namespace Vitaru.Projectiles
 
         protected virtual void UpdatePath()
         {
-            
-
             switch (CurveType)
             {
                 default:
@@ -53,8 +53,10 @@ namespace Vitaru.Projectiles
         protected virtual Vector2 GetPosition(double time)
         {
             return new Vector2(
-                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X, EndPosition.X),
-                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y, EndPosition.Y));
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
+                    EndPosition.X),
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
+                    EndPosition.Y));
         }
     }
 

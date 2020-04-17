@@ -3,7 +3,6 @@
 
 using System;
 using System.Numerics;
-using Vitaru.Roots;
 
 namespace Vitaru.Characters.Enemies
 {
