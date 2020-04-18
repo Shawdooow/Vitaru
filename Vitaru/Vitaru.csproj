@@ -28,4 +28,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Textures\Gameplay\" />
+    <Folder Include="Assets\Textures\Backgrounds\" />
+  </ItemGroup>
 </Project>
