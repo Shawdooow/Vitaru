@@ -38,6 +38,10 @@ namespace Vitaru.Roots
             {
                 Children = new[]
                 {
+                    new Sprite(Game.TextureStore.GetTexture("Backgrounds\\medicine.png"))
+                    {
+                        Scale = new Vector2(2f),
+                    },
                     new Sprite(Game.TextureStore.GetTexture("Backgrounds\\vitaru spring 2018.png"))
                     {
                         Scale = new Vector2(0.75f),
