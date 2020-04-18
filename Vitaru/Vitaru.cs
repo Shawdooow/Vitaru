@@ -4,6 +4,8 @@
 using System.Drawing;
 using Prion.Game;
 using Prion.Game.Graphics;
+using Prion.Integrations.Discord;
+using Prion.Integrations.Discord.DiscordGameSDK;
 using Vitaru.Roots;
 
 namespace Vitaru
@@ -18,6 +20,20 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base("vitaru", args, "GL46")
         {
+            DiscordGame.Init(700855485129162824);
+            //DiscordRich.RegisterUriPath();
+            DiscordGame.SetPresence(new Activity
+            {
+                Details = "Preparing to Play...",
+                State = "Main Menu",
+                Assets = new ActivityAssets
+                {
+                    LargeImage = "tau",
+                    LargeText = "Tau",
+                    SmallImage = "prion",
+                    SmallText = "Debugging...",
+                },
+            });
         }
 
         protected override void RunUpdate()

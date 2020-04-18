@@ -20,6 +20,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
+    <ProjectReference Include="..\..\Prion\Prion.Integrations\Prion.Integrations.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>
   <ItemGroup>
