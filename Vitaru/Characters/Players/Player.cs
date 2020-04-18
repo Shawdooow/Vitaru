@@ -40,10 +40,13 @@ namespace Vitaru.Characters.Players
 
         public override void Update()
         {
+            base.Update();
+
             while (shootBullet > 0)
             {
                 Bullet bullet = new Bullet
                 {
+                    Team = Team,
                     StartPosition = Drawable.Position,
                     StartTime = Clock.Current,
                     Diameter = 20f,

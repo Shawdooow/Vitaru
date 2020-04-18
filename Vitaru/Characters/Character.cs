@@ -46,7 +46,7 @@ namespace Vitaru.Characters
                 Vector2 difference = projectile.Position - Drawable.Position;
 
                 double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-                double edgeDistance = 0;
+                double edgeDistance = double.MaxValue;
 
                 switch (projectile)
                 {

@@ -18,7 +18,7 @@ namespace Vitaru.Projectiles
 
         public float Angle { get; set; }
 
-        public Vector2 Position => Drawable.Position;
+        public Vector2 Position => Drawable?.Position ?? new Vector2(float.MaxValue);
 
         public Vector2 StartPosition { get; set; }
 

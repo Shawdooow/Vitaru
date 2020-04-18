@@ -44,6 +44,8 @@ namespace Vitaru.Characters.Enemies
 
         public override void Update()
         {
+            base.Update();
+
             if (Clock.Current + TimePreLoad >= StartTime && Clock.Current < EndTime + TimeUnLoad && !PreLoaded)
                 PreLoad();
             else if ((Clock.Current + TimePreLoad < StartTime || Clock.Current >= EndTime + TimeUnLoad) && PreLoaded)
