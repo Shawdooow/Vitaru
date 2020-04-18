@@ -36,11 +36,19 @@ namespace Vitaru.Play
 
         public override void Update()
         {
+            while (deadEnemyQue.Count > 0)
+            {
+                Enemy enemy = deadEnemyQue[0];
+                deadEnemyQue.Remove(enemy);
+                LoadedEnemies.Remove(enemy, false);
+                UnloadedEnemies.Add(enemy);
+            }
+
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.Current >= e.StartTime - e.TimePreLoad && Clock.Current < e.EndTime + e.TimeUnLoad)
+                if (Clock.Current >= e.StartTime - e.TimePreLoad && Clock.Current < e.EndTime)// + e.TimeUnLoad)
                 {
                     enemyQue.Add(e);
                     UnloadedEnemies.Remove(e);
@@ -52,6 +60,8 @@ namespace Vitaru.Play
 
         private readonly List<Enemy> enemyQue = new List<Enemy>();
 
+        private readonly List<Enemy> deadEnemyQue = new List<Enemy>();
+
         private readonly List<DrawableEnemy> drawableEnemyQue = new List<DrawableEnemy>();
 
         public void Add(Enemy enemy)
@@ -62,8 +72,7 @@ namespace Vitaru.Play
 
         public void Remove(Enemy enemy)
         {
-            LoadedEnemies.Remove(enemy, false);
-            UnloadedEnemies.Add(enemy);
+            deadEnemyQue.Add(enemy);
         }
 
         private readonly List<Player> playerQue = new List<Player>();

@@ -68,9 +68,7 @@ namespace Vitaru.Characters
                     }
 
                     if (edgeDistance <= 0)
-                    {
                         Hit(projectile);
-                    }
                 }
             }
         }

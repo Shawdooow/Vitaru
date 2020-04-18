@@ -80,9 +80,9 @@ namespace Vitaru.Characters.Enemies
         {
             base.Die();
             EndTime = Clock.Current;
-            Gamefield.Remove(this);
             Drawable.Delete();
             Drawable = null;
+            Gamefield.Remove(this);
         }
     }
 }
