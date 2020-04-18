@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
@@ -60,10 +61,6 @@ namespace Vitaru.Roots
             Add(player.InputHandler);
 
             gamefield.Add(player);
-            gamefield.Add(new Enemy(gamefield)
-            {
-                StartTime = double.MinValue,
-            });
 
             //Add(new Pack<Updatable>
             //{
@@ -85,9 +82,20 @@ namespace Vitaru.Roots
             Add(gamefield.CharacterLayer);
         }
 
+        private void enemy()
+        {
+            gamefield.Add(new Enemy(gamefield)
+            {
+                StartTime = Clock.Current,
+                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
+                OnDie = enemy,
+            });
+        }
+
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+            enemy();
             //vitaruNet.Connect();
             //vitaruNet.Ping();
         }

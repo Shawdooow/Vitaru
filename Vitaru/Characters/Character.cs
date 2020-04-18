@@ -31,6 +31,8 @@ namespace Vitaru.Characters
 
         protected Gamefield Gamefield { get; private set; }
 
+        public Action OnDie;
+
         protected Character(Gamefield gamefield)
         {
             Gamefield = gamefield;
@@ -45,7 +47,7 @@ namespace Vitaru.Characters
 
         public override void Update()
         {
-            if (!Dead)
+            if (!Dead && Drawable != null)
             {
                 for (int i = 0; i < Gamefield.ProjectilePack.Children.Count; i++)
                 {
@@ -68,7 +70,10 @@ namespace Vitaru.Characters
                     }
 
                     if (edgeDistance <= 0)
+                    {
                         Hit(projectile);
+                        if (Dead) return;
+                    }
                 }
             }
         }
@@ -103,6 +108,7 @@ namespace Vitaru.Characters
         protected virtual void Die()
         {
             Dead = true;
+            OnDie?.Invoke();
         }
 
         protected virtual void Rezzurect()
@@ -112,9 +118,9 @@ namespace Vitaru.Characters
 
         protected override void Dispose(bool finalize)
         {
-            base.Dispose(finalize);
             Gamefield = null;
             Drawable = null;
+            base.Dispose(finalize);
         }
     }
 }

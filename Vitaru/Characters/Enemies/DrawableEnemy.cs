@@ -13,6 +13,7 @@ namespace Vitaru.Characters.Enemies
         {
             Sprite.Color = Color.Chartreuse;
             Sprite.Scale = new Vector2(0.1f);
+            Position = enemy.StartPosition;
         }
     }
 }

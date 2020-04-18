@@ -19,7 +19,7 @@ namespace Vitaru.Characters.Players
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
-        private int shootBullet;
+        private double shootTime;
 
         public virtual DrawablePlayer GenerateDrawable()
         {
@@ -42,22 +42,10 @@ namespace Vitaru.Characters.Players
         {
             base.Update();
 
-            while (shootBullet > 0)
+            if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
             {
-                Bullet bullet = new Bullet
-                {
-                    Team = Team,
-                    StartPosition = Drawable.Position,
-                    StartTime = Clock.Current,
-                    Damage = 20,
-                    Diameter = 20f,
-                    Distance = 800,
-                    Speed = 1,
-                };
-
-                Gamefield.Add(bullet);
-
-                shootBullet--;
+                shoot();
+                shootTime = Clock.Current + 250;
             }
 
             //TODO: fix this being needed?
@@ -66,16 +54,27 @@ namespace Vitaru.Characters.Players
             Drawable.Position = GetNewPlayerPosition(0.1f);
         }
 
+        private void shoot()
+        {
+            Bullet bullet = new Bullet
+            {
+                Team = Team,
+                StartPosition = Drawable.Position,
+                StartTime = Clock.Current,
+                Damage = 20,
+                Diameter = 20f,
+                Distance = 800,
+                Speed = 1,
+            };
+
+            Gamefield.Add(bullet);
+        }
+
         public bool Pressed(VitaruActions t)
         {
             switch (t)
             {
                 default:
-                    return true;
-
-                case VitaruActions.Shoot:
-                    //Since this is actually the draw thread, que these
-                    shootBullet++;
                     return true;
                 case VitaruActions.Slow:
                     Drawable.Hitbox.FadeTo(1f, 200);

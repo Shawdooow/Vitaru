@@ -16,13 +16,12 @@ namespace Vitaru.Characters.Enemies
 
         public virtual DrawableEnemy GenerateDrawable()
         {
-            DrawableEnemy draw = new DrawableEnemy(this)
-            {
-                Y = -200f,
-            };
+            DrawableEnemy draw = new DrawableEnemy(this);
             Drawable = draw;
             return draw;
         }
+
+        public Vector2 StartPosition { get; set; }
 
         public virtual double StartTime { get; set; }
 
@@ -56,10 +55,6 @@ namespace Vitaru.Characters.Enemies
                 Start();
             else if ((Clock.Current < StartTime || Clock.Current >= EndTime) && Started)
                 End();
-
-            if (Drawable is null) return;
-
-            Drawable.Position = new Vector2(200 * MathF.Sin((float) Clock.Current / 500f), Drawable.Y);
         }
 
         protected override void TakeDamage(float amount)
@@ -81,7 +76,6 @@ namespace Vitaru.Characters.Enemies
             base.Die();
             EndTime = Clock.Current;
             Drawable.Delete();
-            Drawable = null;
             Gamefield.Remove(this);
         }
     }

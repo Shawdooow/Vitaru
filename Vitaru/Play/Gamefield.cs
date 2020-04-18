@@ -45,6 +45,14 @@ namespace Vitaru.Play
                 UnloadedEnemies.Add(enemy);
             }
 
+            //should be safe to kill them from here
+            while (deadprojectileQue.Count > 0)
+            {
+                Projectile projectile = deadprojectileQue[0];
+                deadprojectileQue.Remove(projectile);
+                ProjectilePack.Remove(projectile);
+            }
+
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
@@ -88,6 +96,8 @@ namespace Vitaru.Play
 
         private readonly List<Projectile> projectileQue = new List<Projectile>();
 
+        private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
+
         private readonly List<DrawableProjectile> drawableProjectileQue = new List<DrawableProjectile>();
 
         public void Add(Projectile projectile)
@@ -100,7 +110,7 @@ namespace Vitaru.Play
         public void Remove(Projectile projectile)
         {
             projectile.Delete();
-            ProjectilePack.Remove(projectile);
+            deadprojectileQue.Add(projectile);
         }
 
         //Move the drawables on the draw thread to avoid threadsaftey issues
