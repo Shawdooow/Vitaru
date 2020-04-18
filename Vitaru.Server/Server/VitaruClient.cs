@@ -9,6 +9,8 @@ namespace Vitaru.Server.Server
 {
     public class VitaruClient : Client
     {
+        public VitaruUser User;
+
         public VitaruClient(Prion.Application.Networking.NetworkingHandlers.Server.Server server, TcpClient client,
             IPEndPoint end) : base(server, client, end)
         {

@@ -36,6 +36,7 @@ namespace Vitaru.Play
 
         public override void Update()
         {
+            //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
                 Enemy enemy = deadEnemyQue[0];
@@ -72,6 +73,7 @@ namespace Vitaru.Play
 
         public void Remove(Enemy enemy)
         {
+            //que them since we may be calling this from their update loop
             deadEnemyQue.Add(enemy);
         }
 
