@@ -58,8 +58,45 @@ namespace Vitaru.Characters
                 }
 
                 if (edgeDistance <= 0)
-                    Logger.SystemConsole("HIT!!!!");
+                {
+                    Hit(projectile);
+                }
             }
+        }
+
+        protected virtual void Hit(Projectile projectile)
+        {
+            TakeDamage(projectile.Damage);
+            Gamefield.Remove(projectile);
+        }
+
+        protected virtual void Heal(float amount)
+        {
+            Health = Math.Clamp(Health + amount, 0, HealthCapacity);
+        }
+
+        protected virtual void TakeDamage(float amount)
+        {
+            Health = Math.Clamp(Health - amount, 0, HealthCapacity);
+        }
+
+        protected virtual void Charge(float amount)
+        {
+            Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
+        }
+
+        protected virtual void DrainEnergy(float amount)
+        {
+            Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
+        }
+
+        protected virtual void Die()
+        {
+        }
+
+        protected virtual void Rezzurect()
+        {
+
         }
 
         protected override void Dispose(bool finalize)

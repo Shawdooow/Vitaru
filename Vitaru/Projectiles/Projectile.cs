@@ -62,5 +62,7 @@ namespace Vitaru.Projectiles
         protected virtual void End() => Started = false;
 
         protected virtual void UnLoad() => PreLoaded = false;
+
+        public virtual void Delete() => Drawable.Delete();
     }
 }

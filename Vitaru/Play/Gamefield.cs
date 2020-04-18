@@ -80,6 +80,12 @@ namespace Vitaru.Play
             projectileQue.Add(projectile);
         }
 
+        public void Remove(Projectile projectile)
+        {
+            projectile.Delete();
+            ProjectilePack.Remove(projectile);
+        }
+
         //Move the drawables on the draw thread to avoid threadsaftey issues
         public void PreRender()
         {
