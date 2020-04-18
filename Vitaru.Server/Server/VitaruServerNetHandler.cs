@@ -39,7 +39,9 @@ namespace Vitaru.Server.Server
             {
                 if (Clients.Contains(client) || LoadedClients.Contains(client) || MatchInfo.Users.Contains(client.User))
                 {
-                    Logger.Log($"({client.User.Username} - {client.TcpEndPoint}) tried to be added to a match they already in!?", LogType.Network);
+                    Logger.Log(
+                        $"({client.User.Username} - {client.TcpEndPoint}) tried to be added to a match they already in!?",
+                        LogType.Network);
                     return false;
                 }
 
@@ -51,7 +53,8 @@ namespace Vitaru.Server.Server
 
             public bool Remove(VitaruClient client)
             {
-                if ((Clients.Contains(client) || LoadedClients.Contains(client)) && MatchInfo.Users.Contains(client.User))
+                if ((Clients.Contains(client) || LoadedClients.Contains(client)) &&
+                    MatchInfo.Users.Contains(client.User))
                 {
                     Clients.Remove(client);
                     MatchInfo.Users.Remove(client.User);
@@ -59,7 +62,9 @@ namespace Vitaru.Server.Server
                     return true;
                 }
 
-                Logger.Error($"({client.User.Username} - {client.TcpEndPoint}) tried to be removed from a match they aren't in!?", LogType.Network);
+                Logger.Error(
+                    $"({client.User.Username} - {client.TcpEndPoint}) tried to be removed from a match they aren't in!?",
+                    LogType.Network);
                 return false;
             }
 

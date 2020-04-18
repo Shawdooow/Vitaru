@@ -62,9 +62,9 @@ namespace Vitaru.Projectiles
         protected virtual Vector2 GetPosition(double time)
         {
             return new Vector2(
-                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
                     EndPosition.X),
-                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
                     EndPosition.Y));
         }
 

@@ -1,13 +1,15 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace Vitaru.Server.Server
 {
     /// <summary>
-    /// vitaru User information
-    /// DOES NOT INCLUDE PASSWORD!!!
+    ///     vitaru User information
+    ///     DOES NOT INCLUDE PASSWORD!!!
     /// </summary>
     [Serializable]
     public class VitaruUser
@@ -27,21 +29,15 @@ namespace Vitaru.Server.Server
 
     public enum PlayerStatues
     {
-        [Description("Joining...")]
-        JoiningMatch,
-        [Description("Missing Gamemode")]
-        MissingGamemode,
-        [Description("Missing Level")]
-        MissingLevel,
+        [Description("Joining...")] JoiningMatch,
+        [Description("Missing Gamemode")] MissingGamemode,
+        [Description("Missing Level")] MissingLevel,
+
         [Description("Searching For Level...")]
         SearchingForLevel,
-        [Description("Not Ready")]
-        FoundMap,
-        [Description("Ready")]
-        Ready,
-        [Description("Loading...")]
-        Loading,
-        [Description("Playing")]
-        Playing,
+        [Description("Not Ready")] FoundMap,
+        [Description("Ready")] Ready,
+        [Description("Loading...")] Loading,
+        [Description("Playing")] Playing,
     }
 }

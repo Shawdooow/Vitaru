@@ -16,7 +16,7 @@ namespace Vitaru.Projectiles
         public event Action OnDelete;
 
         /// <summary>
-        /// Tells this <see cref="DrawableProjectile" /> to remove itself from our Parent and Dispose
+        ///     Tells this <see cref="DrawableProjectile" /> to remove itself from our Parent and Dispose
         /// </summary>
         public virtual void Delete() => OnDelete?.Invoke();
     }

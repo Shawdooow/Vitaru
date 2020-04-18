@@ -113,7 +113,6 @@ namespace Vitaru.Characters
 
         protected virtual void Rezzurect()
         {
-
         }
 
         protected override void Dispose(bool finalize)

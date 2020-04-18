@@ -57,7 +57,7 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.Current >= e.StartTime - e.TimePreLoad && Clock.Current < e.EndTime)// + e.TimeUnLoad)
+                if (Clock.Current >= e.StartTime - e.TimePreLoad && Clock.Current < e.EndTime) // + e.TimeUnLoad)
                 {
                     enemyQue.Add(e);
                     UnloadedEnemies.Remove(e);

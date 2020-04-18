@@ -30,7 +30,7 @@ namespace Vitaru.Characters
         public event Action OnDelete;
 
         /// <summary>
-        /// Tells this <see cref="DrawableCharacter" /> to remove itself from our Parent and Dispose
+        ///     Tells this <see cref="DrawableCharacter" /> to remove itself from our Parent and Dispose
         /// </summary>
         public virtual void Delete() => OnDelete?.Invoke();
     }
