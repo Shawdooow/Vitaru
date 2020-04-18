@@ -9,8 +9,6 @@ namespace Vitaru.Projectiles
 {
     public class Bullet : Projectile
     {
-        protected DrawableBullet Drawable { get; private set; }
-
         public override DrawableProjectile GenerateDrawable() => Drawable == null
             ? Drawable = new DrawableBullet(this)
             : throw PrionDebugger.InvalidOperation("Drawable should be null");

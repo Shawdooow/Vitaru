@@ -11,6 +11,8 @@ namespace Vitaru.Characters.Enemies
     {
         public const int ENEMY_TEAM = 0;
 
+        public override float HitboxDiameter => 48f;
+
         public virtual DrawableEnemy GenerateDrawable()
         {
             DrawableEnemy draw = new DrawableEnemy(this)

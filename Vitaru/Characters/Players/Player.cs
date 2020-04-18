@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
 using Vitaru.Input;
@@ -13,6 +14,8 @@ namespace Vitaru.Characters.Players
     public class Player : Character, IHasInputKeys<VitaruActions>
     {
         public const int PLAYER_TEAM = 1;
+
+        public override float HitboxDiameter => 6f;
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
@@ -43,6 +46,7 @@ namespace Vitaru.Characters.Players
                 {
                     StartPosition = Drawable.Position,
                     StartTime = Clock.Current,
+                    Diameter = 20f,
                     Distance = 400,
                     Speed = 5,
                 };
@@ -56,23 +60,6 @@ namespace Vitaru.Characters.Players
             if (Drawable == null) return;
 
             Drawable.Position = GetNewPlayerPosition(0.1f);
-
-            //TODO: HitDetection
-            //for (int i = 0; i < playfield.Children.Count; i++)
-            //{
-            //    
-            //    //Difference
-            //    Vector2 pos = 
-            //
-            //    //Oddly this seems to help but not always?!?!?!?!?!?!?!?!?!!?!?!?!?!?!!??!?!?!?!?!?!?!?!?!?!?!?!!?!?!?!?!?!?!?!?!!?!?!?!?!?!?!!?!?!?!?!?!?!!?!?
-            //    pos += new Vector2(hitbox1.Width / 4 + hitbox2.Width / 4);
-            //
-            //    double distance = Math.Sqrt(Math.Pow(pos.X, 2) + Math.Pow(pos.Y, 2));
-            //    double edgeDistance = distance - (hitbox1.Width / 2 + hitbox2.Width / 2);
-            //
-            //    if (edgeDistance <= 0)
-            //        return true;
-            //}
         }
 
         public bool Pressed(VitaruActions t)
@@ -86,12 +73,24 @@ namespace Vitaru.Characters.Players
                     //Since this is actually the draw thread, que these
                     shootBullet++;
                     return true;
+                case VitaruActions.Slow:
+                    Drawable.Hitbox.FadeTo(1f, 200);
+                    return true;
             }
         }
 
         public bool Released(VitaruActions t)
         {
-            return true;
+            switch (t)
+            {
+                default:
+                    return true;
+
+                case VitaruActions.Slow:
+                    Drawable.Hitbox.ClearTransforms();
+                    Drawable.Hitbox.FadeTo(0f, 200);
+                    return true;
+            }
         }
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
