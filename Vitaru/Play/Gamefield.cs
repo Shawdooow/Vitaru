@@ -60,6 +60,12 @@ namespace Vitaru.Play
             UnloadedEnemies.Add(enemy);
         }
 
+        public void Remove(Enemy enemy)
+        {
+            LoadedEnemies.Remove(enemy, false);
+            UnloadedEnemies.Add(enemy);
+        }
+
         private readonly List<Player> playerQue = new List<Player>();
 
         public void Add(Player player)
@@ -102,12 +108,7 @@ namespace Vitaru.Play
                 Enemy enemy = enemyQue[0];
                 DrawableEnemy draw = enemy.GenerateDrawable();
 
-                draw.OnDelete += () =>
-                {
-                    LoadedEnemies.Remove(enemy);
-                    UnloadedEnemies.Add(enemy);
-                    drawableEnemyQue.Add(draw);
-                };
+                draw.OnDelete += () => drawableEnemyQue.Add(draw);
 
                 CharacterLayer.Add(draw);
                 enemyQue.Remove(enemy);

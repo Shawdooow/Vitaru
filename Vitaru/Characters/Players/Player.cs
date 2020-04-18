@@ -49,6 +49,7 @@ namespace Vitaru.Characters.Players
                     Team = Team,
                     StartPosition = Drawable.Position,
                     StartTime = Clock.Current,
+                    Damage = 20,
                     Diameter = 20f,
                     Distance = 800,
                     Speed = 1,

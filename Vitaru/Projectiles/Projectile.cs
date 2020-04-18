@@ -32,7 +32,7 @@ namespace Vitaru.Projectiles
 
         public virtual double TimeUnLoad => TimePreLoad;
 
-        public float Damage { get; set; }
+        public float Damage { get; set; } = 20;
 
         public bool ObeyBoundries { get; set; }
 

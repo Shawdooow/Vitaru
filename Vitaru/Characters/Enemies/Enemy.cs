@@ -3,6 +3,7 @@
 
 using System;
 using System.Numerics;
+using Prion.Application.Debug;
 using Vitaru.Play;
 
 namespace Vitaru.Characters.Enemies
@@ -61,16 +62,27 @@ namespace Vitaru.Characters.Enemies
             Drawable.Position = new Vector2(200 * MathF.Sin((float) Clock.Current / 500f), Drawable.Y);
         }
 
+        protected override void TakeDamage(float amount)
+        {
+            base.TakeDamage(amount);
+            Logger.SystemConsole(Health.ToString());
+        }
+
         protected virtual void PreLoad() => PreLoaded = true;
 
         protected virtual void Start() => Started = true;
 
         protected virtual void End() => Started = false;
 
-        protected virtual void UnLoad()
+        protected virtual void UnLoad() => PreLoaded = false;
+
+        protected override void Die()
         {
-            PreLoaded = false;
-            Dispose();
+            base.Die();
+            EndTime = Clock.Current;
+            Gamefield.Remove(this);
+            Drawable.Delete();
+            Drawable = null;
         }
     }
 }

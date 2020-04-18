@@ -25,6 +25,8 @@ namespace Vitaru.Characters
 
         public virtual float HitboxDiameter { get; protected set; } = 10;
 
+        public bool Dead { get; protected set; }
+
         protected virtual DrawableCharacter Drawable { get; set; }
 
         protected Gamefield Gamefield { get; private set; }
@@ -34,31 +36,41 @@ namespace Vitaru.Characters
             Gamefield = gamefield;
         }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Health = HealthCapacity;
+            Energy = EnergyCapacity / 2f;
+        }
+
         public override void Update()
         {
-            for (int i = 0; i < Gamefield.ProjectilePack.Children.Count; i++)
+            if (!Dead)
             {
-                Projectile projectile = Gamefield.ProjectilePack.Children[i];
-
-                if (projectile.Team == Team) continue;
-
-                Vector2 difference = projectile.Position - Drawable.Position;
-
-                double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-                double edgeDistance = double.MaxValue;
-
-                switch (projectile)
+                for (int i = 0; i < Gamefield.ProjectilePack.Children.Count; i++)
                 {
-                    default:
-                        continue;
-                    case Bullet bullet:
-                        edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
-                    break;
-                }
+                    Projectile projectile = Gamefield.ProjectilePack.Children[i];
 
-                if (edgeDistance <= 0)
-                {
-                    Hit(projectile);
+                    if (projectile.Team == Team) continue;
+
+                    Vector2 difference = projectile.Position - Drawable.Position;
+
+                    double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
+                    double edgeDistance = double.MaxValue;
+
+                    switch (projectile)
+                    {
+                        default:
+                            continue;
+                        case Bullet bullet:
+                            edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
+                            break;
+                    }
+
+                    if (edgeDistance <= 0)
+                    {
+                        Hit(projectile);
+                    }
                 }
             }
         }
@@ -77,6 +89,7 @@ namespace Vitaru.Characters
         protected virtual void TakeDamage(float amount)
         {
             Health = Math.Clamp(Health - amount, 0, HealthCapacity);
+            if (Health <= 0) Die();
         }
 
         protected virtual void Charge(float amount)
@@ -91,6 +104,7 @@ namespace Vitaru.Characters
 
         protected virtual void Die()
         {
+            Dead = true;
         }
 
         protected virtual void Rezzurect()
