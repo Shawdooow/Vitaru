@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
@@ -37,6 +38,9 @@ namespace Vitaru.Projectiles
 
         protected virtual void UpdatePath()
         {
+            Vector2 offset = new Vector2(Distance * MathF.Cos(Angle), Distance * MathF.Sin(Angle));
+            EndPosition = StartPosition + offset;
+
             switch (CurveType)
             {
                 default:
@@ -58,10 +62,16 @@ namespace Vitaru.Projectiles
         protected virtual Vector2 GetPosition(double time)
         {
             return new Vector2(
-                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
+                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
                     EndPosition.X),
-                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
+                (float)PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
                     EndPosition.Y));
+        }
+
+        protected override void End()
+        {
+            base.End();
+            Drawable.Alpha = 0;
         }
 
         protected override void UnLoad()

@@ -3,7 +3,6 @@
 
 using System;
 using System.Numerics;
-using Prion.Application.Debug;
 using Prion.Application.Entitys;
 using Vitaru.Play;
 using Vitaru.Projectiles;

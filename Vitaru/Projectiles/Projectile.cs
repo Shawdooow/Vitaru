@@ -16,7 +16,7 @@ namespace Vitaru.Projectiles
 
         public virtual int Team { get; set; }
 
-        public float Angle { get; set; }
+        public float Angle { get; set; } = (float)Math.PI / -2f;
 
         public Vector2 Position => Drawable?.Position ?? new Vector2(float.MaxValue);
 

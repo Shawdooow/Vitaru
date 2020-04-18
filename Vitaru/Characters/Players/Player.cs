@@ -50,8 +50,8 @@ namespace Vitaru.Characters.Players
                     StartPosition = Drawable.Position,
                     StartTime = Clock.Current,
                     Diameter = 20f,
-                    Distance = 400,
-                    Speed = 5,
+                    Distance = 800,
+                    Speed = 1,
                 };
 
                 Gamefield.Add(bullet);
