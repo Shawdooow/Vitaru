@@ -3,6 +3,11 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Entitys;
+using Prion.Application.Groups.Packs;
+using Prion.Application.Networking.NetworkingHandlers;
+using Prion.Application.Networking.NetworkingHandlers.Client;
+using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics.Layers;
@@ -10,7 +15,10 @@ using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Characters.Enemies;
 using Vitaru.Characters.Players;
+using Vitaru.Multiplayer.Client;
 using Vitaru.Play;
+using Vitaru.Server.Packets.Lobby;
+using Vitaru.Server.Server;
 
 namespace Vitaru.Roots
 {
@@ -18,20 +26,26 @@ namespace Vitaru.Roots
     {
         private readonly Gamefield gamefield;
 
-        //private readonly VitaruServerNetHandler vitaruServer;
-        //private readonly VitaruNetHandler vitaruNet;
+        private readonly VitaruServerNetHandler vitaruServer;
+        private readonly VitaruNetHandler vitaruNet;
 
         public MainMenuRoot()
         {
-            //string address = "127.0.0.1:36840";
-            //vitaruServer = new VitaruServerNetHandler
-            //{
-            //    Address = address
-            //};
-            //vitaruNet = new VitaruNetHandler
-            //{
-            //    Address = address
-            //};
+            string address = "127.0.0.1:36840";
+            vitaruServer = new VitaruServerNetHandler
+            {
+                Address = address
+            };
+            vitaruNet = new VitaruNetHandler
+            {
+                Address = address,
+                VitaruUser = new VitaruUser
+                {
+                    Username = "Shawdooow",
+                    ID = 0,
+                },
+                OnPacketReceive = OnPacketRecieve
+            };
 
             gamefield = new Gamefield();
 
@@ -62,14 +76,14 @@ namespace Vitaru.Roots
 
             gamefield.Add(player);
 
-            //Add(new Pack<Updatable>
-            //{
-            //    Children = new Updatable[]
-            //    {
-            //        vitaruServer,
-            //        vitaruNet,
-            //    }
-            //});
+            Add(new Pack<Updatable>
+            {
+                Children = new Updatable[]
+                {
+                    vitaruServer,
+                    vitaruNet,
+                }
+            });
 
             //Packs
             Add(gamefield);
@@ -96,14 +110,64 @@ namespace Vitaru.Roots
         {
             base.LoadingComplete();
             enemy();
-            //vitaruNet.Connect();
-            //vitaruNet.Ping();
+            vitaruNet.Connect();
+            createMatch();
         }
 
         public override void PreRender()
         {
             base.PreRender();
             gamefield.PreRender();
+        }
+
+        private void createMatch()
+        {
+            Level level = new Level
+            {
+                LevelTitle = "Debug Level",
+                LevelArtist = "Shawdooow",
+                LevelCreator = "Shawdooow",
+                LevelDifficulty = 2,
+                LevelName = "Corona Man",
+                GamemodeName = "Tau",
+            };
+
+            SendPacket(new CreateMatchPacket
+            {
+                MatchInfo = new MatchInfo
+                {
+                    Host = vitaruNet.VitaruUser,
+                    Level = level,
+                }
+            });
+        }
+
+        protected virtual void SendPacket(Packet packet) => vitaruNet.SendToServer(packet);
+
+        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
+        {
+            switch (info.Packet)
+            {
+                //Lobby Simulation
+                case MatchListPacket matchListPacket:
+                    //rooms.Children = new Container();
+                    //foreach (MatchInfo m in matchListPacket.MatchInfoList)
+                    //    rooms.Add(new MatchTile(vitaruNet, m));
+                    break;
+                case MatchCreatedPacket matchCreated:
+                    //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
+                    SendPacket(new JoinMatchPacket
+                    {
+                        Match = matchCreated.MatchInfo,
+                        User = vitaruNet.VitaruUser,
+                    });
+                    break;
+                case JoinedMatchPacket joinedMatch:
+                    //Push(new MatchScreen(vitaruNet, joinedMatch));
+                    break;
+
+
+            }
         }
     }
 }

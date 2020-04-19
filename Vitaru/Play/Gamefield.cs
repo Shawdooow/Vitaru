@@ -45,7 +45,6 @@ namespace Vitaru.Play
                 UnloadedEnemies.Add(enemy);
             }
 
-            //should be safe to kill them from here
             while (deadprojectileQue.Count > 0)
             {
                 Projectile projectile = deadprojectileQue[0];

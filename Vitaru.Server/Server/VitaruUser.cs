@@ -8,7 +8,7 @@ using System.ComponentModel;
 namespace Vitaru.Server.Server
 {
     /// <summary>
-    ///     vitaru User information
+    ///     Vitaru User information
     ///     DOES NOT INCLUDE PASSWORD!!!
     /// </summary>
     [Serializable]
