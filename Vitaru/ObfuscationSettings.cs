@@ -4,5 +4,6 @@
 using System.Reflection;
 
 [assembly: Obfuscation(Feature = "encrypt symbol names with password 2502502502", Exclude = false)]
-[assembly: Obfuscation(Feature = "embed Prion.Application.dll", Exclude = false)]
+//[assembly: Obfuscation(Feature = "embed Prion.Application.dll", Exclude = false)]
 [assembly: Obfuscation(Feature = "embed Prion.Game.dll", Exclude = false)]
+[assembly: Obfuscation(Feature = "embed Vitaru.Server.dll", Exclude = false)]
