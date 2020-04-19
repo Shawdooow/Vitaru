@@ -3,11 +3,12 @@
 
 using System.Numerics;
 using Prion.Application.Debug;
+using Vitaru.Editor;
 using Vitaru.Play;
 
 namespace Vitaru.Characters.Enemies
 {
-    public class Enemy : Character
+    public class Enemy : Character, IEditable
     {
         public const int ENEMY_TEAM = 0;
 
@@ -76,6 +77,25 @@ namespace Vitaru.Characters.Enemies
             EndTime = Clock.Current;
             Drawable.Delete();
             Gamefield.Remove(this);
+        }
+
+        public virtual void ParseString(string[] data)
+        {
+            StartTime = double.Parse(data[0]);
+            EndTime = double.Parse(data[1]);
+            StartPosition = new Vector2(float.Parse(data[2]), float.Parse(data[3]));
+            HitboxDiameter = float.Parse(data[4]);
+        }
+
+        public virtual string[] SerializeToStrings()
+        {
+            return new[]
+            {
+                StartTime.ToString(),
+                EndTime.ToString(),
+                $"{StartPosition.X},{StartPosition.Y}",
+                HitboxDiameter.ToString(),
+            };
         }
     }
 }

@@ -4,11 +4,12 @@
 using System;
 using System.Numerics;
 using Prion.Application.Entitys;
+using Vitaru.Editor;
 using Vitaru.Utilities;
 
 namespace Vitaru.Projectiles
 {
-    public abstract class Projectile : Updatable, IHasTeam
+    public abstract class Projectile : Updatable, IHasTeam, IEditable
     {
         protected DrawableProjectile Drawable;
 
@@ -64,5 +65,24 @@ namespace Vitaru.Projectiles
         protected virtual void UnLoad() => PreLoaded = false;
 
         public virtual void Delete() => Drawable.Delete();
+
+        public virtual void ParseString(string[] data)
+        {
+            StartTime = double.Parse(data[0]);
+            EndTime = double.Parse(data[1]);
+            StartPosition = new Vector2(float.Parse(data[2]), float.Parse(data[3]));
+            Damage = float.Parse(data[4]);
+        }
+
+        public virtual string[] SerializeToStrings()
+        {
+            return new[]
+            {
+                StartTime.ToString(),
+                EndTime.ToString(),
+                StartPosition.ToString(),
+                Damage.ToString(),
+            };
+        }
     }
 }
