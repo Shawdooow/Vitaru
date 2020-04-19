@@ -305,7 +305,8 @@ namespace Vitaru.Server.Server
             }
         }
 
-        protected void ShareWithMatchClients(VitaruMatch match, Packet packet) => ShareWithMatchClients(match.MatchInfo, packet);
+        protected void ShareWithMatchClients(VitaruMatch match, Packet packet) =>
+            ShareWithMatchClients(match.MatchInfo, packet);
 
         protected void ShareWithMatchClients(MatchInfo match, Packet packet)
         {
@@ -314,7 +315,7 @@ namespace Vitaru.Server.Server
         }
 
         /// <summary>
-        /// Exists since VitaruMatch isn't serializable
+        ///     Exists since VitaruMatch isn't serializable
         /// </summary>
         /// <returns></returns>
         protected List<MatchInfo> GetMatches()
@@ -337,7 +338,7 @@ namespace Vitaru.Server.Server
         }
 
         /// <summary>
-        /// Exists since VitaruClient isn't serializable
+        ///     Exists since VitaruClient isn't serializable
         /// </summary>
         /// <returns></returns>
         protected VitaruClient FindClient(VitaruUser user) => FindClient(user.ID);

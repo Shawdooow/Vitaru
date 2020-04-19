@@ -6,7 +6,6 @@ using System.Numerics;
 using Prion.Application.Entitys;
 using Prion.Application.Groups.Packs;
 using Prion.Application.Networking.NetworkingHandlers;
-using Prion.Application.Networking.NetworkingHandlers.Client;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
 using Prion.Game;
@@ -110,8 +109,8 @@ namespace Vitaru.Roots
         {
             base.LoadingComplete();
             enemy();
-            vitaruNet.Connect();
-            createMatch();
+            //vitaruNet.Connect();
+            //createMatch();
         }
 
         public override void PreRender()

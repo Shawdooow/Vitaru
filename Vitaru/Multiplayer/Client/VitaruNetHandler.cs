@@ -25,7 +25,7 @@ namespace Vitaru.Multiplayer.Client
 
             switch (info.Packet)
             {
-                case TestPacket _: 
+                case TestPacket _:
                     Ping();
                     break;
             }
@@ -48,6 +48,7 @@ namespace Vitaru.Multiplayer.Client
                     onlinePacket.User = VitaruUser;
                     break;
             }
+
             return base.SignPacket(packet);
         }
     }
