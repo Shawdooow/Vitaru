@@ -164,8 +164,6 @@ namespace Vitaru.Roots
                 case JoinedMatchPacket joinedMatch:
                     //Push(new MatchScreen(vitaruNet, joinedMatch));
                     break;
-
-
             }
         }
     }
