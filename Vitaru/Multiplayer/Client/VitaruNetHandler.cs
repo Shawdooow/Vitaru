@@ -3,7 +3,10 @@
 
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.NetworkingHandlers.Client;
+using Prion.Application.Networking.Packets;
 using Prion.Application.Networking.Packets.Connection;
+using Vitaru.Server.Packets;
+using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Server;
 
 namespace Vitaru.Multiplayer.Client
@@ -26,6 +29,26 @@ namespace Vitaru.Multiplayer.Client
                     Ping();
                     break;
             }
+        }
+
+        public override void Connect()
+        {
+            base.Connect();
+            SendToServer(new VitaruConnectPacket());
+        }
+
+        protected override Packet SignPacket(Packet packet)
+        {
+            switch (packet)
+            {
+                case VitaruConnectPacket connectPacket:
+                    connectPacket.User = VitaruUser;
+                    break;
+                case OnlinePacket onlinePacket:
+                    onlinePacket.User = VitaruUser;
+                    break;
+            }
+            return base.SignPacket(packet);
         }
     }
 }
