@@ -9,6 +9,8 @@ using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
 using Prion.Game;
+using Prion.Game.Audio;
+using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
@@ -28,8 +30,16 @@ namespace Vitaru.Roots
         private readonly VitaruServerNetHandler vitaruServer;
         private readonly VitaruNetHandler vitaruNet;
 
+        private AudioDevice device;
+
         public MainMenuRoot()
         {
+            device = new AudioDevice();
+
+            Sample sample = new Sample("alki main theme menu bells.mp3");
+
+            sample.Play();
+
             string address = "127.0.0.1:36840";
             vitaruServer = new VitaruServerNetHandler
             {
