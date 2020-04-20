@@ -7,11 +7,11 @@ namespace Vitaru.Server
 {
     public class VitaruServer : Application
     {
-        //public static void Main(string[] args)
-        //{
-        //    using (VitaruServer server = new VitaruServer(args))
-        //        server.Start();
-        //}
+        public static void Main(string[] args)
+        {
+            using (VitaruServer server = new VitaruServer(args))
+                server.Start();
+        }
 
         protected VitaruServer(string[] args) : base("vitaru", args)
         {
