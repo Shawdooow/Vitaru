@@ -34,6 +34,6 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd $(TargetDir) &#xD;&#xA;RD /S /Q runtimes\&#xD;&#xA;del Contagion.deps.json&#xD;&#xA;del Contagion.pdb&#xD;&#xA;del Contagion.runtimeconfig.dev.json&#xD;&#xA;del MP3Sharp.dll&#xD;&#xA;del OpenTK.dll&#xD;&#xA;del runtime.osx.10.10-x64.CoreCompat.System.Drawing.dll&#xD;&#xA;del SharpDX.D3DCompiler.dll&#xD;&#xA;del SharpDX.Desktop.dll&#xD;&#xA;del SharpDX.Direct3D12.dll&#xD;&#xA;del SharpDX.dll&#xD;&#xA;del SharpDX.DXGI.dll&#xD;&#xA;del SharpDX.Mathematics.dll&#xD;&#xA;del SharpDX.XAudio2.dll&#xD;&#xA;del SharpDX.XInput.dll&#xD;&#xA;del System.Management.dll&#xD;&#xA;del Vulkan.dll&#xD;&#xA;" />
+    <Exec Command="cd $(TargetDir) &#xD;&#xA;RD /S /Q runtimes\&#xD;&#xA;del MP3Sharp.dll&#xD;&#xA;del OpenTK.dll&#xD;&#xA;del runtime.osx.10.10-x64.CoreCompat.System.Drawing.dll&#xD;&#xA;del SharpDX.D3DCompiler.dll&#xD;&#xA;del SharpDX.Desktop.dll&#xD;&#xA;del SharpDX.Direct3D12.dll&#xD;&#xA;del SharpDX.dll&#xD;&#xA;del SharpDX.DXGI.dll&#xD;&#xA;del SharpDX.Mathematics.dll&#xD;&#xA;del SharpDX.XAudio2.dll&#xD;&#xA;del SharpDX.XInput.dll&#xD;&#xA;del System.Management.dll&#xD;&#xA;del Vulkan.dll&#xD;&#xA;" />
   </Target>
 </Project>
