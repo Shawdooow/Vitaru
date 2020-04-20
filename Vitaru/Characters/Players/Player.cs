@@ -2,6 +2,8 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Prion.Game.Audio;
+using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
@@ -69,7 +71,7 @@ namespace Vitaru.Characters.Players
 
             Gamefield.Add(bullet);
         }
-
+        
         public bool Pressed(VitaruActions t)
         {
             switch (t)
@@ -78,6 +80,8 @@ namespace Vitaru.Characters.Players
                     return true;
                 case VitaruActions.Slow:
                     Drawable.Hitbox.FadeTo(1f, 200);
+                    return true;
+                case VitaruActions.Spell:
                     return true;
             }
         }
