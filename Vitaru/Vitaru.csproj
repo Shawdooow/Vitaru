@@ -6,8 +6,9 @@
     <AssemblyTitle>Vitaru</AssemblyTitle>
     <Description>Vitaru</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon>vitaru.ico</ApplicationIcon>
     <OutputType>Exe</OutputType>
-    <StartupObject>Vitaru.Vitaru</StartupObject>
+    <StartupObject />
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
     <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
@@ -21,7 +22,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>vitaru.ico</ApplicationIcon>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
@@ -32,11 +33,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Textures\Gameplay\" />
-    <Folder Include="Assets\Textures\Backgrounds\" />
-  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd $(TargetDir) &#xD;&#xA;del MP3Sharp.dll&#xD;&#xA;del OpenTK.dll&#xD;&#xA;del runtime.osx.10.10-x64.CoreCompat.System.Drawing.dll&#xD;&#xA;del SharpDX.D3DCompiler.dll&#xD;&#xA;del SharpDX.Desktop.dll&#xD;&#xA;del SharpDX.Direct3D12.dll&#xD;&#xA;del SharpDX.dll&#xD;&#xA;del SharpDX.DXGI.dll&#xD;&#xA;del SharpDX.Mathematics.dll&#xD;&#xA;del SharpDX.XAudio2.dll&#xD;&#xA;del SharpDX.XInput.dll&#xD;&#xA;del System.Management.dll&#xD;&#xA;del Vulkan.dll&#xD;&#xA;" />
+    <Exec Command="cd $(TargetDir) &#xD;&#xA;RD /S /Q runtimes\&#xD;&#xA;del Contagion.deps.json&#xD;&#xA;del Contagion.pdb&#xD;&#xA;del Contagion.runtimeconfig.dev.json&#xD;&#xA;del MP3Sharp.dll&#xD;&#xA;del OpenTK.dll&#xD;&#xA;del runtime.osx.10.10-x64.CoreCompat.System.Drawing.dll&#xD;&#xA;del SharpDX.D3DCompiler.dll&#xD;&#xA;del SharpDX.Desktop.dll&#xD;&#xA;del SharpDX.Direct3D12.dll&#xD;&#xA;del SharpDX.dll&#xD;&#xA;del SharpDX.DXGI.dll&#xD;&#xA;del SharpDX.Mathematics.dll&#xD;&#xA;del SharpDX.XAudio2.dll&#xD;&#xA;del SharpDX.XInput.dll&#xD;&#xA;del System.Management.dll&#xD;&#xA;del Vulkan.dll&#xD;&#xA;" />
   </Target>
 </Project>
