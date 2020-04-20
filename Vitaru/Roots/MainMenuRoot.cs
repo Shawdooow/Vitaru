@@ -41,20 +41,20 @@ namespace Vitaru.Roots
             sample.Play();
 
             string address = "127.0.0.1:36840";
-            vitaruServer = new VitaruServerNetHandler
-            {
-                Address = address
-            };
-            vitaruNet = new VitaruNetHandler
-            {
-                Address = address,
-                VitaruUser = new VitaruUser
-                {
-                    Username = "Shawdooow",
-                    ID = 0,
-                },
-                OnPacketReceive = OnPacketRecieve
-            };
+            //vitaruServer = new VitaruServerNetHandler
+            //{
+            //    Address = address
+            //};
+            //vitaruNet = new VitaruNetHandler
+            //{
+            //    Address = address,
+            //    VitaruUser = new VitaruUser
+            //    {
+            //        Username = "Shawdooow",
+            //        ID = 0,
+            //    },
+            //    OnPacketReceive = OnPacketRecieve
+            //};
 
             gamefield = new Gamefield();
 
@@ -85,14 +85,14 @@ namespace Vitaru.Roots
 
             gamefield.Add(player);
 
-            Add(new Pack<Updatable>
-            {
-                Children = new Updatable[]
-                {
-                    vitaruServer,
-                    vitaruNet,
-                }
-            });
+            //Add(new Pack<Updatable>
+            //{
+            //    Children = new Updatable[]
+            //    {
+            //        vitaruServer,
+            //        vitaruNet,
+            //    }
+            //});
 
             //Packs
             Add(gamefield);
