@@ -72,12 +72,12 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             Gamefield.Remove(this);
         }
 
-        public virtual void ParseString(string[] data)
+        public virtual void ParseString(string[] data, int offset)
         {
-            StartTime = double.Parse(data[0]);
-            EndTime = double.Parse(data[1]);
-            StartPosition = new Vector2(float.Parse(data[2]), float.Parse(data[3]));
-            HitboxDiameter = float.Parse(data[4]);
+            StartTime = double.Parse(data[0 + offset]);
+            EndTime = double.Parse(data[1 + offset]);
+            StartPosition = new Vector2(float.Parse(data[2 + offset]), float.Parse(data[3 + offset]));
+            HitboxDiameter = float.Parse(data[4 + offset]);
         }
 
         public virtual string[] SerializeToStrings()

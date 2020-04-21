@@ -5,7 +5,7 @@ namespace Vitaru.Editor.IO
 {
     public interface IEditable
     {
-        void ParseString(string[] data);
+        void ParseString(string[] data, int offset);
 
         string[] SerializeToStrings();
     }

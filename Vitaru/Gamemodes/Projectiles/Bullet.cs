@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
@@ -79,6 +80,28 @@ namespace Vitaru.Gamemodes.Projectiles
             base.UnLoad();
             Drawable.Delete();
             Drawable = null;
+        }
+
+        public override void ParseString(string[] data, int offset)
+        {
+            Diameter = float.Parse(data[0 + offset]);
+            Speed = float.Parse(data[1 + offset]);
+
+            base.ParseString(data, offset + 2);
+        }
+
+        public override string[] SerializeToStrings()
+        {
+            List<string> data = new List<string>()
+            {
+                "b",
+                Diameter.ToString(),
+                Speed.ToString(),
+            };
+
+            data.AddRange(base.SerializeToStrings());
+
+            return data.ToArray();
         }
     }
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Utilities;
 
-namespace Vitaru.Gamemodes.Projectiles
+namespace Vitaru.Gamemodes.Projectiles.Patterns
 {
     public static class Patterns
     {

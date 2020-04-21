@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
+using Prion.Application.Debug;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Projectiles;
@@ -18,6 +19,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
             for (int i = 0; i < data.Length; i++)
             {
+                string[] eData = data[i].Split(',');
             }
 
             return enemies;
@@ -53,6 +55,24 @@ namespace Vitaru.Gamemodes.Vitaru
 
             for (int i = 0; i < data.Length; i++)
             {
+                string[] pData = data[i].Split(',');
+                switch (pData[0])
+                {
+                    default:
+                        Logger.Error($"Projectile type {pData[0]} not supported!", LogType.IO);
+                        break;
+                    case "b":
+                        Bullet b = new Bullet();
+                        b.ParseString(pData, 1);
+                        projectiles.Add(b);
+                        break;
+                    case "l":
+                        Logger.Warning("Lasers not supported yet!", LogType.IO);
+                        break;
+                    case "s":
+                        Logger.Warning("Seeking Bullets not supported yet!", LogType.IO);
+                        break;
+                }
             }
 
             return projectiles;
