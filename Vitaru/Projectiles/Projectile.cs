@@ -2,9 +2,11 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
 using Vitaru.Editor;
+using Vitaru.Editor.IO;
 using Vitaru.Utilities;
 
 namespace Vitaru.Projectiles
@@ -16,6 +18,8 @@ namespace Vitaru.Projectiles
         public abstract DrawableProjectile GenerateDrawable();
 
         public virtual int Team { get; set; }
+
+        public Color Color = Color.White;
 
         public float Angle { get; set; } = (float) Math.PI / -2f;
 

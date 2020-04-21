@@ -4,6 +4,7 @@
 using System.Numerics;
 using Prion.Application.Debug;
 using Vitaru.Editor;
+using Vitaru.Editor.IO;
 using Vitaru.Play;
 
 namespace Vitaru.Characters.Enemies
@@ -55,12 +56,6 @@ namespace Vitaru.Characters.Enemies
                 Start();
             else if ((Clock.Current < StartTime || Clock.Current >= EndTime) && Started)
                 End();
-        }
-
-        protected override void TakeDamage(float amount)
-        {
-            base.TakeDamage(amount);
-            Logger.SystemConsole(Health.ToString());
         }
 
         protected virtual void PreLoad() => PreLoaded = true;

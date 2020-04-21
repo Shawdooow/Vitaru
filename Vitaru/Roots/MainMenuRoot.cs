@@ -3,8 +3,6 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Entitys;
-using Prion.Application.Groups.Packs;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;

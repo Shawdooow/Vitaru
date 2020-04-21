@@ -10,6 +10,7 @@ namespace Vitaru.Projectiles
     {
         protected DrawableProjectile(Projectile projectile)
         {
+            Color = projectile.Color;
             Position = projectile.StartPosition;
         }
 

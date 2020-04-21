@@ -2,8 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using Prion.Game.Audio;
-using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
@@ -62,6 +60,7 @@ namespace Vitaru.Characters.Players
             Bullet bullet = new Bullet
             {
                 Team = Team,
+                Color = Drawable.Sprite.Color,
                 StartPosition = Drawable.Position,
                 StartTime = Clock.Current,
                 Damage = 20,
@@ -72,7 +71,7 @@ namespace Vitaru.Characters.Players
 
             Gamefield.Add(bullet);
         }
-        
+
         public bool Pressed(VitaruActions t)
         {
             switch (t)

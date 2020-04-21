@@ -3,23 +3,29 @@
 
 using System.Collections.Generic;
 using Vitaru.Characters.Enemies;
+using Vitaru.Editor.IO;
 using Vitaru.Projectiles;
 
-namespace Vitaru.Utilities
+namespace Vitaru.Gamemodes.Vitaru
 {
-    public static class FormatConverter
+    public class VitaruConverter : FormatConverter
     {
-        public static List<Enemy> StringToEnemies(string level)
+        public override List<Enemy> StringToEnemies(string level)
         {
             List<Enemy> enemies = new List<Enemy>();
 
+            string[] data = level.Split(";");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+            }
 
             return enemies;
         }
 
-        public static string EnemiesToString(List<Enemy> enemies)
+        public override string EnemiesToString(List<Enemy> enemies)
         {
-            string level = "Version=0.1";
+            string level = "Version=0.1;\n";
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -39,7 +45,7 @@ namespace Vitaru.Utilities
             return level;
         }
 
-        public static List<Projectile> StringToProjectiles(string pattern)
+        public override List<Projectile> StringToProjectiles(string pattern)
         {
             List<Projectile> projectiles = new List<Projectile>();
 
@@ -52,9 +58,9 @@ namespace Vitaru.Utilities
             return projectiles;
         }
 
-        public static string ProjectilesToString(List<Projectile> projectiles)
+        public override string ProjectilesToString(List<Projectile> projectiles)
         {
-            string pattern = "Version=0.1";
+            string pattern = "Version=0.1;\n";
 
             for (int i = 0; i < projectiles.Count; i++)
             {
