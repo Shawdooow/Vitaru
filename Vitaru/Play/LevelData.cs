@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Server.Server;
 
-namespace Vitaru.Editor
+namespace Vitaru.Play
 {
     public class LevelData : Level
     {

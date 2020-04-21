@@ -4,6 +4,7 @@
 using System.Drawing;
 using Prion.Game;
 using Prion.Game.Graphics;
+using Vitaru.Editor;
 using Vitaru.Roots;
 
 //using Prion.Integrations.Discord;
@@ -16,7 +17,7 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             using (Vitaru vitaru = new Vitaru(args))
-                vitaru.Start(new MainMenuRoot());
+                vitaru.Start(new EditorRoot());
         }
 
         protected Vitaru(string[] args) : base("vitaru", args, "GL46")
