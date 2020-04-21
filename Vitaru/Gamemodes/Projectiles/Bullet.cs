@@ -5,7 +5,6 @@ using System;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
-using Prion.Game.Graphics.Transforms;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -72,7 +71,7 @@ namespace Vitaru.Gamemodes.Projectiles
         protected override void End()
         {
             base.End();
-            Drawable.FadeTo(0, 250f);
+            //Drawable.FadeTo(0, 250f);
         }
 
         protected override void UnLoad()

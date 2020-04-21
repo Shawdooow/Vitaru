@@ -16,7 +16,7 @@ namespace Vitaru.Play
     {
         public readonly Pack<Character> PlayerPack = new Pack<Character>();
 
-        public readonly SpriteLayer<DrawableCharacter> CharacterLayer = new SpriteLayer<DrawableCharacter>();
+        public readonly Layer2D<DrawableCharacter> CharacterLayer = new Layer2D<DrawableCharacter>();
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
 
@@ -24,7 +24,7 @@ namespace Vitaru.Play
 
         public readonly Pack<Projectile> ProjectilePack = new Pack<Projectile>();
 
-        public readonly SpriteLayer<DrawableProjectile> ProjectileLayer = new SpriteLayer<DrawableProjectile>();
+        public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>();
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
