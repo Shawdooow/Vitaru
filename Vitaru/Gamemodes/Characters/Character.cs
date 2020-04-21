@@ -4,11 +4,11 @@
 using System;
 using System.Numerics;
 using Prion.Application.Entitys;
+using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
-using Vitaru.Projectiles;
 using Vitaru.Utilities;
 
-namespace Vitaru.Characters
+namespace Vitaru.Gamemodes.Characters
 {
     public abstract class Character : Updatable, IHasTeam
     {

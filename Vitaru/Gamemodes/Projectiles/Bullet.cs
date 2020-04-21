@@ -5,8 +5,9 @@ using System;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Transforms;
 
-namespace Vitaru.Projectiles
+namespace Vitaru.Gamemodes.Projectiles
 {
     public class Bullet : Projectile
     {
@@ -71,7 +72,7 @@ namespace Vitaru.Projectiles
         protected override void End()
         {
             base.End();
-            Drawable.Alpha = 0;
+            Drawable.FadeTo(0, 250f);
         }
 
         protected override void UnLoad()

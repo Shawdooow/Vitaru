@@ -4,11 +4,11 @@
 using System.Collections.Generic;
 using Prion.Application.Groups.Packs;
 using Prion.Game.Graphics.Layers;
-using Vitaru.Characters;
-using Vitaru.Characters.Enemies;
-using Vitaru.Characters.Players;
+using Vitaru.Gamemodes.Characters;
+using Vitaru.Gamemodes.Characters.Enemies;
+using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Multiplayer.Client;
-using Vitaru.Projectiles;
 
 namespace Vitaru.Play
 {

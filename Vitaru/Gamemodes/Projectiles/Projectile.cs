@@ -5,11 +5,10 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
-using Vitaru.Editor;
 using Vitaru.Editor.IO;
 using Vitaru.Utilities;
 
-namespace Vitaru.Projectiles
+namespace Vitaru.Gamemodes.Projectiles
 {
     public abstract class Projectile : Updatable, IHasTeam, IEditable
     {

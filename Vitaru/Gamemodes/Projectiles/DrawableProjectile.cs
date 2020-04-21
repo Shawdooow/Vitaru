@@ -4,7 +4,7 @@
 using System;
 using Prion.Game.Graphics.Sprites;
 
-namespace Vitaru.Projectiles
+namespace Vitaru.Gamemodes.Projectiles
 {
     public abstract class DrawableProjectile : Sprite
     {

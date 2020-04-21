@@ -6,7 +6,7 @@ using System.Numerics;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 
-namespace Vitaru.Characters
+namespace Vitaru.Gamemodes.Characters
 {
     public abstract class DrawableCharacter : SpriteLayer
     {

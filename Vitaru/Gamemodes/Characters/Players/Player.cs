@@ -5,11 +5,11 @@ using System.Numerics;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
+using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
-using Vitaru.Projectiles;
 
-namespace Vitaru.Characters.Players
+namespace Vitaru.Gamemodes.Characters.Players
 {
     public class Player : Character, IHasInputKeys<VitaruActions>
     {
