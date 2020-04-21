@@ -52,6 +52,22 @@ namespace Vitaru.Play
                 ProjectilePack.Remove(projectile);
             }
 
+            foreach (Projectile p in ProjectilePack)
+            {
+                if (Clock.Current + p.TimePreLoad >= p.StartTime && Clock.Current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
+                    p.PreLoad();
+                else if ((Clock.Current + p.TimePreLoad < p.StartTime || Clock.Current >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
+                {
+                    p.UnLoad();
+                    Remove(p);
+                }
+
+                if (Clock.Current >= p.StartTime && Clock.Current < p.EndTime && !p.Started)
+                    p.Start();
+                else if ((Clock.Current < p.StartTime || Clock.Current >= p.EndTime) && p.Started)
+                    p.End();
+            }
+
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {

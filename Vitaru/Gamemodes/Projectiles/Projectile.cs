@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
 using Vitaru.Editor.IO;
+using Vitaru.Play;
 using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -48,26 +49,23 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
-            if (Clock.Current + TimePreLoad >= StartTime && Clock.Current < EndTime + TimeUnLoad && !PreLoaded)
-                PreLoad();
-            else if ((Clock.Current + TimePreLoad < StartTime || Clock.Current >= EndTime + TimeUnLoad) && PreLoaded)
-                UnLoad();
-
-            if (Clock.Current >= StartTime && Clock.Current < EndTime && !Started)
-                Start();
-            else if ((Clock.Current < StartTime || Clock.Current >= EndTime) && Started)
-                End();
         }
 
-        protected virtual void PreLoad() => PreLoaded = true;
+        public virtual void PreLoad() => PreLoaded = true;
 
-        protected virtual void Start() => Started = true;
+        public virtual void Start() => Started = true;
 
-        protected virtual void End() => Started = false;
+        public virtual void End() => Started = false;
 
-        protected virtual void UnLoad() => PreLoaded = false;
+        public virtual void UnLoad() => PreLoaded = false;
 
         public virtual void Delete() => Drawable.Delete();
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            Drawable = null;
+        }
 
         public virtual void ParseString(string[] data, int offset)
         {

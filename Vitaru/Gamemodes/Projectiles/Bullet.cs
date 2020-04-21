@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -69,17 +70,10 @@ namespace Vitaru.Gamemodes.Projectiles
                     EndPosition.Y));
         }
 
-        protected override void End()
+        public override void End()
         {
             base.End();
             //Drawable.FadeTo(0, 250f);
-        }
-
-        protected override void UnLoad()
-        {
-            base.UnLoad();
-            Drawable.Delete();
-            Drawable = null;
         }
 
         public override void ParseString(string[] data, int offset)
