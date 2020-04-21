@@ -22,6 +22,7 @@ namespace Vitaru.Characters.Players
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
         private double shootTime;
+        private const double shoot_speed = 250;
 
         public virtual DrawablePlayer GenerateDrawable()
         {
@@ -47,7 +48,7 @@ namespace Vitaru.Characters.Players
             if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
             {
                 shoot();
-                shootTime = Clock.Current + 250;
+                shootTime = Clock.Current + shoot_speed;
             }
 
             //TODO: fix this being needed?
@@ -80,6 +81,10 @@ namespace Vitaru.Characters.Players
                     return true;
                 case VitaruActions.Slow:
                     Drawable.Hitbox.FadeTo(1f, 200);
+                    return true;
+                case VitaruActions.Shoot:
+                    shootTime = Clock.Current + shoot_speed;
+                    shoot();
                     return true;
                 case VitaruActions.Spell:
                     return true;
