@@ -3,19 +3,19 @@
 
 using System;
 using System.Drawing;
-using OpenTK;
+using System.Numerics;
 using Prion.Application.Utilities;
 using Prion.Game.Graphics.Transforms;
+using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
-using Vector2 = System.Numerics.Vector2;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
-    public class Player : Character, IHasInputKeys<VitaruActions>
+    public class Player : Character, IHasInputKeys<VitaruActions>, IHasInputMousePosition
     {
         public const int PLAYER_TEAM = 1;
 
@@ -28,6 +28,8 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
+
+        private Vector2 cursor = Vector2.Zero;
 
         private double shootTime;
         private const double shoot_speed = 250;
@@ -74,7 +76,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Slow])
             {
-                //cursorAngle = PrionMath.RadiansToDegrees((float)Math.Atan2(Cursor.Position.Y - Position.Y, Cursor.Position.X - Position.X)) + 90 + Rotation;
+                cursorAngle = ((float)Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X)).ToDegrees() + 90;
                 directionModifier = -0.1f;
             }
 
@@ -98,7 +100,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 }
 
                 //-90 = up
-                BulletAddRad(1, MathHelper.DegreesToRadians(cursorAngle - 90) + directionModifier, color, size, damage);
+                BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage);
 
                 if (InputHandler.Actions[VitaruActions.Slow])
                     directionModifier += 0.1f;
@@ -157,6 +159,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return true;
             }
         }
+
+        public void OnMouseMove(MousePositionEvent e) => cursor = e.Position;
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
         {
