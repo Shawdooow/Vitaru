@@ -75,7 +75,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Sneak])
             {
-                cursorAngle = ((float)Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X)).ToDegrees() + 90;
+                cursorAngle = ((float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X))
+                    .ToDegrees() + 90;
                 directionModifier = -0.1f;
             }
 
@@ -123,7 +124,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 Diameter = size,
                 Damage = damage,
             };
-            
+
             Gamefield.Add(bullet);
         }
 
