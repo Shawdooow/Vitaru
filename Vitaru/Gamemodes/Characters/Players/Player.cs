@@ -56,10 +56,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             base.Update();
 
             if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
-            {
                 PatternWave();
-                shootTime = Clock.Current + shoot_speed;
-            }
 
             //TODO: fix this being needed?
             if (Drawable == null) return;
@@ -69,6 +66,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
+            shootTime = Clock.Current + shoot_speed;
+
             const int numberbullets = 3;
             float directionModifier = -0.2f;
 
@@ -138,7 +137,6 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
                 case VitaruActions.Shoot:
-                    shootTime = Clock.Current + shoot_speed;
                     PatternWave();
                     return true;
                 case VitaruActions.Spell:
