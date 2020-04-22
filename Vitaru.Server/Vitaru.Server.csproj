@@ -8,7 +8,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <OutputType>Library</OutputType>
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
     <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://www.gapotchenko.com/eazfuscator.net/kb/100036 -->
