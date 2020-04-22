@@ -119,12 +119,13 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Up])
                 playerPosition.Y -= (float) yTranslationDistance;
-            if (InputHandler.Actions[VitaruActions.Left])
-                playerPosition.X += (float) xTranslationDistance;
             if (InputHandler.Actions[VitaruActions.Down])
                 playerPosition.Y += (float) yTranslationDistance;
-            if (InputHandler.Actions[VitaruActions.Right])
+
+            if (InputHandler.Actions[VitaruActions.Left])
                 playerPosition.X -= (float) xTranslationDistance;
+            if (InputHandler.Actions[VitaruActions.Right])
+                playerPosition.X += (float) xTranslationDistance;
 
             //if (!VitaruPlayfield.BOUNDLESS)
             //{
