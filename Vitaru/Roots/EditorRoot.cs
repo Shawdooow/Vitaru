@@ -9,7 +9,7 @@ using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Editor.UI;
 
-namespace Vitaru.Editor
+namespace Vitaru.Roots
 {
     public class EditorRoot : Root
     {
