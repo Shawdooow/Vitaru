@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
 using Vitaru.Gamemodes.Projectiles;
@@ -28,6 +29,12 @@ namespace Vitaru.Gamemodes.Characters
         public bool Dead { get; protected set; }
 
         protected virtual DrawableCharacter Drawable { get; set; }
+
+        public virtual Color PrimaryColor => Color.Green;
+
+        public virtual Color SecondaryColor => Color.LightBlue;
+
+        public virtual Color ComplementaryColor => Color.LightGreen;
 
         protected Gamefield Gamefield { get; private set; }
 

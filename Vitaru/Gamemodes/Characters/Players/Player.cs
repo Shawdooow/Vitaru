@@ -1,13 +1,17 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Numerics;
+using System;
+using System.Drawing;
+using OpenTK;
+using Prion.Application.Utilities;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -16,6 +20,12 @@ namespace Vitaru.Gamemodes.Characters.Players
         public const int PLAYER_TEAM = 1;
 
         public override float HitboxDiameter => 6f;
+
+        public override Color PrimaryColor => Color.Navy;
+
+        public override Color SecondaryColor => "#92a0dd".HexToColor();
+
+        public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
@@ -45,7 +55,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
             {
-                shoot();
+                PatternWave();
                 shootTime = Clock.Current + shoot_speed;
             }
 
@@ -55,20 +65,64 @@ namespace Vitaru.Gamemodes.Characters.Players
             Drawable.Position = GetNewPlayerPosition(0.1f);
         }
 
-        private void shoot()
+        protected virtual void PatternWave()
+        {
+            const int numberbullets = 3;
+            float directionModifier = -0.2f;
+
+            float cursorAngle = 0;
+
+            if (InputHandler.Actions[VitaruActions.Slow])
+            {
+                //cursorAngle = PrionMath.RadiansToDegrees((float)Math.Atan2(Cursor.Position.Y - Position.Y, Cursor.Position.X - Position.X)) + 90 + Rotation;
+                directionModifier = -0.1f;
+            }
+
+            for (int i = 1; i <= numberbullets; i++)
+            {
+                float size;
+                float damage;
+                Color color;
+
+                if (i % 2 == 0)
+                {
+                    size = 28;
+                    damage = 24;
+                    color = PrimaryColor;
+                }
+                else
+                {
+                    size = 20;
+                    damage = 18;
+                    color = SecondaryColor;
+                }
+
+                //-90 = up
+                BulletAddRad(1, MathHelper.DegreesToRadians(cursorAngle - 90) + directionModifier, color, size, damage);
+
+                if (InputHandler.Actions[VitaruActions.Slow])
+                    directionModifier += 0.1f;
+                else
+                    directionModifier += 0.2f;
+            }
+        }
+
+        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage)
         {
             Bullet bullet = new Bullet
             {
                 Team = Team,
-                Color = Drawable.Sprite.Color,
                 StartPosition = Drawable.Position,
                 StartTime = Clock.Current,
-                Damage = 20,
-                Diameter = 20f,
-                Distance = 800,
-                Speed = 1,
-            };
+                Distance = 600,
 
+                Speed = speed,
+                Angle = angle,
+                Color = color,
+                Diameter = size,
+                Damage = damage,
+            };
+            
             Gamefield.Add(bullet);
         }
 
@@ -83,7 +137,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return true;
                 case VitaruActions.Shoot:
                     shootTime = Clock.Current + shoot_speed;
-                    shoot();
+                    PatternWave();
                     return true;
                 case VitaruActions.Spell:
                     return true;
