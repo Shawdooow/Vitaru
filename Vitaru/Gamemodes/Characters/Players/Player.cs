@@ -74,7 +74,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             float cursorAngle = 0;
 
-            if (InputHandler.Actions[VitaruActions.Slow])
+            if (InputHandler.Actions[VitaruActions.Sneak])
             {
                 cursorAngle = ((float)Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X)).ToDegrees() + 90;
                 directionModifier = -0.1f;
@@ -102,7 +102,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 //-90 = up
                 BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage);
 
-                if (InputHandler.Actions[VitaruActions.Slow])
+                if (InputHandler.Actions[VitaruActions.Sneak])
                     directionModifier += 0.1f;
                 else
                     directionModifier += 0.2f;
@@ -134,7 +134,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             {
                 default:
                     return true;
-                case VitaruActions.Slow:
+                case VitaruActions.Sneak:
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
                 case VitaruActions.Shoot:
@@ -153,7 +153,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 default:
                     return true;
 
-                case VitaruActions.Slow:
+                case VitaruActions.Sneak:
                     Drawable.Hitbox.ClearTransforms();
                     Drawable.Hitbox.FadeTo(0f, 200);
                     return true;
@@ -169,7 +169,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             double yTranslationDistance = playerSpeed * Clock.LastElapsedTime;
             double xTranslationDistance = playerSpeed * Clock.LastElapsedTime;
 
-            if (InputHandler.Actions[VitaruActions.Slow])
+            if (InputHandler.Actions[VitaruActions.Sneak])
             {
                 xTranslationDistance /= 2d;
                 yTranslationDistance /= 2d;
