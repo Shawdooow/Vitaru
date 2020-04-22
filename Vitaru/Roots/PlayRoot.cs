@@ -5,9 +5,9 @@ using Prion.Game.Graphics.Roots;
 
 namespace Vitaru.Roots
 {
-    public class MainMenuRoot : Root
+    public class PlayRoot : Root
     {
-        public MainMenuRoot()
+        public PlayRoot()
         {
         }
     }
