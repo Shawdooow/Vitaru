@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
-using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles
 {

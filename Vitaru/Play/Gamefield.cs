@@ -54,9 +54,11 @@ namespace Vitaru.Play
 
             foreach (Projectile p in ProjectilePack)
             {
-                if (Clock.Current + p.TimePreLoad >= p.StartTime && Clock.Current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
+                if (Clock.Current + p.TimePreLoad >= p.StartTime && Clock.Current < p.EndTime + p.TimeUnLoad &&
+                    !p.PreLoaded)
                     p.PreLoad();
-                else if ((Clock.Current + p.TimePreLoad < p.StartTime || Clock.Current >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
+                else if ((Clock.Current + p.TimePreLoad < p.StartTime || Clock.Current >= p.EndTime + p.TimeUnLoad) &&
+                         p.PreLoaded)
                 {
                     p.UnLoad();
                     Remove(p);

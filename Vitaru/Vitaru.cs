@@ -5,7 +5,6 @@ using System.Drawing;
 using Prion.Game;
 using Prion.Game.Graphics;
 using Vitaru.Editor;
-using Vitaru.Roots;
 
 //using Prion.Integrations.Discord;
 //using Prion.Integrations.Discord.DiscordGameSDK;
