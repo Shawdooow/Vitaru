@@ -11,6 +11,8 @@ namespace Vitaru.Gamemodes.Projectiles
 {
     public class Bullet : Projectile
     {
+        public override string Name { get; set; } = nameof(Bullet);
+
         public override DrawableProjectile GenerateDrawable() => Drawable == null
             ? Drawable = new DrawableBullet(this)
             : throw PrionDebugger.InvalidOperation("Drawable should be null");

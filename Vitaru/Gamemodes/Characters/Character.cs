@@ -13,6 +13,8 @@ namespace Vitaru.Gamemodes.Characters
 {
     public abstract class Character : Updatable, IHasTeam
     {
+        public override string Name { get; set; } = nameof(Character);
+
         //0 = Enemies, 1 = Player, 2 = Enemy Players
         public virtual int Team { get; set; }
 

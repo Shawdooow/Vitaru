@@ -17,6 +17,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 {
     public class Player : Character, IHasInputKeys<VitaruActions>, IHasInputMousePosition
     {
+        public override string Name { get; set; } = nameof(Player);
+
         public const int PLAYER_TEAM = 1;
 
         public override float HitboxDiameter => 6f;

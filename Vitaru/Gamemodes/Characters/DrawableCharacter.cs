@@ -10,6 +10,8 @@ namespace Vitaru.Gamemodes.Characters
 {
     public abstract class DrawableCharacter : SpriteLayer
     {
+        public override string Name { get; set; } = nameof(DrawableCharacter);
+
         public readonly Sprite Sprite;
 
         public readonly Circle Hitbox;

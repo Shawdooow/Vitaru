@@ -14,17 +14,34 @@ namespace Vitaru.Play
 {
     public class Gamefield : Pack<IPack>
     {
-        public readonly Pack<Character> PlayerPack = new Pack<Character>();
+        public override string Name { get; set; } = nameof(Gamefield);
 
-        public readonly Layer2D<DrawableCharacter> CharacterLayer = new Layer2D<DrawableCharacter>();
+        public readonly Pack<Character> PlayerPack = new Pack<Character>
+        {
+            Name = "Player Pack",
+        };
+
+        public readonly Layer2D<DrawableCharacter> CharacterLayer = new Layer2D<DrawableCharacter>
+        {
+            Name = "Drawable Character Layer2D",
+        };
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
 
-        public readonly Pack<Character> LoadedEnemies = new Pack<Character>();
+        public readonly Pack<Character> LoadedEnemies = new Pack<Character>
+        {
+            Name = "Loaded Enemies Pack",
+        };
 
-        public readonly Pack<Projectile> ProjectilePack = new Pack<Projectile>();
+        public readonly Pack<Projectile> ProjectilePack = new Pack<Projectile>
+        {
+            Name = "Projectile Pack",
+        };
 
-        public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>();
+        public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>
+        {
+            Name = "Drawable Projectile Layer2D",
+        };
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {

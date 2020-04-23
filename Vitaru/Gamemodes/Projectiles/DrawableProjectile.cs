@@ -8,6 +8,8 @@ namespace Vitaru.Gamemodes.Projectiles
 {
     public abstract class DrawableProjectile : SpriteLayer
     {
+        public override string Name { get; set; } = nameof(DrawableProjectile);
+
         protected DrawableProjectile(Projectile projectile)
         {
             Position = projectile.StartPosition;

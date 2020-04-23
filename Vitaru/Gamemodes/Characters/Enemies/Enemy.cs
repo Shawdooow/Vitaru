@@ -10,6 +10,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 {
     public class Enemy : Character, IEditable
     {
+        public override string Name { get; set; } = nameof(Enemy);
+
         public const int ENEMY_TEAM = 0;
 
         public override float HitboxDiameter => 48f;

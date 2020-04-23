@@ -8,6 +8,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 {
     public class DrawablePlayer : DrawableCharacter
     {
+        public override string Name { get; set; } = nameof(DrawablePlayer);
+
         public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\Sakuya Izayoi.png"))
         {
             Sprite.Color = player.PrimaryColor;

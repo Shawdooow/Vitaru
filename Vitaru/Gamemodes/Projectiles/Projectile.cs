@@ -12,6 +12,8 @@ namespace Vitaru.Gamemodes.Projectiles
 {
     public abstract class Projectile : Updatable, IHasTeam, IEditable
     {
+        public override string Name { get; set; } = nameof(Projectile);
+
         protected DrawableProjectile Drawable;
 
         public abstract DrawableProjectile GenerateDrawable();

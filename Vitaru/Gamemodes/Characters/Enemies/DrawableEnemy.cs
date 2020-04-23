@@ -8,6 +8,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 {
     public class DrawableEnemy : DrawableCharacter
     {
+        public override string Name { get; set; } = nameof(DrawableEnemy);
+
         public DrawableEnemy(Enemy enemy) : base(enemy, Game.TextureStore.GetTexture("Gameplay\\enemy.png"))
         {
             Sprite.Color = enemy.PrimaryColor;
