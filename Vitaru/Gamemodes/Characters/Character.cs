@@ -91,6 +91,7 @@ namespace Vitaru.Gamemodes.Characters
         {
             TakeDamage(projectile.Damage);
             Gamefield.Remove(projectile);
+            //projectile.Hit();
         }
 
         protected virtual void Heal(float amount)

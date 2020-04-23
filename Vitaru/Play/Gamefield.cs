@@ -137,6 +137,7 @@ namespace Vitaru.Play
         public void Add(Projectile projectile)
         {
             ProjectilePack.Add(projectile);
+            //projectile.OnUnLoad += () => Remove(projectile);
             //Que adding the drawable
             projectileQue.Add(projectile);
         }
