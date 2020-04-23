@@ -114,6 +114,25 @@ namespace Vitaru.Gamemodes.Characters
             Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
         }
 
+        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage)
+        {
+            Bullet bullet = new Bullet
+            {
+                Team = Team,
+                StartPosition = Drawable.Position,
+                StartTime = Clock.Current,
+                Distance = 600,
+
+                Speed = speed,
+                Angle = angle,
+                Color = color,
+                Diameter = size,
+                Damage = damage,
+            };
+
+            Gamefield.Add(bullet);
+        }
+
         protected virtual void Die()
         {
             Dead = true;

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Transforms;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -73,8 +75,16 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void End()
         {
+            if (ReturnedScore) return;
             base.End();
-            //Drawable.FadeTo(0, 250f);
+
+            ReturnGreat = false;
+            ForceScore = true;
+
+            if (Drawable == null) return;
+
+            Drawable.FadeTo(0, 250, Easings.InSine);
+            Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
         }
 
         public override void ParseString(string[] data, int offset)

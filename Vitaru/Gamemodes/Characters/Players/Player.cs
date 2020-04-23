@@ -111,25 +111,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
-        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage)
-        {
-            Bullet bullet = new Bullet
-            {
-                Team = Team,
-                StartPosition = Drawable.Position,
-                StartTime = Clock.Current,
-                Distance = 600,
-
-                Speed = speed,
-                Angle = angle,
-                Color = color,
-                Diameter = size,
-                Damage = damage,
-            };
-
-            Gamefield.Add(bullet);
-        }
-
         public bool Pressed(VitaruActions t)
         {
             switch (t)

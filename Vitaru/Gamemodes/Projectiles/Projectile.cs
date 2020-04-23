@@ -48,6 +48,18 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public bool Started { get; private set; }
 
+        //Can be set for the Graze ScoringMetric
+        public double MinDistance = double.MaxValue;
+
+        //Set to "true" when a score should be returned
+        public bool ForceScore;
+
+        //Set to "true" when a score has been returned
+        protected bool ReturnedScore;
+
+        //return a great
+        public bool ReturnGreat;
+
         public override void Update()
         {
         }
@@ -58,7 +70,18 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public virtual void End() => Started = false;
 
-        public virtual void UnLoad() => PreLoaded = false;
+        public event Action OnUnLoad;
+
+        public virtual void UnLoad()
+        {
+            PreLoaded = false;
+            OnUnLoad?.Invoke();
+        }
+
+        protected virtual double Weight(double distance)
+        {
+            return distance > 128 ? 0 : 500 / Math.Max(distance, 1);
+        }
 
         public virtual void Delete() => Drawable.Delete();
 
@@ -86,5 +109,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 Damage.ToString(),
             };
         }
+
+        public virtual void Hit() => End();
     }
 }
