@@ -38,11 +38,11 @@ namespace Vitaru
             //});
         }
 
-        protected override void RunUpdate()
+        public override void Start()
         {
             Renderer.Window.Title = "Vitaru";
             Renderer.Window.Icon = new Icon(AssetStorage.GetStream("Textures\\vitaru.ico"));
-            base.RunUpdate();
+            base.Start();
         }
 
         protected override void Update()
