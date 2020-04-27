@@ -7,6 +7,7 @@ using Vitaru.Gamemodes.Projectiles;
 
 namespace Vitaru.Gamemodes
 {
+    //Old gamemode class
     public abstract class ChapterSet
     {
         public abstract string Name { get; }
@@ -29,18 +30,18 @@ namespace Vitaru.Gamemodes
 
         //TODO: Move below to an object converter?
 
-        public abstract Cluster GetCluster();
-
-        public abstract DrawableCluster GetDrawableCluster(Cluster cluster, VitaruPlayfield playfield);
-
-        public abstract Bullet GetBullet();
-
-        public abstract DrawableBullet GetDrawableBullet(Bullet bullet, VitaruPlayfield playfield);
-
-        public abstract Laser GetLaser();
-
-        public abstract DrawableLaser GetDrawableLaser(Laser laser, VitaruPlayfield playfield);
-
-        public abstract Enemy GetEnemy(VitaruPlayfield playfield, DrawableCluster drawablePattern);
+        //public abstract Cluster GetCluster();
+        //
+        //public abstract DrawableCluster GetDrawableCluster(Cluster cluster, VitaruPlayfield playfield);
+        //
+        //public abstract Bullet GetBullet();
+        //
+        //public abstract DrawableBullet GetDrawableBullet(Bullet bullet, VitaruPlayfield playfield);
+        //
+        //public abstract Laser GetLaser();
+        //
+        //public abstract DrawableLaser GetDrawableLaser(Laser laser, VitaruPlayfield playfield);
+        //
+        //public abstract Enemy GetEnemy(VitaruPlayfield playfield, DrawableCluster drawablePattern);
     }
 }

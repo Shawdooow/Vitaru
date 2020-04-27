@@ -16,7 +16,7 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             using (Vitaru vitaru = new Vitaru(args))
-                vitaru.Start(new EditorTest());
+                vitaru.Start(new PlayTest());
         }
 
         protected Vitaru(string[] args) : base("vitaru", args, "GL46")

@@ -20,6 +20,14 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Gamemodes\Tau\**" />
+    <Compile Remove="Gamemodes\Vitaru\HitObjects\**" />
+    <EmbeddedResource Remove="Gamemodes\Tau\**" />
+    <EmbeddedResource Remove="Gamemodes\Vitaru\HitObjects\**" />
+    <None Remove="Gamemodes\Tau\**" />
+    <None Remove="Gamemodes\Vitaru\HitObjects\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>

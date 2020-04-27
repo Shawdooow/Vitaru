@@ -4,12 +4,17 @@
 #region usings
 
 using System;
+using System.Drawing;
+using System.Numerics;
+using Prion.Game.Graphics.Drawables;
+using Prion.Game.Graphics.Layers;
+using Prion.Game.Graphics.Sprites;
 
 #endregion
 
 namespace Vitaru.Gamemodes.Tau.Chapters.Abilities.Buffs
 {
-    public class Buff : Container, ITuneable
+    public class Buff : Layer2D<IDrawable2D>, ITuneable
     {
         public AspectLockedPlayfield CurrentPlayfield { get; set; }
 
@@ -54,12 +59,12 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Abilities.Buffs
             Size = new Vector2(12, 18);
             CornerRadius = 4;
             BorderThickness = 2;
-            BorderColour = Color4.White;
+            BorderColour = Color.White;
 
             Child = new Box
             {
                 RelativeSizeAxes = Axes.Both,
-                Colour = Color4.Red
+                Colour = Color.Red
             };
             EdgeEffect = new EdgeEffectParameters
             {

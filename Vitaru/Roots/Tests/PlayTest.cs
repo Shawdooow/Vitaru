@@ -13,6 +13,7 @@ using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Play;
 using Vitaru.Server.Packets.Lobby;
@@ -76,7 +77,7 @@ namespace Vitaru.Roots.Tests
                 },
             });
 
-            Player player = new Player(gamefield);
+            Player player = new Sakuya(gamefield);
 
             Add(player.InputHandler);
 

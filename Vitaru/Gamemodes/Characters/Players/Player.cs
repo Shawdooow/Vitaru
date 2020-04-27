@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Utilities;
@@ -14,7 +15,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
-    public class Player : Character, IHasInputKeys<VitaruActions>, IHasInputMousePosition
+    public abstract class Player : Character, IHasInputKeys<VitaruActions>, IHasInputMousePosition
     {
         public override string Name { get; set; } = nameof(Player);
 
@@ -27,6 +28,26 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override Color SecondaryColor => "#92a0dd".HexToColor();
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
+
+        public virtual float EnergyCost { get; } = 4;
+
+        public virtual float EnergyDrainRate { get; } = 0;
+
+        protected bool SpellActive { get; set; }
+
+        public double MovementSpeedMultiplier = 1;
+
+        public virtual string Ability => "None";
+
+        public virtual string AbilityStats => null;
+
+        public virtual Role Role { get; } = Role.Offense;
+
+        public virtual Difficulty Difficulty { get; } = Difficulty.Easy;
+
+        public virtual string Background => "Default Background Text   C:<";
+
+        public virtual bool Implemented { get; }
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
@@ -45,7 +66,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             return draw;
         }
 
-        public Player(Gamefield gamefield) : base(gamefield)
+        protected Player(Gamefield gamefield) : base(gamefield)
         {
             Team = PLAYER_TEAM;
             InputHandler = new VitaruInputManager();
@@ -63,6 +84,8 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (Drawable == null) return;
 
             Drawable.Position = GetNewPlayerPosition(0.1f);
+
+            SpellUpdate();
         }
 
         protected virtual void PatternWave()
@@ -110,6 +133,12 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
+
+
+        #region Input
+
+
+
         public bool Pressed(VitaruActions t)
         {
             switch (t)
@@ -147,8 +176,8 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             Vector2 playerPosition = Drawable.Position;
 
-            double yTranslationDistance = playerSpeed * Clock.LastElapsedTime;
-            double xTranslationDistance = playerSpeed * Clock.LastElapsedTime;
+            double yTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
+            double xTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
 
             if (InputHandler.Actions[VitaruActions.Sneak])
             {
@@ -174,5 +203,99 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             return playerPosition;
         }
+
+
+
+        #endregion
+
+
+
+        #region Spell Handling
+
+
+
+        /// <summary>
+        /// Called to see if a spell should go active
+        /// </summary>
+        protected virtual bool CheckSpellActivate(VitaruActions action)
+        {
+            if (action == VitaruActions.Spell && Energy >= EnergyCost)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Called to see if a spell should be deactivated
+        /// </summary>
+        /// <param name="action"></param>
+        protected virtual bool CheckSpellDeactivate(VitaruActions action)
+        {
+            if (action == VitaruActions.Spell)
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Called when a spell is activated
+        /// </summary>
+        /// <param name="action"></param>
+        protected virtual void SpellActivate(VitaruActions action)
+        {
+            SpellActive = true;
+            if (EnergyDrainRate == 0)
+                DrainEnergy(EnergyCost);
+        }
+
+        protected virtual void SpellUpdate()
+        {
+            if (Energy <= 0)
+            {
+                Energy = 0;
+                SpellDeactivate(VitaruActions.Spell);
+            }
+        }
+
+        /// <summary>
+        /// Called when a spell is deactivated
+        /// </summary>
+        /// <param name="action"></param>
+        protected virtual void SpellDeactivate(VitaruActions action)
+        {
+            SpellActive = false;
+        }
+
+
+
+        #endregion
+    }
+
+    public enum Role
+    {
+        Offense,
+        Defense,
+        Support,
+        Specialized,
+    }
+
+    public enum Difficulty
+    {
+        Easy,
+        Normal,
+        Hard,
+        Insane,
+        Another,
+        Extra,
+
+        //Crazy Town
+        [Description("Time Freeze")]
+        TimeFreeze,
+        [Description("Arcanum Barrier")]
+        ArcanumBarrier,
+
+        //No
+        [Description("Centipede")]
+        Centipede,
+        [Description("Serious")]
+        SeriousShit,
     }
 }

@@ -59,7 +59,7 @@ namespace Vitaru.Gamemodes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static LoadedGamemode GetGamemode(string name)
+        public static Gamemode GetGamemode(string name)
         {
             foreach (LoadedGamemode set in LoadedGamemodes)
                 if (set.Gamemode.Name == name)
@@ -96,21 +96,6 @@ namespace Vitaru.Gamemodes
             return null;
         }
 
-        /// <summary>
-        ///     Asks chapters if they have a special DrawablePlayer for the given player
-        /// </summary>
-        /// <param name="playfield"></param>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public static DrawablePlayer GetDrawablePlayer(Gamefield gamefield, Player player)
-        {
-            foreach (LoadedGamemode set in LoadedGamemodes)
-            foreach (Chapter chapter in set.Chapters)
-                if (chapter.GetDrawablePlayer(gamefield, player) != null)
-                    return chapter.GetDrawablePlayer(gamefield, player);
-            return null;
-        }
-
         public class LoadedGamemode
         {
             public readonly Gamemode Gamemode;
@@ -142,9 +127,6 @@ namespace Vitaru.Gamemodes
                     if (add)
                         Players.Add(v);
                 }
-
-                SelectedCharacter.Default = Players.First().Name;
-                SelectedCharacter.SetDefault();
             }
         }
     }
