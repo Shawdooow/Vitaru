@@ -31,12 +31,12 @@ namespace Vitaru.Gamemodes.Projectiles
                 OutlineCircle = new Circle
                 {
                     Size = new Vector2(bullet.Diameter * 1.5f),
-                    Color = bullet.Color,
+                    Color = bullet.Color
                 },
                 CenterCircle = new Circle
                 {
-                    Size = new Vector2(bullet.Diameter),
-                },
+                    Size = new Vector2(bullet.Diameter)
+                }
             };
         }
 

@@ -10,7 +10,6 @@ using Prion.Game;
 using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
@@ -21,7 +20,7 @@ using Vitaru.Server.Server;
 
 namespace Vitaru.Roots.Tests
 {
-    public class PlayTest : Root
+    public class PlayTest : PlayRoot
     {
         private readonly Gamefield gamefield;
 

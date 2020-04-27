@@ -128,7 +128,7 @@ namespace Vitaru.Gamemodes.Characters
                 Angle = angle,
                 Color = color,
                 Diameter = size,
-                Damage = damage,
+                Damage = damage
             };
 
             Gamefield.Add(bullet);

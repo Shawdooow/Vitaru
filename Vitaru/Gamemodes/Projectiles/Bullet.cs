@@ -7,7 +7,6 @@ using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
 using Prion.Game.Graphics.Transforms;
-using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -97,11 +96,11 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override string[] SerializeToStrings()
         {
-            List<string> data = new List<string>()
+            List<string> data = new List<string>
             {
                 "b",
                 Diameter.ToString(),
-                Speed.ToString(),
+                Speed.ToString()
             };
 
             data.AddRange(base.SerializeToStrings());
@@ -116,7 +115,7 @@ namespace Vitaru.Gamemodes.Projectiles
         Target,
 
         CurveRight,
-        CurveLeft,
+        CurveLeft
     }
 
     public enum Shape

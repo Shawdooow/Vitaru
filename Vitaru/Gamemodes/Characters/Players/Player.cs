@@ -9,7 +9,6 @@ using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
 
@@ -40,7 +39,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             DrawablePlayer draw = new DrawablePlayer(this)
             {
-                Position = new Vector2(0, 200),
+                Position = new Vector2(0, 200)
             };
             Drawable = draw;
             return draw;

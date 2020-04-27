@@ -32,6 +32,7 @@ namespace Vitaru.Roots
                 },
             });
 
+            Add(new Timeline());
             Add(new Toolbox());
         }
     }

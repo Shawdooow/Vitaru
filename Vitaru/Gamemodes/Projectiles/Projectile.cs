@@ -106,7 +106,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 StartTime.ToString(),
                 EndTime.ToString(),
                 StartPosition.ToString(),
-                Damage.ToString(),
+                Damage.ToString()
             };
         }
 

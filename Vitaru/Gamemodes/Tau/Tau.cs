@@ -3,12 +3,25 @@
 
 using System;
 using Vitaru.Editor.IO;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Tau
 {
     public class Tau : Gamemode
     {
+        public override string Name => "Tau";
+
         public override FormatConverter GetFormatConverter()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Gamefield GetGamefield()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Chapter[] GetChapters()
         {
             throw new NotImplementedException();
         }
