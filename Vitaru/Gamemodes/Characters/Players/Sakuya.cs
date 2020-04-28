@@ -99,11 +99,11 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
             base.SpellActivate(action);
 
-            if (originalRate == 0)
-                originalRate = (float)Clock.Rate;
+            //if (originalRate == 0)
+            //    originalRate = (float)((AdjustableClock)Clock).Rate;
 
             currentRate = originalRate * SetRate;
-            applyToClock(Clock, currentRate);
+            //applyToClock(Clock, currentRate);
 
             //Seal.SignSprite.Colour = Color.DarkRed;
 
@@ -129,17 +129,17 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
 
-                    applyToClock(Clock, currentRate);
+                    //applyToClock(Clock, currentRate);
 
                     if (currentRate > 0 && spellEndTime - 500 <= Clock.Current)
                     {
                         currentRate = originalRate;
-                        applyToClock(Clock, currentRate);
+                        //applyToClock(Clock, currentRate);
                     }
                     else if (currentRate < 0 && spellEndTime + 500 >= Clock.Current)
                     {
                         currentRate = originalRate;
-                        applyToClock(Clock, currentRate);
+                        //applyToClock(Clock, currentRate);
                     }
                 }
                 else
@@ -161,7 +161,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                         spellEndTime = Clock.Current - 2000;
 
                     currentRate = originalRate * SetRate;
-                    applyToClock(Clock, currentRate);
+                    //applyToClock(Clock, currentRate);
                 }
         }
 
@@ -171,7 +171,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             //Seal.SignSprite.FadeColour(PrimaryColor, 50);
         }
 
-        private void applyToClock(AtomicClock clock, double speed)
+        private void applyToClock(AdjustableClock clock, double speed)
         {
             //if (VitaruPlayfield.VitaruInputManager.Shade != null)
             //{

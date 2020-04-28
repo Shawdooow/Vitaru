@@ -5,7 +5,7 @@ using Prion.Application.Timing;
 
 namespace Vitaru.Editor
 {
-    public class SeekableClock : AtomicClock
+    public class SeekableClock : AdjustableClock
     {
         public override double Current => base.Current - seekOffset;
 
