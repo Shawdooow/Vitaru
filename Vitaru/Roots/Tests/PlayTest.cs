@@ -5,12 +5,14 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
+using Prion.Application.Timing;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
+using Vitaru.Editor;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters;
@@ -54,7 +56,10 @@ namespace Vitaru.Roots.Tests
             //    OnPacketReceive = OnPacketRecieve
             //};
 
-            gamefield = new Gamefield();
+            gamefield = new Gamefield
+            {
+                //Clock = new SeekableClock()
+            };
 
             Add(new SpriteLayer
             {
@@ -94,9 +99,6 @@ namespace Vitaru.Roots.Tests
 
             //Packs
             Add(gamefield);
-            Add(gamefield.PlayerPack);
-            Add(gamefield.LoadedEnemies);
-            Add(gamefield.ProjectilePack);
 
             //Layers
             Add(gamefield.ProjectileLayer);

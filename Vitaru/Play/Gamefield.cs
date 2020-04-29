@@ -45,6 +45,10 @@ namespace Vitaru.Play
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
+            Add(PlayerPack);
+            Add(LoadedEnemies);
+            Add(ProjectilePack);
+
             if (vitaruNet != null)
             {
                 //TODO: Multiplayer
@@ -99,6 +103,8 @@ namespace Vitaru.Play
                     //Boss?.Enemies.Add(e);
                 }
             }
+
+            base.Update();
         }
 
         private readonly List<Enemy> enemyQue = new List<Enemy>();

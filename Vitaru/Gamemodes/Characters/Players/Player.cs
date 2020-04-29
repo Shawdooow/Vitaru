@@ -83,7 +83,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             //TODO: fix this being needed?
             if (Drawable == null) return;
 
-            Drawable.Position = GetNewPlayerPosition(0.1f);
+            Drawable.Position = GetNewPlayerPosition(0.3f);
 
             SpellUpdate();
         }
