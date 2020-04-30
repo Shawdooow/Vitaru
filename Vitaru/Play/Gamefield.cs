@@ -57,6 +57,8 @@ namespace Vitaru.Play
 
         public override void Update()
         {
+            base.Update();
+
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
@@ -103,8 +105,6 @@ namespace Vitaru.Play
                     //Boss?.Enemies.Add(e);
                 }
             }
-
-            base.Update();
         }
 
         private readonly List<Enemy> enemyQue = new List<Enemy>();

@@ -32,6 +32,8 @@ namespace Vitaru.Roots.Tests
 
         private AudioDevice device;
 
+        private SeekableClock seekClock;
+
         public PlayTest()
         {
             device = new AudioDevice();
@@ -58,7 +60,7 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                //Clock = new SeekableClock()
+                Clock = seekClock = new SeekableClock()
             };
 
             Add(new SpriteLayer
@@ -118,9 +120,17 @@ namespace Vitaru.Roots.Tests
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            seekClock.Start();
             enemy();
             //vitaruNet.Connect();
             //createMatch();
+        }
+
+        public override void Update()
+        {
+            seekClock.NewFrame();
+            base.Update();
         }
 
         public override void PreRender()

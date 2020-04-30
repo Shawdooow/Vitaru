@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Debug;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
@@ -57,6 +58,8 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
         
         public override bool Implemented => false;
 
+        private AdjustableClock adjustable;
+
         public override DrawablePlayer GenerateDrawable()
         {
             DrawableSakuya draw = new DrawableSakuya(this)
@@ -69,6 +72,15 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
         public Sakuya(Gamefield gamefield) : base(gamefield)
         {
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            if (Clock is AdjustableClock a)
+                adjustable = a;
+            else
+                PrionDebugger.InvalidOperation($"{nameof(Sakuya)} requires an {nameof(AdjustableClock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)
@@ -99,11 +111,11 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
             base.SpellActivate(action);
 
-            //if (originalRate == 0)
-            //    originalRate = (float)((AdjustableClock)Clock).Rate;
+            if (originalRate == 0)
+                originalRate = (float)((AdjustableClock)Clock).Rate;
 
             currentRate = originalRate * SetRate;
-            //applyToClock(Clock, currentRate);
+            applyToClock(adjustable, currentRate);
 
             //Seal.SignSprite.Colour = Color.DarkRed;
 
@@ -129,17 +141,17 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
 
-                    //applyToClock(Clock, currentRate);
+                    applyToClock(adjustable, currentRate);
 
                     if (currentRate > 0 && spellEndTime - 500 <= Clock.Current)
                     {
                         currentRate = originalRate;
-                        //applyToClock(Clock, currentRate);
+                        applyToClock(adjustable, currentRate);
                     }
                     else if (currentRate < 0 && spellEndTime + 500 >= Clock.Current)
                     {
                         currentRate = originalRate;
-                        //applyToClock(Clock, currentRate);
+                        applyToClock(adjustable, currentRate);
                     }
                 }
                 else
@@ -161,7 +173,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                         spellEndTime = Clock.Current - 2000;
 
                     currentRate = originalRate * SetRate;
-                    //applyToClock(Clock, currentRate);
+                    applyToClock(adjustable, currentRate);
                 }
         }
 
