@@ -18,29 +18,29 @@ namespace Vitaru.Play
 
         public readonly Pack<Character> PlayerPack = new Pack<Character>
         {
-            Name = "Player Pack",
+            Name = "Player Pack"
         };
 
         public readonly Layer2D<DrawableCharacter> CharacterLayer = new Layer2D<DrawableCharacter>
         {
-            Name = "Drawable Character Layer2D",
+            Name = "Drawable Character Layer2D"
         };
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
 
         public readonly Pack<Character> LoadedEnemies = new Pack<Character>
         {
-            Name = "Loaded Enemies Pack",
+            Name = "Loaded Enemies Pack"
         };
 
         public readonly Pack<Projectile> ProjectilePack = new Pack<Projectile>
         {
-            Name = "Projectile Pack",
+            Name = "Projectile Pack"
         };
 
         public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>
         {
-            Name = "Drawable Projectile Layer2D",
+            Name = "Drawable Projectile Layer2D"
         };
 
         public Gamefield(VitaruNetHandler vitaruNet = null)

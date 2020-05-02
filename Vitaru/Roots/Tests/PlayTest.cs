@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
-using Prion.Application.Timing;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Audio;

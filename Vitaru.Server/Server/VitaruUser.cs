@@ -38,6 +38,6 @@ namespace Vitaru.Server.Server
         [Description("Not Ready")] FoundMap,
         [Description("Ready")] Ready,
         [Description("Loading...")] Loading,
-        [Description("Playing")] Playing,
+        [Description("Playing")] Playing
     }
 }

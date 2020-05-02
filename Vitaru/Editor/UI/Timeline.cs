@@ -30,9 +30,9 @@ namespace Vitaru.Editor.UI
                     {
                         Alpha = 0.8f,
                         Size = new Vector2(width, height),
-                        Color = Color.Black,
-                    },
-                },
+                        Color = Color.Black
+                    }
+                }
             };
         }
     }

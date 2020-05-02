@@ -25,7 +25,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
         public override float EnergyCapacity => 24;
 
         public override float EnergyCost => 4;
-        
+
         public override float EnergyDrainRate => 4;
 
         public override Color PrimaryColor => Color.Navy;
@@ -45,17 +45,17 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
         #endregion
 
         public override string Ability => "Time Waster";
-        
+
         public override Role Role => Role.Defense;
-        
+
         public override Difficulty Difficulty => Difficulty.Normal;
-        
+
         public override string Background =>
             "      Sakuya is no stranger to the oddities in the world, but never could they stop her from besting her opponents. " +
             "Her perfect record has only been tainted by one person, but The Hakureis are close friends of hers now.\n\n" +
             "       They have put there differences aside once to fight off something bigger then all of them combined, " +
             "but as the phrase goes: \"Greater than the sum of its parts\" they were able to hold the fort long enough to succeed.";
-        
+
         public override bool Implemented => false;
 
         private AdjustableClock adjustable;
@@ -98,21 +98,25 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             if (action == VitaruActions.Increase)
             {
                 SetRate = Math.Min(
-                    InputHandler.Actions[VitaruActions.Sneak] ? Math.Round(SetRate + 0.05d, 2) : Math.Round(SetRate + 0.25d, 2), 2d);
+                    InputHandler.Actions[VitaruActions.Sneak]
+                        ? Math.Round(SetRate + 0.05d, 2)
+                        : Math.Round(SetRate + 0.25d, 2), 2d);
                 return;
             }
 
             if (action == VitaruActions.Decrease)
             {
                 SetRate = Math.Max(
-                    InputHandler.Actions[VitaruActions.Sneak] ? Math.Round(SetRate - 0.05d, 2) : Math.Round(SetRate - 0.25d, 2), -2d);
+                    InputHandler.Actions[VitaruActions.Sneak]
+                        ? Math.Round(SetRate - 0.05d, 2)
+                        : Math.Round(SetRate - 0.25d, 2), -2d);
                 return;
             }
 
             base.SpellActivate(action);
 
             if (originalRate == 0)
-                originalRate = (float)((AdjustableClock)Clock).Rate;
+                originalRate = (float) ((AdjustableClock) Clock).Rate;
 
             currentRate = originalRate * SetRate;
             applyToClock(adjustable, currentRate);
@@ -136,7 +140,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                 spellEndTime <= Clock.Current && currentRate < 0)
                 if (!SpellActive)
                 {
-                    currentRate += (float)Clock.ElapsedTime / 100;
+                    currentRate += (float) Clock.ElapsedTime / 100;
 
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
@@ -163,7 +167,9 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                     else if (currentRate >= 1)
                         energyDrainMultiplier = currentRate - originalRate;
 
-                    DrainEnergy((float)Clock.ElapsedTime / 1000f * (1f / (float)currentRate * (float)energyDrainMultiplier * EnergyDrainRate + EnergyCost));
+                    DrainEnergy((float) Clock.ElapsedTime / 1000f *
+                                (1f / (float) currentRate * (float) energyDrainMultiplier * EnergyDrainRate +
+                                 EnergyCost));
 
                     if (currentRate > 0)
                         spellEndTime = Clock.Current + 2000;

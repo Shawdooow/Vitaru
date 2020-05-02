@@ -38,6 +38,6 @@ namespace Vitaru.Input
         Increase,
         Decrease,
 
-        Pull,
+        Pull
     }
 }

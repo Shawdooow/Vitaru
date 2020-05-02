@@ -29,7 +29,7 @@ namespace Vitaru.Server.Server
             new VitaruClient(PrionClient, client, end)
             {
                 LastConnection = Clock.Current,
-                Statues = ConnectionStatues.Connecting,
+                Statues = ConnectionStatues.Connecting
             };
 
         protected override void PacketReceived(PacketInfo<VitaruClient> info)
@@ -116,7 +116,7 @@ namespace Vitaru.Server.Server
                     {
                         MatchInfo = createMatch.MatchInfo,
                         //Make them join this match since they made it!
-                        Join = true,
+                        Join = true
                     }, info.Client);
                     break;
                 case JoinMatchPacket joinPacket:

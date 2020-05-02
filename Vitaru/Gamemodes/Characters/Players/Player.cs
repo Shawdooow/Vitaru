@@ -134,10 +134,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
 
-
         #region Input
-
-
 
         public bool Pressed(VitaruActions t)
         {
@@ -204,18 +201,13 @@ namespace Vitaru.Gamemodes.Characters.Players
             return playerPosition;
         }
 
-
-
         #endregion
-
 
 
         #region Spell Handling
 
-
-
         /// <summary>
-        /// Called to see if a spell should go active
+        ///     Called to see if a spell should go active
         /// </summary>
         protected virtual bool CheckSpellActivate(VitaruActions action)
         {
@@ -225,7 +217,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         /// <summary>
-        /// Called to see if a spell should be deactivated
+        ///     Called to see if a spell should be deactivated
         /// </summary>
         /// <param name="action"></param>
         protected virtual bool CheckSpellDeactivate(VitaruActions action)
@@ -236,7 +228,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         /// <summary>
-        /// Called when a spell is activated
+        ///     Called when a spell is activated
         /// </summary>
         /// <param name="action"></param>
         protected virtual void SpellActivate(VitaruActions action)
@@ -256,15 +248,13 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         /// <summary>
-        /// Called when a spell is deactivated
+        ///     Called when a spell is deactivated
         /// </summary>
         /// <param name="action"></param>
         protected virtual void SpellDeactivate(VitaruActions action)
         {
             SpellActive = false;
         }
-
-
 
         #endregion
     }
@@ -274,7 +264,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         Offense,
         Defense,
         Support,
-        Specialized,
+        Specialized
     }
 
     public enum Difficulty
@@ -287,15 +277,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         Extra,
 
         //Crazy Town
-        [Description("Time Freeze")]
-        TimeFreeze,
-        [Description("Arcanum Barrier")]
-        ArcanumBarrier,
+        [Description("Time Freeze")] TimeFreeze,
+        [Description("Arcanum Barrier")] ArcanumBarrier,
 
         //No
-        [Description("Centipede")]
-        Centipede,
-        [Description("Serious")]
-        SeriousShit,
+        [Description("Centipede")] Centipede,
+        [Description("Serious")] SeriousShit
     }
 }
