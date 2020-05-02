@@ -22,11 +22,11 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
         public override float HealthCapacity => 60;
 
-        public override float EnergyCapacity => 9999999;//24;
+        public override float EnergyCapacity => 24;
 
-        public override float EnergyCost => 0;//4;
+        public override float EnergyCost => 4;
 
-        public override float EnergyDrainRate => 0;//4;
+        public override float EnergyDrainRate => 4;
 
         public override Color PrimaryColor => Color.Navy;
 
@@ -34,7 +34,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
-        public double SetRate { get; private set; } = 0.25d;
+        public double SetRate { get; private set; } = 0.75d;
 
         private double originalRate;
 
