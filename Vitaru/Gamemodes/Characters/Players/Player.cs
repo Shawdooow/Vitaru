@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Entitys;
 using Prion.Application.Utilities;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
@@ -28,6 +29,10 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override Color SecondaryColor => "#92a0dd".HexToColor();
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
+
+        public virtual float EnergyCapacity => 20f;
+
+        public virtual float Energy { get; private set; }
 
         public virtual float EnergyCost { get; } = 4;
 
@@ -56,6 +61,8 @@ namespace Vitaru.Gamemodes.Characters.Players
         private double shootTime;
         private const double shoot_speed = 250;
 
+        protected DrawablePlayer DrawablePlayer => (DrawablePlayer) Drawable;
+
         public virtual DrawablePlayer GenerateDrawable()
         {
             DrawablePlayer draw = new DrawablePlayer(this)
@@ -73,6 +80,12 @@ namespace Vitaru.Gamemodes.Characters.Players
             InputHandler.Add(this);
         }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Energy = EnergyCapacity / 2f;
+        }
+
         public override void Update()
         {
             base.Update();
@@ -82,6 +95,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             //TODO: fix this being needed?
             if (Drawable == null) return;
+
+            DrawablePlayer.SignSprite.Rotation = (float)(-Clock.LastCurrent / 1000);
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
@@ -133,11 +148,27 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
+        protected virtual void Charge(float amount)
+        {
+            Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
+            ((DrawablePlayer) Drawable).SignSprite.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
+        }
+
+        protected virtual void DrainEnergy(float amount)
+        {
+            Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
+            DrawablePlayer.SignSprite.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
+        }
+
+
 
         #region Input
 
         public bool Pressed(VitaruActions t)
         {
+            if (CheckSpellActivate(t))
+                SpellActivate(t);
+
             switch (t)
             {
                 default:
@@ -148,13 +179,14 @@ namespace Vitaru.Gamemodes.Characters.Players
                 case VitaruActions.Shoot:
                     PatternWave();
                     return true;
-                case VitaruActions.Spell:
-                    return true;
             }
         }
 
         public bool Released(VitaruActions t)
         {
+            if (CheckSpellDeactivate(t))
+                SpellDeactivate(t);
+
             switch (t)
             {
                 default:
@@ -202,6 +234,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         #endregion
+
 
 
         #region Spell Handling

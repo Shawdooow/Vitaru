@@ -22,11 +22,11 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
         public override float HealthCapacity => 60;
 
-        public override float EnergyCapacity => 24;
+        public override float EnergyCapacity => 9999999;//24;
 
-        public override float EnergyCost => 4;
+        public override float EnergyCost => 0;//4;
 
-        public override float EnergyDrainRate => 4;
+        public override float EnergyDrainRate => 0;//4;
 
         public override Color PrimaryColor => Color.Navy;
 
@@ -34,7 +34,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
-        public double SetRate { get; private set; } = 0.75d;
+        public double SetRate { get; private set; } = 0.25d;
 
         private double originalRate;
 
@@ -121,7 +121,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             currentRate = originalRate * SetRate;
             applyToClock(adjustable, currentRate);
 
-            //Seal.SignSprite.Colour = Color.DarkRed;
+            DrawablePlayer.SignSprite.Color = Color.DarkRed;
 
             if (currentRate > 0)
                 spellEndTime = Clock.Current + 2000;
@@ -186,7 +186,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
         protected override void SpellDeactivate(VitaruActions action)
         {
             base.SpellDeactivate(action);
-            //Seal.SignSprite.FadeColour(PrimaryColor, 50);
+            DrawablePlayer.SignSprite.Color = PrimaryColor;
         }
 
         private void applyToClock(AdjustableClock clock, double speed)

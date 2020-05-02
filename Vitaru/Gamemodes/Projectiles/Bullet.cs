@@ -60,7 +60,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             base.Update();
             if (Drawable is null) return;
-            Drawable.Position = GetPosition(Clock.Current);
+            Drawable.Position = GetPosition(Clock.LastCurrent);
         }
 
         protected virtual Vector2 GetPosition(double time)

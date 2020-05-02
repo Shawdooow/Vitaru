@@ -22,10 +22,6 @@ namespace Vitaru.Gamemodes.Characters
 
         public virtual float Health { get; protected set; }
 
-        public virtual float EnergyCapacity => 20f;
-
-        public virtual float Energy { get; protected set; }
-
         public virtual float HitboxDiameter { get; protected set; } = 10;
 
         public bool Dead { get; protected set; }
@@ -51,7 +47,6 @@ namespace Vitaru.Gamemodes.Characters
         {
             base.LoadingComplete();
             Health = HealthCapacity;
-            Energy = EnergyCapacity / 2f;
         }
 
         public override void Update()
@@ -103,16 +98,6 @@ namespace Vitaru.Gamemodes.Characters
         {
             Health = Math.Clamp(Health - amount, 0, HealthCapacity);
             if (Health <= 0) Die();
-        }
-
-        protected virtual void Charge(float amount)
-        {
-            Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
-        }
-
-        protected virtual void DrainEnergy(float amount)
-        {
-            Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
         }
 
         protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage)

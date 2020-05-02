@@ -3,6 +3,7 @@
 
 using System.Numerics;
 using Prion.Game;
+using Prion.Game.Graphics.Sprites;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -10,10 +11,19 @@ namespace Vitaru.Gamemodes.Characters.Players
     {
         public override string Name { get; set; } = nameof(DrawablePlayer);
 
+        public Sprite SignSprite { get; private set; }
+
         public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\Sakuya Izayoi.png"))
         {
             Sprite.Color = player.PrimaryColor;
             Sprite.Scale = new Vector2(0.5f);
+
+            Add(SignSprite = new Sprite(Game.TextureStore.GetTexture("Gameplay\\seal.png"))
+            {
+                Scale = new Vector2(0.3f),
+                Alpha = 0.5f,
+                Color = player.PrimaryColor,
+            }, AddPosition.First);
         }
     }
 }
