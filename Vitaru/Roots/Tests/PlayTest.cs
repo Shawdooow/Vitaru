@@ -29,18 +29,19 @@ namespace Vitaru.Roots.Tests
         private readonly VitaruServerNetHandler vitaruServer;
         private readonly VitaruNetHandler vitaruNet;
 
-        private AudioDevice device;
+        private readonly AudioDevice device;
+        private readonly Sample sample;
 
         private SeekableClock seekClock;
+
+        private double sampleStartTime = double.MinValue;
 
         public PlayTest()
         {
             device = new AudioDevice();
 
             int rand = PrionMath.RandomNumber(0, 10);
-            Sample sample = new Sample(rand == 5 ? "alki endgame.wav" : "alki bells.mp3");
-
-            sample.Play();
+            sample = new Sample(rand == 5 ? "alki endgame.wav" : "alki bells.mp3");
 
             string address = "127.0.0.1:36840";
             //vitaruServer = new VitaruServerNetHandler
@@ -134,6 +135,13 @@ namespace Vitaru.Roots.Tests
         {
             seekClock.NewFrame();
             base.Update();
+
+            if (seekClock.LastCurrent >= sampleStartTime + sample.Length * 1000)
+            {
+                sample.Seek(0);
+                sample.Play();
+                sampleStartTime = seekClock.LastCurrent;
+            }
         }
 
         public override void PreRender()
@@ -149,7 +157,7 @@ namespace Vitaru.Roots.Tests
                 LevelTrack = new LevelTrack
                 {
                     Name = "Alki Bells",
-                    Artist = "Shawdooow",
+                    Artist = "Shawdooow"
                 },
                 LevelCreator = "Shawdooow",
                 LevelDifficulty = 2,

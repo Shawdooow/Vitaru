@@ -52,7 +52,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             if (Clock.LastCurrent + TimePreLoad >= StartTime && Clock.LastCurrent < EndTime + TimeUnLoad && !PreLoaded)
                 PreLoad();
-            else if ((Clock.LastCurrent + TimePreLoad < StartTime || Clock.LastCurrent >= EndTime + TimeUnLoad) && PreLoaded)
+            else if ((Clock.LastCurrent + TimePreLoad < StartTime || Clock.LastCurrent >= EndTime + TimeUnLoad) &&
+                     PreLoaded)
                 UnLoad();
 
             if (Clock.LastCurrent >= StartTime && Clock.LastCurrent < EndTime && !Started)
