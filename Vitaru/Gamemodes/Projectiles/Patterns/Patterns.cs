@@ -32,7 +32,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     //SpeedEasing = Easings.OutSine,
                     Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
                     Damage = i % 2 == 1 ? damage : damage * 0.8f,
-                    Team = team,
+                    Team = team
                 });
                 direction += directionModifier;
             }
@@ -62,7 +62,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.OutQuad,
                     Diameter = diameter,
                     Damage = damage,
-                    Team = team,
+                    Team = team
                 });
                 speed += speedModifier;
             }
@@ -98,7 +98,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.OutQuad,
                     Diameter = diameter,
                     Damage = damage,
-                    Team = team,
+                    Team = team
                 });
                 direction += directionModifier;
 
@@ -146,7 +146,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.OutSine,
                     Diameter = diameter,
                     Damage = damage,
-                    Team = team,
+                    Team = team
                 });
 
                 if (i % 2 == 0)
@@ -181,7 +181,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.OutCubic,
                     Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
                     Damage = i % 2 == 1 ? damage : damage * 0.8f,
-                    Team = team,
+                    Team = team
                 });
                 direction += directionModifier;
             }
@@ -218,7 +218,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.InOutQuint,
                     Diameter = diameter,
                     Damage = damage,
-                    Team = team,
+                    Team = team
                 });
                 direction += directionModifier;
             }
@@ -255,7 +255,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     SpeedEasing = Easings.InOutQuint,
                     Diameter = diameter,
                     Damage = damage,
-                    Team = team,
+                    Team = team
                 });
                 direction += directionModifier;
             }
@@ -302,7 +302,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         SpeedEasing = Easings.OutCubic,
                         CurveType = type,
                         Curviness = 2,
-                        Team = team,
+                        Team = team
                     });
 
                     if (i % 2 == 0)

@@ -19,6 +19,9 @@ namespace Vitaru.Input
             InputSettings.SetValue(VitaruActions.Sneak, Key.ShiftLeft);
             InputSettings.SetValue(VitaruActions.Shoot, MouseButton.Left);
             InputSettings.SetValue(VitaruActions.Spell, MouseButton.Right);
+            InputSettings.SetValue(VitaruActions.Increase, Key.Q);
+            InputSettings.SetValue(VitaruActions.Decrease, Key.E);
+            InputSettings.SetValue(VitaruActions.Pull, Key.F);
         }
     }
 
@@ -31,5 +34,10 @@ namespace Vitaru.Input
         Sneak,
         Shoot,
         Spell,
+
+        Increase,
+        Decrease,
+
+        Pull
     }
 }

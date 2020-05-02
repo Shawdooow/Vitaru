@@ -23,6 +23,6 @@ namespace Vitaru.Server.Server
     {
         None,
         Client,
-        All,
+        All
     }
 }

@@ -25,7 +25,7 @@ namespace Vitaru.Gamemodes.Characters
             Add(Hitbox = new Circle
             {
                 Size = new Vector2(character.HitboxDiameter),
-                Alpha = 0,
+                Alpha = 0
             });
         }
 

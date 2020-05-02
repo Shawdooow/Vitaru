@@ -13,13 +13,16 @@ namespace Vitaru.Editor.UI
     {
         public override string Name => "Toolbox";
 
+        private const float width = 140;
+        private const float height = 400;
+
         public Toolbox()
         {
             ParentOrigin = Mounts.CenterLeft;
             Origin = Mounts.CenterLeft;
 
-            Position = new Vector2(10, 0);
-            Size = new Vector2(200, 500);
+            Position = new Vector2(10, -50);
+            Size = new Vector2(width, height);
 
             Children = new IDrawable2D[]
             {
@@ -29,10 +32,10 @@ namespace Vitaru.Editor.UI
                     Child = new Box
                     {
                         Alpha = 0.8f,
-                        Size = new Vector2(200, 500),
-                        Color = Color.Black,
-                    },
-                },
+                        Size = new Vector2(width, height),
+                        Color = Color.Black
+                    }
+                }
             };
         }
     }

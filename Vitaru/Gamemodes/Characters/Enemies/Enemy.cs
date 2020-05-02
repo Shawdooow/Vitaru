@@ -92,7 +92,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 StartTime.ToString(),
                 EndTime.ToString(),
                 $"{StartPosition.X},{StartPosition.Y}",
-                HitboxDiameter.ToString(),
+                HitboxDiameter.ToString()
             };
         }
     }

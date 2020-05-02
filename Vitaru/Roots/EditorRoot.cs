@@ -21,17 +21,18 @@ namespace Vitaru.Roots
                 {
                     new Sprite(Game.TextureStore.GetTexture("Backgrounds\\vitaru spring 2018.png"))
                     {
-                        Scale = new Vector2(0.75f),
+                        Scale = new Vector2(0.75f)
                     },
                     new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Scale = new Vector2(5),
-                    },
-                },
+                        Scale = new Vector2(5)
+                    }
+                }
             });
 
+            Add(new Timeline());
             Add(new Toolbox());
         }
     }

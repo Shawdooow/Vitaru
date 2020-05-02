@@ -7,8 +7,5 @@ namespace Vitaru.Roots
 {
     public class PlayRoot : Root
     {
-        public PlayRoot()
-        {
-        }
     }
 }

@@ -7,8 +7,5 @@ namespace Vitaru.Roots
 {
     public class MainMenuRoot : Root
     {
-        public MainMenuRoot()
-        {
-        }
     }
 }

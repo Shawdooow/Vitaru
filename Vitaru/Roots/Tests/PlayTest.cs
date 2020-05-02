@@ -10,10 +10,11 @@ using Prion.Game;
 using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
+using Vitaru.Editor;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Play;
 using Vitaru.Server.Packets.Lobby;
@@ -21,7 +22,7 @@ using Vitaru.Server.Server;
 
 namespace Vitaru.Roots.Tests
 {
-    public class PlayTest : Root
+    public class PlayTest : PlayRoot
     {
         private readonly Gamefield gamefield;
 
@@ -29,6 +30,8 @@ namespace Vitaru.Roots.Tests
         private readonly VitaruNetHandler vitaruNet;
 
         private AudioDevice device;
+
+        private SeekableClock seekClock;
 
         public PlayTest()
         {
@@ -54,7 +57,10 @@ namespace Vitaru.Roots.Tests
             //    OnPacketReceive = OnPacketRecieve
             //};
 
-            gamefield = new Gamefield();
+            gamefield = new Gamefield
+            {
+                Clock = seekClock = new SeekableClock()
+            };
 
             Add(new SpriteLayer
             {
@@ -77,7 +83,7 @@ namespace Vitaru.Roots.Tests
                 },
             });
 
-            Player player = new Player(gamefield);
+            Player player = new Sakuya(gamefield);
 
             Add(player.InputHandler);
 
@@ -94,9 +100,6 @@ namespace Vitaru.Roots.Tests
 
             //Packs
             Add(gamefield);
-            Add(gamefield.PlayerPack);
-            Add(gamefield.LoadedEnemies);
-            Add(gamefield.ProjectilePack);
 
             //Layers
             Add(gamefield.ProjectileLayer);
@@ -116,9 +119,17 @@ namespace Vitaru.Roots.Tests
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            seekClock.Start();
             enemy();
             //vitaruNet.Connect();
             //createMatch();
+        }
+
+        public override void Update()
+        {
+            seekClock.NewFrame();
+            base.Update();
         }
 
         public override void PreRender()
