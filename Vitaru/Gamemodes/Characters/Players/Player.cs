@@ -100,6 +100,9 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
+            //TODO: TEMP!!!!!!!!!!!!!!!
+            Charge((float)Clock.LastElapsedTime / 1000);
+
             SpellUpdate();
         }
 
