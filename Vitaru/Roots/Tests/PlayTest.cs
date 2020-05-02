@@ -37,7 +37,7 @@ namespace Vitaru.Roots.Tests
         {
             device = new AudioDevice();
 
-            Sample sample = new Sample("alki main theme menu bells.mp3");
+            Sample sample = new Sample("alki endgame.wav");
 
             sample.Play();
 
