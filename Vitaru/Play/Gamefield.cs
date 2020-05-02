@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using Prion.Application.Groups.Packs;
+using Prion.Game.Audio;
 using Prion.Game.Graphics.Layers;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;

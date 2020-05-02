@@ -212,8 +212,8 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             //    }
             //}
 
-            //if (clock is IHasPitchAdjust pitchAdjust)
-            //    pitchAdjust.PitchAdjust = speed;
+            if (Track != null)
+                Track.Pitch = (float)speed;
             clock.Rate = speed;
 
             MovementSpeedMultiplier = 1 / speed;

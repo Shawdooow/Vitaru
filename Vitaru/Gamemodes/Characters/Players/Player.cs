@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
 using Prion.Application.Utilities;
+using Prion.Game.Audio;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
@@ -55,6 +56,8 @@ namespace Vitaru.Gamemodes.Characters.Players
         public virtual bool Implemented { get; }
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
+
+        public Sample Track { get; set; }
 
         private Vector2 cursor = Vector2.Zero;
 

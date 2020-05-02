@@ -37,7 +37,8 @@ namespace Vitaru.Roots.Tests
         {
             device = new AudioDevice();
 
-            Sample sample = new Sample(PrionMath.RandomNumber(0, 10) == 5 ? "alki endgame.wav" : "alki main theme menu bells.mp3");
+            int rand = PrionMath.RandomNumber(0, 10);
+            Sample sample = new Sample(rand == 5 ? "alki endgame.wav" : "alki bells.mp3");
 
             sample.Play();
 
@@ -59,7 +60,7 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                Clock = seekClock = new SeekableClock()
+                Clock = seekClock = new SeekableClock(),
             };
 
             Add(new SpriteLayer
@@ -83,7 +84,10 @@ namespace Vitaru.Roots.Tests
                 },
             });
 
-            Player player = new Sakuya(gamefield);
+            Player player = new Sakuya(gamefield)
+            {
+                Track = sample,
+            };
 
             Add(player.InputHandler);
 
