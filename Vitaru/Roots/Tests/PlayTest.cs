@@ -146,8 +146,11 @@ namespace Vitaru.Roots.Tests
         {
             Level level = new Level
             {
-                LevelTitle = "Debug Level",
-                LevelArtist = "Shawdooow",
+                LevelTrack = new LevelTrack
+                {
+                    Name = "Alki Bells",
+                    Artist = "Shawdooow",
+                },
                 LevelCreator = "Shawdooow",
                 LevelDifficulty = 2,
                 LevelName = "Corona Man",

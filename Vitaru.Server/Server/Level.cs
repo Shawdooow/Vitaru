@@ -8,9 +8,7 @@ namespace Vitaru.Server.Server
     [Serializable]
     public class Level
     {
-        public string LevelTitle;
-
-        public string LevelArtist;
+        public LevelTrack LevelTrack;
 
         public string LevelCreator;
 
