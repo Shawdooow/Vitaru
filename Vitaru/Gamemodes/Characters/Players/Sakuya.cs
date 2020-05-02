@@ -213,7 +213,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             //}
 
             if (Track != null)
-                Track.Pitch = (float)speed;
+                Track.Pitch = (float) speed;
             clock.Rate = speed;
 
             MovementSpeedMultiplier = 1 / speed;

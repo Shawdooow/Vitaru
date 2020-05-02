@@ -60,7 +60,7 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                Clock = seekClock = new SeekableClock(),
+                Clock = seekClock = new SeekableClock()
             };
 
             Add(new SpriteLayer
@@ -69,24 +69,24 @@ namespace Vitaru.Roots.Tests
                 {
                     new Sprite(Game.TextureStore.GetTexture("Backgrounds\\medicine.png"))
                     {
-                        Scale = new Vector2(2f),
+                        Scale = new Vector2(2f)
                     },
                     new Sprite(Game.TextureStore.GetTexture("Backgrounds\\vitaru spring 2018.png"))
                     {
-                        Scale = new Vector2(0.75f),
+                        Scale = new Vector2(0.75f)
                     },
                     new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Scale = new Vector2(5),
-                    },
-                },
+                        Scale = new Vector2(5)
+                    }
+                }
             });
 
             Player player = new Sakuya(gamefield)
             {
-                Track = sample,
+                Track = sample
             };
 
             Add(player.InputHandler);
@@ -116,7 +116,7 @@ namespace Vitaru.Roots.Tests
             {
                 StartTime = Clock.Current,
                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                OnDie = enemy,
+                OnDie = enemy
             });
         }
 
@@ -151,7 +151,7 @@ namespace Vitaru.Roots.Tests
                 LevelCreator = "Shawdooow",
                 LevelDifficulty = 2,
                 LevelName = "Corona Man",
-                GamemodeName = "Tau",
+                GamemodeName = "Tau"
             };
 
             SendPacket(new CreateMatchPacket
@@ -159,7 +159,7 @@ namespace Vitaru.Roots.Tests
                 MatchInfo = new MatchInfo
                 {
                     Host = vitaruNet.VitaruUser,
-                    Level = level,
+                    Level = level
                 }
             });
         }
@@ -181,7 +181,7 @@ namespace Vitaru.Roots.Tests
                     SendPacket(new JoinMatchPacket
                     {
                         Match = matchCreated.MatchInfo,
-                        User = vitaruNet.VitaruUser,
+                        User = vitaruNet.VitaruUser
                     });
                     break;
                 case JoinedMatchPacket joinedMatch:

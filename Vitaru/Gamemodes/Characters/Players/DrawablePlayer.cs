@@ -22,7 +22,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             {
                 Scale = new Vector2(0.3f),
                 Alpha = 0.5f,
-                Color = player.PrimaryColor,
+                Color = player.PrimaryColor
             }, AddPosition.First);
         }
     }

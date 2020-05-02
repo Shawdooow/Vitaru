@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Entitys;
 using Prion.Application.Utilities;
 using Prion.Game.Audio;
 using Prion.Game.Graphics.Transforms;
@@ -99,7 +98,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             //TODO: fix this being needed?
             if (Drawable == null) return;
 
-            DrawablePlayer.SignSprite.Rotation = (float)(-Clock.LastCurrent / 1000);
+            DrawablePlayer.SignSprite.Rotation = (float) (-Clock.LastCurrent / 1000);
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
@@ -162,7 +161,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
             DrawablePlayer.SignSprite.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
         }
-
 
 
         #region Input
@@ -237,7 +235,6 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         #endregion
-
 
 
         #region Spell Handling
