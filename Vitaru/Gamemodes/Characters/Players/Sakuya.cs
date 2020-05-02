@@ -56,8 +56,6 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             "       They have put there differences aside once to fight off something bigger then all of them combined, " +
             "but as the phrase goes: \"Greater than the sum of its parts\" they were able to hold the fort long enough to succeed.";
 
-        public override bool Implemented => false;
-
         private AdjustableClock adjustable;
 
         public override DrawablePlayer GenerateDrawable()
@@ -116,7 +114,7 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             base.SpellActivate(action);
 
             if (originalRate == 0)
-                originalRate = (float) ((AdjustableClock) Clock).Rate;
+                originalRate = (float) adjustable.Rate;
 
             currentRate = originalRate * SetRate;
             applyToClock(adjustable, currentRate);
@@ -124,35 +122,35 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
             DrawablePlayer.SignSprite.Color = Color.DarkRed;
 
             if (currentRate > 0)
-                spellEndTime = Clock.Current + 2000;
+                spellEndTime = Clock.LastCurrent + 2000;
             else if (currentRate == 0)
-                spellEndTime = Clock.Current;
+                spellEndTime = Clock.LastCurrent;
             else
-                spellEndTime = Clock.Current - 2000;
+                spellEndTime = Clock.LastCurrent - 2000;
         }
 
         protected override void SpellUpdate()
         {
             base.SpellUpdate();
 
-            if (spellEndTime >= Clock.Current && currentRate > 0 ||
-                spellEndTime == Clock.Current && currentRate == 0 ||
-                spellEndTime <= Clock.Current && currentRate < 0)
+            if (spellEndTime >= Clock.LastCurrent && currentRate > 0 ||
+                spellEndTime == Clock.LastCurrent && currentRate == 0 ||
+                spellEndTime <= Clock.LastCurrent && currentRate < 0)
                 if (!SpellActive)
                 {
-                    currentRate += (float) Clock.ElapsedTime / 100;
+                    currentRate += (float) Clock.LastElapsedTime / 100;
 
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
 
                     applyToClock(adjustable, currentRate);
 
-                    if (currentRate > 0 && spellEndTime - 500 <= Clock.Current)
+                    if (currentRate > 0 && spellEndTime - 500 <= Clock.LastCurrent)
                     {
                         currentRate = originalRate;
                         applyToClock(adjustable, currentRate);
                     }
-                    else if (currentRate < 0 && spellEndTime + 500 >= Clock.Current)
+                    else if (currentRate < 0 && spellEndTime + 500 >= Clock.LastCurrent)
                     {
                         currentRate = originalRate;
                         applyToClock(adjustable, currentRate);
@@ -167,16 +165,16 @@ namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
                     else if (currentRate >= 1)
                         energyDrainMultiplier = currentRate - originalRate;
 
-                    DrainEnergy((float) Clock.ElapsedTime / 1000f *
+                    DrainEnergy((float) Clock.LastElapsedTime / 1000f *
                                 (1f / (float) currentRate * (float) energyDrainMultiplier * EnergyDrainRate +
                                  EnergyCost));
 
                     if (currentRate > 0)
-                        spellEndTime = Clock.Current + 2000;
+                        spellEndTime = Clock.LastCurrent + 2000;
                     else if (currentRate == 0)
-                        spellEndTime = Clock.Current;
+                        spellEndTime = Clock.LastCurrent;
                     else
-                        spellEndTime = Clock.Current - 2000;
+                        spellEndTime = Clock.LastCurrent - 2000;
 
                     currentRate = originalRate * SetRate;
                     applyToClock(adjustable, currentRate);

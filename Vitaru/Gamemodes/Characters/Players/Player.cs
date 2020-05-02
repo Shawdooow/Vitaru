@@ -52,8 +52,6 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public virtual string Background => "Default Background Text   C:<";
 
-        public virtual bool Implemented { get; }
-
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
         public Sample Track { get; set; }
