@@ -114,7 +114,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield.Add(new Enemy(gamefield)
             {
-                StartTime = Clock.Current,
+                StartTime = Clock.LastCurrent,
                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
                 OnDie = enemy
             });

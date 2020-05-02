@@ -50,14 +50,14 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             base.Update();
 
-            if (Clock.Current + TimePreLoad >= StartTime && Clock.Current < EndTime + TimeUnLoad && !PreLoaded)
+            if (Clock.LastCurrent + TimePreLoad >= StartTime && Clock.LastCurrent < EndTime + TimeUnLoad && !PreLoaded)
                 PreLoad();
-            else if ((Clock.Current + TimePreLoad < StartTime || Clock.Current >= EndTime + TimeUnLoad) && PreLoaded)
+            else if ((Clock.LastCurrent + TimePreLoad < StartTime || Clock.LastCurrent >= EndTime + TimeUnLoad) && PreLoaded)
                 UnLoad();
 
-            if (Clock.Current >= StartTime && Clock.Current < EndTime && !Started)
+            if (Clock.LastCurrent >= StartTime && Clock.LastCurrent < EndTime && !Started)
                 Start();
-            else if ((Clock.Current < StartTime || Clock.Current >= EndTime) && Started)
+            else if ((Clock.LastCurrent < StartTime || Clock.LastCurrent >= EndTime) && Started)
                 End();
         }
 
@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         protected override void Die()
         {
             base.Die();
-            EndTime = Clock.Current;
+            EndTime = Clock.LastCurrent;
             Drawable.Delete();
             Gamefield.Remove(this);
         }
