@@ -58,15 +58,19 @@ namespace Vitaru.Gamemodes.Characters.Players
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
         //Is reset after healing applied
-        public double HealingMultiplier = 1;
+        public float HealingMultiplier = 1;
 
         protected List<HealingProjectile> HealingProjectiles { get; private set; } = new List<HealingProjectile>();
 
         protected const float HEALING_FALL_OFF = 0.85f;
 
-        private const float healing_range = 64;
+        private const float healing_range = 64f;
         private const float healing_min = 0.5f;
         private const float healing_max = 2f;
+
+        private double lastQuarterBeat = -1;
+        private double nextHalfBeat = -1;
+        private double nextQuarterBeat = -1;
 
         private Vector2 cursor = Vector2.Zero;
 
@@ -97,9 +101,63 @@ namespace Vitaru.Gamemodes.Characters.Players
             Energy = EnergyCapacity / 2f;
         }
 
+
+
+        #region Beat
+
+
+
+        public override void OnNewBeat()
+        {
+            base.OnNewBeat();
+
+            OnHalfBeat();
+            lastQuarterBeat = Clock.LastCurrent;
+            nextHalfBeat = Clock.LastCurrent + Track.Level.GetBeatLength() / 2;
+            nextQuarterBeat = Clock.LastCurrent + Track.Level.GetBeatLength() / 4;
+        }
+
+        protected virtual void OnHalfBeat()
+        {
+            nextHalfBeat = -1;
+        }
+
+        protected virtual void OnQuarterBeat()
+        {
+            lastQuarterBeat = nextQuarterBeat;
+            nextQuarterBeat += Track.Level.GetBeatLength() / 4;
+
+            if (HealingProjectiles.Count > 0)
+            {
+                float fallOff = 1;
+
+                for (int i = 0; i < HealingProjectiles.Count - 1; i++)
+                    fallOff *= HEALING_FALL_OFF;
+
+                foreach (HealingProjectile healingBullet in HealingProjectiles)
+                {
+                    Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
+                }
+                HealingProjectiles = new List<HealingProjectile>();
+                HealingMultiplier = 1;
+            }
+        }
+
+
+
+        #endregion
+
+
+
         public override void Update()
         {
             base.Update();
+
+            if (nextHalfBeat <= Clock.Current && nextHalfBeat != -1)
+                OnHalfBeat();
+
+            if (nextQuarterBeat <= Clock.Current && nextQuarterBeat != -1)
+                OnQuarterBeat();
 
             if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
                 PatternWave();
