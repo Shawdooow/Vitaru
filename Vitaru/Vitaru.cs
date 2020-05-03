@@ -17,6 +17,9 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
+        /// <summary>
+        ///     Bool for easter egg Alki mode.
+        /// </summary>
         public static bool ALKI { get; private set; }
 
         public static void Main(string[] args)
@@ -51,6 +54,7 @@ namespace Vitaru
             Renderer.Window.Title = ALKI ? "Alki" : "Vitaru";
             Renderer.Window.Icon =
                 new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+
             base.Start();
         }
 
@@ -60,6 +64,10 @@ namespace Vitaru
             base.Update();
         }
 
+        /// <summary>
+        ///     Get menu Background <see cref="Texture" />
+        /// </summary>
+        /// <returns></returns>
         public static Texture GetBackground() =>
             TextureStore.GetTexture(ALKI
                 ? "Backgrounds\\Vitaru Fall BG 1440.png"
