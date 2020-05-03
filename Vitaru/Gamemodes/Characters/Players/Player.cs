@@ -293,6 +293,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 default:
                     return true;
                 case VitaruActions.Sneak:
+                    Drawable.HitboxOutline.FadeTo(1f, 200);
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
                 case VitaruActions.Shoot:
@@ -312,6 +313,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return true;
 
                 case VitaruActions.Sneak:
+                    Drawable.HitboxOutline.ClearTransforms();
+                    Drawable.HitboxOutline.FadeTo(0f, 200);                    
                     Drawable.Hitbox.ClearTransforms();
                     Drawable.Hitbox.FadeTo(0f, 200);
                     return true;

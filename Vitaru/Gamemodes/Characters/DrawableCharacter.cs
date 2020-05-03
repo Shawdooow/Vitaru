@@ -15,6 +15,7 @@ namespace Vitaru.Gamemodes.Characters
         public readonly Sprite Sprite;
 
         public readonly Circle Hitbox;
+        public readonly Circle HitboxOutline;
 
         protected DrawableCharacter(Character character, Texture t)
         {
@@ -22,6 +23,12 @@ namespace Vitaru.Gamemodes.Characters
             Name = Sprite.Name;
             Size = Sprite.Size;
 
+            Add(HitboxOutline = new Circle
+            {
+                Color = character.PrimaryColor,
+                Size = new Vector2(character.HitboxDiameter * 1.75f),
+                Alpha = 0
+            });
             Add(Hitbox = new Circle
             {
                 Size = new Vector2(character.HitboxDiameter),
