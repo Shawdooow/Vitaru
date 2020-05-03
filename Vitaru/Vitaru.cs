@@ -1,7 +1,9 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Drawing;
+using Prion.Application.Debug;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
@@ -20,8 +22,9 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             ALKI = PrionMath.RandomNumber(0, 10) == 5;
+            if (ALKI) Logger.ConsoleLog("ALKI", ConsoleColor.Magenta);
             using (Vitaru vitaru = new Vitaru(args))
-                vitaru.Start(new PlayTest());
+                vitaru.Start(new TestMenu());
         }
 
         protected Vitaru(string[] args) : base("vitaru", args, "GL46")

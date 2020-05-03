@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using OpenTK.Input;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
@@ -67,10 +68,6 @@ namespace Vitaru.Roots.Tests
             {
                 Children = new[]
                 {
-                    new Sprite(Game.TextureStore.GetTexture("Backgrounds\\medicine.png"))
-                    {
-                        Scale = new Vector2(2f)
-                    },
                     new Sprite(Vitaru.GetBackground())
                     {
                         Scale = new Vector2(0.75f)
@@ -196,6 +193,18 @@ namespace Vitaru.Roots.Tests
                     break;
                 case JoinedMatchPacket joinedMatch:
                     //Push(new MatchScreen(vitaruNet, joinedMatch));
+                    break;
+            }
+        }
+
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    SetRoot(new TestMenu());
                     break;
             }
         }
