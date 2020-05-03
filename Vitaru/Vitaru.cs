@@ -5,6 +5,7 @@ using System.Drawing;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
+using Prion.Game.Graphics.Sprites;
 using Vitaru.Roots.Tests;
 
 //using Prion.Integrations.Discord;
@@ -54,5 +55,7 @@ namespace Vitaru
             //DiscordGame.RunCallbacks();
             base.Update();
         }
+
+        public static Texture GetBackground() => TextureStore.GetTexture(ALKI ? "Backgrounds\\Vitaru Fall BG 1440.png" : "Backgrounds\\vitaru spring 2018.png");
     }
 }

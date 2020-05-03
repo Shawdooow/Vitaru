@@ -71,7 +71,7 @@ namespace Vitaru.Roots.Tests
                     {
                         Scale = new Vector2(2f)
                     },
-                    new Sprite(Game.TextureStore.GetTexture(Vitaru.ALKI ? "Backgrounds\\Vitaru Fall BG 1440.png" : "Backgrounds\\vitaru spring 2018.png"))
+                    new Sprite(Vitaru.GetBackground())
                     {
                         Scale = new Vector2(0.75f)
                     },
