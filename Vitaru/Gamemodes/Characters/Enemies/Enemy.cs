@@ -23,7 +23,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return draw;
         }
 
-        public override Color PrimaryColor => global::Vitaru.Vitaru.RANDOM == 5 ? Color.Magenta : Color.Chartreuse;
+        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color.Chartreuse;
 
         public Vector2 StartPosition { get; set; }
 

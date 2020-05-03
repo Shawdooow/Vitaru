@@ -14,11 +14,11 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
-        public static int RANDOM { get; private set; }
+        public static bool ALKI { get; private set; }
 
         public static void Main(string[] args)
         {
-            RANDOM = PrionMath.RandomNumber(0, 10);
+            ALKI = PrionMath.RandomNumber(0, 10) == 5;
             using (Vitaru vitaru = new Vitaru(args))
                 vitaru.Start(new PlayTest());
         }
@@ -44,8 +44,8 @@ namespace Vitaru
 
         public override void Start()
         {
-            Renderer.Window.Title = RANDOM == 5 ? "Alki" : "Vitaru";
-            Renderer.Window.Icon = new Icon(AssetStorage.GetStream(RANDOM == 5 ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+            Renderer.Window.Title = ALKI ? "Alki" : "Vitaru";
+            Renderer.Window.Icon = new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
             base.Start();
         }
 
