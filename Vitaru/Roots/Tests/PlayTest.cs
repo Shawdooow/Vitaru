@@ -30,18 +30,13 @@ namespace Vitaru.Roots.Tests
         private readonly VitaruServerNetHandler vitaruServer;
         private readonly VitaruNetHandler vitaruNet;
 
-        private readonly AudioDevice device;
-        private readonly Sample sample;
+        private readonly SeekableClock seek;
+        private readonly RepeatableSample track;
 
-        private SeekableClock seekClock;
-
-        private double sampleStartTime = double.MinValue;
-
-        public PlayTest()
+        public PlayTest(SeekableClock seek, RepeatableSample track)
         {
-            device = new AudioDevice();
-            
-            sample = new Sample(Vitaru.ALKI ? "alki endgame.wav" : "alki bells.mp3");
+            this.seek = seek;
+            this.track = track;
 
             string address = "127.0.0.1:36840";
             //vitaruServer = new VitaruServerNetHandler
@@ -61,7 +56,7 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                Clock = seekClock = new SeekableClock()
+                Clock = seek,
             };
 
             Add(new SpriteLayer
@@ -83,7 +78,7 @@ namespace Vitaru.Roots.Tests
 
             Player player = new Sakuya(gamefield)
             {
-                Track = sample
+                Track = track
             };
 
             Add(player.InputHandler);
@@ -121,7 +116,6 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
 
-            seekClock.Start();
             enemy();
             //vitaruNet.Connect();
             //createMatch();
@@ -129,15 +123,9 @@ namespace Vitaru.Roots.Tests
 
         public override void Update()
         {
-            seekClock.NewFrame();
+            seek.NewFrame();
+            track.CheckRepeat();
             base.Update();
-
-            if (seekClock.LastCurrent >= sampleStartTime + sample.Length * 1000)
-            {
-                sample.Seek(0);
-                sample.Play();
-                sampleStartTime = seekClock.LastCurrent;
-            }
         }
 
         public override void PreRender()
