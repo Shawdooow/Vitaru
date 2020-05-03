@@ -204,7 +204,7 @@ namespace Vitaru.Roots.Tests
             switch (e.Key)
             {
                 case Key.Escape:
-                    SetRoot(new TestMenu());
+                    DropRoot();
                     break;
             }
         }
