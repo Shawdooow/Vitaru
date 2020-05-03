@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contagion", "..\Prion\Conta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Application", "..\Prion\Prion.Application\Prion.Application.csproj", "{A3AF3153-D11D-43EC-A125-190405A14768}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Integrations", "..\Prion\Prion.Integrations\Prion.Integrations.csproj", "{72412B91-9F77-4B17-8005-3B588F9B80FE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Game", "..\Prion\Prion.Game\Prion.Game.csproj", "{B28E483E-4645-4245-9889-D204D5331A88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vitaru", "Vitaru\Vitaru.csproj", "{0DEAAAD3-995D-49E2-9ADC-3CF2D1816C82}"
@@ -18,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vitaru.Server", "Vitaru.Server\Vitaru.Server.csproj", "{4FA72FAD-6C19-4A75-B008-0F3E668D6A6A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "osu.Game.Rulesets.Vitaru", "..\sym-server\osu-sym\osu.Game.Rulesets.Vitaru\osu.Game.Rulesets.Vitaru.csproj", "{E70687BE-13A5-4440-BAC3-2B1389263E30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OG Vitaru", "OG Vitaru", "{A0A00FD8-0988-4D99-A179-2C5D5F573ED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,12 +38,6 @@ Global
 		{A3AF3153-D11D-43EC-A125-190405A14768}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{A3AF3153-D11D-43EC-A125-190405A14768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AF3153-D11D-43EC-A125-190405A14768}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Publish|Any CPU.Build.0 = Publish|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72412B91-9F77-4B17-8005-3B588F9B80FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B28E483E-4645-4245-9889-D204D5331A88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B28E483E-4645-4245-9889-D204D5331A88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B28E483E-4645-4245-9889-D204D5331A88}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
@@ -75,8 +69,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A132BB89-8317-4CD4-8B7A-13C15464ADFD} = {E0619336-A94F-4280-838B-484A35261D76}
 		{A3AF3153-D11D-43EC-A125-190405A14768} = {E0619336-A94F-4280-838B-484A35261D76}
-		{72412B91-9F77-4B17-8005-3B588F9B80FE} = {E0619336-A94F-4280-838B-484A35261D76}
 		{B28E483E-4645-4245-9889-D204D5331A88} = {E0619336-A94F-4280-838B-484A35261D76}
+		{E70687BE-13A5-4440-BAC3-2B1389263E30} = {A0A00FD8-0988-4D99-A179-2C5D5F573ED6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FF9E9E5-F170-4859-B102-80968AAE1D5A}
