@@ -3,7 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Game;
+using OpenTK.Input;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
@@ -34,6 +34,18 @@ namespace Vitaru.Roots
 
             Add(new Timeline());
             Add(new Toolbox());
+        }
+
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    DropRoot();
+                    break;
+            }
         }
     }
 }

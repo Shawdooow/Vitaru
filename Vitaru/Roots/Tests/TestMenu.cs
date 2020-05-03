@@ -40,14 +40,30 @@ namespace Vitaru.Roots.Tests
                 }
             });
 
-            Add(new Button
-            {
-                //Position = new Vector2(0, 200),
+            Button play;
+            Button edit;
 
-                Background = Game.TextureStore.GetTexture("Shrek.png"),
+            Add(play = new Button
+            {
+                Position = new Vector2(200, 0),
+                Size = new Vector2(200),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
 
                 OnClick = () => AddRoot(new PlayTest(seek, track))
             });
+            Add(edit = new Button
+            {
+                Position = new Vector2(-200, 0),
+                Size = new Vector2(200),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+
+                OnClick = () => AddRoot(new EditorTest())
+            });
+
+            play.BackgroundSprite.Color = Color.GreenYellow;
+            edit.BackgroundSprite.Color = Color.DarkTurquoise;
         }
 
         public override void LoadingComplete()
