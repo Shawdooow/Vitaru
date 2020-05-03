@@ -33,5 +33,21 @@ namespace Vitaru.Tracks
             nextBeat = Clock.LastCurrent + Level.GetBeatLength();
             return true;
         }
+
+        public static LevelTrack GetBells() => new LevelTrack
+        {
+            Name = "Alki Bells",
+            Filename = "alki bells.mp3",
+            Artist = "Shawdooow",
+            BPM = 96,
+        };
+
+        public static LevelTrack GetEndgame() => new LevelTrack
+        {
+            Name = "Alki Endgame",
+            Filename = "alki endgame.wav",
+            Artist = "Shawdooow",
+            BPM = 96,
+        };
     }
 }

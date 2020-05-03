@@ -6,9 +6,11 @@ using System.Numerics;
 using Prion.Game;
 using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Editor;
 using Vitaru.Server.Track;
@@ -50,7 +52,7 @@ namespace Vitaru.Roots.Tests
             Add(play = new Button
             {
                 Position = new Vector2(200, 0),
-                Size = new Vector2(200),
+                Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
 
@@ -59,11 +61,32 @@ namespace Vitaru.Roots.Tests
             Add(edit = new Button
             {
                 Position = new Vector2(-200, 0),
-                Size = new Vector2(200),
+                Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
 
                 OnClick = () => AddRoot(new EditorTest())
+            });
+
+            Add(new SpriteText
+            {
+                Position = new Vector2(200, 0),
+                Text = "Play",
+                TextScale = 0.5f,
+            });
+            Add(new SpriteText
+            {
+                Position = new Vector2(-200, 0),
+                Text = "Edit",
+                TextScale = 0.5f,
+            });
+
+            Add(new SpriteText
+            {
+                Position = new Vector2(-20, 10),
+                ParentOrigin = Mounts.TopLeft,
+                Origin = Mounts.TopLeft,
+                Text = Vitaru.ALKI ? "Alki" : "Vitaru",
             });
 
             play.BackgroundSprite.Color = Color.GreenYellow;
@@ -74,24 +97,8 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
             seek.Start();
-            track = new Track(Vitaru.ALKI ? GetEndgame() : GetBells(), seek);
+            track = new Track(Vitaru.ALKI ? Track.GetEndgame() : Track.GetBells(), seek);
         }
-
-        private static LevelTrack GetBells() => new LevelTrack
-        {
-            Name = "Alki Bells",
-            Filename = "alki bells.mp3",
-            Artist = "Shawdooow",
-            BPM = 96,
-        };        
-
-        private static LevelTrack GetEndgame() => new LevelTrack
-        {
-            Name = "Alki Endgame",
-            Filename = "alki endgame.wav",
-            Artist = "Shawdooow",
-            BPM = 96,
-        };
 
         public override void Update()
         {
