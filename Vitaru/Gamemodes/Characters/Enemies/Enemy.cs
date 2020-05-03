@@ -84,7 +84,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             Player player = (Player) Gamefield.PlayerPack.Children[0];
 
-            float cursorAngle =
+            float playerAngle =
                 ((float) Math.Atan2(player.Position.Y - Drawable.Position.Y, player.Position.X - Drawable.Position.X))
                 .ToDegrees() + 90;
 
@@ -108,7 +108,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 }
 
                 //-90 = up
-                BulletAddRad(0.5f, (cursorAngle - 90).ToRadians() + directionModifier, color, size, 0);
+                BulletAddRad(0.25f, (playerAngle - 90).ToRadians() + directionModifier, color, size, 0);
                 directionModifier += 0.2f;
             }
         }

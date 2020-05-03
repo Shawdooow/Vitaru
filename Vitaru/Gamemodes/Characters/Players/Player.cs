@@ -167,7 +167,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
-            shootTime = Clock.Current + Track.Level.GetBeatLength() / 4;
+            shootTime = Clock.Current + Track.Level.GetBeatLength() / 2;
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;

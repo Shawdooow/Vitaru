@@ -16,11 +16,21 @@ namespace Vitaru.Tracks
             Level = level;
         }
 
+        public override void Play()
+        {
+            base.Play();
+        }
+
+        public override void Seek(double time)
+        {
+            base.Seek(time);
+        }
+
         public virtual bool CheckNewBeat()
         {
             if (!(Clock.LastCurrent >= nextBeat)) return false;
 
-            nextBeat = Clock.LastCurrent + Level.GetBeatLength() / 4;
+            nextBeat = Clock.LastCurrent + Level.GetBeatLength();
             return true;
         }
     }
