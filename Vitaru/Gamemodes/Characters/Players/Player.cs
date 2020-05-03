@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
@@ -11,6 +12,7 @@ using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
 using Prion.Game.Input.Receivers;
+using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
 
@@ -54,12 +56,23 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public BindInputHandler<VitaruActions> InputHandler { get; set; }
 
+        //Is reset after healing applied
+        public double HealingMultiplier = 1;
+
+        protected List<HealingProjectile> HealingProjectiles { get; private set; } = new List<HealingProjectile>();
+
+        protected const float HEALING_FALL_OFF = 0.85f;
+
+        private const float healing_range = 64;
+        private const float healing_min = 0.5f;
+        private const float healing_max = 2f;
+
         public Sample Track { get; set; }
 
         private Vector2 cursor = Vector2.Zero;
 
         private double shootTime;
-        private const double shoot_speed = 250;
+        private const double beat_length = 250;
 
         protected DrawablePlayer DrawablePlayer => (DrawablePlayer) Drawable;
 
@@ -96,19 +109,66 @@ namespace Vitaru.Gamemodes.Characters.Players
             //TODO: fix this being needed?
             if (Drawable == null) return;
 
+            if (HealingProjectiles.Count > 0)
+            {
+                float fallOff = 1;
+
+                for (int i = 0; i < HealingProjectiles.Count - 1; i++)
+                    fallOff *= HEALING_FALL_OFF;
+
+                foreach (HealingProjectile healingBullet in HealingProjectiles)
+                    Charge((float)Clock.LastElapsedTime / 500 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+            }
+
             DrawablePlayer.SignSprite.Rotation = (float) (-Clock.LastCurrent / 1000);
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
-            //TODO: TEMP!!!!!!!!!!!!!!!
-            Charge((float) Clock.LastElapsedTime / 1000);
-
             SpellUpdate();
+        }
+
+        protected override void ParseProjectile(Projectile projectile)
+        {
+            base.ParseProjectile(projectile);
+
+            Vector2 difference = projectile.Position - Drawable.Position;
+
+            float distance = (float)Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
+            float edgeDistance;
+
+            switch (projectile)
+            {
+                default:
+                    return;
+                case Bullet bullet:
+                    edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
+                    break;
+            }
+
+            if (edgeDistance < 64)
+            {
+                bool add = true;
+                foreach (HealingProjectile healingProjectile in HealingProjectiles)
+                    if (healingProjectile.Projectile == projectile)
+                    {
+                        healingProjectile.EdgeDistance = edgeDistance;
+                        add = false;
+                    }
+
+                if (add)
+                    HealingProjectiles.Add(new HealingProjectile(projectile, edgeDistance));
+            }
+
+            //if (ChapterSet is DodgeChapterSet)
+            //    edgeDistance *= 1.5f;
+
+            if (edgeDistance < projectile.MinDistance)
+                projectile.MinDistance = edgeDistance;
         }
 
         protected virtual void PatternWave()
         {
-            shootTime = Clock.Current + shoot_speed;
+            shootTime = Clock.Current + beat_length;
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;
@@ -291,6 +351,23 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         #endregion
+
+
+
+        protected virtual float GetBulletHealingMultiplier(float value) => PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
+
+        protected class HealingProjectile
+        {
+            public readonly Projectile Projectile;
+
+            public float EdgeDistance { get; set; }
+
+            public HealingProjectile(Projectile projectile, float distance)
+            {
+                Projectile = projectile;
+                EdgeDistance = distance;
+            }
+        }
     }
 
     public enum Role

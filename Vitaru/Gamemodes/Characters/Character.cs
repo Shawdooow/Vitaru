@@ -26,6 +26,8 @@ namespace Vitaru.Gamemodes.Characters
 
         public bool Dead { get; protected set; }
 
+        public Vector2 Position => Drawable?.Position ?? Vector2.Zero;
+
         protected virtual DrawableCharacter Drawable { get; set; }
 
         public virtual Color PrimaryColor => Color.Green;
@@ -57,12 +59,15 @@ namespace Vitaru.Gamemodes.Characters
                 {
                     Projectile projectile = Gamefield.ProjectilePack.Children[i];
 
+                    //TODO: Optimize this by using different Lists/Layers so we don't have to check ones on our team
                     if (projectile.Team == Team) continue;
+
+                    ParseProjectile(projectile);
 
                     Vector2 difference = projectile.Position - Drawable.Position;
 
                     double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-                    double edgeDistance = double.MaxValue;
+                    double edgeDistance;
 
                     switch (projectile)
                     {
@@ -81,6 +86,11 @@ namespace Vitaru.Gamemodes.Characters
                 }
             }
         }
+
+        /// <summary>
+        /// Gets called just before hit detection
+        /// </summary>
+        protected virtual void ParseProjectile(Projectile projectile) { }
 
         protected virtual void Hit(Projectile projectile)
         {

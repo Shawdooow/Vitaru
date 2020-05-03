@@ -1,9 +1,14 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Utilities;
+using Prion.Game.Input.Handlers;
 using Vitaru.Editor.IO;
+using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Input;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
@@ -25,6 +30,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color.Chartreuse;
 
+        public override Color SecondaryColor => global::Vitaru.Vitaru.ALKI ? Color.MidnightBlue : Color.Red;
+
         public Vector2 StartPosition { get; set; }
 
         public virtual double StartTime { get; set; }
@@ -40,6 +47,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public bool PreLoaded { get; private set; }
 
         public bool Started { get; private set; }
+
+        private double shootTime;
+        private const double beat_length = 500;
 
         public Enemy(Gamefield gamefield) : base(gamefield)
         {
@@ -60,6 +70,48 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 Start();
             else if ((Clock.LastCurrent < StartTime || Clock.LastCurrent >= EndTime) && Started)
                 End();
+
+            //TODO: remove this
+            if (Drawable == null) return;
+
+            if (Clock.LastCurrent >= shootTime)
+                ShootPlayer();
+        }
+
+        protected virtual void ShootPlayer()
+        {
+            shootTime = Clock.Current + beat_length;
+
+            const int numberbullets = 3;
+            float directionModifier = -0.2f;
+
+            Player player = (Player)Gamefield.PlayerPack.Children[0];
+
+            float cursorAngle = ((float)Math.Atan2(player.Position.Y - Drawable.Position.Y, player.Position.X - Drawable.Position.X)).ToDegrees() + 90;
+
+            for (int i = 1; i <= numberbullets; i++)
+            {
+                float size;
+                //float damage;
+                Color color;
+
+                if (i % 2 == 0)
+                {
+                    size = 28;
+                    //damage = 24;
+                    color = PrimaryColor;
+                }
+                else
+                {
+                    size = 20;
+                    //damage = 18;
+                    color = SecondaryColor;
+                }
+
+                //-90 = up
+                BulletAddRad(0.5f, (cursorAngle - 90).ToRadians() + directionModifier, color, size, 0);
+                directionModifier += 0.2f;
+            }
         }
 
         protected virtual void PreLoad() => PreLoaded = true;
