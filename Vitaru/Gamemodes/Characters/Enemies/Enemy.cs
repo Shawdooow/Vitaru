@@ -14,7 +14,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public const int ENEMY_TEAM = 0;
 
-        public override float HitboxDiameter => 48f;
+        public override float HitboxDiameter => 50f;
 
         public virtual DrawableEnemy GenerateDrawable()
         {
@@ -23,7 +23,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return draw;
         }
 
-        public override Color PrimaryColor => Color.Chartreuse;
+        public override Color PrimaryColor => global::Vitaru.Vitaru.RANDOM == 5 ? Color.Magenta : Color.Chartreuse;
 
         public Vector2 StartPosition { get; set; }
 

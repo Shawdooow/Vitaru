@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
+using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
 using Vitaru.Roots.Tests;
@@ -13,8 +14,11 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
+        public static int RANDOM { get; private set; }
+
         public static void Main(string[] args)
         {
+            RANDOM = PrionMath.RandomNumber(0, 10);
             using (Vitaru vitaru = new Vitaru(args))
                 vitaru.Start(new PlayTest());
         }
@@ -40,8 +44,8 @@ namespace Vitaru
 
         public override void Start()
         {
-            Renderer.Window.Title = "Vitaru";
-            Renderer.Window.Icon = new Icon(AssetStorage.GetStream("Textures\\vitaru.ico"));
+            Renderer.Window.Title = RANDOM == 5 ? "Alki" : "Vitaru";
+            Renderer.Window.Icon = new Icon(AssetStorage.GetStream(RANDOM == 5 ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
             base.Start();
         }
 

@@ -39,9 +39,8 @@ namespace Vitaru.Roots.Tests
         public PlayTest()
         {
             device = new AudioDevice();
-
-            int rand = PrionMath.RandomNumber(0, 10);
-            sample = new Sample(rand == 5 ? "alki endgame.wav" : "alki bells.mp3");
+            
+            sample = new Sample(Vitaru.RANDOM == 5 ? "alki endgame.wav" : "alki bells.mp3");
 
             string address = "127.0.0.1:36840";
             //vitaruServer = new VitaruServerNetHandler
@@ -72,7 +71,7 @@ namespace Vitaru.Roots.Tests
                     {
                         Scale = new Vector2(2f)
                     },
-                    new Sprite(Game.TextureStore.GetTexture("Backgrounds\\vitaru spring 2018.png"))
+                    new Sprite(Game.TextureStore.GetTexture(Vitaru.RANDOM == 5 ? "Backgrounds\\Vitaru Fall BG 1440.png" : "Backgrounds\\vitaru spring 2018.png"))
                     {
                         Scale = new Vector2(0.75f)
                     },

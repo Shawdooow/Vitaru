@@ -13,7 +13,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public DrawableEnemy(Enemy enemy) : base(enemy, Game.TextureStore.GetTexture("Gameplay\\enemy.png"))
         {
             Sprite.Color = enemy.PrimaryColor;
-            Sprite.Scale = new Vector2(0.1f);
+            Sprite.Scale = new Vector2(0.12f);
             Position = enemy.StartPosition;
         }
     }
