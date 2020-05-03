@@ -46,12 +46,19 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public bool Started { get; private set; }
 
-        private double shootTime;
-        private const double beat_length = 500;
+        private bool shoot = true;
 
         public Enemy(Gamefield gamefield) : base(gamefield)
         {
             Team = ENEMY_TEAM;
+        }
+
+        public override void OnNewBeat()
+        {
+            base.OnNewBeat();
+            shoot = !shoot;
+            if (shoot)
+                ShootPlayer();
         }
 
         public override void Update()
@@ -68,18 +75,10 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 Start();
             else if ((Clock.LastCurrent < StartTime || Clock.LastCurrent >= EndTime) && Started)
                 End();
-
-            //TODO: remove this
-            if (Drawable == null) return;
-
-            if (Clock.LastCurrent >= shootTime)
-                ShootPlayer();
         }
 
         protected virtual void ShootPlayer()
         {
-            shootTime = Clock.Current + beat_length;
-
             const int numberbullets = 3;
             float directionModifier = -0.2f;
 

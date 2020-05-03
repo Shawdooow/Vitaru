@@ -8,6 +8,7 @@ using Prion.Application.Debug;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.NetworkingHandlers.Server;
 using Prion.Application.Networking.Packets;
+using Vitaru.Server.Match;
 using Vitaru.Server.Packets;
 using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Packets.Match;

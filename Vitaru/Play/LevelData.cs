@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Server.Server;
+using Vitaru.Server.Track;
 
 namespace Vitaru.Play
 {

@@ -7,6 +7,7 @@ using System.Numerics;
 using Prion.Application.Entitys;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
+using Vitaru.Tracks;
 using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes.Characters
@@ -38,6 +39,8 @@ namespace Vitaru.Gamemodes.Characters
 
         protected Gamefield Gamefield { get; private set; }
 
+        public Track Track { get; set; }
+
         public Action OnDie;
 
         protected Character(Gamefield gamefield)
@@ -49,6 +52,10 @@ namespace Vitaru.Gamemodes.Characters
         {
             base.LoadingComplete();
             Health = HealthCapacity;
+        }
+
+        public virtual void OnNewBeat()
+        {
         }
 
         public override void Update()

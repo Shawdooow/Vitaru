@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Vitaru.Server.Server
+namespace Vitaru.Server.Track
 {
     [Serializable]
     public class LevelTrack
@@ -15,6 +15,8 @@ namespace Vitaru.Server.Server
         public string Artist;
 
         public double BPM;
+
+        public double GetBeatLength() => 60000 / BPM;
 
         public double Offset;
     }

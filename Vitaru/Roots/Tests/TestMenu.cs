@@ -11,6 +11,8 @@ using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Editor;
+using Vitaru.Server.Track;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -18,7 +20,7 @@ namespace Vitaru.Roots.Tests
     {
         private readonly SeekableClock seek;
         private readonly AudioDevice device;
-        private RepeatableSample track;
+        private Track track;
 
         public TestMenu()
         {
@@ -72,13 +74,30 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
             seek.Start();
-            track = new RepeatableSample(Vitaru.ALKI ? "alki endgame.wav" : "alki bells.mp3", seek);
+            track = new Track(Vitaru.ALKI ? GetEndgame() : GetBells(), seek);
         }
+
+        private static LevelTrack GetBells() => new LevelTrack
+        {
+            Name = "Alki Bells",
+            Filename = "alki bells.mp3",
+            Artist = "Shawdooow",
+            BPM = 96,
+        };        
+
+        private static LevelTrack GetEndgame() => new LevelTrack
+        {
+            Name = "Alki Endgame",
+            Filename = "alki endgame.wav",
+            Artist = "Shawdooow",
+            BPM = 96,
+        };
 
         public override void Update()
         {
             seek.NewFrame();
             track?.CheckRepeat();
+            track?.CheckNewBeat();
             base.Update();
         }
     }

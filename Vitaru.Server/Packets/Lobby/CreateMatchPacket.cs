@@ -3,6 +3,7 @@
 
 using System;
 using Prion.Application.Networking.Packets;
+using Vitaru.Server.Match;
 using Vitaru.Server.Server;
 
 namespace Vitaru.Server.Packets.Lobby

@@ -16,8 +16,11 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Play;
+using Vitaru.Server.Match;
 using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Server;
+using Vitaru.Server.Track;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -29,9 +32,9 @@ namespace Vitaru.Roots.Tests
         private readonly VitaruNetHandler vitaruNet;
 
         private readonly SeekableClock seek;
-        private readonly RepeatableSample track;
+        private readonly Track track;
 
-        public PlayTest(SeekableClock seek, RepeatableSample track)
+        public PlayTest(SeekableClock seek, Track track)
         {
             this.seek = seek;
             this.track = track;
@@ -123,6 +126,14 @@ namespace Vitaru.Roots.Tests
         {
             seek.NewFrame();
             track.CheckRepeat();
+            if (track.CheckNewBeat())
+            {
+                for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
+                    gamefield.PlayerPack.Children[i].OnNewBeat();
+
+                for (int i = 0; i < gamefield.LoadedEnemies.Children.Count; i++)
+                    gamefield.LoadedEnemies.Children[i].OnNewBeat();
+            }
             base.Update();
         }
 
@@ -136,11 +147,7 @@ namespace Vitaru.Roots.Tests
         {
             Level level = new Level
             {
-                LevelTrack = new LevelTrack
-                {
-                    Name = "Alki Bells",
-                    Artist = "Shawdooow"
-                },
+                LevelTrack = track.Level,
                 LevelCreator = "Shawdooow",
                 LevelDifficulty = 2,
                 LevelName = "Corona Man",

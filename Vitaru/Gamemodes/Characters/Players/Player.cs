@@ -15,6 +15,7 @@ using Prion.Game.Input.Receivers;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
+using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -67,12 +68,9 @@ namespace Vitaru.Gamemodes.Characters.Players
         private const float healing_min = 0.5f;
         private const float healing_max = 2f;
 
-        public Sample Track { get; set; }
-
         private Vector2 cursor = Vector2.Zero;
 
         private double shootTime;
-        private const double beat_length = 250;
 
         protected DrawablePlayer DrawablePlayer => (DrawablePlayer) Drawable;
 
@@ -169,7 +167,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
-            shootTime = Clock.Current + beat_length;
+            shootTime = Clock.Current + Track.Level.GetBeatLength() / 4;
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;

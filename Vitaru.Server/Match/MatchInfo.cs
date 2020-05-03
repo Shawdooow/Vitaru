@@ -3,8 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using Vitaru.Server.Server;
+using Vitaru.Server.Track;
 
-namespace Vitaru.Server.Server
+namespace Vitaru.Server.Match
 {
     [Serializable]
     public class MatchInfo

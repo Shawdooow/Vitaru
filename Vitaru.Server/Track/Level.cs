@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Vitaru.Server.Server
+namespace Vitaru.Server.Track
 {
     [Serializable]
     public class Level
