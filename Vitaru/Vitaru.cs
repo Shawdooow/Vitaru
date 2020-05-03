@@ -49,7 +49,8 @@ namespace Vitaru
         public override void Start()
         {
             Renderer.Window.Title = ALKI ? "Alki" : "Vitaru";
-            Renderer.Window.Icon = new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+            Renderer.Window.Icon =
+                new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
             base.Start();
         }
 
@@ -59,6 +60,9 @@ namespace Vitaru
             base.Update();
         }
 
-        public static Texture GetBackground() => TextureStore.GetTexture(ALKI ? "Backgrounds\\Vitaru Fall BG 1440.png" : "Backgrounds\\vitaru spring 2018.png");
+        public static Texture GetBackground() =>
+            TextureStore.GetTexture(ALKI
+                ? "Backgrounds\\Vitaru Fall BG 1440.png"
+                : "Backgrounds\\vitaru spring 2018.png");
     }
 }

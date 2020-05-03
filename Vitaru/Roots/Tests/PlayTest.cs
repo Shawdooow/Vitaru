@@ -7,9 +7,7 @@ using OpenTK.Input;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
-using Prion.Game;
 using Prion.Game.Audio;
-using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Editor;
@@ -56,7 +54,7 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                Clock = seek,
+                Clock = seek
             };
 
             Add(new SpriteLayer

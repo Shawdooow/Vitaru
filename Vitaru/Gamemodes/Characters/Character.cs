@@ -88,9 +88,11 @@ namespace Vitaru.Gamemodes.Characters
         }
 
         /// <summary>
-        /// Gets called just before hit detection
+        ///     Gets called just before hit detection
         /// </summary>
-        protected virtual void ParseProjectile(Projectile projectile) { }
+        protected virtual void ParseProjectile(Projectile projectile)
+        {
+        }
 
         protected virtual void Hit(Projectile projectile)
         {

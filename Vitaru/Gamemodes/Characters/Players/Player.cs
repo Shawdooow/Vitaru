@@ -117,7 +117,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     fallOff *= HEALING_FALL_OFF;
 
                 foreach (HealingProjectile healingBullet in HealingProjectiles)
-                    Charge((float)Clock.LastElapsedTime / 500 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                    Charge((float) Clock.LastElapsedTime / 500 *
+                           (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
             DrawablePlayer.SignSprite.Rotation = (float) (-Clock.LastCurrent / 1000);
@@ -133,7 +134,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Vector2 difference = projectile.Position - Drawable.Position;
 
-            float distance = (float)Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
+            float distance = (float) Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
             float edgeDistance;
 
             switch (projectile)
@@ -353,8 +354,8 @@ namespace Vitaru.Gamemodes.Characters.Players
         #endregion
 
 
-
-        protected virtual float GetBulletHealingMultiplier(float value) => PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
+        protected virtual float GetBulletHealingMultiplier(float value) =>
+            PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
 
         protected class HealingProjectile
         {

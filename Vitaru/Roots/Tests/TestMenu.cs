@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
-using Prion.Application.Debug;
 using Prion.Game;
 using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
@@ -17,7 +19,7 @@ namespace Vitaru.Roots.Tests
         private readonly SeekableClock seek;
         private readonly AudioDevice device;
         private RepeatableSample track;
-        
+
         public TestMenu()
         {
             seek = new SeekableClock();

@@ -5,10 +5,8 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Utilities;
-using Prion.Game.Input.Handlers;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Input;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
@@ -85,9 +83,11 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             const int numberbullets = 3;
             float directionModifier = -0.2f;
 
-            Player player = (Player)Gamefield.PlayerPack.Children[0];
+            Player player = (Player) Gamefield.PlayerPack.Children[0];
 
-            float cursorAngle = ((float)Math.Atan2(player.Position.Y - Drawable.Position.Y, player.Position.X - Drawable.Position.X)).ToDegrees() + 90;
+            float cursorAngle =
+                ((float) Math.Atan2(player.Position.Y - Drawable.Position.Y, player.Position.X - Drawable.Position.X))
+                .ToDegrees() + 90;
 
             for (int i = 1; i <= numberbullets; i++)
             {
