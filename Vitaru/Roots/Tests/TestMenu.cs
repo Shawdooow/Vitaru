@@ -46,7 +46,7 @@ namespace Vitaru.Roots.Tests
 
                 Background = Game.TextureStore.GetTexture("Shrek.png"),
 
-                OnClick = () => SetRoot(new PlayTest(seek, track))
+                OnClick = () => AddRoot(new PlayTest(seek, track))
             });
         }
 
