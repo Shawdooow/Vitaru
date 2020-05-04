@@ -53,7 +53,7 @@ namespace Vitaru.Editor.UI
                         },
                         new ToolboxItem(new Bullet
                         {
-                            Color = Color.GreenYellow,
+                            Color = Color.GreenYellow
                         }, 1)
                         {
                             OnClick = () => select(1)
@@ -114,7 +114,7 @@ namespace Vitaru.Editor.UI
                         Text = editable.Name,
                         TextScale = 0.2f
                     },
-                    draw,
+                    draw
                 };
             }
 

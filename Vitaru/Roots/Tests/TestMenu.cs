@@ -13,7 +13,6 @@ using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Graphics.UserInterface;
-using Vitaru.Editor;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests

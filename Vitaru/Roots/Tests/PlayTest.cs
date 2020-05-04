@@ -11,7 +11,6 @@ using Prion.Application.Utilities;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Transforms;
-using Vitaru.Editor;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Multiplayer.Client;
