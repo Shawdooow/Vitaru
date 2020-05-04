@@ -57,6 +57,12 @@ namespace Vitaru.Roots
             Add(new Toolbox());
         }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            shade.FadeTo(0.8f, 1000);
+        }
+
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
         {
             base.OnKeyDown(e);

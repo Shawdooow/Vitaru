@@ -10,6 +10,7 @@ using Prion.Application.Utilities;
 using Prion.Game.Audio;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.Transforms;
 using Vitaru.Editor;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
@@ -26,13 +27,14 @@ namespace Vitaru.Roots.Tests
 {
     public class PlayTest : PlayRoot
     {
+        private readonly Box shade;
+
         private readonly Gamefield gamefield;
+        private readonly SeekableClock seek;
+        private readonly Track track;
 
         private readonly VitaruServerNetHandler vitaruServer;
         private readonly VitaruNetHandler vitaruNet;
-
-        private readonly SeekableClock seek;
-        private readonly Track track;
 
         public PlayTest(SeekableClock seek, Track track)
         {
@@ -68,7 +70,7 @@ namespace Vitaru.Roots.Tests
                     {
                         Scale = new Vector2(0.75f)
                     },
-                    new Box
+                    shade = new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
@@ -117,6 +119,7 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
 
+            shade.FadeTo(0.8f, 1000);
             enemy();
             //vitaruNet.Connect();
             //createMatch();
