@@ -5,7 +5,7 @@ using Vitaru.Gamemodes.Vitaru.Chapters;
 
 namespace Vitaru.Gamemodes.Vitaru
 {
-    public class VitaruChapterSet : ChapterSet
+    public class VitaruChapterset : Chapterset
     {
         public override string Name => "Vitaru";
 
@@ -16,23 +16,5 @@ namespace Vitaru.Gamemodes.Vitaru
         {
             new RejectChapter()
         };
-
-        //public override Cluster GetCluster() => new VitaruCluster();
-        //
-        //public override DrawableCluster GetDrawableCluster(Cluster cluster, VitaruPlayfield playfield) =>
-        //    new DrawableVitaruCluster((VitaruCluster) cluster, playfield);
-        //
-        //public override Bullet GetBullet() => new Bullet();
-        //
-        //public override DrawableBullet GetDrawableBullet(Bullet bullet, VitaruPlayfield playfield) =>
-        //    new DrawableBullet(bullet, playfield);
-        //
-        //public override Laser GetLaser() => new Laser();
-        //
-        //public override DrawableLaser GetDrawableLaser(Laser laser, VitaruPlayfield playfield) =>
-        //    new DrawableLaser(laser, playfield);
-        //
-        //public override Enemy GetEnemy(VitaruPlayfield playfield, DrawableCluster drawableCluster) =>
-        //    new Enemy(playfield, (DrawableVitaruCluster) drawableCluster);
     }
 }

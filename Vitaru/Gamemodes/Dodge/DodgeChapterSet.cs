@@ -6,20 +6,16 @@ using Vitaru.Gamemodes.Vitaru.Chapters;
 
 namespace Vitaru.Gamemodes.Dodge
 {
-    public class DodgeChapterSet : ChapterSet
+    public class DodgeChapterSet : Chapterset
     {
         public override string Name => "Dodge";
 
         public override string Description =>
             "The simple dodging experiance, no shooting, no killing, no place to hide.";
 
-        public override Vector2 PlayfieldAspectRatio => new Vector2(2, 1);
-
         public override Vector2 PlayfieldSize => new Vector2(512 + 256, 384);
 
         public override Vector2 PlayerStartingPosition => PlayfieldSize / 2;
-
-        public override Vector2 ClusterOffset => new Vector2(128, 0);
 
         public override Chapter[] GetChapters() => new Chapter[]
         {

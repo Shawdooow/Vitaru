@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Layers;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;
@@ -18,6 +19,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public const int ENEMY_TEAM = 0;
 
         public override float HitboxDiameter => 50f;
+
+        public SpriteLayer GetDrawable() => GenerateDrawable();
 
         public virtual DrawableEnemy GenerateDrawable()
         {

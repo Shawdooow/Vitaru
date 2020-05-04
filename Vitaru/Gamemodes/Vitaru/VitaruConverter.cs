@@ -20,6 +20,7 @@ namespace Vitaru.Gamemodes.Vitaru
             for (int i = 0; i < data.Length; i++)
             {
                 string[] eData = data[i].Split(',');
+                //TODO: enemies.Add(new Enemy());
             }
 
             return enemies;

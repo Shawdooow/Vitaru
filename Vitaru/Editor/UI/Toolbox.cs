@@ -10,17 +10,18 @@ using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Enemies;
+using Vitaru.Gamemodes.Projectiles;
 
 namespace Vitaru.Editor.UI
 {
-    public class Toolbox : Layer2D<IDrawable2D>
+    public class Toolbox : InputLayer<IDrawable2D>
     {
         public override string Name => "Toolbox";
 
         private const float width = 140;
         private const float height = 400;
 
-        private readonly Layer2D<ToolboxItem> items;
+        private readonly InputLayer<ToolboxItem> items;
 
         public Toolbox()
         {
@@ -39,11 +40,18 @@ namespace Vitaru.Editor.UI
                     Size = new Vector2(width, height),
                     Color = Color.Black
                 },
-                items = new Layer2D<ToolboxItem>
+                items = new InputLayer<ToolboxItem>
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    Child = new ToolboxItem(new Enemy(null))
+                    Children = new ToolboxItem[]
+                    {
+                        new ToolboxItem(new Enemy(null), 1),
+                        new ToolboxItem(new Bullet
+                        {
+                            Color = Color.GreenYellow,
+                        }, 2)
+                    }
                 }
             };
         }
@@ -53,13 +61,18 @@ namespace Vitaru.Editor.UI
             private readonly Box background;
             private readonly Box flash;
 
-            public ToolboxItem(IEditable editable)
+            public ToolboxItem(IEditable editable, int index)
             {
-                Size = new Vector2(width * 0.8f, height / 8);
-                Position = new Vector2(0, 8);
+                Size = new Vector2(width * 0.86f, height / 8);
+                Position = new Vector2(0, 8 * index + height / 8 * (index - 1));
 
                 ParentOrigin = Mounts.TopCenter;
                 Origin = Mounts.TopCenter;
+
+                SpriteLayer draw = editable.GetDrawable();
+
+                draw.ParentOrigin = Mounts.CenterLeft;
+                draw.Origin = Mounts.CenterLeft;
 
                 Children = new IDrawable2D[]
                 {
@@ -76,8 +89,8 @@ namespace Vitaru.Editor.UI
                         Alpha = 0,
                         Size = Size,
                         Color = Color.White
-                    }
-                    //editable.GetDrawable(),
+                    },
+                    draw,
                 };
             }
 

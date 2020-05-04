@@ -9,7 +9,7 @@ using Prion.Game.Graphics.Sprites;
 
 namespace Vitaru.Editor.UI
 {
-    public class Timeline : Layer2D<IDrawable2D>
+    public class Timeline : InputLayer<IDrawable2D>
     {
         private const float width = 1080f;
         private const float height = 140f;
