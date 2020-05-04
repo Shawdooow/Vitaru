@@ -1,12 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Prion.Application.Debug;
 using Vitaru.Gamemodes.Characters.Players;
 
 namespace Vitaru.Gamemodes
@@ -23,14 +18,16 @@ namespace Vitaru.Gamemodes
                 //new Tau.Tau(),
             };
 
+            /*
+            TODO: 3rd Party Gamemodes
             Dictionary<Assembly, Type> loadedAssemblies = new Dictionary<Assembly, Type>();
-
+            
             foreach (string file in Directory.GetFiles(Environment.CurrentDirectory, "Vitaru.Gamemodes.*.dll"))
             {
                 string filename = Path.GetFileNameWithoutExtension(file);
-
+            
                 if (loadedAssemblies.Values.Any(t => t.Namespace == filename)) return;
-
+            
                 try
                 {
                     Assembly assembly = Assembly.LoadFrom(file);
@@ -42,12 +39,14 @@ namespace Vitaru.Gamemodes
                     Logger.Error($"Error loading a Gamemode from a chapter file! [filename = {filename}]");
                 }
             }
-
+            
             List<Gamemode> instances =
                 loadedAssemblies.Values.Select(g => (Gamemode) Activator.CreateInstance(g)).ToList();
-
+            
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
+
+            */
 
             foreach (Gamemode g in loadedGamemodes)
                 LoadedGamemodes.Add(new LoadedGamemode(g));
