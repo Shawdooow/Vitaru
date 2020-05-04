@@ -44,7 +44,7 @@ namespace Vitaru.Editor.UI
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    Children = new ToolboxItem[]
+                    Children = new[]
                     {
                         new ToolboxItem(new Enemy(null), 1),
                         new ToolboxItem(new Bullet
