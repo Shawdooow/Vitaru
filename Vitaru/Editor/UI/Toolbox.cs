@@ -44,7 +44,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
                     Child = new ToolboxItem(new Enemy(null))
-                }, 
+                }
             };
         }
 
@@ -68,15 +68,15 @@ namespace Vitaru.Editor.UI
                         Name = "Background",
                         Alpha = 0.4f,
                         Size = Size,
-                        Color = Color.DarkCyan,
+                        Color = Color.DarkCyan
                     },
                     flash = new Box
                     {
                         Name = "Flash",
                         Alpha = 0,
                         Size = Size,
-                        Color = Color.White,
-                    },
+                        Color = Color.White
+                    }
                     //editable.GetDrawable(),
                 };
             }

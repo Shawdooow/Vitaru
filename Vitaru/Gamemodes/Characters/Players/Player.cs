@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Utilities;
-using Prion.Game.Audio;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
@@ -15,7 +14,6 @@ using Prion.Game.Input.Receivers;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
-using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -102,10 +100,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
 
-
         #region Beat
-
-
 
         public override void OnNewBeat()
         {
@@ -138,15 +133,13 @@ namespace Vitaru.Gamemodes.Characters.Players
                 {
                     Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
                 }
+
                 HealingProjectiles = new List<HealingProjectile>();
                 HealingMultiplier = 1;
             }
         }
 
-
-
         #endregion
-
 
 
         public override void Update()
@@ -314,7 +307,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 case VitaruActions.Sneak:
                     Drawable.HitboxOutline.ClearTransforms();
-                    Drawable.HitboxOutline.FadeTo(0f, 200);                    
+                    Drawable.HitboxOutline.FadeTo(0f, 200);
                     Drawable.Hitbox.ClearTransforms();
                     Drawable.Hitbox.FadeTo(0f, 200);
                     return true;

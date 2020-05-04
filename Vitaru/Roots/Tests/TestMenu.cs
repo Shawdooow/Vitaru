@@ -4,7 +4,6 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Game;
-using Prion.Game.Audio;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
@@ -14,7 +13,6 @@ using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Editor;
-using Vitaru.Server.Track;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
@@ -75,13 +73,13 @@ namespace Vitaru.Roots.Tests
             {
                 Position = new Vector2(200, 0),
                 Text = "Play",
-                TextScale = 0.5f,
+                TextScale = 0.5f
             });
             Add(new SpriteText
             {
                 Position = new Vector2(-200, 0),
                 Text = "Edit",
-                TextScale = 0.5f,
+                TextScale = 0.5f
             });
 
             Add(new SpriteText
@@ -89,7 +87,7 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(-20, 10),
                 ParentOrigin = Mounts.TopLeft,
                 Origin = Mounts.TopLeft,
-                Text = Vitaru.ALKI ? "Alki" : "Vitaru",
+                Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
 
             play.BackgroundSprite.Color = Color.GreenYellow;

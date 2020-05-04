@@ -41,7 +41,7 @@ namespace Vitaru.Roots
                         Color = Color.Black,
                         Alpha = 0.8f,
                         Size = new Vector2(1024, 820),
-                        Scale = new Vector2(0.5f),
+                        Scale = new Vector2(0.5f)
                     }
                 }
             });

@@ -7,7 +7,6 @@ using OpenTK.Input;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Application.Utilities;
-using Prion.Game.Audio;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Transforms;
@@ -137,6 +136,7 @@ namespace Vitaru.Roots.Tests
                 for (int i = 0; i < gamefield.LoadedEnemies.Children.Count; i++)
                     gamefield.LoadedEnemies.Children[i].OnNewBeat();
             }
+
             base.Update();
         }
 
