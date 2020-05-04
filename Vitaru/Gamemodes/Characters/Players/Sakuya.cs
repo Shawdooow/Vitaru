@@ -7,12 +7,10 @@ using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
-using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters.Drawables;
 using Vitaru.Input;
 using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Tau.Chapters.Scarlet.Characters
+namespace Vitaru.Gamemodes.Characters.Players
 {
     public class Sakuya : Player
     {
