@@ -47,14 +47,28 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.TopCenter,
                     Children = new[]
                     {
-                        new ToolboxItem(new Enemy(null), 1),
+                        new ToolboxItem(new Enemy(null), 0)
+                        {
+                            OnClick = () => select(0)
+                        },
                         new ToolboxItem(new Bullet
                         {
                             Color = Color.GreenYellow,
-                        }, 2)
+                        }, 1)
+                        {
+                            OnClick = () => select(1)
+                        }
                     }
                 }
             };
+        }
+
+        private void select(int index)
+        {
+            foreach (ToolboxItem item in items)
+                item.DeSelect();
+
+            items.Children[index].Select();
         }
 
         private class ToolboxItem : ClickableLayer<IDrawable2D>
@@ -65,7 +79,7 @@ namespace Vitaru.Editor.UI
             public ToolboxItem(IEditable editable, int index)
             {
                 Size = new Vector2(width * 0.86f, height / 8);
-                Position = new Vector2(0, 8 * index + height / 8 * (index - 1));
+                Position = new Vector2(0, 8 * (index + 1) + height / 8 * index);
 
                 ParentOrigin = Mounts.TopCenter;
                 Origin = Mounts.TopCenter;
@@ -126,6 +140,16 @@ namespace Vitaru.Editor.UI
             {
                 base.OnHoverLost(e);
                 background.FadeTo(0.4f, 200);
+            }
+
+            public void Select()
+            {
+                background.Color = Color.GreenYellow;
+            }
+
+            public void DeSelect()
+            {
+                background.Color = Color.DarkCyan;
             }
         }
     }
