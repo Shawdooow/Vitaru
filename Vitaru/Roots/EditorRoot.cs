@@ -7,14 +7,20 @@ using OpenTK.Input;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.Transforms;
 using Vitaru.Editor.UI;
 
 namespace Vitaru.Roots
 {
     public class EditorRoot : Root
     {
+        private readonly EditableGamefield gamefield;
+        private readonly Box shade;
+
         public EditorRoot()
         {
+            gamefield = new EditableGamefield();
+
             Add(new SpriteLayer
             {
                 Children = new[]
@@ -23,14 +29,29 @@ namespace Vitaru.Roots
                     {
                         Scale = new Vector2(0.75f)
                     },
-                    new Box
+                    shade = new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
                         Scale = new Vector2(5)
+                    },
+                    new Box
+                    {
+                        Name = "Gmefield BG",
+                        Color = Color.Black,
+                        Alpha = 0.8f,
+                        Size = new Vector2(1024, 820),
+                        Scale = new Vector2(0.5f),
                     }
                 }
             });
+
+            //Packs
+            Add(gamefield);
+
+            //Layers
+            Add(gamefield.ProjectileLayer);
+            Add(gamefield.CharacterLayer);
 
             Add(new Timeline());
             Add(new Toolbox());
