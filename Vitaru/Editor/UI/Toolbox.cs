@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Vitaru.Editor.IO;
@@ -73,6 +74,7 @@ namespace Vitaru.Editor.UI
 
                 draw.ParentOrigin = Mounts.CenterLeft;
                 draw.Origin = Mounts.CenterLeft;
+                draw.Size = new Vector2(height / 8);
 
                 Children = new IDrawable2D[]
                 {
@@ -89,6 +91,14 @@ namespace Vitaru.Editor.UI
                         Alpha = 0,
                         Size = Size,
                         Color = Color.White
+                    },
+                    new SpriteText
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterRight,
+                        Position = new Vector2(-2, 0),
+                        Text = editable.Name,
+                        TextScale = 0.2f
                     },
                     draw,
                 };

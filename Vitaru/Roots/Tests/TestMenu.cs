@@ -85,7 +85,7 @@ namespace Vitaru.Roots.Tests
 
             Add(new SpriteText
             {
-                Position = new Vector2(-20, 10),
+                Position = new Vector2(10),
                 ParentOrigin = Mounts.TopLeft,
                 Origin = Mounts.TopLeft,
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
