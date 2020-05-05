@@ -170,7 +170,10 @@ namespace Vitaru.Gamemodes.Characters.Players
                            (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
-            DrawablePlayer.SignSprite.Rotation = (float) (-Clock.LastCurrent / 1000);
+            if (!SpellActive)
+                DrawablePlayer.SignSprite.Rotation -= (float) (Clock.LastElapsedTime / 1500);
+            else
+                DrawablePlayer.SignSprite.Rotation += (float)(Clock.LastElapsedTime / 1500);
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
