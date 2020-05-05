@@ -49,6 +49,13 @@ namespace Vitaru.Roots.Tests
 
             Button play;
             Button edit;
+            Button wiki;
+
+            SpriteText w = new SpriteText
+            {
+                Position = new Vector2(0, -200),
+                Text = "?",
+            };
 
             Add(play = new Button
             {
@@ -68,6 +75,19 @@ namespace Vitaru.Roots.Tests
 
                 OnClick = () => AddRoot(new EditorTest())
             });
+            Add(wiki = new Button
+            {
+                Position = new Vector2(0, -200),
+                Size = new Vector2(100, 100),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+
+                OnClick = () =>
+                {
+                    w.Text = "Wiki";
+                    w.TextScale = 0.5f;
+                }
+            });
 
             Add(new SpriteText
             {
@@ -81,6 +101,7 @@ namespace Vitaru.Roots.Tests
                 Text = "Edit",
                 TextScale = 0.5f
             });
+            Add(w);
 
             Add(new SpriteText
             {
@@ -90,8 +111,9 @@ namespace Vitaru.Roots.Tests
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
 
-            play.BackgroundSprite.Color = Color.GreenYellow;
+            play.BackgroundSprite.Color = Color.ForestGreen;
             edit.BackgroundSprite.Color = Color.DarkTurquoise;
+            wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
         }
 
         public override void LoadingComplete()

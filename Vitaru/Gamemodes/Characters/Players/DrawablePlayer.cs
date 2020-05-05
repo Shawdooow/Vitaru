@@ -11,14 +11,22 @@ namespace Vitaru.Gamemodes.Characters.Players
     {
         public override string Name { get; set; } = nameof(DrawablePlayer);
 
-        public Sprite SignSprite { get; private set; }
+        public Sprite Seal { get; private set; }
+        public Sprite Reticle { get; private set; }
 
         public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\Sakuya Izayoi.png"))
         {
             Sprite.Color = player.PrimaryColor;
             Sprite.Scale = new Vector2(0.5f);
 
-            Add(SignSprite = new Sprite(Game.TextureStore.GetTexture("Gameplay\\seal.png"))
+            Add(Reticle = new Sprite(Game.TextureStore.GetTexture("Gameplay\\reticle.png"))
+            {
+                Scale = new Vector2(0.5f),
+                Alpha = 0f,
+                Color = player.SecondaryColor
+            }, AddPosition.First);
+
+            Add(Seal = new Sprite(Game.TextureStore.GetTexture("Gameplay\\seal.png"))
             {
                 Scale = new Vector2(0.3f),
                 Alpha = 0.5f,

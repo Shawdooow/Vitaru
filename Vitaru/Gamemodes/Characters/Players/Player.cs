@@ -170,10 +170,15 @@ namespace Vitaru.Gamemodes.Characters.Players
                            (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
+            float speed = (InputHandler.Actions[VitaruActions.Sneak] ? 1500 : 1000);
+
             if (!SpellActive)
-                DrawablePlayer.SignSprite.Rotation -= (float) (Clock.LastElapsedTime / 1500);
+                DrawablePlayer.Seal.Rotation -= (float) (Clock.LastElapsedTime / speed);
             else
-                DrawablePlayer.SignSprite.Rotation += (float)(Clock.LastElapsedTime / 1500);
+                DrawablePlayer.Seal.Rotation += (float)(Clock.LastElapsedTime / speed);
+
+            DrawablePlayer.Reticle.Rotation =
+                (float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X) + (float)Math.PI / 2f;
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
@@ -221,7 +226,14 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
-            shootTime = Clock.Current + Track.Level.GetBeatLength() / 2;
+            double half = Track.Level.GetBeatLength() / 2;
+            shootTime = Clock.Current + half;
+
+            if (InputHandler.Actions[VitaruActions.Sneak])
+            {
+                DrawablePlayer.Reticle.Alpha = 1f;
+                DrawablePlayer.Reticle.FadeTo(0.75f, half, Easings.OutCubic);
+            }
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;
@@ -267,17 +279,20 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void Charge(float amount)
         {
             Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
-            ((DrawablePlayer) Drawable).SignSprite.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
+            ((DrawablePlayer) Drawable).Seal.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
         }
 
         protected virtual void DrainEnergy(float amount)
         {
             Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
-            DrawablePlayer.SignSprite.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
+            DrawablePlayer.Seal.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
         }
 
 
+
         #region Input
+
+
 
         public bool Pressed(VitaruActions t)
         {
@@ -289,6 +304,10 @@ namespace Vitaru.Gamemodes.Characters.Players
                 default:
                     return true;
                 case VitaruActions.Sneak:
+                    DrawablePlayer.Reticle.ClearTransforms();
+                    DrawablePlayer.Reticle.FadeTo(0.75f, 200);
+                    DrawablePlayer.Seal.ClearTransforms();
+                    DrawablePlayer.Seal.ScaleTo(new Vector2(0.2f), 200, Easings.OutCubic);
                     Drawable.HitboxOutline.FadeTo(1f, 200);
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
@@ -309,6 +328,10 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return true;
 
                 case VitaruActions.Sneak:
+                    DrawablePlayer.Reticle.ClearTransforms();
+                    DrawablePlayer.Reticle.FadeTo(0f, 200);
+                    DrawablePlayer.Seal.ClearTransforms();
+                    DrawablePlayer.Seal.ScaleTo(new Vector2(0.3f), 200, Easings.OutCubic);
                     Drawable.HitboxOutline.ClearTransforms();
                     Drawable.HitboxOutline.FadeTo(0f, 200);
                     Drawable.Hitbox.ClearTransforms();
@@ -351,10 +374,15 @@ namespace Vitaru.Gamemodes.Characters.Players
             return playerPosition;
         }
 
+
+
         #endregion
 
 
+
         #region Spell Handling
+
+
 
         /// <summary>
         ///     Called to see if a spell should go active
@@ -406,7 +434,10 @@ namespace Vitaru.Gamemodes.Characters.Players
             SpellActive = false;
         }
 
+
+
         #endregion
+
 
 
         protected virtual float GetBulletHealingMultiplier(float value) =>
