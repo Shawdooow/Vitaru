@@ -439,6 +439,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         #endregion
 
 
+        protected override void Dispose(bool finalize)
+        {
+            InputHandler.Dispose();
+            base.Dispose(finalize);
+        }
 
         protected virtual float GetBulletHealingMultiplier(float value) =>
             PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
