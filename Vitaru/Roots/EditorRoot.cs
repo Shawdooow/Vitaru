@@ -12,10 +12,9 @@ using Vitaru.Editor.UI;
 
 namespace Vitaru.Roots
 {
-    public class EditorRoot : Root
+    public class EditorRoot : MenuRoot
     {
         private readonly EditableGamefield gamefield;
-        private readonly Box shade;
 
         public EditorRoot()
         {
@@ -25,16 +24,6 @@ namespace Vitaru.Roots
             {
                 Children = new[]
                 {
-                    new Sprite(Vitaru.GetBackground())
-                    {
-                        Scale = new Vector2(0.75f)
-                    },
-                    shade = new Box
-                    {
-                        Color = Color.Black,
-                        Alpha = 0.5f,
-                        Scale = new Vector2(5)
-                    },
                     new Box
                     {
                         Name = "Gamefield BG",
@@ -55,24 +44,6 @@ namespace Vitaru.Roots
 
             Add(new Timeline());
             Add(new Toolbox());
-        }
-
-        public override void LoadingComplete()
-        {
-            base.LoadingComplete();
-            shade.FadeTo(0.8f, 1000);
-        }
-
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    DropRoot();
-                    break;
-            }
         }
     }
 }

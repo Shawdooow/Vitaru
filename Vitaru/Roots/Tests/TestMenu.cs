@@ -13,14 +13,13 @@ using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Graphics.UserInterface;
+using Vitaru.Roots.Multi;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
-        private readonly Box shade;
-
         private readonly SeekableClock seek;
         private readonly AudioDevice device;
         private Track track;
@@ -38,7 +37,7 @@ namespace Vitaru.Roots.Tests
                     {
                         Scale = new Vector2(0.75f)
                     },
-                    shade = new Box
+                    new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
@@ -83,7 +82,7 @@ namespace Vitaru.Roots.Tests
 
                 Background = Game.TextureStore.GetTexture("square.png"),
 
-                //OnClick = () => AddRoot(new MultiTest())
+                OnClick = () => AddRoot(new MultiMenu())
             });
             Add(wiki = new Button
             {
@@ -138,13 +137,6 @@ namespace Vitaru.Roots.Tests
             base.LoadingComplete();
             seek.Start();
             track = new Track(Vitaru.ALKI ? Track.GetEndgame() : Track.GetBells(), seek);
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            shade.Alpha = 0.8f;
-            shade.FadeTo(0.5f, 1000);
         }
 
         public override void Update()

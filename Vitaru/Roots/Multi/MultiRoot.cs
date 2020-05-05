@@ -3,12 +3,11 @@
 
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
-using Prion.Game.Graphics.Roots;
 using Vitaru.Multiplayer.Client;
 
-namespace Vitaru.Roots
+namespace Vitaru.Roots.Multi
 {
-    public abstract class MultiRoot : Root
+    public abstract class MultiRoot : MenuRoot
     {
         protected readonly VitaruNetHandler VitaruNet;
 

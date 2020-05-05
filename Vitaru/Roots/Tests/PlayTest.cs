@@ -25,57 +25,19 @@ namespace Vitaru.Roots.Tests
 {
     public class PlayTest : PlayRoot
     {
-        private readonly Box shade;
-
         private readonly Gamefield gamefield;
         private readonly SeekableClock seek;
         private readonly Track track;
-
-        private readonly VitaruServerNetHandler vitaruServer;
-        private readonly VitaruNetHandler vitaruNet;
 
         public PlayTest(SeekableClock seek, Track track)
         {
             this.seek = seek;
             this.track = track;
 
-            string address = "127.0.0.1:36840";
-            //vitaruServer = new VitaruServerNetHandler
-            //{
-            //    Address = address
-            //};
-            //vitaruNet = new VitaruNetHandler
-            //{
-            //    Address = address,
-            //    VitaruUser = new VitaruUser
-            //    {
-            //        Username = "Shawdooow",
-            //        ID = 0,
-            //    },
-            //    OnPacketReceive = OnPacketRecieve
-            //};
-
             gamefield = new Gamefield
             {
                 Clock = seek
             };
-
-            Add(new SpriteLayer
-            {
-                Children = new[]
-                {
-                    new Sprite(Vitaru.GetBackground())
-                    {
-                        Scale = new Vector2(0.75f)
-                    },
-                    shade = new Box
-                    {
-                        Color = Color.Black,
-                        Alpha = 0.5f,
-                        Scale = new Vector2(5)
-                    }
-                }
-            });
 
             Player player = new Sakuya(gamefield)
             {
@@ -85,15 +47,6 @@ namespace Vitaru.Roots.Tests
             Add(player.InputHandler);
 
             gamefield.Add(player);
-
-            //Add(new Pack<Updatable>
-            //{
-            //    Children = new Updatable[]
-            //    {
-            //        vitaruServer,
-            //        vitaruNet,
-            //    }
-            //});
 
             //Packs
             Add(gamefield);
@@ -117,10 +70,7 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
 
-            shade.FadeTo(0.8f, 1000);
             enemy();
-            //vitaruNet.Connect();
-            //createMatch();
         }
 
         public override void Update()
@@ -143,65 +93,6 @@ namespace Vitaru.Roots.Tests
         {
             base.PreRender();
             gamefield.PreRender();
-        }
-
-        private void createMatch()
-        {
-            Level level = new Level
-            {
-                LevelTrack = track.Level,
-                LevelCreator = "Shawdooow",
-                LevelDifficulty = 2,
-                LevelName = "Corona Man",
-                GamemodeName = "Tau"
-            };
-
-            SendPacket(new CreateMatchPacket
-            {
-                MatchInfo = new MatchInfo
-                {
-                    Host = vitaruNet.VitaruUser,
-                    Level = level
-                }
-            });
-        }
-
-        protected virtual void SendPacket(Packet packet) => vitaruNet.SendToServer(packet);
-
-        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
-        {
-            switch (info.Packet)
-            {
-                //Lobby Simulation
-                case MatchListPacket matchListPacket:
-                    //rooms.Children = new Container();
-                    //foreach (MatchInfo m in matchListPacket.MatchInfoList)
-                    //    rooms.Add(new MatchTile(vitaruNet, m));
-                    break;
-                case MatchCreatedPacket matchCreated:
-                    //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
-                    SendPacket(new JoinMatchPacket
-                    {
-                        Match = matchCreated.MatchInfo,
-                        User = vitaruNet.VitaruUser
-                    });
-                    break;
-                case JoinedMatchPacket joinedMatch:
-                    //Push(new MatchScreen(vitaruNet, joinedMatch));
-                    break;
-            }
-        }
-
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    DropRoot();
-                    break;
-            }
         }
     }
 }
