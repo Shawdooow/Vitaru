@@ -49,6 +49,7 @@ namespace Vitaru.Roots.Tests
 
             Button play;
             Button edit;
+            Button multi;
             Button wiki;
 
             SpriteText w = new SpriteText
@@ -74,6 +75,15 @@ namespace Vitaru.Roots.Tests
                 Background = Game.TextureStore.GetTexture("square.png"),
 
                 OnClick = () => AddRoot(new EditorTest())
+            });
+            Add(multi = new Button
+            {
+                Position = new Vector2(0, 200),
+                Size = new Vector2(200, 100),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+
+                //OnClick = () => AddRoot(new MultiTest())
             });
             Add(wiki = new Button
             {
@@ -101,6 +111,12 @@ namespace Vitaru.Roots.Tests
                 Text = "Edit",
                 TextScale = 0.5f
             });
+            Add(new SpriteText
+            {
+                Position = new Vector2(0, 200),
+                Text = "Multi",
+                TextScale = 0.5f
+            });
             Add(w);
 
             Add(new SpriteText
@@ -113,6 +129,7 @@ namespace Vitaru.Roots.Tests
 
             play.BackgroundSprite.Color = Color.ForestGreen;
             edit.BackgroundSprite.Color = Color.DarkTurquoise;
+            multi.BackgroundSprite.Color = Color.DarkMagenta;
             wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
         }
 
