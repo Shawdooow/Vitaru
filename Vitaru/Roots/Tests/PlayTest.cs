@@ -94,5 +94,19 @@ namespace Vitaru.Roots.Tests
             base.PreRender();
             gamefield.PreRender();
         }
+
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.IsRepeat) return;
+
+            switch (e.Key)
+            {
+                case Key.R:
+                    enemy();
+                    break;
+            }
+        }
     }
 }
