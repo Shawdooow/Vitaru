@@ -30,7 +30,7 @@ namespace Vitaru
                 vitaru.Start(new TestMenu());
         }
 
-        protected Vitaru(string[] args) : base("vitaru", args, "GL46")
+        protected Vitaru(string[] args) : base("vitaru", args)
         {
             //DiscordGame.Init(700855485129162824);
             ////DiscordRich.RegisterUriPath();
