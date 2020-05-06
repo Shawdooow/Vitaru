@@ -312,7 +312,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
                 case VitaruActions.Shoot:
-                    PatternWave();
+                    shootTime = Clock.Current;
                     return true;
             }
         }
