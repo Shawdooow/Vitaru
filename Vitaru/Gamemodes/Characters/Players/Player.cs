@@ -170,15 +170,16 @@ namespace Vitaru.Gamemodes.Characters.Players
                            (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
-            float speed = (InputHandler.Actions[VitaruActions.Sneak] ? 1500 : 1000);
+            float speed = InputHandler.Actions[VitaruActions.Sneak] ? 1500 : 1000;
 
             if (!SpellActive)
                 DrawablePlayer.Seal.Rotation -= (float) (Clock.LastElapsedTime / speed);
             else
-                DrawablePlayer.Seal.Rotation += (float)(Clock.LastElapsedTime / speed);
+                DrawablePlayer.Seal.Rotation += (float) (Clock.LastElapsedTime / speed);
 
             DrawablePlayer.Reticle.Rotation =
-                (float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X) + (float)Math.PI / 2f;
+                (float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X) +
+                (float) Math.PI / 2f;
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
@@ -289,10 +290,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
 
-
         #region Input
-
-
 
         public bool Pressed(VitaruActions t)
         {
@@ -374,15 +372,10 @@ namespace Vitaru.Gamemodes.Characters.Players
             return playerPosition;
         }
 
-
-
         #endregion
 
 
-
         #region Spell Handling
-
-
 
         /// <summary>
         ///     Called to see if a spell should go active
@@ -433,8 +426,6 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             SpellActive = false;
         }
-
-
 
         #endregion
 

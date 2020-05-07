@@ -11,7 +11,6 @@ using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
-using Prion.Game.Graphics.Transforms;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Roots.Multi;
 using Vitaru.Tracks;
@@ -54,7 +53,7 @@ namespace Vitaru.Roots.Tests
             SpriteText w = new SpriteText
             {
                 Position = new Vector2(0, -200),
-                Text = "?",
+                Text = "?"
             };
 
             Add(play = new Button

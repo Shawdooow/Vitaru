@@ -3,11 +3,8 @@
 
 using System.Drawing;
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.Transforms;
 using Vitaru.Editor.UI;
 
 namespace Vitaru.Roots

@@ -1,24 +1,13 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Application.Networking.NetworkingHandlers;
-using Prion.Application.Networking.Packets;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.Transforms;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Multiplayer.Client;
 using Vitaru.Play;
-using Vitaru.Server.Match;
-using Vitaru.Server.Packets.Lobby;
-using Vitaru.Server.Server;
-using Vitaru.Server.Track;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
