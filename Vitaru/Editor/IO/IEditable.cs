@@ -2,13 +2,14 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Application.Utilities.Interfaces;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 
 namespace Vitaru.Editor.IO
 {
     public interface IEditable : IHasName
     {
-        SpriteLayer GetDrawable();
+        Layer2D<IDrawable2D> GetDrawable();
 
         void ParseString(string[] data, int offset);
 

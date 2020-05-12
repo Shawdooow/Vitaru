@@ -2,11 +2,12 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
-    public abstract class DrawableProjectile : SpriteLayer
+    public abstract class DrawableProjectile : Layer2D<IDrawable2D>
     {
         public override string Name { get; set; } = nameof(DrawableProjectile);
 

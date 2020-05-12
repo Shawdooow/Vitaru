@@ -39,7 +39,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public virtual float EnergyDrainRate { get; } = 0;
 
-        protected bool SpellActive { get; set; }
+        public bool SpellActive { get; protected set; }
 
         public double MovementSpeedMultiplier = 1;
 
@@ -70,7 +70,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         private double nextHalfBeat = -1;
         private double nextQuarterBeat = -1;
 
-        private Vector2 cursor = Vector2.Zero;
+        public Vector2 Cursor { get; private set; } = Vector2.Zero;
 
         private double shootTime;
 
@@ -170,16 +170,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                            (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
-            float speed = InputHandler.Actions[VitaruActions.Sneak] ? 1500 : 1000;
-
-            if (!SpellActive)
-                DrawablePlayer.Seal.Rotation -= (float) (Clock.LastElapsedTime / speed);
-            else
-                DrawablePlayer.Seal.Rotation += (float) (Clock.LastElapsedTime / speed);
-
-            DrawablePlayer.Reticle.Rotation =
-                (float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X) +
-                (float) Math.PI / 2f;
+            DrawablePlayer.Seal.Update();
 
             Drawable.Position = GetNewPlayerPosition(0.3f);
 
@@ -230,11 +221,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             double half = Track.Level.GetBeatLength() / 2;
             shootTime = Clock.Current + half;
 
-            if (InputHandler.Actions[VitaruActions.Sneak])
-            {
-                DrawablePlayer.Reticle.Alpha = 1f;
-                DrawablePlayer.Reticle.FadeTo(0.75f, half, Easings.OutCubic);
-            }
+            DrawablePlayer.Seal.Shoot(half);
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;
@@ -243,7 +230,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Sneak])
             {
-                cursorAngle = ((float) Math.Atan2(cursor.Y - Drawable.Position.Y, cursor.X - Drawable.Position.X))
+                cursorAngle = ((float) Math.Atan2(Cursor.Y - Drawable.Position.Y, Cursor.X - Drawable.Position.X))
                     .ToDegrees() + 90;
                 directionModifier = -0.1f;
             }
@@ -280,13 +267,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void Charge(float amount)
         {
             Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
-            ((DrawablePlayer) Drawable).Seal.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
         }
 
         protected virtual void DrainEnergy(float amount)
         {
             Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
-            DrawablePlayer.Seal.Alpha = PrionMath.Scale(Energy, 0, EnergyCapacity);
         }
 
 
@@ -297,15 +282,13 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
+            DrawablePlayer.Seal.Pressed(t);
+
             switch (t)
             {
                 default:
                     return true;
                 case VitaruActions.Sneak:
-                    DrawablePlayer.Reticle.ClearTransforms();
-                    DrawablePlayer.Reticle.FadeTo(0.75f, 200);
-                    DrawablePlayer.Seal.ClearTransforms();
-                    DrawablePlayer.Seal.ScaleTo(new Vector2(0.2f), 200, Easings.OutCubic);
                     Drawable.HitboxOutline.FadeTo(1f, 200);
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
@@ -320,16 +303,13 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (CheckSpellDeactivate(t))
                 SpellDeactivate(t);
 
+            DrawablePlayer.Seal.Released(t);
+
             switch (t)
             {
                 default:
                     return true;
-
                 case VitaruActions.Sneak:
-                    DrawablePlayer.Reticle.ClearTransforms();
-                    DrawablePlayer.Reticle.FadeTo(0f, 200);
-                    DrawablePlayer.Seal.ClearTransforms();
-                    DrawablePlayer.Seal.ScaleTo(new Vector2(0.3f), 200, Easings.OutCubic);
                     Drawable.HitboxOutline.ClearTransforms();
                     Drawable.HitboxOutline.FadeTo(0f, 200);
                     Drawable.Hitbox.ClearTransforms();
@@ -338,7 +318,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
-        public void OnMouseMove(MousePositionEvent e) => cursor = e.Position;
+        public void OnMouseMove(MousePositionEvent e) => Cursor = e.Position;
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
         {
@@ -407,6 +387,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             SpellActive = true;
             if (EnergyDrainRate == 0)
                 DrainEnergy(EnergyCost);
+            DrawablePlayer.Seal.SpellActivate(action);
         }
 
         protected virtual void SpellUpdate()
@@ -425,6 +406,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void SpellDeactivate(VitaruActions action)
         {
             SpellActive = false;
+            DrawablePlayer.Seal.SpellDeactivate(action);
         }
 
         #endregion

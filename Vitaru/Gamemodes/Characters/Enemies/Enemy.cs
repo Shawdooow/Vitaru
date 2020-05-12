@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
@@ -20,7 +21,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public override float HitboxDiameter => 50f;
 
-        public SpriteLayer GetDrawable() => GenerateDrawable();
+        public Layer2D<IDrawable2D> GetDrawable() => GenerateDrawable();
 
         public virtual DrawableEnemy GenerateDrawable()
         {

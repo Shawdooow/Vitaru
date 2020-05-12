@@ -117,8 +117,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             currentRate = originalRate * SetRate;
             applyToClock(adjustable, currentRate);
 
-            DrawablePlayer.Seal.Color = Color.DarkRed;
-
             if (currentRate > 0)
                 spellEndTime = Clock.LastCurrent + 2000;
             else if (currentRate == 0)
@@ -177,12 +175,6 @@ namespace Vitaru.Gamemodes.Characters.Players
                     currentRate = originalRate * SetRate;
                     applyToClock(adjustable, currentRate);
                 }
-        }
-
-        protected override void SpellDeactivate(VitaruActions action)
-        {
-            base.SpellDeactivate(action);
-            DrawablePlayer.Seal.Color = PrimaryColor;
         }
 
         private void applyToClock(AdjustableClock clock, double speed)

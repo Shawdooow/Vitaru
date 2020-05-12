@@ -3,12 +3,13 @@
 
 using System;
 using System.Numerics;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
 
 namespace Vitaru.Gamemodes.Characters
 {
-    public abstract class DrawableCharacter : SpriteLayer
+    public abstract class DrawableCharacter : Layer2D<IDrawable2D>
     {
         public override string Name { get; set; } = nameof(DrawableCharacter);
 
