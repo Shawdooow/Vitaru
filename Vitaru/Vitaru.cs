@@ -7,6 +7,7 @@ using Prion.Application.Debug;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
+using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Roots.Tests;
 
@@ -47,6 +48,11 @@ namespace Vitaru
             //    },
             //    Instance = true,
             //});
+        }
+
+        protected override GraphicsContext GetContext(string name)
+        {
+            return base.GetContext("GL46");
         }
 
         public override void Start()

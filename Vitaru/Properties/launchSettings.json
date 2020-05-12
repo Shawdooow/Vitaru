@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Vitaru": {
-      "commandName": "Project",
-      "commandLineArgs": "Context=GL46"
-    }
-  }
-}
