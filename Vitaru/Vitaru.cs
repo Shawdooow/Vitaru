@@ -33,27 +33,9 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base("vitaru", args)
         {
-            //DiscordGame.Init(700855485129162824);
-            ////DiscordRich.RegisterUriPath();
-            //DiscordGame.SetPresence(new Activity
-            //{
-            //    Details = "Preparing to Play...",
-            //    State = "Main Menu",
-            //    Assets = new ActivityAssets
-            //    {
-            //        LargeImage = "tau",
-            //        LargeText = "Tau",
-            //        SmallImage = "prion",
-            //        SmallText = "Debugging...",
-            //    },
-            //    Instance = true,
-            //});
         }
 
-        protected override GraphicsContext GetContext(string name)
-        {
-            return base.GetContext("GL46");
-        }
+        protected override GraphicsContext GetContext(string name) => base.GetContext("GL46");
 
         public override void Start()
         {
@@ -62,12 +44,6 @@ namespace Vitaru
                 new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
 
             base.Start();
-        }
-
-        protected override void Update()
-        {
-            //DiscordGame.RunCallbacks();
-            base.Update();
         }
 
         /// <summary>
