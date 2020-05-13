@@ -15,7 +15,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\Sakuya Izayoi.png"))
         {
             Sprite.Color = player.PrimaryColor;
-            Sprite.Scale = new Vector2(0.5f);
+            Sprite.Scale = new Vector2(0.3f);
 
             Add(Seal = new Seal(player), AddPosition.First);
         }
