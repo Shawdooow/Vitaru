@@ -188,7 +188,6 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             public override void Render()
             {
-                
                 Renderer.CircularProgram.SetActive();
                 Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle", start);
                 Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle", PrionMath.Scale(player.Health, 0, player.HealthCapacity, start, end));
