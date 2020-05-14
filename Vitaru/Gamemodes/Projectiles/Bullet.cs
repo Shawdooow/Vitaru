@@ -14,9 +14,11 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(Bullet);
 
-        public override DrawableProjectile GenerateDrawable() => Drawable == null
-            ? Drawable = new DrawableBullet(this)
-            : throw PrionDebugger.InvalidOperation("Drawable should be null");
+        public override DrawableProjectile GenerateDrawable()
+        {
+            PrionDebugger.Assert(Drawable == null, "Drawable should be null");
+            return Drawable = new DrawableBullet(this);
+        }
 
         public Vector2 EndPosition { get; protected set; }
 
