@@ -282,7 +282,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
-            DrawablePlayer.Seal.Pressed(t);
+            DrawablePlayer?.Seal.Pressed(t);
 
             switch (t)
             {
@@ -303,7 +303,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (CheckSpellDeactivate(t))
                 SpellDeactivate(t);
 
-            DrawablePlayer.Seal.Released(t);
+            DrawablePlayer?.Seal.Released(t);
 
             switch (t)
             {
