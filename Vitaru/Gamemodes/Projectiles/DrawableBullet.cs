@@ -27,7 +27,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 Glow = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
                     Size = new Vector2(bullet.Diameter * 3f),
-                    Color = bullet.Color,
+                    Color = bullet.Color
                 },
                 //OutlineCircle = new Circle
                 //{

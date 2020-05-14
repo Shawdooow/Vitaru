@@ -11,9 +11,6 @@ using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Roots.Tests;
 
-//using Prion.Integrations.Discord;
-//using Prion.Integrations.Discord.DiscordGameSDK;
-
 namespace Vitaru
 {
     public class Vitaru : Game

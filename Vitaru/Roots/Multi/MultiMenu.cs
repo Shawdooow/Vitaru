@@ -9,7 +9,6 @@ using Prion.Application.Groups.Packs;
 using Prion.Application.Networking.NetworkingHandlers;
 using Prion.Application.Networking.Packets;
 using Prion.Game;
-using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Server.Match;

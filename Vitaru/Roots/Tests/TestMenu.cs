@@ -72,8 +72,6 @@ namespace Vitaru.Roots.Tests
             });
             Add(edit = new Button
             {
-
-
                 Position = new Vector2(0, 75),
                 Size = new Vector2(200, 100),
 
