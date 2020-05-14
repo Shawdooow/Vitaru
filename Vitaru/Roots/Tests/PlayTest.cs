@@ -77,6 +77,12 @@ namespace Vitaru.Roots.Tests
                     gamefield.LoadedEnemies.Children[i].OnNewBeat();
             }
 
+            while (que > 0)
+            {
+                que--;
+                enemy();
+            }
+
             base.Update();
         }
 
@@ -85,6 +91,8 @@ namespace Vitaru.Roots.Tests
             base.PreRender();
             gamefield.PreRender();
         }
+
+        private int que;
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
         {
@@ -95,11 +103,10 @@ namespace Vitaru.Roots.Tests
             switch (e.Key)
             {
                 case Key.R:
-                    enemy();
+                    que = 1;
                     break;
                 case Key.T:
-                    for (int i = 0; i < 10; i++)
-                        enemy();
+                    que = 10;
                     break;
             }
         }
