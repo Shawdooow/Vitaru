@@ -38,6 +38,7 @@ namespace Vitaru.Roots.Multi
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Host",
 
                 OnClick = HostServer
             });
@@ -47,6 +48,7 @@ namespace Vitaru.Roots.Multi
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Join",
 
                 OnClick = () =>
                 {
@@ -55,19 +57,6 @@ namespace Vitaru.Roots.Multi
                     else
                         Logger.Error("Connect to a server first!", LogType.Network);
                 }
-            });
-
-            Add(new SpriteText
-            {
-                Position = new Vector2(-200, 0),
-                Text = "Host",
-                TextScale = 0.5f
-            });
-            Add(new SpriteText
-            {
-                Position = new Vector2(200, 0),
-                Text = "Join",
-                TextScale = 0.5f
             });
 
             create.BackgroundSprite.Color = Color.Orchid;

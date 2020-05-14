@@ -48,74 +48,50 @@ namespace Vitaru.Roots.Tests
             Button play;
             Button edit;
             Button multi;
-            Button wiki;
-
-            SpriteText w = new SpriteText
-            {
-                Position = new Vector2(0, -200),
-                Text = "?"
-            };
+            Button wiki = null;
 
             Add(play = new Button
             {
-                Position = new Vector2(200, 0),
+                Position = new Vector2(0, -200),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Play",
 
                 OnClick = () => AddRoot(new PlayTest(seek, track))
             });
-            Add(edit = new Button
-            {
-                Position = new Vector2(-200, 0),
-                Size = new Vector2(200, 100),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-
-                OnClick = () => AddRoot(new EditorTest())
-            });
             Add(multi = new Button
             {
-                Position = new Vector2(0, 200),
+                Position = new Vector2(0, -75),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Multi",
 
                 OnClick = () => AddRoot(new MultiMenu())
             });
+            Add(edit = new Button
+            {
+
+
+                Position = new Vector2(0, 75),
+                Size = new Vector2(200, 100),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Edit",
+
+                OnClick = () => AddRoot(new EditorTest())
+            });
             Add(wiki = new Button
             {
-                Position = new Vector2(0, -200),
+                Position = new Vector2(0, 200),
                 Size = new Vector2(100, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "?",
 
-                OnClick = () =>
-                {
-                    w.Text = "Wiki";
-                    w.TextScale = 0.5f;
-                }
+                OnClick = () => wiki.Text = "Wiki"
             });
-
-            Add(new SpriteText
-            {
-                Position = new Vector2(200, 0),
-                Text = "Play",
-                TextScale = 0.5f
-            });
-            Add(new SpriteText
-            {
-                Position = new Vector2(-200, 0),
-                Text = "Edit",
-                TextScale = 0.5f
-            });
-            Add(new SpriteText
-            {
-                Position = new Vector2(0, 200),
-                Text = "Multi",
-                TextScale = 0.5f
-            });
-            Add(w);
 
             Add(new SpriteText
             {
