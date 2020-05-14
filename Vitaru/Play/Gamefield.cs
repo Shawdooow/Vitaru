@@ -203,6 +203,7 @@ namespace Vitaru.Play
             while (projectileQue.Count > 0)
             {
                 DrawableGameEntity draw = projectileQue[0];
+                PrionDebugger.Assert(!draw.Disposed, "This projectile is disposed and should not be in this list anymore");
 
                 draw.OnDelete += () => drawableProjectileQue.Add(draw);
 
