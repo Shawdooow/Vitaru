@@ -222,12 +222,13 @@ namespace Vitaru.Gamemodes.Characters.Players
             public override void Render()
             {
                 Renderer.CircularProgram.SetActive();
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle",
+                Renderer.ShaderManager.ActiveShaderProgram = Renderer.CircularProgram;
+                Renderer.ShaderManager.UpdateFloat("startAngle",
                     PrionMath.Scale(player.Health, 0, player.HealthCapacity, end, start));
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle", end);
+                Renderer.ShaderManager.UpdateFloat("endAngle", end);
                 health.Render();
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle", start);
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle",
+                Renderer.ShaderManager.UpdateFloat("startAngle", start);
+                Renderer.ShaderManager.UpdateFloat("endAngle",
                     PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, start, end));
                 energy.Render();
                 Renderer.SpriteProgram.SetActive();
