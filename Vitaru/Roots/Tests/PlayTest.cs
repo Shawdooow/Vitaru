@@ -5,6 +5,7 @@ using System.Numerics;
 using OpenTK.Input;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Overlays;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;
@@ -43,6 +44,7 @@ namespace Vitaru.Roots.Tests
             //Layers
             Add(gamefield.ProjectileLayer);
             Add(gamefield.CharacterLayer);
+            Add(new FPSOverlay());
         }
 
         private void enemy()

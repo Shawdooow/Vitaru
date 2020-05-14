@@ -8,6 +8,7 @@ using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
+using Prion.Game.Graphics.Overlays;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
@@ -103,6 +104,8 @@ namespace Vitaru.Roots.Tests
             edit.BackgroundSprite.Color = Color.DarkTurquoise;
             multi.BackgroundSprite.Color = Color.DarkMagenta;
             wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
+
+            Add(new FPSOverlay());
         }
 
         public override void LoadingComplete()
