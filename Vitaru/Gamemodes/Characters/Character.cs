@@ -2,9 +2,11 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Application.Entitys;
+using Prion.Application.Groups.Packs;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -62,33 +64,38 @@ namespace Vitaru.Gamemodes.Characters
         {
             if (!Dead && Drawable != null)
             {
-                for (int i = 0; i < Gamefield.ProjectilePack.Children.Count; i++)
+                foreach (KeyValuePair<int, Pack<Projectile>> pair in Gamefield.ProjectilePacks)
                 {
-                    Projectile projectile = Gamefield.ProjectilePack.Children[i];
+                    if (pair.Key == Team) continue;
 
-                    //TODO: Optimize this by using different Lists/Layers so we don't have to check ones on our team
-                    if (projectile.Team == Team) continue;
-
-                    ParseProjectile(projectile);
-
-                    Vector2 difference = projectile.Position - Drawable.Position;
-
-                    double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-                    double edgeDistance;
-
-                    switch (projectile)
+                    for (int i = 0; i < pair.Value.Children.Count; i++)
                     {
-                        default:
-                            continue;
-                        case Bullet bullet:
-                            edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
-                            break;
-                    }
+                        Projectile projectile = pair.Value.Children[i];
 
-                    if (edgeDistance <= 0)
-                    {
-                        Hit(projectile);
-                        if (Dead) return;
+                        //TODO: Optimize this by using different Lists/Layers so we don't have to check ones on our team
+                        if (projectile.Team == Team) continue;
+
+                        ParseProjectile(projectile);
+
+                        Vector2 difference = projectile.Position - Drawable.Position;
+
+                        double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
+                        double edgeDistance;
+
+                        switch (projectile)
+                        {
+                            default:
+                                continue;
+                            case Bullet bullet:
+                                edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
+                                break;
+                        }
+
+                        if (edgeDistance <= 0)
+                        {
+                            Hit(projectile);
+                            if (Dead) return;
+                        }
                     }
                 }
             }

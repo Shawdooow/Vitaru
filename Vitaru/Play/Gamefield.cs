@@ -33,10 +33,7 @@ namespace Vitaru.Play
             Name = "Loaded Enemies Pack"
         };
 
-        public readonly Pack<Projectile> ProjectilePack = new Pack<Projectile>
-        {
-            Name = "Projectile Pack"
-        };
+        public readonly Dictionary<int, Pack<Projectile>> ProjectilePacks = new Dictionary<int, Pack<Projectile>>();
 
         public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>
         {
@@ -47,7 +44,22 @@ namespace Vitaru.Play
         {
             Add(PlayerPack);
             Add(LoadedEnemies);
-            Add(ProjectilePack);
+
+            Pack<Projectile> enemys = new Pack<Projectile>()
+            {
+                Name = "Enemy's Projectile Pack"
+            };
+
+            Pack<Projectile> players = new Pack<Projectile>()
+            {
+                Name = "Enemy's Projectile Pack"
+            };
+
+            ProjectilePacks.Add(Enemy.ENEMY_TEAM, enemys);
+            ProjectilePacks.Add(Player.PLAYER_TEAM, players);
+
+            Add(enemys);
+            Add(players);
 
             if (vitaruNet != null)
             {
@@ -72,10 +84,11 @@ namespace Vitaru.Play
             {
                 Projectile projectile = deadprojectileQue[0];
                 deadprojectileQue.Remove(projectile);
-                ProjectilePack.Remove(projectile);
+                ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
-            foreach (Projectile p in ProjectilePack)
+            foreach (KeyValuePair<int, Pack<Projectile>> pair in ProjectilePacks)
+            foreach (Projectile p in pair.Value)
             {
                 if (Clock.Current + p.TimePreLoad >= p.StartTime && Clock.Current < p.EndTime + p.TimeUnLoad &&
                     !p.PreLoaded)
@@ -142,7 +155,7 @@ namespace Vitaru.Play
 
         public void Add(Projectile projectile)
         {
-            ProjectilePack.Add(projectile);
+            ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
             //Que adding the drawable
             projectileQue.Add(projectile);

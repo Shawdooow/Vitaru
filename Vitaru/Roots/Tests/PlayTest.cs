@@ -97,6 +97,10 @@ namespace Vitaru.Roots.Tests
                 case Key.R:
                     enemy();
                     break;
+                case Key.T:
+                    for (int i = 0; i < 10; i++)
+                        enemy();
+                    break;
             }
         }
     }
