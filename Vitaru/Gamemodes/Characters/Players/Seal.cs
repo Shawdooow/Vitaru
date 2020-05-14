@@ -18,15 +18,20 @@ namespace Vitaru.Gamemodes.Characters.Players
     {
         public override string Name { get; set; } = nameof(Seal);
 
-        public Sprite Sign { get; private set; }
-        public Sprite Reticle { get; private set; }
+        public readonly Sprite Sign;
+        public readonly Sprite Reticle;
 
-        private SpriteText rightValue;
-        private SpriteText leftValue;
+        public readonly SpriteText EnergyValue;
+        public readonly SpriteText HealthValue;
+
+        public readonly SpriteText RightValue;
+        public readonly SpriteText LeftValue;
 
         private CircularMask circular;
 
         private Player player;
+
+        private const double duration = 200;
 
         public Seal(Player player)
         {
@@ -49,43 +54,43 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Alpha = 0.5f,
                     Color = player.PrimaryColor
                 },
-                leftValue = new SpriteText
+
+                EnergyValue = new SpriteText
+                {
+                    Position = new Vector2(-60, 10),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopRight,
+                    TextScale = 0.25f,
+                    Alpha = 0,
+                    //Color = player.SecondaryColor,
+                },
+                HealthValue = new SpriteText
+                {
+                    Position = new Vector2(60, 10),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopLeft,
+                    TextScale = 0.25f,
+                    Alpha = 0,
+                    //Color = player.SecondaryColor,
+                },
+
+                LeftValue = new SpriteText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
                     TextScale = 0.25f,
+                    Alpha = 0.8f,
                     //Color = player.SecondaryColor,
                 },
-                rightValue = new SpriteText
+                RightValue = new SpriteText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
                     TextScale = 0.25f,
+                    Alpha = 0.8f,
                     //Color = player.SecondaryColor,
                 },
             };
-        }
-
-        public void SpellActivate(VitaruActions action)
-        {
-            switch (player.Name)
-            {
-                case "Sakuya Izayoi":
-                    Reticle.Color = Color.DarkRed;
-                    Sign.Color = Color.DarkRed;
-                    break;
-            }
-        }
-
-        public void SpellDeactivate(VitaruActions action)
-        {
-            switch (player.Name)
-            {
-                case "Sakuya Izayoi":
-                    Reticle.Color = player.PrimaryColor;
-                    Sign.Color = player.PrimaryColor;
-                    break;
-            }
         }
 
         public void Update()
@@ -101,15 +106,10 @@ namespace Vitaru.Gamemodes.Characters.Players
                 (float)Math.Atan2(player.Cursor.Y - player.Position.Y, player.Cursor.X - player.Position.X) +
                 (float)Math.PI / 2f;
 
-            Sign.Alpha = PrionMath.Scale(player.Energy, 0, player.EnergyCapacity);
+            EnergyValue.Text = $"{Math.Round(player.Energy, 0)}/{player.EnergyCapacity}J";
+            HealthValue.Text = $"{Math.Round(player.Health, 0)}/{player.HealthCapacity}HP";
 
-            switch (player.Name)
-            {
-                case "Sakuya Izayoi":
-                    Sakuya s = player as Sakuya;
-                    leftValue.Text = s.SetRate.ToString();
-                    break;
-            }
+            Sign.Alpha = PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, 0.1f);
         }
 
         public void Shoot(double flash)
@@ -126,12 +126,28 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (action == VitaruActions.Sneak)
             {
                 Reticle.ClearTransforms();
-                Reticle.FadeTo(Sign.Alpha, 200);
-                Reticle.ScaleTo(new Vector2(0.2f), 200, Easings.OutCubic);
+                Reticle.FadeTo(Sign.Alpha, duration);
+                Reticle.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
+
                 Sign.ClearTransforms();
-                Sign.ScaleTo(new Vector2(0.2f), 200, Easings.OutCubic);
+                Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
+
                 circular.ClearTransforms();
-                circular.ScaleTo(new Vector2(0.2f), 200, Easings.OutCubic);
+                circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
+
+                EnergyValue.ClearTransforms();
+                EnergyValue.FadeTo(0.8f, duration);
+                EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
+
+                HealthValue.ClearTransforms();
+                HealthValue.FadeTo(0.8f, duration);
+                HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
+
+                LeftValue.ClearTransforms();
+                LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);
+
+                RightValue.ClearTransforms();
+                RightValue.MoveTo(new Vector2(-40, 0), duration, Easings.OutCubic);
             }
         }
 
@@ -140,12 +156,28 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (action == VitaruActions.Sneak)
             {
                 Reticle.ClearTransforms();
-                Reticle.FadeTo(0f, 200);
-                Reticle.ScaleTo(new Vector2(0.3f), 200, Easings.OutCubic);
+                Reticle.FadeTo(0f, duration);
+                Reticle.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
+
                 Sign.ClearTransforms();
-                Sign.ScaleTo(new Vector2(0.3f), 200, Easings.OutCubic);
+                Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
+
                 circular.ClearTransforms();
-                circular.ScaleTo(new Vector2(0.3f), 200, Easings.OutCubic);
+                circular.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
+
+                EnergyValue.ClearTransforms();
+                EnergyValue.FadeTo(0, duration);
+                EnergyValue.MoveTo(new Vector2(-60, 10), duration, Easings.OutCubic);
+
+                HealthValue.ClearTransforms();
+                HealthValue.FadeTo(0, duration);
+                HealthValue.MoveTo(new Vector2(60, 10), duration, Easings.OutCubic);
+
+                LeftValue.ClearTransforms();
+                LeftValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
+
+                RightValue.ClearTransforms();
+                RightValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
             }
         }
 
@@ -174,23 +206,23 @@ namespace Vitaru.Gamemodes.Characters.Players
                 {
                     health = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\health.png"))
                     {
-                        Color = player.ComplementaryColor,
+                        Color = player.SecondaryColor,
                     },
                     energy = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\energy.png"))
                     {
-                        Color = player.SecondaryColor,
+                        Color = player.ComplementaryColor,
                     },
                 };
             }
 
-            private const float start = (float)Math.PI / 2;
-            private const float end = (float)Math.PI * 2;
+            private const float start = 0;
+            private const float end = MathF.PI * 2;
 
             public override void Render()
             {
                 Renderer.CircularProgram.SetActive();
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle", start);
-                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle", PrionMath.Scale(player.Health, 0, player.HealthCapacity, start, end));
+                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle", PrionMath.Scale(player.Health, 0, player.HealthCapacity, end, start));
+                Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle", end);
                 health.Render();
                 Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "startAngle", start);
                 Renderer.ShaderManager.UpdateFloat(Renderer.CircularProgram, "endAngle", PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, start, end));

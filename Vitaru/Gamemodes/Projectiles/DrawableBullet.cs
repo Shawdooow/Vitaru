@@ -3,6 +3,7 @@
 
 using System.Numerics;
 using Prion.Application.Utilities;
+using Prion.Game;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Transforms;
 
@@ -23,16 +24,16 @@ namespace Vitaru.Gamemodes.Projectiles
 
             Children = new[]
             {
-                //Glow = new Sprite(Game.TextureStore.GetTexture("Gameplay\\Glow.png"))
-                //{
-                //    Size = new Vector2(bullet.Diameter * 2f),
-                //    Color = bullet.Color,
-                //},
-                OutlineCircle = new Circle
+                Glow = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
-                    Size = new Vector2(bullet.Diameter * 1.5f),
-                    Color = bullet.Color
+                    Size = new Vector2(bullet.Diameter * 3f),
+                    Color = bullet.Color,
                 },
+                //OutlineCircle = new Circle
+                //{
+                //    Size = new Vector2(bullet.Diameter * 1.5f),
+                //    Color = bullet.Color
+                //},
                 CenterCircle = new Circle
                 {
                     Size = new Vector2(bullet.Diameter)

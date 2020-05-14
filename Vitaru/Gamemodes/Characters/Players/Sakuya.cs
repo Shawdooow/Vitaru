@@ -123,6 +123,17 @@ namespace Vitaru.Gamemodes.Characters.Players
                 spellEndTime = Clock.LastCurrent;
             else
                 spellEndTime = Clock.LastCurrent - 2000;
+
+            DrawablePlayer.Seal.Reticle.Color = Color.DarkRed;
+            DrawablePlayer.Seal.Sign.Color = Color.DarkRed;
+        }
+
+        protected override void SpellDeactivate(VitaruActions action)
+        {
+            base.SpellDeactivate(action);
+
+            DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
+            DrawablePlayer.Seal.Sign.Color = PrimaryColor;
         }
 
         protected override void SpellUpdate()
@@ -175,6 +186,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     currentRate = originalRate * SetRate;
                     applyToClock(adjustable, currentRate);
                 }
+
+            DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
         }
 
         private void applyToClock(AdjustableClock clock, double speed)

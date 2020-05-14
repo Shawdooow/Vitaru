@@ -387,7 +387,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             SpellActive = true;
             if (EnergyDrainRate == 0)
                 DrainEnergy(EnergyCost);
-            DrawablePlayer.Seal.SpellActivate(action);
         }
 
         protected virtual void SpellUpdate()
@@ -406,7 +405,6 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void SpellDeactivate(VitaruActions action)
         {
             SpellActive = false;
-            DrawablePlayer.Seal.SpellDeactivate(action);
         }
 
         #endregion
