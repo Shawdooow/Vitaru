@@ -9,7 +9,7 @@ using Prion.Game.Graphics.Sprites;
 
 namespace Vitaru.Gamemodes.Characters
 {
-    public abstract class DrawableCharacter : Layer2D<IDrawable2D>
+    public abstract class DrawableCharacter : DrawableGameEntity
     {
         public override string Name { get; set; } = nameof(DrawableCharacter);
 
@@ -21,8 +21,10 @@ namespace Vitaru.Gamemodes.Characters
         protected DrawableCharacter(Character character, Texture t)
         {
             Add(Sprite = new Sprite(t));
+
             Name = Sprite.Name;
             Size = Sprite.Size;
+            Position = character.Position;
 
             Add(HitboxOutline = new Circle
             {
@@ -36,12 +38,5 @@ namespace Vitaru.Gamemodes.Characters
                 Alpha = 0
             });
         }
-
-        public event Action OnDelete;
-
-        /// <summary>
-        ///     Tells this <see cref="DrawableCharacter" /> to remove itself from our Parent and Dispose
-        /// </summary>
-        public virtual void Delete() => OnDelete?.Invoke();
     }
 }

@@ -14,7 +14,6 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             Sprite.Color = enemy.PrimaryColor;
             Sprite.Scale = new Vector2(0.12f);
-            Position = enemy.StartPosition;
         }
     }
 }

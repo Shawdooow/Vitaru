@@ -14,12 +14,9 @@ using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes.Characters
 {
-    public abstract class Character : Updatable, IHasTeam
+    public abstract class Character : GameEntity
     {
         public override string Name { get; set; } = nameof(Character);
-
-        //0 = Enemies, 1 = Player, 2 = Enemy Players
-        public virtual int Team { get; set; }
 
         public virtual float HealthCapacity => 60f;
 
@@ -29,9 +26,7 @@ namespace Vitaru.Gamemodes.Characters
 
         public bool Dead { get; protected set; }
 
-        public Vector2 Position => Drawable?.Position ?? Vector2.Zero;
-
-        protected virtual DrawableCharacter Drawable { get; set; }
+        protected new DrawableCharacter Drawable;
 
         public virtual Color PrimaryColor => Color.Green;
 
@@ -62,7 +57,7 @@ namespace Vitaru.Gamemodes.Characters
 
         public override void Update()
         {
-            if (!Dead && Drawable != null)
+            if (!Dead)
             {
                 foreach (KeyValuePair<int, Pack<Projectile>> pair in Gamefield.ProjectilePacks)
                 {
@@ -72,12 +67,9 @@ namespace Vitaru.Gamemodes.Characters
                     {
                         Projectile projectile = pair.Value.Children[i];
 
-                        //TODO: Optimize this by using different Lists/Layers so we don't have to check ones on our team
-                        if (projectile.Team == Team) continue;
-
                         ParseProjectile(projectile);
 
-                        Vector2 difference = projectile.Position - Drawable.Position;
+                        Vector2 difference = projectile.Position - Position;
 
                         double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
                         double edgeDistance;
@@ -131,8 +123,8 @@ namespace Vitaru.Gamemodes.Characters
             Bullet bullet = new Bullet
             {
                 Team = Team,
-                StartPosition = Drawable.Position,
-                StartTime = Clock.Current,
+                StartPosition = Position,
+                StartTime = Clock.LastCurrent,
                 Distance = 600,
 
                 Speed = speed,

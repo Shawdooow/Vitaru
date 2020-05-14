@@ -24,7 +24,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             Children = new[]
             {
-                Glow = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+                Glow = new Sprite
                 {
                     Size = new Vector2(bullet.Diameter * 3f),
                     Color = bullet.Color
@@ -44,6 +44,8 @@ namespace Vitaru.Gamemodes.Projectiles
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            Glow.Texture = Game.TextureStore.GetTexture("Gameplay\\glow.png");
 
             this.FadeTo(1, 200f, Easings.InSine);
             this.ScaleTo(Vector2.One, 100f, Easings.InSine);

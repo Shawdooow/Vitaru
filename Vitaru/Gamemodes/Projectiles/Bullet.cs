@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Drawables;
+using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Transforms;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -14,11 +16,7 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(Bullet);
 
-        public override DrawableProjectile GenerateDrawable()
-        {
-            PrionDebugger.Assert(Drawable == null, "Drawable should be null");
-            return Drawable = new DrawableBullet(this);
-        }
+        protected override DrawableGameEntity GenerateDrawable() => Drawable = new DrawableBullet(this);
 
         public Vector2 EndPosition { get; protected set; }
 
@@ -61,8 +59,7 @@ namespace Vitaru.Gamemodes.Projectiles
         public override void Update()
         {
             base.Update();
-            if (Drawable is null) return;
-            Drawable.Position = GetPosition(Clock.LastCurrent);
+            Position = GetPosition(Clock.LastCurrent);
         }
 
         protected virtual Vector2 GetPosition(double time)
@@ -81,8 +78,6 @@ namespace Vitaru.Gamemodes.Projectiles
 
             ReturnGreat = false;
             ForceScore = true;
-
-            if (Drawable == null) return;
 
             Drawable.FadeTo(0, 250, Easings.InSine);
             Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);

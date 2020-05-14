@@ -28,7 +28,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         public readonly SpriteText RightValue;
         public readonly SpriteText LeftValue;
 
-        private CircularMask circular;
+        private readonly CircularMask circular;
 
         private Player player;
 

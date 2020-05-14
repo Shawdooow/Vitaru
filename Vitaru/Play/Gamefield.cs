@@ -2,8 +2,10 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
+using Prion.Application.Debug;
 using Prion.Application.Groups.Packs;
 using Prion.Game.Graphics.Layers;
+using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
@@ -21,7 +23,7 @@ namespace Vitaru.Play
             Name = "Player Pack"
         };
 
-        public readonly Layer2D<DrawableCharacter> CharacterLayer = new Layer2D<DrawableCharacter>
+        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
         {
             Name = "Drawable Character Layer2D"
         };
@@ -35,7 +37,7 @@ namespace Vitaru.Play
 
         public readonly Dictionary<int, Pack<Projectile>> ProjectilePacks = new Dictionary<int, Pack<Projectile>>();
 
-        public readonly Layer2D<DrawableProjectile> ProjectileLayer = new Layer2D<DrawableProjectile>
+        public readonly Layer2D<DrawableGameEntity> ProjectileLayer = new Layer2D<DrawableGameEntity>
         {
             Name = "Drawable Projectile Layer2D"
         };
@@ -45,12 +47,12 @@ namespace Vitaru.Play
             Add(PlayerPack);
             Add(LoadedEnemies);
 
-            Pack<Projectile> enemys = new Pack<Projectile>()
+            Pack<Projectile> enemys = new Pack<Projectile>
             {
                 Name = "Enemy's Projectile Pack"
             };
 
-            Pack<Projectile> players = new Pack<Projectile>()
+            Pack<Projectile> players = new Pack<Projectile>
             {
                 Name = "Enemy's Projectile Pack"
             };
@@ -90,19 +92,19 @@ namespace Vitaru.Play
             foreach (KeyValuePair<int, Pack<Projectile>> pair in ProjectilePacks)
             foreach (Projectile p in pair.Value)
             {
-                if (Clock.Current + p.TimePreLoad >= p.StartTime && Clock.Current < p.EndTime + p.TimeUnLoad &&
+                if (Clock.LastCurrent + p.TimePreLoad >= p.StartTime && Clock.LastCurrent < p.EndTime + p.TimeUnLoad &&
                     !p.PreLoaded)
                     p.PreLoad();
-                else if ((Clock.Current + p.TimePreLoad < p.StartTime || Clock.Current >= p.EndTime + p.TimeUnLoad) &&
+                else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime || Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
                          p.PreLoaded)
                 {
                     p.UnLoad();
                     Remove(p);
                 }
 
-                if (Clock.Current >= p.StartTime && Clock.Current < p.EndTime && !p.Started)
+                if (Clock.LastCurrent >= p.StartTime && Clock.LastCurrent < p.EndTime && !p.Started)
                     p.Start();
-                else if ((Clock.Current < p.StartTime || Clock.Current >= p.EndTime) && p.Started)
+                else if ((Clock.LastCurrent < p.StartTime || Clock.LastCurrent >= p.EndTime) && p.Started)
                     p.End();
             }
 
@@ -124,7 +126,7 @@ namespace Vitaru.Play
 
         private readonly List<Enemy> deadEnemyQue = new List<Enemy>();
 
-        private readonly List<DrawableEnemy> drawableEnemyQue = new List<DrawableEnemy>();
+        private readonly List<DrawableGameEntity> drawableEnemyQue = new List<DrawableGameEntity>();
 
         public void Add(Enemy enemy)
         {
@@ -138,27 +140,27 @@ namespace Vitaru.Play
             deadEnemyQue.Add(enemy);
         }
 
-        private readonly List<Player> playerQue = new List<Player>();
+        private readonly List<DrawableGameEntity> playerQue = new List<DrawableGameEntity>();
 
         public void Add(Player player)
         {
             PlayerPack.Add(player);
             //Que adding the drawable
-            playerQue.Add(player);
+            playerQue.Add(player.GetDrawable());
         }
 
-        private readonly List<Projectile> projectileQue = new List<Projectile>();
+        private readonly List<DrawableGameEntity> projectileQue = new List<DrawableGameEntity>();
 
         private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
 
-        private readonly List<DrawableProjectile> drawableProjectileQue = new List<DrawableProjectile>();
+        private readonly List<DrawableGameEntity> drawableProjectileQue = new List<DrawableGameEntity>();
 
         public void Add(Projectile projectile)
         {
             ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
             //Que adding the drawable
-            projectileQue.Add(projectile);
+            projectileQue.Add(projectile.GetDrawable());
         }
 
         public void Remove(Projectile projectile)
@@ -173,7 +175,7 @@ namespace Vitaru.Play
             //Add Players
             while (playerQue.Count > 0)
             {
-                CharacterLayer.Add(playerQue[0].GenerateDrawable());
+                CharacterLayer.Add(playerQue[0]);
                 playerQue.Remove(playerQue[0]);
             }
 
@@ -181,7 +183,8 @@ namespace Vitaru.Play
             while (enemyQue.Count > 0)
             {
                 Enemy enemy = enemyQue[0];
-                DrawableEnemy draw = enemy.GenerateDrawable();
+                PrionDebugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
+                DrawableGameEntity draw = enemy.GetDrawable();
 
                 draw.OnDelete += () => drawableEnemyQue.Add(draw);
 
@@ -191,7 +194,7 @@ namespace Vitaru.Play
 
             while (drawableEnemyQue.Count > 0)
             {
-                DrawableEnemy draw = drawableEnemyQue[0];
+                DrawableGameEntity draw = drawableEnemyQue[0];
                 CharacterLayer.Remove(draw);
                 drawableEnemyQue.Remove(draw);
             }
@@ -199,18 +202,17 @@ namespace Vitaru.Play
             //Add / Remove Projectiles
             while (projectileQue.Count > 0)
             {
-                Projectile projectile = projectileQue[0];
-                DrawableProjectile draw = projectile.GenerateDrawable();
+                DrawableGameEntity draw = projectileQue[0];
 
                 draw.OnDelete += () => drawableProjectileQue.Add(draw);
 
                 ProjectileLayer.Add(draw);
-                projectileQue.Remove(projectile);
+                projectileQue.Remove(draw);
             }
 
             while (drawableProjectileQue.Count > 0)
             {
-                DrawableProjectile draw = drawableProjectileQue[0];
+                DrawableGameEntity draw = drawableProjectileQue[0];
                 ProjectileLayer.Remove(draw);
                 drawableProjectileQue.Remove(draw);
             }

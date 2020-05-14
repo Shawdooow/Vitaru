@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Debug;
 using Prion.Application.Utilities;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
@@ -21,9 +22,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public override float HitboxDiameter => 50f;
 
-        public Layer2D<IDrawable2D> GetDrawable() => GenerateDrawable();
-
-        public virtual DrawableEnemy GenerateDrawable()
+        protected override DrawableGameEntity GenerateDrawable()
         {
             DrawableEnemy draw = new DrawableEnemy(this);
             Drawable = draw;
@@ -55,6 +54,12 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public Enemy(Gamefield gamefield) : base(gamefield)
         {
             Team = ENEMY_TEAM;
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Position = StartPosition;
         }
 
         public override void OnNewBeat()
@@ -89,7 +94,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             Player player = (Player) Gamefield.PlayerPack.Children[0];
 
             float playerAngle =
-                ((float) Math.Atan2(player.Position.Y - Drawable.Position.Y, player.Position.X - Drawable.Position.X))
+                ((float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X))
                 .ToDegrees() + 90;
 
             for (int i = 1; i <= numberbullets; i++)

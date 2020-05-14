@@ -4,31 +4,18 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Entitys;
 using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
 using Vitaru.Editor.IO;
-using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
-    public abstract class Projectile : Updatable, IHasTeam, IEditable
+    public abstract class Projectile : GameEntity, IEditable
     {
         public override string Name { get; set; } = nameof(Projectile);
-
-        protected DrawableProjectile Drawable;
-
-        public Layer2D<IDrawable2D> GetDrawable() => GenerateDrawable();
-
-        public abstract DrawableProjectile GenerateDrawable();
-
-        public virtual int Team { get; set; }
 
         public Color Color = Color.White;
 
         public float Angle { get; set; } = (float) Math.PI / -2f;
-
-        public Vector2 Position => Drawable?.Position ?? new Vector2(float.MaxValue);
 
         public Vector2 StartPosition { get; set; }
 
@@ -64,9 +51,17 @@ namespace Vitaru.Gamemodes.Projectiles
         //return a great
         public bool ReturnGreat;
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Position = StartPosition;
+        }
+
         public override void Update()
         {
         }
+
+        public virtual void Hit() => End();
 
         public virtual void PreLoad() => PreLoaded = true;
 
@@ -89,12 +84,6 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public virtual void Delete() => Drawable.Delete();
 
-        protected override void Dispose(bool finalize)
-        {
-            base.Dispose(finalize);
-            Drawable = null;
-        }
-
         public virtual void ParseString(string[] data, int offset)
         {
             StartTime = double.Parse(data[0 + offset]);
@@ -113,7 +102,5 @@ namespace Vitaru.Gamemodes.Projectiles
                 Damage.ToString()
             };
         }
-
-        public virtual void Hit() => End();
     }
 }

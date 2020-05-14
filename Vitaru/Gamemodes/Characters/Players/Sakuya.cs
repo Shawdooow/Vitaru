@@ -7,6 +7,8 @@ using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Drawables;
+using Prion.Game.Graphics.Layers;
 using Vitaru.Input;
 using Vitaru.Play;
 
@@ -56,13 +58,14 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private AdjustableClock adjustable;
 
-        public override DrawablePlayer GenerateDrawable()
+        protected override DrawableGameEntity GenerateDrawable()
         {
             DrawableSakuya draw = new DrawableSakuya(this)
             {
                 Position = new Vector2(0, 200)
             };
             Drawable = draw;
+            DrawablePlayer = draw;
             return draw;
         }
 

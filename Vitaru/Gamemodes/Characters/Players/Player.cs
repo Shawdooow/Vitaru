@@ -6,7 +6,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
+using Prion.Application.Debug;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Drawables;
+using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;
@@ -74,15 +77,16 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private double shootTime;
 
-        protected DrawablePlayer DrawablePlayer => (DrawablePlayer) Drawable;
+        protected DrawablePlayer DrawablePlayer { get; set; }
 
-        public virtual DrawablePlayer GenerateDrawable()
+        protected override DrawableGameEntity GenerateDrawable()
         {
             DrawablePlayer draw = new DrawablePlayer(this)
             {
                 Position = new Vector2(0, 200)
             };
             Drawable = draw;
+            DrawablePlayer = draw;
             return draw;
         }
 
@@ -155,9 +159,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
                 PatternWave();
 
-            //TODO: fix this being needed?
-            if (Drawable == null) return;
-
             if (HealingProjectiles.Count > 0)
             {
                 float fallOff = 1;
@@ -172,7 +173,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             DrawablePlayer.Seal.Update();
 
-            Drawable.Position = GetNewPlayerPosition(0.3f);
+            Position = GetNewPlayerPosition(0.3f);
 
             SpellUpdate();
         }
@@ -181,7 +182,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             base.ParseProjectile(projectile);
 
-            Vector2 difference = projectile.Position - Drawable.Position;
+            Vector2 difference = projectile.Position - Position;
 
             float distance = (float) Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
             float edgeDistance;
@@ -219,7 +220,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void PatternWave()
         {
             double half = Track.Level.GetBeatLength() / 2;
-            shootTime = Clock.Current + half;
+            shootTime = Clock.LastCurrent + half;
 
             DrawablePlayer.Seal.Shoot(half);
 
@@ -230,7 +231,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (InputHandler.Actions[VitaruActions.Sneak])
             {
-                cursorAngle = ((float) Math.Atan2(Cursor.Y - Drawable.Position.Y, Cursor.X - Drawable.Position.X))
+                cursorAngle = ((float) Math.Atan2(Cursor.Y - Position.Y, Cursor.X - Position.X))
                     .ToDegrees() + 90;
                 directionModifier = -0.1f;
             }
