@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.Runtime;
 using Prion.Application.Debug;
 using Prion.Application.Utilities;
 using Prion.Game;
@@ -24,6 +25,7 @@ namespace Vitaru
         {
             ALKI = PrionMath.RandomNumber(0, 10) == 5;
             if (ALKI) Logger.ConsoleLog("ALKI", ConsoleColor.Magenta);
+            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
             using (Vitaru vitaru = new Vitaru(args))
                 vitaru.Start(new TestMenu());
         }
