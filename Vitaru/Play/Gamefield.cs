@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Prion.Application.Debug;
 using Prion.Application.Groups.Packs;
@@ -112,7 +113,7 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.Current >= e.StartTime - e.TimePreLoad && Clock.Current < e.EndTime) // + e.TimeUnLoad)
+                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime) // + e.TimeUnLoad)
                 {
                     enemyQue.Add(e);
                     UnloadedEnemies.Remove(e);
@@ -149,7 +150,8 @@ namespace Vitaru.Play
             playerQue.Add(player.GetDrawable());
         }
 
-        private readonly List<DrawableGameEntity> projectileQue = new List<DrawableGameEntity>();
+        //TODO: evaluate performance loss of this
+        private readonly ConcurrentQueue<DrawableGameEntity> projectileQue = new ConcurrentQueue<DrawableGameEntity>();
 
         private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
 
@@ -160,7 +162,7 @@ namespace Vitaru.Play
             ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
             //Que adding the drawable
-            projectileQue.Add(projectile.GetDrawable());
+            projectileQue.Enqueue(projectile.GetDrawable());
         }
 
         public void Remove(Projectile projectile)
@@ -200,15 +202,14 @@ namespace Vitaru.Play
             }
 
             //Add / Remove Projectiles
-            while (projectileQue.Count > 0)
+            if (projectileQue.Count > 0)
             {
-                DrawableGameEntity draw = projectileQue[0];
+                PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableGameEntity draw));
                 PrionDebugger.Assert(!draw.Disposed, "This projectile is disposed and should not be in this list anymore");
 
                 draw.OnDelete += () => drawableProjectileQue.Add(draw);
 
                 ProjectileLayer.Add(draw);
-                projectileQue.Remove(draw);
             }
 
             while (drawableProjectileQue.Count > 0)

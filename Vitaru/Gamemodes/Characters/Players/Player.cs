@@ -150,13 +150,13 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             base.Update();
 
-            if (nextHalfBeat <= Clock.Current && nextHalfBeat != -1)
+            if (nextHalfBeat <= Clock.LastCurrent && nextHalfBeat != -1)
                 OnHalfBeat();
 
-            if (nextQuarterBeat <= Clock.Current && nextQuarterBeat != -1)
+            if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
                 OnQuarterBeat();
 
-            if (InputHandler.Actions[VitaruActions.Shoot] && Clock.Current >= shootTime)
+            if (InputHandler.Actions[VitaruActions.Shoot] && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
             if (HealingProjectiles.Count > 0)
@@ -294,7 +294,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Drawable.Hitbox.FadeTo(1f, 200);
                     return true;
                 case VitaruActions.Shoot:
-                    shootTime = Clock.Current;
+                    shootTime = Clock.LastCurrent;
                     return true;
             }
         }
