@@ -15,5 +15,11 @@ namespace Vitaru.Gamemodes
         ///     Tells this <see cref="DrawableGameEntity" /> to remove itself from our Parent and Dispose
         /// </summary>
         public virtual void Delete() => OnDelete?.Invoke();
+
+        public override void Removed()
+        {
+            base.Removed();
+            OnDelete = null;
+        }
     }
 }
