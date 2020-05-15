@@ -22,11 +22,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public override float HitboxDiameter => 50f;
 
-        protected override DrawableGameEntity GenerateDrawable()
+        public override DrawableGameEntity GenerateDrawable()
         {
-            DrawableEnemy draw = new DrawableEnemy(this);
-            Drawable = draw;
-            return draw;
+            return new DrawableEnemy(this);
         }
 
         public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color.Chartreuse;

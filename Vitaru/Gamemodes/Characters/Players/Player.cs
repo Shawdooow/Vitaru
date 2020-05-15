@@ -79,15 +79,18 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected DrawablePlayer DrawablePlayer { get; set; }
 
-        protected override DrawableGameEntity GenerateDrawable()
+        public override void SetDrawable(DrawableGameEntity drawable)
         {
-            DrawablePlayer draw = new DrawablePlayer(this)
+            DrawablePlayer = drawable as DrawablePlayer;
+            base.SetDrawable(drawable);
+        }
+
+        public override DrawableGameEntity GenerateDrawable()
+        {
+            return new DrawablePlayer(this)
             {
                 Position = new Vector2(0, 200)
             };
-            Drawable = draw;
-            DrawablePlayer = draw;
-            return draw;
         }
 
         protected Player(Gamefield gamefield) : base(gamefield)

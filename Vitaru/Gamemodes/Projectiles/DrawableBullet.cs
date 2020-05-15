@@ -14,31 +14,43 @@ namespace Vitaru.Gamemodes.Projectiles
         public override string Name { get; set; } = nameof(DrawableBullet);
 
         protected Sprite Glow;
-        protected Sprite OutlineCircle;
+        //protected Sprite OutlineCircle;
         protected Sprite CenterCircle;
 
-        public DrawableBullet(Bullet bullet) : base(bullet)
+        public DrawableBullet()
         {
-            Alpha = 0;
-            Scale = new Vector2(1.5f);
-
             Children = new[]
             {
-                Glow = new Sprite
-                {
-                    Size = new Vector2(bullet.Diameter * 3f),
-                    Color = bullet.Color
-                },
+                Glow = new Sprite(),
                 //OutlineCircle = new Circle
                 //{
                 //    Size = new Vector2(bullet.Diameter * 1.5f),
                 //    Color = bullet.Color
                 //},
-                CenterCircle = new Circle
-                {
-                    Size = new Vector2(bullet.Diameter)
-                }
+                CenterCircle = new Circle()
             };
+        }
+
+        public override DrawableGameEntity SetProjectile(Projectile projectile)
+        {
+            //TODO: gross
+            Bullet bullet = projectile as Bullet;
+
+            Alpha = 0;
+            Scale = new Vector2(1.5f);
+
+            Glow.Size = new Vector2(bullet.Diameter * 3f);
+            Glow.Color = bullet.Color;
+            CenterCircle.Size = new Vector2(bullet.Diameter);
+
+            return base.SetProjectile(projectile);
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            this.FadeTo(1, 200f, Easings.InSine);
+            this.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
 
         public override void LoadingComplete()
@@ -46,9 +58,7 @@ namespace Vitaru.Gamemodes.Projectiles
             base.LoadingComplete();
 
             Glow.Texture = Game.TextureStore.GetTexture("Gameplay\\glow.png");
-
-            this.FadeTo(1, 200f, Easings.InSine);
-            this.ScaleTo(Vector2.One, 100f, Easings.InSine);
+            Start();
         }
     }
 }

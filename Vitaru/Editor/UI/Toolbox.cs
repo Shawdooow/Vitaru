@@ -84,7 +84,7 @@ namespace Vitaru.Editor.UI
                 ParentOrigin = Mounts.TopCenter;
                 Origin = Mounts.TopCenter;
 
-                Layer2D<IDrawable2D> draw = editable.GetDrawable();
+                Layer2D<IDrawable2D> draw = editable.GenerateDrawable();
 
                 draw.ParentOrigin = Mounts.CenterLeft;
                 draw.Origin = Mounts.CenterLeft;

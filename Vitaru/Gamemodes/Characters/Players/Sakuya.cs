@@ -58,17 +58,6 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private AdjustableClock adjustable;
 
-        protected override DrawableGameEntity GenerateDrawable()
-        {
-            DrawableSakuya draw = new DrawableSakuya(this)
-            {
-                Position = new Vector2(0, 200)
-            };
-            Drawable = draw;
-            DrawablePlayer = draw;
-            return draw;
-        }
-
         public Sakuya(Gamefield gamefield) : base(gamefield)
         {
         }

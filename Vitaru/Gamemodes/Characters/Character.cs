@@ -28,6 +28,12 @@ namespace Vitaru.Gamemodes.Characters
 
         protected new DrawableCharacter Drawable;
 
+        public override void SetDrawable(DrawableGameEntity drawable)
+        {
+            base.SetDrawable(drawable);
+            Drawable = drawable as DrawableCharacter;
+        }
+
         public virtual Color PrimaryColor => Color.Green;
 
         public virtual Color SecondaryColor => Color.LightBlue;

@@ -7,9 +7,14 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(DrawableProjectile);
 
-        protected DrawableProjectile(Projectile projectile)
+        public virtual DrawableGameEntity SetProjectile(Projectile projectile)
         {
             Position = projectile.Position;
+            return this;
+        }
+
+        public virtual void Start()
+        {
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
+using Vitaru.Gamemodes.Projectiles;
 
 namespace Vitaru.Gamemodes
 {

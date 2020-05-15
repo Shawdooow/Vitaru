@@ -16,7 +16,7 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(Bullet);
 
-        protected override DrawableGameEntity GenerateDrawable() => Drawable = new DrawableBullet(this);
+        public override DrawableGameEntity GenerateDrawable() => new DrawableBullet();
 
         public Vector2 EndPosition { get; protected set; }
 

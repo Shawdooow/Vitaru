@@ -43,6 +43,8 @@ namespace Vitaru.Play
             Name = "Drawable Projectile Layer2D"
         };
 
+        protected readonly Queue<DrawableProjectile> RecycledDrawableProjectiles = new Queue<DrawableProjectile>();
+
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
             Add(PlayerPack);
@@ -147,22 +149,36 @@ namespace Vitaru.Play
         {
             PlayerPack.Add(player);
             //Que adding the drawable
-            playerQue.Add(player.GetDrawable());
+
+            DrawableGameEntity draw = player.GenerateDrawable();
+            player.SetDrawable(draw);
+            playerQue.Add(draw);
         }
 
         //TODO: evaluate performance loss of this
-        private readonly ConcurrentQueue<DrawableGameEntity> projectileQue = new ConcurrentQueue<DrawableGameEntity>();
+        private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
 
         private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
 
-        private readonly List<DrawableGameEntity> drawableProjectileQue = new List<DrawableGameEntity>();
+        private readonly Queue<DrawableProjectile> drawableProjectileQue = new Queue<DrawableProjectile>();
 
         public void Add(Projectile projectile)
         {
             ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
+
+            DrawableProjectile draw;
+
+            if (RecycledDrawableProjectiles.Count > 0)
+                draw = RecycledDrawableProjectiles.Dequeue();
+            else
+                draw = projectile.GenerateDrawable() as DrawableProjectile;
+
+            projectile.SetDrawable(draw);
+            draw.SetProjectile(projectile);
+
             //Que adding the drawable
-            projectileQue.Enqueue(projectile.GetDrawable());
+            projectileQue.Enqueue(draw);
         }
 
         public void Remove(Projectile projectile)
@@ -186,7 +202,8 @@ namespace Vitaru.Play
             {
                 Enemy enemy = enemyQue[0];
                 PrionDebugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
-                DrawableGameEntity draw = enemy.GetDrawable();
+                DrawableGameEntity draw = enemy.GenerateDrawable();
+                enemy.SetDrawable(draw);
 
                 draw.OnDelete += () => drawableEnemyQue.Add(draw);
 
@@ -204,19 +221,19 @@ namespace Vitaru.Play
             //Add / Remove Projectiles
             if (projectileQue.Count > 0)
             {
-                PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableGameEntity draw));
+                PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
                 PrionDebugger.Assert(!draw.Disposed, "This projectile is disposed and should not be in this list anymore");
 
-                draw.OnDelete += () => drawableProjectileQue.Add(draw);
+                draw.OnDelete += () => drawableProjectileQue.Enqueue(draw);
 
                 ProjectileLayer.Add(draw);
             }
 
             while (drawableProjectileQue.Count > 0)
             {
-                DrawableGameEntity draw = drawableProjectileQue[0];
-                ProjectileLayer.Remove(draw);
-                drawableProjectileQue.Remove(draw);
+                DrawableProjectile draw = drawableProjectileQue.Dequeue();
+                ProjectileLayer.Remove(draw, false);
+                RecycledDrawableProjectiles.Enqueue(draw);
             }
         }
     }

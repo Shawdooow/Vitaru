@@ -29,13 +29,13 @@ namespace Vitaru.Gamemodes
 
         protected DrawableGameEntity Drawable;
 
-        public DrawableGameEntity GetDrawable()
+        public virtual void SetDrawable(DrawableGameEntity drawable)
         {
             PrionDebugger.Assert(Drawable == null, "Drawable should be null");
-            return Drawable = GenerateDrawable();
+            Drawable = drawable;
         }
 
-        protected abstract DrawableGameEntity GenerateDrawable();
+        public abstract DrawableGameEntity GenerateDrawable();
 
         protected override void Dispose(bool finalize)
         {
