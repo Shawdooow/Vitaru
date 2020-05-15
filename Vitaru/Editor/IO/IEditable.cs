@@ -8,6 +8,8 @@ namespace Vitaru.Editor.IO
 {
     public interface IEditable : IHasName
     {
+        void SetDrawable(DrawableGameEntity drawable);
+
         DrawableGameEntity GenerateDrawable();
 
         void ParseString(string[] data, int offset);

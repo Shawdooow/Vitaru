@@ -8,6 +8,8 @@ namespace Vitaru.Gamemodes
 {
     public static class GamemodeStore
     {
+        public static LoadedGamemode SelectedGamemode { get; private set; }
+
         public static List<LoadedGamemode> LoadedGamemodes { get; private set; } = new List<LoadedGamemode>();
 
         public static void ReloadGamemodes()
@@ -15,6 +17,7 @@ namespace Vitaru.Gamemodes
             List<Gamemode> loadedGamemodes = new List<Gamemode>
             {
                 new Vitaru.Vitaru()
+                //new Tanks.Tanks(),
                 //new Tau.Tau(),
             };
 
@@ -45,11 +48,12 @@ namespace Vitaru.Gamemodes
             
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
-
             */
 
             foreach (Gamemode g in loadedGamemodes)
                 LoadedGamemodes.Add(new LoadedGamemode(g));
+
+            SelectedGamemode = LoadedGamemodes[0];
         }
 
         /// <summary>

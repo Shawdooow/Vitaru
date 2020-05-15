@@ -5,17 +5,18 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Sprites;
+using Vitaru.Editor.IO;
 using Vitaru.Editor.UI;
 
 namespace Vitaru.Roots
 {
     public class EditorRoot : MenuRoot
     {
-        private readonly EditableGamefield gamefield;
+        private readonly Editfield editfield;
 
         public EditorRoot()
         {
-            gamefield = new EditableGamefield();
+            editfield = new Editfield();
 
             Add(new SpriteLayer
             {
@@ -33,14 +34,23 @@ namespace Vitaru.Roots
             });
 
             //Packs
-            Add(gamefield);
+            Add(editfield);
 
             //Layers
-            Add(gamefield.ProjectileLayer);
-            Add(gamefield.CharacterLayer);
+            Add(editfield.ProjectileLayer);
+            Add(editfield.CharacterLayer);
+            Add(editfield.SelectionLayer);
 
             Add(new Timeline());
-            Add(new Toolbox());
+            Add(new Toolbox
+            {
+                OnSelection = Selected
+            });
+        }
+
+        protected void Selected(Editable editable)
+        {
+            editfield.Selected(editable);
         }
     }
 }

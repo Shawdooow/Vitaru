@@ -5,12 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Entitys;
 using Prion.Application.Groups.Packs;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
 using Vitaru.Tracks;
-using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes.Characters
 {

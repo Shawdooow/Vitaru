@@ -1,8 +1,9 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Entitys;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
 using Vitaru.Utilities;
 
 namespace Vitaru.Gamemodes
@@ -20,7 +21,7 @@ namespace Vitaru.Gamemodes
             set
             {
                 position = value;
-                if (Drawable != null) 
+                if (Drawable != null)
                     Drawable.Position = value;
             }
         }

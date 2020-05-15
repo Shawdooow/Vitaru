@@ -98,7 +98,8 @@ namespace Vitaru.Play
                 if (Clock.LastCurrent + p.TimePreLoad >= p.StartTime && Clock.LastCurrent < p.EndTime + p.TimeUnLoad &&
                     !p.PreLoaded)
                     p.PreLoad();
-                else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime || Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
+                else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime ||
+                          Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
                          p.PreLoaded)
                 {
                     p.UnLoad();
@@ -115,7 +116,8 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime) // + e.TimeUnLoad)
+                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime
+                ) // + e.TimeUnLoad)
                 {
                     enemyQue.Add(e);
                     UnloadedEnemies.Remove(e);
@@ -222,7 +224,8 @@ namespace Vitaru.Play
             if (projectileQue.Count > 0)
             {
                 PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
-                PrionDebugger.Assert(!draw.Disposed, "This projectile is disposed and should not be in this list anymore");
+                PrionDebugger.Assert(!draw.Disposed,
+                    "This projectile is disposed and should not be in this list anymore");
 
                 draw.OnDelete += () => drawableProjectileQue.Enqueue(draw);
 

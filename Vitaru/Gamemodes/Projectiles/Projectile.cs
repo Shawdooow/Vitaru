@@ -4,7 +4,6 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Game.Graphics.Drawables;
 using Vitaru.Editor.IO;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -12,6 +11,13 @@ namespace Vitaru.Gamemodes.Projectiles
     public abstract class Projectile : GameEntity, IEditable
     {
         public override string Name { get; set; } = nameof(Projectile);
+
+        public override void SetDrawable(DrawableGameEntity drawable)
+        {
+            DrawableProjectile draw = drawable as DrawableProjectile;
+            draw.SetProjectile(this);
+            base.SetDrawable(drawable);
+        }
 
         public Color Color = Color.White;
 

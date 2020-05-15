@@ -3,12 +3,9 @@
 
 using System;
 using System.Drawing;
-using System.Numerics;
 using Prion.Application.Debug;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
 using Vitaru.Input;
 using Vitaru.Play;
 

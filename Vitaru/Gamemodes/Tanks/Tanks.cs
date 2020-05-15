@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using Prion.Game.Graphics.Sprites;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 
@@ -11,6 +12,8 @@ namespace Vitaru.Gamemodes.Tanks
     {
         //Wii Play Tanks 2
         public override string Name => "Tanks";
+
+        public override Texture Icon { get; }
 
         public override FormatConverter GetFormatConverter()
         {
@@ -23,6 +26,11 @@ namespace Vitaru.Gamemodes.Tanks
         }
 
         public override Chapter[] GetChapters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Editable[] GetEditables()
         {
             throw new NotImplementedException();
         }

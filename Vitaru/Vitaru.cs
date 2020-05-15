@@ -10,6 +10,7 @@ using Prion.Game;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
+using Vitaru.Gamemodes;
 using Vitaru.Roots.Tests;
 
 namespace Vitaru
@@ -41,6 +42,8 @@ namespace Vitaru
             Renderer.Window.Title = ALKI ? "Alki" : "Vitaru";
             Renderer.Window.Icon =
                 new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+
+            GamemodeStore.ReloadGamemodes();
 
             base.Start();
         }

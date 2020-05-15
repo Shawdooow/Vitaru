@@ -14,6 +14,7 @@ namespace Vitaru.Gamemodes.Projectiles
         public override string Name { get; set; } = nameof(DrawableBullet);
 
         protected Sprite Glow;
+
         //protected Sprite OutlineCircle;
         protected Sprite CenterCircle;
 
