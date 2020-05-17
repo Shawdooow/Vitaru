@@ -261,14 +261,9 @@ namespace Vitaru.Play
 
             private bool threading;
 
-            public ProjectilePack()
-            {
-                enableThreading();
-            }
-
             public override void Update()
             {
-                if (ProtectedChildren.Count > 999999990 && !threading)
+                if (ProtectedChildren.Count > 30000 && !threading)
                     enableThreading();
                 else if (!threading)
                     base.Update();
