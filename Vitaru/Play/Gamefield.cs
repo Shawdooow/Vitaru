@@ -231,7 +231,7 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (ProtectedChildren.Count >= 1000 && !threading)
+                if (ProtectedChildren.Count >= 12000 && !threading)
                     enableThreading();
 
                 if (!threading)
@@ -284,13 +284,9 @@ namespace Vitaru.Play
                 {
                     Projectile p = list[i];
 
-                    if (last + p.TimePreLoad >= p.StartTime &&
-                        last < p.EndTime + p.TimeUnLoad &&
-                        !p.PreLoaded)
+                    if (last + p.TimePreLoad >= p.StartTime && last < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
                         p.PreLoad();
-                    else if ((last + p.TimePreLoad < p.StartTime ||
-                              last >= p.EndTime + p.TimeUnLoad) &&
-                             p.PreLoaded)
+                    else if ((last + p.TimePreLoad < p.StartTime || last >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
                     {
                         //p.UnLoad();
                         //Remove(p);
