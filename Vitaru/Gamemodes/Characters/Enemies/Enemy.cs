@@ -112,7 +112,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 }
 
                 //-90 = up
-                BulletAddRad(0.25f, (playerAngle - 90).ToRadians() + directionModifier, color, size, 0);
+                BulletAddRad(0.25f, (playerAngle - 90).ToRadians() + directionModifier, color, size, 0, 600);
                 directionModifier += 0.2f;
             }
         }
