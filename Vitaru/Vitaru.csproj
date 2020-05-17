@@ -28,6 +28,9 @@
     <None Remove="Gamemodes\Vitaru\HitObjects\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Game\Prion.Game.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>
