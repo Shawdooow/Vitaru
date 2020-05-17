@@ -1,60 +1,78 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Collections.Generic;
 using System.Numerics;
 using OpenTK.Input;
 using Prion.Core.Groups.Packs;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
+using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Play;
 
 namespace Vitaru.Editor.UI
 {
     public class Editfield : Gamefield
     {
-        public readonly Pack<GameEntity> SelectionPack = new Pack<GameEntity>();
+        private Vector2 offset = Vector2.Zero;
+        
         public readonly SelectLayer SelectionLayer = new SelectLayer();
 
-        public Editfield()
+        private Editable editable;
+
+        public void Selected(Editable edit)
         {
-            Add(SelectionPack);
+            editable = edit;
+            IEditable e = editable.GetEditable(this);
+            DrawableGameEntity draw = e.GenerateDrawable(); 
+            IDrawable2D outline = edit.GetOverlay(draw);
+            draw.Add(outline);
+
+            e.SetDrawable(draw);
+            Add(e as Enemy);
+            SelectionLayer.Children = new[]
+            {
+                draw,
+            };
         }
 
-        public void Selected(Editable editable)
+        public override void Update()
         {
-            IEditable edit = editable.GetEditable();
-            DrawableGameEntity draw = edit.GenerateDrawable();
-            edit.SetDrawable(draw);
-            SelectionLayer.Child = draw;
+            base.Update();
+
+            if (SelectionLayer.Right)
+                foreach (IEditable e in LoadedEnemies)
+                    e.Position += SelectionLayer.Cursor - offset;
+
+            offset = SelectionLayer.Cursor;
         }
 
-        public class SelectLayer : ClickableLayer<DrawableGameEntity>
+        public class SelectLayer : ClickableLayer<IDrawable2D>
         {
-            private Vector2 offset = Vector2.Zero;
-            private bool right;
+            public Vector2 Cursor { get; private set; }
+            public bool Right { get; private set; }
+            public bool Click;
 
             public override void OnMouseMove(MousePositionEvent e)
             {
                 base.OnMouseMove(e);
-
-                if (right)
-                {
-                    foreach (DrawableGameEntity entity in Children)
-                    {
-                        entity.Position += e.Position - offset;
-                        offset = e.Position;
-                    }
-                }
+                Cursor = e.Position;
             }
 
             public override bool OnMouseDown(MouseButtonEvent e)
             {
-                if (e.Button == MouseButton.Right)
+                switch (e.Button)
                 {
-                    right = true;
-                    offset = e.Position;
+                    case MouseButton.Right:
+                        Right = true;
+                        Cursor = e.Position;
+                        break;
+                    case MouseButton.Left:
+                        Click = true;
+                        break;
                 }
 
                 return base.OnMouseDown(e);
@@ -63,7 +81,7 @@ namespace Vitaru.Editor.UI
             public override bool OnMouseUp(MouseButtonEvent e)
             {
                 if (e.Button == MouseButton.Right)
-                    right = false;
+                    Right = false;
                 return base.OnMouseUp(e);
             }
         }

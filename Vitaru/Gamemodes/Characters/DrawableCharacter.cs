@@ -21,6 +21,10 @@ namespace Vitaru.Gamemodes.Characters
 
             Name = Sprite.Name;
             Size = Sprite.Size;
+
+            //TODO: get rid of this hacky shit
+            if (character == null) return;
+
             Position = character.Position;
 
             Add(HitboxOutline = new Circle

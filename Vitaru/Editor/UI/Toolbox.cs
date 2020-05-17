@@ -85,7 +85,7 @@ namespace Vitaru.Editor.UI
                 ParentOrigin = Mounts.TopCenter;
                 Origin = Mounts.TopCenter;
 
-                IEditable edit = editable.GetEditable();
+                IEditable edit = editable.GetEditable(null);
                 DrawableGameEntity draw = edit.GenerateDrawable();
                 edit.SetDrawable(draw);
 
