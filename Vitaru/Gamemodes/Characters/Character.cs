@@ -122,7 +122,8 @@ namespace Vitaru.Gamemodes.Characters
             if (Health <= 0) Die();
         }
 
-        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage, float distance)
+        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage,
+            float distance)
         {
             Bullet bullet = new Bullet
             {
@@ -135,7 +136,7 @@ namespace Vitaru.Gamemodes.Characters
                 Color = color,
                 Diameter = size,
                 Damage = damage,
-                Distance = distance,
+                Distance = distance
             };
 
             Gamefield.Add(bullet);

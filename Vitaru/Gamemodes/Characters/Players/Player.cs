@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Utilities;
+using Prion.Core.Utilities;
 using Prion.Game.Graphics.Transforms;
 using Prion.Game.Input.Events;
 using Prion.Game.Input.Handlers;

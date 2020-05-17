@@ -4,8 +4,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Prion.Application.Debug;
-using Prion.Application.Groups.Packs;
+using Prion.Core.Debug;
+using Prion.Core.Groups.Packs;
 using Prion.Game.Graphics.Layers;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prion", "Prion", "{E0619336
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contagion", "..\Prion\Contagion\Contagion.csproj", "{A132BB89-8317-4CD4-8B7A-13C15464ADFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Application", "..\Prion\Prion.Application\Prion.Application.csproj", "{A3AF3153-D11D-43EC-A125-190405A14768}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Core", "..\Prion\Prion.Core\Prion.Core.csproj", "{A3AF3153-D11D-43EC-A125-190405A14768}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Game", "..\Prion\Prion.Game\Prion.Game.csproj", "{B28E483E-4645-4245-9889-D204D5331A88}"
 EndProject

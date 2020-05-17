@@ -1,13 +1,9 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-#region usings
-
 using System;
 using System.Runtime.Serialization;
-using Prion.Application.Networking.Packets;
-
-#endregion
+using Prion.Core.Networking.Packets;
 
 namespace Vitaru.Server.Packets
 {

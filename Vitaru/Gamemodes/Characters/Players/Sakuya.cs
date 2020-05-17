@@ -3,9 +3,9 @@
 
 using System;
 using System.Drawing;
-using Prion.Application.Debug;
-using Prion.Application.Timing;
-using Prion.Application.Utilities;
+using Prion.Core.Debug;
+using Prion.Core.Timing;
+using Prion.Core.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
 

@@ -3,7 +3,7 @@
 
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Application.Groups.Packs;
+using Prion.Core.Groups.Packs;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Input.Events;
 using Vitaru.Editor.IO;
@@ -56,6 +56,7 @@ namespace Vitaru.Editor.UI
                     right = true;
                     offset = e.Position;
                 }
+
                 return base.OnMouseDown(e);
             }
 

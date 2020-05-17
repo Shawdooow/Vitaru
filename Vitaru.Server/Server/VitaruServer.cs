@@ -3,7 +3,7 @@
 
 namespace Vitaru.Server.Server
 {
-    public sealed class VitaruServer : Prion.Application.Networking.NetworkingHandlers.Server.Server
+    public sealed class VitaruServer : Prion.Core.Networking.NetworkingHandlers.Server.Server
     {
     }
 }

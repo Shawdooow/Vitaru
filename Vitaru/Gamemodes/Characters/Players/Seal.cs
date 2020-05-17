@@ -3,7 +3,7 @@
 
 using System;
 using System.Numerics;
-using Prion.Application.Utilities;
+using Prion.Core.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;

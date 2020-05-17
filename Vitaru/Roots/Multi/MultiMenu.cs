@@ -3,11 +3,11 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Debug;
-using Prion.Application.Entitys;
-using Prion.Application.Groups.Packs;
-using Prion.Application.Networking.NetworkingHandlers;
-using Prion.Application.Networking.Packets;
+using Prion.Core.Debug;
+using Prion.Core.Entitys;
+using Prion.Core.Groups.Packs;
+using Prion.Core.Networking.NetworkingHandlers;
+using Prion.Core.Networking.Packets;
 using Prion.Game;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Multiplayer.Client;

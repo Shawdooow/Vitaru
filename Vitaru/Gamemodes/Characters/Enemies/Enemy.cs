@@ -4,7 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Utilities;
+using Prion.Core.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;

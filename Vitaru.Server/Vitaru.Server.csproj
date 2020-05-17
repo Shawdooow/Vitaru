@@ -18,6 +18,6 @@
     <ApplicationIcon>vitaru.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Prion\Prion.Application\Prion.Application.csproj" />
+    <ProjectReference Include="..\..\Prion\Prion.Core\Prion.Core.csproj" />
   </ItemGroup>
 </Project>

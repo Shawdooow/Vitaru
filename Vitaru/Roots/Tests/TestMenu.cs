@@ -3,7 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Application.Timing;
+using Prion.Core.Timing;
 using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Drawables;

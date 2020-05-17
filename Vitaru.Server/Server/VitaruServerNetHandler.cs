@@ -4,10 +4,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using Prion.Application.Debug;
-using Prion.Application.Networking.NetworkingHandlers;
-using Prion.Application.Networking.NetworkingHandlers.Server;
-using Prion.Application.Networking.Packets;
+using Prion.Core.Debug;
+using Prion.Core.Networking.NetworkingHandlers;
+using Prion.Core.Networking.NetworkingHandlers.Server;
+using Prion.Core.Networking.Packets;
 using Vitaru.Server.Match;
 using Vitaru.Server.Packets;
 using Vitaru.Server.Packets.Lobby;

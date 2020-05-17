@@ -3,7 +3,7 @@
 
 using System.Net;
 using System.Net.Sockets;
-using Prion.Application.Networking.NetworkingHandlers.Server;
+using Prion.Core.Networking.NetworkingHandlers.Server;
 
 namespace Vitaru.Server.Server
 {
@@ -11,7 +11,7 @@ namespace Vitaru.Server.Server
     {
         public VitaruUser User;
 
-        public VitaruClient(Prion.Application.Networking.NetworkingHandlers.Server.Server server, TcpClient client,
+        public VitaruClient(Prion.Core.Networking.NetworkingHandlers.Server.Server server, TcpClient client,
             IPEndPoint end) : base(server, client, end)
         {
         }

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Prion.Application.Utilities;
+using Prion.Core.Utilities;
 
 namespace Vitaru.Gamemodes.Projectiles.Patterns
 {

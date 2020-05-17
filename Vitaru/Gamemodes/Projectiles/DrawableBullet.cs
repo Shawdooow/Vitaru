@@ -2,7 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using Prion.Application.Utilities;
+using Prion.Core.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Transforms;

@@ -3,8 +3,8 @@
 
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Application.Timing;
-using Prion.Application.Utilities;
+using Prion.Core.Timing;
+using Prion.Core.Utilities;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Overlays;
 using Prion.Game.Graphics.Text;

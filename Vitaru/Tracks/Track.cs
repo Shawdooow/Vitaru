@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using Prion.Application.Timing;
+using Prion.Core.Timing;
 using Prion.Game.Audio;
 using Vitaru.Server.Track;
 
