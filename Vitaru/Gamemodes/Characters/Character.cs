@@ -63,13 +63,14 @@ namespace Vitaru.Gamemodes.Characters
         {
             if (!Dead)
             {
-                foreach (KeyValuePair<int, Pack<Projectile>> pair in Gamefield.ProjectilePacks)
+                foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
                 {
-                    if (pair.Key == Team) continue;
+                    if (pack.Team == Team) continue;
 
-                    for (int i = 0; i < pair.Value.Children.Count; i++)
+                    IReadOnlyList<Projectile> projectiles = pack.Children;
+                    for (int i = 0; i < projectiles.Count; i++)
                     {
-                        Projectile projectile = pair.Value.Children[i];
+                        Projectile projectile = projectiles[i];
 
                         ParseProjectile(projectile);
 

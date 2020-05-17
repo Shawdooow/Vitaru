@@ -3,8 +3,13 @@
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Prion.Application.Debug;
 using Prion.Application.Groups.Packs;
+using Prion.Application.Threads;
+using Prion.Game;
 using Prion.Game.Graphics.Layers;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
@@ -12,6 +17,7 @@ using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Multiplayer.Client;
+using Vitaru.Utilities;
 
 namespace Vitaru.Play
 {
@@ -36,7 +42,7 @@ namespace Vitaru.Play
             Name = "Loaded Enemies Pack"
         };
 
-        public readonly Dictionary<int, Pack<Projectile>> ProjectilePacks = new Dictionary<int, Pack<Projectile>>();
+        public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
 
         public readonly Layer2D<DrawableGameEntity> ProjectileLayer = new Layer2D<DrawableGameEntity>
         {
@@ -50,18 +56,20 @@ namespace Vitaru.Play
             Add(PlayerPack);
             Add(LoadedEnemies);
 
-            Pack<Projectile> enemys = new Pack<Projectile>
+            ProjectilePack enemys = new ProjectilePack
             {
-                Name = "Enemy's Projectile Pack"
+                Name = "Enemy's Projectile Pack",
+                Team = Enemy.ENEMY_TEAM
             };
 
-            Pack<Projectile> players = new Pack<Projectile>
+            ProjectilePack players = new ProjectilePack
             {
-                Name = "Enemy's Projectile Pack"
+                Name = "Player's Projectile Pack",
+                Team = Player.PLAYER_TEAM
             };
 
-            ProjectilePacks.Add(Enemy.ENEMY_TEAM, enemys);
-            ProjectilePacks.Add(Player.PLAYER_TEAM, players);
+            ProjectilePacks.Add(enemys);
+            ProjectilePacks.Add(players);
 
             Add(enemys);
             Add(players);
@@ -92,24 +100,29 @@ namespace Vitaru.Play
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
-            foreach (KeyValuePair<int, Pack<Projectile>> pair in ProjectilePacks)
-            foreach (Projectile p in pair.Value)
+            foreach (ProjectilePack pack in ProjectilePacks)
             {
-                if (Clock.LastCurrent + p.TimePreLoad >= p.StartTime && Clock.LastCurrent < p.EndTime + p.TimeUnLoad &&
-                    !p.PreLoaded)
-                    p.PreLoad();
-                else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime ||
-                          Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
-                         p.PreLoaded)
+                foreach (Projectile p in pack)
                 {
-                    p.UnLoad();
-                    Remove(p);
-                }
+                    if (Clock.LastCurrent + p.TimePreLoad >= p.StartTime &&
+                        Clock.LastCurrent < p.EndTime + p.TimeUnLoad &&
+                        !p.PreLoaded)
+                        p.PreLoad();
+                    else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime ||
+                              Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
+                             p.PreLoaded)
+                    {
+                        p.UnLoad();
+                        Remove(p);
+                    }
 
-                if (Clock.LastCurrent >= p.StartTime && Clock.LastCurrent < p.EndTime && !p.Started)
-                    p.Start();
-                else if ((Clock.LastCurrent < p.StartTime || Clock.LastCurrent >= p.EndTime) && p.Started)
-                    p.End();
+                    if (Clock.LastCurrent >= p.StartTime && Clock.LastCurrent < p.EndTime && !p.Started)
+                        p.Start();
+                    else if ((Clock.LastCurrent < p.StartTime || Clock.LastCurrent >= p.EndTime) && p.Started)
+                    {
+                        p.End();
+                    }
+                }
             }
 
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
@@ -237,6 +250,92 @@ namespace Vitaru.Play
                 DrawableProjectile draw = drawableProjectileQue.Dequeue();
                 ProjectileLayer.Remove(draw, false);
                 RecycledDrawableProjectiles.Enqueue(draw);
+            }
+        }
+
+        public class ProjectilePack : Pack<Projectile>, IHasTeam
+        {
+            public int Team { get; set; }
+
+            private readonly List<List<Projectile>> lists = new List<List<Projectile>>();
+
+            private bool threading;
+
+            public ProjectilePack()
+            {
+                enableThreading();
+            }
+
+            public override void Update()
+            {
+                if (ProtectedChildren.Count > 999999990 && !threading)
+                    enableThreading();
+                else if (!threading)
+                    base.Update();
+                else
+                {
+                    Vitaru.RunThreads();
+                    Vitaru.AwaitDynamicThreads();
+                }
+            }
+
+            public override void Add(Projectile child, AddPosition position = AddPosition.Last)
+            {
+                base.Add(child, position);
+
+                if (threading)
+                {
+                    List<Projectile> smallest = lists[0];
+                    for (int i = 1; i < lists.Count; i++)
+                        if (lists[i].Count < smallest.Count)
+                            smallest = lists[i];
+
+                    smallest.Add(child);
+                }
+            }
+
+            public override void Remove(Projectile child, bool dispose = true)
+            {
+                base.Remove(child, dispose);
+
+                if (threading)
+                {
+                    for (int i = 0; i < lists.Count; i++)
+                    {
+                        if (lists[i].Contains(child))
+                        {
+                            lists[i].Remove(child);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            private void enableThreading()
+            {
+                threading = true;
+
+                for (int i = 0; i < Vitaru.Threads.Count; i++)
+                {
+                    List<Projectile> list = new List<Projectile>();
+                    Vitaru.Threads[i].Task = () =>
+                    {
+                        for (int j = 0; j < list.Count; j++)
+                            list[j].Update();
+                    };
+                    lists.Add(list);
+                }
+
+                int t = 0;
+
+                for (int i = 0; i < ProtectedChildren.Count; i++)
+                {
+                    lists[t].Add(ProtectedChildren[i]);
+
+                    t++;
+                    if (t >= lists.Count)
+                        t = 0;
+                }
             }
         }
     }

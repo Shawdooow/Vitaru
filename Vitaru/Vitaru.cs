@@ -2,9 +2,11 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime;
 using Prion.Application.Debug;
+using Prion.Application.Threads;
 using Prion.Application.Utilities;
 using Prion.Game;
 using Prion.Game.Graphics;
@@ -31,8 +33,12 @@ namespace Vitaru
                 vitaru.Start(new TestMenu());
         }
 
+        public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
+
         protected Vitaru(string[] args) : base("vitaru", args)
         {
+            while (FreeProcessors > 0)
+                Threads.Add(CreateDynamicTask());
         }
 
         protected override GraphicsContext GetContext(string name) => base.GetContext("GL46");

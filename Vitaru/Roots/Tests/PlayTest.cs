@@ -5,7 +5,9 @@ using System.Numerics;
 using OpenTK.Input;
 using Prion.Application.Timing;
 using Prion.Application.Utilities;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Overlays;
+using Prion.Game.Graphics.Text;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;
@@ -18,6 +20,8 @@ namespace Vitaru.Roots.Tests
         private readonly Gamefield gamefield;
         private readonly SeekableClock seek;
         private readonly Track track;
+
+        private readonly SpriteText debug;
 
         public PlayTest(SeekableClock seek, Track track)
         {
@@ -45,6 +49,13 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.ProjectileLayer);
             Add(gamefield.CharacterLayer);
             Add(new FPSOverlay());
+            Add(debug = new SpriteText
+            {
+                Position = new Vector2(-2, 2),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                TextScale = 0.25f
+            });
         }
 
         private void enemy()
@@ -64,8 +75,11 @@ namespace Vitaru.Roots.Tests
             enemy();
         }
 
+        public static uint BULLET_COUNT;
+
         public override void Update()
         {
+            debug.Text = $"{BULLET_COUNT}";
             seek.NewFrame();
             track.CheckRepeat();
             if (track.CheckNewBeat())

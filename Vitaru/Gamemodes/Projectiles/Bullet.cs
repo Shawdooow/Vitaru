@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Application.Utilities;
 using Prion.Game.Graphics.Transforms;
+using Vitaru.Roots.Tests;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -35,6 +36,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             base.LoadingComplete();
             UpdatePath();
+            PlayTest.BULLET_COUNT++;
         }
 
         protected virtual void UpdatePath()
@@ -100,6 +102,12 @@ namespace Vitaru.Gamemodes.Projectiles
             data.AddRange(base.SerializeToStrings());
 
             return data.ToArray();
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            PlayTest.BULLET_COUNT--;
         }
     }
 
