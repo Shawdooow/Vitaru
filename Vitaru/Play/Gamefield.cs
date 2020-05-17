@@ -96,31 +96,6 @@ namespace Vitaru.Play
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
-            foreach (ProjectilePack pack in ProjectilePacks)
-            {
-                foreach (Projectile p in pack)
-                {
-                    if (Clock.LastCurrent + p.TimePreLoad >= p.StartTime &&
-                        Clock.LastCurrent < p.EndTime + p.TimeUnLoad &&
-                        !p.PreLoaded)
-                        p.PreLoad();
-                    else if ((Clock.LastCurrent + p.TimePreLoad < p.StartTime ||
-                              Clock.LastCurrent >= p.EndTime + p.TimeUnLoad) &&
-                             p.PreLoaded)
-                    {
-                        p.UnLoad();
-                        Remove(p);
-                    }
-
-                    if (Clock.LastCurrent >= p.StartTime && Clock.LastCurrent < p.EndTime && !p.Started)
-                        p.Start();
-                    else if ((Clock.LastCurrent < p.StartTime || Clock.LastCurrent >= p.EndTime) && p.Started)
-                    {
-                        p.End();
-                    }
-                }
-            }
-
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
@@ -128,7 +103,7 @@ namespace Vitaru.Play
                 if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime
                 ) // + e.TimeUnLoad)
                 {
-                    enemyQue.Add(e);
+                    enemyQue.Enqueue(e);
                     UnloadedEnemies.Remove(e);
                     LoadedEnemies.Add(e);
                     //Boss?.Enemies.Add(e);
@@ -136,11 +111,11 @@ namespace Vitaru.Play
             }
         }
 
-        private readonly List<Enemy> enemyQue = new List<Enemy>();
+        private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
 
         private readonly List<Enemy> deadEnemyQue = new List<Enemy>();
 
-        private readonly List<DrawableGameEntity> drawableEnemyQue = new List<DrawableGameEntity>();
+        private readonly Queue<DrawableGameEntity> drawableEnemyQue = new Queue<DrawableGameEntity>();
 
         public void Add(Enemy enemy)
         {
@@ -154,7 +129,7 @@ namespace Vitaru.Play
             deadEnemyQue.Add(enemy);
         }
 
-        private readonly List<DrawableGameEntity> playerQue = new List<DrawableGameEntity>();
+        private readonly ConcurrentQueue<DrawableGameEntity> playerQue = new ConcurrentQueue<DrawableGameEntity>();
 
         public void Add(Player player)
         {
@@ -163,10 +138,9 @@ namespace Vitaru.Play
 
             DrawableGameEntity draw = player.GenerateDrawable();
             player.SetDrawable(draw);
-            playerQue.Add(draw);
+            playerQue.Enqueue(draw);
         }
 
-        //TODO: evaluate performance loss of this
         private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
 
         private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
@@ -204,29 +178,27 @@ namespace Vitaru.Play
             //Add Players
             while (playerQue.Count > 0)
             {
-                CharacterLayer.Add(playerQue[0]);
-                playerQue.Remove(playerQue[0]);
+                PrionDebugger.Assert(playerQue.TryDequeue(out DrawableGameEntity player));
+                CharacterLayer.Add(player);
             }
 
             //Add / Remove Enemies
             while (enemyQue.Count > 0)
             {
-                Enemy enemy = enemyQue[0];
+                PrionDebugger.Assert(enemyQue.TryDequeue(out Enemy enemy));
                 PrionDebugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
                 DrawableGameEntity draw = enemy.GenerateDrawable();
                 enemy.SetDrawable(draw);
 
-                draw.OnDelete += () => drawableEnemyQue.Add(draw);
+                draw.OnDelete += () => drawableEnemyQue.Enqueue(draw);
 
                 CharacterLayer.Add(draw);
-                enemyQue.Remove(enemy);
             }
 
             while (drawableEnemyQue.Count > 0)
             {
-                DrawableGameEntity draw = drawableEnemyQue[0];
+                PrionDebugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
-                drawableEnemyQue.Remove(draw);
             }
 
             //Add / Remove Projectiles
@@ -263,12 +235,11 @@ namespace Vitaru.Play
                     enableThreading();
 
                 if (!threading)
-                    base.Update();
+                    proccessList(ProtectedChildren);
                 else
                 {
                     Vitaru.RunThreads();
-                    for (int i = 0; i < lists.Last().Count; i++)
-                        lists.Last()[i].Update();
+                    proccessList(lists.Last());
                     Vitaru.AwaitDynamicThreads();
                 }
             }
@@ -305,21 +276,48 @@ namespace Vitaru.Play
                 }
             }
 
+            private void proccessList(List<Projectile> list)
+            {
+                double last = Clock.LastCurrent;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Projectile p = list[i];
+
+                    if (last + p.TimePreLoad >= p.StartTime &&
+                        last < p.EndTime + p.TimeUnLoad &&
+                        !p.PreLoaded)
+                        p.PreLoad();
+                    else if ((last + p.TimePreLoad < p.StartTime ||
+                              last >= p.EndTime + p.TimeUnLoad) &&
+                             p.PreLoaded)
+                    {
+                        //p.UnLoad();
+                        //Remove(p);
+                    }
+
+                    if (last >= p.StartTime && last < p.EndTime && !p.Started)
+                        p.Start();
+                    else if ((last < p.StartTime || last >= p.EndTime) && p.Started)
+                    {
+                        //p.End();
+                    }
+
+                    p.Update();
+                }
+            }
+
             private void enableThreading()
             {
                 threading = true;
 
-                lists.Add(new List<Projectile>());
                 for (int i = 0; i < Vitaru.Threads.Count; i++)
                 {
                     List<Projectile> list = new List<Projectile>();
-                    Vitaru.Threads[i].Task = () =>
-                    {
-                        for (int j = 0; j < list.Count; j++)
-                            list[j].Update();
-                    };
+                    Vitaru.Threads[i].Task = () => proccessList(list);
                     lists.Add(list);
                 }
+                lists.Add(new List<Projectile>());
 
                 int t = 0;
 
