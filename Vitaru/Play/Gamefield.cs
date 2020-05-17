@@ -4,12 +4,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using Prion.Application.Debug;
 using Prion.Application.Groups.Packs;
-using Prion.Application.Threads;
-using Prion.Game;
 using Prion.Game.Graphics.Layers;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
@@ -263,13 +259,16 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (ProtectedChildren.Count > 30000 && !threading)
+                if (ProtectedChildren.Count >= 1000 && !threading)
                     enableThreading();
-                else if (!threading)
+
+                if (!threading)
                     base.Update();
                 else
                 {
                     Vitaru.RunThreads();
+                    for (int i = 0; i < lists.Last().Count; i++)
+                        lists.Last()[i].Update();
                     Vitaru.AwaitDynamicThreads();
                 }
             }
@@ -310,6 +309,7 @@ namespace Vitaru.Play
             {
                 threading = true;
 
+                lists.Add(new List<Projectile>());
                 for (int i = 0; i < Vitaru.Threads.Count; i++)
                 {
                     List<Projectile> list = new List<Projectile>();
