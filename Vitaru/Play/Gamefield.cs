@@ -202,7 +202,7 @@ namespace Vitaru.Play
             }
 
             //Add / Remove Projectiles
-            if (projectileQue.Count > 0)
+            while (projectileQue.Count > 0)
             {
                 PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
                 PrionDebugger.Assert(!draw.Disposed,
@@ -231,7 +231,7 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (ProtectedChildren.Count >= 12000 && !threading)
+                if (ProtectedChildren.Count >= 500 && !threading)
                     enableThreading();
 
                 if (!threading)
