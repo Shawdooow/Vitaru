@@ -288,15 +288,15 @@ namespace Vitaru.Play
                         p.PreLoad();
                     else if ((last + p.TimePreLoad < p.StartTime || last >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
                     {
-                        //p.UnLoad();
-                        //Remove(p);
+                        p.UnLoad();
+                        Remove(p);
                     }
 
                     if (last >= p.StartTime && last < p.EndTime && !p.Started)
                         p.Start();
                     else if ((last < p.StartTime || last >= p.EndTime) && p.Started)
                     {
-                        //p.End();
+                        p.End();
                     }
 
                     p.Update();
