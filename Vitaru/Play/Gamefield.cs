@@ -52,13 +52,13 @@ namespace Vitaru.Play
             Add(PlayerPack);
             Add(LoadedEnemies);
 
-            ProjectilePack enemys = new ProjectilePack
+            ProjectilePack enemys = new ProjectilePack(this)
             {
                 Name = "Enemy's Projectile Pack",
                 Team = Enemy.ENEMY_TEAM
             };
 
-            ProjectilePack players = new ProjectilePack
+            ProjectilePack players = new ProjectilePack(this)
             {
                 Name = "Player's Projectile Pack",
                 Team = Player.PLAYER_TEAM
@@ -83,16 +83,14 @@ namespace Vitaru.Play
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
-                Enemy enemy = deadEnemyQue[0];
-                deadEnemyQue.Remove(enemy);
+                Enemy enemy = deadEnemyQue.Dequeue();
                 LoadedEnemies.Remove(enemy, false);
                 UnloadedEnemies.Add(enemy);
             }
 
             while (deadprojectileQue.Count > 0)
             {
-                Projectile projectile = deadprojectileQue[0];
-                deadprojectileQue.Remove(projectile);
+                Projectile projectile = deadprojectileQue.Dequeue();
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
@@ -113,7 +111,7 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
 
-        private readonly List<Enemy> deadEnemyQue = new List<Enemy>();
+        private readonly Queue<Enemy> deadEnemyQue = new Queue<Enemy>();
 
         private readonly Queue<DrawableGameEntity> drawableEnemyQue = new Queue<DrawableGameEntity>();
 
@@ -126,7 +124,7 @@ namespace Vitaru.Play
         public void Remove(Enemy enemy)
         {
             //que them since we may be calling this from their update loop
-            deadEnemyQue.Add(enemy);
+            deadEnemyQue.Enqueue(enemy);
         }
 
         private readonly ConcurrentQueue<DrawableGameEntity> playerQue = new ConcurrentQueue<DrawableGameEntity>();
@@ -143,7 +141,7 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
 
-        private readonly List<Projectile> deadprojectileQue = new List<Projectile>();
+        private readonly Queue<Projectile> deadprojectileQue = new Queue<Projectile>();
 
         private readonly Queue<DrawableProjectile> drawableProjectileQue = new Queue<DrawableProjectile>();
 
@@ -169,7 +167,7 @@ namespace Vitaru.Play
         public void Remove(Projectile projectile)
         {
             projectile.Delete();
-            deadprojectileQue.Add(projectile);
+            deadprojectileQue.Enqueue(projectile);
         }
 
         //Move the drawables on the draw thread to avoid threadsaftey issues
@@ -221,6 +219,14 @@ namespace Vitaru.Play
             }
         }
 
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+
+            while (RecycledDrawableProjectiles.Count > 0)
+                RecycledDrawableProjectiles.Dequeue().Dispose();
+        }
+
         public class ProjectilePack : Pack<Projectile>, IHasTeam
         {
             public int Team { get; set; }
@@ -228,6 +234,13 @@ namespace Vitaru.Play
             private readonly List<List<Projectile>> lists = new List<List<Projectile>>();
 
             private bool threading;
+
+            private readonly Gamefield gamefield;
+
+            public ProjectilePack(Gamefield gamefield)
+            {
+                this.gamefield = gamefield;
+            }
 
             public override void Update()
             {
@@ -289,7 +302,7 @@ namespace Vitaru.Play
                     else if ((last + p.TimePreLoad < p.StartTime || last >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
                     {
                         p.UnLoad();
-                        Remove(p);
+                        gamefield.Remove(p);
                     }
 
                     if (last >= p.StartTime && last < p.EndTime && !p.Started)
