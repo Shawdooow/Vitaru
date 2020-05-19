@@ -50,7 +50,18 @@ namespace Vitaru.Settings
                     Size = new Vector2(width - 8, 20),
                     Text =
                     {
-                        Text = "Toggle Raytracing"
+                        Text = "Toggle Raytracing (yes, really)"
+                    }
+                },
+                new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 20),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle Fullscreen"
                     }
                 },
 
