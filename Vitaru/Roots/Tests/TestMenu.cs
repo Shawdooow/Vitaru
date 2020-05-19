@@ -19,6 +19,7 @@ using Prion.Game.Graphics.UserInterface;
 using Vitaru.Levels;
 using Vitaru.Roots.Multi;
 using Vitaru.Server.Track;
+using Vitaru.Settings;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
@@ -55,7 +56,6 @@ namespace Vitaru.Roots.Tests
             Button multi;
             Button edit;
             Button wiki = null;
-            Button setting;
 
             Add(play = new Button
             {
@@ -98,25 +98,7 @@ namespace Vitaru.Roots.Tests
                 OnClick = () => wiki.Text = "Wiki"
             });
 
-            Add(setting = new Button
-            {
-                ParentOrigin = Mounts.CenterRight,
-                Origin = Mounts.CenterRight,
-
-                Size = new Vector2(100, 200),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-                Text = "Settings",
-                SpriteText =
-                {
-                    TextScale = 0.25f
-                },
-
-                OnClick = () =>
-                {
-                    //settings.Toggle();
-                }
-            });
+            Add(new SettingsOverlay());
 
             Add(new SpriteText
             {
@@ -130,8 +112,6 @@ namespace Vitaru.Roots.Tests
             multi.BackgroundSprite.Color = Color.DarkMagenta;
             edit.BackgroundSprite.Color = Color.DarkTurquoise;
             wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
-
-            setting.BackgroundSprite.Color = Color.DarkSlateBlue;
 
             Add(new FPSOverlay());
         }
