@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Core.IO;
 using Prion.Core.Timing;
 using Prion.Game;
 using Prion.Game.Audio.OpenAL;
@@ -13,7 +14,9 @@ using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.UserInterface;
+using Vitaru.Levels;
 using Vitaru.Roots.Multi;
+using Vitaru.Server.Track;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
@@ -112,7 +115,16 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
             seek.Start();
-            track = new Track(Vitaru.ALKI ? Track.GetEndgame() : Track.GetBells(), seek);
+            LevelTrack t = Track.GetBells();
+            Storage storage = Game.SoundStorage;
+
+            if (LevelStore.LoadedLevels.Count > 0)
+            {
+                t = LevelStore.CurrentPack.Levels[0].LevelTrack;
+                storage = Vitaru.LevelStorage.GetStorage($"{LevelStore.CurrentPack.Name}");
+            }
+
+            track = new Track(Vitaru.ALKI ? Track.GetEndgame() : t, seek, storage);
         }
 
         public override void Update()

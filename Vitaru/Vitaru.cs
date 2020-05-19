@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime;
 using Prion.Core.Debug;
+using Prion.Core.IO;
 using Prion.Core.Threads;
 using Prion.Core.Utilities;
 using Prion.Game;
@@ -13,6 +14,7 @@ using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
 using Vitaru.Gamemodes;
+using Vitaru.Levels;
 using Vitaru.Roots.Tests;
 
 namespace Vitaru
@@ -33,10 +35,16 @@ namespace Vitaru
                 vitaru.Start(new TestMenu());
         }
 
+        public static Storage LevelStorage { get; protected set; }
+
         public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
 
         protected Vitaru(string[] args) : base("vitaru", args)
         {
+            LevelStorage = ApplicationDataStorage.GetStorage("Levels");
+
+            LevelStore.ReloadLevelsFromFolders();
+
             while (FreeProcessors > 0)
                 Threads.Add(CreateDynamicTask());
         }

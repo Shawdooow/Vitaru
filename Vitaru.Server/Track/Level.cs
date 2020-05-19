@@ -10,6 +10,8 @@ namespace Vitaru.Server.Track
     {
         public LevelTrack LevelTrack;
 
+        public string Format;
+
         public string LevelCreator;
 
         public string LevelName;
