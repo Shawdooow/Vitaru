@@ -52,13 +52,14 @@ namespace Vitaru.Roots.Tests
             });
 
             Button play;
-            Button edit;
             Button multi;
+            Button edit;
             Button wiki = null;
+            Button setting;
 
             Add(play = new Button
             {
-                Position = new Vector2(0, -200),
+                Position = new Vector2(0, -170),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -68,7 +69,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(multi = new Button
             {
-                Position = new Vector2(0, -75),
+                Position = new Vector2(0, -60),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -78,7 +79,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(edit = new Button
             {
-                Position = new Vector2(0, 75),
+                Position = new Vector2(0, 60),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -88,13 +89,33 @@ namespace Vitaru.Roots.Tests
             });
             Add(wiki = new Button
             {
-                Position = new Vector2(0, 200),
+                Position = new Vector2(0, 170),
                 Size = new Vector2(100, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
                 Text = "?",
 
                 OnClick = () => wiki.Text = "Wiki"
+            });
+
+            Add(setting = new Button
+            {
+                ParentOrigin = Mounts.CenterRight,
+                Origin = Mounts.CenterRight,
+
+                Size = new Vector2(100, 200),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                Text = "Settings",
+                SpriteText =
+                {
+                    TextScale = 0.25f,
+                },
+
+                OnClick = () =>
+                {
+                    //settings.Toggle();
+                }
             });
 
             Add(new SpriteText
@@ -106,9 +127,11 @@ namespace Vitaru.Roots.Tests
             });
 
             play.BackgroundSprite.Color = Color.ForestGreen;
-            edit.BackgroundSprite.Color = Color.DarkTurquoise;
             multi.BackgroundSprite.Color = Color.DarkMagenta;
+            edit.BackgroundSprite.Color = Color.DarkTurquoise;
             wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
+
+            setting.BackgroundSprite.Color = Color.DarkSlateBlue;
 
             Add(new FPSOverlay());
         }
