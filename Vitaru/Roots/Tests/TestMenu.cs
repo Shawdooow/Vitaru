@@ -3,8 +3,10 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Core.Debug;
 using Prion.Core.IO;
 using Prion.Core.Timing;
+using Prion.Core.Utilities;
 using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Drawables;
@@ -118,10 +120,11 @@ namespace Vitaru.Roots.Tests
             LevelTrack t = Track.GetBells();
             Storage storage = Game.SoundStorage;
 
-            if (LevelStore.LoadedLevels.Count > 0)
+            if (LevelStore.LoadedLevels.Count > 0 && !Vitaru.ALKI)
             {
-                t = LevelStore.CurrentPack.Levels[0].LevelTrack;
-                storage = Vitaru.LevelStorage.GetStorage($"{LevelStore.CurrentPack.Name}");
+                t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0].LevelTrack;
+                storage = Vitaru.LevelStorage.GetStorage($"{t.Name}");
+                Logger.Log($"Playing {t.Name}");
             }
 
             track = new Track(Vitaru.ALKI ? Track.GetEndgame() : t, seek, storage);
