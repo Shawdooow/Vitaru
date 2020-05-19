@@ -65,6 +65,18 @@ namespace Vitaru.Settings
                     }
                 },
 
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 40),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle \"GOD-KING\" Hacks"
+                    }
+                },
+
                 toggle = new Button
                 {
                     ParentOrigin = Mounts.CenterLeft,

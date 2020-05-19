@@ -14,6 +14,7 @@ using Prion.Game.Input.Receivers;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
+using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -74,6 +75,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private double shootTime;
 
+        private bool GOD_KING;
+
         protected DrawablePlayer DrawablePlayer { get; set; }
 
         public override void SetDrawable(DrawableGameEntity drawable)
@@ -92,6 +95,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected Player(Gamefield gamefield) : base(gamefield)
         {
+            GOD_KING = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
+
             Team = PLAYER_TEAM;
             InputHandler = new VitaruInputManager();
             InputHandler.Add(this);
@@ -149,6 +154,12 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override void Update()
         {
             base.Update();
+
+            if (GOD_KING)
+            {
+                Heal(999);
+                Charge(999);
+            }
 
             if (nextHalfBeat <= Clock.LastCurrent && nextHalfBeat != -1)
                 OnHalfBeat();

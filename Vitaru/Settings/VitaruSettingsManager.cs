@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prion.Core.IO;
+﻿using Prion.Core.IO;
 using Prion.Core.IO.Configs;
 
 namespace Vitaru.Settings
@@ -16,12 +11,12 @@ namespace Vitaru.Settings
 
         protected override void InitDefaults()
         {
-            throw new NotImplementedException();
+            SetValue(VitaruSetting.DebugHacks, false);
         }
     }
 
     public enum VitaruSetting
     {
-
+        DebugHacks,
     }
 }

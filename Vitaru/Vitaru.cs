@@ -16,6 +16,7 @@ using Prion.Game.Graphics.Sprites;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
 using Vitaru.Roots.Tests;
+using Vitaru.Settings;
 
 namespace Vitaru
 {
@@ -35,12 +36,15 @@ namespace Vitaru
                 vitaru.Start(new TestMenu());
         }
 
+        public static VitaruSettingsManager VitaruSettings { get; private set; }
+
         public static Storage LevelStorage { get; protected set; }
 
         public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
 
         protected Vitaru(string[] args) : base("vitaru", args)
         {
+            VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
 
             LevelStore.ReloadLevelsFromFolders();
@@ -60,6 +64,12 @@ namespace Vitaru
             GamemodeStore.ReloadGamemodes();
 
             base.Start();
+        }
+
+        public override void Dispose()
+        {
+            VitaruSettings.Dispose();
+            base.Dispose();
         }
 
         /// <summary>
