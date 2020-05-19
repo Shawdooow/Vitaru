@@ -65,7 +65,7 @@ namespace Vitaru.Settings.Options
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterLeft,
-                    TextScale = 0.15f
+                    TextScale = 0.2f
                 },
                 Circle = new Circle
                 {
