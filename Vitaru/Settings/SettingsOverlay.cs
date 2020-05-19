@@ -16,6 +16,8 @@ namespace Vitaru.Settings
 {
     public class SettingsOverlay : HoverableLayer<IDrawable2D>
     {
+        public override string Name { get; set; } = nameof(SettingsOverlay);
+
         private const float width = 400;
         private const float height = 600;
 
@@ -70,17 +72,21 @@ namespace Vitaru.Settings
                         Color = Color.DarkSlateBlue
                     },
 
-                    OnClick = Toggle
+                    OnClick = () =>
+                    {
+                        if (toggle.Alpha > 0)
+                            Toggle(); 
+                    }
                 }
             };
         }
 
-        //public override bool OnMouseDown(MouseButtonEvent e)
-        //{
-        //    if (e.Button == MouseButton.Left && !Hovered)
-        //        Hide();
-        //    return base.OnMouseDown(e);
-        //}
+        public override bool OnMouseDown(MouseButtonEvent e)
+        {
+            if (e.Button == MouseButton.Left && !Hovered && toggle.Alpha < 1)
+                Hide();
+            return base.OnMouseDown(e);
+        }
 
         public void Toggle()
         {
@@ -95,6 +101,7 @@ namespace Vitaru.Settings
             if (!Shown)
             {
                 this.MoveTo(Vector2.Zero, 200, Easings.OutCubic);
+                toggle.FadeTo(0, 200, Easings.OutCubic);
                 Shown = true;
             }
         }
@@ -104,6 +111,7 @@ namespace Vitaru.Settings
             if (Shown)
             {
                 this.MoveTo(new Vector2(width, 0), 200, Easings.OutCubic);
+                toggle.FadeTo(1, 200, Easings.OutCubic);
                 Shown = false;
             }
         }

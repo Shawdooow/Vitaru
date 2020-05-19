@@ -14,6 +14,8 @@ namespace Vitaru.Settings.Options
     public class ToggleOption<T> : ToggleOption
         where T : struct, IConvertible
     {
+        public override string Name { get; set; } = nameof(ToggleOption<T>);
+
         private readonly SettingsManager<T> manager;
         private readonly T setting;
 
@@ -36,6 +38,8 @@ namespace Vitaru.Settings.Options
 
     public abstract class ToggleOption : ClickableLayer<IDrawable2D>
     {
+        public override string Name { get; set; } = nameof(ToggleOption);
+
         public Action<bool> OnValueChange;
 
         public bool Value;
