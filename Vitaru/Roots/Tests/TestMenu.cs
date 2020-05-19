@@ -26,6 +26,8 @@ namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
+        private readonly SpriteText song;
+
         private readonly SeekableClock seek;
         private readonly AudioDevice device;
         private Track track;
@@ -52,53 +54,77 @@ namespace Vitaru.Roots.Tests
                 }
             });
 
-            Button play;
-            Button multi;
-            Button edit;
-            Button wiki = null;
-
-            Add(play = new Button
+            Add(new Button
             {
-                Position = new Vector2(0, -170),
+                Position = new Vector2(0, -180),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.ForestGreen
+                },
+
                 Text = "Play",
 
                 OnClick = () => AddRoot(new PlayTest(seek, track))
             });
-            Add(multi = new Button
+            Add(new Button
             {
                 Position = new Vector2(0, -60),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.DarkMagenta
+                },
+
                 Text = "Multi",
 
                 OnClick = () => AddRoot(new MultiMenu())
             });
-            Add(edit = new Button
+            Add(new Button
             {
                 Position = new Vector2(0, 60),
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.DarkTurquoise
+                },
+
                 Text = "Edit",
 
                 OnClick = () => AddRoot(new EditorTest())
             });
-            Add(wiki = new Button
+            Add(new Button
             {
-                Position = new Vector2(0, 170),
-                Size = new Vector2(100, 100),
+                Position = new Vector2(0, 180),
+                Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                Text = "?",
+                BackgroundSprite =
+                {
+                    Color = Color.DarkGoldenrod
+                },
 
-                OnClick = () => wiki.Text = "Wiki"
+                Text = "Mods",
+
+                OnClick = () => AddRoot(new ModsTest())
             });
 
+            //Add(new WikiOverlay());
             Add(new SettingsOverlay());
+
+            Add(song = new SpriteText
+            {
+                Position = new Vector2(-10, 10),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                TextScale = 0.25f,
+            });
 
             Add(new SpriteText
             {
@@ -107,11 +133,6 @@ namespace Vitaru.Roots.Tests
                 Origin = Mounts.TopLeft,
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
-
-            play.BackgroundSprite.Color = Color.ForestGreen;
-            multi.BackgroundSprite.Color = Color.DarkMagenta;
-            edit.BackgroundSprite.Color = Color.DarkTurquoise;
-            wiki.BackgroundSprite.Color = Color.DarkGoldenrod;
 
             Add(new FPSOverlay());
         }
@@ -132,6 +153,7 @@ namespace Vitaru.Roots.Tests
             }
 
             track = new Track(Vitaru.ALKI ? Track.GetEndgame() : t, seek, storage);
+            song.Text = $"Now Playing: {track.Level.Name}";
         }
 
         public override void Update()
