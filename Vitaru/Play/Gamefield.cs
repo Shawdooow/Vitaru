@@ -83,14 +83,14 @@ namespace Vitaru.Play
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
-                Enemy enemy = deadEnemyQue.Dequeue();
+                PrionDebugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
                 LoadedEnemies.Remove(enemy, false);
                 UnloadedEnemies.Add(enemy);
             }
 
             while (deadprojectileQue.Count > 0)
             {
-                Projectile projectile = deadprojectileQue.Dequeue();
+                PrionDebugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
@@ -98,8 +98,7 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime
-                ) // + e.TimeUnLoad)
+                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime) // + e.TimeUnLoad)
                 {
                     enemyQue.Enqueue(e);
                     UnloadedEnemies.Remove(e);
@@ -111,9 +110,9 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
 
-        private readonly Queue<Enemy> deadEnemyQue = new Queue<Enemy>();
+        private readonly ConcurrentQueue<Enemy> deadEnemyQue = new ConcurrentQueue<Enemy>();
 
-        private readonly Queue<DrawableGameEntity> drawableEnemyQue = new Queue<DrawableGameEntity>();
+        private readonly ConcurrentQueue<DrawableGameEntity> drawableEnemyQue = new ConcurrentQueue<DrawableGameEntity>();
 
         public void Add(Enemy enemy)
         {
@@ -141,9 +140,9 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
 
-        private readonly Queue<Projectile> deadprojectileQue = new Queue<Projectile>();
+        private readonly ConcurrentQueue<Projectile> deadprojectileQue = new ConcurrentQueue<Projectile>();
 
-        private readonly Queue<DrawableProjectile> drawableProjectileQue = new Queue<DrawableProjectile>();
+        private readonly ConcurrentQueue<DrawableProjectile> drawableProjectileQue = new ConcurrentQueue<DrawableProjectile>();
 
         public void Add(Projectile projectile)
         {
@@ -213,7 +212,7 @@ namespace Vitaru.Play
 
             while (drawableProjectileQue.Count > 0)
             {
-                DrawableProjectile draw = drawableProjectileQue.Dequeue();
+                PrionDebugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
                 ProjectileLayer.Remove(draw, false);
                 RecycledDrawableProjectiles.Enqueue(draw);
             }

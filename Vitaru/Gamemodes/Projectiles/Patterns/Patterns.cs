@@ -10,6 +10,8 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
 {
     public static class Patterns
     {
+        private const float max_dist = 600;
+
         public static List<Projectile> Wave(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
@@ -27,9 +29,9 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     StartPosition = position,
                     Speed = speed,
                     Angle = direction,
-                    Distance = 1000,
+                    Distance = max_dist,
                     CurveType = CurveType.Straight,
-                    //SpeedEasing = Easings.OutSine,
+                    SpeedEasing = Easings.OutSine,
                     Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
                     Damage = i % 2 == 1 ? damage : damage * 0.8f,
                     Team = team
@@ -57,7 +59,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     StartPosition = position,
                     Speed = speed,
                     Angle = angle,
-                    Distance = 1000,
+                    Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutQuad,
                     Diameter = diameter,
@@ -93,7 +95,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     StartPosition = position,
                     Speed = speed,
                     Angle = direction,
-                    Distance = 1000,
+                    Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutQuad,
                     Diameter = diameter,
@@ -141,7 +143,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     StartPosition = position,
                     Speed = speed,
                     Angle = i % 2 == 0 ? angle - direction : angle + direction,
-                    Distance = 1000,
+                    Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutSine,
                     Diameter = diameter,
@@ -176,7 +178,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     StartPosition = position,
                     Speed = speed,
                     Angle = direction,
-                    Distance = 1000,
+                    Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutCubic,
                     Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
@@ -231,7 +233,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         {
             List<Projectile> projectiles = new List<Projectile>();
 
-            const float dist = 600;
+            const float dist = max_dist;
             int bulletCount = (int) (complexity * 4);
             float directionModifier = (float) Math.PI * 2 / bulletCount;
             float direction = (float) Math.PI / 4;
@@ -298,7 +300,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         Angle = direction,
                         Diameter = diameter,
                         Damage = damage,
-                        Distance = 600,
+                        Distance = 400,
                         SpeedEasing = Easings.OutCubic,
                         CurveType = type,
                         Curviness = 2,

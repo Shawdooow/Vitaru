@@ -2,11 +2,14 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Core.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Gamemodes.Projectiles.Patterns;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
@@ -83,37 +86,37 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         protected virtual void ShootPlayer()
         {
-            const int numberbullets = 3;
-            float directionModifier = -0.2f;
-
-            Player player = (Player) Gamefield.PlayerPack.Children[0];
+            Player player = (Player)Gamefield.PlayerPack.Children[0];
 
             float playerAngle =
-                ((float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X))
-                .ToDegrees() + 90;
+                (float)Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
 
-            for (int i = 1; i <= numberbullets; i++)
+
+            List<Projectile> projectiles;
+
+            switch (PrionMath.RandomNumber(0, 5))
             {
-                float size;
-                //float damage;
-                Color color;
+                default:
+                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
+                    break;
+                case 1:
+                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
+                    break;
+                case 2:
+                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
+                    break;
+                case 3:
+                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
+                    break;
+                case 4:
+                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.LastCurrent, Team);
+                    break;
+            }
 
-                if (i % 2 == 0)
-                {
-                    size = 28;
-                    //damage = 24;
-                    color = PrimaryColor;
-                }
-                else
-                {
-                    size = 20;
-                    //damage = 18;
-                    color = SecondaryColor;
-                }
-
-                //-90 = up
-                BulletAddRad(0.25f, (playerAngle - 90).ToRadians() + directionModifier, color, size, 0, 600);
-                directionModifier += 0.2f;
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Color = PrimaryColor;
+                Gamefield.Add(projectile);
             }
         }
 

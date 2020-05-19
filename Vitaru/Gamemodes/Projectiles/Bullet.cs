@@ -63,10 +63,11 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected virtual Vector2 GetPosition(double time)
         {
+            double scale = PrionMath.Scale(time, StartTime, EndTime);
             return new Vector2(
-                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.X,
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.X,
                     EndPosition.X),
-                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, time), StartTime, EndTime, StartPosition.Y,
+                (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.Y,
                     EndPosition.Y));
         }
 
