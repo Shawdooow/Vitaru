@@ -1,10 +1,8 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Collections.Generic;
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Core.Groups.Packs;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Input.Events;
@@ -18,7 +16,7 @@ namespace Vitaru.Editor.UI
     public class Editfield : Gamefield
     {
         private Vector2 offset = Vector2.Zero;
-        
+
         public readonly SelectLayer SelectionLayer = new SelectLayer();
 
         private Editable editable;
@@ -27,7 +25,7 @@ namespace Vitaru.Editor.UI
         {
             editable = edit;
             IEditable e = editable.GetEditable(this);
-            DrawableGameEntity draw = e.GenerateDrawable(); 
+            DrawableGameEntity draw = e.GenerateDrawable();
             IDrawable2D outline = edit.GetOverlay(draw);
             draw.Add(outline);
 
@@ -35,7 +33,7 @@ namespace Vitaru.Editor.UI
             Add(e as Enemy);
             SelectionLayer.Children = new[]
             {
-                draw,
+                draw
             };
         }
 

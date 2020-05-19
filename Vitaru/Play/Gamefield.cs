@@ -98,7 +98,8 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime) // + e.TimeUnLoad)
+                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime
+                ) // + e.TimeUnLoad)
                 {
                     enemyQue.Enqueue(e);
                     UnloadedEnemies.Remove(e);
@@ -112,7 +113,8 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Enemy> deadEnemyQue = new ConcurrentQueue<Enemy>();
 
-        private readonly ConcurrentQueue<DrawableGameEntity> drawableEnemyQue = new ConcurrentQueue<DrawableGameEntity>();
+        private readonly ConcurrentQueue<DrawableGameEntity> drawableEnemyQue =
+            new ConcurrentQueue<DrawableGameEntity>();
 
         public void Add(Enemy enemy)
         {
@@ -142,7 +144,8 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Projectile> deadprojectileQue = new ConcurrentQueue<Projectile>();
 
-        private readonly ConcurrentQueue<DrawableProjectile> drawableProjectileQue = new ConcurrentQueue<DrawableProjectile>();
+        private readonly ConcurrentQueue<DrawableProjectile> drawableProjectileQue =
+            new ConcurrentQueue<DrawableProjectile>();
 
         public void Add(Projectile projectile)
         {
@@ -325,6 +328,7 @@ namespace Vitaru.Play
                     Vitaru.Threads[i].Task = () => proccessList(list);
                     lists.Add(list);
                 }
+
                 lists.Add(new List<Projectile>());
 
                 int t = 0;

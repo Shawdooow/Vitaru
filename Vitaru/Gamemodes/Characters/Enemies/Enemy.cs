@@ -86,10 +86,10 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         protected virtual void ShootPlayer()
         {
-            Player player = (Player)Gamefield.PlayerPack.Children[0];
+            Player player = (Player) Gamefield.PlayerPack.Children[0];
 
             float playerAngle =
-                (float)Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
+                (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
 
 
             List<Projectile> projectiles;

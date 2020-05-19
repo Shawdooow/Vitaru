@@ -15,11 +15,12 @@ namespace Vitaru.Gamemodes.Vitaru.Edit
     {
         public override IEditable GetEditable(Gamefield field) => new Enemy(field);
 
-        public override IDrawable2D GetOverlay(DrawableGameEntity draw) => new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
-        {
-            Size = ((DrawableEnemy)draw).Sprite.Size,
-            Scale = ((DrawableEnemy)draw).Sprite.Scale,
-            Color = Color.Yellow,
-        };
+        public override IDrawable2D GetOverlay(DrawableGameEntity draw) =>
+            new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
+            {
+                Size = ((DrawableEnemy) draw).Sprite.Size,
+                Scale = ((DrawableEnemy) draw).Sprite.Scale,
+                Color = Color.Yellow
+            };
     }
 }

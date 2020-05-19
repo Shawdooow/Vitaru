@@ -40,7 +40,8 @@ namespace Vitaru.Levels
 
                     if (ext.Last() == "vitaru")
                     {
-                        using (StreamReader reader = new StreamReader(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
+                        using (StreamReader reader =
+                            new StreamReader(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                         {
                             string contents = reader.ReadToEnd();
                             string[] lines = contents.Split(new[] {Environment.NewLine},

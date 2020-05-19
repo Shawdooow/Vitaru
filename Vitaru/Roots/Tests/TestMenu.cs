@@ -109,7 +109,7 @@ namespace Vitaru.Roots.Tests
                 Text = "Settings",
                 SpriteText =
                 {
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 },
 
                 OnClick = () =>
@@ -145,7 +145,8 @@ namespace Vitaru.Roots.Tests
 
             if (LevelStore.LoadedLevels.Count > 0 && !Vitaru.ALKI)
             {
-                t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0].LevelTrack;
+                t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
+                    .LevelTrack;
                 storage = Vitaru.LevelStorage.GetStorage($"{t.Name}");
                 Logger.Log($"Playing {t.Name}");
             }

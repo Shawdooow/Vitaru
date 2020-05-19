@@ -18,9 +18,10 @@ namespace Vitaru.Gamemodes.Vitaru.Edit
             Color = Color.GreenYellow
         };
 
-        public override IDrawable2D GetOverlay(DrawableGameEntity draw) => new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
-        {
-            Color = Color.Yellow,
-        };
+        public override IDrawable2D GetOverlay(DrawableGameEntity draw) =>
+            new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
+            {
+                Color = Color.Yellow
+            };
     }
 }
