@@ -61,6 +61,9 @@ namespace Vitaru.Levels
                                     case "Audio":
                                         track.Filename = line[1];
                                         continue;
+                                    case "Image":
+                                        track.Image = line[1];
+                                        continue;
                                     case "BPM":
                                         track.BPM = double.Parse(line[1]);
                                         continue;

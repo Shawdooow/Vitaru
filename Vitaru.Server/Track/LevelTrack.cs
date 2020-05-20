@@ -12,6 +12,8 @@ namespace Vitaru.Server.Track
 
         public string Filename;
 
+        public string Image = string.Empty;
+
         public string Artist;
 
         public double BPM;

@@ -12,6 +12,7 @@ namespace Vitaru.Roots
 {
     public abstract class MenuRoot : Root
     {
+        protected readonly Sprite Background;
         protected readonly Box Shade;
 
         protected MenuRoot()
@@ -20,7 +21,7 @@ namespace Vitaru.Roots
             {
                 Children = new[]
                 {
-                    new Sprite(Vitaru.GetBackground())
+                    Background = new Sprite(Vitaru.GetBackground())
                     {
                         Scale = new Vector2(0.75f)
                     },
