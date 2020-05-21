@@ -15,6 +15,7 @@ using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Settings;
+using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -117,8 +118,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             OnHalfBeat();
             lastQuarterBeat = Clock.LastCurrent;
-            nextHalfBeat = Clock.LastCurrent + Track.Level.GetBeatLength() / 2;
-            nextQuarterBeat = Clock.LastCurrent + Track.Level.GetBeatLength() / 4;
+            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Level.GetBeatLength() / 2;
+            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Level.GetBeatLength() / 4;
         }
 
         protected virtual void OnHalfBeat()
@@ -129,7 +130,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void OnQuarterBeat()
         {
             lastQuarterBeat = nextQuarterBeat;
-            nextQuarterBeat += Track.Level.GetBeatLength() / 4;
+            nextQuarterBeat += TrackManager.CurrentTrack.Level.GetBeatLength() / 4;
 
             if (HealingProjectiles.Count > 0)
             {
@@ -230,7 +231,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
-            double half = Track.Level.GetBeatLength() / 2;
+            double half = TrackManager.CurrentTrack.Level.GetBeatLength() / 2;
             shootTime = Clock.LastCurrent + half;
 
             DrawablePlayer.Seal.Shoot(half);

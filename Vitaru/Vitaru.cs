@@ -10,6 +10,7 @@ using Prion.Core.IO;
 using Prion.Core.Threads;
 using Prion.Core.Utilities;
 using Prion.Game;
+using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
@@ -42,6 +43,8 @@ namespace Vitaru
 
         public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
 
+        private readonly AudioDevice device;
+
         protected Vitaru(string[] args) : base("vitaru", args)
         {
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
@@ -51,6 +54,8 @@ namespace Vitaru
 
             while (FreeProcessors > 0)
                 Threads.Add(CreateDynamicTask());
+
+            device = new AudioDevice();
         }
 
         protected override GraphicsContext GetContext(string name) => base.GetContext("GL46");

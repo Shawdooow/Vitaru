@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Prion.Core.Utilities;
 using Vitaru.Server.Track;
 
 namespace Vitaru.Levels
@@ -136,6 +137,21 @@ namespace Vitaru.Levels
 
         public static void PopulateDefaults()
         {
+        }
+
+        public static LevelTrack GetRandomLevel(LevelTrack last)
+        {
+            int random = PrionMath.RandomNumber(0, LoadedLevels.Count);
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (LoadedLevels[random].Levels[0].LevelTrack.Name == last.Name)
+                    random = PrionMath.RandomNumber(0, LoadedLevels.Count);
+                else
+                    break;
+            }
+
+            return LoadedLevels[random].Levels[0].LevelTrack;
         }
     }
 }

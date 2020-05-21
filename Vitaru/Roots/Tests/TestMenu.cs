@@ -29,13 +29,11 @@ namespace Vitaru.Roots.Tests
         private readonly SpriteText song;
 
         private readonly SeekableClock seek;
-        private readonly AudioDevice device;
-        private Track track;
 
         public TestMenu()
         {
             seek = new SeekableClock();
-            device = new AudioDevice();
+            
 
             Add(new SpriteLayer
             {
@@ -67,7 +65,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Play",
 
-                OnClick = () => AddRoot(new PlayTest(seek, track))
+                OnClick = () => AddRoot(new PlayTest(seek))
             });
             Add(new Button
             {
@@ -115,6 +113,29 @@ namespace Vitaru.Roots.Tests
                 OnClick = () => AddRoot(new ModsTest())
             });
 
+            Add(new Button
+            {
+                Position = new Vector2(-10, 40),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                Size = new Vector2(80, 40),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.Blue
+                },
+
+                SpriteText =
+                {
+                    TextScale = 0.25f
+                },
+
+                Text = "Next",
+
+                OnClick = TrackManager.NextTrack
+            });
+
             //Add(new WikiOverlay());
             Add(new SettingsOverlay());
 
@@ -141,26 +162,19 @@ namespace Vitaru.Roots.Tests
         {
             base.LoadingComplete();
             seek.Start();
-            LevelTrack t = Track.GetBells();
-            Storage storage = Game.SoundStorage;
 
-            if (LevelStore.LoadedLevels.Count > 0 && !Vitaru.ALKI)
-            {
-                t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
-                    .LevelTrack;
-                storage = Vitaru.LevelStorage.GetStorage($"{t.Name}");
-                Logger.Log($"Playing {t.Name}");
-            }
+            LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
+                .LevelTrack;
 
-            track = new Track(Vitaru.ALKI ? Track.GetEndgame() : t, seek, storage);
-            song.Text = $"Now Playing: {track.Level.Name}";
+            TrackManager.OnTrackChange += track => song.Text = $"Now Playing: {track.Level.Name}";
+            TrackManager.SetTrack(t, seek);
         }
 
         public override void Update()
         {
             seek.NewFrame();
-            track?.CheckRepeat();
-            track?.CheckNewBeat();
+            if (TrackManager.CurrentTrack != null)
+                TrackManager.TryNextTrack();
             base.Update();
         }
     }

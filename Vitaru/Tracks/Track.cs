@@ -14,7 +14,7 @@ namespace Vitaru.Tracks
 
         private double nextBeat;
 
-        public Track(LevelTrack level, ConstantClock clock, Storage storage = null) : base(level.Filename, clock,
+        public Track(LevelTrack level, ConstantClock clock, Storage storage) : base(level.Filename, clock,
             storage)
         {
             Level = level;

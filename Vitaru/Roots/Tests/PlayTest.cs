@@ -20,27 +20,22 @@ namespace Vitaru.Roots.Tests
     {
         private readonly Gamefield gamefield;
         private readonly SeekableClock seek;
-        private readonly Track track;
 
         private readonly SpriteText debug;
 
-        public PlayTest(SeekableClock seek, Track track)
+        public PlayTest(SeekableClock seek)
         {
             this.seek = seek;
-            this.track = track;
 
-            if (track.Level.Image != string.Empty)
-                Background.Texture = new Texture(Vitaru.LevelStorage.GetStorage($"{track.Level.Name}").GetStream($"{track.Level.Image}"), $"{track.Level.Image}");
+            if (TrackManager.CurrentTrack.Level.Image != string.Empty)
+                Background.Texture = new Texture(Vitaru.LevelStorage.GetStorage($"{TrackManager.CurrentTrack.Level.Name}").GetStream($"{TrackManager.CurrentTrack.Level.Image}"), $"{TrackManager.CurrentTrack.Level.Image}");
 
             gamefield = new Gamefield
             {
                 Clock = seek
             };
 
-            Player player = new Sakuya(gamefield)
-            {
-                Track = track
-            };
+            Player player = new Sakuya(gamefield);
 
             Add(player.InputHandler);
 
@@ -85,8 +80,8 @@ namespace Vitaru.Roots.Tests
         {
             debug.Text = $"{BULLET_COUNT}";
             seek.NewFrame();
-            track.CheckRepeat();
-            if (track.CheckNewBeat())
+            TrackManager.TryRepeatTrack();
+            if (TrackManager.CurrentTrack.CheckNewBeat())
             {
                 for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
                     gamefield.PlayerPack.Children[i].OnNewBeat();

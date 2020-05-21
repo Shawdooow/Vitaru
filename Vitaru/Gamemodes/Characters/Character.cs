@@ -39,8 +39,6 @@ namespace Vitaru.Gamemodes.Characters
 
         protected Gamefield Gamefield { get; private set; }
 
-        public Track Track { get; set; }
-
         public Action OnDie;
 
         protected Character(Gamefield gamefield)

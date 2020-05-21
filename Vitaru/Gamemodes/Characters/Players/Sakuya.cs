@@ -8,6 +8,7 @@ using Prion.Core.Timing;
 using Prion.Core.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
+using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -202,8 +203,8 @@ namespace Vitaru.Gamemodes.Characters.Players
             //    }
             //}
 
-            if (Track != null)
-                Track.Pitch = (float) speed;
+            if (TrackManager.CurrentTrack != null)
+                TrackManager.CurrentTrack.Pitch = (float) speed;
             clock.Rate = speed;
 
             MovementSpeedMultiplier = 1 / speed;
