@@ -26,6 +26,7 @@ namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
+        private readonly Button next;
         private readonly SpriteText song;
 
         private readonly SeekableClock seek;
@@ -113,19 +114,17 @@ namespace Vitaru.Roots.Tests
                 OnClick = () => AddRoot(new ModsTest())
             });
 
-            Add(new Button
+            Add(next = new Button
             {
                 Position = new Vector2(-10, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                Size = new Vector2(80, 40),
+                Size = new Vector2(160, 90),
 
-                Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
+                Dim =
                 {
-                    Color = Color.Blue
+                    Alpha = 0.8f
                 },
-
                 SpriteText =
                 {
                     TextScale = 0.25f
@@ -166,7 +165,11 @@ namespace Vitaru.Roots.Tests
             LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
                 .LevelTrack;
 
-            TrackManager.OnTrackChange += track => song.Text = $"Now Playing: {track.Level.Name}";
+            TrackManager.OnTrackChange += track =>
+            {
+                song.Text = $"Now Playing: {track.Level.Name}";
+                next.Background = new Texture(Vitaru.LevelStorage.GetStream($"{track.Level.Name}\\{track.Level.Image}"), track.Level.Name);
+            };
             TrackManager.SetTrack(t, seek);
         }
 
