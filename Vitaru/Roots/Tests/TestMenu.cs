@@ -128,7 +128,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Next",
 
-                OnClick = TrackManager.NextTrack
+                OnClick = () => Game.ScheduleLoad(TrackManager.NextTrack)
             });
 
             //Add(new WikiOverlay());
@@ -176,11 +176,23 @@ namespace Vitaru.Roots.Tests
             TrackManager.CurrentTrack.Pitch = 1;
         }
 
+        private bool qued;
+
         public override void Update()
         {
             seek.NewFrame();
             if (TrackManager.CurrentTrack != null)
-                TrackManager.TryNextTrack();
+            {
+                if (TrackManager.CurrentTrack.CheckFinish() && !qued)
+                {
+                    qued = true;
+                    Game.ScheduleLoad(() =>
+                    {
+                        TrackManager.NextTrack();
+                        qued = false;
+                    });
+                }
+            }
             base.Update();
         }
     }
