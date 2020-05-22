@@ -3,12 +3,9 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Core.Debug;
-using Prion.Core.IO;
 using Prion.Core.Timing;
 using Prion.Core.Utilities;
 using Prion.Game;
-using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Overlays;
@@ -35,7 +32,6 @@ namespace Vitaru.Roots.Tests
         {
             seek = new SeekableClock();
             
-
             Add(new SpriteLayer
             {
                 Children = new[]
@@ -168,9 +164,16 @@ namespace Vitaru.Roots.Tests
             TrackManager.OnTrackChange += track =>
             {
                 song.Text = $"Now Playing: {track.Level.Name}";
-                next.Background = new Texture(Vitaru.LevelStorage.GetStream($"{track.Level.Name}\\{track.Level.Image}"), track.Level.Image);
+                next.Background = Vitaru.LevelTextureStore.GetTexture($"{track.Level.Name}\\{track.Level.Image}");
             };
             TrackManager.SetTrack(t, seek);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            seek.Rate = 1;
+            TrackManager.CurrentTrack.Pitch = 1;
         }
 
         public override void Update()

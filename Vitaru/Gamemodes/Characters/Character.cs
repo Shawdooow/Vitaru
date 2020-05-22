@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Numerics;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
-using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters
 {

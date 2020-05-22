@@ -7,7 +7,6 @@ using Prion.Core.Timing;
 using Prion.Core.Utilities;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Overlays;
-using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Text;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
@@ -28,7 +27,7 @@ namespace Vitaru.Roots.Tests
             this.seek = seek;
 
             if (TrackManager.CurrentTrack.Level.Image != string.Empty)
-                Background.Texture = new Texture(Vitaru.LevelStorage.GetStorage($"{TrackManager.CurrentTrack.Level.Name}").GetStream($"{TrackManager.CurrentTrack.Level.Image}"), $"{TrackManager.CurrentTrack.Level.Image}");
+                Background.Texture = Vitaru.LevelTextureStore.GetTexture($"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
 
             gamefield = new Gamefield
             {

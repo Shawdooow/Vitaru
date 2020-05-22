@@ -14,6 +14,7 @@ using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.Stores;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
 using Vitaru.Roots.Tests;
@@ -41,6 +42,8 @@ namespace Vitaru
 
         public static Storage LevelStorage { get; protected set; }
 
+        public static TextureStore LevelTextureStore { get; protected set; }
+
         public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
 
         private readonly AudioDevice device;
@@ -49,6 +52,7 @@ namespace Vitaru
         {
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
+            LevelTextureStore = new TextureStore(LevelStorage);
 
             LevelStore.ReloadLevelsFromFolders();
 
