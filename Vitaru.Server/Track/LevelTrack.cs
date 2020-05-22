@@ -8,12 +8,24 @@ namespace Vitaru.Server.Track
     [Serializable]
     public class LevelTrack
     {
+        /// <summary>
+        /// Name of the Song
+        /// </summary>
         public string Name;
 
+        /// <summary>
+        /// Name of the audio file
+        /// </summary>
         public string Filename;
 
+        /// <summary>
+        /// Name of the background image file
+        /// </summary>
         public string Image = string.Empty;
 
+        /// <summary>
+        /// Song's Artist Name
+        /// </summary>
         public string Artist;
 
         public double BPM;

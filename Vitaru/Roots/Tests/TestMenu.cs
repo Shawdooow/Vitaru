@@ -168,7 +168,7 @@ namespace Vitaru.Roots.Tests
             TrackManager.OnTrackChange += track =>
             {
                 song.Text = $"Now Playing: {track.Level.Name}";
-                next.Background = new Texture(Vitaru.LevelStorage.GetStream($"{track.Level.Name}\\{track.Level.Image}"), track.Level.Name);
+                next.Background = new Texture(Vitaru.LevelStorage.GetStream($"{track.Level.Name}\\{track.Level.Image}"), track.Level.Image);
             };
             TrackManager.SetTrack(t, seek);
         }
