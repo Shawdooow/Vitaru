@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 using System.Drawing;
-using OpenTK.Input;
+using OpenToolkit.Windowing.Common.Input;
 using Prion.Core.IO.Configs;
 using Prion.Core.Utilities;
 using Prion.Game;
