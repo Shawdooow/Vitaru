@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Core.Timing;
@@ -164,7 +165,9 @@ namespace Vitaru.Roots.Tests
             TrackManager.OnTrackChange += track =>
             {
                 song.Text = $"Now Playing: {track.Level.Name}";
-                next.Background = Vitaru.LevelTextureStore.GetTexture($"{track.Level.Name}\\{track.Level.Image}");
+
+                if (track.Level.Image != string.Empty)
+                    bg = $"{track.Level.Name}\\{track.Level.Image}";
             };
             TrackManager.SetTrack(t, seek);
         }
@@ -177,6 +180,8 @@ namespace Vitaru.Roots.Tests
         }
 
         private bool qued;
+
+        private string bg = string.Empty;
 
         public override void Update()
         {
@@ -194,6 +199,17 @@ namespace Vitaru.Roots.Tests
                 }
             }
             base.Update();
+        }
+
+        public override void PreRender()
+        {
+            base.PreRender();
+
+            if (bg != string.Empty)
+            {
+                next.Background = Vitaru.LevelTextureStore.GetTexture(bg);
+                bg = string.Empty;
+            }
         }
     }
 }

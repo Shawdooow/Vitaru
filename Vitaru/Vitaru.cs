@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Runtime;
 using Prion.Core.Debug;
 using Prion.Core.IO;
+using Prion.Core.Platform;
 using Prion.Core.Threads;
 using Prion.Core.Utilities;
 using Prion.Game;
@@ -48,11 +49,29 @@ namespace Vitaru
 
         private readonly AudioDevice device;
 
-        protected Vitaru(string[] args) : base("vitaru", args)
+        private const string host =
+#if true
+            "VitaruDebug";
+#else
+            "Vitaru";
+#endif
+
+        protected Vitaru(string[] args) : base(host, args)
         {
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
+            bool levels = ApplicationDataStorage.Exists("Levels");
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
             LevelTextureStore = new TextureStore(LevelStorage);
+
+            if (!levels)
+            {
+                foreach (string level in AssetStorage.GetDirectories("Levels"))
+                {
+                    string source = $"{AssetStorage.Path}{PlatformInfo.Split}Levels{PlatformInfo.Split}{level}";
+                    string destination = $"{LevelStorage.Path}{PlatformInfo.Split}{level}";
+                    Storage.CopyDirectory(source, destination);
+                }
+            }
 
             LevelStore.ReloadLevelsFromFolders();
 
