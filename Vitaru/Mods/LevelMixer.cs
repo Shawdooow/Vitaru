@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Game;
@@ -23,7 +26,7 @@ namespace Vitaru.Mods
                     Color = Color.DarkMagenta
                 },
 
-                Text = "Mixer",
+                Text = "Mixer"
             };
 
         public override Root GetRoot() => new Mixer();

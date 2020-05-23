@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Core.Timing;
@@ -32,7 +31,7 @@ namespace Vitaru.Roots.Tests
         public TestMenu()
         {
             seek = new SeekableClock();
-            
+
             Add(new SpriteLayer
             {
                 Children = new[]
@@ -140,7 +139,7 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(-10, 10),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f,
+                TextScale = 0.25f
             });
 
             Add(new SpriteText
@@ -198,6 +197,7 @@ namespace Vitaru.Roots.Tests
                     });
                 }
             }
+
             base.Update();
         }
 

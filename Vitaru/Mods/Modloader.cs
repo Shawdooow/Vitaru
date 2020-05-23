@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +23,7 @@ namespace Vitaru.Mods
         {
             LoadedMods = new List<Mod>
             {
-                new LevelMixer(),
+                new LevelMixer()
             };
 
             loadedAssemblies = new Dictionary<Assembly, Type>();
@@ -34,7 +37,8 @@ namespace Vitaru.Mods
                 try
                 {
                     Assembly assembly = Assembly.LoadFrom(file);
-                    loadedAssemblies[assembly] = assembly.GetTypes().First(t => t.IsPublic && t.IsSubclassOf(typeof(Mod)));
+                    loadedAssemblies[assembly] =
+                        assembly.GetTypes().First(t => t.IsPublic && t.IsSubclassOf(typeof(Mod)));
                 }
                 catch (Exception)
                 {
@@ -51,15 +55,17 @@ namespace Vitaru.Mods
                 try
                 {
                     Assembly assembly = Assembly.LoadFrom(file);
-                    loadedAssemblies[assembly] = assembly.GetTypes().First(t => t.IsPublic && t.IsSubclassOf(typeof(Mod)));
+                    loadedAssemblies[assembly] =
+                        assembly.GetTypes().First(t => t.IsPublic && t.IsSubclassOf(typeof(Mod)));
                 }
                 catch (Exception)
                 {
-                    Logger.Log("Error loading a mod from a gamemode (it probably didn't have one [filename = " + filename + "])");
+                    Logger.Log("Error loading a mod from a gamemode (it probably didn't have one [filename = " +
+                               filename + "])");
                 }
             }
 
-            List<Mod> instances = loadedAssemblies.Values.Select(g => (Mod)Activator.CreateInstance(g)).ToList();
+            List<Mod> instances = loadedAssemblies.Values.Select(g => (Mod) Activator.CreateInstance(g)).ToList();
 
             //add any other mods
             foreach (Mod s in instances)

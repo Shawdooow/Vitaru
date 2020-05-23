@@ -1,5 +1,8 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
 using System.Drawing;
+using System.Numerics;
 using OpenToolkit.Windowing.Common.Input;
 using Prion.Core.IO.Configs;
 using Prion.Core.Utilities;
@@ -42,7 +45,7 @@ namespace Vitaru.Settings
                     Color = Color.Black,
                     Alpha = 0.8f,
                     Size = Size
-                }, 
+                },
                 new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.RayTracing)
                 {
                     ParentOrigin = Mounts.TopCenter,
@@ -98,7 +101,7 @@ namespace Vitaru.Settings
                     OnClick = () =>
                     {
                         if (toggle.Alpha > 0)
-                            Toggle(); 
+                            Toggle();
                     }
                 }
             };

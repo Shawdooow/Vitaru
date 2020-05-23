@@ -31,13 +31,13 @@ namespace Vitaru.Gamemodes
             };
 
             loadedAssemblies = new Dictionary<Assembly, Type>();
-            
+
             foreach (string file in Directory.GetFiles(Environment.CurrentDirectory, GAMEMODE_NAME))
             {
                 string filename = Path.GetFileNameWithoutExtension(file);
-            
+
                 if (loadedAssemblies.Values.Any(t => t.Namespace == filename)) return;
-            
+
                 try
                 {
                     Assembly assembly = Assembly.LoadFrom(file);
@@ -49,10 +49,10 @@ namespace Vitaru.Gamemodes
                     Logger.Error($"Error loading a Gamemode from a chapter file! [filename = {filename}]");
                 }
             }
-            
+
             List<Gamemode> instances =
                 loadedAssemblies.Values.Select(g => (Gamemode) Activator.CreateInstance(g)).ToList();
-            
+
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
 

@@ -9,7 +9,7 @@ namespace Vitaru.Levels
     public class LevelPack : IHasName
     {
         /// <summary>
-        /// Name of the Song
+        ///     Name of the Song
         /// </summary>
         public string Name { get; internal set; }
 

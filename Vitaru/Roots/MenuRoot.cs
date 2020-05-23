@@ -39,7 +39,9 @@ namespace Vitaru.Roots
             });
 
             if (UseLevelBackground && TrackManager.CurrentTrack.Level.Image != string.Empty)
-                Background.Texture = Vitaru.LevelTextureStore.GetTexture($"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
+                Background.Texture =
+                    Vitaru.LevelTextureStore.GetTexture(
+                        $"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)

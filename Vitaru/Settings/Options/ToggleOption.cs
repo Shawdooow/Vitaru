@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Drawing;
 using System.Numerics;
 using OpenToolkit.Windowing.Common.Input;
@@ -70,7 +73,7 @@ namespace Vitaru.Settings.Options
                 Circle = new Circle
                 {
                     ParentOrigin = Mounts.CenterRight,
-                    Origin = Mounts.CenterRight,
+                    Origin = Mounts.CenterRight
                 }
             };
         }

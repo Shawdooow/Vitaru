@@ -89,7 +89,7 @@ namespace Vitaru
                 new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
 
             GamemodeStore.ReloadGamemodes();
-            
+
             Modloader.ReloadMods();
 
             foreach (Mod mod in Modloader.LoadedMods)
