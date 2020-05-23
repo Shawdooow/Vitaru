@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Game;
 using Prion.Game.Graphics.Roots;
@@ -150,7 +151,7 @@ namespace Vitaru.Mods
 
             private void setRate(float rate)
             {
-                TrackManager.CurrentTrack.Pitch = rate;
+                TrackManager.CurrentTrack.Pitch = Math.Max(0.05f, rate);
             }
         }
     }
