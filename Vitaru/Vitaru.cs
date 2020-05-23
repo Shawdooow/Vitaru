@@ -18,6 +18,7 @@ using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Stores;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
+using Vitaru.Mods;
 using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 
@@ -73,8 +74,6 @@ namespace Vitaru
                 }
             }
 
-            LevelStore.ReloadLevelsFromFolders();
-
             while (FreeProcessors > 0)
                 Threads.Add(CreateDynamicTask());
 
@@ -90,6 +89,13 @@ namespace Vitaru
                 new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
 
             GamemodeStore.ReloadGamemodes();
+            
+            Modloader.ReloadMods();
+
+            foreach (Mod mod in Modloader.LoadedMods)
+                mod.LoadingComplete();
+
+            LevelStore.ReloadLevelsFromFolders();
 
             base.Start();
         }

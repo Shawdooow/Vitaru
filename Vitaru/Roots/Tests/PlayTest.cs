@@ -27,9 +27,6 @@ namespace Vitaru.Roots.Tests
         {
             this.seek = seek;
 
-            if (TrackManager.CurrentTrack.Level.Image != string.Empty)
-                Background.Texture = Vitaru.LevelTextureStore.GetTexture($"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
-
             gamefield = new Gamefield
             {
                 Clock = seek

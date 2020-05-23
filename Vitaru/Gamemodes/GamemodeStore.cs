@@ -1,16 +1,25 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Prion.Core.Debug;
 using Vitaru.Gamemodes.Characters.Players;
 
 namespace Vitaru.Gamemodes
 {
     public static class GamemodeStore
     {
+        public const string GAMEMODE_NAME = "Vitaru.Gamemodes.*.dll";
+
         public static LoadedGamemode SelectedGamemode { get; private set; }
 
         public static List<LoadedGamemode> LoadedGamemodes { get; private set; } = new List<LoadedGamemode>();
+
+        private static Dictionary<Assembly, Type> loadedAssemblies;
 
         public static void ReloadGamemodes()
         {
@@ -21,11 +30,9 @@ namespace Vitaru.Gamemodes
                 //new Tau.Tau(),
             };
 
-            /*
-            TODO: 3rd Party Gamemodes
-            Dictionary<Assembly, Type> loadedAssemblies = new Dictionary<Assembly, Type>();
+            loadedAssemblies = new Dictionary<Assembly, Type>();
             
-            foreach (string file in Directory.GetFiles(Environment.CurrentDirectory, "Vitaru.Gamemodes.*.dll"))
+            foreach (string file in Directory.GetFiles(Environment.CurrentDirectory, GAMEMODE_NAME))
             {
                 string filename = Path.GetFileNameWithoutExtension(file);
             
@@ -48,7 +55,6 @@ namespace Vitaru.Gamemodes
             
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
-            */
 
             foreach (Gamemode g in loadedGamemodes)
                 LoadedGamemodes.Add(new LoadedGamemode(g));
