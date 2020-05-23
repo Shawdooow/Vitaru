@@ -6,6 +6,7 @@ using System.Drawing;
 using Prion.Core.Debug;
 using Prion.Core.Timing;
 using Prion.Core.Utilities;
+using Prion.Game.Graphics;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -116,6 +117,12 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             DrawablePlayer.Seal.Reticle.Color = Color.DarkRed;
             DrawablePlayer.Seal.Sign.Color = Color.DarkRed;
+
+            Renderer.BufferProgram.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
+            Renderer.ShaderManager.UpdateInt("colorScale", 1);
+            Renderer.SpriteProgram.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -124,6 +131,11 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
+            Renderer.BufferProgram.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
+            Renderer.ShaderManager.UpdateInt("colorScale", 0);
+            Renderer.SpriteProgram.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
         protected override void SpellUpdate()
