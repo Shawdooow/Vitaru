@@ -39,6 +39,10 @@ namespace Vitaru.Mods
                     Size = new Vector2(100, 100),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
                     BackgroundSprite =
                     {
                         Color = Color.Yellow
@@ -58,6 +62,10 @@ namespace Vitaru.Mods
                     Size = new Vector2(80, 80),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
                     BackgroundSprite =
                     {
                         Color = Color.OrangeRed
@@ -76,6 +84,10 @@ namespace Vitaru.Mods
                     Size = new Vector2(100, 100),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
                     BackgroundSprite =
                     {
                         Color = Color.Yellow
@@ -95,6 +107,10 @@ namespace Vitaru.Mods
                     Size = new Vector2(80, 80),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
                     BackgroundSprite =
                     {
                         Color = Color.OrangeRed
@@ -114,6 +130,10 @@ namespace Vitaru.Mods
                     Size = new Vector2(100, 100),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
                     BackgroundSprite =
                     {
                         Color = Color.Yellow
