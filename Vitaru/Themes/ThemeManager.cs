@@ -3,7 +3,7 @@
 
 namespace Vitaru.Themes
 {
-    public class ThemeManager
+    public static class ThemeManager
     {
     }
 }

@@ -5,9 +5,10 @@ using System.Drawing;
 using System.Numerics;
 using OpenToolkit.Windowing.Common;
 using OpenToolkit.Windowing.Common.Input;
-using Prion.Game.Graphics.Layers;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
+using Vitaru.Graphics;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots
@@ -16,12 +17,13 @@ namespace Vitaru.Roots
     {
         protected virtual bool UseLevelBackground => false;
 
+        protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
         protected readonly Sprite Background;
-        protected readonly Box Shade;
+        protected readonly Box Dim;
 
         protected MenuRoot()
         {
-            Add(new SpriteLayer
+            Add(ShadeLayer = new ShadeLayer<IDrawable2D>
             {
                 Children = new[]
                 {
@@ -29,7 +31,7 @@ namespace Vitaru.Roots
                     {
                         Scale = new Vector2(0.75f)
                     },
-                    Shade = new Box
+                    Dim = new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,

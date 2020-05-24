@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Graphics;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Utilities;
 
@@ -21,12 +23,26 @@ namespace Vitaru.Play
     {
         public override string Name { get; set; } = nameof(Gamefield);
 
+        public Action<Shades> OnShadeChange;
+
+        public Shades Shade
+        {
+            get => shade;
+            set
+            {
+                shade = value;
+                OnShadeChange?.Invoke(shade);
+            }
+        }
+
+        private Shades shade;
+
         public readonly Pack<Character> PlayerPack = new Pack<Character>
         {
             Name = "Player Pack"
         };
 
-        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
+        public readonly ShadeLayer<DrawableGameEntity> CharacterLayer = new ShadeLayer<DrawableGameEntity>
         {
             Name = "Drawable Character Layer2D"
         };
@@ -40,7 +56,7 @@ namespace Vitaru.Play
 
         public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
 
-        public readonly Layer2D<DrawableGameEntity> ProjectileLayer = new Layer2D<DrawableGameEntity>
+        public readonly ShadeLayer<DrawableGameEntity> ProjectileLayer = new ShadeLayer<DrawableGameEntity>
         {
             Name = "Drawable Projectile Layer2D"
         };

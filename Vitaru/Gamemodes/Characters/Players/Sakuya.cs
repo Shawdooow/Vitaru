@@ -6,7 +6,8 @@ using System.Drawing;
 using Prion.Core.Debug;
 using Prion.Core.Timing;
 using Prion.Core.Utilities;
-using Prion.Game.Graphics;
+using Prion.Game;
+using Vitaru.Graphics;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -115,6 +116,11 @@ namespace Vitaru.Gamemodes.Characters.Players
             else
                 spellEndTime = Clock.LastCurrent - 2000;
 
+            Gamefield.Shade = Shades.Gray;
+            Gamefield.CharacterLayer.Shade = Shades.Red;
+            Gamefield.ProjectileLayer.Shade = Shades.Red;
+            DrawablePlayer.Sprite.Color = Color.Red;
+            DrawablePlayer.HitboxOutline.Color = Color.Red;
             DrawablePlayer.Seal.Reticle.Color = Color.Red;
             DrawablePlayer.Seal.Sign.Color = Color.Red;
         }
@@ -123,6 +129,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             base.SpellDeactivate(action);
 
+            Gamefield.Shade = Shades.None;
+            Gamefield.CharacterLayer.Shade = Shades.None;
+            Gamefield.ProjectileLayer.Shade = Shades.None;
+            DrawablePlayer.Sprite.Color = PrimaryColor;
+            DrawablePlayer.HitboxOutline.Color = PrimaryColor;
             DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
         }
@@ -209,6 +220,12 @@ namespace Vitaru.Gamemodes.Characters.Players
             clock.Rate = speed;
 
             MovementSpeedMultiplier = 1 / speed;
+        }
+
+        protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage, float distance)
+        {
+            if (SpellActive && color == PrimaryColor) color = Color.Red;
+            base.BulletAddRad(speed, angle, color, size, damage, distance);
         }
     }
 }

@@ -13,10 +13,10 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(DrawableBullet);
 
-        protected Sprite Glow;
+        protected readonly Sprite Glow;
 
         //protected Sprite OutlineCircle;
-        protected Sprite CenterCircle;
+        protected readonly Sprite Center;
 
         public DrawableBullet()
         {
@@ -28,7 +28,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 //    Size = new Vector2(bullet.Diameter * 1.5f),
                 //    Color = bullet.Color
                 //},
-                CenterCircle = new Circle()
+                Center = new Circle()
             };
         }
 
@@ -42,7 +42,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             Glow.Size = new Vector2(bullet.Diameter * 3f);
             Glow.Color = bullet.Color;
-            CenterCircle.Size = new Vector2(bullet.Diameter);
+            Center.Size = new Vector2(bullet.Diameter);
 
             return base.SetProjectile(projectile);
         }

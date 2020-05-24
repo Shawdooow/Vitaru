@@ -29,7 +29,8 @@ namespace Vitaru.Roots.Tests
 
             gamefield = new Gamefield
             {
-                Clock = seek
+                Clock = seek,
+                OnShadeChange = shade => ShadeLayer.Shade = shade
             };
 
             Player player = new Sakuya(gamefield);
@@ -100,6 +101,11 @@ namespace Vitaru.Roots.Tests
         {
             base.PreRender();
             gamefield.PreRender();
+        }
+
+        public override void Render2D()
+        {
+            base.Render2D();
         }
 
         private int que;
