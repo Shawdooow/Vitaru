@@ -115,14 +115,8 @@ namespace Vitaru.Gamemodes.Characters.Players
             else
                 spellEndTime = Clock.LastCurrent - 2000;
 
-            DrawablePlayer.Seal.Reticle.Color = Color.DarkRed;
-            DrawablePlayer.Seal.Sign.Color = Color.DarkRed;
-
-            Renderer.BufferProgram.SetActive();
-            Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
-            Renderer.ShaderManager.UpdateInt("shade", 1);
-            Renderer.SpriteProgram.SetActive();
-            Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
+            DrawablePlayer.Seal.Reticle.Color = Color.Red;
+            DrawablePlayer.Seal.Sign.Color = Color.Red;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -131,11 +125,6 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
-            Renderer.BufferProgram.SetActive();
-            Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
-            Renderer.ShaderManager.UpdateInt("shade", 0);
-            Renderer.SpriteProgram.SetActive();
-            Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
         protected override void SpellUpdate()

@@ -14,6 +14,7 @@ using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
+using Prion.Game.Graphics.Contexts.GL46.Shaders;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Stores;
 using Vitaru.Gamemodes;
@@ -78,6 +79,20 @@ namespace Vitaru
                 Threads.Add(CreateDynamicTask());
 
             device = new AudioDevice();
+
+            GLShaderProgram sprite = (GLShaderProgram)Renderer.SpriteProgram;
+
+            sprite.SetActive();
+            sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
+            Renderer.ShaderManager.ActiveShaderProgram = sprite;
+            Renderer.ShaderManager.UpdateInt("shade", 0);
+
+            GLShaderProgram circle = (GLShaderProgram)Renderer.CircularProgram;
+
+            circle.SetActive();
+            circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
+            Renderer.ShaderManager.ActiveShaderProgram = circle;
+            Renderer.ShaderManager.UpdateInt("shade", 0);
         }
 
         protected override GraphicsContext GetContext(string name) => base.GetContext("GL46");
