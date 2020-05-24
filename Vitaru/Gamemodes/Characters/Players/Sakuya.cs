@@ -120,7 +120,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Renderer.BufferProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
-            Renderer.ShaderManager.UpdateInt("colorScale", 1);
+            Renderer.ShaderManager.UpdateInt("shade", 1);
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
@@ -133,7 +133,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
             Renderer.BufferProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.BufferProgram;
-            Renderer.ShaderManager.UpdateInt("colorScale", 0);
+            Renderer.ShaderManager.UpdateInt("shade", 0);
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
