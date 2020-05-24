@@ -38,7 +38,7 @@ namespace Vitaru
             if (ALKI) Logger.ConsoleLog("ALKI", ConsoleColor.Magenta);
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
             using (Vitaru vitaru = new Vitaru(args))
-                vitaru.Start(new TestMenu());
+                vitaru.Start(new TestMenu(vitaru));
         }
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }

@@ -28,7 +28,7 @@ namespace Vitaru.Roots.Tests
 
         private readonly SeekableClock seek;
 
-        public TestMenu()
+        public TestMenu(Vitaru vitaru)
         {
             seek = new SeekableClock();
 
@@ -108,6 +108,23 @@ namespace Vitaru.Roots.Tests
                 Text = "Mods",
 
                 OnClick = () => AddRoot(new ModsTest())
+            });
+            Add(new Button
+            {
+                ParentOrigin = Mounts.BottomLeft,
+                Origin = Mounts.BottomLeft,
+                Position = new Vector2(10, -10),
+                Size = new Vector2(80, 40),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.Red
+                },
+
+                Text = "Exit",
+
+                OnClick = vitaru.Exit
             });
 
             Add(next = new Button
