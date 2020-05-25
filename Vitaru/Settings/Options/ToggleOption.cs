@@ -4,7 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using OpenToolkit.Windowing.Common.Input;
+using OpenTK.Input;
 using Prion.Core.IO.Configs;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;

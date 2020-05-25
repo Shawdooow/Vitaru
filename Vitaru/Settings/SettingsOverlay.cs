@@ -3,7 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
-using OpenToolkit.Windowing.Common.Input;
+using OpenTK.Input;
 using Prion.Core.IO.Configs;
 using Prion.Core.Utilities;
 using Prion.Game;

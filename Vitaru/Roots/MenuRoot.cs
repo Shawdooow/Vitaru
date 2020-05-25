@@ -3,8 +3,6 @@
 
 using System.Drawing;
 using System.Numerics;
-using OpenToolkit.Windowing.Common;
-using OpenToolkit.Windowing.Common.Input;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
@@ -13,7 +11,7 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
-    public abstract class MenuRoot : Root
+    public abstract class MenuRoot : ExitableRoot
     {
         protected virtual bool UseLevelBackground => false;
 
@@ -44,18 +42,6 @@ namespace Vitaru.Roots
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
                         $"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
-        }
-
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            switch (e.Key)
-            {
-                case Key.Escape:
-                    DropRoot();
-                    break;
-            }
         }
     }
 }

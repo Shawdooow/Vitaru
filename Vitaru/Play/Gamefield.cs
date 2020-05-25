@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Prion.Core.Debug;
 using Prion.Core.Groups.Packs;
-using Prion.Game.Graphics.Layers;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
