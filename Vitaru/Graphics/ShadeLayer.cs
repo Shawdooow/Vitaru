@@ -1,4 +1,7 @@
-﻿using Prion.Game.Graphics;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 
@@ -12,7 +15,7 @@ namespace Vitaru.Graphics
         public override void Render()
         {
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
-            Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
+            Renderer.ShaderManager.UpdateInt("shade", (int) Shade);
             base.Render();
             Renderer.ShaderManager.UpdateInt("shade", 0);
         }
@@ -25,6 +28,6 @@ namespace Vitaru.Graphics
         Gray,
         Red,
         Green,
-        Blue,
+        Blue
     }
 }

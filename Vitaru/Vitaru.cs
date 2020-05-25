@@ -80,14 +80,14 @@ namespace Vitaru
 
             device = new AudioDevice();
 
-            GLShaderProgram sprite = (GLShaderProgram)Renderer.SpriteProgram;
+            GLShaderProgram sprite = (GLShaderProgram) Renderer.SpriteProgram;
 
             sprite.SetActive();
             sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
             Renderer.ShaderManager.ActiveShaderProgram = sprite;
             Renderer.ShaderManager.UpdateInt("shade", 0);
 
-            GLShaderProgram circle = (GLShaderProgram)Renderer.CircularProgram;
+            GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
 
             circle.SetActive();
             circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");

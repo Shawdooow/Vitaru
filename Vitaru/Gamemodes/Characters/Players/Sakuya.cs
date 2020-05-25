@@ -6,7 +6,6 @@ using System.Drawing;
 using Prion.Core.Debug;
 using Prion.Core.Timing;
 using Prion.Core.Utilities;
-using Prion.Game;
 using Vitaru.Graphics;
 using Vitaru.Input;
 using Vitaru.Play;
@@ -222,7 +221,8 @@ namespace Vitaru.Gamemodes.Characters.Players
             MovementSpeedMultiplier = 1 / speed;
         }
 
-        protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage, float distance)
+        protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
+            float distance)
         {
             if (SpellActive && color == PrimaryColor) color = Color.Red;
             base.BulletAddRad(speed, angle, color, size, damage, distance);
