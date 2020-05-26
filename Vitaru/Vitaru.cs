@@ -36,7 +36,9 @@ namespace Vitaru
         {
             ALKI = PrionMath.RandomNumber(0, 10) == 5;
             if (ALKI) Logger.ConsoleLog("ALKI", ConsoleColor.Magenta);
+
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
+
             using (Vitaru vitaru = new Vitaru(args))
                 vitaru.Start(new TestMenu(vitaru));
         }
