@@ -33,7 +33,8 @@ namespace Vitaru.Roots
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Scale = new Vector2(5)
+                        Size = new Vector2(512),
+                        Scale = new Vector2(4),
                     }
                 }
             });
