@@ -14,7 +14,6 @@ using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
-using Prion.Game.Graphics.Contexts.GL41;
 using Prion.Game.Graphics.Contexts.GL46.Shaders;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Stores;

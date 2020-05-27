@@ -25,18 +25,22 @@ void main()
 		default:
 		final = color;
 		break;
+		//Gray
 		case 1:
 		gray = dot(color.xyz, vec3(r, g, b));
 		final = vec4(vec3(gray), color.w);
 		break;
+		//Red
 		case 2:
 		gray = dot(color.yz, vec2(g, b));
 		final = vec4(color.x, vec2(gray), color.w);
 		break;
+		//Green
 		case 3:
 		gray = dot(color.xz, vec2(r, b));
 		final = vec4(gray, color.y, gray, color.w);
 		break;
+		//Blue
 		case 4:
 		gray = dot(color.xy, vec2(r, g));
 		final = vec4(vec2(gray), color.z, color.w);
