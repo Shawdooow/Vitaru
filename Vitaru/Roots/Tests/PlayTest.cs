@@ -29,7 +29,8 @@ namespace Vitaru.Roots.Tests
             gamefield = new Gamefield
             {
                 Clock = seek,
-                OnShadeChange = shade => ShadeLayer.Shade = shade
+                OnShadeChange = shade => ShadeLayer.Shade = shade,
+                OnIntensityChange = intensity => ShadeLayer.Intensity = intensity
             };
 
             Player player = new Sakuya(gamefield);

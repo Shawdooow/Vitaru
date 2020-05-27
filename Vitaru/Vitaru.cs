@@ -86,8 +86,10 @@ namespace Vitaru
 
             sprite.SetActive();
             sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
+            sprite.Locations["intensity"] = GLShaderManager.GetLocation(sprite, "intensity");
             Renderer.ShaderManager.ActiveShaderProgram = sprite;
             Renderer.ShaderManager.UpdateInt("shade", 0);
+            Renderer.ShaderManager.UpdateInt("intensity", 1);
 
             GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
 

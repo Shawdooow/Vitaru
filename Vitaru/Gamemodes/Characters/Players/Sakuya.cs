@@ -88,6 +88,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     InputHandler.Actions[VitaruActions.Sneak]
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
+                intensity();
                 return;
             }
 
@@ -97,6 +98,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     InputHandler.Actions[VitaruActions.Sneak]
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
+                intensity();
                 return;
             }
 
@@ -115,6 +117,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             else
                 spellEndTime = Clock.LastCurrent - 2000;
 
+            intensity();
             Gamefield.Shade = Shades.Gray;
             Gamefield.CharacterLayer.Shade = Shades.Red;
             Gamefield.ProjectileLayer.Shade = Shades.Red;
@@ -122,6 +125,14 @@ namespace Vitaru.Gamemodes.Characters.Players
             DrawablePlayer.HitboxOutline.Color = Color.Red;
             DrawablePlayer.Seal.Reticle.Color = Color.Red;
             DrawablePlayer.Seal.Sign.Color = Color.Red;
+        }
+
+        private void intensity()
+        {
+            float scale = MathF.Min(PrionMath.Scale((float)SetRate, 1f, SetRate > 1f ? 2f : 0.5f), 1f);
+            Gamefield.Intensity = scale;
+            Gamefield.CharacterLayer.Intensity = scale;
+            Gamefield.ProjectileLayer.Intensity = scale;
         }
 
         protected override void SpellDeactivate(VitaruActions action)

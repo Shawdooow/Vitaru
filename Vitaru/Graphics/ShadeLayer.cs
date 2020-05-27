@@ -15,12 +15,17 @@ namespace Vitaru.Graphics
         [ThreadSaftey(Threads.All)]
         public virtual Shades Shade { get; set; }
 
+        [ThreadSaftey(Threads.All)] 
+        public virtual float Intensity { get; set; } = 1;
+
         public override void Render()
         {
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
             Renderer.ShaderManager.UpdateInt("shade", (int) Shade);
+            Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
             base.Render();
             Renderer.ShaderManager.UpdateInt("shade", 0);
+            Renderer.ShaderManager.UpdateFloat("intensity", 1);
         }
     }
 

@@ -24,6 +24,8 @@ namespace Vitaru.Play
 
         public Action<Shades> OnShadeChange;
 
+        public Action<float> OnIntensityChange;
+
         public Shades Shade
         {
             get => shade;
@@ -35,6 +37,18 @@ namespace Vitaru.Play
         }
 
         private Shades shade;
+
+        public float Intensity
+        {
+            get => intensity;
+            set
+            {
+                intensity = value;
+                OnIntensityChange?.Invoke(intensity);
+            }
+        }
+
+        private float intensity;
 
         public readonly Pack<Character> PlayerPack = new Pack<Character>
         {
