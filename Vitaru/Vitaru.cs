@@ -14,6 +14,7 @@ using Prion.Game;
 using Prion.Game.Audio.OpenAL;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Contexts;
+using Prion.Game.Graphics.Contexts.GL41;
 using Prion.Game.Graphics.Contexts.GL46.Shaders;
 using Prion.Game.Graphics.Sprites;
 using Prion.Game.Graphics.Stores;
@@ -97,7 +98,18 @@ namespace Vitaru
             Renderer.ShaderManager.UpdateInt("shade", 0);
         }
 
-        protected override GraphicsContext GetContext(string name) => base.GetContext("GL46");
+        protected override GraphicsContext GetContext(string name)
+        {
+            //We don't want to load DX12 or Vulkan yet because they don't work
+            switch (name)
+            {
+                case "Legacy":
+                case "GL41":
+                    return base.GetContext("GL41");
+                default:
+                    return base.GetContext("GL46");
+            }
+        }
 
         public override void Start()
         {
