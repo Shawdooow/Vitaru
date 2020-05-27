@@ -127,25 +127,22 @@ namespace Vitaru.Gamemodes.Characters.Players
             DrawablePlayer.Seal.Sign.Color = Color.Red;
         }
 
-        private void intensity()
-        {
-            float scale = MathF.Min(PrionMath.Scale((float)SetRate, 1f, SetRate > 1f ? 2f : 0.5f), 1f);
-            Gamefield.Intensity = scale;
-            Gamefield.CharacterLayer.Intensity = scale;
-            Gamefield.ProjectileLayer.Intensity = scale;
-        }
-
         protected override void SpellDeactivate(VitaruActions action)
         {
             base.SpellDeactivate(action);
 
-            Gamefield.Shade = Shades.None;
-            Gamefield.CharacterLayer.Shade = Shades.None;
-            Gamefield.ProjectileLayer.Shade = Shades.None;
             DrawablePlayer.Sprite.Color = PrimaryColor;
             DrawablePlayer.HitboxOutline.Color = PrimaryColor;
             DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
+        }
+
+        private void intensity()
+        {
+            float scale = (float)Easing.ApplyEasing(Easings.OutQuad, Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
+            Gamefield.Intensity = scale;
+            Gamefield.CharacterLayer.Intensity = scale;
+            Gamefield.ProjectileLayer.Intensity = scale;
         }
 
         protected override void SpellUpdate()
@@ -157,23 +154,24 @@ namespace Vitaru.Gamemodes.Characters.Players
                 spellEndTime <= Clock.LastCurrent && currentRate < 0)
                 if (!SpellActive)
                 {
-                    currentRate += (float) Clock.LastElapsedTime / 100;
+                    currentRate += (float) Clock.LastElapsedTime / 200;
 
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
 
                     applyToClock(adjustable, currentRate);
 
-                    if (currentRate > 0 && spellEndTime - 500 <= Clock.LastCurrent)
+                    if (currentRate > 0 && spellEndTime - 1000 <= Clock.LastCurrent || currentRate < 0 && spellEndTime + 1000 >= Clock.LastCurrent)
                     {
                         currentRate = originalRate;
                         applyToClock(adjustable, currentRate);
+
+                        Gamefield.Shade = Shades.None;
+                        Gamefield.CharacterLayer.Shade = Shades.None;
+                        Gamefield.ProjectileLayer.Shade = Shades.None;
                     }
-                    else if (currentRate < 0 && spellEndTime + 500 >= Clock.LastCurrent)
-                    {
-                        currentRate = originalRate;
-                        applyToClock(adjustable, currentRate);
-                    }
+
+                    intensity();
                 }
                 else
                 {
@@ -197,6 +195,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                     currentRate = originalRate * SetRate;
                     applyToClock(adjustable, currentRate);
+                    intensity();
                 }
 
             DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
