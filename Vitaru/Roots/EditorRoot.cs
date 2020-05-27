@@ -46,6 +46,7 @@ namespace Vitaru.Roots
             {
                 OnSelection = Selected
             });
+            Add(new Properties());
         }
 
         protected void Selected(Editable editable)
