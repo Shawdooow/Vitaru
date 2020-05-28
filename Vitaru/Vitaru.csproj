@@ -3,7 +3,10 @@
 	<TargetFramework>net5.0</TargetFramework>
 	<LangVersion>8.0</LangVersion>
     <AssemblyTitle>Vitaru</AssemblyTitle>
-    <Description>Vitaru</Description>
+	<Version>0.11.0</Version>
+	<Authors>Shawdooow</Authors>
+	<Company>Sym</Company>
+	<Description>A bullet dodging rhythym game.</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ApplicationIcon>vitaru.ico</ApplicationIcon>
     <OutputType>Exe</OutputType>
