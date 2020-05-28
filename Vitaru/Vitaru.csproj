@@ -10,14 +10,14 @@
     <StartupObject />
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
     <DefineConstant>PUBLISH</DefineConstant>
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+	<SignAssembly>true</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Gamemodes\Tau\**" />

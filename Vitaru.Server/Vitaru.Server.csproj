@@ -13,6 +13,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
     <DefineConstant>PUBLISH</DefineConstant>
     <Optimize>true</Optimize>
+	<SignAssembly>true</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>vitaru.ico</ApplicationIcon>
