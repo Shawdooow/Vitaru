@@ -17,6 +17,7 @@
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
 	<SignAssembly>true</SignAssembly>
+	<DelaySign>false</DelaySign>
 	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
