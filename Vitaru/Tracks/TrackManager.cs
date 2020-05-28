@@ -20,7 +20,7 @@ namespace Vitaru.Tracks
             CurrentTrack?.Pause();
             CurrentTrack?.Dispose();
 
-            Logger.Log($"Setting Track {level.Name}");
+            Logger.Log($"Setting Track \"{level.Name}\"");
             CurrentTrack = new Track(level, clock, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
             OnTrackChange?.Invoke(CurrentTrack);
             CurrentTrack.Play();
