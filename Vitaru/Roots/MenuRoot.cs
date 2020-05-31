@@ -3,9 +3,11 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Game;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
+using Prion.Game.Graphics.UserInterface;
 using Vitaru.Graphics;
 using Vitaru.Tracks;
 
@@ -18,6 +20,7 @@ namespace Vitaru.Roots
         protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
         protected readonly Sprite Background;
         protected readonly Box Dim;
+        protected readonly Button Back;
 
         protected MenuRoot()
         {
@@ -37,6 +40,24 @@ namespace Vitaru.Roots
                         Scale = new Vector2(4),
                     }
                 }
+            });
+
+            Add(new Button
+            {
+                ParentOrigin = Mounts.BottomLeft,
+                Origin = Mounts.BottomLeft,
+                Position = new Vector2(10, -10),
+                Size = new Vector2(80, 40),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = Color.Red
+                },
+
+                Text = "Back",
+
+                OnClick = DropRoot
             });
 
             if (UseLevelBackground && TrackManager.CurrentTrack.Level.Image != string.Empty)
