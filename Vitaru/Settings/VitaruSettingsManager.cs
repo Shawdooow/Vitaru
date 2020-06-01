@@ -14,12 +14,14 @@ namespace Vitaru.Settings
 
         protected override void InitDefaults()
         {
+            SetValue(VitaruSetting.Touch, false);
             SetValue(VitaruSetting.DebugHacks, false);
         }
     }
 
     public enum VitaruSetting
     {
+        Touch,
         DebugHacks
     }
 }

@@ -46,21 +46,11 @@ namespace Vitaru.Settings
                     Alpha = 0.8f,
                     Size = Size
                 },
-                new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.RayTracing)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Toggle Raytracing (yes, really)"
-                    }
-                },
                 new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 20),
+                    Position = Vector2.Zero,
                     Size = new Vector2(width - 8, 20),
                     Text =
                     {
@@ -68,6 +58,17 @@ namespace Vitaru.Settings
                     }
                 },
 
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 20),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle Touch Mode"
+                    }
+                },
                 new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                 {
                     ParentOrigin = Mounts.TopCenter,
