@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Game;
+using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Sprites;
@@ -30,19 +31,20 @@ namespace Vitaru.Roots
                 {
                     Background = new Sprite(Vitaru.GetBackground())
                     {
-                        Scale = new Vector2(0.75f)
+                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        AutoScaleDirection = Direction.Both
                     },
                     Dim = new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Size = new Vector2(512),
-                        Scale = new Vector2(4),
+                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        AutoScaleDirection = Direction.Both
                     }
                 }
             });
 
-            Add(new Button
+            Add(Back = new Button
             {
                 ParentOrigin = Mounts.BottomLeft,
                 Origin = Mounts.BottomLeft,
@@ -64,6 +66,13 @@ namespace Vitaru.Roots
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
                         $"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
+        }
+
+        public override void Resize(Vector2 size)
+        {
+            base.Resize(size);
+            Background.Size = size;
+            Dim.Size = size;
         }
     }
 }

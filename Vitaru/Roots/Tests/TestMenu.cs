@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Core.Timing;
 using Prion.Core.Utilities;
 using Prion.Game;
+using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Layers;
 using Prion.Game.Graphics.Overlays;
@@ -23,6 +24,9 @@ namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
+        protected readonly Sprite Background;
+        protected readonly Box Dim;
+
         private readonly Button next;
         private readonly SpriteText song;
 
@@ -36,16 +40,17 @@ namespace Vitaru.Roots.Tests
             {
                 Children = new[]
                 {
-                    new Sprite(Vitaru.GetBackground())
+                    Background = new Sprite(Vitaru.GetBackground())
                     {
-                        Scale = new Vector2(0.75f)
+                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        AutoScaleDirection = Direction.Both
                     },
-                    new Box
+                    Dim = new Box
                     {
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Size = new Vector2(512),
-                        Scale = new Vector2(4),
+                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        AutoScaleDirection = Direction.Both
                     }
                 }
             });
@@ -228,6 +233,13 @@ namespace Vitaru.Roots.Tests
                 next.Background = Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
             }
+        }
+
+        public override void Resize(Vector2 size)
+        {
+            base.Resize(size);
+            Background.Size = size;
+            Dim.Size = size;
         }
     }
 }

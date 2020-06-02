@@ -13,7 +13,14 @@ namespace Vitaru.Server
                 server.Start();
         }
 
-        protected VitaruServer(string[] args) : base("vitaru", args)
+        private const string host =
+#if true
+            "VitaruDebug";
+#else
+            "Vitaru";
+#endif
+
+        protected VitaruServer(string[] args) : base(host, args)
         {
         }
     }
