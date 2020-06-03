@@ -5,7 +5,9 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Game;
+using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
+using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.UserInterface;
 using Vitaru.Roots;
 using Vitaru.Tracks;
@@ -34,6 +36,8 @@ namespace Vitaru.Mods
         private class Mixer : MenuRoot
         {
             protected override bool UseLevelBackground => true;
+
+            private readonly SpriteText pitch;
 
             public Mixer()
             {
@@ -150,11 +154,18 @@ namespace Vitaru.Mods
                     Text = "0.75x",
                     OnClick = () => setRate(0.75f)
                 });
+
+                Add(pitch = new SpriteText
+                {
+                    Position = new Vector2(0, -200),
+                    Text = TrackManager.CurrentTrack.Pitch.ToString()
+                });
             }
 
             private void setRate(float rate)
             {
-                TrackManager.CurrentTrack.Pitch = Math.Max(0.05f, rate);
+                TrackManager.CurrentTrack.Pitch = Math.Max(0.05f, MathF.Round(rate, 2));
+                pitch.Text = TrackManager.CurrentTrack.Pitch.ToString();
             }
         }
     }
