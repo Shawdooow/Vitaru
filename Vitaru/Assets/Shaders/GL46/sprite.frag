@@ -13,7 +13,7 @@ const float r = 0.299;
 const float g = 0.587;
 const float b = 0.114;
 
-float scale(float value, float inputMin, float inputMax, float outputMin = 0, float outputMax = 1)
+float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
 {
     float scale = (outputMax - outputMin) / (inputMax - inputMin);
     return outputMin + (value - inputMin) * scale;
