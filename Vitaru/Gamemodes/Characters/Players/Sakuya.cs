@@ -139,7 +139,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private void intensity()
         {
-            float scale = (float)Easing.ApplyEasing(Easings.OutQuad, Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
+            float scale = (float) Easing.ApplyEasing(Easings.OutQuad,
+                Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
             Gamefield.Intensity = scale;
             Gamefield.CharacterLayer.Intensity = scale;
             Gamefield.ProjectileLayer.Intensity = scale;
@@ -161,7 +162,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                     applyToClock(adjustable, currentRate);
 
-                    if (currentRate > 0 && spellEndTime - 1000 <= Clock.LastCurrent || currentRate < 0 && spellEndTime + 1000 >= Clock.LastCurrent)
+                    if (currentRate > 0 && spellEndTime - 1000 <= Clock.LastCurrent ||
+                        currentRate < 0 && spellEndTime + 1000 >= Clock.LastCurrent)
                     {
                         currentRate = originalRate;
                         applyToClock(adjustable, currentRate);

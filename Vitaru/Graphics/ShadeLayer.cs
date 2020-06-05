@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using Prion.Core.Threads;
 using Prion.Game.Graphics;
 using Prion.Game.Graphics.Drawables;
@@ -12,11 +11,9 @@ namespace Vitaru.Graphics
     public class ShadeLayer<D> : Layer2D<D>
         where D : IDrawable2D
     {
-        [ThreadSaftey(Threads.All)]
-        public virtual Shades Shade { get; set; }
+        [ThreadSaftey(Threads.All)] public virtual Shades Shade { get; set; }
 
-        [ThreadSaftey(Threads.All)] 
-        public virtual float Intensity { get; set; } = 1;
+        [ThreadSaftey(Threads.All)] public virtual float Intensity { get; set; } = 1;
 
         public override void Render()
         {

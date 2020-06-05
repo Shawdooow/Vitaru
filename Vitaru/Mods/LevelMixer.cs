@@ -5,7 +5,6 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Game;
-using Prion.Game.Graphics.Drawables;
 using Prion.Game.Graphics.Roots;
 using Prion.Game.Graphics.Text;
 using Prion.Game.Graphics.UserInterface;
