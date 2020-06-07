@@ -57,7 +57,7 @@ namespace Vitaru.Roots.Tests
 
             Add(new Button
             {
-                Position = new Vector2(0, -180),
+                Y = -180,
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -72,7 +72,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(new Button
             {
-                Position = new Vector2(0, -60),
+                Y = -60,
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -87,7 +87,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(new Button
             {
-                Position = new Vector2(0, 60),
+                Y = 60,
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -102,7 +102,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(new Button
             {
-                Position = new Vector2(0, 180),
+                Y = 180,
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),

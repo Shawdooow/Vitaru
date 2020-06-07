@@ -18,7 +18,7 @@ namespace Vitaru.Mods
         public override Button GetMenuButton() =>
             new Button
             {
-                Position = new Vector2(0, -200),
+                Y = -180,
                 Size = new Vector2(200, 100),
 
                 Background = Game.TextureStore.GetTexture("square.png"),

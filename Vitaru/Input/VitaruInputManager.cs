@@ -17,6 +17,7 @@ namespace Vitaru.Input
             InputSettings.SetValue(VitaruActions.Left, Key.A);
             InputSettings.SetValue(VitaruActions.Right, Key.D);
             InputSettings.SetValue(VitaruActions.Sneak, Key.ShiftLeft);
+            InputSettings.SetValue(VitaruActions.Jump, Key.Space);
             InputSettings.SetValue(VitaruActions.Shoot, MouseButton.Left);
             InputSettings.SetValue(VitaruActions.Spell, MouseButton.Right);
             InputSettings.SetValue(VitaruActions.Increase, Key.E);
@@ -32,6 +33,7 @@ namespace Vitaru.Input
         Left,
         Right,
         Sneak,
+        Jump,
         Shoot,
         Spell,
 

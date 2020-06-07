@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Mods;
@@ -24,6 +25,12 @@ namespace Vitaru.Roots.Tests
                     b.OnClick += () => AddRoot(mod.GetRoot());
                 }
             }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Renderer.Window.CursorHidden = false;
         }
     }
 }
