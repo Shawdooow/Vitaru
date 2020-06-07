@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
@@ -17,7 +16,6 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
-using Vitaru.Roots;
 
 namespace Vitaru.Mods
 {
