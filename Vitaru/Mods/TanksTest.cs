@@ -44,6 +44,7 @@ namespace Vitaru.Mods
         {
             private Camera camera;
             private VitaruInputManager input;
+            private TexturedModel turret;
 
             public override void LoadingComplete()
             {
@@ -66,16 +67,21 @@ namespace Vitaru.Mods
                 green.Position = new Vector3(50, -200, 0);
                 green.Diffuse = Color.GreenYellow.Vector();
 
-                TexturedModel model = new TexturedModel();
-                List<Vertex3Textured> vertices = Game.MeshStore.GetVertecies("tank body.obj");
+                TexturedModel body = new TexturedModel();
+                body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
+                Renderer.BufferMeshes(body);
 
-                model.Add(new Mesh<Vertex3Textured>(vertices));
-
-                Renderer.BufferMeshes(model);
+                turret = new TexturedModel();
+                turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
+                Renderer.BufferMeshes(turret);
 
                 Add(new Layer3D<TexturedModel>
                 {
-                    Child = model
+                    Children = new []
+                    {
+                        body,
+                        turret
+                    }
                 });
 
                 Renderer.TextureProgram.SetActive();
