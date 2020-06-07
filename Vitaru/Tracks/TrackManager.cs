@@ -2,8 +2,8 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using Prion.Core.Debug;
-using Prion.Core.Timing;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Timing;
 using Vitaru.Levels;
 using Vitaru.Server.Track;
 

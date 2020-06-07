@@ -3,9 +3,9 @@
 
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Input.Events;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;

@@ -2,7 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using Prion.Core.Entitys;
+using Prion.Nucleus.Entitys;
 using Vitaru.Gamemodes;
 
 namespace Vitaru.Editor.IO

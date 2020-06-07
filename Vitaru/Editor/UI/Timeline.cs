@@ -3,9 +3,9 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Sprites;
 
 namespace Vitaru.Editor.UI
 {

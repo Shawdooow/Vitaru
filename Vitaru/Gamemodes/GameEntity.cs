@@ -2,9 +2,9 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using Prion.Core.Debug;
-using Prion.Core.Entitys;
-using Vitaru.Utilities;
+using Prion.Golgi.Utilities;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Entitys;
 
 namespace Vitaru.Gamemodes
 {

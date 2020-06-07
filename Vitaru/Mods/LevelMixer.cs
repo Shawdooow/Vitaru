@@ -4,10 +4,10 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Game;
-using Prion.Game.Graphics.Roots;
-using Prion.Game.Graphics.Text;
-using Prion.Game.Graphics.UserInterface;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Roots;
+using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Roots;
 using Vitaru.Tracks;
 

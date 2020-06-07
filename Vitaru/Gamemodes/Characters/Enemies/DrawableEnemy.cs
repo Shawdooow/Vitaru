@@ -3,7 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Game;
+using Prion.Mitochondria;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {

@@ -2,9 +2,9 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
-using Prion.Game;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Sprites;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Sprites;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;

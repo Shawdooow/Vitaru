@@ -24,6 +24,6 @@
     <ApplicationIcon>vitaru.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Prion\Prion.Core\Prion.Core.csproj" />
+    <ProjectReference Include="..\..\Prion\Prion.Nucleus\Prion.Nucleus.csproj" />
   </ItemGroup>
 </Project>

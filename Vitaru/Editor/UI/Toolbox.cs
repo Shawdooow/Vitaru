@@ -4,12 +4,12 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.Text;
-using Prion.Game.Graphics.Transforms;
-using Prion.Game.Input.Events;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 

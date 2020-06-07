@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using Prion.Core.Utilities;
+using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;

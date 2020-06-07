@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Prion.Core.Debug;
+using Prion.Nucleus.Debug;
 using Vitaru.Gamemodes;
 
 namespace Vitaru.Mods

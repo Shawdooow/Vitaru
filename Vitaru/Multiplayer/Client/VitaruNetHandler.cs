@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using Prion.Core.Networking.NetworkingHandlers;
-using Prion.Core.Networking.NetworkingHandlers.Client;
-using Prion.Core.Networking.Packets;
-using Prion.Core.Networking.Packets.Connection;
+using Prion.Nucleus.Networking.NetworkingHandlers;
+using Prion.Nucleus.Networking.NetworkingHandlers.Client;
+using Prion.Nucleus.Networking.Packets;
+using Prion.Nucleus.Networking.Packets.Connection;
 using Vitaru.Server.Packets;
 using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Server;

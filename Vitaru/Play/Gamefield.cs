@@ -5,8 +5,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Prion.Core.Debug;
-using Prion.Core.Groups.Packs;
+using Prion.Golgi.Utilities;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Groups.Packs;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -14,7 +15,6 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics;
 using Vitaru.Multiplayer.Client;
-using Vitaru.Utilities;
 
 namespace Vitaru.Play
 {

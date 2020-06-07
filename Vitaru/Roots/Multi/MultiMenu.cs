@@ -3,13 +3,13 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Core.Debug;
-using Prion.Core.Entitys;
-using Prion.Core.Groups.Packs;
-using Prion.Core.Networking.NetworkingHandlers;
-using Prion.Core.Networking.Packets;
-using Prion.Game;
-using Prion.Game.Graphics.UserInterface;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Entitys;
+using Prion.Nucleus.Groups.Packs;
+using Prion.Nucleus.Networking.NetworkingHandlers;
+using Prion.Nucleus.Networking.Packets;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Server.Match;
 using Vitaru.Server.Packets.Lobby;

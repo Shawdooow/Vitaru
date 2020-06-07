@@ -4,8 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Prion.Core.Utilities;
-using Prion.Game.Graphics.Transforms;
+using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Utilities;
 using Vitaru.Roots.Tests;
 
 namespace Vitaru.Gamemodes.Projectiles

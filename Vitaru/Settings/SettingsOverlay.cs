@@ -4,15 +4,15 @@
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Core.IO.Configs;
-using Prion.Core.Utilities;
-using Prion.Game;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.Transforms;
-using Prion.Game.Graphics.UserInterface;
-using Prion.Game.Input.Events;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Input.Events;
+using Prion.Nucleus.IO.Configs;
+using Prion.Nucleus.Utilities;
 using Vitaru.Settings.Options;
 
 namespace Vitaru.Settings

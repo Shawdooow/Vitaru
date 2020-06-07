@@ -1,9 +1,9 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using Prion.Core.Utilities.Interfaces;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 

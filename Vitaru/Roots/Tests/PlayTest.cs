@@ -3,11 +3,11 @@
 
 using System.Numerics;
 using OpenTK.Input;
-using Prion.Core.Timing;
-using Prion.Core.Utilities;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Overlays;
-using Prion.Game.Graphics.Text;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Overlays;
+using Prion.Mitochondria.Graphics.Text;
+using Prion.Nucleus.Timing;
+using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;

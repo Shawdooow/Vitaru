@@ -3,12 +3,12 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Game;
-using Prion.Game.Graphics;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Roots;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.UserInterface;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Roots;
+using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Graphics;
 using Vitaru.Tracks;
 

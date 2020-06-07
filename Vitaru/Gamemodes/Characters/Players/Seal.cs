@@ -3,14 +3,14 @@
 
 using System;
 using System.Numerics;
-using Prion.Core.Utilities;
-using Prion.Game;
-using Prion.Game.Graphics;
-using Prion.Game.Graphics.Drawables;
-using Prion.Game.Graphics.Layers;
-using Prion.Game.Graphics.Sprites;
-using Prion.Game.Graphics.Text;
-using Prion.Game.Graphics.Transforms;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
 namespace Vitaru.Gamemodes.Characters.Players
