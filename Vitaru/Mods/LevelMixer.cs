@@ -36,9 +36,9 @@ namespace Vitaru.Mods
         {
             protected override bool UseLevelBackground => true;
 
-            private readonly SpriteText pitch;
+            private SpriteText pitch;
 
-            public Mixer()
+            public override void LoadingComplete()
             {
                 Add(new Button
                 {
@@ -159,6 +159,8 @@ namespace Vitaru.Mods
                     Position = new Vector2(0, -200),
                     Text = TrackManager.CurrentTrack.Pitch.ToString()
                 });
+
+                base.LoadingComplete();
             }
 
             private void setRate(float rate)

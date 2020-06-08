@@ -169,6 +169,9 @@ namespace Vitaru.Mods
             protected override void Dispose(bool finalize)
             {
                 base.Dispose(finalize);
+
+                if (global == null) return;
+
                 LightManager.ReturnLight(green);
                 LightManager.ReturnLight(red);
                 LightManager.ReturnLight(global);
