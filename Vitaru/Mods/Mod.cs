@@ -8,6 +8,8 @@ namespace Vitaru.Mods
 {
     public abstract class Mod
     {
+        public virtual bool Disabled => false;
+
         public virtual Button GetMenuButton() => null;
 
         public virtual Root GetRoot() => null;

@@ -21,7 +21,9 @@ namespace Vitaru.Mods
 {
     public class TanksTest : Mod
     {
-        public override Button GetMenuButton() => Renderer._3D_AVAILABLE ? 
+        public override bool Disabled => !Renderer._3D_AVAILABLE;
+
+        public override Button GetMenuButton() =>
             new Button
             {
                 Y = -60,
@@ -34,7 +36,7 @@ namespace Vitaru.Mods
                 },
 
                 Text = "Tanks"
-            } : null;
+            };
 
         public override Root GetRoot() => new Tank();
 
