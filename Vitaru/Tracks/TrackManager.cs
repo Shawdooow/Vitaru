@@ -23,7 +23,7 @@ namespace Vitaru.Tracks
             Logger.Log($"Setting Track \"{level.Name}\"");
             CurrentTrack = new Track(level, clock, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
             OnTrackChange?.Invoke(CurrentTrack);
-            CurrentTrack.Gain = 0.1f;
+            //CurrentTrack.Gain = 0.1f;
             CurrentTrack.Play();
         }
 
