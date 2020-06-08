@@ -46,6 +46,10 @@ namespace Vitaru.Mods
             private VitaruInputManager input;
             private TexturedModel turret;
 
+            private LightPointer global;
+            private LightPointer red;
+            private LightPointer green;
+
             public override void LoadingComplete()
             {
                 Renderer.Window.CursorHidden = true;
@@ -55,15 +59,15 @@ namespace Vitaru.Mods
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
-                LightPointer global = LightManager.GetLight();
+                global = LightManager.GetLight();
                 global.Position = new Vector3(0, -200, -100);
                 global.Diffuse = Color.BurlyWood.Vector();
 
-                LightPointer red = LightManager.GetLight();
+                red = LightManager.GetLight();
                 red.Position = new Vector3(-50, -200, 0);
                 red.Diffuse = Color.Red.Vector();
 
-                LightPointer green = LightManager.GetLight();
+                green = LightManager.GetLight();
                 green.Position = new Vector3(50, -200, 0);
                 green.Diffuse = Color.GreenYellow.Vector();
 
@@ -160,6 +164,14 @@ namespace Vitaru.Mods
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
+            }
+
+            protected override void Dispose(bool finalize)
+            {
+                base.Dispose(finalize);
+                LightManager.ReturnLight(green);
+                LightManager.ReturnLight(red);
+                LightManager.ReturnLight(global);
             }
         }
     }
