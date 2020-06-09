@@ -24,8 +24,10 @@ namespace Vitaru.Mods
             LoadedMods = new List<Mod>
             {
                 new LevelMixer(),
-                new TanksTest()
             };
+
+            if (Vitaru.EXPERIMENTAL)
+                LoadedMods.Add(new TanksTest());
 
             loadedAssemblies = new Dictionary<Assembly, Type>();
 

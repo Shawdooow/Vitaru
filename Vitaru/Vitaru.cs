@@ -29,8 +29,15 @@ namespace Vitaru
     {
         /// <summary>
         ///     Bool for easter egg Alki mode.
+        ///     It has a 1/10 chance of being true on startup and can not be set manually
         /// </summary>
         public static bool ALKI { get; private set; }
+
+        /// <summary>
+        ///     Bool for Experimental features you may not want available by default yet.
+        ///     Can be set by passing "Experimental=true" as a launch arg
+        /// </summary>
+        public static bool EXPERIMENTAL { get; private set; }
 
         public static void Main(string[] args)
         {
@@ -97,6 +104,22 @@ namespace Vitaru
             circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
             Renderer.ShaderManager.ActiveShaderProgram = circle;
             Renderer.ShaderManager.UpdateInt("shade", 0);
+        }
+
+        protected override void ParseArgs(KeyValuePair<string, string> pair)
+        {
+            base.ParseArgs(pair);
+
+#if !PUBLISH
+            EXPERIMENTAL = true;
+#endif
+
+            switch (pair.Key)
+            {
+                case "Experimental":
+                    EXPERIMENTAL = bool.Parse(pair.Value);
+                    break;
+            }
         }
 
         protected override GraphicsContext GetContext(string name)
