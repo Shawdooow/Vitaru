@@ -110,7 +110,7 @@ namespace Vitaru.Settings
 
         public override bool OnMouseDown(MouseButtonEvent e)
         {
-            if (e.Button == MouseButton.Left && !Hovered && toggle.Alpha < 1)
+            if (e.Button == "Left" && !Hovered && toggle.Alpha < 1)
                 Hide();
             return base.OnMouseDown(e);
         }

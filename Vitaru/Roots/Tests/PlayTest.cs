@@ -6,6 +6,7 @@ using OpenTK.Input;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -110,18 +111,18 @@ namespace Vitaru.Roots.Tests
 
         private int que;
 
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        protected override void OnKeyDown(KeyboardKeyEvent e)
         {
             base.OnKeyDown(e);
 
-            if (e.IsRepeat) return;
+            if (e.Repeat) return;
 
             switch (e.Key)
             {
-                case Key.R:
+                case "R":
                     que = 1;
                     break;
-                case Key.T:
+                case "T":
                     que = 10;
                     break;
             }
