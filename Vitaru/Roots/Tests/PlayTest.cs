@@ -111,9 +111,9 @@ namespace Vitaru.Roots.Tests
 
         private int que;
 
-        protected override void OnKeyDown(KeyboardKeyEvent e)
+        protected override void OnKeyDown()
         {
-            base.OnKeyDown(e);
+            base.OnKeyDown();
 
             if (e.Repeat) return;
 

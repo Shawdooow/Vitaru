@@ -10,14 +10,14 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UserInterface;
-using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Input;
 using Prion.Nucleus.IO.Configs;
 using Prion.Nucleus.Utilities;
 using Vitaru.Settings.Options;
 
 namespace Vitaru.Settings
 {
-    public class SettingsOverlay : HoverableLayer<IDrawable2D>
+    public class SettingsOverlay : ClickableLayer<IDrawable2D>
     {
         public override string Name { get; set; } = nameof(SettingsOverlay);
 
@@ -108,11 +108,11 @@ namespace Vitaru.Settings
             };
         }
 
-        public override bool OnMouseDown(MouseButtonEvent e)
+        protected override void OnMouseDown()
         {
-            if (e.Button == "Left" && !Hovered && toggle.Alpha < 1)
+            //base.OnMouseDown();
+            if (InputManager.Mouse.Left && !Hovered && toggle.Alpha < 1)
                 Hide();
-            return base.OnMouseDown(e);
         }
 
         public void Toggle()

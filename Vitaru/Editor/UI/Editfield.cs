@@ -2,10 +2,8 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Mitochondria.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -54,34 +52,29 @@ namespace Vitaru.Editor.UI
             public bool Right { get; private set; }
             public bool Click;
 
-            public override void OnMouseMove(MousePositionEvent e)
-            {
-                base.OnMouseMove(e);
-                Cursor = e.Position;
-            }
+            
 
-            public override bool OnMouseDown(MouseButtonEvent e)
-            {
-                switch (e.Button)
-                {
-                    case "Right":
-                        Right = true;
-                        Cursor = e.Position;
-                        break;
-                    case "Left":
-                        Click = true;
-                        break;
-                }
-
-                return base.OnMouseDown(e);
-            }
-
-            public override bool OnMouseUp(MouseButtonEvent e)
-            {
-                if (e.Button == "Right")
-                    Right = false;
-                return base.OnMouseUp(e);
-            }
+            //public override bool OnMouseDown(MouseButtonEvent e)
+            //{
+            //    switch (e.Button)
+            //    {
+            //        case "Right":
+            //            Right = true;
+            //            break;
+            //        case "Left":
+            //            Click = true;
+            //            break;
+            //    }
+            //
+            //    return base.OnMouseDown(e);
+            //}
+            //
+            //public override bool OnMouseUp(MouseButtonEvent e)
+            //{
+            //    if (e.Button == "Right")
+            //        Right = false;
+            //    return base.OnMouseUp(e);
+            //}
         }
     }
 }

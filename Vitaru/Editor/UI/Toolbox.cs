@@ -121,27 +121,25 @@ namespace Vitaru.Editor.UI
                 };
             }
 
-            public override bool OnMouseDown(MouseButtonEvent e)
+            protected override void OnMouseDown()
             {
-                if (base.OnMouseDown(e))
+                //base.OnMouseDown();
+                if (Hovered)
                 {
                     flash.Alpha = 1;
                     flash.FadeTo(0f, 200);
-                    return true;
                 }
-
-                return false;
             }
 
-            public override void OnHovered(MouseHoverEvent e)
+            public override void OnHovered()
             {
-                base.OnHovered(e);
+                base.OnHovered();
                 background.FadeTo(1, 200);
             }
 
-            public override void OnHoverLost(MouseHoverEvent e)
+            public override void OnHoverLost()
             {
-                base.OnHoverLost(e);
+                base.OnHoverLost();
                 background.FadeTo(0.4f, 200);
             }
 
