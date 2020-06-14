@@ -43,7 +43,7 @@ namespace Vitaru.Mods
         private class Tank : ExitableRoot
         {
             private Camera camera;
-            private VitaruInputManager input;
+            private PlayerBinds input;
             private TexturedModel turret;
 
             private LightPointer global;
@@ -54,8 +54,7 @@ namespace Vitaru.Mods
             {
                 Renderer.Window.CursorHidden = true;
                 camera = new Camera();
-                input = new VitaruInputManager();
-                Add(input);
+                input = new PlayerBinds();
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
@@ -116,19 +115,19 @@ namespace Vitaru.Mods
                     float t = (float)Clock.LastElapsedTime / 1000f;
                     t *= speed;
 
-                    if (input.Actions[VitaruActions.Up])
+                    if (input[VitaruActions.Up])
                         camera.Position += camera.Front * t;
-                    else if (input.Actions[VitaruActions.Down])
+                    else if (input[VitaruActions.Down])
                         camera.Position -= camera.Front * t;
 
-                    if (input.Actions[VitaruActions.Right])
+                    if (input[VitaruActions.Right])
                         camera.Position += camera.Right * t;
-                    else if (input.Actions[VitaruActions.Left])
+                    else if (input[VitaruActions.Left])
                         camera.Position -= camera.Right * t;
 
-                    if (input.Actions[VitaruActions.Jump])
+                    if (input[VitaruActions.Jump])
                         camera.Position += camera.Up * t;
-                    else if (input.Actions[VitaruActions.Sneak])
+                    else if (input[VitaruActions.Sneak])
                         camera.Position -= camera.Up * t;
 
                     mouseInput();

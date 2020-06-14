@@ -7,8 +7,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Input.Binds;
 using Prion.Mitochondria.Input.Events;
-using Prion.Mitochondria.Input.Handlers;
 using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Projectiles;
@@ -19,7 +19,7 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
-    public abstract class Player : Character, IHasInputKeys<VitaruActions>, IHasInputMousePosition
+    public abstract class Player : Character, IHasInputMousePosition
     {
         public override string Name { get; set; } = nameof(Player);
 
@@ -55,7 +55,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public virtual string Background => "Default Background Text   C:<";
 
-        public BindInputHandler<VitaruActions> InputHandler { get; set; }
+        public PlayerBinds Binds { get; set; }
 
         //Is reset after healing applied
         public float HealingMultiplier = 1;
@@ -99,8 +99,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             GOD_KING = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
 
             Team = PLAYER_TEAM;
-            InputHandler = new VitaruInputManager();
-            InputHandler.Add(this);
+            Binds = new PlayerBinds();
         }
 
         public override void LoadingComplete()
@@ -168,7 +167,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
                 OnQuarterBeat();
 
-            if (InputHandler.Actions[VitaruActions.Shoot] && Clock.LastCurrent >= shootTime)
+            if (Binds[VitaruActions.Shoot] && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
             if (HealingProjectiles.Count > 0)
@@ -241,7 +240,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             float cursorAngle = 0;
 
-            if (InputHandler.Actions[VitaruActions.Sneak])
+            if (Binds[VitaruActions.Sneak])
             {
                 cursorAngle = ((float) Math.Atan2(Cursor.Y - Position.Y, Cursor.X - Position.X))
                     .ToDegrees() + 90;
@@ -270,7 +269,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 //-90 = up
                 BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage, 600);
 
-                if (InputHandler.Actions[VitaruActions.Sneak])
+                if (Binds[VitaruActions.Sneak])
                     directionModifier += 0.1f;
                 else
                     directionModifier += 0.2f;
@@ -340,20 +339,20 @@ namespace Vitaru.Gamemodes.Characters.Players
             double yTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
             double xTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
 
-            if (InputHandler.Actions[VitaruActions.Sneak])
+            if (Binds[VitaruActions.Sneak])
             {
                 xTranslationDistance /= 2d;
                 yTranslationDistance /= 2d;
             }
 
-            if (InputHandler.Actions[VitaruActions.Up])
+            if (Binds[VitaruActions.Up])
                 playerPosition.Y -= (float) yTranslationDistance;
-            if (InputHandler.Actions[VitaruActions.Down])
+            if (Binds[VitaruActions.Down])
                 playerPosition.Y += (float) yTranslationDistance;
 
-            if (InputHandler.Actions[VitaruActions.Left])
+            if (Binds[VitaruActions.Left])
                 playerPosition.X -= (float) xTranslationDistance;
-            if (InputHandler.Actions[VitaruActions.Right])
+            if (Binds[VitaruActions.Right])
                 playerPosition.X += (float) xTranslationDistance;
 
             //if (!VitaruPlayfield.BOUNDLESS)
@@ -425,7 +424,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected override void Dispose(bool finalize)
         {
-            InputHandler.Dispose();
+            Binds.Dispose();
             base.Dispose(finalize);
         }
 

@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO.Configs;
 using Prion.Nucleus.Utilities;
@@ -110,7 +111,7 @@ namespace Vitaru.Settings
 
         public override bool OnMouseDown(MouseButtonEvent e)
         {
-            if (e.Button == MouseButton.Left && !Hovered && toggle.Alpha < 1)
+            if (e.Button == MouseButtons.Left && !Hovered && toggle.Alpha < 1)
                 Hide();
             return base.OnMouseDown(e);
         }

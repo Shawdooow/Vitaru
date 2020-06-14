@@ -2,10 +2,11 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -35,7 +36,7 @@ namespace Vitaru.Roots.Tests
 
             Player player = new Sakuya(gamefield);
 
-            Add(player.InputHandler);
+            //Add(player.InputHandler);
 
             gamefield.Add(player);
 
@@ -110,18 +111,16 @@ namespace Vitaru.Roots.Tests
 
         private int que;
 
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        protected override void OnKeyDown(KeyboardKeyEvent e)
         {
             base.OnKeyDown(e);
 
-            if (e.IsRepeat) return;
-
             switch (e.Key)
             {
-                case Key.R:
+                case Keys.R:
                     que = 1;
                     break;
-                case Key.T:
+                case Keys.T:
                     que = 10;
                     break;
             }
