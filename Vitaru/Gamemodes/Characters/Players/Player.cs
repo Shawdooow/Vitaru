@@ -7,9 +7,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Mitochondria.Input.Binds;
-using Prion.Mitochondria.Input.Events;
-using Prion.Mitochondria.Input.Receivers;
+using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
@@ -19,7 +17,7 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
-    public abstract class Player : Character, IHasInputMousePosition
+    public abstract class Player : Character
     {
         public override string Name { get; set; } = nameof(Player);
 
@@ -71,8 +69,6 @@ namespace Vitaru.Gamemodes.Characters.Players
         private double lastQuarterBeat = -1;
         private double nextHalfBeat = -1;
         private double nextQuarterBeat = -1;
-
-        public Vector2 Cursor { get; private set; } = Vector2.Zero;
 
         private double shootTime;
 
@@ -154,6 +150,19 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override void Update()
         {
             base.Update();
+
+            foreach (VitaruActions v in (VitaruActions[]) Enum.GetValues(typeof(VitaruActions)))
+            {
+                if (Binds[v] && !Binds.Last(v))
+                    Pressed(v);
+                else if (!Binds[v] && Binds.Last(v))
+                    Released(v);
+            }
+
+                
+            {
+
+            }
 
             if (GOD_KING)
             {
@@ -242,7 +251,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (Binds[VitaruActions.Sneak])
             {
-                cursorAngle = ((float) Math.Atan2(Cursor.Y - Position.Y, Cursor.X - Position.X))
+                cursorAngle = ((float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X))
                     .ToDegrees() + 90;
                 directionModifier = -0.1f;
             }
@@ -289,7 +298,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         #region Input
 
-        public bool Pressed(VitaruActions t)
+        public void Pressed(VitaruActions t)
         {
             if (CheckSpellActivate(t))
                 SpellActivate(t);
@@ -298,19 +307,17 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             switch (t)
             {
-                default:
-                    return true;
                 case VitaruActions.Sneak:
                     Drawable.HitboxOutline.FadeTo(1f, 200);
                     Drawable.Hitbox.FadeTo(1f, 200);
-                    return true;
+                    break;
                 case VitaruActions.Shoot:
                     shootTime = Clock.LastCurrent;
-                    return true;
+                    break;
             }
         }
 
-        public bool Released(VitaruActions t)
+        public void Released(VitaruActions t)
         {
             if (CheckSpellDeactivate(t))
                 SpellDeactivate(t);
@@ -319,18 +326,14 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             switch (t)
             {
-                default:
-                    return true;
                 case VitaruActions.Sneak:
                     Drawable.HitboxOutline.ClearTransforms();
                     Drawable.HitboxOutline.FadeTo(0f, 200);
                     Drawable.Hitbox.ClearTransforms();
                     Drawable.Hitbox.FadeTo(0f, 200);
-                    return true;
+                    break;
             }
         }
-
-        public void OnMouseMove(MousePositionEvent e) => Cursor = e.Position;
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
         {
