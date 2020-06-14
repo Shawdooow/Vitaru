@@ -64,11 +64,11 @@ namespace Vitaru.Editor.UI
             {
                 switch (e.Button)
                 {
-                    case "Right":
+                    case MouseButton.Right:
                         Right = true;
                         Cursor = e.Position;
                         break;
-                    case "Left":
+                    case MouseButton.Left:
                         Click = true;
                         break;
                 }
@@ -78,7 +78,7 @@ namespace Vitaru.Editor.UI
 
             public override bool OnMouseUp(MouseButtonEvent e)
             {
-                if (e.Button == "Right")
+                if (e.Button == MouseButton.Right)
                     Right = false;
                 return base.OnMouseUp(e);
             }

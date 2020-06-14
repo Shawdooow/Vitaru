@@ -86,7 +86,7 @@ namespace Vitaru.Settings.Options
 
         public override bool OnMouseDown(MouseButtonEvent e)
         {
-            if (e.Button == "Left" && Hovered)
+            if (e.Button == MouseButton.Left && Hovered)
                 Toggle();
             return base.OnMouseDown(e);
         }
