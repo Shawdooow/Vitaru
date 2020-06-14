@@ -7,7 +7,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Input.Handlers;
+using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
@@ -74,7 +76,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private double shootTime;
 
-        private readonly bool GOD_KING;
+        private bool GOD_KING;
 
         protected DrawablePlayer DrawablePlayer { get; set; }
 
@@ -153,8 +155,6 @@ namespace Vitaru.Gamemodes.Characters.Players
         public override void Update()
         {
             base.Update();
-
-            Cursor = InputManager.Mouse.Position;
 
             if (GOD_KING)
             {
@@ -330,6 +330,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return true;
             }
         }
+
+        public void OnMouseMove(MousePositionEvent e) => Cursor = e.Position;
 
         protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
         {

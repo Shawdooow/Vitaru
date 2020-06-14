@@ -4,11 +4,12 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using OpenTK.Input;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO.Configs;
 
 namespace Vitaru.Settings.Options
@@ -83,11 +84,11 @@ namespace Vitaru.Settings.Options
             OnValueChange?.Invoke(Value);
         }
 
-        protected override void OnMouseDown()
+        public override bool OnMouseDown(MouseButtonEvent e)
         {
-            //base.OnMouseDown();
-            if (InputManager.Mouse.Left && Hovered)
+            if (e.Button == "Left" && Hovered)
                 Toggle();
+            return base.OnMouseDown(e);
         }
     }
 }
