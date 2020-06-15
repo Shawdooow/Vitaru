@@ -132,21 +132,16 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
-                circular.ClearTransforms();
                 circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
-                EnergyValue.ClearTransforms();
                 EnergyValue.FadeTo(0.8f, duration);
                 EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
 
-                HealthValue.ClearTransforms();
                 HealthValue.FadeTo(0.8f, duration);
                 HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
 
-                LeftValue.ClearTransforms();
                 LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);
 
-                RightValue.ClearTransforms();
                 RightValue.MoveTo(new Vector2(-40, 0), duration, Easings.OutCubic);
             }
         }
@@ -160,21 +155,16 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
 
-                circular.ClearTransforms();
                 circular.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
 
-                EnergyValue.ClearTransforms();
                 EnergyValue.FadeTo(0, duration);
                 EnergyValue.MoveTo(new Vector2(-60, 10), duration, Easings.OutCubic);
 
-                HealthValue.ClearTransforms();
                 HealthValue.FadeTo(0, duration);
                 HealthValue.MoveTo(new Vector2(60, 10), duration, Easings.OutCubic);
 
-                LeftValue.ClearTransforms();
                 LeftValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
 
-                RightValue.ClearTransforms();
                 RightValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
             }
         }
