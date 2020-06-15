@@ -85,7 +85,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (action == VitaruActions.Increase)
             {
                 SetRate = Math.Min(
-                    InputHandler.Actions[VitaruActions.Sneak]
+                    Binds[VitaruActions.Sneak]
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
                 intensity();
@@ -95,7 +95,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (action == VitaruActions.Decrease)
             {
                 SetRate = Math.Max(
-                    InputHandler.Actions[VitaruActions.Sneak]
+                    Binds[VitaruActions.Sneak]
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
                 intensity();

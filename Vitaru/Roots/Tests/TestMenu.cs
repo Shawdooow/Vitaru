@@ -12,6 +12,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Input;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Levels;
@@ -24,6 +25,8 @@ namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
+        private readonly Box cursor;
+
         protected readonly Sprite Background;
         protected readonly Box Dim;
 
@@ -173,6 +176,19 @@ namespace Vitaru.Roots.Tests
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
 
+            Add(new SpriteLayer
+            {
+                Children = new[]
+                {
+                    cursor = new Box
+                    {
+                        Color = Color.Red,
+                        Alpha = 0.25f,
+                        Size = new Vector2(10),
+                    }
+                }
+            });
+
             Add(new FPSOverlay());
         }
 
@@ -222,6 +238,8 @@ namespace Vitaru.Roots.Tests
             }
 
             base.Update();
+
+            cursor.Position = InputManager.Mouse.Position;
         }
 
         public override void PreRender()

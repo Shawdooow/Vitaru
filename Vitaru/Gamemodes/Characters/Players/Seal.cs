@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
@@ -96,7 +97,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public void Update()
         {
-            float speed = player.InputHandler.Actions[VitaruActions.Sneak] ? 1500 : 1000;
+            float speed = player.Binds[VitaruActions.Sneak] ? 1500 : 1000;
 
             if (!player.SpellActive)
                 Sign.Rotation -= (float) (player.Clock.LastElapsedTime / speed);
@@ -104,7 +105,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 Sign.Rotation += (float) (player.Clock.LastElapsedTime / speed);
 
             Reticle.Rotation =
-                (float) Math.Atan2(player.Cursor.Y - player.Position.Y, player.Cursor.X - player.Position.X) +
+                (float) Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y, InputManager.Mouse.Position.X - player.Position.X) +
                 (float) Math.PI / 2f;
 
             EnergyValue.Text = $"{Math.Round(player.Energy, 0)}/{player.EnergyCapacity}J";
@@ -115,7 +116,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public void Shoot(double flash)
         {
-            if (player.InputHandler.Actions[VitaruActions.Sneak])
+            if (player.Binds[VitaruActions.Sneak])
             {
                 Reticle.Alpha = 1f;
                 Reticle.FadeTo(Sign.Alpha, flash, Easings.OutCubic);

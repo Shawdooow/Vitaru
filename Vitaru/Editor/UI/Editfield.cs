@@ -2,9 +2,9 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
@@ -64,11 +64,11 @@ namespace Vitaru.Editor.UI
             {
                 switch (e.Button)
                 {
-                    case MouseButton.Right:
+                    case MouseButtons.Right:
                         Right = true;
                         Cursor = e.Position;
                         break;
-                    case MouseButton.Left:
+                    case MouseButtons.Left:
                         Click = true;
                         break;
                 }
@@ -78,7 +78,7 @@ namespace Vitaru.Editor.UI
 
             public override bool OnMouseUp(MouseButtonEvent e)
             {
-                if (e.Button == MouseButton.Right)
+                if (e.Button == MouseButtons.Right)
                     Right = false;
                 return base.OnMouseUp(e);
             }
