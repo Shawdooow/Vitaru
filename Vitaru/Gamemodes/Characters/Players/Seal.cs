@@ -127,11 +127,9 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             if (action == VitaruActions.Sneak)
             {
-                Reticle.ClearTransforms();
                 Reticle.FadeTo(Sign.Alpha, duration);
                 Reticle.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
-                Sign.ClearTransforms();
                 Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
                 circular.ClearTransforms();
@@ -157,11 +155,9 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             if (action == VitaruActions.Sneak)
             {
-                Reticle.ClearTransforms();
                 Reticle.FadeTo(0f, duration);
                 Reticle.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
 
-                Sign.ClearTransforms();
                 Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
 
                 circular.ClearTransforms();

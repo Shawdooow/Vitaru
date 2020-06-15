@@ -327,9 +327,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             switch (t)
             {
                 case VitaruActions.Sneak:
-                    Drawable.HitboxOutline.ClearTransforms();
                     Drawable.HitboxOutline.FadeTo(0f, 200);
-                    Drawable.Hitbox.ClearTransforms();
                     Drawable.Hitbox.FadeTo(0f, 200);
                     break;
             }
