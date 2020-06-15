@@ -37,28 +37,21 @@ namespace Vitaru.Editor.UI
             };
         }
 
-        public override void Update()
-        {
-            base.Update();
-
-            if (SelectionLayer.Right)
-                foreach (IEditable e in LoadedEnemies)
-                    e.Position += SelectionLayer.Cursor - offset;
-
-            offset = SelectionLayer.Cursor;
-        }
+        //public override void Update()
+        //{
+        //    base.Update();
+        //
+        //    if (SelectionLayer.Right)
+        //        foreach (IEditable e in LoadedEnemies)
+        //            e.Position += SelectionLayer.Cursor - offset;
+        //
+        //    offset = SelectionLayer.Cursor;
+        //}
 
         public class SelectLayer : ClickableLayer<IDrawable2D>
-        {
-            public Vector2 Cursor { get; private set; }
+        { 
             public bool Right { get; private set; }
             public bool Click;
-
-            public override void OnMouseMove(MousePositionEvent e)
-            {
-                base.OnMouseMove(e);
-                Cursor = e.Position;
-            }
 
             public override bool OnMouseDown(MouseButtonEvent e)
             {
@@ -66,7 +59,7 @@ namespace Vitaru.Editor.UI
                 {
                     case MouseButtons.Right:
                         Right = true;
-                        Cursor = e.Position;
+                        //Cursor = e.Position;
                         break;
                     case MouseButtons.Left:
                         Click = true;
