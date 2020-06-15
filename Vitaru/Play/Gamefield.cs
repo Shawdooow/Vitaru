@@ -157,16 +157,13 @@ namespace Vitaru.Play
             deadEnemyQue.Enqueue(enemy);
         }
 
-        private readonly ConcurrentQueue<DrawableGameEntity> playerQue = new ConcurrentQueue<DrawableGameEntity>();
+        private readonly ConcurrentQueue<Player> playerQue = new ConcurrentQueue<Player>();
 
         public void Add(Player player)
         {
             PlayerPack.Add(player);
             //Que adding the drawable
-
-            DrawableGameEntity draw = player.GenerateDrawable();
-            player.SetDrawable(draw);
-            playerQue.Enqueue(draw);
+            playerQue.Enqueue(player);
         }
 
         private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
@@ -207,8 +204,10 @@ namespace Vitaru.Play
             //Add Players
             while (playerQue.Count > 0)
             {
-                PrionDebugger.Assert(playerQue.TryDequeue(out DrawableGameEntity player));
-                CharacterLayer.Add(player);
+                PrionDebugger.Assert(playerQue.TryDequeue(out Player player));
+                DrawableGameEntity draw = player.GenerateDrawable();
+                player.SetDrawable(draw);
+                CharacterLayer.Add(draw);
             }
 
             //Add / Remove Enemies

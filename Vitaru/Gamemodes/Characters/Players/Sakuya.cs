@@ -200,7 +200,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     intensity();
                 }
 
-            DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
+            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
         }
 
         private void applyToClock(AdjustableClock clock, double speed)

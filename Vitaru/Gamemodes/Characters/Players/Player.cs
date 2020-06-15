@@ -86,7 +86,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             return new DrawablePlayer(this)
             {
-                Position = new Vector2(0, 200)
+                Position = Position
             };
         }
 
@@ -94,6 +94,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             GOD_KING = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
 
+            Position = new Vector2(0, 200);
             Team = PLAYER_TEAM;
             Binds = new PlayerBinds();
         }
@@ -191,9 +192,9 @@ namespace Vitaru.Gamemodes.Characters.Players
                            (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
             }
 
-            DrawablePlayer.Seal.Update();
+            DrawablePlayer?.Seal.Update();
 
-            Position = GetNewPlayerPosition(0.3f);
+            Position = GetPositionOffset(0.3f);
 
             SpellUpdate();
         }
@@ -242,7 +243,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             double half = TrackManager.CurrentTrack.Level.GetBeatLength() / 2;
             shootTime = Clock.LastCurrent + half;
 
-            DrawablePlayer.Seal.Shoot(half);
+            DrawablePlayer?.Seal.Shoot(half);
 
             const int numberbullets = 3;
             float directionModifier = -0.2f;
@@ -333,9 +334,9 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
-        protected virtual Vector2 GetNewPlayerPosition(double playerSpeed)
+        protected virtual Vector2 GetPositionOffset(double playerSpeed)
         {
-            Vector2 playerPosition = Drawable.Position;
+            Vector2 playerPosition = Position;
 
             double yTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
             double xTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;

@@ -132,7 +132,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             base.Die();
             EndTime = Clock.LastCurrent;
-            Drawable.Delete();
+            Drawable?.Delete();
             Gamefield.Remove(this);
         }
 
