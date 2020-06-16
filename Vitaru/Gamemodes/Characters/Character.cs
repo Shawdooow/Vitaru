@@ -70,10 +70,8 @@ namespace Vitaru.Gamemodes.Characters
 
                         ParseProjectile(projectile);
 
-                        Vector2 difference = projectile.Position - Position;
-
-                        double distance = Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-                        double edgeDistance;
+                        float distance = Vector2.Distance(projectile.Position, Position);
+                        float edgeDistance;
 
                         switch (projectile)
                         {
