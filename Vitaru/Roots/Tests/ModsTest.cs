@@ -32,7 +32,7 @@ namespace Vitaru.Roots.Tests
                             Size = b.Size,
                             Scale = b.Scale,
                             Color = Color.Black,
-                            Alpha = 0.5f,
+                            Alpha = 0.5f
                         });
                     }
                     else

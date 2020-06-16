@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
@@ -80,7 +83,7 @@ namespace Vitaru.Mods
 
                 Add(new Layer3D<TexturedModel>
                 {
-                    Children = new []
+                    Children = new[]
                     {
                         body,
                         turret
@@ -91,7 +94,7 @@ namespace Vitaru.Mods
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
 
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.7f,
-                    Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
                 Add(new FPSOverlay());
 
@@ -112,7 +115,7 @@ namespace Vitaru.Mods
                     dx = lx - m.X;
                     dy = ly - m.Y;
 
-                    float t = (float)Clock.LastElapsedTime / 1000f;
+                    float t = (float) Clock.LastElapsedTime / 1000f;
                     t *= speed;
 
                     if (input[VitaruActions.Up])
@@ -141,7 +144,7 @@ namespace Vitaru.Mods
             private void mouseInput()
             {
                 const float sens = 0.002f;
-                camera.Rotation += new Vector3(0, (float)dy * sens, -(float)dx * sens);
+                camera.Rotation += new Vector3(0, (float) dy * sens, -(float) dx * sens);
             }
 
             public override void PreRender()
@@ -155,11 +158,11 @@ namespace Vitaru.Mods
                 LightManager.UpdateSSBO();
 
                 Matrix4x4 m = Matrix4x4.CreateScale(new Vector3(
-                    (float)Math.Sin(DrawClock.Current / 1000f * speed) * 0.5f + 1f,
-                    (float)Math.Cos(DrawClock.Current / 1000f * speed) * 0.5f + 1f, 1));
+                    (float) Math.Sin(DrawClock.Current / 1000f * speed) * 0.5f + 1f,
+                    (float) Math.Cos(DrawClock.Current / 1000f * speed) * 0.5f + 1f, 1));
 
                 m *= Matrix4x4.CreateFromAxisAngle(new Vector3(0, 1, 0),
-                    (float)(DrawClock.Current / 1000d) * speed);
+                    (float) (DrawClock.Current / 1000d) * speed);
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);

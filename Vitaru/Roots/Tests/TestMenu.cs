@@ -184,7 +184,7 @@ namespace Vitaru.Roots.Tests
                     {
                         Color = Color.Red,
                         Alpha = 0.25f,
-                        Size = new Vector2(10),
+                        Size = new Vector2(10)
                     }
                 }
             });

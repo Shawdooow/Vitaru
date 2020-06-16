@@ -49,7 +49,7 @@ namespace Vitaru.Editor.UI
         //}
 
         public class SelectLayer : ClickableLayer<IDrawable2D>
-        { 
+        {
             public bool Right { get; private set; }
             public bool Click;
 

@@ -3,7 +3,6 @@
 
 using System.Drawing;
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;

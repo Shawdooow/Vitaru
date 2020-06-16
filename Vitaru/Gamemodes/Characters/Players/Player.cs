@@ -160,9 +160,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Released(v);
             }
 
-                
-            {
 
+            {
             }
 
             if (GOD_KING)
@@ -252,7 +251,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             if (Binds[VitaruActions.Sneak])
             {
-                cursorAngle = ((float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X))
+                cursorAngle = ((float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
+                        InputManager.Mouse.Position.X - Position.X))
                     .ToDegrees() + 90;
                 directionModifier = -0.1f;
             }

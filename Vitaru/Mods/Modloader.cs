@@ -23,7 +23,7 @@ namespace Vitaru.Mods
         {
             LoadedMods = new List<Mod>
             {
-                new LevelMixer(),
+                new LevelMixer()
             };
 
             if (Vitaru.EXPERIMENTAL)
