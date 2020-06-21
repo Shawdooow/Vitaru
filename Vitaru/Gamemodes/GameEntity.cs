@@ -32,7 +32,7 @@ namespace Vitaru.Gamemodes
 
         public virtual void SetDrawable(DrawableGameEntity drawable)
         {
-            PrionDebugger.Assert(Drawable == null, "Drawable should be null");
+            Debugger.Assert(Drawable == null, "Drawable should be null");
             Drawable = drawable;
         }
 

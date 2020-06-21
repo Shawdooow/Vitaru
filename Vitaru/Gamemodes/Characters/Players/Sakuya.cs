@@ -67,7 +67,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (Clock is AdjustableClock a)
                 adjustable = a;
             else
-                PrionDebugger.InvalidOperation($"{nameof(Sakuya)} requires an {nameof(AdjustableClock)}!");
+                Debugger.InvalidOperation($"{nameof(Sakuya)} requires an {nameof(AdjustableClock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)

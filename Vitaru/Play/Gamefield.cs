@@ -112,14 +112,14 @@ namespace Vitaru.Play
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
-                PrionDebugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
+                Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
                 LoadedEnemies.Remove(enemy, false);
                 UnloadedEnemies.Add(enemy);
             }
 
             while (deadprojectileQue.Count > 0)
             {
-                PrionDebugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
+                Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
@@ -204,7 +204,7 @@ namespace Vitaru.Play
             //Add Players
             while (playerQue.Count > 0)
             {
-                PrionDebugger.Assert(playerQue.TryDequeue(out Player player));
+                Debugger.Assert(playerQue.TryDequeue(out Player player));
                 DrawableGameEntity draw = player.GenerateDrawable();
                 player.SetDrawable(draw);
                 CharacterLayer.Add(draw);
@@ -213,8 +213,8 @@ namespace Vitaru.Play
             //Add / Remove Enemies
             while (enemyQue.Count > 0)
             {
-                PrionDebugger.Assert(enemyQue.TryDequeue(out Enemy enemy));
-                PrionDebugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
+                Debugger.Assert(enemyQue.TryDequeue(out Enemy enemy));
+                Debugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
                 DrawableGameEntity draw = enemy.GenerateDrawable();
                 enemy.SetDrawable(draw);
 
@@ -225,15 +225,15 @@ namespace Vitaru.Play
 
             while (drawableEnemyQue.Count > 0)
             {
-                PrionDebugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
+                Debugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
             }
 
             //Add / Remove Projectiles
             while (projectileQue.Count > 0)
             {
-                PrionDebugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
-                PrionDebugger.Assert(!draw.Disposed,
+                Debugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
+                Debugger.Assert(!draw.Disposed,
                     "This projectile is disposed and should not be in this list anymore");
 
                 draw.OnDelete += () => drawableProjectileQue.Enqueue(draw);
@@ -243,7 +243,7 @@ namespace Vitaru.Play
 
             while (drawableProjectileQue.Count > 0)
             {
-                PrionDebugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
+                Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
                 ProjectileLayer.Remove(draw, false);
                 RecycledDrawableProjectiles.Enqueue(draw);
             }
