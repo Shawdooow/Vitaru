@@ -5,9 +5,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups.Packs;
+using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -15,6 +19,8 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics;
 using Vitaru.Multiplayer.Client;
+using Vitaru.Settings;
+using Vitaru.Tracks;
 
 namespace Vitaru.Play
 {
@@ -69,10 +75,7 @@ namespace Vitaru.Play
 
         public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
 
-        public readonly ShadeLayer<DrawableGameEntity> ProjectileLayer = new ShadeLayer<DrawableGameEntity>
-        {
-            Name = "Drawable Projectile Layer2D"
-        };
+        public readonly ShadeLayer<DrawableGameEntity> ProjectilesLayer = new ProjectileLayer();
 
         protected readonly Queue<DrawableProjectile> RecycledDrawableProjectiles = new Queue<DrawableProjectile>();
 
@@ -238,13 +241,13 @@ namespace Vitaru.Play
 
                 draw.OnDelete += () => drawableProjectileQue.Enqueue(draw);
 
-                ProjectileLayer.Add(draw);
+                ProjectilesLayer.Add(draw);
             }
 
             while (drawableProjectileQue.Count > 0)
             {
                 Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
-                ProjectileLayer.Remove(draw, false);
+                ProjectilesLayer.Remove(draw, false);
                 RecycledDrawableProjectiles.Enqueue(draw);
             }
         }
@@ -369,6 +372,86 @@ namespace Vitaru.Play
                     if (t >= lists.Count)
                         t = 0;
                 }
+            }
+        }
+
+        private class ProjectileLayer : ShadeLayer<DrawableGameEntity>
+        {
+            private readonly Benchmark benchmark = new Benchmark("Bullet Render Time");
+
+            private readonly GraphicsOptions graphics = Vitaru.VitaruSettings.GetValue<GraphicsOptions>(VitaruSetting.BulletVisuals);
+
+            private readonly List<DrawableBullet> bullets = new List<DrawableBullet>();
+
+            public ProjectileLayer()
+            {
+                Name = "Drawable Projectile Layer2D";
+            }
+
+            public override void Render()
+            {
+                benchmark.Start();
+
+                switch (graphics)
+                {
+                    default:
+                        base.Render();
+                        break;
+                    case GraphicsOptions.HighPerformance:
+                        Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
+                        Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
+                        Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
+
+                        //Draw Glows
+                        Renderer.ShaderManager.UpdateVector3("spriteColor", bullets[0].Glow.Color.Vector());
+                        Renderer.CurrentContext.BindTexture(bullets[0].Glow.Texture);
+                        for (int i = 0; i < bullets.Count; i++)
+                        {
+                            Renderer.ShaderManager.UpdateMatrix4("model", bullets[i].Glow.DrawTransform);
+                            Renderer.ShaderManager.UpdateVector2("size", bullets[i].Glow.Size);
+                            Renderer.ShaderManager.UpdateFloat("alpha", bullets[i].Glow.DrawAlpha);
+                            Renderer.CurrentContext.RenderSpriteQuad();
+                        }
+
+                        //Draw Whites
+                        Renderer.ShaderManager.UpdateVector3("spriteColor", Color.White.Vector());
+                        Renderer.CurrentContext.BindTexture(bullets[0].Center.Texture);
+                        for (int i = 0; i < bullets.Count; i++)
+                        {
+                            Renderer.ShaderManager.UpdateMatrix4("model", bullets[i].Center.DrawTransform);
+                            Renderer.ShaderManager.UpdateVector2("size", bullets[i].Center.Size);
+                            Renderer.ShaderManager.UpdateFloat("alpha", bullets[i].Center.DrawAlpha);
+                            Renderer.CurrentContext.RenderSpriteQuad();
+                        }
+
+                        Renderer.ShaderManager.UpdateInt("shade", 0);
+                        Renderer.ShaderManager.UpdateFloat("intensity", 1);
+                        break;
+                }
+
+                benchmark.Record();
+            }
+
+            public override void Add(DrawableGameEntity child, AddPosition position = AddPosition.Last)
+            {
+                if (graphics == GraphicsOptions.HighPerformance && child is DrawableBullet bullet)
+                    bullets.Add(bullet);
+
+                base.Add(child, position);
+            }
+
+            public override void Remove(DrawableGameEntity child, bool dispose = true)
+            {
+                if (graphics == GraphicsOptions.HighPerformance && child is DrawableBullet bullet)
+                    bullets.Remove(bullet);
+
+                base.Remove(child, dispose);
+            }
+
+            protected override void Dispose(bool finalize)
+            {
+                base.Dispose(finalize);
+                Logger.Benchmark(benchmark);
             }
         }
     }

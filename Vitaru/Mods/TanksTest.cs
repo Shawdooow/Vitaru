@@ -75,11 +75,11 @@ namespace Vitaru.Mods
 
                 TexturedModel body = new TexturedModel();
                 body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
-                Renderer.BufferMeshes(body);
+                Renderer.CurrentContext.BufferMeshes(body);
 
                 turret = new TexturedModel();
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
-                Renderer.BufferMeshes(turret);
+                Renderer.CurrentContext.BufferMeshes(turret);
 
                 Add(new Layer3D<TexturedModel>
                 {

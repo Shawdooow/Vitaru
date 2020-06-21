@@ -13,10 +13,10 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(DrawableBullet);
 
-        protected readonly Sprite Glow;
+        public readonly Sprite Glow;
 
         //protected Sprite OutlineCircle;
-        protected readonly Sprite Center;
+        public readonly Sprite Center;
 
         public DrawableBullet()
         {

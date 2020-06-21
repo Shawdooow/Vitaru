@@ -44,8 +44,8 @@ namespace Vitaru.Roots.Tests
             Add(gamefield);
 
             //Layers
-            Add(gamefield.ProjectileLayer);
             Add(gamefield.CharacterLayer);
+            Add(gamefield.ProjectilesLayer);
             Add(new FPSOverlay());
             Add(debug = new SpriteText
             {

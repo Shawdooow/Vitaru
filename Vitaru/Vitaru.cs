@@ -13,6 +13,7 @@ using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Threads;
@@ -39,8 +40,11 @@ namespace Vitaru
         /// </summary>
         public static bool EXPERIMENTAL { get; private set; }
 
+        private static readonly Benchmark startup = new Benchmark("Startup");
+
         public static void Main(string[] args)
         {
+            startup.Start();
             ALKI = PrionMath.RandomNumber(0, 10) == 5;
             if (ALKI) Logger.ConsoleLog("ALKI", ConsoleColor.Magenta);
 
@@ -151,6 +155,13 @@ namespace Vitaru
             LevelStore.ReloadLevelsFromFolders();
 
             base.Start();
+        }
+
+        protected override void StartupComplete()
+        {
+            //base.StartupComplete();
+            startup.Record();
+            Logger.Benchmark(startup);
         }
 
         public override void Dispose()

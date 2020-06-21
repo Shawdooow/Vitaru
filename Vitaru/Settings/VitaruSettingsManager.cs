@@ -16,12 +16,30 @@ namespace Vitaru.Settings
         {
             SetValue(VitaruSetting.Touch, false);
             SetValue(VitaruSetting.DebugHacks, false);
+
+            SetValue(VitaruSetting.PlayerVisuals, GraphicsOptions.Pretty);
+            SetValue(VitaruSetting.EnemyVisuals, GraphicsOptions.Pretty);
+            SetValue(VitaruSetting.BulletVisuals, GraphicsOptions.Pretty);
+            SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
         }
     }
 
     public enum VitaruSetting
     {
         Touch,
-        DebugHacks
+        DebugHacks,
+
+        PlayerVisuals,
+        EnemyVisuals,
+        BulletVisuals,
+        LaserVisuals,
+    }
+
+    public enum GraphicsOptions
+    {
+        Classic,
+        Pretty,
+        HighPerformance,
+        Experimental,
     }
 }

@@ -37,8 +37,8 @@ namespace Vitaru.Roots
             Add(editfield);
 
             //Layers
-            Add(editfield.ProjectileLayer);
             Add(editfield.CharacterLayer);
+            Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
 
             Add(new Timeline());
