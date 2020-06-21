@@ -53,11 +53,15 @@ namespace Vitaru.Mods
             private LightPointer red;
             private LightPointer green;
 
+            public Tank()
+            {
+                input = new PlayerBinds();
+            }
+
             public override void LoadingComplete()
             {
                 Renderer.Window.CursorHidden = true;
                 camera = new Camera();
-                input = new PlayerBinds();
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
