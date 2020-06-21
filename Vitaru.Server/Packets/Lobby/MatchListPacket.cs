@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Prion.Nucleus.Networking.Packets;
+using Prion.Centrosome.Packets;
 using Vitaru.Server.Match;
 
 namespace Vitaru.Server.Packets.Lobby

@@ -3,7 +3,7 @@
 
 using System;
 using System.Numerics;
-using Prion.Nucleus.Networking.Packets;
+using Prion.Centrosome.Packets;
 
 namespace Vitaru.Server.Packets.Play
 {

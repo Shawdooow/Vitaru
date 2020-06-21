@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using Prion.Nucleus.Networking.Packets;
+using Prion.Centrosome.Packets;
 
 namespace Vitaru.Server.Packets
 {

@@ -2,7 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using Prion.Nucleus.Networking.Packets;
+using Prion.Centrosome.Packets;
 using Vitaru.Server.Match;
 using Vitaru.Server.Server;
 
