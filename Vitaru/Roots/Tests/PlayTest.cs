@@ -12,6 +12,7 @@ using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Tracks;
 
@@ -22,7 +23,8 @@ namespace Vitaru.Roots.Tests
         private readonly Gamefield gamefield;
         private readonly SeekableClock seek;
 
-        private readonly SpriteText debug;
+        private readonly SpriteText bullets;
+        private readonly SpriteText particles;
 
         public PlayTest(SeekableClock seek)
         {
@@ -50,9 +52,16 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.ProjectilesLayer);
 
             Add(new FPSOverlay());
-            Add(debug = new SpriteText
+            Add(bullets = new SpriteText
             {
                 Position = new Vector2(-2, 2),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                TextScale = 0.25f
+            });
+            Add(particles = new SpriteText
+            {
+                Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 TextScale = 0.25f
@@ -81,7 +90,8 @@ namespace Vitaru.Roots.Tests
 
         public override void Update()
         {
-            debug.Text = $"{BULLET_COUNT}";
+            bullets.Text = $"{BULLET_COUNT}";
+            particles.Text = $"{Particle.COUNT}";
             seek.NewFrame();
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())

@@ -64,11 +64,12 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (Drawable.DrawAlpha == 1 && PrionMath.RandomNumber(0, (int)s) >= 100)
+            if (PrionMath.RandomNumber(0, (int)s) >= 20)
             {
                 s = 0;
                 OnAddParticle?.Invoke(new Particle(Position)
                 {
+                    Alpha = Drawable.Alpha,
                     Color = Color,
                 });
             }
