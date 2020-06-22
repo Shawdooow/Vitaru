@@ -5,12 +5,15 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Vitaru.Editor.IO;
+using Vitaru.Graphics.Particles;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
     public abstract class Projectile : GameEntity, IEditable
     {
         public override string Name { get; set; } = nameof(Projectile);
+
+        public Action<Particle> OnAddParticle;
 
         public override void SetDrawable(DrawableGameEntity drawable)
         {

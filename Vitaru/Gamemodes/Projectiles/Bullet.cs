@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Debug;
 using Prion.Nucleus.Utilities;
+using Vitaru.Graphics.Particles;
 using Vitaru.Roots.Tests;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -41,8 +43,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected virtual void UpdatePath()
         {
-            Vector2 offset = new Vector2(Distance * MathF.Cos(Angle), Distance * MathF.Sin(Angle));
-            EndPosition = StartPosition + offset;
+            EndPosition = StartPosition + PrionMath.Offset(Distance, Angle);
 
             switch (CurveType)
             {
@@ -55,10 +56,23 @@ namespace Vitaru.Gamemodes.Projectiles
             }
         }
 
+        private double s;
+
         public override void Update()
         {
             base.Update();
             Position = GetPosition(Clock.LastCurrent);
+
+            s += Clock.LastElapsedTime;
+
+            if (PrionMath.RandomNumber(0, (int)s) >= 100)
+            {
+                s = 0;
+                OnAddParticle?.Invoke(new Particle(Position)
+                {
+                    Color = Color,
+                });
+            }
         }
 
         protected virtual Vector2 GetPosition(double time)
@@ -69,6 +83,13 @@ namespace Vitaru.Gamemodes.Projectiles
                     EndPosition.X),
                 (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.Y,
                     EndPosition.Y));
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            Drawable.FadeTo(1, 200f, Easings.InSine);
+            Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
 
         public override void End()

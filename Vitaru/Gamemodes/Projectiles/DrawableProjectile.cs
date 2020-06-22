@@ -12,9 +12,5 @@ namespace Vitaru.Gamemodes.Projectiles
             Position = projectile.Position;
             return this;
         }
-
-        public virtual void Start()
-        {
-        }
     }
 }

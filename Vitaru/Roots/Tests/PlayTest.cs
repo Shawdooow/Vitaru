@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
@@ -45,7 +46,9 @@ namespace Vitaru.Roots.Tests
 
             //Layers
             Add(gamefield.CharacterLayer);
+            Add(gamefield.ParticleLayer);
             Add(gamefield.ProjectilesLayer);
+
             Add(new FPSOverlay());
             Add(debug = new SpriteText
             {
@@ -71,6 +74,7 @@ namespace Vitaru.Roots.Tests
             base.LoadingComplete();
 
             enemy();
+            Game.TextureStore.GetTexture("particle.png");
         }
 
         public static uint BULLET_COUNT;
@@ -102,11 +106,6 @@ namespace Vitaru.Roots.Tests
         {
             base.PreRender();
             gamefield.PreRender();
-        }
-
-        public override void Render2D()
-        {
-            base.Render2D();
         }
 
         private int que;

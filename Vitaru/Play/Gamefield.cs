@@ -18,6 +18,7 @@ using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics;
+using Vitaru.Graphics.Particles;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -78,6 +79,8 @@ namespace Vitaru.Play
         public readonly ShadeLayer<DrawableGameEntity> ProjectilesLayer = new ProjectileLayer();
 
         protected readonly Queue<DrawableProjectile> RecycledDrawableProjectiles = new Queue<DrawableProjectile>();
+
+        public readonly ParticleLayer ParticleLayer = new ParticleLayer();
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
@@ -176,6 +179,10 @@ namespace Vitaru.Play
         private readonly ConcurrentQueue<DrawableProjectile> drawableProjectileQue =
             new ConcurrentQueue<DrawableProjectile>();
 
+        private readonly ConcurrentQueue<Particle> particleQue = new ConcurrentQueue<Particle>();
+
+        private readonly ConcurrentQueue<Particle> deadparticleQue = new ConcurrentQueue<Particle>();
+
         public void Add(Projectile projectile)
         {
             ProjectilePacks[projectile.Team].Add(projectile);
@@ -191,6 +198,7 @@ namespace Vitaru.Play
             projectile.SetDrawable(draw);
             draw.SetProjectile(projectile);
 
+            projectile.OnAddParticle = p => particleQue.Enqueue(p);
             //Que adding the drawable
             projectileQue.Enqueue(draw);
         }
@@ -249,6 +257,25 @@ namespace Vitaru.Play
                 Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
                 ProjectilesLayer.Remove(draw, false);
                 RecycledDrawableProjectiles.Enqueue(draw);
+            }
+
+            //Add Particles
+            while (particleQue.Count > 0)
+            {
+                Debugger.Assert(particleQue.TryDequeue(out Particle draw));
+                Debugger.Assert(!draw.Disposed,
+                    "This particle is disposed and should not be in this list anymore");
+
+                draw.OnDelete += () => deadparticleQue.Enqueue(draw);
+
+                ParticleLayer.Add(draw);
+            }
+
+            while (deadparticleQue.Count > 0)
+            {
+                Debugger.Assert(deadparticleQue.TryDequeue(out Particle draw));
+                ParticleLayer.Remove(draw);
+                //TODO: RecycledParticles.Enqueue(draw);
             }
         }
 

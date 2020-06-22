@@ -47,19 +47,11 @@ namespace Vitaru.Gamemodes.Projectiles
             return base.SetProjectile(projectile);
         }
 
-        public override void Start()
-        {
-            base.Start();
-            this.FadeTo(1, 200f, Easings.InSine);
-            this.ScaleTo(Vector2.One, 100f, Easings.InSine);
-        }
-
         public override void LoadingComplete()
         {
             base.LoadingComplete();
 
             Glow.Texture = Game.TextureStore.GetTexture("Gameplay\\glow.png");
-            Start();
         }
     }
 }

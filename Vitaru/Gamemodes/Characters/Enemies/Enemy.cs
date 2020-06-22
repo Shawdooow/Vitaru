@@ -91,7 +91,6 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             float playerAngle =
                 (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
 
-
             List<Projectile> projectiles;
 
             switch (PrionMath.RandomNumber(0, 5))
