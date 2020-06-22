@@ -13,6 +13,8 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Prion.Mitochondria.Input;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Levels;
@@ -197,9 +199,6 @@ namespace Vitaru.Roots.Tests
             base.LoadingComplete();
             seek.Start();
 
-            LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
-                .LevelTrack;
-
             TrackManager.OnTrackChange += track =>
             {
                 song.Text = $"Now Playing: {track.Level.Name}";
@@ -207,7 +206,16 @@ namespace Vitaru.Roots.Tests
                 if (track.Level.Image != string.Empty)
                     bg = $"{track.Level.Name}\\{track.Level.Image}";
             };
+
+            Benchmark track = new Benchmark("Prime TrackManager");
+            track.Start();
+
+            LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
+                .LevelTrack;
             TrackManager.SetTrack(t, seek);
+
+            track.Record();
+            Logger.Benchmark(track);
         }
 
         protected override void OnResume()

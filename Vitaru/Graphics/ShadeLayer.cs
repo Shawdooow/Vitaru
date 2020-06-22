@@ -4,16 +4,15 @@
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Nucleus.Threads;
 
 namespace Vitaru.Graphics
 {
     public class ShadeLayer<D> : Layer2D<D>
         where D : IDrawable2D
     {
-        [ThreadSaftey(Threads.All)] public virtual Shades Shade { get; set; }
+        public virtual Shades Shade { get; set; }
 
-        [ThreadSaftey(Threads.All)] public virtual float Intensity { get; set; } = 1;
+        public virtual float Intensity { get; set; } = 1;
 
         public override void Render()
         {
