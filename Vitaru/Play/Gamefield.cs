@@ -8,6 +8,7 @@ using System.Linq;
 using System.Drawing;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups.Packs;
@@ -142,6 +143,13 @@ namespace Vitaru.Play
                     //Boss?.Enemies.Add(e);
                 }
             }
+
+            while (loadedparticleQue.Count > 0)
+            {
+                Debugger.Assert(loadedparticleQue.TryDequeue(out Particle draw));
+                draw.MoveTo(draw.End, 2000f, Easings.OutQuint).OnComplete(() =>
+                    draw.FadeTo(0, 200, Easings.OutQuint).OnComplete(() => deadparticleQue.Enqueue(draw)));
+            }
         }
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
@@ -180,6 +188,8 @@ namespace Vitaru.Play
             new ConcurrentQueue<DrawableProjectile>();
 
         private readonly ConcurrentQueue<Particle> particleQue = new ConcurrentQueue<Particle>();
+
+        private readonly ConcurrentQueue<Particle> loadedparticleQue = new ConcurrentQueue<Particle>();
 
         private readonly ConcurrentQueue<Particle> deadparticleQue = new ConcurrentQueue<Particle>();
 
@@ -266,9 +276,8 @@ namespace Vitaru.Play
                 Debugger.Assert(!draw.Disposed,
                     "This particle is disposed and should not be in this list anymore");
 
-                draw.OnDelete += () => deadparticleQue.Enqueue(draw);
-
                 ParticleLayer.Add(draw);
+                loadedparticleQue.Enqueue(draw);
             }
 
             while (deadparticleQue.Count > 0)

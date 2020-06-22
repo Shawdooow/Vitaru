@@ -1,11 +1,10 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Nucleus.Debug;
+using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;
 using Vitaru.Roots.Tests;
@@ -87,6 +86,8 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Start()
         {
+            if (Drawable.LoadState < LoadState.Loaded) return;
+
             base.Start();
             Drawable.FadeTo(1, 200f, Easings.InSine);
             Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
