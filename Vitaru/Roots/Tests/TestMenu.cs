@@ -156,7 +156,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Next",
 
-                OnClick = () => Game.ScheduleLoad(TrackManager.NextTrack)
+                OnClick = nextLevel
             });
 
             //Add(new WikiOverlay());
@@ -199,23 +199,21 @@ namespace Vitaru.Roots.Tests
             base.LoadingComplete();
             seek.Start();
 
-            TrackManager.OnTrackChange += track =>
+            TrackManager.OnTrackChange += t =>
             {
-                song.Text = $"Now Playing: {track.Level.Name}";
+                song.Text = $"Now Playing: {t.Level.Name}";
 
-                if (track.Level.Image != string.Empty)
-                    bg = $"{track.Level.Name}\\{track.Level.Image}";
+                if (t.Level.Image != string.Empty)
+                    bg = $"{t.Level.Name}\\{t.Level.Image}";
             };
 
-            Benchmark track = new Benchmark("Prime TrackManager");
-            track.Start();
+            Benchmark track = new Benchmark("Prime TrackManager", true);
 
             LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
                 .LevelTrack;
             TrackManager.SetTrack(t, seek);
 
-            track.Record();
-            Logger.Benchmark(track);
+            track.Finish();
         }
 
         protected override void OnResume()
@@ -234,20 +232,27 @@ namespace Vitaru.Roots.Tests
             seek.NewFrame();
             if (TrackManager.CurrentTrack != null)
             {
-                if (TrackManager.CurrentTrack.CheckFinish() && !qued)
-                {
-                    qued = true;
-                    Game.ScheduleLoad(() =>
-                    {
-                        TrackManager.NextTrack();
-                        qued = false;
-                    });
-                }
+                if (TrackManager.CurrentTrack.CheckFinish())
+                    nextLevel();
             }
 
             base.Update();
 
             cursor.Position = InputManager.Mouse.Position;
+        }
+
+        private void nextLevel()
+        {
+            if (qued) return;
+
+            qued = true;
+            Game.ScheduleLoad(() =>
+            {
+                Benchmark b = new Benchmark("Switch Level", true);
+                TrackManager.NextTrack();
+                b.Finish();
+                qued = false;
+            });
         }
 
         public override void PreRender()
