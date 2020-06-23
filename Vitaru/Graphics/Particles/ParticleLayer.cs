@@ -31,7 +31,7 @@ namespace Vitaru.Graphics.Particles
             {
                 Renderer.ShaderManager.UpdateMatrix4("model", ProtectedChildren[i].DrawTransform);
                 Renderer.ShaderManager.UpdateFloat("alpha", ProtectedChildren[i].DrawAlpha);
-                Renderer.ShaderManager.UpdateVector3("spriteColor", ProtectedChildren[i].DrawColor.XYZUnsafeReadonly());
+                Renderer.ShaderManager.UpdateVector3("spriteColor", ProtectedChildren[i].DrawColor);
                 Renderer.CurrentContext.RenderSpriteQuad();
             }
 
