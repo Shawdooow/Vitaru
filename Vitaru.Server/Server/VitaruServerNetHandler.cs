@@ -4,10 +4,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using Prion.Nucleus.Debug;
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Centrosome.NetworkingHandlers.Server;
 using Prion.Centrosome.Packets;
+using Prion.Nucleus.Debug;
 using Vitaru.Server.Match;
 using Vitaru.Server.Packets;
 using Vitaru.Server.Packets.Lobby;

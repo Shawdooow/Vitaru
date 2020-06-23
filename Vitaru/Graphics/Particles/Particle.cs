@@ -1,14 +1,18 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Graphics.Particles
-{    /// <summary>
-     ///     A <see cref="Sprite" /> with the "particle.png" <see cref="Texture" />
-     /// </summary>
+{
+    /// <summary>
+    ///     A <see cref="Sprite" /> with the "particle.png" <see cref="Texture" />
+    /// </summary>
     public class Particle : Sprite
-     {
+    {
         public static int COUNT;
 
         public override string Name { get; set; } = nameof(Particle);
@@ -37,5 +41,5 @@ namespace Vitaru.Graphics.Particles
             base.Dispose(finalize);
             COUNT--;
         }
-     }
+    }
 }

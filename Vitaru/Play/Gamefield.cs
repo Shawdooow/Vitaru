@@ -4,8 +4,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Transforms;
@@ -22,7 +22,6 @@ using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
-using Vitaru.Tracks;
 
 namespace Vitaru.Play
 {
@@ -415,7 +414,8 @@ namespace Vitaru.Play
         {
             private readonly Benchmark benchmark = new Benchmark("Bullet Render Time");
 
-            private readonly GraphicsOptions graphics = Vitaru.VitaruSettings.GetValue<GraphicsOptions>(VitaruSetting.BulletVisuals);
+            private readonly GraphicsOptions graphics =
+                Vitaru.VitaruSettings.GetValue<GraphicsOptions>(VitaruSetting.BulletVisuals);
 
             private readonly List<DrawableBullet> bullets = new List<DrawableBullet>();
 
@@ -435,7 +435,7 @@ namespace Vitaru.Play
                         break;
                     case GraphicsOptions.HighPerformance:
                         Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
-                        Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
+                        Renderer.ShaderManager.UpdateInt("shade", (int) Shade);
                         Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
 
                         //Draw Glows

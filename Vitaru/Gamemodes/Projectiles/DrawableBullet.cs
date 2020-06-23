@@ -4,8 +4,6 @@
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Gamemodes.Projectiles
 {

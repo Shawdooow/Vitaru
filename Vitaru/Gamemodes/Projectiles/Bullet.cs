@@ -7,7 +7,6 @@ using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;
-using Vitaru.Roots.Tests;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -66,13 +65,13 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (PrionMath.RandomNumber(0, (int)s) >= 20)
+            if (PrionMath.RandomNumber(0, (int) s) >= 20)
             {
                 s = 0;
                 OnAddParticle?.Invoke(new Particle(Position)
                 {
                     Alpha = Drawable.Alpha,
-                    Color = Color,
+                    Color = Color
                 });
             }
         }

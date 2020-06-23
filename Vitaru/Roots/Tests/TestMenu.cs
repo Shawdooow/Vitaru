@@ -13,7 +13,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Prion.Mitochondria.Input;
-using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;

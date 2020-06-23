@@ -32,7 +32,7 @@ namespace Vitaru.Settings
         PlayerVisuals,
         EnemyVisuals,
         BulletVisuals,
-        LaserVisuals,
+        LaserVisuals
     }
 
     public enum GraphicsOptions
@@ -40,6 +40,6 @@ namespace Vitaru.Settings
         Classic,
         Pretty,
         HighPerformance,
-        Experimental,
+        Experimental
     }
 }
