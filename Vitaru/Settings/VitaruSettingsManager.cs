@@ -8,6 +8,8 @@ namespace Vitaru.Settings
 {
     public class VitaruSettingsManager : SettingsManager<VitaruSetting>
     {
+        protected override string Filename => "vitaru.ini";
+
         public VitaruSettingsManager(Storage storage, bool init = true) : base(storage, init)
         {
         }
@@ -21,6 +23,8 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.EnemyVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.BulletVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
+            SetValue(VitaruSetting.Particles, true);
+            SetValue(VitaruSetting.ParticleMultiplier, 1f);
         }
     }
 
@@ -29,10 +33,13 @@ namespace Vitaru.Settings
         Touch,
         DebugHacks,
 
+        //Graphics
         PlayerVisuals,
         EnemyVisuals,
         BulletVisuals,
-        LaserVisuals
+        LaserVisuals,
+        Particles,
+        ParticleMultiplier
     }
 
     public enum GraphicsOptions

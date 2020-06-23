@@ -7,12 +7,16 @@ using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;
+using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
     public class Bullet : Projectile
     {
         public static int COUNT;
+
+        private readonly bool particles = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
+        private readonly float particles_multiplier = global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
         public override string Name { get; set; } = nameof(Bullet);
 
@@ -65,7 +69,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (PrionMath.RandomNumber(0, (int) s) >= 20)
+            if (particles && PrionMath.RandomNumber(0, (int) s) >= 20 / particles_multiplier)
             {
                 s = 0;
                 OnAddParticle?.Invoke(new Particle(Position)

@@ -80,6 +80,17 @@ namespace Vitaru.Settings
                         Text = "Toggle \"GOD-KING\" Hacks"
                     }
                 },
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 60),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle ParticleFX"
+                    }
+                },
 
                 toggle = new Button
                 {
