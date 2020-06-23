@@ -11,6 +11,8 @@ namespace Vitaru.Graphics.Particles
      {
         public static int COUNT;
 
+        public override string Name { get; set; } = nameof(Particle);
+
         public readonly Vector2 End;
 
         public Particle(Vector2 start) : base(Game.TextureStore.GetTexture("particle.png"))

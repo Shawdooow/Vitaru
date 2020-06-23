@@ -13,6 +13,8 @@ namespace Vitaru.Gamemodes.Projectiles
 {
     public class Bullet : Projectile
     {
+        public static int COUNT;
+
         public override string Name { get; set; } = nameof(Bullet);
 
         public override DrawableGameEntity GenerateDrawable() => new DrawableBullet();
@@ -37,7 +39,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             base.LoadingComplete();
             UpdatePath();
-            PlayTest.BULLET_COUNT++;
+            COUNT++;
         }
 
         protected virtual void UpdatePath()
@@ -131,7 +133,7 @@ namespace Vitaru.Gamemodes.Projectiles
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
-            PlayTest.BULLET_COUNT--;
+            COUNT--;
         }
     }
 

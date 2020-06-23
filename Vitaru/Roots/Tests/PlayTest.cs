@@ -12,6 +12,7 @@ using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -86,11 +87,9 @@ namespace Vitaru.Roots.Tests
             Game.TextureStore.GetTexture("particle.png");
         }
 
-        public static uint BULLET_COUNT;
-
         public override void Update()
         {
-            bullets.Text = $"{BULLET_COUNT}";
+            bullets.Text = $"{Bullet.COUNT}";
             particles.Text = $"{Particle.COUNT}";
             seek.NewFrame();
             TrackManager.TryRepeatTrack();
