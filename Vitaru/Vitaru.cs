@@ -88,8 +88,8 @@ namespace Vitaru
                 }
             }
 
-            while (FreeProcessors > 0)
-                Threads.Add(CreateDynamicTask());
+            //while (FreeProcessors > 0)
+            //    Threads.Add(CreateDynamicTask());
 
             device = new AudioDevice();
 
