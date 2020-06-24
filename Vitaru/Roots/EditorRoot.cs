@@ -15,9 +15,12 @@ namespace Vitaru.Roots
     {
         private readonly Editfield editfield;
 
+        private readonly Properties properties;
+
         public EditorRoot()
         {
             editfield = new Editfield();
+            properties = new Properties();
         }
 
         public override void LoadingComplete()
@@ -53,12 +56,13 @@ namespace Vitaru.Roots
             {
                 OnSelection = Selected
             });
-            Add(new Properties());
+            Add(properties);
         }
 
         protected void Selected(Editable editable)
         {
             editfield.Selected(editable);
+            properties.Selected(editable);
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
+using Vitaru.Editor.IO;
 
 namespace Vitaru.Editor.UI
 {
@@ -13,6 +15,10 @@ namespace Vitaru.Editor.UI
     {
         private const float width = 140;
         private const float height = 400;
+
+        private readonly SpriteText name;
+
+        private Editable editable;
 
         public Properties()
         {
@@ -30,8 +36,23 @@ namespace Vitaru.Editor.UI
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
                     Color = Color.Black
+                },
+                name = new SpriteText
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
+
+                    TextScale = 0.25f,
                 }
             };
+        }
+
+        public void Selected(Editable edit)
+        {
+            editable = edit;
+            IEditable e = editable.GetEditable(null);
+
+            name.Text = e.Name;
         }
     }
 }
