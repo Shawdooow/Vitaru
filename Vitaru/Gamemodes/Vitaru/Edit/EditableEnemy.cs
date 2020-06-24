@@ -13,7 +13,10 @@ namespace Vitaru.Gamemodes.Vitaru.Edit
 {
     public class EditableEnemy : Editable
     {
-        public override IEditable GetEditable(Gamefield field) => new Enemy(field);
+        public override IEditable GetEditable(Gamefield field) => new Enemy(field)
+        {
+            Color = Color.GreenYellow,
+        };
 
         public override IDrawable2D GetOverlay(DrawableGameEntity draw) =>
             new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
