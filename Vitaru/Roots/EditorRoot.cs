@@ -17,6 +17,11 @@ namespace Vitaru.Roots
         public EditorRoot()
         {
             editfield = new Editfield();
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
 
             Add(new SpriteLayer
             {
