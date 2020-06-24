@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Players;
@@ -35,7 +36,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return new DrawableEnemy(this);
         }
 
-        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color.Chartreuse;
+        private readonly Color random = GraphicsUtilities.RandomColor();
+
+        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : random;
 
         public override Color SecondaryColor => global::Vitaru.Vitaru.ALKI ? Color.MidnightBlue : Color.Red;
 
