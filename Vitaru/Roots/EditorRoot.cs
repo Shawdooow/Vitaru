@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Vitaru.Editor.IO;
@@ -22,6 +23,7 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+            Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
 
             Add(new SpriteLayer
             {
