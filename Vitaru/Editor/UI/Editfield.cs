@@ -5,7 +5,6 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Input;
-using Prion.Mitochondria.Input.Events;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -17,7 +16,7 @@ namespace Vitaru.Editor.UI
     {
         private Vector2 offset = Vector2.Zero;
 
-        public readonly SelectLayer SelectionLayer = new SelectLayer();
+        public readonly Layer2D<IDrawable2D> SelectionLayer = new Layer2D<IDrawable2D>();
 
         private Editable editable;
 
@@ -37,44 +36,28 @@ namespace Vitaru.Editor.UI
             };
         }
 
-        //public override void Update()
-        //{
-        //    base.Update();
-        //
-        //    if (SelectionLayer.Right)
-        //        foreach (IEditable e in LoadedEnemies)
-        //            e.Position += SelectionLayer.Cursor - offset;
-        //
-        //    offset = SelectionLayer.Cursor;
-        //}
-
-        public class SelectLayer : ClickableLayer<IDrawable2D>
+        public override void Update()
         {
-            public bool Right { get; private set; }
-            public bool Click;
-
-            public override bool OnMouseDown(MouseButtonEvent e)
-            {
-                switch (e.Button)
+            base.Update();
+        
+            if (InputManager.Mouse[MouseButtons.Left])
+                foreach (Enemy e in LoadedEnemies)
                 {
-                    case MouseButtons.Right:
-                        Right = true;
-                        //Cursor = e.Position;
-                        break;
-                    case MouseButtons.Left:
-                        Click = true;
-                        break;
+                    if (e.Drawable.Alpha > 0 && e is IEditable ed)
+                    {
+                        Vector4 transform = new Vector4(InputManager.Mouse.Position, 1, 1);
+                        Matrix4x4.Invert(e.Drawable.TotalTransform, out Matrix4x4 inverse);
+
+                        transform = Vector4.Transform(transform, inverse);
+                        transform.X /= e.Drawable.Size.X;
+                        transform.Y /= e.Drawable.Size.Y;
+
+                        if (transform.X >= -0.5 && transform.X <= 0.5 && transform.Y >= -0.5 && transform.Y <= 0.5)
+                            e.Position += InputManager.Mouse.Position - offset;
+                    }
                 }
-
-                return base.OnMouseDown(e);
-            }
-
-            public override bool OnMouseUp(MouseButtonEvent e)
-            {
-                if (e.Button == MouseButtons.Right)
-                    Right = false;
-                return base.OnMouseUp(e);
-            }
+        
+            offset = InputManager.Mouse.Position;
         }
     }
 }

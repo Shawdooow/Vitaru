@@ -22,6 +22,14 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public override float HitboxDiameter => 50f;
 
+        public new DrawableEnemy Drawable;
+
+        public override void SetDrawable(DrawableGameEntity drawable)
+        {
+            base.SetDrawable(drawable);
+            Drawable = drawable as DrawableEnemy;
+        }
+
         public override DrawableGameEntity GenerateDrawable()
         {
             return new DrawableEnemy(this);

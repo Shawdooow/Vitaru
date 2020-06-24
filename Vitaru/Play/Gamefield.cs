@@ -69,7 +69,7 @@ namespace Vitaru.Play
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
 
-        public readonly Pack<Character> LoadedEnemies = new Pack<Character>
+        public readonly Pack<Enemy> LoadedEnemies = new Pack<Enemy>
         {
             Name = "Loaded Enemies Pack"
         };
