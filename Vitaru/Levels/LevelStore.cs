@@ -16,6 +16,7 @@ namespace Vitaru.Levels
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new List<LevelPack>();
 
+        //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
         {
             LoadedLevels = new List<LevelPack>();
@@ -112,7 +113,6 @@ namespace Vitaru.Levels
                 {
                     string[] data = lines[i].Split(':');
 
-
                     LevelPack pack = new LevelPack
                     {
                         Name = data[0]
@@ -123,6 +123,7 @@ namespace Vitaru.Levels
             CurrentPack = LoadedLevels[0];
         }
 
+        //TODO: Try Catch this as a whole, if its broken just regen the whole thing
         public static void ReCreateDatabase()
         {
             string[] directories = Vitaru.LevelStorage.GetDirectories();
