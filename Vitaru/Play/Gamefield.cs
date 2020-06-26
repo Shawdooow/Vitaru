@@ -119,6 +119,7 @@ namespace Vitaru.Play
             while (deadEnemyQue.Count > 0)
             {
                 Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
+                Debugger.Assert(!enemy.Disposed);
                 LoadedEnemies.Remove(enemy, false);
                 UnloadedEnemies.Add(enemy);
             }
@@ -126,6 +127,7 @@ namespace Vitaru.Play
             while (deadprojectileQue.Count > 0)
             {
                 Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
+                Debugger.Assert(!projectile.Disposed);
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
