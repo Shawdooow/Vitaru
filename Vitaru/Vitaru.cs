@@ -4,12 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Numerics;
 using System.Runtime;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio.OpenAL;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
+using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus.Debug;
@@ -93,21 +96,88 @@ namespace Vitaru
 
             device = new AudioDevice();
 
+            #region Shaders
+
+            //sprite.vert is shared for both shaders
+            string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
+
+            //Sprite
+            Shader sv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
+            Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
+
+            Renderer.SpriteProgram.Dispose();
+            Renderer.SpriteProgram = Renderer.ShaderManager.GetShaderProgram(sv, sf);
+
             GLShaderProgram sprite = (GLShaderProgram) Renderer.SpriteProgram;
 
             sprite.SetActive();
+
+            sprite.Locations["projection"] = GLShaderManager.GetLocation(sprite, "projection");
+            sprite.Locations["model"] = GLShaderManager.GetLocation(sprite, "model");
+            sprite.Locations["size"] = GLShaderManager.GetLocation(sprite, "size");
+            sprite.Locations["spriteTexture"] = GLShaderManager.GetLocation(sprite, "spriteTexture");
+            sprite.Locations["alpha"] = GLShaderManager.GetLocation(sprite, "alpha");
+            sprite.Locations["spriteColor"] = GLShaderManager.GetLocation(sprite, "spriteColor");
             sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
             sprite.Locations["intensity"] = GLShaderManager.GetLocation(sprite, "intensity");
+
             Renderer.ShaderManager.ActiveShaderProgram = sprite;
+
+            Renderer.ShaderManager.UpdateInt("spriteTexture", 0);
             Renderer.ShaderManager.UpdateInt("shade", 0);
             Renderer.ShaderManager.UpdateInt("intensity", 1);
+
+            Renderer.OnResize += value =>
+            {
+                sprite.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = sprite;
+                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
+                    Renderer.Width / -2f,
+                    Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+            };
+
+            //Circle
+            Shader cv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
+            Shader cf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                new StreamReader(ShaderStorage.GetStream("circle_shade.frag")).ReadToEnd());
+
+            Renderer.CircularProgram.Dispose();
+            Renderer.CircularProgram = Renderer.ShaderManager.GetShaderProgram(cv, cf);
 
             GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
 
             circle.SetActive();
+
+            circle.Locations["projection"] = GLShaderManager.GetLocation(circle, "projection");
+            circle.Locations["model"] = GLShaderManager.GetLocation(circle, "model");
+            circle.Locations["size"] = GLShaderManager.GetLocation(circle, "size");
+            circle.Locations["spriteTexture"] = GLShaderManager.GetLocation(circle, "spriteTexture");
+            circle.Locations["alpha"] = GLShaderManager.GetLocation(circle, "alpha");
+            circle.Locations["spriteColor"] = GLShaderManager.GetLocation(circle, "spriteColor");
+            circle.Locations["startAngle"] = GLShaderManager.GetLocation(circle, "startAngle");
+            circle.Locations["endAngle"] = GLShaderManager.GetLocation(circle, "endAngle");
             circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
+
             Renderer.ShaderManager.ActiveShaderProgram = circle;
+
+            Renderer.ShaderManager.UpdateInt("spriteTexture", 0);
+            Renderer.ShaderManager.UpdateFloat("startAngle", 0);
+            Renderer.ShaderManager.UpdateFloat("endAngle", (float)Math.PI * 2);
             Renderer.ShaderManager.UpdateInt("shade", 0);
+
+            Renderer.OnResize += value =>
+            {
+                circle.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = circle;
+                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
+                    Renderer.Width / -2f,
+                    Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+            };
+
+            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
+
+            #endregion
+
         }
 
         protected override void ParseArgs(KeyValuePair<string, string> pair)
