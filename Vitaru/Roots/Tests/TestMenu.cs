@@ -74,7 +74,11 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Play",
 
-                OnClick = () => AddRoot(new PlayTest(seek))
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null) 
+                        AddRoot(new PlayTest(seek));
+                }
             });
             Add(new Button
             {
@@ -168,7 +172,8 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(-10, 10),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                TextScale = 0.25f,
+                Text = "Loading..."
             });
 
             Add(new SpriteText
@@ -221,8 +226,6 @@ namespace Vitaru.Roots.Tests
 
                 qued = false;
             });
-
-
         }
 
         protected override void OnResume()

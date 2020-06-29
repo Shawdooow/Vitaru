@@ -135,14 +135,13 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
-                EnergyValue.FadeTo(0.8f, duration);
+                //EnergyValue.FadeTo(0.8f, duration);
                 EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
 
-                HealthValue.FadeTo(0.8f, duration);
+                //HealthValue.FadeTo(0.8f, duration);
                 HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
 
                 LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);
-
                 RightValue.MoveTo(new Vector2(-40, 0), duration, Easings.OutCubic);
             }
         }
@@ -165,7 +164,6 @@ namespace Vitaru.Gamemodes.Characters.Players
                 HealthValue.MoveTo(new Vector2(60, 10), duration, Easings.OutCubic);
 
                 LeftValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
-
                 RightValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
             }
         }
@@ -182,8 +180,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             private readonly Player player;
 
-            private readonly MaskSprite health;
-            private readonly MaskSprite energy;
+            private readonly MaskSprite outer;
+            private readonly MaskSprite inner;
 
             public CircularMask(Player player)
             {
@@ -193,11 +191,11 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 Children = new[]
                 {
-                    health = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\health.png"))
+                    outer = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\outer.png"))
                     {
                         Color = player.SecondaryColor
                     },
-                    energy = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\energy.png"))
+                    inner = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\inner.png"))
                     {
                         Color = player.ComplementaryColor
                     }
@@ -211,15 +209,17 @@ namespace Vitaru.Gamemodes.Characters.Players
             {
                 Renderer.CircularProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.CircularProgram;
-                Renderer.ShaderManager.UpdateFloat("startAngle",
-                    PrionMath.Scale(player.Health, 0, player.HealthCapacity, end, start));
-                Renderer.ShaderManager.UpdateFloat("endAngle", end);
-                health.Render();
+
                 Renderer.ShaderManager.UpdateFloat("startAngle", start);
-                Renderer.ShaderManager.UpdateFloat("endAngle",
-                    PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, start, end));
-                energy.Render();
+                Renderer.ShaderManager.UpdateFloat("endAngle", PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, start, end));
+                outer.Render();
+
+                Renderer.ShaderManager.UpdateFloat("startAngle", PrionMath.Scale(player.Health, 0, player.HealthCapacity, end, start));
+                Renderer.ShaderManager.UpdateFloat("endAngle", end);
+                inner.Render();
+
                 Renderer.SpriteProgram.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
             }
         }
     }
