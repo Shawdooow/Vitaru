@@ -1,0 +1,18 @@
+#version 460
+
+struct Particle
+{
+	//Raw data
+	vec4 Position;
+	vec4 Rotation;
+
+	//computed data for drawing
+	mat4 Transform;
+};
+
+layout(std430, binding = 2) buffer particleBuffer
+{
+	Particle[] particles;
+};
+
+//If possible we are going to want to multithread this on the gpu like crazy, not sure how possible that is but we can try...

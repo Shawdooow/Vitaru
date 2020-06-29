@@ -6,12 +6,15 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<Particle>
     {
         public override string Name { get; set; } = nameof(ParticleLayer);
+
+        private readonly bool gpu = Renderer._3D_AVAILABLE && Vitaru.VitaruSettings.GetValue<bool>(VitaruSetting.GPUParticles);
 
         private readonly Benchmark p = new Benchmark("Particle Render Time");
 

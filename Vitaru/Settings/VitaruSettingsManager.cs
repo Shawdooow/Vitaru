@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.IO.Configs;
 
@@ -25,6 +26,7 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.Particles, true);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
+            SetValue(VitaruSetting.GPUParticles, Renderer._3D_AVAILABLE);
         }
     }
 
@@ -39,7 +41,8 @@ namespace Vitaru.Settings
         BulletVisuals,
         LaserVisuals,
         Particles,
-        ParticleMultiplier
+        ParticleMultiplier,
+        GPUParticles,
     }
 
     public enum GraphicsOptions

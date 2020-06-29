@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -89,6 +90,18 @@ namespace Vitaru.Settings
                     Text =
                     {
                         Text = "Toggle ParticleFX"
+                    }
+                },
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.GPUParticles)
+                {
+                    Alpha = Renderer._3D_AVAILABLE ? 1 : 0.5f,
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 80),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle GPUParticleFX"
                     }
                 },
 
