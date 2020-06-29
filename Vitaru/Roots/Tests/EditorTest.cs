@@ -5,5 +5,6 @@ namespace Vitaru.Roots.Tests
 {
     public class EditorTest : EditorRoot
     {
+        public override string Name => nameof(EditorTest);
     }
 }

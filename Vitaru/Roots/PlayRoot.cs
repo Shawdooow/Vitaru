@@ -5,6 +5,8 @@ namespace Vitaru.Roots
 {
     public class PlayRoot : MenuRoot
     {
+        public override string Name => nameof(PlayRoot);
+
         protected override bool UseLevelBackground => true;
     }
 }

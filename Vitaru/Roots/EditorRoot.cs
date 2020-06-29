@@ -13,6 +13,8 @@ namespace Vitaru.Roots
 {
     public class EditorRoot : MenuRoot
     {
+        public override string Name => nameof(EditorRoot);
+
         private readonly Editfield editfield;
 
         private readonly Properties properties;

@@ -16,6 +16,8 @@ namespace Vitaru.Roots
 {
     public abstract class MenuRoot : ExitableRoot
     {
+        public override string Name => nameof(MenuRoot);
+
         protected virtual bool UseLevelBackground => false;
 
         protected readonly ShadeLayer<IDrawable2D> ShadeLayer;

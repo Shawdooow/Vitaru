@@ -12,6 +12,8 @@ namespace Vitaru.Roots.Tests
 {
     public class ModsTest : MenuRoot
     {
+        public override string Name => nameof(ModsTest);
+
         protected override bool UseLevelBackground => true;
 
         public ModsTest()

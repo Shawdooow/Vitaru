@@ -26,6 +26,8 @@ namespace Vitaru.Roots.Tests
 {
     public class TestMenu : Root
     {
+        public override string Name => nameof(TestMenu);
+
         private readonly Box cursor;
 
         protected readonly Sprite Background;

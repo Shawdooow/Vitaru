@@ -21,6 +21,8 @@ namespace Vitaru.Roots.Tests
 {
     public class PlayTest : PlayRoot
     {
+        public override string Name => nameof(PlayTest);
+
         private readonly Gamefield gamefield;
         private readonly SeekableClock seek;
 

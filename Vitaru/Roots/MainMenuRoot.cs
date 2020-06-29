@@ -7,5 +7,6 @@ namespace Vitaru.Roots
 {
     public class MainMenuRoot : Root
     {
+        public override string Name => nameof(MainMenuRoot);
     }
 }
