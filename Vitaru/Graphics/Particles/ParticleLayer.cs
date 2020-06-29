@@ -14,7 +14,8 @@ namespace Vitaru.Graphics.Particles
     {
         public override string Name { get; set; } = nameof(ParticleLayer);
 
-        private readonly bool gpu = Renderer._3D_AVAILABLE && Vitaru.VitaruSettings.GetValue<bool>(VitaruSetting.GPUParticles);
+        private readonly bool gpu = Renderer._3D_AVAILABLE &&
+                                    Vitaru.VitaruSettings.GetValue<bool>(VitaruSetting.GPUParticles);
 
         private readonly Benchmark p = new Benchmark("Particle Render Time");
 

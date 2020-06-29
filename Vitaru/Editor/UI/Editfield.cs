@@ -39,7 +39,7 @@ namespace Vitaru.Editor.UI
         public override void Update()
         {
             base.Update();
-        
+
             if (InputManager.Mouse[MouseButtons.Left])
                 foreach (Enemy e in LoadedEnemies)
                 {
@@ -56,7 +56,7 @@ namespace Vitaru.Editor.UI
                             e.Position += InputManager.Mouse.Position - offset;
                     }
                 }
-        
+
             offset = InputManager.Mouse.Position;
         }
     }

@@ -15,7 +15,7 @@ namespace Vitaru.Gamemodes.Vitaru.Edit
     {
         public override IEditable GetEditable(Gamefield field) => new Enemy(field)
         {
-            Color = Color.GreenYellow,
+            Color = Color.GreenYellow
         };
 
         public override IDrawable2D GetOverlay(DrawableGameEntity draw) =>

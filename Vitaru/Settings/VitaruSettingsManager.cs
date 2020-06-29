@@ -42,7 +42,7 @@ namespace Vitaru.Settings
         LaserVisuals,
         Particles,
         ParticleMultiplier,
-        GPUParticles,
+        GPUParticles
     }
 
     public enum GraphicsOptions

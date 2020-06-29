@@ -76,7 +76,7 @@ namespace Vitaru.Roots.Tests
 
                 OnClick = () =>
                 {
-                    if (TrackManager.CurrentTrack != null) 
+                    if (TrackManager.CurrentTrack != null)
                         AddRoot(new PlayTest(seek));
                 }
             });
@@ -218,7 +218,8 @@ namespace Vitaru.Roots.Tests
             {
                 Benchmark track = new Benchmark("Prime TrackManager", true);
 
-                LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
+                LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]
+                    .Levels[0]
                     .LevelTrack;
                 TrackManager.SetTrack(t, seek);
 

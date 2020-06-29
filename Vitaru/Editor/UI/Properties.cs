@@ -42,7 +42,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
 
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 }
             };
         }

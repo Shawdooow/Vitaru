@@ -17,7 +17,9 @@ namespace Vitaru.Gamemodes.Projectiles
         public static int COUNT;
 
         private readonly bool particles = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
-        private readonly float particles_multiplier = global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
+
+        private readonly float particles_multiplier =
+            global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
         public override string Name { get; set; } = nameof(Bullet);
 

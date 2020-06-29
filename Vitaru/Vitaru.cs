@@ -103,7 +103,8 @@ namespace Vitaru
 
             //Sprite
             Shader sv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
-            Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
+            Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
 
             Renderer.SpriteProgram.Dispose();
             Renderer.SpriteProgram = Renderer.ShaderManager.GetShaderProgram(sv, sf);
@@ -162,7 +163,7 @@ namespace Vitaru
 
             Renderer.ShaderManager.UpdateInt("spriteTexture", 0);
             Renderer.ShaderManager.UpdateFloat("startAngle", 0);
-            Renderer.ShaderManager.UpdateFloat("endAngle", (float)Math.PI * 2);
+            Renderer.ShaderManager.UpdateFloat("endAngle", (float) Math.PI * 2);
             Renderer.ShaderManager.UpdateInt("shade", 0);
 
             Renderer.OnResize += value =>
