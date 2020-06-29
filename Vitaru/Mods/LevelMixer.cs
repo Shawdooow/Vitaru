@@ -34,6 +34,8 @@ namespace Vitaru.Mods
 
         private class Mixer : MenuRoot
         {
+            public override string Name => nameof(Mixer);
+
             protected override bool UseLevelBackground => true;
 
             private SpriteText pitch;

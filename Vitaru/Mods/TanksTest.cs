@@ -45,6 +45,8 @@ namespace Vitaru.Mods
 
         private class Tank : ExitableRoot
         {
+            public override string Name => nameof(Tank);
+
             private Camera camera;
             private PlayerBinds input;
             private TexturedModel turret;
