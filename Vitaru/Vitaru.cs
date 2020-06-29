@@ -178,15 +178,14 @@ namespace Vitaru
 
             #endregion
 
+#if !PUBLISH
+            EXPERIMENTAL = true;
+#endif
         }
 
         protected override void ParseArgs(KeyValuePair<string, string> pair)
         {
             base.ParseArgs(pair);
-
-#if !PUBLISH
-            EXPERIMENTAL = true;
-#endif
 
             switch (pair.Key)
             {
