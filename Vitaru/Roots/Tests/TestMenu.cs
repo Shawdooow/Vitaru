@@ -208,13 +208,21 @@ namespace Vitaru.Roots.Tests
                     bg = $"{t.Level.Name}\\{t.Level.Image}";
             };
 
-            Benchmark track = new Benchmark("Prime TrackManager", true);
+            qued = true;
+            Game.ScheduleLoad(() =>
+            {
+                Benchmark track = new Benchmark("Prime TrackManager", true);
 
-            LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
-                .LevelTrack;
-            TrackManager.SetTrack(t, seek);
+                LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)].Levels[0]
+                    .LevelTrack;
+                TrackManager.SetTrack(t, seek);
 
-            track.Finish();
+                track.Finish();
+
+                qued = false;
+            });
+
+
         }
 
         protected override void OnResume()
