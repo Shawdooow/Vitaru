@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
@@ -82,7 +83,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected virtual Vector2 GetPosition(double time)
         {
-            double scale = PrionMath.Scale(time, StartTime, EndTime);
+            double scale = Math.Clamp(PrionMath.Scale(time, StartTime, EndTime), 0, 1);
             return new Vector2(
                 (float) PrionMath.Scale(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.X,
                     EndPosition.X),

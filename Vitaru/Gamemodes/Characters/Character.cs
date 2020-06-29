@@ -68,6 +68,10 @@ namespace Vitaru.Gamemodes.Characters
                     {
                         Projectile projectile = projectiles[i];
 
+                        //Hack to disable bullets we shouldn't interact with
+                        if (!projectile.Started)
+                            continue;
+
                         ParseProjectile(projectile);
 
                         float distance = Vector2.Distance(projectile.Position, Position);
