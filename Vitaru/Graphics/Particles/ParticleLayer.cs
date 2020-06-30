@@ -73,6 +73,8 @@ namespace Vitaru.Graphics.Particles
                     Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
             };
 
+            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
+
             ParticleManager.SetSSBO(new SSBO<Particle>(2));
         }
 
