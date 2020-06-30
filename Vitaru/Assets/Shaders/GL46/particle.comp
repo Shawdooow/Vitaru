@@ -1,23 +1,20 @@
 #version 460
 
+uniform float time;
+uniform mat4 parentTransform;
+
 struct Particle
 {
-	//Raw data
 	vec4 StartPosition;
 	vec4 EndPosition;
-	
+    vec4 Color;
+    mat4 model;
 };
 
 layout(std430, binding = 2) buffer particleBuffer
 {
 	Particle[] particles;
 };
-
-layout(std430, binding = 3) buffer modelBuffer
-{
-	mat4[] models;
-};
-
 
 mat4 identity()
 {
@@ -28,93 +25,55 @@ mat4 identity()
     0, 0, 0, 1);
 }
 
-mat4 translate(vec3 d)
+mat4 scale(float s)
 {
-	return mat4(1, 0, 0, d.x,
-	            0, 1, 0, d.y,
-	            0, 0, 1, d.z,
+	return mat4(s, 0, 0, 0,
+	            0, s, 0, 0,
+	            0, 0, s, 0,
 	            0, 0, 0, 1);
 }
 
-mat4 scale(float c)
+mat4 rotate(float rad)
 {
-	return mat4(c, 0, 0, 0,
-	            0, c, 0, 0,
-	            0, 0, c, 0,
-	            0, 0, 0, 1);
-}
-
-mat4 rotate2d(float a)
-{
-	return mat4(cos(a), -sin(a), 0, 0,
-	            sin(a), cos(a), 0, 0,
+	return mat4(cos(rad), -sin(rad), 0, 0,
+	            sin(rad), cos(rad), 0, 0,
 	            0, 0, 1.0, 0,
 	            0, 0, 0, 1.0);
 }
 
+mat4 translate(vec2 p)
+{
+	return mat4(1, 0, 0, p.x,
+	            0, 1, 0, p.y,
+	            0, 0, 1, 0,
+	            0, 0, 0, 1);
+}
+
+float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
+{
+    float scale = (outputMax - outputMin) / (inputMax - inputMin);
+    return outputMin + (value - inputMin) * scale;
+}
 
 //If possible we are going to want to multithread this on the gpu like crazy
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 void main()
 {
-	for(int i = 0; i < particles.length; i++)
+	for(int i = 0; i < particles.length(); i++)
 	{
-        
+        mat4 draw = identity();
+
+        mat4 sTran = scale(particles[i].StartPosition.w);
+        mat4 rTran = rotate(particles[i].EndPosition.w);
+        mat4 tTran = translate(vec2(
+        scale(time, particles[i].StartPosition.z, particles[i].EndPosition.z, particles[i].StartPosition.x, particles[i].EndPosition.x), 
+        scale(time, particles[i].StartPosition.z, particles[i].EndPosition.z, particles[i].StartPosition.y, particles[i].EndPosition.y)));
+
+        draw *= sTran;
+        draw *= rTran;
+        draw *= tTran;
+        draw *= parentTransform;
+
+        particles[i].model = draw;
 	}
 }
-
-        //internal static Matrix4x4 GetScaleTransform(IDrawable2D draw, Disposable parent)
-        //{
-        //    Application.IncrementUpdate(UpdateThreadFunctions.ScaleTransform);
-        //    return Matrix4x4.CreateScale(new Vector3(draw.Scale, 1f));
-        //}
-        //
-        //internal static Matrix4x4 GetRotationTransform(IDrawable2D draw, Disposable parent)
-        //{
-        //    Application.IncrementUpdate(UpdateThreadFunctions.RotationTransform);
-        //    return Matrix4x4.CreateRotationZ(draw.Rotation, Vector3.Zero);
-        //}
-        //
-        //internal static Matrix4x4 GetTranslationTransform(IDrawable2D draw, Disposable parent)
-        //{
-        //    Application.IncrementUpdate(UpdateThreadFunctions.TranslateTransform);
-        //    return Matrix4x4.CreateTranslation(GetTranslate(draw, parent));
-        //}
-        //
-        //internal static Matrix4x4 GetTotalTransform(IDrawable2D draw, Disposable parent)
-        //{
-        //    Matrix4x4 parentTransform = Matrix4x4.Identity;
-        //    Matrix4x4 drawTransform = Matrix4x4.Identity;
-        //
-        //    if (parent != null && parent is IDrawable2D p)
-        //    {
-        //        parentTransform = p.TotalTransform;
-        //
-        //        switch (draw.ParentScaling)
-        //        {
-        //            case Axes.None:
-        //                parentTransform.M11 = 1;
-        //                parentTransform.M22 = 1;
-        //                break;
-        //            case Axes.Both:
-        //                break;
-        //            case Axes.Vertical:
-        //                parentTransform.M11 = 1;
-        //                break;
-        //            case Axes.Horizontal:
-        //                parentTransform.M22 = 1;
-        //                break;
-        //            default:
-        //                throw Debugger.InvalidOperation($"{draw.ParentScaling} not implemented yet!");
-        //        }
-        //    }
-        //
-        //    drawTransform *= draw.ScaleTransform;
-        //    //Rotation is a hack atm
-        //    drawTransform *= draw.RotationTransform;
-        //    drawTransform *= draw.TranslationTransform;
-        //    drawTransform *= parentTransform;
-        //    Application.IncrementUpdate(UpdateThreadFunctions.TotalTransform);
-        //
-        //    return drawTransform;
-        //}

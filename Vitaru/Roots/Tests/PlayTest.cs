@@ -92,7 +92,7 @@ namespace Vitaru.Roots.Tests
         public override void Update()
         {
             bullets.Text = $"{Bullet.COUNT}";
-            particles.Text = $"{Particle.COUNT}";
+            particles.Text = $"{ParticleManager.Master.Count}";
             seek.NewFrame();
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
