@@ -3,8 +3,9 @@
 struct Particle
 {
 	//Raw data
-	vec4 Position;
-	vec4 Rotation;
+	vec4 StartPosition;
+	vec4 EndPosition;
+	
 };
 
 layout(std430, binding = 2) buffer particleBuffer
@@ -17,9 +18,112 @@ layout(std430, binding = 3) buffer modelBuffer
 	mat4[] models;
 };
 
+
+mat4 identity()
+{
+    return mat4(
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1);
+}
+
+mat4 multiply(mat4 value1, mat4 value2)
+{
+    mat4 m;
+ 
+    // First row
+    m[0].x = value1[0].x * value2[0].x + value1[0].y * value2[1].x + value1[0].z * value2[2].x + value1[0].w * value2[3].x;
+    m[0].y = value1[0].x * value2[0].y + value1[0].y * value2[1].y + value1[0].z * value2[2].y + value1[0].w * value2[3].y;
+    m[0].z = value1[0].x * value2[0].z + value1[0].y * value2[1].z + value1[0].z * value2[2].z + value1[0].w * value2[3].z;
+    m[0].w = value1[0].x * value2[0].w + value1[0].y * value2[1].w + value1[0].z * value2[2].w + value1[0].w * value2[3].w;
+ 
+    // Second row
+    m[1].x = value1[1].x * value2[0].x + value1[1].y * value2[1].x + value1[1].z * value2[2].x + value1[1].w * value2[3].x;
+    m[1].y = value1[1].x * value2[0].y + value1[1].y * value2[1].y + value1[1].z * value2[2].y + value1[1].w * value2[3].y;
+    m[1].z = value1[1].x * value2[0].z + value1[1].y * value2[1].z + value1[1].z * value2[2].z + value1[1].w * value2[3].z;
+    m[1].w = value1[1].x * value2[0].w + value1[1].y * value2[1].w + value1[1].z * value2[2].w + value1[1].w * value2[3].w;
+ 
+    // Third row
+    m[2].x = value1[2].x * value2[0].x + value1[2].y * value2[1].x + value1[2].z * value2[2].x + value1[2].w * value2[3].x;
+    m[2].y = value1[2].x * value2[0].y + value1[2].y * value2[1].y + value1[2].z * value2[2].y + value1[2].w * value2[3].y;
+    m[2].z = value1[2].x * value2[0].z + value1[2].y * value2[1].z + value1[2].z * value2[2].z + value1[2].w * value2[3].z;
+    m[2].w = value1[2].x * value2[0].w + value1[2].y * value2[1].w + value1[2].z * value2[2].w + value1[2].w * value2[3].w;
+ 
+    // Fourth row
+    m[3].x = value1[3].x * value2[0].x + value1[3].y * value2[1].x + value1[3].z * value2[2].x + value1[3].w * value2[3].x;
+    m[3].y = value1[3].x * value2[0].y + value1[3].y * value2[1].y + value1[3].z * value2[2].y + value1[3].w * value2[3].y;
+    m[3].z = value1[3].x * value2[0].z + value1[3].y * value2[1].z + value1[3].z * value2[2].z + value1[3].w * value2[3].z;
+    m[3].w = value1[3].x * value2[0].w + value1[3].y * value2[1].w + value1[3].z * value2[2].w + value1[3].w * value2[3].w;
+ 
+    return m;
+}
+
+
 //If possible we are going to want to multithread this on the gpu like crazy
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 void main()
 {
-	
+	for(int i = 0; i < particles.length; i++)
+	{
+		mat4 e;
+        mat4 ree;
+        e *= ree;
+	}
 }
+
+        //internal static Matrix4x4 GetScaleTransform(IDrawable2D draw, Disposable parent)
+        //{
+        //    Application.IncrementUpdate(UpdateThreadFunctions.ScaleTransform);
+        //    return Matrix4x4.CreateScale(new Vector3(draw.Scale, 1f));
+        //}
+        //
+        //internal static Matrix4x4 GetRotationTransform(IDrawable2D draw, Disposable parent)
+        //{
+        //    Application.IncrementUpdate(UpdateThreadFunctions.RotationTransform);
+        //    return Matrix4x4.CreateRotationZ(draw.Rotation, Vector3.Zero);
+        //}
+        //
+        //internal static Matrix4x4 GetTranslationTransform(IDrawable2D draw, Disposable parent)
+        //{
+        //    Application.IncrementUpdate(UpdateThreadFunctions.TranslateTransform);
+        //    return Matrix4x4.CreateTranslation(GetTranslate(draw, parent));
+        //}
+        //
+        //internal static Matrix4x4 GetTotalTransform(IDrawable2D draw, Disposable parent)
+        //{
+        //    Matrix4x4 parentTransform = Matrix4x4.Identity;
+        //    Matrix4x4 drawTransform = Matrix4x4.Identity;
+        //
+        //    if (parent != null && parent is IDrawable2D p)
+        //    {
+        //        parentTransform = p.TotalTransform;
+        //
+        //        switch (draw.ParentScaling)
+        //        {
+        //            case Axes.None:
+        //                parentTransform.M11 = 1;
+        //                parentTransform.M22 = 1;
+        //                break;
+        //            case Axes.Both:
+        //                break;
+        //            case Axes.Vertical:
+        //                parentTransform.M11 = 1;
+        //                break;
+        //            case Axes.Horizontal:
+        //                parentTransform.M22 = 1;
+        //                break;
+        //            default:
+        //                throw Debugger.InvalidOperation($"{draw.ParentScaling} not implemented yet!");
+        //        }
+        //    }
+        //
+        //    drawTransform *= draw.ScaleTransform;
+        //    //Rotation is a hack atm
+        //    drawTransform *= draw.RotationTransform;
+        //    drawTransform *= draw.TranslationTransform;
+        //    drawTransform *= parentTransform;
+        //    Application.IncrementUpdate(UpdateThreadFunctions.TotalTransform);
+        //
+        //    return drawTransform;
+        //}
