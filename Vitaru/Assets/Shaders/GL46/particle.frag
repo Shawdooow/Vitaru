@@ -1,10 +1,9 @@
 #version 460
 
+uniform highp int index;
 uniform sampler2D spriteTexture;
 uniform int shade;
 uniform float intensity;
-
-uniform highp int index;
 
 struct Particle
 {
@@ -40,10 +39,10 @@ void main()
 	float gray;
 
 	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= particles[index].Color.w;
-	color.xyz *= particles[index].Color.xyz;
+	//color.w *= particles[index].Color.w;
+	//color.xyz *= particles[index].Color.xyz;
 
-	switch(shade)
+	switch(0)
 	{
 		default:
 		final = color;
