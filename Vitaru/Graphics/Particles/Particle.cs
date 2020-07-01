@@ -15,6 +15,10 @@ namespace Vitaru.Graphics.Particles
         public Vector4 Color;
 
 #pragma warning disable 169
+        /// <summary>
+        /// Only here so when we buffer to the gpu we have the correct alignment.
+        /// This is filled out by the compute shader for the vertex shader to read
+        /// </summary>
         private Matrix4x4 model;
 #pragma warning restore 169
     }

@@ -2,7 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -17,7 +16,6 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
-using Prion.Nucleus.Utilities;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Graphics.Particles
