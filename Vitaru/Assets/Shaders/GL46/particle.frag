@@ -39,8 +39,8 @@ void main()
 	float gray;
 
 	vec4 color = texture(spriteTexture, texCoords);
-	//color.w *= particles[index].Color.w;
-	//color.xyz *= particles[index].Color.xyz;
+	color.w *= particles[index].Color.w;
+	color.xyz *= particles[index].Color.xyz;
 
 	switch(0)
 	{

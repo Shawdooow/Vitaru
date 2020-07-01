@@ -43,10 +43,10 @@ mat4 rotate(float rad)
 
 mat4 translate(vec2 p)
 {
-	return mat4(1, 0, 0, 0,
-	            0, 1, 0, 0,
+	return mat4(1, 0, 0, p.x,
+	            0, 1, 0, p.y,
 	            0, 0, 1, 0,
-	            p.x, p.y, 0, 1);
+	            0, 0, 0, 1);
 }
 
 float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
@@ -73,10 +73,11 @@ void main()
         //scale(time, particles[i].StartPosition.z, particles[i].EndPosition.z, particles[i].StartPosition.y, particles[i].EndPosition.y)));
 
         draw *= sTran;
-        //draw *= rTran;
+        draw *= rTran;
         draw *= tTran;
         //draw *= parentTransform;
 
+        //Should be Column-Major...
         particles[i].model = draw;
 	}
 }

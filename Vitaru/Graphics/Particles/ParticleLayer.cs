@@ -39,7 +39,7 @@ namespace Vitaru.Graphics.Particles
 
             Debugger.Assert(Renderer._3D_AVAILABLE);
 
-            texture = Game.TextureStore.GetTexture("particle.png");
+            texture = Game.TextureStore.GetTexture("circle.png");
 
             Shader comp = new GLShader(ShaderType.Compute, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.comp")).ReadToEnd());
             Shader vert = new GLShader(ShaderType.Vertex, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
@@ -82,12 +82,12 @@ namespace Vitaru.Graphics.Particles
 
             ParticlePointer particle = ParticleManager.GetParticle();
             
-            particle.StartPosition = new Vector2(100);
+            particle.StartPosition = new Vector2(-100, 200);
             particle.EndPosition = new Vector2(200);
-            particle.Color = new Vector3(0, 1, 0);
+            particle.Color = new Vector3(0, 0, 1);
             particle.StartTime = 0;
             particle.EndTime = 2000;
-            particle.Scale = 5000f;
+            particle.Scale = 5f;
             particle.Rotation = 0f;
             particle.Alpha = 1f;
             particle.Update();
