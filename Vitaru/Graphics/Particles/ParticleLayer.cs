@@ -161,6 +161,12 @@ namespace Vitaru.Graphics.Particles
             p.Record();
         }
 
+        public override void Add(IDrawable2D child, AddPosition position = AddPosition.Last) => 
+            Debugger.InvalidOperation($"Don't Add to {nameof(ParticleLayer)}");
+
+        public override void Remove(IDrawable2D child, bool dispose = true) => 
+            Debugger.InvalidOperation($"Don't Remove from {nameof(ParticleLayer)}");
+
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
