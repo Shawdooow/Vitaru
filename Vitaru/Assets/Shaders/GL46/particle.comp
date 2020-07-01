@@ -41,12 +41,20 @@ mat4 rotate(float rad)
 	            0, 0, 0, 1.0);
 }
 
-mat4 translate(vec2 p)
+mat4 translateold(vec2 p)
 {
 	return mat4(1, 0, 0, p.x,
 	            0, 1, 0, p.y,
 	            0, 0, 1, 0,
 	            0, 0, 0, 1);
+}
+
+mat4 translate(vec2 p)
+{
+	return mat4(1, 0, 0, 0,
+	            0, 1, 0, 0,
+	            0, 0, 1, 0,
+	            p.x, p.y, 0, 1);
 }
 
 float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
