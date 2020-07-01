@@ -69,10 +69,12 @@ void main()
         scale(time, particles[i].StartPosition.z, particles[i].EndPosition.z, particles[i].StartPosition.x, particles[i].EndPosition.x), 
         scale(time, particles[i].StartPosition.z, particles[i].EndPosition.z, particles[i].StartPosition.y, particles[i].EndPosition.y)));
 
-        draw *= sTran;
-        draw *= rTran;
+        tTran = translate(particles[i].StartPosition.xy);
+
         draw *= tTran;
-        draw *= parentTransform;
+        //draw *= rTran;
+        draw *= sTran;
+        //draw *= parentTransform;
 
         particles[i].model = draw;
 	}

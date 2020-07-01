@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -15,6 +16,7 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Prion.Nucleus.Utilities;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Graphics.Particles
@@ -76,12 +78,54 @@ namespace Vitaru.Graphics.Particles
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             ParticleManager.SetSSBO(new SSBO<Particle>(2));
+
+            ParticlePointer particle = ParticleManager.GetParticle();
+
+            particle.StartPosition = new Vector2(100);
+            particle.EndPosition = new Vector2(200);
+            particle.Color = new Vector3(0, 255, 0);
+            particle.StartTime = 500;
+            particle.EndTime = 2500;
+            particle.Scale = 0.5f;
+            particle.Rotation = 3.14f;
+            particle.Alpha = 0.75f;
+            particle.Update();
+
+            Matrix4x4 scale = Matrix4x4.CreateScale(new Vector3(particle.Scale));
+            Matrix4x4 rotation = Matrix4x4.CreateRotationZ(particle.Rotation, Vector3.Zero);
+            Matrix4x4 translate = Matrix4x4.CreateTranslation(get(particle.StartPosition));
+
+            Matrix4x4 draw = Matrix4x4.Identity;
+
+            draw *= scale;
+            draw *= rotation;
+            draw *= translate;
+            draw *= TotalTransform;
+
+            Logger.SystemConsole(draw.ToString(), ConsoleColor.Blue);
+
+            Vector3 get(Vector2 position)
+            {
+                Vector2 drawOffset = position * particle.Scale;
+
+                Vector3 totalOffset = new Vector3(drawOffset, 0);
+
+                return totalOffset;
+            }
         }
+
+        private bool sdasds;
 
         //Draw Particles Effeciently
         public override void Render()
         {
             if (!ParticleManager.Master.Any()) return;
+
+            if (!sdasds)
+            {
+                Logger.SystemConsole(TotalTransform.ToString(), ConsoleColor.Blue);
+                sdasds = true;
+            }
 
             p.Start();
 
