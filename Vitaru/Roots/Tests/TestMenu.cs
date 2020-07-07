@@ -257,13 +257,17 @@ namespace Vitaru.Roots.Tests
         private void nextLevel()
         {
             if (qued) return;
-
             qued = true;
+
             Game.ScheduleLoad(() =>
             {
                 Benchmark b = new Benchmark("Switch Level", true);
-                TrackManager.NextTrack();
-                b.Finish();
+
+                LevelTrack n = LevelStore.GetRandomLevel(TrackManager.CurrentTrack.Level);
+                song.Text = $"Loading: {n.Name}";
+
+                TrackManager.SetTrack(n, TrackManager.CurrentTrack.Clock); b.Finish();
+
                 qued = false;
             });
         }
