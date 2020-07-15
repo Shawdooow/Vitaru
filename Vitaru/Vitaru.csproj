@@ -8,7 +8,7 @@
 	<Company>Sym</Company>
 	<Description>A bullet dodging rhythym game.</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <ApplicationIcon>vitaru.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
     <OutputType>Exe</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;Publish</Configurations>
