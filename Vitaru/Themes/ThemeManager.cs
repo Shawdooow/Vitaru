@@ -12,7 +12,8 @@ namespace Vitaru.Themes
 
         public static Color PrimaryColor => Theme.PrimaryColor;
         public static Color SecondaryColor => Theme.SecondaryColor;
-        public static Color ComplementaryColor => Theme.ComplementaryColor;
+        public static Color TrinaryColor => Theme.TrinaryColor;
+        public static Color QuadnaryColor => Theme.QuadnaryColor;
 
         /// <summary>
         ///     Get menu Background <see cref="Texture" />

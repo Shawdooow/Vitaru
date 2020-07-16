@@ -13,7 +13,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Prion.Mitochondria.Input;
-using Prion.Nucleus.Groups.Packs;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -61,7 +60,7 @@ namespace Vitaru.Roots.Tests
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.ForestGreen
+                    Color = ThemeManager.PrimaryColor
                 },
 
                 Text = "Play",
@@ -80,7 +79,7 @@ namespace Vitaru.Roots.Tests
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.DarkMagenta
+                    Color = ThemeManager.SecondaryColor
                 },
 
                 Text = "Multi",
@@ -95,7 +94,7 @@ namespace Vitaru.Roots.Tests
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.DarkTurquoise
+                    Color = ThemeManager.TrinaryColor
                 },
 
                 Text = "Edit",
@@ -110,7 +109,7 @@ namespace Vitaru.Roots.Tests
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.DarkGoldenrod
+                    Color = ThemeManager.QuadnaryColor
                 },
 
                 Text = "Mods",

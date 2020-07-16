@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO.Configs;
+using Vitaru.Themes;
 
 namespace Vitaru.Settings.Options
 {
@@ -28,14 +29,14 @@ namespace Vitaru.Settings.Options
             this.setting = setting;
 
             Value = manager.GetBool(setting);
-            Circle.Color = Value ? Color.LawnGreen : Color.Red;
+            Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
         }
 
         protected override void Toggle()
         {
             base.Toggle();
             manager.SetValue(setting, Value);
-            Circle.Color = Value ? Color.LawnGreen : Color.Red;
+            Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
         }
     }
 
