@@ -10,6 +10,6 @@ namespace Vitaru.Themes
         public override Color SecondaryColor => new Vector3(0, 255, 90).Color255();
         public override Color ComplementaryColor => Color.White;
 
-        public override string Background => "Backgrounds\\VitaruTouhosuModeTrue1920x1080.png";
+        public override string Background => "Backgrounds\\ecstatic.png";
     }
 }
