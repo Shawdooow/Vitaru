@@ -9,6 +9,7 @@ using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Levels;
 using Vitaru.Server.Track;
+using Vitaru.Themes;
 
 namespace Vitaru.Tracks
 {
@@ -74,7 +75,7 @@ namespace Vitaru.Tracks
 
             if (bg != string.Empty)
             {
-                next.Background = Vitaru.LevelTextureStore.GetTexture(bg);
+                next.Background = bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
             }
         }
@@ -131,6 +132,8 @@ namespace Vitaru.Tracks
 
             if (t.Level.Image != string.Empty)
                 bg = $"{t.Level.Name}\\{t.Level.Image}";
+            else
+                bg = "default";
         }
         private void enter() => TrackManager.OnTrackChange += change;
         private void leave() => TrackManager.OnTrackChange -= change;
