@@ -277,7 +277,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 }
 
                 //-90 = up
-                BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage, 600);
+                BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage, 800);
 
                 if (Binds[VitaruActions.Sneak])
                     directionModifier += 0.1f;
