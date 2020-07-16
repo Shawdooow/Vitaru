@@ -247,6 +247,6 @@ namespace Vitaru
         public static Texture GetBackground() =>
             TextureStore.GetTexture(ALKI
                 ? "Backgrounds\\Vitaru Fall BG 1440.png"
-                : "Backgrounds\\vitaru spring 2018.png");
+                : "Backgrounds\\VitaruTouhosuModeTrue1920x1080.png");
     }
 }
