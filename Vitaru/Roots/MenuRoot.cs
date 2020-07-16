@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Graphics;
+using Vitaru.Themes;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots
@@ -31,7 +32,7 @@ namespace Vitaru.Roots
             {
                 Children = new[]
                 {
-                    Background = new Sprite(Vitaru.GetBackground())
+                    Background = new Sprite(ThemeManager.GetBackground())
                     {
                         Size = new Vector2(Renderer.Width, Renderer.Height),
                         AutoScaleDirection = Direction.Both

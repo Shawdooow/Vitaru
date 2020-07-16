@@ -20,6 +20,7 @@ using Vitaru.Levels;
 using Vitaru.Roots.Multi;
 using Vitaru.Server.Track;
 using Vitaru.Settings;
+using Vitaru.Themes;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
@@ -46,7 +47,7 @@ namespace Vitaru.Roots.Tests
             {
                 Children = new[]
                 {
-                    Background = new Sprite(Vitaru.GetBackground())
+                    Background = new Sprite(ThemeManager.GetBackground())
                     {
                         Size = new Vector2(Renderer.Width, Renderer.Height),
                         AutoScaleDirection = Direction.Both

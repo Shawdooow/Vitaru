@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Roots;
+using Vitaru.Themes;
 using Vitaru.Tracks;
 
 namespace Vitaru.Mods
@@ -54,7 +55,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
@@ -77,7 +78,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.OrangeRed
+                        Color = ThemeManager.SecondaryColor
                     },
                     SpriteText =
                     {
@@ -99,7 +100,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
@@ -122,7 +123,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.OrangeRed
+                        Color = ThemeManager.SecondaryColor
                     },
                     SpriteText =
                     {
@@ -145,7 +146,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
