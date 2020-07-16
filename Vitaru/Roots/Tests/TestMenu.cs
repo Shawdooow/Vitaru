@@ -84,7 +84,11 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Multi",
 
-                OnClick = () => AddRoot(new MultiMenu())
+                OnClick = () => 
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new MultiMenu());
+                }
             });
             Add(new Button
             {
@@ -99,7 +103,11 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Edit",
 
-                OnClick = () => AddRoot(new EditorTest())
+                OnClick = () => 
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new EditorTest());
+                }
             });
             Add(new Button
             {
@@ -114,7 +122,11 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Mods",
 
-                OnClick = () => AddRoot(new ModsTest())
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new ModsTest());
+                }
             });
             Add(new Button
             {
