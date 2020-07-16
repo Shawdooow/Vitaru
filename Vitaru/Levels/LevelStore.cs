@@ -95,6 +95,34 @@ namespace Vitaru.Levels
                     }
                 }
 
+                if (!levels.Any())
+                {
+                    string audio = string.Empty;
+                    string bg = string.Empty;
+
+                    for (int j = 0; j < files.Length; j++)
+                    {
+                        string[] ext = files[j].Split('.');
+
+                        if (ext.Last() == "mp3" || ext.Last() == "wav")
+                            audio = files[j];
+                        else if (ext.Last() == "png" || ext.Last() == "jpg" || ext.Last() == "jpeg")
+                            bg = files[j];
+                    }
+
+                    if (audio != string.Empty)
+                        levels.Add(new Level
+                        {
+                            LevelTrack = new LevelTrack
+                            {
+                                Name = pack.Name,
+                                Filename = audio,
+                                Image = bg,
+                                BPM = 120,
+                            },
+                        });
+                }
+
                 pack.Levels = levels.ToArray();
                 LoadedLevels.Add(pack);
             }
