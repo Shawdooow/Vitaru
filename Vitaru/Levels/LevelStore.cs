@@ -118,8 +118,8 @@ namespace Vitaru.Levels
                                 Name = pack.Name,
                                 Filename = audio,
                                 Image = bg,
-                                BPM = 120,
-                            },
+                                BPM = 120
+                            }
                         });
                 }
 

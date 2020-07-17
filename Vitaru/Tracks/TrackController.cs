@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -75,7 +78,8 @@ namespace Vitaru.Tracks
 
             if (bg != string.Empty)
             {
-                next.Background = bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
+                next.Background =
+                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
             }
         }
@@ -120,13 +124,14 @@ namespace Vitaru.Tracks
                 LevelTrack n = LevelStore.GetRandomLevel(TrackManager.CurrentTrack.Level);
                 song.Text = $"Loading: {n.Name}";
 
-                TrackManager.SetTrack(n); b.Finish();
+                TrackManager.SetTrack(n);
+                b.Finish();
 
                 qued = false;
             });
         }
 
-        private void change(Track t) 
+        private void change(Track t)
         {
             song.Text = $"Now Playing: {t.Level.Name}";
 
@@ -135,6 +140,7 @@ namespace Vitaru.Tracks
             else
                 bg = "default";
         }
+
         private void enter() => TrackManager.OnTrackChange += change;
         private void leave() => TrackManager.OnTrackChange -= change;
 

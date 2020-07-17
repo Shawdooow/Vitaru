@@ -13,7 +13,6 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
-using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;

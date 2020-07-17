@@ -8,7 +8,6 @@ using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
-using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;

@@ -84,7 +84,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Multi",
 
-                OnClick = () => 
+                OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
@@ -103,7 +103,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Edit",
 
-                OnClick = () => 
+                OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new EditorTest());
