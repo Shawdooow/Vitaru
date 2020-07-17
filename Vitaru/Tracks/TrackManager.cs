@@ -13,29 +13,30 @@ namespace Vitaru.Tracks
     {
         public static Track CurrentTrack { get; private set; }
 
-        public static SeekableClock SeekableClock { get; private set; }
-
         public static Action<Track> OnTrackChange;
 
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
         {
-            if (clock != null) SeekableClock = clock;
+            SeekableClock seek = clock ?? CurrentTrack.Clock;
+
+            seek.Stop();
+            seek.Reset();
 
             CurrentTrack?.Pause();
             CurrentTrack?.Dispose();
 
             Logger.Log($"Setting Track \"{level.Name}\"");
-            CurrentTrack = new Track(level, SeekableClock, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
+            CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
             OnTrackChange?.Invoke(CurrentTrack);
 
-            SeekableClock.Start();
+            seek.Start();
             CurrentTrack.Play();
         }
 
         public static void NextTrack()
         {
             LevelTrack next = LevelStore.GetRandomLevel(CurrentTrack.Level);
-            SetTrack(next, (SeekableClock) CurrentTrack.Clock);
+            SetTrack(next, CurrentTrack.Clock);
         }
 
         public static void TryNextTrack()

@@ -26,6 +26,8 @@ namespace Vitaru.Roots
         protected readonly Box Dim;
         protected readonly Button Back;
 
+        private string bg = string.Empty;
+
         protected MenuRoot()
         {
             Add(ShadeLayer = new ShadeLayer<IDrawable2D>
@@ -71,11 +73,43 @@ namespace Vitaru.Roots
                         $"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
         }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            TrackManager.OnTrackChange += change;
+        }
+
         public override void Resize(Vector2 size)
         {
             base.Resize(size);
             Background.Size = size;
             Dim.Size = size;
+        }
+
+        public override void PreRender()
+        {
+            base.PreRender();
+
+            if (bg != string.Empty && UseLevelBackground)
+            {
+                Background.Texture =
+                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
+                bg = string.Empty;
+            }
+        }
+
+        private void change(Track t)
+        {
+            if (t.Level.Image != string.Empty)
+                bg = $"{t.Level.Name}\\{t.Level.Image}";
+            else
+                bg = "default";
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            TrackManager.OnTrackChange -= change;
         }
     }
 }

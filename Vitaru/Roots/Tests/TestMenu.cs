@@ -146,8 +146,7 @@ namespace Vitaru.Roots.Tests
                 OnClick = vitaru.Exit
             });
 
-            controller = new TrackController();
-            Add(controller);
+            Add(controller = new TrackController());
 
             //Add(new WikiOverlay());
             Add(new SettingsOverlay());
@@ -185,7 +184,6 @@ namespace Vitaru.Roots.Tests
         protected override void OnResume()
         {
             base.OnResume();
-            TrackManager.SeekableClock.Rate = 1;
             TrackManager.CurrentTrack.Pitch = 1;
         }
 

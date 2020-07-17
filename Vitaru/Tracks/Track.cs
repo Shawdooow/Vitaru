@@ -14,9 +14,22 @@ namespace Vitaru.Tracks
 
         private double nextBeat;
 
-        public Track(LevelTrack level, ConstantClock clock, Storage storage) : base(level.Filename, clock,
+        public new readonly SeekableClock Clock;
+
+        public override float Pitch
+        {
+            get => base.Pitch;
+            set
+            {
+                base.Pitch = value;
+                Clock.Rate = value;
+            }
+        }
+
+        public Track(LevelTrack level, SeekableClock clock, Storage storage) : base(level.Filename, clock,
             storage)
         {
+            Clock = clock;
             Level = level;
         }
 

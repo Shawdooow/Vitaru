@@ -31,7 +31,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield = new Gamefield
             {
-                Clock = TrackManager.SeekableClock,
+                Clock = TrackManager.CurrentTrack.Clock,
                 OnShadeChange = shade => ShadeLayer.Shade = shade,
                 OnIntensityChange = intensity => ShadeLayer.Intensity = intensity
             };
@@ -71,7 +71,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield.Add(new Enemy(gamefield)
             {
-                StartTime = TrackManager.SeekableClock.LastCurrent,
+                StartTime = TrackManager.CurrentTrack.Clock.LastCurrent,
                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
                 OnDie = enemy
             });
@@ -89,7 +89,7 @@ namespace Vitaru.Roots.Tests
         {
             bullets.Text = $"{Bullet.COUNT}";
             particles.Text = $"{Particle.COUNT}";
-            TrackManager.SeekableClock.NewFrame();
+            TrackManager.CurrentTrack.Clock.Update();
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {

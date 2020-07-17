@@ -63,14 +63,14 @@ namespace Vitaru.Tracks
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            enter();
+            TrackManager.OnTrackChange += change;
+
+            if (TrackManager.CurrentTrack != null)
+                change(TrackManager.CurrentTrack);
         }
 
         //Having a drawable and updatable is bad practice, however here it just makes sense because its a UI element
-        public void Update()
-        {
-            TrackManager.SeekableClock?.NewFrame();
-        }
+        public void Update() => TrackManager.CurrentTrack?.Clock.Update();
 
         public override void PreRender()
         {
@@ -101,6 +101,13 @@ namespace Vitaru.Tracks
 
                 qued = false;
             });
+        }
+
+
+        public void TryRepeat()
+        {
+            if (TrackManager.CurrentTrack != null)
+                TrackManager.TryRepeatTrack();
         }
 
         public void TryNextLevel()
@@ -141,25 +148,10 @@ namespace Vitaru.Tracks
                 bg = "default";
         }
 
-        private void enter() => TrackManager.OnTrackChange += change;
-        private void leave() => TrackManager.OnTrackChange -= change;
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            enter();
-        }
-
-        public override void OnPause()
-        {
-            base.OnPause();
-            leave();
-        }
-
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
-            leave();
+            TrackManager.OnTrackChange -= change;
         }
     }
 }

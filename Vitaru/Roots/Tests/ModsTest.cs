@@ -7,6 +7,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Mods;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -15,6 +16,8 @@ namespace Vitaru.Roots.Tests
         public override string Name => nameof(ModsTest);
 
         protected override bool UseLevelBackground => true;
+
+        private readonly TrackController controller;
 
         public ModsTest()
         {
@@ -41,6 +44,19 @@ namespace Vitaru.Roots.Tests
                         b.OnClick += () => AddRoot(mod.GetRoot());
                 }
             }
+
+            Add(controller = new TrackController
+            {
+                Alpha = 0
+            });
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            controller.Update();
+            controller.TryRepeat();
         }
 
         protected override void OnResume()
