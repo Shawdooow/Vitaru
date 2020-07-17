@@ -15,15 +15,21 @@ namespace Vitaru.Tracks
 
         public static Action<Track> OnTrackChange;
 
-        public static void SetTrack(LevelTrack level, ConstantClock clock)
+        public static void SetTrack(LevelTrack level, SeekableClock clock = null)
         {
+            SeekableClock seek = clock ?? CurrentTrack.Clock;
+
+            seek.Stop();
+            seek.Reset();
+
             CurrentTrack?.Pause();
             CurrentTrack?.Dispose();
 
             Logger.Log($"Setting Track \"{level.Name}\"");
-            CurrentTrack = new Track(level, clock, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
+            CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
             OnTrackChange?.Invoke(CurrentTrack);
-            //CurrentTrack.Gain = 0.1f;
+
+            seek.Start();
             CurrentTrack.Play();
         }
 

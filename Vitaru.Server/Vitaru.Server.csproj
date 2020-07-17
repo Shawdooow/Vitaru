@@ -21,7 +21,7 @@
 	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>vitaru.ico</ApplicationIcon>
+    <ApplicationIcon>server.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />

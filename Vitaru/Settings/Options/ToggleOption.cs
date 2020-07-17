@@ -2,7 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -11,6 +10,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO.Configs;
+using Vitaru.Themes;
 
 namespace Vitaru.Settings.Options
 {
@@ -28,14 +28,14 @@ namespace Vitaru.Settings.Options
             this.setting = setting;
 
             Value = manager.GetBool(setting);
-            Circle.Color = Value ? Color.LawnGreen : Color.Red;
+            Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
         }
 
         protected override void Toggle()
         {
             base.Toggle();
             manager.SetValue(setting, Value);
-            Circle.Color = Value ? Color.LawnGreen : Color.Red;
+            Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
         }
     }
 

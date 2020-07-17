@@ -79,16 +79,26 @@ namespace Vitaru.Mods
                 green.Position = new Vector3(50, -200, 0);
                 green.Diffuse = Color.GreenYellow.Vector();
 
-                TexturedModel body = new TexturedModel();
+                const float scale = 0.05f;
+
+                TexturedModel body = new TexturedModel
+                {
+                    Scale = new Vector3(scale)
+                };
                 body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
                 Renderer.CurrentContext.BufferMeshes(body);
 
-                turret = new TexturedModel();
+                turret = new TexturedModel
+                {
+                    Scale = new Vector3(scale)
+                };
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.CurrentContext.BufferMeshes(turret);
 
                 Add(new Layer3D<TexturedModel>
                 {
+                    //TODO: make this work Scale = new Vector3(0.05f),
+
                     Children = new[]
                     {
                         body,

@@ -8,7 +8,6 @@ using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
-using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
@@ -24,18 +23,15 @@ namespace Vitaru.Roots.Tests
         public override string Name => nameof(PlayTest);
 
         private readonly Gamefield gamefield;
-        private readonly SeekableClock seek;
 
         private readonly SpriteText bullets;
         private readonly SpriteText particles;
 
-        public PlayTest(SeekableClock seek)
+        public PlayTest()
         {
-            this.seek = seek;
-
             gamefield = new Gamefield
             {
-                Clock = seek,
+                Clock = TrackManager.CurrentTrack.Clock,
                 OnShadeChange = shade => ShadeLayer.Shade = shade,
                 OnIntensityChange = intensity => ShadeLayer.Intensity = intensity
             };
@@ -75,7 +71,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield.Add(new Enemy(gamefield)
             {
-                StartTime = seek.LastCurrent,
+                StartTime = TrackManager.CurrentTrack.Clock.LastCurrent,
                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
                 OnDie = enemy
             });
@@ -93,7 +89,9 @@ namespace Vitaru.Roots.Tests
         {
             bullets.Text = $"{Bullet.COUNT}";
             particles.Text = $"{ParticleManager.Master.Count}";
-            seek.NewFrame();
+
+            TrackManager.CurrentTrack.Clock.Update();
+
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {

@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Vitaru.Roots;
+using Vitaru.Themes;
 using Vitaru.Tracks;
 
 namespace Vitaru.Mods
@@ -38,6 +39,8 @@ namespace Vitaru.Mods
 
             protected override bool UseLevelBackground => true;
 
+            private TrackController controller;
+
             private SpriteText pitch;
 
             public override void LoadingComplete()
@@ -54,7 +57,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
@@ -77,7 +80,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.OrangeRed
+                        Color = ThemeManager.SecondaryColor
                     },
                     SpriteText =
                     {
@@ -99,7 +102,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
@@ -122,7 +125,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.OrangeRed
+                        Color = ThemeManager.SecondaryColor
                     },
                     SpriteText =
                     {
@@ -145,7 +148,7 @@ namespace Vitaru.Mods
                     },
                     BackgroundSprite =
                     {
-                        Color = Color.Yellow
+                        Color = ThemeManager.PrimaryColor
                     },
                     SpriteText =
                     {
@@ -162,7 +165,17 @@ namespace Vitaru.Mods
                     Text = TrackManager.CurrentTrack.Pitch.ToString()
                 });
 
+                Add(controller = new TrackController());
+
                 base.LoadingComplete();
+            }
+
+            public override void Update()
+            {
+                base.Update();
+
+                controller.Update();
+                controller.TryRepeat();
             }
 
             private void setRate(float rate)

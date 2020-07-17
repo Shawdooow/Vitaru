@@ -13,7 +13,6 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
-using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
@@ -26,6 +25,7 @@ using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots.Tests;
 using Vitaru.Settings;
+using Vitaru.Themes;
 
 namespace Vitaru
 {
@@ -49,7 +49,11 @@ namespace Vitaru
         {
             startup.Start();
             ALKI = PrionMath.RandomNumber(0, 10) == 5;
-            if (ALKI) Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
+            if (ALKI)
+            {
+                Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
+                ThemeManager.Theme = new Alki();
+            }
 
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
 
@@ -239,14 +243,5 @@ namespace Vitaru
             VitaruSettings.Dispose();
             base.Dispose();
         }
-
-        /// <summary>
-        ///     Get menu Background <see cref="Texture" />
-        /// </summary>
-        /// <returns></returns>
-        public static Texture GetBackground() =>
-            TextureStore.GetTexture(ALKI
-                ? "Backgrounds\\Vitaru Fall BG 1440.png"
-                : "Backgrounds\\vitaru spring 2018.png");
     }
 }

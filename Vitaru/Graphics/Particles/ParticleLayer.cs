@@ -16,6 +16,7 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Graphics.Particles
@@ -26,6 +27,9 @@ namespace Vitaru.Graphics.Particles
 
         private GLShaderProgram compute;
         private GLShaderProgram render;
+
+        private readonly bool gpu = Renderer._3D_AVAILABLE &&
+                                    Vitaru.VitaruSettings.GetBool(VitaruSetting.GPUParticles);
 
         private readonly Benchmark p = new Benchmark("Particle Render Time");
 
