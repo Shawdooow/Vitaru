@@ -44,6 +44,6 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.deps.json&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.dev.json&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.json&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;&#xD;&#xA;if $(ConfigurationName) == Publish cd $(TargetDir) &#xD;&#xA;del Prion.Application.pdb&#xD;&#xA;del Prion.Game.pdb&#xD;&#xA;del Vitaru.pdb&#xD;&#xA;del Vitaru.Server.pdb" />
+    <Exec Command="if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.deps.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.dev.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.json&quot; &quot;$(TargetDir)&quot; /Y" />
   </Target>
 </Project>
