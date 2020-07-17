@@ -52,6 +52,9 @@ namespace Vitaru.Roots.Tests
                 }
             });
 
+            Button multi;
+            Button edit;
+
             Add(new Button
             {
                 Y = -180,
@@ -71,7 +74,7 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new PlayTest());
                 }
             });
-            Add(new Button
+            Add(multi = new Button
             {
                 Y = -60,
                 Size = new Vector2(200, 100),
@@ -83,14 +86,8 @@ namespace Vitaru.Roots.Tests
                 },
 
                 Text = "Multi",
-
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new MultiMenu());
-                }
             });
-            Add(new Button
+            Add(edit = new Button
             {
                 Y = 60,
                 Size = new Vector2(200, 100),
@@ -102,12 +99,6 @@ namespace Vitaru.Roots.Tests
                 },
 
                 Text = "Edit",
-
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorTest());
-                }
             });
             Add(new Button
             {
@@ -173,6 +164,37 @@ namespace Vitaru.Roots.Tests
             });
 
             Add(new FPSOverlay());
+
+            if (!Vitaru.EXPERIMENTAL)
+            {
+                multi.Add(new Box
+                {
+                    Size = multi.Size,
+                    Scale = multi.Scale,
+                    Color = Color.Black,
+                    Alpha = 0.5f
+                });
+                edit.Add(new Box
+                {
+                    Size = multi.Size,
+                    Scale = multi.Scale,
+                    Color = Color.Black,
+                    Alpha = 0.5f
+                });
+            }
+            else
+            {
+                multi.OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new MultiMenu());
+                };
+                edit.OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new EditorTest());
+                };
+            }
         }
 
         public override void LoadingComplete()

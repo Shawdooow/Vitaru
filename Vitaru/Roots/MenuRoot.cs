@@ -76,7 +76,7 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            TrackManager.OnTrackChange += change;
+            TrackManager.OnTrackChange += TrackChange;
         }
 
         public override void Resize(Vector2 size)
@@ -95,10 +95,13 @@ namespace Vitaru.Roots
                 Background.Texture =
                     bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
+
+                //TODO: hack to force an update
+                Background.Size = Background.Size;
             }
         }
 
-        private void change(Track t)
+        protected virtual void TrackChange(Track t)
         {
             if (t.Level.Image != string.Empty)
                 bg = $"{t.Level.Name}\\{t.Level.Image}";
@@ -109,7 +112,7 @@ namespace Vitaru.Roots
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
-            TrackManager.OnTrackChange -= change;
+            TrackManager.OnTrackChange -= TrackChange;
         }
     }
 }

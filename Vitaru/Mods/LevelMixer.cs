@@ -39,6 +39,8 @@ namespace Vitaru.Mods
 
             protected override bool UseLevelBackground => true;
 
+            private float rate = 1f;
+
             private TrackController controller;
 
             private SpriteText pitch;
@@ -178,9 +180,15 @@ namespace Vitaru.Mods
                 controller.TryRepeat();
             }
 
-            private void setRate(float rate)
+            protected override void TrackChange(Track t)
             {
-                TrackManager.CurrentTrack.Pitch = Math.Max(0.05f, MathF.Round(rate, 2));
+                base.TrackChange(t);
+                t.Pitch = rate;
+            }
+
+            private void setRate(float r)
+            {
+                TrackManager.CurrentTrack.Pitch = rate = Math.Max(0.05f, MathF.Round(r, 2));
                 pitch.Text = TrackManager.CurrentTrack.Pitch.ToString();
             }
         }
