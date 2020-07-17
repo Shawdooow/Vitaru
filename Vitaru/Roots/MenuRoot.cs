@@ -95,9 +95,6 @@ namespace Vitaru.Roots
                 Background.Texture =
                     bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
-
-                //TODO: hack to force an update
-                Background.Size = Background.Size;
             }
         }
 

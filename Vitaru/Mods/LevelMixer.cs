@@ -49,6 +49,29 @@ namespace Vitaru.Mods
             {
                 Add(new Button
                 {
+                    Position = new Vector2(360, 0),
+                    Size = new Vector2(80, 80),
+
+                    Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
+                    BackgroundSprite =
+                    {
+                        Color = ThemeManager.SecondaryColor
+                    },
+                    SpriteText =
+                    {
+                        TextScale = 0.25f
+                    },
+
+                    Text = "+ 0.25x",
+                    OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f)
+                });
+
+                Add(new Button
+                {
                     Position = new Vector2(240, 0),
                     Size = new Vector2(100, 100),
 
@@ -159,6 +182,29 @@ namespace Vitaru.Mods
 
                     Text = "0.75x",
                     OnClick = () => setRate(0.75f)
+                });
+
+                Add(new Button
+                {
+                    Position = new Vector2(-360, 0),
+                    Size = new Vector2(80, 80),
+
+                    Background = Game.TextureStore.GetTexture("square.png"),
+                    Dim =
+                    {
+                        Alpha = 0.5f
+                    },
+                    BackgroundSprite =
+                    {
+                        Color = ThemeManager.SecondaryColor
+                    },
+                    SpriteText =
+                    {
+                        TextScale = 0.25f
+                    },
+
+                    Text = "- 0.25x",
+                    OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
                 });
 
                 Add(pitch = new SpriteText
