@@ -22,7 +22,7 @@ using Vitaru.Input;
 
 namespace Vitaru.Mods
 {
-    public class TanksTest : Mod
+    public class Tanks : Mod
     {
         public override bool Disabled => !Renderer._3D_AVAILABLE;
 
@@ -41,11 +41,11 @@ namespace Vitaru.Mods
                 Text = "Tanks"
             };
 
-        public override Root GetRoot() => new Tank();
+        public override Root GetRoot() => new TanksRoot();
 
-        private class Tank : ExitableRoot
+        private class TanksRoot : ExitableRoot
         {
-            public override string Name => nameof(Tank);
+            public override string Name => nameof(TanksRoot);
 
             private Camera camera;
             private PlayerBinds input;
@@ -55,7 +55,7 @@ namespace Vitaru.Mods
             private LightPointer red;
             private LightPointer green;
 
-            public Tank()
+            public TanksRoot()
             {
                 input = new PlayerBinds();
             }
