@@ -19,6 +19,7 @@ namespace Vitaru.Roots
 
         private readonly Editfield editfield;
 
+        private Timeline timeline;
         private readonly Properties properties;
 
         public EditorRoot()
@@ -55,7 +56,7 @@ namespace Vitaru.Roots
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
 
-            Add(new Timeline());
+            Add(timeline = new Timeline());
             Add(new Toolbox
             {
                 OnSelection = Selected
@@ -67,6 +68,12 @@ namespace Vitaru.Roots
         {
             editfield.Selected(editable);
             properties.Selected(editable);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            timeline.Update();
         }
     }
 }

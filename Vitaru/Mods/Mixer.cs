@@ -211,7 +211,7 @@ namespace Vitaru.Mods
                     slider = new Slider
                     {
                         Position = new Vector2(0, 100),
-                        OnProgressUpdate = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
+                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
                     },
                     pitch = new SpriteText
                     {

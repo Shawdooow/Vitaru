@@ -6,6 +6,9 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus.Utilities;
+using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
 {
@@ -13,6 +16,8 @@ namespace Vitaru.Editor.UI
     {
         private const float width = 1080f;
         private const float height = 140f;
+
+        private Slider scrubber;
 
         public Timeline()
         {
@@ -32,8 +37,18 @@ namespace Vitaru.Editor.UI
                         Size = new Vector2(width, height),
                         Color = Color.Black
                     }
-                }
+                },
+                scrubber = new Slider
+                {
+                    OnProgressInput = p => TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                },
             };
+        }
+
+        public void Update()
+        {
+            scrubber.Progress = (float)PrionMath.Scale(TrackManager.CurrentTrack.Clock.Current, 0,
+                TrackManager.CurrentTrack.Length * 1000);
         }
     }
 }
