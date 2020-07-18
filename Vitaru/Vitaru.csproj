@@ -43,6 +43,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editor\Editables\Properties\Time\" />
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.deps.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.dev.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.json&quot; &quot;$(TargetDir)&quot; /Y" />
   </Target>

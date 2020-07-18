@@ -4,12 +4,13 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
-    public abstract class Projectile : GameEntity, IEditable
+    public abstract class Projectile : GameEntity, IHasStartPosition
     {
         public override string Name { get; set; } = nameof(Projectile);
 
@@ -21,6 +22,11 @@ namespace Vitaru.Gamemodes.Projectiles
             draw.SetProjectile(this);
             base.SetDrawable(drawable);
         }
+
+        public EditableProperty[] GetProperties() => new EditableProperty[]
+        {
+            new EditableStartPosition(this),
+        };
 
         public Color Color = Color.White;
 

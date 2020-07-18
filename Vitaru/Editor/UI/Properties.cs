@@ -7,7 +7,8 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
+using Vitaru.Editor.Editables.Properties;
 
 namespace Vitaru.Editor.UI
 {
@@ -59,7 +60,7 @@ namespace Vitaru.Editor.UI
             editable = edit;
             IEditable e = editable.GetEditable(null);
 
-            //EditableProperty[] p = e.GetProperties();
+            EditableProperty[] p = e.GetProperties();
 
             name.Text = e.Name;
         }

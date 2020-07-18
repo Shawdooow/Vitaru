@@ -4,6 +4,7 @@
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UserInterface;
 using Prion.Nucleus.Utilities.Interfaces;
+using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 

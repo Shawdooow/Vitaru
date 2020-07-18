@@ -10,7 +10,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Input.Events;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
 using Vitaru.Gamemodes;
 
 namespace Vitaru.Editor.UI

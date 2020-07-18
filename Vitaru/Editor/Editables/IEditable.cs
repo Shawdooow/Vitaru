@@ -3,15 +3,16 @@
 
 using System.Numerics;
 using Prion.Nucleus.Entitys;
+using Vitaru.Editor.Editables.Properties;
 using Vitaru.Gamemodes;
 
-namespace Vitaru.Editor.IO
+namespace Vitaru.Editor.Editables
 {
     public interface IEditable : IUpdatable
     {
         Vector2 Position { get; set; }
 
-        //EditableProperty[] GetProperties();
+        EditableProperty[] GetProperties();
 
         void SetDrawable(DrawableGameEntity drawable);
 

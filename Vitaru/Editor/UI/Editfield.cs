@@ -5,7 +5,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Input;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Play;

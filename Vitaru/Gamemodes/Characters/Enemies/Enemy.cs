@@ -7,7 +7,8 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Utilities;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Projectiles.Patterns;
@@ -15,7 +16,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IEditable
+    public class Enemy : Character, IHasStartPosition
     {
         public override string Name { get; set; } = nameof(Enemy);
 
@@ -36,10 +37,10 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return new DrawableEnemy(this);
         }
 
-        //public EditableProperty[] GetProperties() => new[]
-        //{
-        //    new EditableDouble(),
-        //};
+        public EditableProperty[] GetProperties() => new EditableProperty[]
+        {
+            new EditableStartPosition(this),
+        };
 
         public Color Color = GraphicsUtilities.RandomColor();
 

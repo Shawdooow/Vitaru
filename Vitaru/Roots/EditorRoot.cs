@@ -6,7 +6,7 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
 
 namespace Vitaru.Roots

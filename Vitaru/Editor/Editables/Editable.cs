@@ -5,7 +5,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Vitaru.Gamemodes;
 using Vitaru.Play;
 
-namespace Vitaru.Editor.IO
+namespace Vitaru.Editor.Editables
 {
     public abstract class Editable
     {
