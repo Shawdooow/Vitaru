@@ -15,6 +15,8 @@ namespace Vitaru.Roots
     {
         public override string Name => nameof(EditorRoot);
 
+        protected override bool UseLevelBackground => true;
+
         private readonly Editfield editfield;
 
         private readonly Properties properties;
