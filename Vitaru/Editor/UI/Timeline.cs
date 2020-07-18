@@ -47,8 +47,9 @@ namespace Vitaru.Editor.UI
 
         public void Update()
         {
-            scrubber.Progress = (float)PrionMath.Scale(TrackManager.CurrentTrack.Clock.Current, 0,
-                TrackManager.CurrentTrack.Length * 1000);
+            if (!scrubber.Dragging)
+                scrubber.Progress = (float)PrionMath.Scale(TrackManager.CurrentTrack.Clock.Current, 0,
+                    TrackManager.CurrentTrack.Length * 1000);
         }
     }
 }

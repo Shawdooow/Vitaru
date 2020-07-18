@@ -36,7 +36,7 @@ namespace Vitaru.Tracks
         public override void Seek(double time)
         {
             base.Seek(time);
-            Clock.Seek(time);
+            Clock.Seek(time * 1000);
         }
 
         public virtual bool CheckNewBeat()
