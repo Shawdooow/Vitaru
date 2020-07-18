@@ -16,7 +16,7 @@ using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Roots;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 

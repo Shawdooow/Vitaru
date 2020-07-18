@@ -8,7 +8,7 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Graphics;
 using Vitaru.Themes;
 using Vitaru.Tracks;

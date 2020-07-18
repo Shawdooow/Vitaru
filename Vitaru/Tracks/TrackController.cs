@@ -6,7 +6,7 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;

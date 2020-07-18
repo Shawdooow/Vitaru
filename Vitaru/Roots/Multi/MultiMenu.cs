@@ -8,7 +8,7 @@ using Prion.Centrosome.Packets;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;

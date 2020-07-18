@@ -7,7 +7,7 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Roots;
 using Vitaru.Themes;
 using Vitaru.Tracks;
