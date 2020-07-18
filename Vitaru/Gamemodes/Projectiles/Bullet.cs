@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (particles && PrionMath.RandomNumber(0, (int) s) >= 20 / particles_multiplier)
+            if (particles && PrionMath.RandomNumber(0, (int) s) >= 10 / particles_multiplier)
             {
                 s = 0;
                 OnAddParticle?.Invoke(new Particle(Position)

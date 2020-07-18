@@ -148,8 +148,8 @@ namespace Vitaru.Play
             while (loadedparticleQue.Count > 0)
             {
                 Debugger.Assert(loadedparticleQue.TryDequeue(out Particle draw));
-                draw.MoveTo(draw.End, 2000f, Easings.OutQuint);
-                draw.FadeTo(0, 2500, Easings.OutCubic).OnComplete(() => deadparticleQue.Enqueue(draw));
+                draw.MoveTo(draw.End, 800f, Easings.OutCubic);
+                draw.FadeTo(0, 1200f, Easings.OutCubic).OnComplete(() => deadparticleQue.Enqueue(draw));
             }
         }
 

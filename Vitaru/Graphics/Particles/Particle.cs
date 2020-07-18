@@ -25,7 +25,7 @@ namespace Vitaru.Graphics.Particles
             Scale = new Vector2(1f / PrionMath.RandomNumber(1, 5));
 
             float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
-            int distance = PrionMath.RandomNumber(20, 40);
+            int distance = PrionMath.RandomNumber(15, 30);
 
             End = start + PrionMath.Offset(distance, angle);
         }
