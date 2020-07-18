@@ -25,7 +25,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {
-            new EditableStartPosition(this),
+            new EditableStartPosition(this)
         };
 
         public Color Color = Color.White;

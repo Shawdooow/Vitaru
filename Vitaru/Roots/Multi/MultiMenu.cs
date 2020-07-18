@@ -40,7 +40,7 @@ namespace Vitaru.Roots.Multi
                 {
                     Size = new Vector2(600, 60),
                     Position = new Vector2(0, -200),
-                    Text = "127.0.0.1:36840",
+                    Text = "127.0.0.1:36840"
                 },
                 host = new Button
                 {
@@ -61,7 +61,7 @@ namespace Vitaru.Roots.Multi
                     Text = "Connect",
 
                     OnClick = JoinServer
-                },
+                }
             });
 
             host.BackgroundSprite.Color = ThemeManager.SecondaryColor;
@@ -74,19 +74,19 @@ namespace Vitaru.Roots.Multi
         {
             if (vitaruNet != null)
                 networking.Remove(vitaruNet);
-            
+
             try
             {
                 networking.Add(vitaruNet = new VitaruNetHandler
                 {
-                    Address = ip.Text,
+                    Address = ip.Text
                 });
 
                 vitaruNet.OnConnectedToHost += host =>
                 {
                     Logger.Log("Connected to local server", LogType.Network);
                     AddRoot(new Lobby(vitaruNet));
-                }; 
+                };
                 vitaruNet.Connect();
             }
             catch (Exception e)
@@ -107,12 +107,12 @@ namespace Vitaru.Roots.Multi
             {
                 networking.Add(vitaruServer = new VitaruServerNetHandler
                 {
-                    Address = ip.Text,
+                    Address = ip.Text
                 });
 
                 networking.Add(vitaruNet = new VitaruNetHandler
                 {
-                    Address = ip.Text,
+                    Address = ip.Text
                 });
 
                 vitaruNet.OnConnectedToHost += host =>
@@ -134,7 +134,7 @@ namespace Vitaru.Roots.Multi
             {
                 MatchInfo = new MatchInfo
                 {
-                    Host = vitaruNet.VitaruUser,
+                    Host = vitaruNet.VitaruUser
                     //Level = 
                 }
             });

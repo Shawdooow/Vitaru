@@ -17,7 +17,7 @@ namespace Vitaru.Editor.UI
         private const float width = 1080f;
         private const float height = 140f;
 
-        private Slider scrubber;
+        private readonly Slider scrubber;
 
         public Timeline()
         {
@@ -40,15 +40,16 @@ namespace Vitaru.Editor.UI
                 },
                 scrubber = new Slider
                 {
-                    OnProgressInput = p => TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
-                },
+                    OnProgressInput = p =>
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                }
             };
         }
 
         public void Update()
         {
             if (!scrubber.Dragging)
-                scrubber.Progress = (float)PrionMath.Scale(TrackManager.CurrentTrack.Clock.Current, 0,
+                scrubber.Progress = (float) PrionMath.Scale(TrackManager.CurrentTrack.Clock.Current, 0,
                     TrackManager.CurrentTrack.Length * 1000);
         }
     }

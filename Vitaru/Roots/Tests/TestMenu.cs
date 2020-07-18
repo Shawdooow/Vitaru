@@ -85,7 +85,7 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.SecondaryColor
                 },
 
-                Text = "Multi",
+                Text = "Multi"
             });
             Add(edit = new Button
             {
@@ -98,7 +98,7 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.TrinaryColor
                 },
 
-                Text = "Edit",
+                Text = "Edit"
             });
             Add(new Button
             {

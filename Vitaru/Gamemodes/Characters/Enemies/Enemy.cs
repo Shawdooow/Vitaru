@@ -39,7 +39,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {
-            new EditableStartPosition(this),
+            new EditableStartPosition(this)
         };
 
         public Color Color = GraphicsUtilities.RandomColor();

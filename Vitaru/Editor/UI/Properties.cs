@@ -50,7 +50,7 @@ namespace Vitaru.Editor.UI
                 {
                     Position = new Vector2(0, 10),
                     ParentOrigin = Mounts.TopLeft,
-                    Origin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft
                 }
             };
         }
