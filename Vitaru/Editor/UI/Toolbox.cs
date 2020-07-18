@@ -133,15 +133,15 @@ namespace Vitaru.Editor.UI
                 return false;
             }
 
-            public override void OnHovered(MouseHoverEvent e)
+            public override void OnHovered()
             {
-                base.OnHovered(e);
+                base.OnHovered();
                 background.FadeTo(1, 200);
             }
 
-            public override void OnHoverLost(MouseHoverEvent e)
+            public override void OnHoverLost()
             {
-                base.OnHoverLost(e);
+                base.OnHoverLost();
                 background.FadeTo(0.4f, 200);
             }
 
