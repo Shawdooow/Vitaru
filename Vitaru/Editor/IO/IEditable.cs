@@ -11,6 +11,8 @@ namespace Vitaru.Editor.IO
     {
         Vector2 Position { get; set; }
 
+        //EditableProperty[] GetProperties();
+
         void SetDrawable(DrawableGameEntity drawable);
 
         DrawableGameEntity GenerateDrawable();

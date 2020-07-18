@@ -36,6 +36,11 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return new DrawableEnemy(this);
         }
 
+        //public EditableProperty[] GetProperties() => new[]
+        //{
+        //    new EditableDouble(),
+        //};
+
         public Color Color = GraphicsUtilities.RandomColor();
 
         public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color;

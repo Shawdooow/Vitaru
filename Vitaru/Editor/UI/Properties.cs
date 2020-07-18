@@ -17,6 +17,7 @@ namespace Vitaru.Editor.UI
         private const float height = 400;
 
         private readonly SpriteText name;
+        private readonly InputLayer<IDrawable2D> properties;
 
         private Editable editable;
 
@@ -43,6 +44,12 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.TopLeft,
 
                     TextScale = 0.25f
+                },
+                properties = new InputLayer<IDrawable2D>
+                {
+                    Position = new Vector2(0, 10),
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
                 }
             };
         }
@@ -51,6 +58,8 @@ namespace Vitaru.Editor.UI
         {
             editable = edit;
             IEditable e = editable.GetEditable(null);
+
+            //EditableProperty[] p = e.GetProperties();
 
             name.Text = e.Name;
         }
