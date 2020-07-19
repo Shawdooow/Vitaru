@@ -51,7 +51,7 @@ namespace Vitaru.Tracks
                 },
                 new Box
                 {
-                    Alpha = 0.8f,
+                    Alpha = 0.6f,
                     Size = Size,
                     Color = Color.Black
                 },
@@ -132,6 +132,7 @@ namespace Vitaru.Tracks
         {
             if (TrackManager.CurrentTrack == null) return;
 
+            //Calling this fucks up the clock bad currently, not sure why...
             //TrackManager.CurrentTrack.Clock.Update();
 
             float current = (float)TrackManager.CurrentTrack.Clock.Current;
