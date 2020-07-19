@@ -123,21 +123,8 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new ModsTest());
                 }
             });
-            Add(new Button
+            Add(new Exit
             {
-                ParentOrigin = Mounts.BottomLeft,
-                Origin = Mounts.BottomLeft,
-                Position = new Vector2(10, -10),
-                Size = new Vector2(80, 40),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = Color.Red
-                },
-
-                Text = "Exit",
-
                 OnClick = vitaru.Exit
             });
 
@@ -237,6 +224,28 @@ namespace Vitaru.Roots.Tests
             base.Resize(size);
             Background.Size = new Vector2(size.X + parallax, size.Y + parallax);
             Dim.Size = size;
+        }
+
+        private class Exit : Button
+        {
+            public Exit()
+            {
+                ParentOrigin = Mounts.BottomLeft;
+                Origin = Mounts.BottomLeft;
+                Position = new Vector2(10, -10);
+                Size = new Vector2(80, 40);
+
+                Background = Game.TextureStore.GetTexture("square.png");
+                BackgroundSprite.Color = Color.Red;
+
+                Text = "Exit";
+            }
+
+            protected override void Flash()
+            {
+                //Don't do it because it crashes
+                //base.Flash();
+            }
         }
     }
 }
