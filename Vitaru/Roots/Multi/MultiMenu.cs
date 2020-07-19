@@ -22,6 +22,10 @@ namespace Vitaru.Roots.Multi
 {
     public class MultiMenu : MenuRoot
     {
+        protected override bool UseLevelBackground => true;
+
+        protected override bool Parallax => true;
+
         private readonly TextBox ip;
 
         private readonly Pack<Updatable> networking;

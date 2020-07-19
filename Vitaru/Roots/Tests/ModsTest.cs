@@ -17,6 +17,8 @@ namespace Vitaru.Roots.Tests
 
         protected override bool UseLevelBackground => true;
 
+        protected override bool Parallax => true;
+
         private readonly TrackController controller;
 
         public ModsTest()

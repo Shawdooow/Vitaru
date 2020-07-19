@@ -9,6 +9,8 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
+using Prion.Nucleus.Utilities;
 using Vitaru.Graphics;
 using Vitaru.Themes;
 using Vitaru.Tracks;
@@ -20,6 +22,10 @@ namespace Vitaru.Roots
         public override string Name => nameof(MenuRoot);
 
         protected virtual bool UseLevelBackground => false;
+
+        protected virtual bool Parallax => false;
+
+        protected virtual float ParallaxAmount => 10;
 
         protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
         protected readonly Sprite Background;
@@ -48,6 +54,12 @@ namespace Vitaru.Roots
                     }
                 }
             });
+
+            if (Parallax)
+            {
+                Background.Width += ParallaxAmount;
+                Background.Height += ParallaxAmount;
+            }
 
             Add(Back = new Button
             {
@@ -82,8 +94,26 @@ namespace Vitaru.Roots
         public override void Resize(Vector2 size)
         {
             base.Resize(size);
-            Background.Size = size;
+
+            Background.Size = Parallax ? new Vector2(size.X + ParallaxAmount, size.Y + ParallaxAmount) : size;
             Dim.Size = size;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (Parallax)
+            {
+                Vector2 min = new Vector2(-ParallaxAmount / 2);
+                Vector2 max = new Vector2(ParallaxAmount / 2);
+
+                Vector2 parallax = PrionMath.Scale(InputManager.Mouse.Position,
+                    new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),
+                    new Vector2(Renderer.Width / 2f, Renderer.Height / 2f), min, max);
+
+                Background.Position = PrionMath.Clamp(parallax, min, max);
+            }
         }
 
         public override void PreRender()

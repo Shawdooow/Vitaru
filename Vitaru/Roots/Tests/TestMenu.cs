@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
@@ -13,6 +14,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
+using Prion.Nucleus.Utilities;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -23,6 +25,8 @@ namespace Vitaru.Roots.Tests
     public class TestMenu : Root
     {
         public override string Name => nameof(TestMenu);
+
+        private const float parallax = 10;
 
         private readonly Box cursor;
 
@@ -39,7 +43,7 @@ namespace Vitaru.Roots.Tests
                 {
                     Background = new Sprite(ThemeManager.GetBackground())
                     {
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        Size = new Vector2(Renderer.Width + parallax, Renderer.Height + parallax),
                         AutoScaleDirection = Direction.Both
                     },
                     Dim = new Box
@@ -217,12 +221,21 @@ namespace Vitaru.Roots.Tests
             controller.TryNextLevel();
 
             cursor.Position = InputManager.Mouse.Position;
+
+            Vector2 min = new Vector2(-parallax / 2);
+            Vector2 max = new Vector2(parallax / 2);
+
+            Vector2 p = PrionMath.Scale(InputManager.Mouse.Position,
+                new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),
+                new Vector2(Renderer.Width / 2f, Renderer.Height / 2f), min, max);
+
+            Background.Position = PrionMath.Clamp(p, min, max);
         }
 
         public override void Resize(Vector2 size)
         {
             base.Resize(size);
-            Background.Size = size;
+            Background.Size = new Vector2(size.X + parallax, size.Y + parallax);
             Dim.Size = size;
         }
     }

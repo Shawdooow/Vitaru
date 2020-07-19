@@ -41,6 +41,8 @@ namespace Vitaru.Mods
 
             protected override bool UseLevelBackground => true;
 
+            protected override bool Parallax => true;
+
             private const float min = 0.05f;
             private const float max = 2f;
 
