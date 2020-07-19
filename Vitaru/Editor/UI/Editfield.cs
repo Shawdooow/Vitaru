@@ -16,7 +16,7 @@ namespace Vitaru.Editor.UI
     {
         private Vector2 offset = Vector2.Zero;
 
-        public readonly Layer2D<IDrawable2D> SelectionLayer = new Layer2D<IDrawable2D>();
+        public readonly InputLayer<IDrawable2D> SelectionLayer = new InputLayer<IDrawable2D>();
 
         private Editable editable;
 
@@ -32,7 +32,12 @@ namespace Vitaru.Editor.UI
             Add(e as Enemy);
             SelectionLayer.Children = new[]
             {
-                draw
+                new TooltipLayer
+                {
+                    Text = e.Name,
+                    Size = draw.Size,
+                    Child = draw
+                }, 
             };
         }
 
