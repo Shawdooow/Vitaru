@@ -1,11 +1,15 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
@@ -26,6 +30,10 @@ namespace Vitaru.Roots.Tests
 
         private readonly SpriteText bullets;
         private readonly SpriteText particles;
+
+        private readonly SpriteText timeIn;
+        private readonly Slider slider;
+        private readonly SpriteText timeLeft;
 
         public PlayTest()
         {
@@ -65,6 +73,40 @@ namespace Vitaru.Roots.Tests
                 Origin = Mounts.TopRight,
                 TextScale = 0.25f
             });
+
+            //Intentional, as we dont want the slider to receive input...
+            Add(new Layer2D<Slider>
+            {
+                ParentOrigin = Mounts.TopCenter,
+                Origin = Mounts.TopCenter,
+
+                Child = slider = new Slider
+                {
+                    Y = 8,
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+
+                    Width = 800,
+                },
+            });
+
+            slider.AddArray(new IDrawable2D[]
+            {
+                timeIn = new SpriteText
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.TopLeft,
+                    Position = new Vector2(8),
+                    TextScale = 0.25f,
+                },
+                timeLeft = new SpriteText
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.TopRight,
+                    Position = new Vector2(-8, 8),
+                    TextScale = 0.25f,
+                }
+            });
         }
 
         private void enemy()
@@ -89,7 +131,23 @@ namespace Vitaru.Roots.Tests
         {
             bullets.Text = $"{Bullet.COUNT} B";
             particles.Text = $"{Particle.COUNT} P";
+
             TrackManager.CurrentTrack.Clock.Update();
+
+            float current = (float)TrackManager.CurrentTrack.Clock.Current;
+            float length = (float)TrackManager.CurrentTrack.Length * 1000;
+
+            slider.Progress = PrionMath.Scale(current, 0, length);
+
+            TimeSpan t = TimeSpan.FromMilliseconds(current);
+            TimeSpan l = TimeSpan.FromMilliseconds(length - current);
+
+            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+            string left = $"-{l.Minutes:D2}:{l.Seconds:D2}:{l.Milliseconds:D3}";
+
+            timeIn.Text = time;
+            timeLeft.Text = left;
+
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
