@@ -21,7 +21,7 @@ namespace Vitaru.Editor.UI
 
         public Action<Editable> OnSelection;
 
-        private const float width = 140;
+        private const float width = 160;
         private const float height = 400;
 
         private readonly InputLayer<ToolboxItem> items;
