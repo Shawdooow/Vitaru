@@ -49,7 +49,7 @@ namespace Vitaru.Editor.UI
                 }
             };
 
-            scrubber.AddArray(new []
+            scrubber.AddArray(new IDrawable2D[]
             {
                 timeIn = new SpriteText
                 {

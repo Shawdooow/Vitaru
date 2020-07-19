@@ -1,10 +1,13 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Debug.Benchmarking;
@@ -18,45 +21,100 @@ namespace Vitaru.Tracks
 {
     public class TrackController : InputLayer<IDrawable2D>
     {
-        private readonly Button next;
+        private readonly Sprite background;
+        private readonly Button play;
         private readonly SpriteText song;
+
+        private readonly SpriteText timeIn;
+        private readonly Slider seek;
+        private readonly SpriteText timeLeft;
 
         private bool qued;
         private string bg = string.Empty;
 
         public TrackController()
         {
+            Position = new Vector2(-20, 20);
+            Size = new Vector2(300, 150);
             ParentOrigin = Mounts.TopRight;
             Origin = Mounts.TopRight;
 
-            Add(next = new Button
+            Vitaru.TextureStore.GetTexture("play.png");
+
+            AddArray(new IDrawable2D[]
             {
-                Position = new Vector2(-10, 40),
-                ParentOrigin = Mounts.TopRight,
-                Origin = Mounts.TopRight,
-                Size = new Vector2(160, 90),
-
-                Dim =
+                background = new Sprite
                 {
-                    Alpha = 0.8f
+                    //TODO: requires masking... AutoScaleDirection = Direction.Both,
+                    Size = Size,
+                    Texture = ThemeManager.GetBackground(),
                 },
-                SpriteText =
+                new Box
                 {
-                    TextScale = 0.25f
+                    Alpha = 0.8f,
+                    Size = Size,
+                    Color = Color.Black
                 },
+                play = new Button
+                {
+                    Position = new Vector2(0, -8),
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+                    Size = new Vector2(32),
+                    Background = Vitaru.TextureStore.GetTexture("pause.png"),
 
-                Text = "Next",
+                    OnClick = TogglePlay
+                },
+                new Button
+                {
+                    Position = new Vector2(32, -8),
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+                    Size = new Vector2(32),
+                    Background = Vitaru.TextureStore.GetTexture("skip.png"),
 
-                OnClick = NextLevel
+                    OnClick = NextLevel
+                },
+                new Button
+                {
+                    Position = new Vector2(-32, -8),
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+                    Size = new Vector2(-32, 32),
+                    Background = Vitaru.TextureStore.GetTexture("skip.png"),
+                },
+                song = new SpriteText
+                {
+                    Position = new Vector2(4),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    TextScale = 0.2f,
+                    Text = "Loading..."
+                },
+                seek = new Slider
+                {
+                    Width = Size.X,
+                    OnProgressInput = p =>
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                }, 
             });
 
-            Add(song = new SpriteText
+            seek.AddArray(new IDrawable2D[]
             {
-                Position = new Vector2(-10, 10),
-                ParentOrigin = Mounts.TopRight,
-                Origin = Mounts.TopRight,
-                TextScale = 0.25f,
-                Text = "Loading..."
+                timeIn = new SpriteText
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.BottomLeft,
+                    Position = new Vector2(8, -8),
+                    TextScale = 0.2f,
+                },
+                timeLeft = new SpriteText
+                {
+                    ParentOrigin = Mounts.TopRight,
+                    Origin = Mounts.BottomRight,
+                    Position = new Vector2(-8),
+                    TextScale = 0.2f,
+                }
             });
         }
 
@@ -70,7 +128,27 @@ namespace Vitaru.Tracks
         }
 
         //Having a drawable and updatable is bad practice, however here it just makes sense because its a UI element
-        public void Update() => TrackManager.CurrentTrack?.Clock.Update();
+        public void Update()
+        {
+            if (TrackManager.CurrentTrack == null) return;
+
+            //TrackManager.CurrentTrack.Clock.Update();
+
+            float current = (float)TrackManager.CurrentTrack.Clock.Current;
+            float length = (float)TrackManager.CurrentTrack.Length * 1000;
+
+            if (!seek.Dragging)
+                seek.Progress = PrionMath.Scale(current, 0, length);
+
+            TimeSpan t = TimeSpan.FromMilliseconds(current);
+            TimeSpan l = TimeSpan.FromMilliseconds(length - current);
+
+            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+            string left = $"-{l.Minutes:D2}:{l.Seconds:D2}:{l.Milliseconds:D3}";
+
+            timeIn.Text = time;
+            timeLeft.Text = left;
+        }
 
         public override void PreRender()
         {
@@ -78,7 +156,7 @@ namespace Vitaru.Tracks
 
             if (bg != string.Empty)
             {
-                next.Background =
+                background.Texture =
                     bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
                 bg = string.Empty;
             }
@@ -119,6 +197,21 @@ namespace Vitaru.Tracks
             }
         }
 
+        public void TogglePlay()
+        {
+            if (TrackManager.CurrentTrack.Playing)
+            {
+                TrackManager.CurrentTrack.Pause();
+                play.Background = Vitaru.TextureStore.GetTexture("play.png");
+            }
+            else
+            {
+                TrackManager.CurrentTrack.Play();
+                play.Background = Vitaru.TextureStore.GetTexture("pause.png");
+            }
+
+        }
+
         public void NextLevel()
         {
             if (qued) return;
@@ -140,7 +233,7 @@ namespace Vitaru.Tracks
 
         private void change(Track t)
         {
-            song.Text = $"Now Playing: {t.Level.Name}";
+            song.Text = $"{t.Level.Name}";
 
             if (t.Level.Image != string.Empty)
                 bg = $"{t.Level.Name}\\{t.Level.Image}";
