@@ -132,8 +132,7 @@ namespace Vitaru.Tracks
         {
             if (TrackManager.CurrentTrack == null) return;
 
-            //Calling this fucks up the clock bad currently, not sure why...
-            //TrackManager.CurrentTrack.Clock.Update();
+            TrackManager.CurrentTrack.Clock.Update();
 
             float current = (float)TrackManager.CurrentTrack.Clock.Current;
             float length = (float)TrackManager.CurrentTrack.Length * 1000;
