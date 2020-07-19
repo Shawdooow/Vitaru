@@ -34,7 +34,7 @@ namespace Vitaru.Roots.Multi
             Button host;
             Button connect;
 
-            AddRange(new ILayer[]
+            AddArray(new ILayer[]
             {
                 ip = new TextBox
                 {

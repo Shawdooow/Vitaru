@@ -53,7 +53,7 @@ namespace Vitaru.Mods
 
             public override void LoadingComplete()
             {
-                AddRange(new ILayer[]
+                AddArray(new ILayer[]
                 {
                     new Button
                     {

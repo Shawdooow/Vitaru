@@ -87,8 +87,8 @@ namespace Vitaru.Roots.Tests
 
         public override void Update()
         {
-            bullets.Text = $"{Bullet.COUNT}";
-            particles.Text = $"{Particle.COUNT}";
+            bullets.Text = $"{Bullet.COUNT} B";
+            particles.Text = $"{Particle.COUNT} P";
             TrackManager.CurrentTrack.Clock.Update();
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
