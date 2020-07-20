@@ -160,10 +160,6 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Released(v);
             }
 
-
-            {
-            }
-
             if (GOD_KING)
             {
                 Heal(999);

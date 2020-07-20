@@ -119,7 +119,7 @@ namespace Vitaru.Play
             while (deadEnemyQue.Count > 0)
             {
                 Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
-                Debugger.Assert(!enemy.Disposed);
+                Debugger.Assert(!enemy.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be in the {nameof(deadEnemyQue)}!");
                 LoadedEnemies.Remove(enemy, false);
                 UnloadedEnemies.Add(enemy);
             }
@@ -127,7 +127,7 @@ namespace Vitaru.Play
             while (deadprojectileQue.Count > 0)
             {
                 Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
-                Debugger.Assert(!projectile.Disposed);
+                Debugger.Assert(!projectile.Disposed, $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
                 ProjectilePacks[projectile.Team].Remove(projectile);
             }
 
@@ -168,6 +168,7 @@ namespace Vitaru.Play
 
         public void Remove(Enemy enemy)
         {
+            Debugger.Assert(!enemy.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be getting added to {nameof(deadEnemyQue)}!");
             //que them since we may be calling this from their update loop
             deadEnemyQue.Enqueue(enemy);
         }
@@ -216,6 +217,7 @@ namespace Vitaru.Play
 
         public void Remove(Projectile projectile)
         {
+            Debugger.Assert(!projectile.Disposed, $"Disposed {nameof(Projectile)}s shouldn't be getting added to {nameof(deadprojectileQue)}!");
             projectile.Delete();
             deadprojectileQue.Enqueue(projectile);
         }
@@ -232,7 +234,7 @@ namespace Vitaru.Play
                 CharacterLayer.Add(draw);
             }
 
-            //Add / Remove Enemies
+            //Add Enemies
             while (enemyQue.Count > 0)
             {
                 Debugger.Assert(enemyQue.TryDequeue(out Enemy enemy));
@@ -245,13 +247,14 @@ namespace Vitaru.Play
                 CharacterLayer.Add(draw);
             }
 
+            //Remove Enemies
             while (drawableEnemyQue.Count > 0)
             {
                 Debugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
             }
 
-            //Add / Remove Projectiles
+            //Add Projectiles
             while (projectileQue.Count > 0)
             {
                 Debugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
@@ -263,6 +266,7 @@ namespace Vitaru.Play
                 ProjectilesLayer.Add(draw);
             }
 
+            //Remove Projectiles
             while (drawableProjectileQue.Count > 0)
             {
                 Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
@@ -281,6 +285,7 @@ namespace Vitaru.Play
                 loadedparticleQue.Enqueue(draw);
             }
 
+            //Remove Particles
             while (deadparticleQue.Count > 0)
             {
                 Debugger.Assert(deadparticleQue.TryDequeue(out Particle draw));
