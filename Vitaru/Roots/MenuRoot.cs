@@ -75,6 +75,10 @@ namespace Vitaru.Roots
                 },
 
                 Text = "Back",
+                SpriteText =
+                {
+                    TextScale = 0.35f
+                },
 
                 OnClick = DropRoot
             });
