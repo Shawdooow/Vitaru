@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
 using Vitaru.Gamemodes;
+using Vitaru.Mods.Included;
 
 namespace Vitaru.Mods
 {

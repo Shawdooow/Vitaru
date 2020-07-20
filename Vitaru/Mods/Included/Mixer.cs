@@ -14,7 +14,7 @@ using Vitaru.Roots;
 using Vitaru.Themes;
 using Vitaru.Tracks;
 
-namespace Vitaru.Mods
+namespace Vitaru.Mods.Included
 {
     public class Mixer : Mod
     {
@@ -223,7 +223,7 @@ namespace Vitaru.Mods
                     controller = new TrackController()
                 });
 
-                setRate(1);
+                setRate(TrackManager.CurrentTrack.Pitch);
 
                 base.LoadingComplete();
             }
@@ -244,8 +244,8 @@ namespace Vitaru.Mods
 
             private void setRate(float r)
             {
-                TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(MathF.Round(r, 2), min, max);
-                pitch.Text = TrackManager.CurrentTrack.Pitch.ToString();
+                TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
+                pitch.Text = MathF.Round(r, 2).ToString();
                 slider.Progress = PrionMath.Scale(rate, min, max);
             }
         }

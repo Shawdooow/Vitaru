@@ -20,7 +20,7 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
-namespace Vitaru.Mods
+namespace Vitaru.Mods.Included
 {
     public class Tanks : Mod
     {
