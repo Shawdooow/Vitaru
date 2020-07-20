@@ -209,7 +209,6 @@ namespace Vitaru.Tracks
                 TrackManager.CurrentTrack.Play();
                 play.Background = Vitaru.TextureStore.GetTexture("pause.png");
             }
-
         }
 
         public void NextLevel()

@@ -16,6 +16,9 @@ namespace Vitaru.Levels
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new List<LevelPack>();
 
+        public const string BLANK_LEVEL = "BLANK";
+        public const string VERSION_ONE = "preview5.3";
+
         //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
         {
@@ -113,6 +116,7 @@ namespace Vitaru.Levels
                     if (audio != string.Empty)
                         levels.Add(new Level
                         {
+                            Format = BLANK_LEVEL,
                             LevelTrack = new LevelTrack
                             {
                                 Name = pack.Name,
@@ -180,7 +184,8 @@ namespace Vitaru.Levels
                     break;
             }
 
-            return LoadedLevels[random].Levels[0].LevelTrack;
+            CurrentPack = LoadedLevels[random];
+            return CurrentPack.Levels[0].LevelTrack;
         }
     }
 }

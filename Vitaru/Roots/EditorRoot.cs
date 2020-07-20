@@ -6,8 +6,10 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
+using Vitaru.Levels;
 
 namespace Vitaru.Roots
 {
@@ -24,6 +26,8 @@ namespace Vitaru.Roots
 
         public EditorRoot()
         {
+            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL) return;
+
             editfield = new Editfield();
             properties = new Properties();
         }
@@ -31,6 +35,16 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
+            {
+                Add(new SpriteText
+                {
+                    Text = "NO LEVEL DATA!"
+                });
+                return;
+            }
+
             Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
 
             Add(new SpriteLayer
@@ -73,7 +87,7 @@ namespace Vitaru.Roots
         public override void Update()
         {
             base.Update();
-            timeline.Update();
+            timeline?.Update();
         }
     }
 }

@@ -23,6 +23,8 @@ namespace Vitaru.Editor.UI
         private readonly Slider scrubber;
         private readonly SpriteText timeLeft;
 
+        private readonly Button play;
+
         private readonly Slider speed;
 
         public Timeline()
@@ -52,6 +54,16 @@ namespace Vitaru.Editor.UI
 
                     OnProgressInput = p =>
                         TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                },
+                play = new Button
+                {
+                    Position = new Vector2(0, -12),
+                    ParentOrigin = Mounts.Center,
+                    Origin = Mounts.Center,
+                    Size = new Vector2(32),
+                    Background = Vitaru.TextureStore.GetTexture("pause.png"),
+
+                    OnClick = TogglePlay
                 },
                 speed = new Slider
                 {
@@ -104,7 +116,7 @@ namespace Vitaru.Editor.UI
                 },
                 new Button
                 {
-                    Size = new Vector2(32, 24),
+                    Size = new Vector2(32, 20),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.BottomCenter,
                     Y = -12,
@@ -141,6 +153,20 @@ namespace Vitaru.Editor.UI
             });
 
             speed.Progress = 0.5f;
+        }
+
+        public void TogglePlay()
+        {
+            if (TrackManager.CurrentTrack.Playing)
+            {
+                TrackManager.CurrentTrack.Pause();
+                play.Background = Vitaru.TextureStore.GetTexture("play.png");
+            }
+            else
+            {
+                TrackManager.CurrentTrack.Play();
+                play.Background = Vitaru.TextureStore.GetTexture("pause.png");
+            }
         }
 
         public void Update()
