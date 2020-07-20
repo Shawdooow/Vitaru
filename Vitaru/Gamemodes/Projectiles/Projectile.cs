@@ -4,6 +4,8 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Entitys;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
@@ -50,6 +52,10 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public bool TargetPlayer { get; set; }
 
+        public virtual bool Active => Started && !Collided;
+
+        public bool Collided { get; protected set; }
+
         public bool PreLoaded { get; private set; }
 
         public bool Started { get; private set; }
@@ -76,7 +82,11 @@ namespace Vitaru.Gamemodes.Projectiles
         {
         }
 
-        public virtual void Hit() => End();
+        public virtual void Collision()
+        {
+            Collided = true;
+            //End();
+        }
 
         public virtual void PreLoad() => PreLoaded = true;
 
