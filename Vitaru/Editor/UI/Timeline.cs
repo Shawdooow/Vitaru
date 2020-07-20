@@ -23,6 +23,8 @@ namespace Vitaru.Editor.UI
         private readonly Slider scrubber;
         private readonly SpriteText timeLeft;
 
+        private readonly Slider speed;
+
         public Timeline()
         {
             ParentOrigin = Mounts.BottomCenter;
@@ -44,9 +46,22 @@ namespace Vitaru.Editor.UI
                 },
                 scrubber = new Slider
                 {
+                    Y = 8,
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+
                     OnProgressInput = p =>
                         TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
-                }
+                },
+                speed = new Slider
+                {
+                    Width = 200,
+                    Y = -8,
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+
+                    OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Scale(p, 0, 1, 0.5f, 1.5f)
+                },
             };
 
             scrubber.AddArray(new IDrawable2D[]
@@ -66,10 +81,72 @@ namespace Vitaru.Editor.UI
                     TextScale = 0.25f,
                 }
             });
+
+            speed.AddArray(new IDrawable2D[]
+            {
+                new Button
+                {
+                    Size = new Vector2(48, 24),
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.CenterRight,
+                    X = -12,
+                    SpriteText =
+                    {
+                        TextScale = 0.25f,
+                        Text = "0.5x",
+                    },
+
+                    OnClick = () =>                     
+                    {
+                        speed.Progress = 0f;
+                        TrackManager.CurrentTrack.Pitch = 0.5f;
+                    }
+                },
+                new Button
+                {
+                    Size = new Vector2(32, 24),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.BottomCenter,
+                    Y = -12,
+                    SpriteText =
+                    {
+                        TextScale = 0.25f,
+                        Text = "1x",
+                    },
+
+                    OnClick = () =>
+                    {
+                        speed.Progress = 0.5f;
+                        TrackManager.CurrentTrack.Pitch = 1f;
+                    }
+                },
+                new Button
+                {
+                    Size = new Vector2(48, 24),
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterLeft,
+                    X = 12,
+                    SpriteText =
+                    {
+                        TextScale = 0.25f,
+                        Text = "1.5x",
+                    },
+
+                    OnClick = () =>                     
+                    {
+                        speed.Progress = 1f;
+                        TrackManager.CurrentTrack.Pitch = 1.5f;
+                    }
+                }
+            });
+
+            speed.Progress = 0.5f;
         }
 
         public void Update()
         {
+            TrackManager.CurrentTrack.Clock.Update();
+
             float current = (float)TrackManager.CurrentTrack.Clock.Current;
             float length = (float)TrackManager.CurrentTrack.Length * 1000;
 
