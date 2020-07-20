@@ -17,7 +17,7 @@ namespace Vitaru.Levels
         public static List<LevelPack> LoadedLevels { get; private set; } = new List<LevelPack>();
 
         public const string BLANK_LEVEL = "BLANK";
-        public const string VERSION_ONE = "preview5.3";
+        public const string VERSION_ONE = "preview5.2";
 
         //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
