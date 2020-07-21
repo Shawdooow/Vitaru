@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Project">
 	<TargetFramework>net5.0</TargetFramework>
-	<LangVersion>8.0</LangVersion>
+	<LangVersion>9.0</LangVersion>
     <AssemblyTitle>Vitaru.Server</AssemblyTitle>
     <Version>0.11.0</Version>
     <Authors>Shawdooow</Authors>
