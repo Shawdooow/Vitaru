@@ -25,7 +25,7 @@ namespace Vitaru.Mods
             LoadedMods = new List<Mod>
             {
                 new Mixer(),
-                new Included.Prion(),
+                new Included.Prion()
             };
 
             if (Vitaru.EXPERIMENTAL)

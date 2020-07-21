@@ -37,7 +37,7 @@ namespace Vitaru.Editor.UI
                     Text = e.Name,
                     Size = draw.Size,
                     Child = draw
-                }, 
+                }
             };
         }
 

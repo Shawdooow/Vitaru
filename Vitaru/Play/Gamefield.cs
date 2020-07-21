@@ -127,7 +127,8 @@ namespace Vitaru.Play
             while (deadprojectileQue.Count > 0)
             {
                 Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile p));
-                Debugger.Assert(!p.Disposed, $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
+                Debugger.Assert(!p.Disposed,
+                    $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
 
                 ProjectilePacks[p.Team].Remove(p);
             }
@@ -169,8 +170,10 @@ namespace Vitaru.Play
 
         public void Remove(Enemy enemy)
         {
-            Debugger.Assert(!enemy.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be getting added to {nameof(deadEnemyQue)}!");
-            Debugger.Assert(!deadEnemyQue.Contains(enemy), $"{nameof(Enemy)} shouldn't be getting added to {nameof(deadEnemyQue)} again!");
+            Debugger.Assert(!enemy.Disposed,
+                $"Disposed {nameof(Enemy)}s shouldn't be getting added to {nameof(deadEnemyQue)}!");
+            Debugger.Assert(!deadEnemyQue.Contains(enemy),
+                $"{nameof(Enemy)} shouldn't be getting added to {nameof(deadEnemyQue)} again!");
             //que them since we may be calling this from their update loop
             deadEnemyQue.Enqueue(enemy);
         }
@@ -219,8 +222,10 @@ namespace Vitaru.Play
 
         public void Remove(Projectile projectile)
         {
-            Debugger.Assert(!projectile.Disposed, $"Disposed {nameof(Projectile)}s shouldn't be getting added to {nameof(deadprojectileQue)}!");
-            Debugger.Assert(!deadprojectileQue.Contains(projectile), $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
+            Debugger.Assert(!projectile.Disposed,
+                $"Disposed {nameof(Projectile)}s shouldn't be getting added to {nameof(deadprojectileQue)}!");
+            Debugger.Assert(!deadprojectileQue.Contains(projectile),
+                $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
 
             projectile.Delete();
             deadprojectileQue.Enqueue(projectile);

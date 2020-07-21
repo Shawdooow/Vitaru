@@ -2,7 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -86,8 +85,8 @@ namespace Vitaru.Roots.Tests
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
-                    Width = 800,
-                },
+                    Width = 800
+                }
             });
 
             slider.AddArray(new IDrawable2D[]
@@ -97,14 +96,14 @@ namespace Vitaru.Roots.Tests
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 },
                 timeLeft = new SpriteText
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-8, 8),
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 }
             });
         }
@@ -134,8 +133,8 @@ namespace Vitaru.Roots.Tests
 
             TrackManager.CurrentTrack.Clock.Update();
 
-            float current = (float)TrackManager.CurrentTrack.Clock.Current;
-            float length = (float)TrackManager.CurrentTrack.Length * 1000;
+            float current = (float) TrackManager.CurrentTrack.Clock.Current;
+            float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
             slider.Progress = PrionMath.Scale(current, 0, length);
 

@@ -73,7 +73,7 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.BottomCenter,
 
                     OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Scale(p, 0, 1, 0.5f, 1.5f)
-                },
+                }
             };
 
             scrubber.AddArray(new IDrawable2D[]
@@ -83,14 +83,14 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
                     X = -12,
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 },
                 timeLeft = new SpriteText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
                     X = 12,
-                    TextScale = 0.25f,
+                    TextScale = 0.25f
                 }
             });
 
@@ -105,10 +105,10 @@ namespace Vitaru.Editor.UI
                     SpriteText =
                     {
                         TextScale = 0.25f,
-                        Text = "0.5x",
+                        Text = "0.5x"
                     },
 
-                    OnClick = () =>                     
+                    OnClick = () =>
                     {
                         speed.Progress = 0f;
                         TrackManager.CurrentTrack.Pitch = 0.5f;
@@ -123,7 +123,7 @@ namespace Vitaru.Editor.UI
                     SpriteText =
                     {
                         TextScale = 0.25f,
-                        Text = "1x",
+                        Text = "1x"
                     },
 
                     OnClick = () =>
@@ -141,10 +141,10 @@ namespace Vitaru.Editor.UI
                     SpriteText =
                     {
                         TextScale = 0.25f,
-                        Text = "1.5x",
+                        Text = "1.5x"
                     },
 
-                    OnClick = () =>                     
+                    OnClick = () =>
                     {
                         speed.Progress = 1f;
                         TrackManager.CurrentTrack.Pitch = 1.5f;
@@ -173,8 +173,8 @@ namespace Vitaru.Editor.UI
         {
             TrackManager.CurrentTrack.Clock.Update();
 
-            float current = (float)TrackManager.CurrentTrack.Clock.Current;
-            float length = (float)TrackManager.CurrentTrack.Length * 1000;
+            float current = (float) TrackManager.CurrentTrack.Clock.Current;
+            float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
             if (!scrubber.Dragging)
                 scrubber.Progress = PrionMath.Scale(current, 0, length);

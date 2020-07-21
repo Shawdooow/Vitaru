@@ -55,7 +55,7 @@ namespace Vitaru.Mods.Included
 
             private SpriteText pitch;
             private Slider slider;
-            
+
             private Button play;
             private SpriteText timeIn;
             private Slider seek;
@@ -246,7 +246,8 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.BottomCenter,
                         Width = 800,
                         OnProgressInput = p =>
-                            TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                            TrackManager.CurrentTrack.Seek(
+                                PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
                     },
 
                     play = new Button
@@ -275,12 +276,12 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(-64, 64),
-                        Background = Vitaru.TextureStore.GetTexture("skip.png"),
+                        Background = Vitaru.TextureStore.GetTexture("skip.png")
                     },
 
                     controller = new TrackController
                     {
-                        Alpha = 0,
+                        Alpha = 0
                     }
                 });
 
@@ -292,7 +293,7 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.CenterRight,
                         X = -12,
                         TextScale = 0.25f,
-                        Text = "0.05x",
+                        Text = "0.05x"
                     },
                     new SpriteText
                     {
@@ -311,14 +312,14 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        TextScale = 0.25f,
+                        TextScale = 0.25f
                     },
                     timeLeft = new SpriteText
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
                         X = 12,
-                        TextScale = 0.25f,
+                        TextScale = 0.25f
                     }
                 });
 
@@ -336,8 +337,8 @@ namespace Vitaru.Mods.Included
                 controller.Update();
                 controller.TryNextLevel();
 
-                float current = (float)TrackManager.CurrentTrack.Clock.Current;
-                float length = (float)TrackManager.CurrentTrack.Length * 1000;
+                float current = (float) TrackManager.CurrentTrack.Clock.Current;
+                float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
                 if (!seek.Dragging)
                     seek.Progress = PrionMath.Scale(current, 0, length);

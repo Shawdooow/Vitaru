@@ -47,7 +47,7 @@ namespace Vitaru.Tracks
                 {
                     //TODO: requires masking... AutoScaleDirection = Direction.Both,
                     Size = Size,
-                    Texture = ThemeManager.GetBackground(),
+                    Texture = ThemeManager.GetBackground()
                 },
                 new Box
                 {
@@ -81,7 +81,7 @@ namespace Vitaru.Tracks
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
                     Size = new Vector2(-32, 32),
-                    Background = Vitaru.TextureStore.GetTexture("skip.png"),
+                    Background = Vitaru.TextureStore.GetTexture("skip.png")
                 },
                 song = new SpriteText
                 {
@@ -96,7 +96,7 @@ namespace Vitaru.Tracks
                     Width = Size.X,
                     OnProgressInput = p =>
                         TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
-                }, 
+                }
             });
 
             seek.AddArray(new IDrawable2D[]
@@ -106,14 +106,14 @@ namespace Vitaru.Tracks
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(8, -8),
-                    TextScale = 0.2f,
+                    TextScale = 0.2f
                 },
                 timeLeft = new SpriteText
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-8),
-                    TextScale = 0.2f,
+                    TextScale = 0.2f
                 }
             });
         }
@@ -134,8 +134,8 @@ namespace Vitaru.Tracks
 
             TrackManager.CurrentTrack.Clock.Update();
 
-            float current = (float)TrackManager.CurrentTrack.Clock.Current;
-            float length = (float)TrackManager.CurrentTrack.Length * 1000;
+            float current = (float) TrackManager.CurrentTrack.Clock.Current;
+            float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
             if (!seek.Dragging)
                 seek.Progress = PrionMath.Scale(current, 0, length);

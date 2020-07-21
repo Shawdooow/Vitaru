@@ -4,8 +4,6 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Nucleus.Debug;
-using Prion.Nucleus.Entitys;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
