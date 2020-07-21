@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Text;
@@ -50,16 +51,32 @@ namespace Vitaru.Mods.Included
 
             private TrackController controller;
 
-            private Slider slider;
+            private SpriteText song;
+
             private SpriteText pitch;
+            private Slider slider;
+            
+            private Button play;
+            private SpriteText timeIn;
+            private Slider seek;
+            private SpriteText timeLeft;
 
             public override void LoadingComplete()
             {
                 AddArray(new ILayer[]
                 {
+                    song = new SpriteText
+                    {
+                        Y = 16,
+                        ParentOrigin = Mounts.TopCenter,
+                        Origin = Mounts.TopCenter,
+                        TextScale = 0.6f,
+                        Text = TrackManager.CurrentTrack.Level.Name
+                    },
+
                     new Button
                     {
-                        Position = new Vector2(360, 0),
+                        X = 360,
                         Size = new Vector2(80, 80),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -210,20 +227,104 @@ namespace Vitaru.Mods.Included
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
                     },
 
-                    slider = new Slider
-                    {
-                        Position = new Vector2(0, 100),
-                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
-                    },
                     pitch = new SpriteText
                     {
                         Position = new Vector2(0, -200),
                         Text = TrackManager.CurrentTrack.Pitch.ToString()
                     },
-                    controller = new TrackController()
+                    slider = new Slider
+                    {
+                        Width = 1000,
+                        Position = new Vector2(0, -100),
+                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
+                    },
+
+                    seek = new Slider
+                    {
+                        Y = -60,
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Width = 800,
+                        OnProgressInput = p =>
+                            TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                    },
+
+                    play = new Button
+                    {
+                        Position = new Vector2(0, -120),
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Size = new Vector2(64),
+                        Background = Vitaru.TextureStore.GetTexture("pause.png"),
+
+                        OnClick = toggle
+                    },
+                    new Button
+                    {
+                        Position = new Vector2(72, -120),
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Size = new Vector2(64),
+                        Background = Vitaru.TextureStore.GetTexture("skip.png"),
+
+                        OnClick = next
+                    },
+                    new Button
+                    {
+                        Position = new Vector2(-72, -120),
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Size = new Vector2(-64, 64),
+                        Background = Vitaru.TextureStore.GetTexture("skip.png"),
+                    },
+
+                    controller = new TrackController
+                    {
+                        Alpha = 0,
+                    }
+                });
+
+                slider.AddArray(new IDrawable2D[]
+                {
+                    new SpriteText
+                    {
+                        ParentOrigin = Mounts.CenterLeft,
+                        Origin = Mounts.CenterRight,
+                        X = -12,
+                        TextScale = 0.25f,
+                        Text = "0.05x",
+                    },
+                    new SpriteText
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterLeft,
+                        X = 12,
+                        TextScale = 0.25f,
+                        Text = "2x"
+                    }
+                });
+
+                seek.AddArray(new IDrawable2D[]
+                {
+                    timeIn = new SpriteText
+                    {
+                        ParentOrigin = Mounts.CenterLeft,
+                        Origin = Mounts.CenterRight,
+                        X = -12,
+                        TextScale = 0.25f,
+                    },
+                    timeLeft = new SpriteText
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterLeft,
+                        X = 12,
+                        TextScale = 0.25f,
+                    }
                 });
 
                 setRate(TrackManager.CurrentTrack.Pitch);
+
+                TrackManager.OnTrackChange += change;
 
                 base.LoadingComplete();
             }
@@ -233,7 +334,22 @@ namespace Vitaru.Mods.Included
                 base.Update();
 
                 controller.Update();
-                controller.TryRepeat();
+                controller.TryNextLevel();
+
+                float current = (float)TrackManager.CurrentTrack.Clock.Current;
+                float length = (float)TrackManager.CurrentTrack.Length * 1000;
+
+                if (!seek.Dragging)
+                    seek.Progress = PrionMath.Scale(current, 0, length);
+
+                TimeSpan t = TimeSpan.FromMilliseconds(current);
+                TimeSpan l = TimeSpan.FromMilliseconds(length - current);
+
+                string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+                string left = $"-{l.Minutes:D2}:{l.Seconds:D2}:{l.Milliseconds:D3}";
+
+                timeIn.Text = time;
+                timeLeft.Text = left;
             }
 
             protected override void TrackChange(Track t)
@@ -245,8 +361,32 @@ namespace Vitaru.Mods.Included
             private void setRate(float r)
             {
                 TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
-                pitch.Text = MathF.Round(r, 2).ToString();
+                pitch.Text = $"{MathF.Round(r, 2)}x";
                 slider.Progress = PrionMath.Scale(rate, min, max);
+            }
+
+            private void toggle()
+            {
+                if (TrackManager.CurrentTrack.Playing)
+                {
+                    TrackManager.CurrentTrack.Pause();
+                    play.Background = Vitaru.TextureStore.GetTexture("play.png");
+                }
+                else
+                {
+                    TrackManager.CurrentTrack.Play();
+                    play.Background = Vitaru.TextureStore.GetTexture("pause.png");
+                }
+            }
+
+            private void next() => controller.NextLevel();
+
+            private void change(Track t) => song.Text = t.Level.Name;
+
+            protected override void Dispose(bool finalize)
+            {
+                base.Dispose(finalize);
+                TrackManager.OnTrackChange -= change;
             }
         }
     }
