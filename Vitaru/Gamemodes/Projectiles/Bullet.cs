@@ -98,6 +98,8 @@ namespace Vitaru.Gamemodes.Projectiles
             if (Drawable.LoadState < LoadState.Loaded) return;
 
             base.Start();
+
+            if (Drawable == null) return;
             Drawable.FadeTo(1, 200f, Easings.InSine);
             Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
@@ -110,6 +112,7 @@ namespace Vitaru.Gamemodes.Projectiles
             ReturnGreat = false;
             ForceScore = true;
 
+            if (Drawable == null) return;
             Drawable.FadeTo(0, 250, Easings.InSine);
             Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
         }

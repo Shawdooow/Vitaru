@@ -32,7 +32,8 @@ namespace Vitaru.Gamemodes
 
         public virtual void SetDrawable(DrawableGameEntity drawable)
         {
-            Debugger.Assert(Drawable == null, "Drawable should be null");
+            Debugger.Assert(!Disposed, $"Can't set {nameof(Drawable)} of a {nameof(Disposed)} {nameof(GameEntity)}");
+            Debugger.Assert(Drawable == null, $"{nameof(Drawable)} should be null");
             Drawable = drawable;
         }
 
