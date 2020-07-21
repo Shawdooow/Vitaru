@@ -10,6 +10,9 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
@@ -19,7 +22,7 @@ using Vitaru.Themes;
 
 namespace Vitaru.Tracks
 {
-    public class TrackController : InputLayer<IDrawable2D>
+    public class TrackController : InputLayer<IDrawable2D>, IHasInputKeys
     {
         private readonly Sprite background;
         private readonly Button play;
@@ -244,6 +247,32 @@ namespace Vitaru.Tracks
         {
             base.Dispose(finalize);
             TrackManager.OnTrackChange -= change;
+        }
+
+        public bool OnKeyDown(KeyboardKeyEvent e)
+        {
+            switch (e.Key)
+            {
+                default:
+                    return false;
+                case Keys.PlayPause:
+                    TogglePlay();
+                    return true;
+                case Keys.NextTrack:
+                    NextLevel();
+                    return true;
+                case Keys.Stop:
+                    TrackManager.CurrentTrack.Pause();
+                    play.Background = Vitaru.TextureStore.GetTexture("play.png");
+                    return true;
+            }
+
+            
+        }
+
+        public bool OnKeyUp(KeyboardKeyEvent e)
+        {
+            return true;
         }
     }
 }
