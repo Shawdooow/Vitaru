@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
@@ -93,6 +94,7 @@ namespace Vitaru.Roots
         {
             base.LoadingComplete();
             TrackManager.OnTrackChange += TrackChange;
+            Add(new FPSOverlay());
         }
 
         public override void Resize(Vector2 size)

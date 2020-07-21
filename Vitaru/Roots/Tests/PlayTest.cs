@@ -57,7 +57,6 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.ParticleLayer);
             Add(gamefield.ProjectilesLayer);
 
-            Add(new FPSOverlay());
             Add(bullets = new SpriteText
             {
                 Position = new Vector2(-2, 2),
