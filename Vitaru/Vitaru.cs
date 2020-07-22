@@ -33,7 +33,7 @@ namespace Vitaru
     {
         /// <summary>
         ///     Bool for easter egg Alki mode.
-        ///     It has a 1/10 chance of being true on startup and can not be set manually
+        ///     It has a 1/50 chance of being true on startup and can not be set manually
         /// </summary>
         public static bool ALKI { get; private set; }
 
@@ -48,7 +48,7 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             startup.Start();
-            ALKI = PrionMath.RandomNumber(0, 10) == 5;
+            ALKI = PrionMath.RandomNumber(0, 50) == 5;
             if (ALKI)
             {
                 Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
