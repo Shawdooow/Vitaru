@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Roots;
@@ -49,20 +50,38 @@ namespace Vitaru.Mods.Included
 
             public PrionRoot()
             {
-                Add(new Button
+                AddArray(new ILayer[]
                 {
-                    Position = new Vector2(0, -180),
-                    Size = new Vector2(200, 100),
-
-                    Background = Game.TextureStore.GetTexture("square.png"),
-                    BackgroundSprite =
+                    new Button
                     {
-                        Color = Color.Gold
+                        Y = -180,
+                        Size = new Vector2(200, 100),
+
+                        Background = Game.TextureStore.GetTexture("square.png"),
+                        BackgroundSprite =
+                        {
+                            Color = Color.Gold
+                        },
+
+                        Text = "Run Objects",
+
+                        OnClick = () => Benchmarks.Objects()
                     },
+                    new Button
+                    {
+                        Y = -60,
+                        Size = new Vector2(200, 100),
 
-                    Text = "Run All",
+                        Background = Game.TextureStore.GetTexture("square.png"),
+                        BackgroundSprite =
+                        {
+                            Color = Color.LightSkyBlue
+                        },
 
-                    OnClick = () => Benchmarks.All()
+                        Text = "Run Dynamic",
+
+                        OnClick = () => Benchmarks.DynamicThreader()
+                    },
                 });
             }
         }

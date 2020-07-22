@@ -404,10 +404,10 @@ namespace Vitaru.Play
             {
                 threading = true;
 
-                for (int i = 0; i < Vitaru.Threads.Count; i++)
+                for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
                 {
                     List<Projectile> list = new List<Projectile>();
-                    Vitaru.Threads[i].Task = () => proccessList(list);
+                    Vitaru.DynamicThreads[i].Task = () => proccessList(list);
                     lists.Add(list);
                 }
 

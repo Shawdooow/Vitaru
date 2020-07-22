@@ -67,8 +67,6 @@ namespace Vitaru
 
         public static TextureStore LevelTextureStore { get; protected set; }
 
-        public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
-
         private readonly AudioDevice device;
 
         private const string host =
@@ -80,6 +78,10 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base(host, args)
         {
+#if !PUBLISH
+            EXPERIMENTAL = true;
+#endif
+
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             bool levels = ApplicationDataStorage.Exists("Levels");
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
@@ -95,8 +97,8 @@ namespace Vitaru
                 }
             }
 
-            //while (FreeProcessors > 0)
-            //    Threads.Add(CreateDynamicTask());
+            while (FreeProcessors > 0 && EXPERIMENTAL)
+                CreateDynamicTask();
 
             device = new AudioDevice();
 
@@ -182,10 +184,6 @@ namespace Vitaru
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             #endregion
-
-#if !PUBLISH
-            EXPERIMENTAL = true;
-#endif
         }
 
         protected override void ParseArgs(KeyValuePair<string, string> pair)
