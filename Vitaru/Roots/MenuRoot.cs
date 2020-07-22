@@ -31,7 +31,7 @@ namespace Vitaru.Roots
         protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
         protected readonly Sprite Background;
         protected readonly Box Dim;
-        protected readonly Button Back;
+        protected Button Back;
 
         private string bg = string.Empty;
 
@@ -43,11 +43,13 @@ namespace Vitaru.Roots
                 {
                     Background = new Sprite(ThemeManager.GetBackground())
                     {
+                        Name = "Background",
                         Size = new Vector2(Renderer.Width, Renderer.Height),
                         AutoScaleDirection = Direction.Both
                     },
                     Dim = new Box
                     {
+                        Name = "Dim",
                         Color = Color.Black,
                         Alpha = 0.5f,
                         Size = new Vector2(Renderer.Width, Renderer.Height),
@@ -62,28 +64,6 @@ namespace Vitaru.Roots
                 Background.Height += ParallaxAmount;
             }
 
-            Add(Back = new Button
-            {
-                ParentOrigin = Mounts.BottomLeft,
-                Origin = Mounts.BottomLeft,
-                Position = new Vector2(10, -10),
-                Size = new Vector2(80, 40),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = Color.Red
-                },
-
-                Text = "Back",
-                SpriteText =
-                {
-                    TextScale = 0.35f
-                },
-
-                OnClick = DropRoot
-            });
-
             if (UseLevelBackground && TrackManager.CurrentTrack.Level.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
@@ -94,6 +74,30 @@ namespace Vitaru.Roots
         {
             base.LoadingComplete();
             TrackManager.OnTrackChange += TrackChange;
+
+            if (Back == null)
+                Add(Back = new Button
+                {
+                    Name = "Back",
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomLeft,
+                    Position = new Vector2(10, -10),
+                    Size = new Vector2(80, 40),
+
+                    Background = Game.TextureStore.GetTexture("square.png"),
+                    BackgroundSprite =
+                    {
+                        Color = Color.Red
+                    },
+
+                    Text = "Back",
+                    SpriteText =
+                    {
+                        TextScale = 0.35f
+                    },
+
+                    OnClick = DropRoot
+                });
             Add(new FPSOverlay());
         }
 

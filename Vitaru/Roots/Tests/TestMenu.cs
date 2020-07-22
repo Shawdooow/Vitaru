@@ -4,16 +4,12 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Mitochondria.Graphics.Overlays;
-using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
-using Prion.Nucleus.Utilities;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -21,40 +17,18 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
-    public class TestMenu : Root
+    public class TestMenu : MenuRoot
     {
         public override string Name => nameof(TestMenu);
 
-        private const float parallax = 10;
+        protected override bool Parallax => true;
 
         private readonly Box cursor;
-
-        protected readonly Sprite Background;
-        protected readonly Box Dim;
 
         private readonly TrackController controller;
 
         public TestMenu(Vitaru vitaru)
         {
-            Add(new SpriteLayer
-            {
-                Children = new[]
-                {
-                    Background = new Sprite(ThemeManager.GetBackground())
-                    {
-                        Size = new Vector2(Renderer.Width + parallax, Renderer.Height + parallax),
-                        AutoScaleDirection = Direction.Both
-                    },
-                    Dim = new Box
-                    {
-                        Color = Color.Black,
-                        Alpha = 0.5f,
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
-                        AutoScaleDirection = Direction.Both
-                    }
-                }
-            });
-
             Button multi;
             Button edit;
 
@@ -122,10 +96,7 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new ModsTest());
                 }
             });
-            Add(new Exit
-            {
-                OnClick = vitaru.Exit
-            });
+            Add(Back = new Exit(vitaru));
 
             Add(controller = new TrackController());
 
@@ -152,8 +123,6 @@ namespace Vitaru.Roots.Tests
                     }
                 }
             });
-
-            Add(new FPSOverlay());
 
             if (!Vitaru.EXPERIMENTAL)
             {
@@ -207,27 +176,11 @@ namespace Vitaru.Roots.Tests
             controller.TryNextLevel();
 
             cursor.Position = InputManager.Mouse.Position;
-
-            Vector2 min = new Vector2(-parallax / 2);
-            Vector2 max = new Vector2(parallax / 2);
-
-            Vector2 p = PrionMath.Scale(InputManager.Mouse.Position,
-                new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),
-                new Vector2(Renderer.Width / 2f, Renderer.Height / 2f), min, max);
-
-            Background.Position = PrionMath.Clamp(p, min, max);
-        }
-
-        public override void Resize(Vector2 size)
-        {
-            base.Resize(size);
-            Background.Size = new Vector2(size.X + parallax, size.Y + parallax);
-            Dim.Size = size;
         }
 
         private class Exit : Button
         {
-            public Exit()
+            public Exit(Vitaru vitaru)
             {
                 ParentOrigin = Mounts.BottomLeft;
                 Origin = Mounts.BottomLeft;
@@ -238,6 +191,8 @@ namespace Vitaru.Roots.Tests
                 BackgroundSprite.Color = Color.Red;
 
                 Text = "Exit";
+
+                OnClick = vitaru.Exit;
             }
 
             protected override void Flash()
