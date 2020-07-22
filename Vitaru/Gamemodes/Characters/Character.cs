@@ -74,6 +74,25 @@ namespace Vitaru.Gamemodes.Characters
 
                         ParseProjectile(projectile);
 
+                        //TODO: Perform 1D calcs here to skip if possible
+                        //if (projectile.Position.X > Position.X)
+                        //{
+                        //
+                        //}
+                        //else
+                        //{
+                        //    
+                        //}
+                        //
+                        //if (projectile.Position.Y > Position.Y)
+                        //{
+                        //
+                        //}
+                        //else
+                        //{
+                        //
+                        //}
+
                         float distance = Vector2.Distance(projectile.Position, Position);
                         float edgeDistance;
 
