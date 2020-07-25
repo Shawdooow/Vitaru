@@ -11,7 +11,7 @@ namespace Vitaru.Themes
     {
         private static readonly string bg;
 
-        static Default() => bg = PrionMath.RandomNumber(0, 4) == 0 ? "Backgrounds\\somber.png" : "Backgrounds\\ecstatic.png";
+        static Default() => bg = PrionMath.RandomNumber(0, 10) == 8 ? "Backgrounds\\somber.png" : "Backgrounds\\ecstatic.png";
 
         public override Color PrimaryColor => new Vector3(0, 255, 90).Color255();
         public override Color SecondaryColor => new Vector3(255, 0, 90).Color255();

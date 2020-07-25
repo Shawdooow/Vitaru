@@ -18,7 +18,6 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
-using Prion.Nucleus.Threads;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
