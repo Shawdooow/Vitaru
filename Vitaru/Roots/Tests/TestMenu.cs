@@ -178,6 +178,11 @@ namespace Vitaru.Roots.Tests
             cursor.Position = InputManager.Mouse.Position;
         }
 
+        protected override void DropRoot()
+        {
+            //base.DropRoot();
+        }
+
         private class Exit : Button
         {
             public Exit(Vitaru vitaru)
