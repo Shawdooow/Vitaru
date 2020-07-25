@@ -33,7 +33,6 @@ namespace Vitaru.Tracks
         private readonly SpriteText timeLeft;
 
         private bool qued;
-        private string bg = string.Empty;
 
         public TrackController()
         {
@@ -153,18 +152,6 @@ namespace Vitaru.Tracks
             timeLeft.Text = left;
         }
 
-        public override void PreRender()
-        {
-            base.PreRender();
-
-            if (bg != string.Empty)
-            {
-                background.Texture =
-                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
-                bg = string.Empty;
-            }
-        }
-
         public void PrimeTrackManager()
         {
             qued = true;
@@ -175,6 +162,8 @@ namespace Vitaru.Tracks
                 LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]
                     .Levels[0]
                     .LevelTrack;
+
+                background.Texture = t.Image != string.Empty ? Vitaru.LevelTextureStore.GetTexture($"{t.Name}\\{t.Image}") : ThemeManager.GetBackground();
                 song.Text = $"Loading: {t.Name}";
                 TrackManager.SetTrack(t, new SeekableClock());
 
@@ -226,6 +215,8 @@ namespace Vitaru.Tracks
                 LevelTrack n = LevelStore.GetRandomLevel(TrackManager.CurrentTrack.Level);
                 song.Text = $"Loading: {n.Name}";
 
+                background.Texture = n.Image != string.Empty ? Vitaru.LevelTextureStore.GetTexture($"{n.Name}\\{n.Image}") : ThemeManager.GetBackground();
+
                 TrackManager.SetTrack(n);
                 b.Finish();
 
@@ -233,15 +224,7 @@ namespace Vitaru.Tracks
             });
         }
 
-        private void change(Track t)
-        {
-            song.Text = $"{t.Level.Name}";
-
-            if (t.Level.Image != string.Empty)
-                bg = $"{t.Level.Name}\\{t.Level.Image}";
-            else
-                bg = "default";
-        }
+        private void change(Track t) => song.Text = $"{t.Level.Name}";
 
         protected override void Dispose(bool finalize)
         {

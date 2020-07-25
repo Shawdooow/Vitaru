@@ -48,7 +48,7 @@ namespace Vitaru.Roots.Tests
                 OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
-                        AddRoot(new PlayTest());
+                        Game.ScheduleLoad(() => AddRoot(new PlayTest()));
                 }
             });
             Add(multi = new Button
