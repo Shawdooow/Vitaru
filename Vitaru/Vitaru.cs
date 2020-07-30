@@ -53,6 +53,12 @@ namespace Vitaru
                 Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
                 ThemeManager.Theme = new Alki();
             }
+            else
+            {
+                bool somber = PrionMath.RandomNumber(0, 5) == 2;
+                if (somber)
+                    ThemeManager.Theme = new Somber();
+            }
 
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
 

@@ -7,7 +7,7 @@ using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Themes
 {
-    public sealed class Alki : Default
+    public sealed class Alki : Ecstatic
     {
         public override Color PrimaryColor => new Vector3(39, 45, 70).Color255();
         public override Color SecondaryColor => new Vector3(95, 48, 84).Color255();
