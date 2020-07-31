@@ -243,10 +243,10 @@ namespace Vitaru.Tracks
                 bg = "default";
         }
 
-        protected override void Dispose(bool finalize)
+        public override void OnResume()
         {
-            base.Dispose(finalize);
-            TrackManager.OnTrackChange -= change;
+            base.OnResume();
+            play.Background = Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "pause.png" : "play.png");
         }
 
         public bool OnKeyDown(KeyboardKeyEvent e)
@@ -266,13 +266,17 @@ namespace Vitaru.Tracks
                     play.Background = Vitaru.TextureStore.GetTexture("play.png");
                     return true;
             }
-
-            
         }
 
         public bool OnKeyUp(KeyboardKeyEvent e)
         {
             return true;
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            TrackManager.OnTrackChange -= change;
         }
     }
 }
