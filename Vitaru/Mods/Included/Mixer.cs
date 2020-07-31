@@ -10,6 +10,8 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
 using Vitaru.Themes;
@@ -90,10 +92,10 @@ namespace Vitaru.Mods.Included
                         },
                         SpriteText =
                         {
-                            TextScale = 0.25f
+                            TextScale = 0.5f
                         },
 
-                        Text = "+ 0.25x",
+                        Text = "++",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f)
                     },
                     new Button
@@ -134,10 +136,10 @@ namespace Vitaru.Mods.Included
                         },
                         SpriteText =
                         {
-                            TextScale = 0.25f
+                            TextScale = 0.5f
                         },
 
-                        Text = "+ 0.05x",
+                        Text = "+",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.05f)
                     },
                     new Button
@@ -177,10 +179,10 @@ namespace Vitaru.Mods.Included
                         },
                         SpriteText =
                         {
-                            TextScale = 0.25f
+                            TextScale = 0.5f
                         },
 
-                        Text = "- 0.05x",
+                        Text = "-",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.05f)
                     },
                     new Button
@@ -221,9 +223,9 @@ namespace Vitaru.Mods.Included
                         },
                         SpriteText =
                         {
-                            TextScale = 0.25f
+                            TextScale = 0.5f
                         },
-                        Text = "- 0.25x",
+                        Text = "--",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
                     },
 
@@ -383,6 +385,25 @@ namespace Vitaru.Mods.Included
             private void next() => controller.NextLevel();
 
             private void change(Track t) => song.Text = t.Level.Name;
+
+            protected override void OnKeyDown(KeyboardKeyEvent e)
+            {
+                base.OnKeyDown(e);
+
+                switch (e.Key)
+                {
+                    case Keys.PlayPause:
+                        //Yes this is inverted, it is delayed because TrackController gets the event after us...
+                        play.Background = Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "play.png" : "pause.png");
+                        break;
+                    case Keys.NextTrack:
+                        //play.Background = Vitaru.TextureStore.GetTexture("play.png");
+                        break;
+                    case Keys.Stop:
+                        play.Background = Vitaru.TextureStore.GetTexture("play.png");
+                        break;
+                }
+            }
 
             protected override void Dispose(bool finalize)
             {
