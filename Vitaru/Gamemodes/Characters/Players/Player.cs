@@ -160,15 +160,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Released(v);
             }
 
-
-            {
-            }
-
             if (GOD_KING)
-            {
-                Heal(999);
                 Charge(999);
-            }
 
             if (nextHalfBeat <= Clock.LastCurrent && nextHalfBeat != -1)
                 OnHalfBeat();
@@ -286,16 +279,11 @@ namespace Vitaru.Gamemodes.Characters.Players
             }
         }
 
-        protected virtual void Charge(float amount)
-        {
-            Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
-        }
+        protected override void TakeDamage(float amount) => base.TakeDamage(GOD_KING ? 0 : amount);
 
-        protected virtual void DrainEnergy(float amount)
-        {
-            Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
-        }
+        protected virtual void Charge(float amount) => Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
 
+        protected virtual void DrainEnergy(float amount) => Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
 
         #region Input
 

@@ -4,14 +4,11 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Mitochondria.Graphics.Overlays;
-using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
@@ -20,37 +17,20 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
-    public class TestMenu : Root
+    public class TestMenu : MenuRoot
     {
         public override string Name => nameof(TestMenu);
 
-        private readonly Box cursor;
+        protected override bool Parallax => true;
 
-        protected readonly Sprite Background;
-        protected readonly Box Dim;
+        private readonly Box cursor;
 
         private readonly TrackController controller;
 
         public TestMenu(Vitaru vitaru)
         {
-            Add(new SpriteLayer
-            {
-                Children = new[]
-                {
-                    Background = new Sprite(ThemeManager.GetBackground())
-                    {
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
-                        AutoScaleDirection = Direction.Both
-                    },
-                    Dim = new Box
-                    {
-                        Color = Color.Black,
-                        Alpha = 0.5f,
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
-                        AutoScaleDirection = Direction.Both
-                    }
-                }
-            });
+            Button multi;
+            Button edit;
 
             Add(new Button
             {
@@ -71,7 +51,7 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new PlayTest());
                 }
             });
-            Add(new Button
+            Add(multi = new Button
             {
                 Y = -60,
                 Size = new Vector2(200, 100),
@@ -82,15 +62,9 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.SecondaryColor
                 },
 
-                Text = "Multi",
-
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new MultiMenu());
-                }
+                Text = "Multi"
             });
-            Add(new Button
+            Add(edit = new Button
             {
                 Y = 60,
                 Size = new Vector2(200, 100),
@@ -101,13 +75,7 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.TrinaryColor
                 },
 
-                Text = "Edit",
-
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorTest());
-                }
+                Text = "Edit"
             });
             Add(new Button
             {
@@ -128,23 +96,7 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new ModsTest());
                 }
             });
-            Add(new Button
-            {
-                ParentOrigin = Mounts.BottomLeft,
-                Origin = Mounts.BottomLeft,
-                Position = new Vector2(10, -10),
-                Size = new Vector2(80, 40),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = Color.Red
-                },
-
-                Text = "Exit",
-
-                OnClick = vitaru.Exit
-            });
+            Add(Back = new Exit(vitaru));
 
             Add(controller = new TrackController());
 
@@ -172,7 +124,36 @@ namespace Vitaru.Roots.Tests
                 }
             });
 
-            Add(new FPSOverlay());
+            if (!Vitaru.EXPERIMENTAL)
+            {
+                multi.Add(new Box
+                {
+                    Size = multi.Size,
+                    Scale = multi.Scale,
+                    Color = Color.Black,
+                    Alpha = 0.5f
+                });
+                edit.Add(new Box
+                {
+                    Size = multi.Size,
+                    Scale = multi.Scale,
+                    Color = Color.Black,
+                    Alpha = 0.5f
+                });
+            }
+            else
+            {
+                multi.OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new MultiMenu());
+                };
+                edit.OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new EditorTest());
+                };
+            }
         }
 
         public override void LoadingComplete()
@@ -197,11 +178,33 @@ namespace Vitaru.Roots.Tests
             cursor.Position = InputManager.Mouse.Position;
         }
 
-        public override void Resize(Vector2 size)
+        protected override void DropRoot()
         {
-            base.Resize(size);
-            Background.Size = size;
-            Dim.Size = size;
+            //base.DropRoot();
+        }
+
+        private class Exit : Button
+        {
+            public Exit(Vitaru vitaru)
+            {
+                ParentOrigin = Mounts.BottomLeft;
+                Origin = Mounts.BottomLeft;
+                Position = new Vector2(10, -10);
+                Size = new Vector2(80, 40);
+
+                Background = Game.TextureStore.GetTexture("square.png");
+                BackgroundSprite.Color = Color.Red;
+
+                Text = "Exit";
+
+                OnClick = vitaru.Exit;
+            }
+
+            protected override void Flash()
+            {
+                //Don't do it because it crashes
+                //base.Flash();
+            }
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (false)//particles && PrionMath.RandomNumber(0, (int) s) >= 20 / particles_multiplier)
+            if (false)//particles && PrionMath.RandomNumber(0, (int)s) >= 10 / particles_multiplier)
             {
                 s = 0;
 
@@ -108,6 +108,7 @@ namespace Vitaru.Gamemodes.Projectiles
             if (Drawable.LoadState < LoadState.Loaded) return;
 
             base.Start();
+
             Drawable.FadeTo(1, 200f, Easings.InSine);
             Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }

@@ -9,6 +9,8 @@ namespace Vitaru.Roots.Multi
 {
     public abstract class MultiRoot : MenuRoot
     {
+        protected override bool UseLevelBackground => true;
+
         protected readonly VitaruNetHandler VitaruNet;
 
         protected MultiRoot(VitaruNetHandler vitaruNet)

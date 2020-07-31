@@ -18,7 +18,6 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
-using Prion.Nucleus.Threads;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
@@ -33,7 +32,7 @@ namespace Vitaru
     {
         /// <summary>
         ///     Bool for easter egg Alki mode.
-        ///     It has a 1/10 chance of being true on startup and can not be set manually
+        ///     It has a 1/50 chance of being true on startup and can not be set manually
         /// </summary>
         public static bool ALKI { get; private set; }
 
@@ -48,11 +47,17 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             startup.Start();
-            ALKI = PrionMath.RandomNumber(0, 10) == 5;
+            ALKI = PrionMath.RandomNumber(0, 50) == 5;
             if (ALKI)
             {
                 Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
                 ThemeManager.Theme = new Alki();
+            }
+            else
+            {
+                bool somber = PrionMath.RandomNumber(0, 5) == 2;
+                if (somber)
+                    ThemeManager.Theme = new Somber();
             }
 
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
@@ -67,8 +72,6 @@ namespace Vitaru
 
         public static TextureStore LevelTextureStore { get; protected set; }
 
-        public static readonly List<DynamicThread> Threads = new List<DynamicThread>();
-
         private readonly AudioDevice device;
 
         private const string host =
@@ -80,6 +83,10 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base(host, args)
         {
+#if !PUBLISH
+            EXPERIMENTAL = true;
+#endif
+
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             bool levels = ApplicationDataStorage.Exists("Levels");
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
@@ -95,8 +102,8 @@ namespace Vitaru
                 }
             }
 
-            //while (FreeProcessors > 0)
-            //    Threads.Add(CreateDynamicTask());
+            while (FreeProcessors > 0 && EXPERIMENTAL)
+                CreateDynamicTask();
 
             device = new AudioDevice();
 
@@ -182,10 +189,6 @@ namespace Vitaru
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             #endregion
-
-#if !PUBLISH
-            EXPERIMENTAL = true;
-#endif
         }
 
         protected override void ParseArgs(KeyValuePair<string, string> pair)

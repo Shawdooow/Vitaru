@@ -6,8 +6,10 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
-using Vitaru.Editor.IO;
+using Prion.Mitochondria.Graphics.Text;
+using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
+using Vitaru.Levels;
 
 namespace Vitaru.Roots
 {
@@ -15,12 +17,17 @@ namespace Vitaru.Roots
     {
         public override string Name => nameof(EditorRoot);
 
+        protected override bool UseLevelBackground => true;
+
         private readonly Editfield editfield;
 
+        private Timeline timeline;
         private readonly Properties properties;
 
         public EditorRoot()
         {
+            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL) return;
+
             editfield = new Editfield();
             properties = new Properties();
         }
@@ -28,6 +35,16 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
+            {
+                Add(new SpriteText
+                {
+                    Text = "NO LEVEL DATA!"
+                });
+                return;
+            }
+
             Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
 
             Add(new SpriteLayer
@@ -53,7 +70,7 @@ namespace Vitaru.Roots
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
 
-            Add(new Timeline());
+            Add(timeline = new Timeline());
             Add(new Toolbox
             {
                 OnSelection = Selected
@@ -65,6 +82,12 @@ namespace Vitaru.Roots
         {
             editfield.Selected(editable);
             properties.Selected(editable);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            timeline?.Update();
         }
     }
 }

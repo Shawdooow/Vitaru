@@ -4,12 +4,13 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
-    public abstract class Projectile : GameEntity, IEditable
+    public abstract class Projectile : GameEntity, IHasStartPosition
     {
         public override string Name { get; set; } = nameof(Projectile);
 
@@ -19,6 +20,11 @@ namespace Vitaru.Gamemodes.Projectiles
             draw.SetProjectile(this);
             base.SetDrawable(drawable);
         }
+
+        public EditableProperty[] GetProperties() => new EditableProperty[]
+        {
+            new EditableStartPosition(this)
+        };
 
         public Color Color = Color.White;
 
@@ -41,6 +47,10 @@ namespace Vitaru.Gamemodes.Projectiles
         public bool ObeyBoundries { get; set; }
 
         public bool TargetPlayer { get; set; }
+
+        public virtual bool Active => Started && !Collided;
+
+        public bool Collided { get; protected set; }
 
         public bool PreLoaded { get; private set; }
 
@@ -68,7 +78,11 @@ namespace Vitaru.Gamemodes.Projectiles
         {
         }
 
-        public virtual void Hit() => End();
+        public virtual void Collision()
+        {
+            Collided = true;
+            //End();
+        }
 
         public virtual void PreLoad() => PreLoaded = true;
 

@@ -7,16 +7,18 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
+using Vitaru.Editor.Editables.Properties;
 
 namespace Vitaru.Editor.UI
 {
     public class Properties : InputLayer<IDrawable2D>
     {
-        private const float width = 140;
+        private const float width = 160;
         private const float height = 400;
 
         private readonly SpriteText name;
+        private readonly InputLayer<IDrawable2D> properties;
 
         private Editable editable;
 
@@ -42,7 +44,13 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
 
-                    TextScale = 0.25f
+                    TextScale = 0.4f
+                },
+                properties = new InputLayer<IDrawable2D>
+                {
+                    Position = new Vector2(0, 10),
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft
                 }
             };
         }
@@ -51,6 +59,53 @@ namespace Vitaru.Editor.UI
         {
             editable = edit;
             IEditable e = editable.GetEditable(null);
+
+            EditableProperty[] ps = e.GetProperties();
+
+            foreach (EditableProperty p in ps)
+            {
+                switch (p)
+                {
+                    default:
+                        continue;
+                    case EditableVector2 vec2:
+                        properties.Add(new SpriteText
+                        {
+                            TextScale = 0.3f,
+                            Position = new Vector2(0, 36),
+                            ParentOrigin = Mounts.TopLeft,
+                            Origin = Mounts.TopLeft,
+                            Text = "Position (x, y)"
+                        });
+                        properties.Add(new TextBox
+                        {
+                            SpriteText =
+                            {
+                                TextScale = 0.25f
+                            },
+
+                            Size = new Vector2(80, 16),
+                            Position = new Vector2(0, 50),
+                            ParentOrigin = Mounts.TopLeft,
+                            Origin = Mounts.TopLeft,
+                            Text = vec2.Value.X.ToString()
+                        });
+                        properties.Add(new TextBox
+                        {
+                            SpriteText =
+                            {
+                                TextScale = 0.25f
+                            },
+
+                            Size = new Vector2(80, 16),
+                            Position = new Vector2(80, 50),
+                            ParentOrigin = Mounts.TopLeft,
+                            Origin = Mounts.TopLeft,
+                            Text = vec2.Value.Y.ToString()
+                        });
+                        continue;
+                }
+            }
 
             name.Text = e.Name;
         }

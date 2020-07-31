@@ -33,6 +33,12 @@ namespace Vitaru.Tracks
             Level = level;
         }
 
+        public override void Seek(double time)
+        {
+            base.Seek(time);
+            Clock.Seek(time * 1000);
+        }
+
         public virtual bool CheckNewBeat()
         {
             if (!(Clock.LastCurrent >= nextBeat)) return false;

@@ -69,10 +69,29 @@ namespace Vitaru.Gamemodes.Characters
                         Projectile projectile = projectiles[i];
 
                         //Hack to disable bullets we shouldn't interact with
-                        if (!projectile.Started)
+                        if (!projectile.Active)
                             continue;
 
                         ParseProjectile(projectile);
+
+                        //TODO: Perform 1D calcs here to skip if possible
+                        //if (projectile.Position.X > Position.X)
+                        //{
+                        //
+                        //}
+                        //else
+                        //{
+                        //    
+                        //}
+                        //
+                        //if (projectile.Position.Y > Position.Y)
+                        //{
+                        //
+                        //}
+                        //else
+                        //{
+                        //
+                        //}
 
                         float distance = Vector2.Distance(projectile.Position, Position);
                         float edgeDistance;
@@ -88,7 +107,7 @@ namespace Vitaru.Gamemodes.Characters
 
                         if (edgeDistance <= 0)
                         {
-                            Hit(projectile);
+                            Collision(projectile);
                             if (Dead) return;
                         }
                     }
@@ -103,11 +122,11 @@ namespace Vitaru.Gamemodes.Characters
         {
         }
 
-        protected virtual void Hit(Projectile projectile)
+        protected virtual void Collision(Projectile projectile)
         {
             TakeDamage(projectile.Damage);
             Gamefield.Remove(projectile);
-            //projectile.Hit();
+            projectile.Collision();
         }
 
         protected virtual void Heal(float amount)

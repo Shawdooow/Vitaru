@@ -2,8 +2,9 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities.Interfaces;
+using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 

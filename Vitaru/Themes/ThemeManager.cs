@@ -8,7 +8,7 @@ namespace Vitaru.Themes
 {
     public static class ThemeManager
     {
-        public static Theme Theme { get; internal set; } = new Default();
+        public static Theme Theme { get; internal set; } = new Ecstatic();
 
         public static Color PrimaryColor => Theme.PrimaryColor;
         public static Color SecondaryColor => Theme.SecondaryColor;

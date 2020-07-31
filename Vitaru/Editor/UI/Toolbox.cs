@@ -10,7 +10,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Input.Events;
-using Vitaru.Editor.IO;
+using Vitaru.Editor.Editables;
 using Vitaru.Gamemodes;
 
 namespace Vitaru.Editor.UI
@@ -21,7 +21,7 @@ namespace Vitaru.Editor.UI
 
         public Action<Editable> OnSelection;
 
-        private const float width = 140;
+        private const float width = 160;
         private const float height = 400;
 
         private readonly InputLayer<ToolboxItem> items;
@@ -133,15 +133,15 @@ namespace Vitaru.Editor.UI
                 return false;
             }
 
-            public override void OnHovered(MouseHoverEvent e)
+            public override void OnHovered()
             {
-                base.OnHovered(e);
+                base.OnHovered();
                 background.FadeTo(1, 200);
             }
 
-            public override void OnHoverLost(MouseHoverEvent e)
+            public override void OnHoverLost()
             {
-                base.OnHoverLost(e);
+                base.OnHoverLost();
                 background.FadeTo(0.4f, 200);
             }
 

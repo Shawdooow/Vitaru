@@ -5,7 +5,7 @@ using System.Drawing;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.UserInterface;
+using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Mods;
 using Vitaru.Tracks;
 
@@ -16,6 +16,8 @@ namespace Vitaru.Roots.Tests
         public override string Name => nameof(ModsTest);
 
         protected override bool UseLevelBackground => true;
+
+        protected override bool Parallax => true;
 
         private readonly TrackController controller;
 

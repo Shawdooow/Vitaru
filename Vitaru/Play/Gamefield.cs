@@ -118,17 +118,19 @@ namespace Vitaru.Play
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
-                Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy enemy));
-                Debugger.Assert(!enemy.Disposed);
-                LoadedEnemies.Remove(enemy, false);
-                UnloadedEnemies.Add(enemy);
+                Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy e));
+                Debugger.Assert(!e.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be in the {nameof(deadEnemyQue)}!");
+                LoadedEnemies.Remove(e, false);
+                UnloadedEnemies.Add(e);
             }
 
             while (deadprojectileQue.Count > 0)
             {
-                Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile projectile));
-                Debugger.Assert(!projectile.Disposed);
-                ProjectilePacks[projectile.Team].Remove(projectile);
+                Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile p));
+                Debugger.Assert(!p.Disposed,
+                    $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
+
+                ProjectilePacks[p.Team].Remove(p);
             }
 
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
@@ -161,6 +163,10 @@ namespace Vitaru.Play
 
         public void Remove(Enemy enemy)
         {
+            Debugger.Assert(!enemy.Disposed,
+                $"Disposed {nameof(Enemy)}s shouldn't be getting added to {nameof(deadEnemyQue)}!");
+            Debugger.Assert(!deadEnemyQue.Contains(enemy),
+                $"{nameof(Enemy)} shouldn't be getting added to {nameof(deadEnemyQue)} again!");
             //que them since we may be calling this from their update loop
             deadEnemyQue.Enqueue(enemy);
         }
@@ -202,6 +208,11 @@ namespace Vitaru.Play
 
         public void Remove(Projectile projectile)
         {
+            Debugger.Assert(!projectile.Disposed,
+                $"Disposed {nameof(Projectile)}s shouldn't be getting added to {nameof(deadprojectileQue)}!");
+            Debugger.Assert(!deadprojectileQue.Contains(projectile),
+                $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
+
             projectile.Delete();
             deadprojectileQue.Enqueue(projectile);
         }
@@ -218,26 +229,27 @@ namespace Vitaru.Play
                 CharacterLayer.Add(draw);
             }
 
-            //Add / Remove Enemies
+            //Add Enemies
             while (enemyQue.Count > 0)
             {
-                Debugger.Assert(enemyQue.TryDequeue(out Enemy enemy));
-                Debugger.Assert(!enemy.Disposed, "This enemy is disposed and should not be in this list anymore");
-                DrawableGameEntity draw = enemy.GenerateDrawable();
-                enemy.SetDrawable(draw);
+                Debugger.Assert(enemyQue.TryDequeue(out Enemy e));
+                Debugger.Assert(!e.Disposed, "This enemy is disposed and should not be in this list anymore");
+                DrawableGameEntity draw = e.GenerateDrawable();
+                e.SetDrawable(draw);
 
                 draw.OnDelete += () => drawableEnemyQue.Enqueue(draw);
 
                 CharacterLayer.Add(draw);
             }
 
+            //Remove Enemies
             while (drawableEnemyQue.Count > 0)
             {
                 Debugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
             }
 
-            //Add / Remove Projectiles
+            //Add Projectiles
             while (projectileQue.Count > 0)
             {
                 Debugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
@@ -249,6 +261,7 @@ namespace Vitaru.Play
                 ProjectilesLayer.Add(draw);
             }
 
+            //Remove Projectiles
             while (drawableProjectileQue.Count > 0)
             {
                 Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
@@ -358,10 +371,10 @@ namespace Vitaru.Play
             {
                 threading = true;
 
-                for (int i = 0; i < Vitaru.Threads.Count; i++)
+                for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
                 {
                     List<Projectile> list = new List<Projectile>();
-                    Vitaru.Threads[i].Task = () => proccessList(list);
+                    Vitaru.DynamicThreads[i].Task = () => proccessList(list);
                     lists.Add(list);
                 }
 
