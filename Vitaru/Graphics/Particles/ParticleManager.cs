@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.SSBOs;
 using Prion.Nucleus.Debug;
 
@@ -7,13 +8,13 @@ namespace Vitaru.Graphics.Particles
 {
     public static class ParticleManager
     {
-        internal static List<Particle> Master = new List<Particle>();
+        internal static List<Matrix4x4> Master = new List<Matrix4x4>();
 
         private static List<ParticlePointer> pointers = new List<ParticlePointer>();
 
-        internal static SSBO<Particle> Particles;
+        internal static SSBO<Matrix4x4> Particles;
 
-        public static void SetSSBO(SSBO<Particle> ssbo)
+        public static void SetSSBO(SSBO<Matrix4x4> ssbo)
         {
             Reset();
             Particles?.Dispose();
@@ -30,13 +31,13 @@ namespace Vitaru.Graphics.Particles
 
         public static void Reset()
         {
-            Master = new List<Particle>();
+            Master = new List<Matrix4x4>();
             pointers = new List<ParticlePointer>();
         }
 
         public static ParticlePointer GetParticle()
         {
-            Master.Add(new Particle());
+            Master.Add(new Matrix4x4());
 
             pointers.Add(new ParticlePointer(Master.Last())
             {

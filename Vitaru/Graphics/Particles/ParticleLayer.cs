@@ -80,7 +80,7 @@ namespace Vitaru.Graphics.Particles
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
-            ParticleManager.SetSSBO(new SSBO<Particle>(2));
+            ParticleManager.SetSSBO(new SSBO<Matrix4x4>(2));
 
             ParticlePointer particle = ParticleManager.GetParticle();
             

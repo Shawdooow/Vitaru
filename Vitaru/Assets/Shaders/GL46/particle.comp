@@ -3,17 +3,9 @@
 uniform float time;
 uniform mat4 parentTransform;
 
-struct Particle
-{
-	vec4 StartPosition;
-	vec4 EndPosition;
-    vec4 Color;
-    mat4 model;
-};
-
 layout(std430, binding = 2) buffer particleBuffer
 {
-	Particle[] particles;
+	mat4[] models;
 };
 
 mat4 identity()
@@ -67,11 +59,11 @@ float scale(float value, float inputMin, float inputMax, float outputMin, float 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 void main()
 {
-	for(int i = 0; i < particles.length(); i++)
+	for(int i = 0; i < models.length(); i++)
 	{
-        mat4 sTran = scale(particles[i].StartPosition.w);
-        mat4 rTran = rotateZ(particles[i].EndPosition.w);
-        mat4 tTran = translateRow(particles[i].StartPosition.xy);
+        mat4 sTran = scale(models[i][1].z);
+        mat4 rTran = rotateZ(models[i][1].w);
+        mat4 tTran = translateRow(models[i][0].xy);
 
         //TODO: make sure this works
         //mat4 tTran = translateRow(vec2(
@@ -85,7 +77,21 @@ void main()
         draw *= tTran;
         //draw *= parentTransform;
 
+		//0, 0, r, 0
+		//0, 0, g, 0
+		//b, a, 0, 0
+		//0, 0, 0, 0
+
+		//r
+		draw[0].z = models[i][2].x;
+		//g
+		draw[1].z = models[i][2].y;
+		//b
+		draw[2].x = models[i][2].z;
+		//a
+		draw[2].y = models[i][2].w;
+
         //Should be Column-Major?
-        particles[i].model = draw;
+        models[i] = draw;
 	}
 }

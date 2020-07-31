@@ -5,17 +5,9 @@ uniform sampler2D spriteTexture;
 uniform int shade;
 uniform float intensity;
 
-struct Particle
-{
-	vec4 StartPosition;
-	vec4 EndPosition;
-    vec4 Color;
-    mat4 model;
-};
-
 layout(std430, binding = 2) buffer particleBuffer
 {
-	Particle[] particles;
+	mat4[] models;
 };
 
 in vec2 texCoords;
@@ -39,8 +31,11 @@ void main()
 	float gray;
 
 	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= particles[index].Color.w;
-	color.xyz *= particles[index].Color.xyz;
+
+	vec4 c = vec4(models[index][0].z, models[index][1].z, models[index][2].x, models[index][2].y);
+
+	color.w *= c.w;
+	color.xyz *= c.xyz;
 
 	switch(0)
 	{
