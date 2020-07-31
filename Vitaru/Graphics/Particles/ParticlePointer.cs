@@ -74,6 +74,6 @@ namespace Vitaru.Graphics.Particles
             this.model = model;
         }
 
-        public void Update() => ParticleManager.Master[Index] = model;
+        public void Update() => ParticleManager.Master.ToArray()[Index] = model;
     }
 }

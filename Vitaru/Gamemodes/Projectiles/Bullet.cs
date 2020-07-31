@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (false)//particles && PrionMath.RandomNumber(0, (int)s) >= 10 / particles_multiplier)
+            if (particles && PrionMath.RandomNumber(0, (int)s) >= 10 / particles_multiplier)
             {
                 s = 0;
 

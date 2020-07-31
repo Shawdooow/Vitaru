@@ -16,5 +16,17 @@ out vec2 texCoords;
 void main()
 {
 	texCoords = vec2(pos.x + 0.5, pos.y + 0.5);
-	gl_Position = projection * models[index] * (vec4(size, 0, 1.0) * vec4(pos, 0, 1.0));
+
+	mat4 m = models[index];
+
+	//r
+	m[0].z = 0;
+	//g
+	m[1].z = 0;
+	//b
+	m[2].x = 0;
+	//a
+	m[2].y = 0;
+
+	gl_Position = projection * m * (vec4(size, 0, 1.0) * vec4(pos, 0, 1.0));
 }

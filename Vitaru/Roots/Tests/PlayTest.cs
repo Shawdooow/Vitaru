@@ -125,7 +125,7 @@ namespace Vitaru.Roots.Tests
         public override void Update()
         {
             bullets.Text = $"{Bullet.COUNT} B";
-            //particles.Text = $"{Particle.COUNT} P";
+            particles.Text = $"{ParticleManager.Master.Count} P";
 
             TrackManager.CurrentTrack.Clock.Update();
 

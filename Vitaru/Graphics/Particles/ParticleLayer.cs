@@ -82,53 +82,45 @@ namespace Vitaru.Graphics.Particles
 
             ParticleManager.SetSSBO(new SSBO<Matrix4x4>(2));
 
-            ParticlePointer particle = ParticleManager.GetParticle();
+            //ParticlePointer particle = ParticleManager.GetParticle();
             
-            particle.StartPosition = new Vector2(-100, 200);
-            particle.EndPosition = new Vector2(200);
-            particle.Color = new Vector3(0, 0, 1);
-            particle.StartTime = 0;
-            particle.EndTime = 2000;
-            particle.Scale = 5f;
-            particle.Rotation = 0f;
-            particle.Alpha = 1f;
-            particle.Update();
+            //particle.StartPosition = new Vector2(0);
+            //particle.EndPosition = new Vector2(200);
+            //particle.Color = new Vector3(0.91f, 0.92f, 0.93f);
+            //particle.StartTime = 0;
+            //particle.EndTime = 2000;
+            //particle.Scale = 2f;
+            //particle.Rotation = 0f;
+            //particle.Alpha = 0.94f;
+            //particle.Update();
 
-            Matrix4x4 scale = Matrix4x4.CreateScale(new Vector3(particle.Scale));
-            Matrix4x4 rotation = Matrix4x4.CreateRotationZ(particle.Rotation, Vector3.Zero);
-            Matrix4x4 translate = Matrix4x4.CreateTranslation(get(particle.StartPosition));
+            //Matrix4x4 scale = Matrix4x4.CreateScale(new Vector3(particle.Scale));
+            //Matrix4x4 rotation = Matrix4x4.CreateRotationZ(particle.Rotation, Vector3.Zero);
+            //Matrix4x4 translate = Matrix4x4.CreateTranslation(get(particle.StartPosition));
             
-            Matrix4x4 draw = Matrix4x4.Identity;
+            //Matrix4x4 draw = Matrix4x4.Identity;
             
-            draw *= scale;
-            draw *= rotation;
-            draw *= translate;
-            draw *= TotalTransform;
+            //draw *= scale;
+            //draw *= rotation;
+            //draw *= translate;
+            //draw *= TotalTransform;
             
-            Logger.SystemConsole(draw.ToString(), ConsoleColor.Blue);
+            //Logger.SystemConsole(draw.ToString(), ConsoleColor.Blue);
             
-            Vector3 get(Vector2 position)
-            {
-                Vector2 drawOffset = position * particle.Scale;
-            
-                Vector3 totalOffset = new Vector3(drawOffset, 0);
-            
-                return totalOffset;
-            }
+            //Vector3 get(Vector2 position)
+            //{
+            //    Vector2 drawOffset = position * particle.Scale;
+            //
+            //    Vector3 totalOffset = new Vector3(drawOffset, 0);
+            //
+            //    return totalOffset;
+            //}
         }
-
-        private bool sdasds;
 
         //Draw Particles Effeciently
         public override void Render()
         {
             if (!ParticleManager.Master.Any()) return;
-
-            if (!sdasds)
-            {
-                Logger.SystemConsole(TotalTransform.ToString(), ConsoleColor.Blue);
-                sdasds = true;
-            }
 
             p.Start();
 

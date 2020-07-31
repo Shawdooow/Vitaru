@@ -115,6 +115,8 @@ namespace Vitaru.Play
         {
             base.Update();
 
+            ParticleManager.RemoveOldParticles(Clock.LastCurrent);
+
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
