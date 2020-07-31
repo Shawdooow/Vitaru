@@ -26,7 +26,6 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.Particles, true);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
-            SetValue(VitaruSetting.GPUParticles, Renderer._3D_AVAILABLE);
         }
     }
 
@@ -42,7 +41,6 @@ namespace Vitaru.Settings
         LaserVisuals,
         Particles,
         ParticleMultiplier,
-        GPUParticles
     }
 
     public enum GraphicsOptions

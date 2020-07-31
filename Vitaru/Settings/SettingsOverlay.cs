@@ -92,18 +92,6 @@ namespace Vitaru.Settings
                         Text = "Toggle ParticleFX"
                     }
                 },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.GPUParticles)
-                {
-                    Alpha = Renderer._3D_AVAILABLE ? 1 : 0.5f,
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 80),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Toggle GPUParticleFX"
-                    }
-                },
 
                 toggle = new Button
                 {
