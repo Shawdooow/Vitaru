@@ -6,7 +6,6 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
@@ -44,8 +43,6 @@ namespace Vitaru.Roots.Tests
             };
 
             Player player = new Sakuya(gamefield);
-
-            //Add(player.InputHandler);
 
             gamefield.Add(player);
 
