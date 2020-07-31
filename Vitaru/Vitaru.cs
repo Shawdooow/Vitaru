@@ -18,7 +18,6 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
-using Prion.Nucleus.Threads;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
@@ -53,6 +52,12 @@ namespace Vitaru
             {
                 Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
                 ThemeManager.Theme = new Alki();
+            }
+            else
+            {
+                bool somber = PrionMath.RandomNumber(0, 5) == 2;
+                if (somber)
+                    ThemeManager.Theme = new Somber();
             }
 
             GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
