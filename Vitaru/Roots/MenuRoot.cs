@@ -28,6 +28,8 @@ namespace Vitaru.Roots
 
         protected virtual float ParallaxAmount => 10;
 
+        protected virtual bool InvertParallax => false;
+
         protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
         protected readonly Sprite Background;
         protected readonly Box Dim;
@@ -121,6 +123,9 @@ namespace Vitaru.Roots
                 Vector2 parallax = PrionMath.Scale(InputManager.Mouse.Position,
                     new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),
                     new Vector2(Renderer.Width / 2f, Renderer.Height / 2f), min, max);
+
+                if (InvertParallax)
+                    parallax *= -1;
 
                 Background.Position = PrionMath.Clamp(parallax, min, max);
             }
