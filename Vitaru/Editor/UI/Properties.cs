@@ -62,6 +62,8 @@ namespace Vitaru.Editor.UI
 
             EditableProperty[] ps = e.GetProperties();
 
+            properties.ClearChildren();
+
             foreach (EditableProperty p in ps)
             {
                 switch (p)
