@@ -15,12 +15,14 @@ using Vitaru.Themes;
 
 namespace Vitaru.Roots
 {
-    public class MainMenuRoot : Root
+    public class MainMenuRoot : MenuRoot
     {
         public override string Name => nameof(MainMenuRoot);
 
         public MainMenuRoot(Vitaru vitaru)
         {
+            Back = new Button();
+
             Add(new MainMenuPanel());
 
             Add(new SpriteText
@@ -31,6 +33,11 @@ namespace Vitaru.Roots
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru",
                 TextScale = 1.5f
             });
+        }
+
+        protected override void DropRoot()
+        {
+            //base.DropRoot();
         }
 
         private class MainMenuPanel : InputLayer<IDrawable2D>
