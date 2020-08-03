@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input.Events;
 using Vitaru.Themes;
 
 namespace Vitaru.Roots
@@ -102,7 +103,7 @@ namespace Vitaru.Roots
                                 ParentOrigin = Mounts.TopLeft,
                                 Origin = Mounts.TopLeft,
                                 Size = new Vector2(64),
-                                Background = Vitaru.TextureStore.GetTexture("play.png"),
+                                Background = Vitaru.TextureStore.GetTexture("edit.png"),
 
                                 HoverSprite =
                                 {
@@ -205,11 +206,21 @@ namespace Vitaru.Roots
 
             private class MenuButton : Button
             {
+                public bool Focused { get; private set; }
+
                 public MenuButton()
                 {
                     //Just moves it to render last (or on top of everything else)
                     Remove(BackgroundSprite, false);
                     Add(BackgroundSprite);
+                }
+
+                public override bool OnMouseDown(MouseButtonEvent e)
+                {
+                    if (base.OnMouseDown(e))
+                        return Focused = true;
+
+                    return Focused = false;
                 }
 
                 public override void OnHovered()
