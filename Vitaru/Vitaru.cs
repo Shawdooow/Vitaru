@@ -2,17 +2,14 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
-using System.Runtime;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio.OpenAL;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
-using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus.Debug;
@@ -24,7 +21,6 @@ using Vitaru.Gamemodes;
 using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots;
-using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 using Vitaru.Themes;
 
@@ -56,18 +52,13 @@ namespace Vitaru
                     ThemeManager.Theme = new Somber();
             }
 
-            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
-
             using (Vitaru vitaru = new Vitaru(args))
             {
-                Root root;
-
-                if (EXPERIMENTAL)
-                    root = new MainMenuRoot(vitaru);
-                else
-                    root = new TestMenu(vitaru);
-
-                vitaru.Start(root);
+#if !PUBLISH
+                vitaru.Start(new MainMenuRoot(vitaru));
+#else
+                vitaru.Start(new TestMenu(vitaru));
+#endif
             }
         }
 
@@ -89,7 +80,7 @@ namespace Vitaru
         protected Vitaru(string[] args) : base(host, args)
         {
 #if !PUBLISH
-            EXPERIMENTAL = true;
+            //EXPERIMENTAL = true;
 #endif
 
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
@@ -112,7 +103,7 @@ namespace Vitaru
 
             device = new AudioDevice();
 
-            #region Shaders
+#region Shaders
 
             //sprite.vert is shared for both shaders
             string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
@@ -193,7 +184,7 @@ namespace Vitaru
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
-            #endregion
+#endregion
         }
 
         protected override GraphicsContext GetContext(string name)
