@@ -38,12 +38,6 @@ namespace Vitaru
         /// </summary>
         public static bool ALKI { get; private set; }
 
-        /// <summary>
-        ///     Bool for Experimental features you may not want available by default yet.
-        ///     Can be set by passing "Experimental=true" as a launch arg
-        /// </summary>
-        public static bool EXPERIMENTAL { get; private set; }
-
         private static readonly Benchmark startup = new Benchmark("Startup");
 
         public static void Main(string[] args)
@@ -200,18 +194,6 @@ namespace Vitaru
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             #endregion
-        }
-
-        protected override void ParseArgs(KeyValuePair<string, string> pair)
-        {
-            base.ParseArgs(pair);
-
-            switch (pair.Key)
-            {
-                case "Experimental":
-                    EXPERIMENTAL = bool.Parse(pair.Value);
-                    break;
-            }
         }
 
         protected override GraphicsContext GetContext(string name)
