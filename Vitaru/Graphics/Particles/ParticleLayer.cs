@@ -24,11 +24,13 @@ namespace Vitaru.Graphics.Particles
 
         private static ShaderProgram particleProgram;
 
+        private readonly bool experimental = Vitaru.FEATURES >= Features.Experimental;
+
         private VertexArrayObject<Vertex2> vao;
 
         public ParticleLayer()
         {
-            if (Vitaru.FEATURES < Features.Experimental || particleProgram != null) return;
+            if (!experimental || particleProgram != null) return;
 
             Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
                 new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
@@ -71,7 +73,7 @@ namespace Vitaru.Graphics.Particles
         {
             if (!ProtectedChildren.Any()) return;
 
-            if (Vitaru.FEATURES <= Features.Standard)
+            if (!experimental)
                 software();
             else
                 hardware();
