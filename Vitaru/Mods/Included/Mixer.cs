@@ -394,7 +394,10 @@ namespace Vitaru.Mods.Included
                 {
                     case Keys.PlayPause:
                         //Yes this is inverted, it is delayed because TrackController gets the event after us...
-                        play.Background = Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "play.png" : "pause.png");
+                        play.Background =
+                            Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing
+                                ? "play.png"
+                                : "pause.png");
                         break;
                     case Keys.NextTrack:
                         //play.Background = Vitaru.TextureStore.GetTexture("play.png");

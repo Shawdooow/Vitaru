@@ -1,8 +1,8 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Numerics;
 using System.Drawing;
+using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -139,10 +139,10 @@ namespace Vitaru.Roots
                                 },
 
                                 OnClick = () => select(Buttons.Mods)
-                            },
+                            }
                         }
                     },
-                    bar = new Box                         
+                    bar = new Box
                     {
                         Y = 64,
                         ParentOrigin = Mounts.TopLeft,
@@ -150,10 +150,7 @@ namespace Vitaru.Roots
                         Size = new Vector2(Width, 10),
                         Color = Color.White
                     },
-                    body = new InputLayer<IDrawable2D>
-                    {
-
-                    }
+                    body = new InputLayer<IDrawable2D>()
                 };
 
                 select(Buttons.Solo);
@@ -199,7 +196,7 @@ namespace Vitaru.Roots
                 Wiki,
                 Mods,
 
-                Quit,
+                Quit
             }
 
             private class MenuButton : Button

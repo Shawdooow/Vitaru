@@ -106,7 +106,7 @@ namespace Vitaru
 
             device = new AudioDevice();
 
-#region Shaders
+            #region Shaders
 
             //sprite.vert is shared for both shaders
             string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
@@ -187,7 +187,7 @@ namespace Vitaru
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
-#endregion
+            #endregion
         }
 
         protected override GraphicsContext GetContext(string name)

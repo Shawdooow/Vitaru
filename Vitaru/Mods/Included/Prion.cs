@@ -79,7 +79,7 @@ namespace Vitaru.Mods.Included
                         Text = "Run Dynamic",
 
                         OnClick = () => Benchmarks.DynamicThreader()
-                    },
+                    }
                 });
             }
         }

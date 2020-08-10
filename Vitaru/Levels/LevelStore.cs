@@ -189,7 +189,6 @@ namespace Vitaru.Levels
 
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="last"></param>
         /// <returns></returns>

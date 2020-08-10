@@ -246,7 +246,8 @@ namespace Vitaru.Tracks
         public override void OnResume()
         {
             base.OnResume();
-            play.Background = Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "pause.png" : "play.png");
+            play.Background =
+                Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "pause.png" : "play.png");
         }
 
         public bool OnKeyDown(KeyboardKeyEvent e)

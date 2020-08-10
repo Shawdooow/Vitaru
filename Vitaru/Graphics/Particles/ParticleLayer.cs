@@ -30,12 +30,14 @@ namespace Vitaru.Graphics.Particles
         {
             if (Vitaru.FEATURES < Features.Experimental || particleProgram != null) return;
 
-            Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
-            Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
+            Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+                new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
+            Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
 
             particleProgram = Renderer.ShaderManager.GetShaderProgram(pv, pf);
 
-            GLShaderProgram particle = (GLShaderProgram)particleProgram;
+            GLShaderProgram particle = (GLShaderProgram) particleProgram;
 
             particle.SetActive();
 
@@ -77,7 +79,6 @@ namespace Vitaru.Graphics.Particles
 
         private void hardware()
         {
-
         }
 
         private void software()
