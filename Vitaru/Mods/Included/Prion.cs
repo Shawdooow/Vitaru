@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
@@ -21,8 +20,6 @@ namespace Vitaru.Mods.Included
         public override Button GetMenuButton() =>
             new Button
             {
-                ParentOrigin = Mounts.BottomRight,
-                Origin = Mounts.BottomRight,
                 Y = -260,
                 Size = new Vector2(80, 40),
 
