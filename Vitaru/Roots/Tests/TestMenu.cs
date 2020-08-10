@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
+using Prion.Nucleus;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -124,7 +125,7 @@ namespace Vitaru.Roots.Tests
                 }
             });
 
-            if (!Vitaru.EXPERIMENTAL)
+            if (Vitaru.FEATURES < Features.Upcoming)
             {
                 multi.Add(new Box
                 {

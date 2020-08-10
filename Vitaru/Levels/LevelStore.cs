@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Utilities;
 using Vitaru.Server.Track;
 
@@ -22,6 +24,8 @@ namespace Vitaru.Levels
         //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
         {
+            Benchmark b = new Benchmark("Reload Levels From Folders", true);
+
             LoadedLevels = new List<LevelPack>();
 
             string[] directories = Vitaru.LevelStorage.GetDirectories();
@@ -132,10 +136,15 @@ namespace Vitaru.Levels
             }
 
             CurrentPack = LoadedLevels[0];
+
+            b.Record();
+            Logger.Benchmark(b);
         }
 
         public static void ReloadLevelsFromDatabase()
         {
+            Benchmark b = new Benchmark("Reload Levels From Database", true);
+
             LoadedLevels = new List<LevelPack>();
             using (StreamReader reader = new StreamReader(Vitaru.LevelStorage.GetStream("database.vib")))
             {
@@ -153,25 +162,37 @@ namespace Vitaru.Levels
             }
 
             CurrentPack = LoadedLevels[0];
+
+            b.Record();
+            Logger.Benchmark(b);
         }
 
         //TODO: Try Catch this as a whole, if its broken just regen the whole thing
         public static void ReCreateDatabase()
         {
+            Benchmark b = new Benchmark("ReCreate Database", true);
+
             string[] directories = Vitaru.LevelStorage.GetDirectories();
 
             string data = string.Empty;
-            for (int i = 0;
-                i < directories.Length;
-                i++)
+            for (int i = 0; i < directories.Length; i++)
             {
             }
+
+            b.Record();
+            Logger.Benchmark(b);
         }
 
         public static void PopulateDefaults()
         {
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="last"></param>
+        /// <returns></returns>
         public static LevelTrack GetRandomLevel(LevelTrack last)
         {
             int random = PrionMath.RandomNumber(0, LoadedLevels.Count);

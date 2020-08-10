@@ -12,6 +12,7 @@ using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Stores;
+using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
@@ -21,6 +22,7 @@ using Vitaru.Gamemodes;
 using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots;
+using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 using Vitaru.Themes;
 
@@ -39,7 +41,9 @@ namespace Vitaru
         public static void Main(string[] args)
         {
             startup.Start();
+
             ALKI = PrionMath.RandomNumber(0, 50) == 5;
+
             if (ALKI)
             {
                 Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
@@ -54,11 +58,10 @@ namespace Vitaru
 
             using (Vitaru vitaru = new Vitaru(args))
             {
-#if !PUBLISH
-                vitaru.Start(new MainMenuRoot(vitaru));
-#else
-                vitaru.Start(new TestMenu(vitaru));
-#endif
+                if (FEATURES >= Features.Experimental)
+                    vitaru.Start(new MainMenuRoot(vitaru));
+                else
+                    vitaru.Start(new TestMenu(vitaru));
             }
         }
 
@@ -80,7 +83,7 @@ namespace Vitaru
         protected Vitaru(string[] args) : base(host, args)
         {
 #if !PUBLISH
-            //EXPERIMENTAL = true;
+            FEATURES = Features.Upcoming;
 #endif
 
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
@@ -98,7 +101,7 @@ namespace Vitaru
                 }
             }
 
-            while (FreeProcessors > 0 && EXPERIMENTAL)
+            while (FreeProcessors > 0 && FEATURES >= Features.Upcoming)
                 CreateDynamicTask();
 
             device = new AudioDevice();
@@ -190,6 +193,7 @@ namespace Vitaru
         protected override GraphicsContext GetContext(string name)
         {
             //We don't want to load DX12 or Vulkan yet because they don't work
+            //UPDATE: they are disable prion side but lets leave this incase they ever get re-enabled and are still shit
             switch (name)
             {
                 case "Legacy":

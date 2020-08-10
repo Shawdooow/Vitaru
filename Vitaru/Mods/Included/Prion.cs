@@ -9,20 +9,21 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Vitaru.Roots;
 
 namespace Vitaru.Mods.Included
 {
     public sealed class Prion : Mod
     {
-        public override bool Disabled => !Vitaru.EXPERIMENTAL;
+        public override bool Disabled => Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>
             new Button
             {
                 ParentOrigin = Mounts.BottomRight,
                 Origin = Mounts.BottomRight,
-                Position = new Vector2(-10),
+                Y = -260,
                 Size = new Vector2(80, 40),
 
                 Background = Game.TextureStore.GetTexture("square.png"),

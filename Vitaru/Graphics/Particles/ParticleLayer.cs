@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Contexts.GL46.VAOs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Shaders;
+using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 
@@ -27,7 +28,7 @@ namespace Vitaru.Graphics.Particles
 
         public ParticleLayer()
         {
-            if (!Vitaru.EXPERIMENTAL || particleProgram != null) return;
+            if (Vitaru.FEATURES < Features.Experimental || particleProgram != null) return;
 
             Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
             Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
@@ -68,7 +69,7 @@ namespace Vitaru.Graphics.Particles
         {
             if (!ProtectedChildren.Any()) return;
 
-            if (!Vitaru.EXPERIMENTAL)
+            if (Vitaru.FEATURES <= Features.Standard)
                 software();
             else
                 hardware();

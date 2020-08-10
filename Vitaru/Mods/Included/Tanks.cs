@@ -17,6 +17,7 @@ using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
@@ -24,7 +25,7 @@ namespace Vitaru.Mods.Included
 {
     public class Tanks : Mod
     {
-        public override bool Disabled => !Renderer._3D_AVAILABLE;
+        public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Upcoming;
 
         public override Button GetMenuButton() =>
             new Button

@@ -24,12 +24,10 @@ namespace Vitaru.Mods
         {
             LoadedMods = new List<Mod>
             {
+                new Included.Prion(),
                 new Mixer(),
-                new Included.Prion()
+                new Tanks()
             };
-
-            if (Vitaru.EXPERIMENTAL)
-                LoadedMods.Add(new Tanks());
 
             loadedAssemblies = new Dictionary<Assembly, Type>();
 
