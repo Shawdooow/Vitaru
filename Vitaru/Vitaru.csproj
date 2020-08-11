@@ -24,7 +24,6 @@
 	<DebugType>none</DebugType>
 	<DebugSymbols>false</DebugSymbols>
 	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
-	<GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Gamemodes\Tau\**" />
