@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
@@ -42,7 +41,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableStartPosition(this)
         };
 
-        public Color Color = GraphicsUtilities.RandomColor();
+        public Color Color = ColorExtentions.RandomColor();
 
         public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color;
 

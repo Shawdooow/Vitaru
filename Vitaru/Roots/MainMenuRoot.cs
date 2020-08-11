@@ -153,7 +153,7 @@ namespace Vitaru.Roots
                     body = new InputLayer<IDrawable2D>()
                 };
 
-                select(Buttons.Solo);
+                bar.Color = ThemeManager.PrimaryColor;
             }
 
             private void select(Buttons button)
@@ -168,22 +168,22 @@ namespace Vitaru.Roots
                 switch (button)
                 {
                     case Buttons.Solo:
-                        bar.Color = ThemeManager.PrimaryColor;
+                        bar.ColorTo(ThemeManager.PrimaryColor, 200);
                         break;
                     case Buttons.Multi:
-                        bar.Color = ThemeManager.SecondaryColor;
+                        bar.ColorTo(ThemeManager.SecondaryColor, 200);
                         break;
                     case Buttons.Edit:
-                        bar.Color = ThemeManager.TrinaryColor;
+                        bar.ColorTo(ThemeManager.TrinaryColor, 200);
                         break;
                     case Buttons.Wiki:
-                        bar.Color = ThemeManager.QuadnaryColor;
+                        bar.ColorTo(ThemeManager.QuadnaryColor, 200);
                         break;
                     case Buttons.Mods:
-                        bar.Color = Color.DarkOrange;
+                        bar.ColorTo(Color.DarkOrange, 200);
                         break;
                     case Buttons.Quit:
-                        bar.Color = Color.Red;
+                        bar.ColorTo(Color.Red, 200);
                         break;
                 }
             }
