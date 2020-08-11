@@ -283,7 +283,8 @@ namespace Vitaru.Mods.Included
 
                     controller = new TrackController
                     {
-                        Alpha = 0
+                        Alpha = 0,
+                        PassDownInput = false
                     }
                 });
 

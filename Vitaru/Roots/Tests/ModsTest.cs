@@ -49,7 +49,8 @@ namespace Vitaru.Roots.Tests
 
             Add(controller = new TrackController
             {
-                Alpha = 0
+                Alpha = 0,
+                PassDownInput = false
             });
         }
 
