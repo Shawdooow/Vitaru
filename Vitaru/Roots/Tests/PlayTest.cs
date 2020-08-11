@@ -70,10 +70,11 @@ namespace Vitaru.Roots.Tests
             });
 
             //Intentional, as we dont want the slider to receive input...
-            Add(new Layer2D<Slider>
+            Add(new InputLayer<Slider>
             {
                 ParentOrigin = Mounts.TopCenter,
                 Origin = Mounts.TopCenter,
+                PassDownInput = false,
 
                 Child = slider = new Slider
                 {
@@ -81,7 +82,9 @@ namespace Vitaru.Roots.Tests
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
-                    Width = 800
+                    Width = 800,
+                    OnProgressInput = p =>
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
                 }
             });
 
@@ -132,7 +135,8 @@ namespace Vitaru.Roots.Tests
             float current = (float) TrackManager.CurrentTrack.Clock.Current;
             float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
-            slider.Progress = PrionMath.Scale(current, 0, length);
+            if (!slider.Dragging)
+                slider.Progress = PrionMath.Scale(current, 0, length);
 
             TimeSpan t = TimeSpan.FromMilliseconds(current);
             TimeSpan l = TimeSpan.FromMilliseconds(length - current);
