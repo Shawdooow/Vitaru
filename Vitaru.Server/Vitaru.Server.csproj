@@ -18,6 +18,8 @@
     <Optimize>true</Optimize>
 	<SignAssembly>true</SignAssembly>
 	<DelaySign>false</DelaySign>
+	<DebugType>none</DebugType>
+	<DebugSymbols>false</DebugSymbols>
 	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
