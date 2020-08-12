@@ -11,7 +11,7 @@ namespace Vitaru.Server.Track
         /// <summary>
         ///     Name of the Song
         /// </summary>
-        public string Name;
+        public string Title;
 
         /// <summary>
         ///     Name of the audio file

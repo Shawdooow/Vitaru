@@ -152,7 +152,7 @@ namespace Vitaru.Roots.Tests
                 edit.OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorTest());
+                        AddRoot(new EditorRoot());
                 };
             }
         }

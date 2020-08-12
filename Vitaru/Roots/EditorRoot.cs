@@ -22,14 +22,14 @@ namespace Vitaru.Roots
         private readonly Editfield editfield;
 
         private Timeline timeline;
-        private readonly Properties properties;
+        private readonly EditableProperties properties;
 
         public EditorRoot()
         {
             if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL) return;
 
             editfield = new Editfield();
-            properties = new Properties();
+            properties = new EditableProperties();
         }
 
         public override void LoadingComplete()
@@ -70,6 +70,7 @@ namespace Vitaru.Roots
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
 
+            Add(new Toolbar());
             Add(timeline = new Timeline());
             Add(new Toolbox
             {

@@ -12,7 +12,7 @@ using Vitaru.Editor.Editables.Properties;
 
 namespace Vitaru.Editor.UI
 {
-    public class Properties : InputLayer<IDrawable2D>
+    public class EditableProperties : InputLayer<IDrawable2D>
     {
         private const float width = 160;
         private const float height = 400;
@@ -22,7 +22,7 @@ namespace Vitaru.Editor.UI
 
         private Editable editable;
 
-        public Properties()
+        public EditableProperties()
         {
             ParentOrigin = Mounts.CenterRight;
             Origin = Mounts.CenterRight;

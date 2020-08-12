@@ -14,6 +14,8 @@ namespace Vitaru.Levels
 {
     public static class LevelStore
     {
+        public static Level CurrentLevel { get; private set; }
+
         public static LevelPack CurrentPack { get; private set; }
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new List<LevelPack>();
@@ -36,7 +38,7 @@ namespace Vitaru.Levels
 
                 LevelPack pack = new LevelPack
                 {
-                    Name = directories[i]
+                    Title = directories[i]
                 };
                 List<Level> levels = new List<Level>();
 
@@ -82,7 +84,7 @@ namespace Vitaru.Levels
                                     case "PreviewTime":
                                         continue;
                                     case "Title":
-                                        track.Name = line[1];
+                                        track.Title = line[1];
                                         continue;
                                     case "Artist":
                                         track.Artist = line[1];
@@ -123,7 +125,7 @@ namespace Vitaru.Levels
                             Format = BLANK_LEVEL,
                             LevelTrack = new LevelTrack
                             {
-                                Name = pack.Name,
+                                Title = pack.Title,
                                 Filename = audio,
                                 Image = bg,
                                 BPM = 120
@@ -136,6 +138,7 @@ namespace Vitaru.Levels
             }
 
             CurrentPack = LoadedLevels[0];
+            CurrentLevel = CurrentPack.Levels[0];
 
             b.Record();
             Logger.Benchmark(b);
@@ -156,12 +159,13 @@ namespace Vitaru.Levels
 
                     LevelPack pack = new LevelPack
                     {
-                        Name = data[0]
+                        Title = data[0]
                     };
                 }
             }
 
             CurrentPack = LoadedLevels[0];
+            CurrentLevel = CurrentPack.Levels[0];
 
             b.Record();
             Logger.Benchmark(b);
@@ -198,13 +202,15 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (LoadedLevels[random].Levels[0].LevelTrack.Name == last.Name)
+                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;
             }
 
             CurrentPack = LoadedLevels[random];
+            CurrentLevel = CurrentPack.Levels[0];
+
             return CurrentPack.Levels[0].LevelTrack;
         }
     }
