@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Golgi", "..\Prion\Pri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Centrosome", "..\Prion\Prion.Centrosome\Prion.Centrosome.csproj", "{5CC90A8B-C254-4609-8161-9F3D9B2CF467}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinger", "..\Prion\Pinger\Pinger.csproj", "{DEC70F10-AA14-4E33-9D18-E2A556D8449A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,12 @@ Global
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Publish|Any CPU.Build.0 = Publish|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{00D24C17-2873-49A5-B82B-638FCC759D95} = {E0619336-A94F-4280-838B-484A35261D76}
 		{E0360528-22FC-4DEA-AECF-153B832F8DBC} = {E0619336-A94F-4280-838B-484A35261D76}
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467} = {E0619336-A94F-4280-838B-484A35261D76}
+		{DEC70F10-AA14-4E33-9D18-E2A556D8449A} = {E0619336-A94F-4280-838B-484A35261D76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FF9E9E5-F170-4859-B102-80968AAE1D5A}
