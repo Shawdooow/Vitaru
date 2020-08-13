@@ -20,13 +20,13 @@ namespace Vitaru.Mods.Included
         public override Button GetMenuButton() =>
             new Button
             {
-                Y = -260,
-                Size = new Vector2(80, 40),
+                Y = -280,
+                Size = new Vector2(80, 80),
 
-                Background = Game.TextureStore.GetTexture("square.png"),
+                Background = Game.TextureStore.GetTexture("Prion B 512.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.Black
+                    Color = Color.DarkGray
                 },
 
                 Text = "Prion",

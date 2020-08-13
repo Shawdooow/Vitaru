@@ -19,10 +19,12 @@ namespace Vitaru.Roots.Tests
 
         protected override bool Parallax => true;
 
-        private readonly TrackController controller;
+        private TrackController controller;
 
-        public ModsTest()
+        public override void LoadingComplete()
         {
+            base.LoadingComplete();
+
             foreach (Mod mod in Modloader.LoadedMods)
             {
                 Button b = mod.GetMenuButton();
