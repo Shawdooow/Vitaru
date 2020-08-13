@@ -44,10 +44,33 @@ namespace Vitaru.Editor.UI
                         new SpriteText
                         {
                             TextScale = 0.35f,
-                            X = 10,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = "Title"
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Format",
+                            Color = ThemeManager.PrimaryColor,
+                        },
+                        new SpriteText
+                        {
+                            TextScale = 0.3f,
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = LevelStore.CurrentLevel.Format
+                        },
+                        new Box
+                        {
+                            Name = "Spacer",
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor,
+                        },
+                        new SpriteText
+                        {
+                            TextScale = 0.35f,
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Title",
+                            Color = ThemeManager.PrimaryColor,
                         }, 
                         new TextBox
                         {
@@ -56,27 +79,26 @@ namespace Vitaru.Editor.UI
                                 TextScale = 0.3f
                             },
 
-                            X = 10,
-                            Size = new Vector2(width - 20, 16),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.LevelTrack.Title
                         },
                         new Box
                         {
                             Name = "Spacer",
-                            X = 30,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Size = new Vector2(width - 60, 2),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new SpriteText
                         {
                             TextScale = 0.35f,
-                            X = 10,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = "Artist"
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Artist",
+                            Color = ThemeManager.PrimaryColor,
                         },
                         new TextBox
                         {
@@ -85,27 +107,26 @@ namespace Vitaru.Editor.UI
                                 TextScale = 0.3f
                             },
 
-                            X = 10,
-                            Size = new Vector2(width - 20, 16),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.LevelTrack.Artist
                         },                        
                         new Box
                         {
                             Name = "Spacer",
-                            X = 30,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Size = new Vector2(width - 60, 2),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new SpriteText
                         {
                             TextScale = 0.35f,
-                            X = 10,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = "Creator (You)"
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Creator (You)",
+                            Color = ThemeManager.PrimaryColor,
                         },
                         new TextBox
                         {
@@ -114,27 +135,26 @@ namespace Vitaru.Editor.UI
                                 TextScale = 0.3f
                             },
 
-                            X = 10,
-                            Size = new Vector2(width - 20, 16),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.LevelCreator
                         },
                         new Box
                         {
                             Name = "Spacer",
-                            X = 30,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Size = new Vector2(width - 60, 2),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new SpriteText
                         {
                             TextScale = 0.35f,
-                            X = 10,
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = "Level Name"
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Level Name",
+                            Color = ThemeManager.PrimaryColor,
                         },
                         new TextBox
                         {
@@ -143,10 +163,9 @@ namespace Vitaru.Editor.UI
                                 TextScale = 0.3f
                             },
 
-                            X = 10,
-                            Size = new Vector2(width - 20, 16),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.LevelName
                         },
                     }
