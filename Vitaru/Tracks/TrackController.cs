@@ -175,7 +175,7 @@ namespace Vitaru.Tracks
                 LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]
                     .Levels[0]
                     .LevelTrack;
-                song.Text = $"Loading: {t.Name}";
+                song.Text = $"Loading: {t.Title}";
                 TrackManager.SetTrack(t, new SeekableClock());
 
                 track.Finish();
@@ -224,7 +224,7 @@ namespace Vitaru.Tracks
                 Benchmark b = new Benchmark("Switch Level", true);
 
                 LevelTrack n = LevelStore.GetRandomLevel(TrackManager.CurrentTrack.Level);
-                song.Text = $"Loading: {n.Name}";
+                song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
                 b.Finish();
@@ -235,10 +235,10 @@ namespace Vitaru.Tracks
 
         private void change(Track t)
         {
-            song.Text = $"{t.Level.Name}";
+            song.Text = $"{t.Level.Title}";
 
             if (t.Level.Image != string.Empty)
-                bg = $"{t.Level.Name}\\{t.Level.Image}";
+                bg = $"{t.Level.Title}\\{t.Level.Image}";
             else
                 bg = "default";
         }

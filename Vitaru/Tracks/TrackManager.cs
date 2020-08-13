@@ -25,8 +25,8 @@ namespace Vitaru.Tracks
             CurrentTrack?.Pause();
             CurrentTrack?.Dispose();
 
-            Logger.Log($"Setting Track \"{level.Name}\"");
-            CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Name}"));
+            Logger.Log($"Setting Track \"{level.Title}\"");
+            CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Title}"));
             OnTrackChange?.Invoke(CurrentTrack);
 
             seek.Start();

@@ -69,7 +69,7 @@ namespace Vitaru.Roots
             if (UseLevelBackground && TrackManager.CurrentTrack.Level.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
-                        $"{TrackManager.CurrentTrack.Level.Name}\\{TrackManager.CurrentTrack.Level.Image}");
+                        $"{TrackManager.CurrentTrack.Level.Title}\\{TrackManager.CurrentTrack.Level.Image}");
         }
 
         public override void LoadingComplete()
@@ -146,7 +146,7 @@ namespace Vitaru.Roots
         protected virtual void TrackChange(Track t)
         {
             if (t.Level.Image != string.Empty)
-                bg = $"{t.Level.Name}\\{t.Level.Image}";
+                bg = $"{t.Level.Title}\\{t.Level.Image}";
             else
                 bg = "default";
         }

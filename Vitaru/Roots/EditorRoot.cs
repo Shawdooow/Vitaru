@@ -22,26 +22,28 @@ namespace Vitaru.Roots
         private readonly Editfield editfield;
 
         private Timeline timeline;
-        private readonly EditableProperties properties;
+        private readonly LevelProperties levelProperties;
+        private readonly EditableProperties editableProperties;
 
         public EditorRoot()
         {
+            levelProperties = new LevelProperties();
             if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL) return;
 
             editfield = new Editfield();
-            properties = new EditableProperties();
+            editableProperties = new EditableProperties();
         }
 
         public override void LoadingComplete()
         {
             base.LoadingComplete();
 
+            Add(levelProperties);
+
             if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
             {
-                Add(new SpriteText
-                {
-                    Text = "NO LEVEL DATA!"
-                });
+                levelProperties.Alpha = 1;
+                levelProperties.PassDownInput = true;
                 return;
             }
 
@@ -76,13 +78,13 @@ namespace Vitaru.Roots
             {
                 OnSelection = Selected
             });
-            Add(properties);
+            Add(editableProperties);
         }
 
         protected void Selected(Editable editable)
         {
             editfield.Selected(editable);
-            properties.Selected(editable);
+            editableProperties.Selected(editable);
         }
 
         public override void Update()

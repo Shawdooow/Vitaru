@@ -73,7 +73,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
                         TextScale = 0.6f,
-                        Text = TrackManager.CurrentTrack.Level.Name
+                        Text = TrackManager.CurrentTrack.Level.Title
                     },
 
                     new Button
@@ -385,7 +385,7 @@ namespace Vitaru.Mods.Included
 
             private void next() => controller.NextLevel();
 
-            private void change(Track t) => song.Text = t.Level.Name;
+            private void change(Track t) => song.Text = t.Level.Title;
 
             protected override void OnKeyDown(KeyboardKeyEvent e)
             {
