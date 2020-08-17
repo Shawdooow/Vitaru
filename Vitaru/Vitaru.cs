@@ -51,7 +51,7 @@ namespace Vitaru
             }
             else
             {
-                bool somber = PrionMath.RandomNumber(0, 5) == 2;
+                bool somber = false;//PrionMath.RandomNumber(0, 5) == 2;
                 if (somber)
                     ThemeManager.Theme = new Somber();
             }
