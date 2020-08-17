@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -24,7 +25,7 @@ namespace Vitaru.Roots.Tests
 
         protected override bool Parallax => true;
 
-        private readonly Box cursor;
+        private readonly Cursor cursor;
 
         private readonly TrackController controller;
 
@@ -112,18 +113,8 @@ namespace Vitaru.Roots.Tests
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
 
-            Add(new SpriteLayer
-            {
-                Children = new[]
-                {
-                    cursor = new Box
-                    {
-                        Color = Color.Red,
-                        Alpha = 0.25f,
-                        Size = new Vector2(10)
-                    }
-                }
-            });
+            Add(cursor = new Cursor());
+            Renderer.Window.CursorHidden = true;
 
             if (Vitaru.FEATURES < Features.Upcoming)
             {
@@ -163,10 +154,17 @@ namespace Vitaru.Roots.Tests
             controller.PrimeTrackManager();
         }
 
+        protected override void OnPause()
+        {
+            base.OnPause();
+            Renderer.Window.CursorHidden = false;
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
             TrackManager.CurrentTrack.Pitch = 1;
+            Renderer.Window.CursorHidden = true;
         }
 
         public override void Update()
