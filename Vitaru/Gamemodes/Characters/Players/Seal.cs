@@ -100,9 +100,9 @@ namespace Vitaru.Gamemodes.Characters.Players
             float speed = player.Binds[VitaruActions.Sneak] ? 1500 : 1000;
 
             if (!player.SpellActive)
-                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / speed);
-            else
                 Sign.Rotation += (float) (player.Clock.LastElapsedTime / speed);
+            else
+                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / speed);
 
             Reticle.Rotation =
                 (float) Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
