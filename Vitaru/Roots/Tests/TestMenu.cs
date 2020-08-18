@@ -6,11 +6,9 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
-using Prion.Mitochondria.Input;
 using Prion.Nucleus;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
@@ -24,8 +22,6 @@ namespace Vitaru.Roots.Tests
         public override string Name => nameof(TestMenu);
 
         protected override bool Parallax => true;
-
-        private readonly Cursor cursor;
 
         private readonly TrackController controller;
 
@@ -113,7 +109,6 @@ namespace Vitaru.Roots.Tests
                 Text = Vitaru.ALKI ? "Alki" : "Vitaru"
             });
 
-            Add(cursor = new Cursor());
             Renderer.Window.CursorHidden = true;
 
             if (Vitaru.FEATURES < Features.Upcoming)
@@ -154,17 +149,10 @@ namespace Vitaru.Roots.Tests
             controller.PrimeTrackManager();
         }
 
-        protected override void OnPause()
-        {
-            base.OnPause();
-            Renderer.Window.CursorHidden = false;
-        }
-
         protected override void OnResume()
         {
             base.OnResume();
             TrackManager.CurrentTrack.Pitch = 1;
-            Renderer.Window.CursorHidden = true;
         }
 
         public override void Update()
@@ -173,8 +161,6 @@ namespace Vitaru.Roots.Tests
 
             controller.Update();
             controller.TryNextLevel();
-
-            cursor.Position = InputManager.Mouse.Position;
         }
 
         protected override void DropRoot()

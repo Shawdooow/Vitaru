@@ -36,8 +36,6 @@ namespace Vitaru.Roots
 
         public override void LoadingComplete()
         {
-            base.LoadingComplete();
-
             Add(levelProperties);
 
             if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
@@ -79,6 +77,8 @@ namespace Vitaru.Roots
                 OnSelection = Selected
             });
             Add(editableProperties);
+
+            base.LoadingComplete();
         }
 
         protected void Selected(Editable editable)

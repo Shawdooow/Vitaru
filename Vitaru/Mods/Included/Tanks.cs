@@ -62,8 +62,7 @@ namespace Vitaru.Mods.Included
             }
 
             public override void LoadingComplete()
-            {
-                Renderer.Window.CursorHidden = true;
+            { 
                 camera = new Camera();
 
                 LightManager.SetSSBO(new SSBO<Light>(1));

@@ -23,8 +23,6 @@ namespace Vitaru.Roots.Tests
 
         public override void LoadingComplete()
         {
-            base.LoadingComplete();
-
             foreach (Mod mod in Modloader.LoadedMods)
             {
                 Button b = mod.GetMenuButton();
@@ -54,6 +52,8 @@ namespace Vitaru.Roots.Tests
                 Alpha = 0,
                 PassDownInput = false
             });
+
+            base.LoadingComplete();
         }
 
         public override void Update()
@@ -62,12 +62,6 @@ namespace Vitaru.Roots.Tests
 
             controller.Update();
             controller.TryRepeat();
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            Renderer.Window.CursorHidden = false;
         }
     }
 }
