@@ -50,10 +50,14 @@ namespace Vitaru.Mods.Included
             private const float max = 2f;
 
             private float rate = 1f;
+            private float vol = 1f;
 
             private TrackController controller;
 
             private SpriteText song;
+
+            private SpriteText volume;
+            private Slider control;
 
             private SpriteText pitch;
             private Slider slider;
@@ -231,13 +235,25 @@ namespace Vitaru.Mods.Included
 
                     pitch = new SpriteText
                     {
-                        Position = new Vector2(0, -200),
+                        Position = new Vector2(0, -160),
                         Text = TrackManager.CurrentTrack.Pitch.ToString()
                     },
                     slider = new Slider
                     {
                         Width = 1000,
                         Position = new Vector2(0, -100),
+                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
+                    },
+
+                    volume = new SpriteText
+                    {
+                        Position = new Vector2(0, -360),
+                        Text = (TrackManager.CurrentTrack.Gain * 100).ToString()
+                    },
+                    control = new Slider
+                    {
+                        Width = 200,
+                        Position = new Vector2(0, -300),
                         OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
                     },
 
@@ -327,6 +343,7 @@ namespace Vitaru.Mods.Included
                 });
 
                 setRate(TrackManager.CurrentTrack.Pitch);
+                setVolume(TrackManager.CurrentTrack.Gain);
 
                 TrackManager.OnTrackChange += change;
 
@@ -367,6 +384,13 @@ namespace Vitaru.Mods.Included
                 TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
                 pitch.Text = $"{MathF.Round(r, 2)}x";
                 slider.Progress = PrionMath.Scale(rate, min, max);
+            }
+
+            private void setVolume(float v)
+            {
+                TrackManager.CurrentTrack.Gain = vol = Math.Clamp(v, 0, 1);
+                pitch.Text = $"{MathF.Round(v, 2)*100}%";
+                control.Progress = PrionMath.Scale(vol, 0, 0);
             }
 
             private void toggle()
