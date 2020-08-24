@@ -247,14 +247,15 @@ namespace Vitaru.Mods.Included
 
                     volume = new SpriteText
                     {
-                        Position = new Vector2(0, -360),
+                        Position = new Vector2(0, -280),
+                        TextScale = 0.5f,
                         Text = (TrackManager.CurrentTrack.Gain * 100).ToString()
                     },
                     control = new Slider
                     {
                         Width = 200,
-                        Position = new Vector2(0, -300),
-                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
+                        Position = new Vector2(0, -240),
+                        OnProgressInput = setVolume
                     },
 
                     seek = new Slider
@@ -389,8 +390,8 @@ namespace Vitaru.Mods.Included
             private void setVolume(float v)
             {
                 TrackManager.CurrentTrack.Gain = vol = Math.Clamp(v, 0, 1);
-                pitch.Text = $"{MathF.Round(v, 2)*100}%";
-                control.Progress = PrionMath.Scale(vol, 0, 0);
+                volume.Text = $"{MathF.Round(v, 2)*100}%";
+                control.Progress = PrionMath.Scale(vol, 0, 1);
             }
 
             private void toggle()
