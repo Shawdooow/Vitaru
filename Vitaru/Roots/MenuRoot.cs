@@ -101,7 +101,7 @@ namespace Vitaru.Roots
                     OnClick = DropRoot
                 });
             Add(new FPSOverlay());
-            Add(new Cursor());
+            Add(Cursor = new Cursor());
         }
 
         public override void Resize(Vector2 size)
