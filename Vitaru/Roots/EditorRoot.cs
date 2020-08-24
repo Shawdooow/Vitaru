@@ -6,7 +6,6 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
@@ -42,6 +41,7 @@ namespace Vitaru.Roots
             {
                 levelProperties.Alpha = 1;
                 levelProperties.PassDownInput = true;
+                base.LoadingComplete();
                 return;
             }
 
