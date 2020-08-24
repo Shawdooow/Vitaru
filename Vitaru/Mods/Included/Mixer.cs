@@ -50,7 +50,7 @@ namespace Vitaru.Mods.Included
             private const float max = 2f;
 
             private float rate = 1f;
-            private float vol = 1f;
+            private float gain = 1f;
 
             private TrackController controller;
 
@@ -378,6 +378,7 @@ namespace Vitaru.Mods.Included
             {
                 base.TrackChange(t);
                 t.Pitch = rate;
+                t.Gain = gain;
             }
 
             private void setRate(float r)
@@ -389,9 +390,9 @@ namespace Vitaru.Mods.Included
 
             private void setVolume(float v)
             {
-                TrackManager.CurrentTrack.Gain = vol = Math.Clamp(v, 0, 1);
+                TrackManager.CurrentTrack.Gain = gain = Math.Clamp(v, 0, 1);
                 volume.Text = $"{MathF.Round(v, 2)*100}%";
-                control.Progress = PrionMath.Scale(vol, 0, 1);
+                control.Progress = PrionMath.Scale(gain, 0, 1);
             }
 
             private void toggle()
