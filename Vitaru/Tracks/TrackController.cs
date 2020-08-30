@@ -212,7 +212,7 @@ namespace Vitaru.Tracks
 
         public void NextLevel()
         {
-            if (!TrackManager.Switching) return;
+            if (TrackManager.Switching) return;
 
             Game.ScheduleLoad(() =>
             {
