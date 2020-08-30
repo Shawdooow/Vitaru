@@ -27,6 +27,7 @@ namespace Vitaru.Roots.Tests
 
         private readonly Gamefield gamefield;
 
+        private readonly SpriteText enemies;
         private readonly SpriteText bullets;
         private readonly SpriteText particles;
 
@@ -60,16 +61,23 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.ParticleLayer);
             Add(gamefield.ProjectilesLayer);
 
-            Add(bullets = new SpriteText
+            Add(enemies = new SpriteText
             {
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 TextScale = 0.25f
             });
-            Add(particles = new SpriteText
+            Add(bullets = new SpriteText
             {
                 Position = new Vector2(-2, 20),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                TextScale = 0.25f
+            });
+            Add(particles = new SpriteText
+            {
+                Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 TextScale = 0.25f
@@ -133,8 +141,9 @@ namespace Vitaru.Roots.Tests
 
         public override void Update()
         {
-            bullets.Text = $"{Bullet.COUNT} B";
-            particles.Text = $"{Particle.COUNT} P";
+            enemies.Text = $"{Enemy.COUNT} Enemies";
+            bullets.Text = $"{Bullet.COUNT} Bullets";
+            particles.Text = $"{Particle.COUNT} Particles";
 
             TrackManager.CurrentTrack.Clock.Update();
 
@@ -174,15 +183,15 @@ namespace Vitaru.Roots.Tests
 
         protected override void UpdateTransforms()
         {
-            if (multithread && Transforms.Count < 500)
-                base.UpdateTransforms();
-            else
+            if (multithread && Transforms.Count >= 500)
             {
                 assignIndexes();
                 Vitaru.RunThreads();
                 proccessTransforms(start, end);
                 Vitaru.AwaitDynamicThreads();
             }
+            else
+                base.UpdateTransforms();
         }
 
         private void proccessTransforms(int s, int e)

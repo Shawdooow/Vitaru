@@ -17,6 +17,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 {
     public class Enemy : Character, IHasStartPosition
     {
+        public static int COUNT;
+
         public override string Name { get; set; } = nameof(Enemy);
 
         public const int ENEMY_TEAM = 0;
@@ -74,6 +76,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             base.LoadingComplete();
             Position = StartPosition;
+            COUNT++;
         }
 
         public override void OnNewBeat()
@@ -149,6 +152,12 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             EndTime = Clock.LastCurrent;
             Drawable?.Delete();
             Gamefield.Remove(this);
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            COUNT--;
         }
 
         public virtual void ParseString(string[] data, int offset)
