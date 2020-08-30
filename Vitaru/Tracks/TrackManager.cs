@@ -15,8 +15,12 @@ namespace Vitaru.Tracks
 
         public static Action<Track> OnTrackChange;
 
+        public static bool Switching { get; private set; }
+
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
         {
+            Switching = true;
+
             SeekableClock seek = clock ?? CurrentTrack.Clock;
 
             seek.Stop();
@@ -31,6 +35,7 @@ namespace Vitaru.Tracks
 
             seek.Start();
             CurrentTrack.Play();
+            Switching = false;
         }
 
         public static void NextTrack()

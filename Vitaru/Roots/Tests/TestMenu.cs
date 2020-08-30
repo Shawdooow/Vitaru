@@ -97,6 +97,7 @@ namespace Vitaru.Roots.Tests
             Add(Back = new Exit(vitaru));
 
             Add(controller = new TrackController());
+            Add(new TrackSelect());
 
             //Add(new WikiOverlay());
             Add(new SettingsOverlay());

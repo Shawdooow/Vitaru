@@ -32,7 +32,6 @@ namespace Vitaru.Tracks
         private readonly Slider seek;
         private readonly SpriteText timeLeft;
 
-        private bool qued;
         private string bg = string.Empty;
 
         public TrackController()
@@ -167,7 +166,6 @@ namespace Vitaru.Tracks
 
         public void PrimeTrackManager()
         {
-            qued = true;
             Game.ScheduleLoad(() =>
             {
                 Benchmark track = new Benchmark("Prime TrackManager", true);
@@ -179,8 +177,6 @@ namespace Vitaru.Tracks
                 TrackManager.SetTrack(t, new SeekableClock());
 
                 track.Finish();
-
-                qued = false;
             });
         }
 
@@ -216,8 +212,7 @@ namespace Vitaru.Tracks
 
         public void NextLevel()
         {
-            if (qued) return;
-            qued = true;
+            if (!TrackManager.Switching) return;
 
             Game.ScheduleLoad(() =>
             {
@@ -228,8 +223,6 @@ namespace Vitaru.Tracks
 
                 TrackManager.SetTrack(n);
                 b.Finish();
-
-                qued = false;
             });
         }
 
