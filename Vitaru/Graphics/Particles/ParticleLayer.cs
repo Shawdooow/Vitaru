@@ -13,6 +13,7 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Particles
 {
@@ -25,6 +26,8 @@ namespace Vitaru.Graphics.Particles
         private static ShaderProgram particleProgram;
 
         private readonly bool experimental = Vitaru.FEATURES >= Features.Experimental;
+
+        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.ThreadParticles);
 
         private VertexArrayObject<Vertex2> vao;
 
