@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Project">
-	<TargetFramework>net5.0</TargetFramework>
+	<TargetFramework>net5.0-windows10.0.17763</TargetFramework>
 	<LangVersion>9.0</LangVersion>
     <AssemblyTitle>Vitaru</AssemblyTitle>
 	<Version>0.11.0</Version>
