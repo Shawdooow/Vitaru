@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Debug;
@@ -315,11 +316,14 @@ namespace Vitaru.Play
         {
             public int Team { get; set; }
 
-            private readonly List<List<Projectile>> lists = new List<List<Projectile>>();
+            private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.ThreadBullets);
 
             private bool threading;
 
             private readonly Gamefield gamefield;
+
+            private int start;
+            private int end;
 
             public ProjectilePack(Gamefield gamefield)
             {
@@ -328,15 +332,13 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (ProtectedChildren.Count >= 500 && !threading)
-                    enableThreading();
-
                 if (!threading)
-                    proccessList(ProtectedChildren);
+                    proccessList(0, ProtectedChildren.Count);
                 else
                 {
+                    assignIndexes();
                     Vitaru.RunThreads();
-                    proccessList(lists.Last());
+                    proccessList(start, end);
                     Vitaru.AwaitDynamicThreads();
                 }
             }
@@ -345,41 +347,25 @@ namespace Vitaru.Play
             {
                 base.Add(child, position);
 
-                if (threading)
-                {
-                    List<Projectile> smallest = lists[0];
-                    for (int i = 1; i < lists.Count; i++)
-                        if (lists[i].Count < smallest.Count)
-                            smallest = lists[i];
-
-                    smallest.Add(child);
-                }
+                if (multithread && ProtectedChildren.Count >= 500 && !threading)
+                    threading = true;
             }
 
             public override void Remove(Projectile child, bool dispose = true)
             {
                 base.Remove(child, dispose);
 
-                if (threading)
-                {
-                    for (int i = 0; i < lists.Count; i++)
-                    {
-                        if (lists[i].Contains(child))
-                        {
-                            lists[i].Remove(child);
-                            break;
-                        }
-                    }
-                }
+                if (ProtectedChildren.Count < 500 && threading)
+                    threading = false;
             }
 
-            private void proccessList(List<Projectile> list)
+            private void proccessList(int s, int e)
             {
                 double last = Clock.LastCurrent;
 
-                for (int i = 0; i < list.Count; i++)
+                for (int i = s; i < e; i++)
                 {
-                    Projectile p = list[i];
+                    Projectile p = ProtectedChildren[i];
 
                     if (last + p.TimePreLoad >= p.StartTime && last < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
                         p.PreLoad();
@@ -400,29 +386,29 @@ namespace Vitaru.Play
                 }
             }
 
-            private void enableThreading()
+            private void assignIndexes()
             {
-                threading = true;
+                int st = 0;
+                int en = 0;
+
+                float ratio = (float) ProtectedChildren.Count / Vitaru.DynamicThreads.Count;
+                int remainder = ProtectedChildren.Count % Vitaru.DynamicThreads.Count;
+
+                int iter = (int)Math.Round(ratio, MidpointRounding.ToZero);
 
                 for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
                 {
-                    List<Projectile> list = new List<Projectile>();
-                    Vitaru.DynamicThreads[i].Task = () => proccessList(list);
-                    lists.Add(list);
+                    en += iter;
+
+                    int s = st;
+                    int e = en;
+
+                    Vitaru.DynamicThreads[i].Task = () => proccessList(s, e);
+                    st = en + 1;
                 }
 
-                lists.Add(new List<Projectile>());
-
-                int t = 0;
-
-                for (int i = 0; i < ProtectedChildren.Count; i++)
-                {
-                    lists[t].Add(ProtectedChildren[i]);
-
-                    t++;
-                    if (t >= lists.Count)
-                        t = 0;
-                }
+                start = st;
+                end = en + remainder;
             }
         }
 
