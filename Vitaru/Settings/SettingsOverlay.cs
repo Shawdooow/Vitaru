@@ -91,22 +91,23 @@ namespace Vitaru.Settings
                         Text = "Multi-Thread Bullets"
                     }
                 },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadParticles)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 80),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Multi-Thread Particles"
-                    }
-                },
+                //Doesn't work yet...
+                //new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadParticles)
+                //{
+                //    ParentOrigin = Mounts.TopCenter,
+                //    Origin = Mounts.TopCenter,
+                //    Position = new Vector2(0, 80),
+                //    Size = new Vector2(width - 8, 20),
+                //    Text =
+                //    {
+                //        Text = "Multi-Thread Particles"
+                //    },
+                //},
                 new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 100),
+                    Position = new Vector2(0, 80),
                     Size = new Vector2(width - 8, 20),
                     Text =
                     {
