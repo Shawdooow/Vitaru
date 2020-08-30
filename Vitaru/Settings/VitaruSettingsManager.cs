@@ -27,7 +27,7 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
 
             SetValue(VitaruSetting.ThreadBullets, false);
-            SetValue(VitaruSetting.ThreadParticles, false);
+            SetValue(VitaruSetting.ThreadTranforms, false);
 
             SetValue(VitaruSetting.DebugHacks, false);
         }
@@ -49,7 +49,7 @@ namespace Vitaru.Settings
 
         //Performance
         ThreadBullets,
-        ThreadParticles,
+        ThreadTranforms,
 
         //Debug
         DebugHacks,

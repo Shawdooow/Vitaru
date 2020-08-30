@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Prion.Golgi.Utilities;
-using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Debug;
@@ -333,12 +332,12 @@ namespace Vitaru.Play
             public override void Update()
             {
                 if (!threading)
-                    proccessList(0, ProtectedChildren.Count);
+                    proccessBullets(0, ProtectedChildren.Count);
                 else
                 {
                     assignIndexes();
                     Vitaru.RunThreads();
-                    proccessList(start, end);
+                    proccessBullets(start, end);
                     Vitaru.AwaitDynamicThreads();
                 }
             }
@@ -359,7 +358,7 @@ namespace Vitaru.Play
                     threading = false;
             }
 
-            private void proccessList(int s, int e)
+            private void proccessBullets(int s, int e)
             {
                 double last = Clock.LastCurrent;
 
@@ -391,19 +390,22 @@ namespace Vitaru.Play
                 int st = 0;
                 int en = 0;
 
-                float ratio = (float) ProtectedChildren.Count / Vitaru.DynamicThreads.Count;
-                int remainder = ProtectedChildren.Count % Vitaru.DynamicThreads.Count;
+                int tcount = ProtectedChildren.Count;
+                int dcount = Vitaru.DynamicThreads.Count;
+
+                float ratio = (float) tcount / dcount;
+                int remainder = tcount % dcount;
 
                 int iter = (int)Math.Round(ratio, MidpointRounding.ToZero);
 
-                for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
+                for (int i = 0; i < dcount; i++)
                 {
                     en += iter;
 
                     int s = st;
                     int e = en;
 
-                    Vitaru.DynamicThreads[i].Task = () => proccessList(s, e);
+                    Vitaru.DynamicThreads[i].Task = () => proccessBullets(s, e);
                     st = en + 1;
                 }
 
