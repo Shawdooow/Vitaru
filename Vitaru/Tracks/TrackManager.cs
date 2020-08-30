@@ -40,7 +40,7 @@ namespace Vitaru.Tracks
 
         public static void NextTrack()
         {
-            LevelTrack next = LevelStore.GetRandomLevel(CurrentTrack.Level);
+            LevelTrack next = LevelStore.SetRandomLevel(CurrentTrack.Level);
             SetTrack(next, CurrentTrack.Clock);
         }
 

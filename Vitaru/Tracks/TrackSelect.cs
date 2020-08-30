@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Levels;
+using Vitaru.Server.Track;
 
 namespace Vitaru.Tracks
 {
@@ -71,6 +72,7 @@ namespace Vitaru.Tracks
                         if (!TrackManager.Switching)
                             Game.ScheduleLoad(() =>
                             {
+                                LevelStore.SetLevel(p);
                                 TrackManager.SetTrack(p.Levels[0].LevelTrack);
                             });
                     }

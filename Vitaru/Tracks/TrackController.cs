@@ -218,7 +218,7 @@ namespace Vitaru.Tracks
             {
                 Benchmark b = new Benchmark("Switch Level", true);
 
-                LevelTrack n = LevelStore.GetRandomLevel(TrackManager.CurrentTrack.Level);
+                LevelTrack n = LevelStore.SetRandomLevel(TrackManager.CurrentTrack.Level);
                 song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
