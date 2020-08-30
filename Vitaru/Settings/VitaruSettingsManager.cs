@@ -17,29 +17,42 @@ namespace Vitaru.Settings
         protected override void InitDefaults()
         {
             SetValue(VitaruSetting.Touch, false);
-            SetValue(VitaruSetting.DebugHacks, false);
 
             SetValue(VitaruSetting.PlayerVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.EnemyVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.BulletVisuals, GraphicsOptions.Pretty);
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
+
             SetValue(VitaruSetting.Particles, true);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
+
+            SetValue(VitaruSetting.ThreadBullets, false);
+            SetValue(VitaruSetting.ThreadParticles, false);
+
+            SetValue(VitaruSetting.DebugHacks, false);
         }
     }
 
     public enum VitaruSetting
     {
+        //Controls
         Touch,
-        DebugHacks,
 
         //Graphics
         PlayerVisuals,
         EnemyVisuals,
         BulletVisuals,
         LaserVisuals,
+
         Particles,
-        ParticleMultiplier
+        ParticleMultiplier,
+
+        //Performance
+        ThreadBullets,
+        ThreadParticles,
+
+        //Debug
+        DebugHacks,
     }
 
     public enum GraphicsOptions

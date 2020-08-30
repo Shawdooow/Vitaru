@@ -69,7 +69,7 @@ namespace Vitaru.Settings
                         Text = "Toggle Touch Mode"
                     }
                 },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
@@ -77,10 +77,10 @@ namespace Vitaru.Settings
                     Size = new Vector2(width - 8, 20),
                     Text =
                     {
-                        Text = "Toggle \"GOD-KING\" Hacks"
+                        Text = "Toggle ParticleFX"
                     }
                 },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadBullets)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
@@ -88,7 +88,29 @@ namespace Vitaru.Settings
                     Size = new Vector2(width - 8, 20),
                     Text =
                     {
-                        Text = "Toggle ParticleFX"
+                        Text = "Multi-Thread Bullets"
+                    }
+                },
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadParticles)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 80),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Multi-Thread Particles"
+                    }
+                },
+                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
+                {
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
+                    Position = new Vector2(0, 100),
+                    Size = new Vector2(width - 8, 20),
+                    Text =
+                    {
+                        Text = "Toggle \"GOD-KING\" Hacks"
                     }
                 },
 

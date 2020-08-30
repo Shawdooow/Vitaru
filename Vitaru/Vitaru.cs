@@ -16,6 +16,7 @@ using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
+using Prion.Nucleus.IO.Configs;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
@@ -101,8 +102,18 @@ namespace Vitaru
                 }
             }
 
-            while (FreeProcessors > 0 && FEATURES >= Features.Upcoming)
-                CreateDynamicTask();
+            int dtco = PrionSettings.GetInt(PrionSetting.DynamicThreadCountOverride);
+
+            if (dtco <= -1)
+            {
+                while (FreeProcessors > 0)
+                    CreateDynamicTask();
+            }
+            else
+            {
+                while (DynamicThreads.Count < dtco)
+                    CreateDynamicTask();
+            }
 
             device = new AudioDevice();
 
