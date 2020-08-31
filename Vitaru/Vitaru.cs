@@ -180,6 +180,8 @@ namespace Vitaru
             //        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
             //};
 
+            //TODO: Gradient
+
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             #endregion
