@@ -62,7 +62,7 @@ namespace Vitaru.Mods.Included
             }
 
             public override void LoadingComplete()
-            { 
+            {
                 camera = new Camera();
 
                 LightManager.SetSSBO(new SSBO<Light>(1));

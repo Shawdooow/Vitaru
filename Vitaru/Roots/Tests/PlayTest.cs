@@ -208,10 +208,10 @@ namespace Vitaru.Roots.Tests
             int tcount = Transforms.Count;
             int dcount = Vitaru.DynamicThreads.Count;
 
-            float ratio = (float)tcount / dcount;
+            float ratio = (float) tcount / dcount;
             int remainder = tcount % dcount;
 
-            int iter = (int)Math.Round(ratio, MidpointRounding.ToZero);
+            int iter = (int) Math.Round(ratio, MidpointRounding.ToZero);
 
             for (int i = 0; i < dcount; i++)
             {

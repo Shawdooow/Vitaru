@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -21,7 +24,7 @@ namespace Vitaru.Editor.UI
 
             ParentOrigin = Mounts.Center;
             Origin = Mounts.Center;
-            
+
             Size = new Vector2(width, height);
 
             Children = new IDrawable2D[]
@@ -71,7 +74,7 @@ namespace Vitaru.Editor.UI
                             Origin = Mounts.TopCenter,
                             Text = "Title",
                             Color = ThemeManager.PrimaryColor,
-                        }, 
+                        },
                         new TextBox
                         {
                             SpriteText =
@@ -111,7 +114,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.LevelTrack.Artist
-                        },                        
+                        },
                         new Box
                         {
                             Name = "Spacer",
@@ -169,7 +172,7 @@ namespace Vitaru.Editor.UI
                             Text = LevelStore.CurrentLevel.LevelName
                         },
                     }
-                }, 
+                },
             };
         }
     }

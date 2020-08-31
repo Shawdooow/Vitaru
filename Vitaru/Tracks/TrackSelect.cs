@@ -1,5 +1,7 @@
-﻿using System.Drawing;
-using System.Drawing.Text;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -8,7 +10,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Levels;
-using Vitaru.Server.Track;
 
 namespace Vitaru.Tracks
 {
@@ -44,7 +45,7 @@ namespace Vitaru.Tracks
                 {
                     //ParentSizing = Axes.Both,
                     Size = new Vector2(160, 400)
-                }, 
+                },
             };
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
@@ -60,7 +61,7 @@ namespace Vitaru.Tracks
                     Text = p.Title,
 
                     SpriteText =
-                    {                   
+                    {
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
 
@@ -76,7 +77,6 @@ namespace Vitaru.Tracks
                                 TrackManager.SetTrack(p.Levels[0].LevelTrack);
                             });
                     }
-
                 });
             }
         }
