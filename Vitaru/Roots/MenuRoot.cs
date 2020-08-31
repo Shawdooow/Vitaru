@@ -3,10 +3,10 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
@@ -100,7 +100,7 @@ namespace Vitaru.Roots
 
                     OnClick = DropRoot
                 });
-            Add(new FPSOverlay());
+            Add(new PerformanceDisplay(DisplayType.FPS));
             Add(Cursor = new Cursor());
         }
 

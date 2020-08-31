@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
+using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
@@ -14,7 +15,6 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
-using Prion.Mitochondria.Graphics.Overlays;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
@@ -112,7 +112,7 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.7f,
                     Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
-                Add(new FPSOverlay());
+                Add(new PerformanceDisplay(DisplayType.FPS));
 
                 base.LoadingComplete();
             }
