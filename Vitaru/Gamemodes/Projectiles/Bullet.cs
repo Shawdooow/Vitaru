@@ -81,7 +81,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
                 OnAddParticle?.Invoke(new Particle
                 {
-                    StartPosition = Position,
+                    StartPosition = Vector2.Zero,//Position,
                     EndPosition = Position + PrionMath.Offset(distance, angle),
                     Color = Color.Vector(),
                     Scale = 1f / PrionMath.RandomNumber(1, 5)

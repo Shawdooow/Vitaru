@@ -1,6 +1,6 @@
 #version 460
 
-layout(location = 0) in vec2 vertices;
+layout(location = 0) in vec2 vertex;
 layout(location = 1) in float lifetime;
 //TODO: vec4 positions
 layout(location = 2) in vec2 startPos;
@@ -8,6 +8,7 @@ layout(location = 3) in vec2 endPos;
 layout(location = 4) in vec4 color;
 
 uniform mat4 projection;
+uniform mat4 parent;
 
 out vec2 texCoords;
 out vec4 pColor;
@@ -61,11 +62,16 @@ float scale(float value, float inputMin, float inputMax, float outputMin, float 
 
 void main()
 {
+	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
+
 	float particleSize = color.w;
 
 	vec2 pos = startPos;
 
-	gl_Position = projection * identity() * (vec4(vec2(color.w), 0, 1.0) * vec4(pos, 0, 1.0));
+	mat4 model = identity();
+	model = translateRow(pos);
+
+	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 
 	pColor = vec4(color.xyz, 1);
 }
