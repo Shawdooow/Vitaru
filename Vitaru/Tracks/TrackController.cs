@@ -170,10 +170,11 @@ namespace Vitaru.Tracks
             {
                 Benchmark track = new Benchmark("Prime TrackManager", true);
 
-                LevelTrack t = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]
-                    .Levels[0]
-                    .LevelTrack;
+                LevelStore.SetLevel(LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]);
+
+                LevelTrack t = LevelStore.CurrentLevel.LevelTrack;
                 song.Text = $"Loading: {t.Title}";
+                
                 TrackManager.SetTrack(t, new SeekableClock());
 
                 track.Finish();
