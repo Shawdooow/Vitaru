@@ -33,7 +33,7 @@ namespace Vitaru.Graphics.Particles
 
         private static GLShaderProgram program;
 
-        private readonly Texture texture;
+        private Texture texture;
 
         private int verts;
         private int life;
@@ -49,7 +49,7 @@ namespace Vitaru.Graphics.Particles
 
         public Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
-        public ParticleLayer()
+        public override void LoadingComplete()
         {
             if (program != null) throw new InvalidCredentialException("Dumb Fuck");
 
@@ -64,17 +64,6 @@ namespace Vitaru.Graphics.Particles
             program.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
             program.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
 
-            Renderer.OnResize += value =>
-            {
-                program.SetActive();
-                Renderer.ShaderManager.ActiveShaderProgram = program;
-                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
-                    Renderer.Width / -2f,
-                    Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
-            };
-
-            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
-
             Vertex2[] array =
             {
                 new Vertex2(new Vector2(-1f)),
@@ -85,7 +74,7 @@ namespace Vitaru.Graphics.Particles
 
             verts = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.BufferData(BufferTarget.ArrayBuffer, Marshal.SizeOf(array), array, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, 8 * 4, array, BufferUsageHint.StaticDraw);
 
             life = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
@@ -105,14 +94,25 @@ namespace Vitaru.Graphics.Particles
 
             for (int i = 0; i < pLifetime.Length; i++)
                 pLifetime[i] = 2;
+
+            Renderer.OnResize += value =>
+            {
+                program.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = program;
+                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
+                    Renderer.Width / -2f,
+                    Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+            };
+
+            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
         }
 
         public void UpdateParticles()
         {
-            float current = (float)Clock.Current;
+            float last = (float)Clock.LastElapsedTime;
 
             for (int i = 0; i < pLifetime.Length; i++)
-                pLifetime[i] += current / 2000;
+                pLifetime[i] += last / 2000;
         }
 
         //Draw Particles Effeciently
