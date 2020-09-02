@@ -1,13 +1,13 @@
 #version 460
 
+uniform sampler2D spriteTexture;
 
-in vec2 TexCoords;
-in vec4 ParticleColor;
-out vec4 color;
+in vec2 texCoords;
+in vec4 pColor;
 
-uniform sampler2D sprite;
+out vec4 final;
 
 void main()
 {
-    color = (texture(sprite, TexCoords) * ParticleColor);
-}  
+	final = texture(spriteTexture, texCoords) * pColor;
+}

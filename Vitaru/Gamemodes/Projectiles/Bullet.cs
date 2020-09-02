@@ -75,10 +75,16 @@ namespace Vitaru.Gamemodes.Projectiles
             if (particles && PrionMath.RandomNumber(0, (int) s) >= 10 / particles_multiplier)
             {
                 s = 0;
-                OnAddParticle?.Invoke(new Particle(Position)
+
+                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
+                int distance = PrionMath.RandomNumber(15, 30);
+
+                OnAddParticle?.Invoke(new Particle
                 {
-                    Alpha = Drawable.Alpha,
-                    Color = Color
+                    StartPosition = Position,
+                    EndPosition = Position + PrionMath.Offset(distance, angle),
+                    Color = Color.Vector(),
+                    Scale = 1f / PrionMath.RandomNumber(1, 5)
                 });
             }
         }
