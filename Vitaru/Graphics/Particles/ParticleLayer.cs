@@ -178,6 +178,12 @@ namespace Vitaru.Graphics.Particles
 
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, ProtectedChildren.Count);
 
+            //GL.DisableVertexAttribArray(0);
+            //GL.DisableVertexAttribArray(1);
+            //GL.DisableVertexAttribArray(2);
+            //GL.DisableVertexAttribArray(3);
+            //GL.DisableVertexAttribArray(4);
+
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }

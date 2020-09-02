@@ -69,7 +69,8 @@ void main()
 	vec2 pos = startPos;
 
 	mat4 model = identity();
-	model = translateRow(pos);
+	model *= translateRow(pos);
+	model *= parent;
 
 	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 
@@ -77,3 +78,8 @@ void main()
 }
 
 //return --time * time * time + 1;
+
+//drawTransform *= draw.ScaleTransform;
+//drawTransform *= draw.RotationTransform;
+//drawTransform *= draw.TranslationTransform;
+//drawTransform *= parentTransform;
