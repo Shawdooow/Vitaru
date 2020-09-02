@@ -1,16 +1,13 @@
 #version 460
 
-struct Particle
-{
-	//Raw data
-	vec4 Position;
-	vec4 Rotation;
 
-	//computed data for drawing
-	mat4 Transform;
-};
+in vec2 TexCoords;
+in vec4 ParticleColor;
+out vec4 color;
 
-layout(std430, binding = 2) buffer particleBuffer
+uniform sampler2D sprite;
+
+void main()
 {
-	Particle[] particles;
-};
+    color = (texture(sprite, TexCoords) * ParticleColor);
+}  
