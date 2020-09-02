@@ -25,6 +25,8 @@ namespace Vitaru.Graphics.Particles
     {
         public const int MAX_PARTICLES = 20000;
 
+        public static int PARTICLES_IN_USE { get; private set; }
+
         public override string Name { get; set; } = nameof(ParticleLayer);
 
         private readonly Benchmark p = new Benchmark("Particle Render Time");
@@ -46,6 +48,11 @@ namespace Vitaru.Graphics.Particles
         public Vector2[] pEndPosition = new Vector2[MAX_PARTICLES];
 
         public Vector4[] pColor = new Vector4[MAX_PARTICLES];
+
+        private readonly IntPtr lifeBuffer = Marshal.AllocHGlobal(4 * MAX_PARTICLES);
+        private readonly IntPtr startBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
+        private readonly IntPtr endBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
+        private readonly IntPtr colorBuffer = Marshal.AllocHGlobal(16 * MAX_PARTICLES);
 
         private bool bufferParts;
 
@@ -115,9 +122,14 @@ namespace Vitaru.Graphics.Particles
         public void UpdateParticles()
         {
             float last = (float)Clock.LastElapsedTime;
+            PARTICLES_IN_USE = 0;
 
             for (int i = 0; i < pLifetime.Length; i++)
-                pLifetime[i] += last / 2000;
+            {
+                pLifetime[i] += last / 1000;
+
+                if (pLifetime[i] < 1) PARTICLES_IN_USE++;
+            }
         }
 
         public override void PreRender()
@@ -217,10 +229,6 @@ namespace Vitaru.Graphics.Particles
 
         private void bufferLife()
         {
-            Debugger.Assert(Game.DrawThreaded);
-
-            IntPtr lifeBuffer = Marshal.AllocHGlobal(4 * MAX_PARTICLES);
-
             byte[] l = Unsafe.As<float[], byte[]>(ref pLifetime);
 
             Marshal.Copy(l, 0, lifeBuffer, MAX_PARTICLES);
@@ -232,12 +240,6 @@ namespace Vitaru.Graphics.Particles
 
         private void buffer()
         {
-            Debugger.Assert(Game.DrawThreaded);
-
-            IntPtr startBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-            IntPtr endBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-            IntPtr colorBuffer = Marshal.AllocHGlobal(16 * MAX_PARTICLES);
-
             byte[] s = Unsafe.As<Vector2[], byte[]>(ref pStartPosition);
             byte[] e = Unsafe.As<Vector2[], byte[]>(ref pEndPosition);
             byte[] c = Unsafe.As<Vector4[], byte[]>(ref pColor);

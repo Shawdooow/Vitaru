@@ -63,8 +63,6 @@ void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
 
-	float particleSize = color.w;
-
 	//float easing = (lifetime - 1) * lifetime * lifetime + 1;
 
 	vec2 pos = vec2(scale(lifetime, 0, 1, startPos.x, endPos.x), scale(lifetime, 0, 1, startPos.y, endPos.y));

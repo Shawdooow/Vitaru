@@ -143,7 +143,7 @@ namespace Vitaru.Roots.Tests
         {
             enemies.Text = $"{Enemy.COUNT} Enemies";
             bullets.Text = $"{Bullet.COUNT} Bullets";
-            particles.Text = $"{ParticleLayer.MAX_PARTICLES} Particles";
+            particles.Text = $"{ParticleLayer.PARTICLES_IN_USE} ({ParticleLayer.MAX_PARTICLES}) Particles";
 
             TrackManager.CurrentTrack.Clock.Update();
 
