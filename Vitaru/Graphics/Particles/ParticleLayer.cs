@@ -10,11 +10,9 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using System;
 using System.IO;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security.Authentication;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
@@ -25,7 +23,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 5000;
+        public const int MAX_PARTICLES = 20000;
 
         public override string Name { get; set; } = nameof(ParticleLayer);
 

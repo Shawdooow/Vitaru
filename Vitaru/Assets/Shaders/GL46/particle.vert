@@ -65,17 +65,19 @@ void main()
 
 	float particleSize = color.w;
 
-	vec2 pos = vec2(0);
+	//float easing = (lifetime - 1) * lifetime * lifetime + 1;
+
+	vec2 pos = vec2(scale(lifetime, 0, 1, startPos.x, endPos.x), scale(lifetime, 0, 1, startPos.y, endPos.y));
 
 	mat4 model = identity();
-	model = translateRow(pos);
+	model *= translateRow(pos);
+	//model *= rotateZ();
+	model *= scale(64);
 
 	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 
-	pColor = vec4(1, 0, 0, 1);
+	pColor = vec4(color.xyz, 1 - lifetime);
 }
-
-//return --time * time * time + 1;
 
 //drawTransform *= draw.ScaleTransform;
 //drawTransform *= draw.RotationTransform;
