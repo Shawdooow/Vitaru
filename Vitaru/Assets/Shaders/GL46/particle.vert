@@ -1,14 +1,13 @@
 #version 460
 
-layout(location = 0) in vec2 vertex;
-layout(location = 1) in float lifetime;
+layout(location = 10) in vec2 vertex;
+layout(location = 11) in float lifetime;
 //TODO: vec4 positions
-layout(location = 2) in vec2 startPos;
-layout(location = 3) in vec2 endPos;
-layout(location = 4) in vec4 color;
+layout(location = 12) in vec2 startPos;
+layout(location = 13) in vec2 endPos;
+layout(location = 14) in vec4 color;
 
 uniform mat4 projection;
-uniform mat4 parent;
 
 out vec2 texCoords;
 out vec4 pColor;
@@ -66,15 +65,14 @@ void main()
 
 	float particleSize = color.w;
 
-	vec2 pos = startPos;
+	vec2 pos = vec2(0);
 
 	mat4 model = identity();
-	model *= translateRow(pos);
-	model *= parent;
+	model = translateRow(pos);
 
 	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 
-	pColor = vec4(color.xyz, 1);
+	pColor = vec4(1, 0, 0, 1);
 }
 
 //return --time * time * time + 1;

@@ -71,12 +71,9 @@ namespace Vitaru.Graphics.Particles
             GLShaderProgram gl = (GLShaderProgram)program;
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
-            gl.Locations["parent"] = GLShaderManager.GetLocation(program, "parent");
             gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
 
             Renderer.ShaderManager.ActiveShaderProgram = program;
-
-            Renderer.ShaderManager.UpdateMatrix4("parent", TotalTransform);
             Renderer.CurrentContext.BindTexture(texture);
 
             Vertex2[] array =
@@ -129,6 +126,9 @@ namespace Vitaru.Graphics.Particles
         {
             base.PreRender();
 
+            program.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = program;
+
             bufferLife();
 
             if (bufferParts)
@@ -136,53 +136,56 @@ namespace Vitaru.Graphics.Particles
                 bufferParts = false;
                 buffer();
             }
+
+            Renderer.SpriteProgram.SetActive();
+            Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
         //Draw Particles Effeciently
         public override void Render()
         {
             program.SetActive();
-            Renderer.ShaderManager.ActiveShaderProgram = program; 
+            Renderer.ShaderManager.ActiveShaderProgram = program;
             Renderer.CurrentContext.BindTexture(texture);
 
             // verts
-            GL.EnableVertexAttribArray(0);
+            GL.EnableVertexAttribArray(10);
             GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // lifetime
-            GL.EnableVertexAttribArray(1);
+            GL.EnableVertexAttribArray(11);
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
-            GL.VertexAttribPointer(1, 1, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(11, 1, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // start positions
-            GL.EnableVertexAttribArray(2);
+            GL.EnableVertexAttribArray(12);
             GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(12, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // end positions
-            GL.EnableVertexAttribArray(3);
+            GL.EnableVertexAttribArray(13);
             GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
-            GL.VertexAttribPointer(3, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(13, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // colors
-            GL.EnableVertexAttribArray(4);
+            GL.EnableVertexAttribArray(14);
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.VertexAttribPointer(4, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero); 
+            GL.VertexAttribPointer(14, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero); 
 
-            GL.VertexAttribDivisor(0, 0);
-            GL.VertexAttribDivisor(1, 1);
-            GL.VertexAttribDivisor(2, 1);
-            GL.VertexAttribDivisor(3, 1);
-            GL.VertexAttribDivisor(4, 1);
+            GL.VertexAttribDivisor(10, 0);
+            GL.VertexAttribDivisor(11, 1);
+            GL.VertexAttribDivisor(12, 1);
+            GL.VertexAttribDivisor(13, 1);
+            GL.VertexAttribDivisor(14, 1);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, ProtectedChildren.Count);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
 
-            //GL.DisableVertexAttribArray(0);
-            //GL.DisableVertexAttribArray(1);
-            //GL.DisableVertexAttribArray(2);
-            //GL.DisableVertexAttribArray(3);
-            //GL.DisableVertexAttribArray(4);
+            GL.DisableVertexAttribArray(10);
+            GL.DisableVertexAttribArray(11);
+            GL.DisableVertexAttribArray(12);
+            GL.DisableVertexAttribArray(13);
+            GL.DisableVertexAttribArray(14);
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
