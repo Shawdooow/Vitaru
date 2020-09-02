@@ -174,7 +174,7 @@ namespace Vitaru.Tracks
 
                 LevelTrack t = LevelStore.CurrentLevel.LevelTrack;
                 song.Text = $"Loading: {t.Title}";
-                
+
                 TrackManager.SetTrack(t, new SeekableClock());
 
                 track.Finish();

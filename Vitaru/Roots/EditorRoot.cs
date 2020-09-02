@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
@@ -49,7 +48,7 @@ namespace Vitaru.Roots
                 base.LoadingComplete();
                 return;
             }
-                
+
             loadLevelEditor();
 
             base.LoadingComplete();
@@ -101,7 +100,8 @@ namespace Vitaru.Roots
 
             //move the cursor to be on top of the editor...
             Remove(Cursor, false);
-            Add(Cursor); }
+            Add(Cursor);
+        }
 
         private void create()
         {
