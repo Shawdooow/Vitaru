@@ -63,7 +63,7 @@ namespace Vitaru.Graphics.Particles
             texture = Game.TextureStore.GetTexture("particle.png");
 
             for (int i = 0; i < pLifetime.Length; i++)
-                pLifetime[i] = 2;
+                pLifetime[i] = 1;
 
             if (program != null) return;
 
