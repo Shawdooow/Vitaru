@@ -154,7 +154,6 @@ namespace Vitaru.Graphics.Particles
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
-        //Draw Particles Effeciently
         public override void Render()
         {
             if (!particles) return;
