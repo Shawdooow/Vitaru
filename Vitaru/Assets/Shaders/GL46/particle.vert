@@ -63,9 +63,10 @@ void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
 
-	//float easing = (lifetime - 1) * lifetime * lifetime + 1;
+	float easing = 1 - pow(1 - (lifetime / 3 * 2), 3);
+	float fade = 1 - pow(1 - lifetime, 3);
 
-	vec2 pos = vec2(scale(lifetime, 0, 1, startPos.x, endPos.x), scale(lifetime, 0, 1, startPos.y, endPos.y));
+	vec2 pos = vec2(scale(easing, 0, 1, startPos.x, endPos.x), scale(easing, 0, 1, startPos.y, endPos.y));
 
 	mat4 model = identity();
 	model *= translateRow(pos);
@@ -74,7 +75,7 @@ void main()
 
 	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 
-	pColor = vec4(color.xyz, 1 - lifetime);
+	pColor = vec4(color.xyz, 1 - fade);
 }
 
 //drawTransform *= draw.ScaleTransform;

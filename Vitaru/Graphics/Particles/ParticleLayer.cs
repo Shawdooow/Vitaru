@@ -130,7 +130,7 @@ namespace Vitaru.Graphics.Particles
 
             for (int i = 0; i < pLifetime.Length; i++)
             {
-                pLifetime[i] += last / 500;
+                pLifetime[i] += last / 1200;
 
                 if (pLifetime[i] < 1) PARTICLES_IN_USE++;
             }
