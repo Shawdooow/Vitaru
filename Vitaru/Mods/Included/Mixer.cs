@@ -66,6 +66,8 @@ namespace Vitaru.Mods.Included
             private SpriteText timeIn;
             private Slider seek;
             private SpriteText timeLeft;
+            
+            private bool accel;
 
             public override void LoadingComplete()
             {
@@ -233,6 +235,29 @@ namespace Vitaru.Mods.Included
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
                     },
 
+                    new Button
+                    {
+                        Size = new Vector2(80, 40),
+                        Y = 80,
+
+                        Background = Game.TextureStore.GetTexture("square.png"),
+                        Dim =
+                        {
+                            Alpha = 0.5f
+                        },
+                        BackgroundSprite =
+                        {
+                            Color = ThemeManager.SecondaryColor
+                        },
+                        SpriteText =
+                        {
+                            TextScale = 0.25f
+                        },
+
+                        Text = "Accel",
+                        OnClick = () => accel = !accel
+                    },
+
                     pitch = new SpriteText
                     {
                         Position = new Vector2(0, -160),
@@ -370,6 +395,9 @@ namespace Vitaru.Mods.Included
 
                 if (!seek.Dragging)
                     seek.Progress = PrionMath.Scale(current, 0, length);
+
+                if (accel)
+                    setRate(PrionMath.Scale(current, 0, length, 0.75f, 1.5f));
 
                 TimeSpan t = TimeSpan.FromMilliseconds(current);
                 TimeSpan l = TimeSpan.FromMilliseconds(length - current);
