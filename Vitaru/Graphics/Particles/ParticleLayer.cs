@@ -4,7 +4,6 @@
 using System;
 using System.IO;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
@@ -23,7 +22,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 20000;
+        public const int MAX_PARTICLES = 400000;
 
         public static int PARTICLES_IN_USE { get; private set; }
 
@@ -49,10 +48,10 @@ namespace Vitaru.Graphics.Particles
 
         public Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
-        private IntPtr lifeBuffer = Marshal.AllocHGlobal(4 * MAX_PARTICLES);
-        private IntPtr startBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-        private IntPtr endBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-        private IntPtr colorBuffer = Marshal.AllocHGlobal(16 * MAX_PARTICLES);
+        private IntPtr lifeBuffer;
+        private IntPtr startBuffer;
+        private IntPtr endBuffer;
+        private IntPtr colorBuffer;
 
         private bool bufferParts;
 
@@ -131,7 +130,7 @@ namespace Vitaru.Graphics.Particles
 
             for (int i = 0; i < pLifetime.Length; i++)
             {
-                pLifetime[i] += last / 1000;
+                pLifetime[i] += last / 500;
 
                 if (pLifetime[i] < 1) PARTICLES_IN_USE++;
             }
