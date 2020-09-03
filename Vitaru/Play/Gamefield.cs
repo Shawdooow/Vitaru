@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Linq;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups.Packs;
@@ -147,7 +146,7 @@ namespace Vitaru.Play
                 }
             }
 
-            ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
+            ParticleLayer.UpdateParticles((float) Clock.LastElapsedTime);
         }
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();

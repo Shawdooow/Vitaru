@@ -16,7 +16,6 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
-using Vitaru.Settings;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests

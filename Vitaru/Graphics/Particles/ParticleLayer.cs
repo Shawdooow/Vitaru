@@ -1,21 +1,21 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using OpenTK.Graphics.OpenGL4;
-using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
-using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
-using Prion.Mitochondria.Graphics.Shaders;
-using Prion.Nucleus.Debug;
 using System;
 using System.IO;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
+using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Nucleus.Debug;
 using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
@@ -67,13 +67,15 @@ namespace Vitaru.Graphics.Particles
 
             if (program != null) return;
 
-            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
-            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel, new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
+            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+                new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
+            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
 
             program = Renderer.ShaderManager.GetShaderProgram(vert, frag);
             program.SetActive();
 
-            GLShaderProgram gl = (GLShaderProgram)program;
+            GLShaderProgram gl = (GLShaderProgram) program;
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
             gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
@@ -113,7 +115,9 @@ namespace Vitaru.Graphics.Particles
             {
                 program.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = program;
-                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter( Renderer.Width / -2f, Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+                Renderer.ShaderManager.UpdateMatrix4("projection",
+                    Matrix4x4.CreateOrthographicOffCenter(Renderer.Width / -2f, Renderer.Width / 2f,
+                        Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
             };
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
@@ -185,7 +189,7 @@ namespace Vitaru.Graphics.Particles
             // colors
             GL.EnableVertexAttribArray(14);
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.VertexAttribPointer(14, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero); 
+            GL.VertexAttribPointer(14, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             GL.VertexAttribDivisor(10, 0);
             GL.VertexAttribDivisor(11, 1);

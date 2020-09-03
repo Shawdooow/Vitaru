@@ -66,7 +66,7 @@ namespace Vitaru.Mods.Included
             private SpriteText timeIn;
             private Slider seek;
             private SpriteText timeLeft;
-            
+
             private bool accel;
 
             public override void LoadingComplete()

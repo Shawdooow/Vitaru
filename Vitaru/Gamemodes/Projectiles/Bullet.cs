@@ -76,7 +76,7 @@ namespace Vitaru.Gamemodes.Projectiles
             {
                 s = 0;
 
-                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
+                float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
                 int distance = PrionMath.RandomNumber(15, 30);
 
                 OnAddParticle?.Invoke(new Particle
