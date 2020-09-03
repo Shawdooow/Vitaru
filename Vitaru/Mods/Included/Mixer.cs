@@ -348,6 +348,13 @@ namespace Vitaru.Mods.Included
 
                 TrackManager.OnTrackChange += change;
 
+                Add(new TrackSelect
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
+                    Y = 8
+                });
+
                 base.LoadingComplete();
             }
 
