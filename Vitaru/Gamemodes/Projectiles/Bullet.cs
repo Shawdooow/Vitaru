@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Clock.LastElapsedTime;
 
-            if (particles && Clock.LastCurrent < EndTime && s >= 10 / particles_multiplier)
+            if (particles && Clock.LastCurrent < EndTime && s >= 20 / particles_multiplier)
             {
                 s = 0;
 

@@ -22,7 +22,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 400000;
+        public const int MAX_PARTICLES = 36840;
 
         public static int PARTICLES_IN_USE { get; private set; }
 
