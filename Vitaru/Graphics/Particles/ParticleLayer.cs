@@ -49,10 +49,10 @@ namespace Vitaru.Graphics.Particles
 
         public Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
-        private readonly IntPtr lifeBuffer = Marshal.AllocHGlobal(4 * MAX_PARTICLES);
-        private readonly IntPtr startBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-        private readonly IntPtr endBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
-        private readonly IntPtr colorBuffer = Marshal.AllocHGlobal(16 * MAX_PARTICLES);
+        private IntPtr lifeBuffer = Marshal.AllocHGlobal(4 * MAX_PARTICLES);
+        private IntPtr startBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
+        private IntPtr endBuffer = Marshal.AllocHGlobal(8 * MAX_PARTICLES);
+        private IntPtr colorBuffer = Marshal.AllocHGlobal(16 * MAX_PARTICLES);
 
         private bool bufferParts;
 
@@ -237,9 +237,8 @@ namespace Vitaru.Graphics.Particles
 
         private void bufferLife()
         {
-            byte[] l = Unsafe.As<float[], byte[]>(ref pLifetime);
-
-            Marshal.Copy(l, 0, lifeBuffer, MAX_PARTICLES);
+            GCHandle l = GCHandle.Alloc(pLifetime, GCHandleType.Pinned);
+            lifeBuffer = l.AddrOfPinnedObject();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 4, IntPtr.Zero, BufferUsageHint.StreamDraw);
@@ -248,13 +247,14 @@ namespace Vitaru.Graphics.Particles
 
         private void buffer()
         {
-            byte[] s = Unsafe.As<Vector2[], byte[]>(ref pStartPosition);
-            byte[] e = Unsafe.As<Vector2[], byte[]>(ref pEndPosition);
-            byte[] c = Unsafe.As<Vector4[], byte[]>(ref pColor);
+            GCHandle s = GCHandle.Alloc(pStartPosition, GCHandleType.Pinned);
+            startBuffer = s.AddrOfPinnedObject();
 
-            Marshal.Copy(s, 0, startBuffer, MAX_PARTICLES);
-            Marshal.Copy(e, 0, endBuffer, MAX_PARTICLES);
-            Marshal.Copy(c, 0, colorBuffer, MAX_PARTICLES);
+            GCHandle e = GCHandle.Alloc(pEndPosition, GCHandleType.Pinned);
+            endBuffer = e.AddrOfPinnedObject();
+
+            GCHandle c = GCHandle.Alloc(pColor, GCHandleType.Pinned);
+            colorBuffer = c.AddrOfPinnedObject();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
