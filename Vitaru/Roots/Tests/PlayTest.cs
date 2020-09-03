@@ -34,9 +34,6 @@ namespace Vitaru.Roots.Tests
         private readonly Slider slider;
         private readonly SpriteText timeLeft;
 
-        private int start;
-        private int end;
-
         public PlayTest()
         {
             gamefield = new Gamefield
