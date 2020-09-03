@@ -7,7 +7,6 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Debug;
-using Prion.Nucleus.Debug.Benchmarking;
 using System;
 using System.IO;
 using System.Numerics;
@@ -17,6 +16,7 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
+using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Graphics.Particles
@@ -29,7 +29,7 @@ namespace Vitaru.Graphics.Particles
 
         public override string Name { get; set; } = nameof(ParticleLayer);
 
-        private readonly Benchmark p = new Benchmark("Particle Render Time");
+        private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
         private static ShaderProgram program;
 
@@ -119,10 +119,11 @@ namespace Vitaru.Graphics.Particles
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
         }
 
-        public void UpdateParticles()
+        public void UpdateParticles(float last)
         {
-            float last = (float)Clock.LastElapsedTime;
             PARTICLES_IN_USE = 0;
+
+            if (!particles) return;
 
             for (int i = 0; i < pLifetime.Length; i++)
             {
@@ -135,6 +136,8 @@ namespace Vitaru.Graphics.Particles
         public override void PreRender()
         {
             base.PreRender();
+
+            if (!particles) return;
 
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
@@ -154,6 +157,8 @@ namespace Vitaru.Graphics.Particles
         //Draw Particles Effeciently
         public override void Render()
         {
+            if (!particles) return;
+
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
             Renderer.CurrentContext.BindTexture(texture);
@@ -259,12 +264,6 @@ namespace Vitaru.Graphics.Particles
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
             GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 16, colorBuffer);
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            base.Dispose(finalize);
-            Logger.Benchmark(p);
         }
     }
 }

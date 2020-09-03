@@ -35,8 +35,6 @@ namespace Vitaru.Roots.Tests
         private readonly Slider slider;
         private readonly SpriteText timeLeft;
 
-        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.ThreadTranforms);
-
         private int start;
         private int end;
 
@@ -57,8 +55,8 @@ namespace Vitaru.Roots.Tests
             Add(gamefield);
 
             //Layers
-            Add(gamefield.CharacterLayer);
             Add(gamefield.ParticleLayer);
+            Add(gamefield.CharacterLayer);
             Add(gamefield.ProjectilesLayer);
 
             Add(enemies = new SpriteText
@@ -179,53 +177,6 @@ namespace Vitaru.Roots.Tests
             }
 
             base.Update();
-        }
-
-        protected override void UpdateTransforms()
-        {
-            if (multithread && Transforms.Count >= 500)
-            {
-                assignIndexes();
-                Vitaru.RunThreads();
-                proccessTransforms(start, end);
-                Vitaru.AwaitDynamicThreads();
-            }
-            else
-                base.UpdateTransforms();
-        }
-
-        private void proccessTransforms(int s, int e)
-        {
-            for (int i = s; i < e; i++)
-                Transforms[i].Update();
-        }
-
-        private void assignIndexes()
-        {
-            int st = 0;
-            int en = 0;
-
-            int tcount = Transforms.Count;
-            int dcount = Vitaru.DynamicThreads.Count;
-
-            float ratio = (float) tcount / dcount;
-            int remainder = tcount % dcount;
-
-            int iter = (int) Math.Round(ratio, MidpointRounding.ToZero);
-
-            for (int i = 0; i < dcount; i++)
-            {
-                en += iter;
-
-                int s = st;
-                int e = en;
-
-                Vitaru.DynamicThreads[i].Task = () => proccessTransforms(s, e);
-                st = en + 1;
-            }
-
-            start = st;
-            end = en + remainder;
         }
 
         public override void PreRender()

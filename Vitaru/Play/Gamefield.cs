@@ -147,7 +147,7 @@ namespace Vitaru.Play
                 }
             }
 
-            ParticleLayer.UpdateParticles();
+            ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
         }
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
