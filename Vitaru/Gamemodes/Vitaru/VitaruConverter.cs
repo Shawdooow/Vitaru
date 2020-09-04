@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
+using System.Linq;
 using Prion.Nucleus.Debug;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -20,7 +21,8 @@ namespace Vitaru.Gamemodes.Vitaru
             for (int i = 0; i < data.Length; i++)
             {
                 string[] eData = data[i].Split(',');
-                //TODO: enemies.Add(new Enemy());
+                enemies.Add(new Enemy(null));
+                enemies.Last().ParseString(eData, 0);
             }
 
             return enemies;

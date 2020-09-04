@@ -81,8 +81,9 @@ namespace Vitaru.Levels
                                     case "AudioOffset":
                                         track.Offset = double.Parse(line[1]);
                                         continue;
-                                    case "PreviewTime":
-                                        continue;
+                                    //case "PreviewStartTime":
+                                        //track.PreviewStartTime = double.Parse(line[1]);
+                                        //continue;
                                     case "Title":
                                         track.Title = line[1];
                                         continue;
@@ -94,6 +95,9 @@ namespace Vitaru.Levels
                                         continue;
                                     case "Name":
                                         level.LevelName = line[1];
+                                        continue;
+                                    case "EnemyData":
+                                        level.EnemyData = line[1];
                                         continue;
                                 }
                             }
