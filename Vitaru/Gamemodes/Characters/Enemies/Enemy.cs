@@ -16,11 +16,12 @@ using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Projectiles.Patterns;
+using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor
+    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor//, IHasPatternID, IHasEndTime
     {
         public static int COUNT;
 
@@ -165,6 +166,21 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             base.Die();
             EndTime = Clock.LastCurrent;
+
+            for (int i = 0; i < 100; i++)
+            {
+                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
+                int distance = PrionMath.RandomNumber(80, 160);
+
+                OnAddParticle?.Invoke(new Particle
+                {
+                    StartPosition = Position,
+                    EndPosition = Position + PrionMath.Offset(distance, angle),
+                    Color = Color.Vector(),
+                    Scale = 0.5f / PrionMath.RandomNumber(1, 4)
+                });
+            }
+
             Drawable?.Delete();
             Gamefield.Remove(this);
         }

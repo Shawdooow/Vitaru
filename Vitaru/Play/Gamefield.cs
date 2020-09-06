@@ -168,6 +168,7 @@ namespace Vitaru.Play
         {
             //We may not need to draw these yet so just store them in a list for now
             UnloadedEnemies.Add(enemy);
+            enemy.OnAddParticle = ParticleLayer.Add;
         }
 
         public void Remove(Enemy enemy)
@@ -185,6 +186,7 @@ namespace Vitaru.Play
         public void Add(Player player)
         {
             PlayerPack.Add(player);
+            player.OnAddParticle = ParticleLayer.Add;
             //Que adding the drawable
             playerQue.Enqueue(player);
         }

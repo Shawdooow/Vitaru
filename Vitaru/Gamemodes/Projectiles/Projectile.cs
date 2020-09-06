@@ -15,8 +15,6 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(Projectile);
 
-        public Action<Particle> OnAddParticle;
-
         public override void SetDrawable(DrawableGameEntity drawable)
         {
             DrawableProjectile draw = drawable as DrawableProjectile;
