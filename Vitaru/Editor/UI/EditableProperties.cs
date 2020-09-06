@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Position;
 
 namespace Vitaru.Editor.UI
 {
@@ -67,7 +68,7 @@ namespace Vitaru.Editor.UI
                 {
                     default:
                         continue;
-                    case EditableVector2 vec2:
+                    case EditableStartPosition startPos:
                         properties.Add(new SpriteText
                         {
                             TextScale = 0.3f,
@@ -87,7 +88,7 @@ namespace Vitaru.Editor.UI
                             Position = new Vector2(0, 50),
                             ParentOrigin = Mounts.TopLeft,
                             Origin = Mounts.TopLeft,
-                            Text = vec2.Value.X.ToString()
+                            Text = startPos.Value.X.ToString()
                         });
                         properties.Add(new TextBox
                         {
@@ -100,7 +101,7 @@ namespace Vitaru.Editor.UI
                             Position = new Vector2(80, 50),
                             ParentOrigin = Mounts.TopLeft,
                             Origin = Mounts.TopLeft,
-                            Text = vec2.Value.Y.ToString()
+                            Text = startPos.Value.Y.ToString()
                         });
                         continue;
                 }
