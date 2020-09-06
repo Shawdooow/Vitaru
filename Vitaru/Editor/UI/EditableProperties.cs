@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Themes;
 
 namespace Vitaru.Editor.UI
 {
@@ -18,8 +19,8 @@ namespace Vitaru.Editor.UI
         private const float width = 160;
         private const float height = 400;
 
-        private readonly SpriteText name;
-        private readonly InputLayer<IDrawable2D> properties;
+        private SpriteText name;
+        private ListLayer<IDrawable2D> properties;
 
         public EditableProperties(LevelManager manager)
         {
@@ -30,30 +31,37 @@ namespace Vitaru.Editor.UI
 
             Position = new Vector2(-10, -50);
             Size = new Vector2(width, height);
+        }
 
+        public override void LoadingComplete()
+        {
             Children = new IDrawable2D[]
             {
                 new Box
                 {
                     Name = "Background",
                     Alpha = 0.8f,
-                    Size = new Vector2(width, height),
+                    ParentSizing = Axes.Both,
                     Color = Color.Black
                 },
                 name = new SpriteText
                 {
-                    ParentOrigin = Mounts.TopLeft,
-                    Origin = Mounts.TopLeft,
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
 
                     TextScale = 0.4f
                 },
-                properties = new InputLayer<IDrawable2D>
+                properties = new ListLayer<IDrawable2D>
                 {
-                    Position = new Vector2(0, 10),
-                    ParentOrigin = Mounts.TopLeft,
-                    Origin = Mounts.TopLeft
+                    Y = 36,
+                    ParentSizing = Axes.Both,
+                    Spacing = 4,
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter,
                 }
             };
+
+            base.LoadingComplete();
         }
 
         public void Selected(IEditable editable)
@@ -69,39 +77,47 @@ namespace Vitaru.Editor.UI
                     default:
                         continue;
                     case EditableStartPosition startPos:
-                        properties.Add(new SpriteText
+                        properties.AddArray(new IDrawable2D[]
                         {
-                            TextScale = 0.3f,
-                            Position = new Vector2(0, 36),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = "Position (x, y)"
-                        });
-                        properties.Add(new TextBox
-                        {
-                            SpriteText =
+                            new SpriteText
                             {
-                                TextScale = 0.25f
+                                TextScale = 0.3f,
+                                ParentOrigin = Mounts.TopCenter,
+                                Origin = Mounts.TopCenter,
+                                Text = "Position (x, y)"
                             },
-
-                            Size = new Vector2(80, 16),
-                            Position = new Vector2(0, 50),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = startPos.Value.X.ToString()
-                        });
-                        properties.Add(new TextBox
-                        {
-                            SpriteText =
+                            new TextBox
                             {
-                                TextScale = 0.25f
-                            },
+                                SpriteText =
+                                {
+                                    TextScale = 0.25f
+                                },
 
-                            Size = new Vector2(80, 16),
-                            Position = new Vector2(80, 50),
-                            ParentOrigin = Mounts.TopLeft,
-                            Origin = Mounts.TopLeft,
-                            Text = startPos.Value.Y.ToString()
+                                Size = new Vector2(width - 10, 16),
+                                ParentOrigin = Mounts.TopCenter,
+                                Origin = Mounts.TopCenter,
+                                Text = startPos.Value.X.ToString()
+                            },
+                            new TextBox
+                            {
+                                SpriteText =
+                                {
+                                    TextScale = 0.25f
+                                },
+
+                                Size = new Vector2(width - 10, 16),
+                                ParentOrigin = Mounts.TopCenter,
+                                Origin = Mounts.TopCenter,
+                                Text = startPos.Value.Y.ToString()
+                            },
+                            new Box
+                            {
+                                Name = "Spacer",
+                                ParentOrigin = Mounts.TopCenter,
+                                Origin = Mounts.TopCenter,
+                                Size = new Vector2(width - 4, 2),
+                                Color = ThemeManager.SecondaryColor,
+                            }
                         });
                         continue;
                 }
