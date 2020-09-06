@@ -184,12 +184,14 @@ namespace Vitaru.Editor.UI
         public void Selected(EditableProperty[] properties)
         {
             start = null;
-            for (int i = 0; i < properties.Length; i++)
-                if (properties[i] is EditableStartTime s)
-                {
-                    start = s;
-                    break;
-                }
+
+            if (properties != null)
+                for (int i = 0; i < properties.Length; i++)
+                    if (properties[i] is EditableStartTime s)
+                    {
+                        start = s;
+                        break;
+                    }
         }
 
         public void TogglePlay()

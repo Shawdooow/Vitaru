@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -18,11 +19,13 @@ namespace Vitaru.Editor.UI
 {
     public class Editfield : Gamefield, IHasInputMouseButtons
     {
-        private Vector2 offset = Vector2.Zero;
-
         private readonly LevelManager manager;
 
-        public readonly InputLayer<IDrawable2D> SelectionLayer = new InputLayer<IDrawable2D>();
+        public readonly HoverableLayer<DrawableGameEntity> SelectionLayer = new HoverableLayer<DrawableGameEntity>
+        {
+            Size = new Vector2(1024, 820),
+            Scale = new Vector2(0.5f)
+        };
 
         private bool clicked;
 
@@ -30,28 +33,38 @@ namespace Vitaru.Editor.UI
         {
             this.manager = manager;
 
-            manager.GeneratorSet += g => { manager.SetEditable(g.GetEditable(this)); };
-
+            manager.GeneratorSet += g => manager.SetEditable(g.GetEditable(this));
+            
             manager.EditableSet += Selected;
+
+            CharacterLayer.Scale = new Vector2(0.5f);
+            ProjectilesLayer.Scale = new Vector2(0.5f);
+            SelectionLayer.Scale = new Vector2(0.5f);
         }
 
         public void Selected(IEditable editable)
         {
-            DrawableGameEntity draw = editable.GenerateDrawable();
-            IDrawable2D outline = manager.SelectedEditable.GetOverlay(draw);
-            draw.Add(outline);
+            if (editable != null)
+            {            
+                DrawableGameEntity draw = editable.GenerateDrawable();
+                IDrawable2D outline = manager.SelectedEditable.GetOverlay(draw);
+                draw.Add(outline);
 
-            editable.SetDrawable(draw);
-            Add(editable as Enemy);
-            SelectionLayer.Children = new[]
+                draw.Scale = new Vector2(0.25f);
+
+                editable.SetDrawable(draw);
+                Add(editable as Enemy);
+                SelectionLayer.Child = draw;
+            }
+            else
             {
-                new TooltipLayer
+                while (SelectionLayer.Any())
                 {
-                    Text = editable.Name,
-                    Size = draw.Size,
-                    Child = draw
+                    DrawableGameEntity c = SelectionLayer.Children[0];
+                    SelectionLayer.Remove(c, false);
+                    CharacterLayer.Add(c);
                 }
-            };
+            }
         }
 
         public override void Update()
@@ -62,10 +75,11 @@ namespace Vitaru.Editor.UI
             {
                 foreach (EditableProperty p in manager.Properties)
                     if (p is EditableStartPosition start)
-                        start.SetValue(start.Value + InputManager.Mouse.Position - offset);
+                    {
+                        Vector2 diff = InputManager.Mouse.Position - InputManager.LastMouse.Position;
+                        start.SetValue(start.Value + diff * 2);
+                    }
             }
-
-            offset = InputManager.Mouse.Position;
         }
 
         public bool OnMouseDown(MouseButtonEvent e)
@@ -91,6 +105,9 @@ namespace Vitaru.Editor.UI
                         }
                     }
                 }
+
+                if (SelectionLayer.Hovered)
+                    manager.SetEditable(null);
             }
 
             return false;

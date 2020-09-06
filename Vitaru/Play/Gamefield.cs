@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Debug;
@@ -63,7 +64,8 @@ namespace Vitaru.Play
 
         public readonly ShadeLayer<DrawableGameEntity> CharacterLayer = new ShadeLayer<DrawableGameEntity>
         {
-            Name = "Drawable Character Layer2D"
+            Name = "Drawable Character Layer2D",
+            Size = new Vector2(1024, 820),
         };
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
@@ -75,11 +77,17 @@ namespace Vitaru.Play
 
         public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
 
-        public readonly ShadeLayer<DrawableGameEntity> ProjectilesLayer = new ProjectileLayer();
+        public readonly ShadeLayer<DrawableGameEntity> ProjectilesLayer = new ProjectileLayer
+        {
+            Size = new Vector2(1024, 820),
+        };
 
         protected readonly Queue<DrawableProjectile> RecycledDrawableProjectiles = new Queue<DrawableProjectile>();
 
-        public readonly ParticleLayer ParticleLayer = new ParticleLayer();
+        public readonly ParticleLayer ParticleLayer = new ParticleLayer
+        {
+            Size = new Vector2(1024, 820),
+        };
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
