@@ -9,7 +9,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
 using Vitaru.Editor;
-using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
 using Vitaru.Server.Track;
@@ -28,7 +27,7 @@ namespace Vitaru.Roots
         private readonly LevelProperties levelProperties;
         private EditableProperties editableProperties;
 
-        //bool to queue loading editor on draw thread, gets set by a button (the update thread)
+        //state to manager loading the editor on draw thread, gets set by a button (the update thread)
         private LoadState state;
 
         public EditorRoot()
@@ -90,14 +89,14 @@ namespace Vitaru.Roots
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
 
-            Add(new Toolbar());
-            Add(timeline = new Timeline());
+            Add(new Toolbar(manager));
+            Add(timeline = new Timeline(manager));
             Add(new Toolbox(manager));
             Add(editableProperties);
 
             state = LoadState.Loaded;
 
-            //This is a thicc hack, but it works so fine for now
+            //This is a thicc hack, but it works so its fine for now
             if (Cursor == null) return;
 
             //move the cursor to be on top of the editor...

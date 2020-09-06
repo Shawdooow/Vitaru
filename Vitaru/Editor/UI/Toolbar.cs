@@ -16,7 +16,7 @@ namespace Vitaru.Editor.UI
         private const float width = 600;
         private const float height = 80;
 
-        public Toolbar()
+        public Toolbar(LevelManager manager)
         {
             ParentOrigin = Mounts.TopCenter;
             Origin = Mounts.TopCenter;

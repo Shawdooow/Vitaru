@@ -27,7 +27,7 @@ namespace Vitaru.Editor.UI
 
         private readonly Slider speed;
 
-        public Timeline()
+        public Timeline(LevelManager manager)
         {
             ParentOrigin = Mounts.BottomCenter;
             Origin = Mounts.BottomCenter;
