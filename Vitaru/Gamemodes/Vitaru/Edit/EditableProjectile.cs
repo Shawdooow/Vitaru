@@ -5,7 +5,7 @@ using Vitaru.Editor.Editables;
 
 namespace Vitaru.Gamemodes.Vitaru.Edit
 {
-    public abstract class EditableProjectile : Editable
+    public abstract class EditableProjectile : EditableGenerator
     {
     }
 }

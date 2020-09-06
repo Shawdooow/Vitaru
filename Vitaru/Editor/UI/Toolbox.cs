@@ -52,7 +52,7 @@ namespace Vitaru.Editor.UI
                 }
             };
 
-            Editable[] editables = GamemodeStore.SelectedGamemode.Gamemode.GetEditables();
+            EditableGenerator[] editables = GamemodeStore.SelectedGamemode.Gamemode.GetEditables();
             for (int i = 0; i < editables.Length; i++)
             {
                 ToolboxItem item = new ToolboxItem(editables[i], i);
@@ -67,19 +67,19 @@ namespace Vitaru.Editor.UI
                 i.DeSelect();
 
             item.Select();
-            manager.EditableSelected?.Invoke(item.Editable);
+            manager.SetGenerator(item.Generator);
         }
 
         private class ToolboxItem : ClickableLayer<IDrawable2D>
         {
-            public readonly Editable Editable;
+            public readonly EditableGenerator Generator;
 
             private readonly Box background;
             private readonly Box flash;
 
-            public ToolboxItem(Editable editable, int index)
+            public ToolboxItem(EditableGenerator generator, int index)
             {
-                Editable = editable;
+                Generator = generator;
 
                 Size = new Vector2(width * 0.86f, height / 8);
                 Position = new Vector2(0, 8 * (index + 1) + height / 8 * index);
@@ -87,7 +87,7 @@ namespace Vitaru.Editor.UI
                 ParentOrigin = Mounts.TopCenter;
                 Origin = Mounts.TopCenter;
 
-                IEditable edit = editable.GetEditable(null);
+                IEditable edit = generator.GetEditable(null);
                 DrawableGameEntity draw = edit.GenerateDrawable();
                 edit.SetDrawable(draw);
 

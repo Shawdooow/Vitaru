@@ -24,6 +24,6 @@ namespace Vitaru.Gamemodes
 
         public abstract Chapter[] GetChapters();
 
-        public abstract Editable[] GetEditables();
+        public abstract EditableGenerator[] GetEditables();
     }
 }

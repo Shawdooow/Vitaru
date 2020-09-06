@@ -11,7 +11,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Vitaru.Edit
 {
-    public class EditableEnemy : Editable
+    public class EditableEnemy : EditableGenerator
     {
         public override IEditable GetEditable(Gamefield field) => new Enemy(field)
         {

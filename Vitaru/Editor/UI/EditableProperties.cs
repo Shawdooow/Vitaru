@@ -20,11 +20,9 @@ namespace Vitaru.Editor.UI
         private readonly SpriteText name;
         private readonly InputLayer<IDrawable2D> properties;
 
-        private Editable editable;
-
         public EditableProperties(LevelManager manager)
         {
-            manager.EditableSelected += Selected;
+            manager.EditableSet += Selected;
 
             ParentOrigin = Mounts.CenterRight;
             Origin = Mounts.CenterRight;
@@ -57,12 +55,9 @@ namespace Vitaru.Editor.UI
             };
         }
 
-        public void Selected(Editable edit)
+        public void Selected(IEditable editable)
         {
-            editable = edit;
-            IEditable e = editable.GetEditable(null);
-
-            EditableProperty[] ps = e.GetProperties();
+            EditableProperty[] ps = editable.GetProperties();
 
             properties.ClearChildren();
 
@@ -111,7 +106,7 @@ namespace Vitaru.Editor.UI
                 }
             }
 
-            name.Text = e.Name;
+            name.Text = editable.Name;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Vitaru.Gamemodes.Tanks
             throw new NotImplementedException();
         }
 
-        public override Editable[] GetEditables()
+        public override EditableGenerator[] GetEditables()
         {
             throw new NotImplementedException();
         }

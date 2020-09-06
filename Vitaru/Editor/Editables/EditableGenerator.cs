@@ -7,7 +7,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Editor.Editables
 {
-    public abstract class Editable
+    public abstract class EditableGenerator
     {
         public abstract IEditable GetEditable(Gamefield field);
 

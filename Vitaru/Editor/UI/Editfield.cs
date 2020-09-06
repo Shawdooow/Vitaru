@@ -16,30 +16,35 @@ namespace Vitaru.Editor.UI
     {
         private Vector2 offset = Vector2.Zero;
 
-        public readonly InputLayer<IDrawable2D> SelectionLayer = new InputLayer<IDrawable2D>();
+        private readonly LevelManager manager;
 
-        private Editable editable;
+        public readonly InputLayer<IDrawable2D> SelectionLayer = new InputLayer<IDrawable2D>();
 
         public Editfield(LevelManager manager)
         {
-            manager.EditableSelected += Selected;
+            this.manager = manager;
+
+            manager.GeneratorSet += g =>
+            {
+                manager.SetEditable(g.GetEditable(this));
+            };
+
+            manager.EditableSet += Selected;
         }
 
-        public void Selected(Editable edit)
+        public void Selected(IEditable editable)
         {
-            editable = edit;
-            IEditable e = editable.GetEditable(this);
-            DrawableGameEntity draw = e.GenerateDrawable();
-            IDrawable2D outline = edit.GetOverlay(draw);
+            DrawableGameEntity draw = editable.GenerateDrawable();
+            IDrawable2D outline = manager.SelectedGenerator.GetOverlay(draw);
             draw.Add(outline);
 
-            e.SetDrawable(draw);
-            Add(e as Enemy);
+            editable.SetDrawable(draw);
+            Add(editable as Enemy);
             SelectionLayer.Children = new[]
             {
                 new TooltipLayer
                 {
-                    Text = e.Name,
+                    Text = editable.Name,
                     Size = draw.Size,
                     Child = draw
                 }

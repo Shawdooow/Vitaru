@@ -8,11 +8,29 @@ namespace Vitaru.Editor
     {
         public readonly Level Level;
 
-        public Action<Editable> EditableSelected;
+        public EditableGenerator SelectedGenerator { get; private set; }
+
+        public event Action<EditableGenerator> GeneratorSet;
+
+        public IEditable SelectedEditable { get; private set; }
+
+        public event Action<IEditable> EditableSet;
 
         public LevelManager(Level level)
         {
             Level = level;
+        }
+
+        public void SetGenerator(EditableGenerator generator)
+        {
+            SelectedGenerator = generator;
+            GeneratorSet?.Invoke(generator);
+        }
+        
+        public void SetEditable(IEditable editable)
+        {
+            SelectedEditable = editable;
+            EditableSet?.Invoke(editable);
         }
     }
 }

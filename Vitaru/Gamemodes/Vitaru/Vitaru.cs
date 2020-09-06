@@ -23,7 +23,7 @@ namespace Vitaru.Gamemodes.Vitaru
         {
         };
 
-        public override Editable[] GetEditables() => new Editable[]
+        public override EditableGenerator[] GetEditables() => new EditableGenerator[]
         {
             new EditableEnemy()
             //new EditableBullet()
