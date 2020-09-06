@@ -34,7 +34,7 @@ namespace Vitaru.Editor.UI
             this.manager = manager;
 
             manager.GeneratorSet += g => manager.SetEditable(g.GetEditable(this));
-            
+
             manager.EditableSet += Selected;
 
             CharacterLayer.Scale = new Vector2(0.5f);
@@ -46,7 +46,7 @@ namespace Vitaru.Editor.UI
         {
             if (editable != null)
             {
-                Enemy enemy = (Enemy)editable;
+                Enemy enemy = (Enemy) editable;
                 if (enemy.Drawable == null)
                 {
                     DrawableGameEntity draw = editable.GenerateDrawable();
@@ -54,7 +54,7 @@ namespace Vitaru.Editor.UI
                     enemy.Drawable.Scale = new Vector2(0.25f);
                     Add(enemy);
                 }
-                
+
                 IDrawable2D outline = manager.SelectedEditable.GetOverlay(enemy.Drawable);
                 enemy.Drawable.Add(outline);
                 SelectionLayer.Child = enemy.Drawable;
