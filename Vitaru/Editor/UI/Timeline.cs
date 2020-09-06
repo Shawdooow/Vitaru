@@ -26,12 +26,16 @@ namespace Vitaru.Editor.UI
         private const float height = 140f;
 
         private readonly SpriteText timeIn;
+        private readonly SpriteText msIn;
         private readonly Slider scrubber;
         private readonly SpriteText timeLeft;
+        private readonly SpriteText msLeft;
 
         private readonly Button play;
 
         private readonly Slider speed;
+
+        private EditableStartTime start;
 
         public Timeline(LevelManager manager)
         {
@@ -89,15 +93,29 @@ namespace Vitaru.Editor.UI
                 timeIn = new SpriteText
                 {
                     ParentOrigin = Mounts.CenterLeft,
-                    Origin = Mounts.CenterRight,
-                    X = -12,
+                    Origin = Mounts.BottomRight,
+                    Position = new Vector2(-12, -2),
+                    TextScale = 0.25f
+                },
+                msIn = new SpriteText
+                {
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.TopRight,
+                    Position = new Vector2(-12, 2),
                     TextScale = 0.25f
                 },
                 timeLeft = new SpriteText
                 {
                     ParentOrigin = Mounts.CenterRight,
-                    Origin = Mounts.CenterLeft,
-                    X = 12,
+                    Origin = Mounts.BottomLeft,
+                    Position = new Vector2(12, -2),
+                    TextScale = 0.25f
+                },
+                msLeft = new SpriteText
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.TopLeft,
+                    Position = new Vector2(12, 2),
                     TextScale = 0.25f
                 }
             });
@@ -165,9 +183,13 @@ namespace Vitaru.Editor.UI
 
         public void Selected(EditableProperty[] properties)
         {
+            start = null;
             for (int i = 0; i < properties.Length; i++)
-                if (properties[i] is EditableStartTime start)
-                    start.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
+                if (properties[i] is EditableStartTime s)
+                {
+                    start = s;
+                    break;
+                }
         }
 
         public void TogglePlay()
@@ -188,6 +210,9 @@ namespace Vitaru.Editor.UI
         {
             TrackManager.CurrentTrack.Clock.Update();
 
+            if (TrackManager.CurrentTrack.Playing)
+                start?.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
+
             float current = (float) TrackManager.CurrentTrack.Clock.Current;
             float length = (float) TrackManager.CurrentTrack.Length * 1000;
 
@@ -201,7 +226,9 @@ namespace Vitaru.Editor.UI
             string left = $"-{l.Minutes:D2}:{l.Seconds:D2}:{l.Milliseconds:D3}";
 
             timeIn.Text = time;
+            msIn.Text = Math.Round(t.TotalMilliseconds, 2).ToString();
             timeLeft.Text = left;
+            msLeft.Text = $"-{Math.Round(l.TotalMilliseconds, 2)}";
         }
 
         public bool OnKeyDown(KeyboardKeyEvent e)
