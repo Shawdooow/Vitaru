@@ -45,22 +45,26 @@ namespace Vitaru.Editor.UI
         public void Selected(IEditable editable)
         {
             if (editable != null)
-            {            
-                DrawableGameEntity draw = editable.GenerateDrawable();
-                IDrawable2D outline = manager.SelectedEditable.GetOverlay(draw);
-                draw.Add(outline);
-
-                draw.Scale = new Vector2(0.25f);
-
-                editable.SetDrawable(draw);
-                Add(editable as Enemy);
-                SelectionLayer.Child = draw;
+            {
+                Enemy enemy = (Enemy)editable;
+                if (enemy.Drawable == null)
+                {
+                    DrawableGameEntity draw = editable.GenerateDrawable();
+                    editable.SetDrawable(draw);
+                    enemy.Drawable.Scale = new Vector2(0.25f);
+                    Add(enemy);
+                }
+                
+                IDrawable2D outline = manager.SelectedEditable.GetOverlay(enemy.Drawable);
+                enemy.Drawable.Add(outline);
+                SelectionLayer.Child = enemy.Drawable;
             }
             else
             {
                 while (SelectionLayer.Any())
                 {
                     DrawableGameEntity c = SelectionLayer.Children[0];
+                    c.Remove(c.Children.Last());
                     SelectionLayer.Remove(c, false);
                     CharacterLayer.Add(c);
                 }
@@ -88,7 +92,7 @@ namespace Vitaru.Editor.UI
             {
                 foreach (Enemy ey in LoadedEnemies)
                 {
-                    if (ey == manager.SelectedEditable)
+                    if (ey.Drawable.Alpha > 0)
                     {
                         Vector4 transform = new Vector4(InputManager.Mouse.Position, 1, 1);
                         Matrix4x4.Invert(ey.Drawable.TotalTransform, out Matrix4x4 inverse);
@@ -101,6 +105,14 @@ namespace Vitaru.Editor.UI
                             transform.Y <= 0.5)
                         {
                             clicked = true;
+
+                            if (manager.SelectedEditable != ey)
+                            {
+                                manager.SetEditable(null);
+                                CharacterLayer.Remove(ey.Drawable, false);
+                                manager.SetEditable(ey);
+                            }
+
                             return true;
                         }
                     }
