@@ -15,7 +15,6 @@ using Vitaru.Editor.Editables.Properties.Color;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Dodge;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Projectiles.Patterns;
 using Vitaru.Graphics.Particles;
@@ -69,7 +68,17 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public Vector2 StartPosition { get; set; }
 
-        public virtual double StartTime { get; set; }
+        public virtual double StartTime
+        {
+            get => startTime;
+            set
+            {
+                startTime = value;
+                EndTime = StartTime + 200;
+            }
+        }
+
+        private double startTime;
 
         public virtual double EndTime { get; protected set; } = double.MaxValue;
 
@@ -111,54 +120,18 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             base.Update();
 
-            if (Clock.LastCurrent + TimePreLoad >= StartTime && Clock.LastCurrent < EndTime + TimeUnLoad && !PreLoaded)
+            double current = Clock.Current;
+
+            if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
                 PreLoad();
-            else if ((Clock.LastCurrent + TimePreLoad < StartTime || Clock.LastCurrent >= EndTime + TimeUnLoad) &&
+            else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
                      PreLoaded)
                 UnLoad();
 
-            if (Clock.LastCurrent >= StartTime && Clock.LastCurrent < EndTime && !Started)
+            if (current >= StartTime && current < EndTime && !Started)
                 Start();
-            else if ((Clock.LastCurrent < StartTime || Clock.LastCurrent >= EndTime) && Started)
+            else if ((current < StartTime || current >= EndTime) && Started)
                 End();
-        }
-
-        protected virtual void Shoot()
-        {
-            float angle = 0;
-
-            if (ShootPlayer)
-            {
-                Player player = (Player)Gamefield.PlayerPack.Children[0];
-                angle = (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
-            }
-
-            List<Projectile> projectiles;
-
-            switch (PrionMath.RandomNumber(0, 5))
-            {
-                default:
-                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, angle);
-                    break;
-                case 1:
-                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, angle);
-                    break;
-                case 2:
-                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, angle);
-                    break;
-                case 3:
-                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, angle);
-                    break;
-                case 4:
-                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.LastCurrent, Team);
-                    break;
-            }
-
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Color = PrimaryColor;
-                Gamefield.Add(projectile);
-            }
         }
 
         protected virtual void PreLoad()
@@ -167,8 +140,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             if (Drawable != null)
             {
+                Drawable.ClearTransforms();
                 Drawable.Alpha = 0;
-                Drawable.FadeTo(1, StartTime - TimePreLoad);
+                Drawable.FadeTo(1, TimePreLoad);
             }
         }
 
@@ -184,8 +158,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             if (Drawable != null)
             {
+                Drawable.ClearTransforms();
                 Drawable.Alpha = 1;
-                Drawable.FadeTo(0, EndTime + TimeUnLoad);
+                Drawable.FadeTo(0, TimeUnLoad);
             }
         }
 
@@ -215,6 +190,44 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             Drawable?.Delete();
             Gamefield.Remove(this);
+        }
+
+        protected virtual void Shoot()
+        {
+            float angle = 0;
+
+            if (ShootPlayer)
+            {
+                Player player = (Player)Gamefield.PlayerPack.Children[0];
+                angle = (float)Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
+            }
+
+            List<Projectile> projectiles;
+
+            switch (PrionMath.RandomNumber(0, 5))
+            {
+                default:
+                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 1:
+                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 2:
+                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 3:
+                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 4:
+                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team);
+                    break;
+            }
+
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Color = PrimaryColor;
+                Gamefield.Add(projectile);
+            }
         }
 
         private Vector2 getClusterStartPosition()

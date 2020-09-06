@@ -12,6 +12,7 @@ using Vitaru.Editor;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
 using Vitaru.Server.Track;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
@@ -63,7 +64,10 @@ namespace Vitaru.Roots
         {
             LevelManager manager = new LevelManager(level);
 
-            editfield = new Editfield(manager);
+            editfield = new Editfield(manager)
+            {
+                Clock = TrackManager.CurrentTrack.Clock,
+            };
             editableProperties = new EditableProperties(manager);
 
             Add(new SpriteLayer
