@@ -14,10 +14,13 @@ namespace Vitaru.Editor.Editables.Properties.Position
             Entity = e;
         }
 
-        public override Vector2 Value
+        public override Vector2 Value => Entity.StartPosition;
+
+        public override void SetValue(Vector2 t)
         {
-            get => Entity.StartPosition;
-            set => Entity.StartPosition = value;
+            Entity.StartPosition = t;
+            Entity.Position = t;
+            base.SetValue(t);
         }
     }
 }

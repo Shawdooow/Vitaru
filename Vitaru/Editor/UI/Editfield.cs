@@ -5,20 +5,26 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Input.Receivers;
 using Vitaru.Editor.Editables;
+using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Play;
 
 namespace Vitaru.Editor.UI
 {
-    public class Editfield : Gamefield
+    public class Editfield : Gamefield, IHasInputMouseButtons
     {
         private Vector2 offset = Vector2.Zero;
 
         private readonly LevelManager manager;
 
         public readonly InputLayer<IDrawable2D> SelectionLayer = new InputLayer<IDrawable2D>();
+
+        private bool clicked;
 
         public Editfield(LevelManager manager)
         {
@@ -55,24 +61,51 @@ namespace Vitaru.Editor.UI
         {
             base.Update();
 
-            if (InputManager.Mouse[MouseButtons.Left])
-                foreach (Enemy e in LoadedEnemies)
+            if (clicked)
+            {
+                foreach (EditableProperty p in manager.Properties)
+                    if (p is EditableStartPosition start)
+                        start.SetValue(start.Value + InputManager.Mouse.Position - offset);
+            }
+            offset = InputManager.Mouse.Position;
+        }
+
+        public bool OnMouseDown(MouseButtonEvent e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                foreach (Enemy ey in LoadedEnemies)
                 {
-                    if (e.Drawable.Alpha > 0 && e is IEditable ed)
+                    if (ey == manager.SelectedEditable)
                     {
                         Vector4 transform = new Vector4(InputManager.Mouse.Position, 1, 1);
-                        Matrix4x4.Invert(e.Drawable.TotalTransform, out Matrix4x4 inverse);
+                        Matrix4x4.Invert(ey.Drawable.TotalTransform, out Matrix4x4 inverse);
 
                         transform = Vector4.Transform(transform, inverse);
-                        transform.X /= e.Drawable.Size.X;
-                        transform.Y /= e.Drawable.Size.Y;
+                        transform.X /= ey.Drawable.Size.X;
+                        transform.Y /= ey.Drawable.Size.Y;
 
-                        if (transform.X >= -0.5 && transform.X <= 0.5 && transform.Y >= -0.5 && transform.Y <= 0.5)
-                            e.Position += InputManager.Mouse.Position - offset;
+                        if (transform.X >= -0.5 && transform.X <= 0.5 && transform.Y >= -0.5 &&
+                            transform.Y <= 0.5)
+                        {
+                            clicked = true;
+                            return true;
+                        }
                     }
                 }
+            }
+            else
+            {
+                
+            }
 
-            offset = InputManager.Mouse.Position;
+            return false;
+        }
+
+        public bool OnMouseUp(MouseButtonEvent e)
+        {
+            clicked = false;
+            return true;
         }
     }
 }

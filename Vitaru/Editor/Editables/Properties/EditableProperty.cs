@@ -8,9 +8,11 @@ namespace Vitaru.Editor.Editables.Properties
     public abstract class EditableProperty<T> : EditableProperty
         where T : struct
     {
-        public Action<T> ValueUpdated;
+        public event Action<T> OnValueUpdated;
 
-        public abstract T Value { get; set; }
+        public abstract T Value { get; }
+
+        public virtual void SetValue(T t) => OnValueUpdated?.Invoke(t);
 
         protected EditableProperty(IEditable e) : base(e)
         {

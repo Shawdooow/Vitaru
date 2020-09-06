@@ -1,5 +1,6 @@
 ﻿using System;
 using Vitaru.Editor.Editables;
+using Vitaru.Editor.Editables.Properties;
 using Vitaru.Server.Track;
 
 namespace Vitaru.Editor
@@ -16,6 +17,10 @@ namespace Vitaru.Editor
 
         public event Action<IEditable> EditableSet;
 
+        public EditableProperty[] Properties { get; private set; } = new EditableProperty[0];
+
+        public event Action<EditableProperty[]> PropertiesSet;
+
         public LevelManager(Level level)
         {
             Level = level;
@@ -31,6 +36,12 @@ namespace Vitaru.Editor
         {
             SelectedEditable = editable;
             EditableSet?.Invoke(editable);
+        }
+
+        public void SetProperties(EditableProperty[] properties)
+        {
+            Properties = properties;
+            PropertiesSet?.Invoke(properties);
         }
     }
 }
