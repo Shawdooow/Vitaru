@@ -8,9 +8,11 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
+using Vitaru.Editor;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
+using Vitaru.Server.Track;
 
 namespace Vitaru.Roots
 {
@@ -39,6 +41,9 @@ namespace Vitaru.Roots
 
         public override void LoadingComplete()
         {
+            //TODO: get around this...
+            Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
+
             Add(levelProperties);
 
             if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
@@ -50,18 +55,17 @@ namespace Vitaru.Roots
                 return;
             }
 
-            loadLevelEditor();
+            loadLevelEditor(LevelStore.CurrentLevel);
 
             base.LoadingComplete();
         }
 
-        private void loadLevelEditor()
+        private void loadLevelEditor(Level level)
         {
-            //TODO: get around this...
-            Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
+            LevelManager manager = new LevelManager(level);
 
-            editfield = new Editfield();
-            editableProperties = new EditableProperties();
+            editfield = new Editfield(manager);
+            editableProperties = new EditableProperties(manager);
 
             Add(new SpriteLayer
             {
@@ -88,10 +92,7 @@ namespace Vitaru.Roots
 
             Add(new Toolbar());
             Add(timeline = new Timeline());
-            Add(new Toolbox
-            {
-                OnSelection = Selected
-            });
+            Add(new Toolbox(manager));
             Add(editableProperties);
 
             state = LoadState.Loaded;
@@ -112,12 +113,6 @@ namespace Vitaru.Roots
             state = LoadState.PreLoaded;
         }
 
-        protected void Selected(Editable editable)
-        {
-            editfield.Selected(editable);
-            editableProperties.Selected(editable);
-        }
-
         public override void Update()
         {
             base.Update();
@@ -127,7 +122,7 @@ namespace Vitaru.Roots
         public override void PreRender()
         {
             if (state == LoadState.PreLoaded)
-                loadLevelEditor();
+                loadLevelEditor(LevelStore.CurrentLevel);
 
             base.PreRender();
         }

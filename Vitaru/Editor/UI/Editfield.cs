@@ -20,6 +20,11 @@ namespace Vitaru.Editor.UI
 
         private Editable editable;
 
+        public Editfield(LevelManager manager)
+        {
+            manager.EditableSelected += Selected;
+        }
+
         public void Selected(Editable edit)
         {
             editable = edit;

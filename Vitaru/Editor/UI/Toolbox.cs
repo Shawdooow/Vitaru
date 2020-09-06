@@ -19,15 +19,17 @@ namespace Vitaru.Editor.UI
     {
         public override string Name => nameof(Toolbox);
 
-        public Action<Editable> OnSelection;
-
         private const float width = 160;
         private const float height = 400;
 
+        private readonly LevelManager manager;
+
         private readonly InputLayer<ToolboxItem> items;
 
-        public Toolbox()
+        public Toolbox(LevelManager manager)
         {
+            this.manager = manager;
+
             ParentOrigin = Mounts.CenterLeft;
             Origin = Mounts.CenterLeft;
 
@@ -65,7 +67,7 @@ namespace Vitaru.Editor.UI
                 i.DeSelect();
 
             item.Select();
-            OnSelection?.Invoke(item.Editable);
+            manager.EditableSelected?.Invoke(item.Editable);
         }
 
         private class ToolboxItem : ClickableLayer<IDrawable2D>

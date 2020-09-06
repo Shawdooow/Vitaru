@@ -22,8 +22,10 @@ namespace Vitaru.Editor.UI
 
         private Editable editable;
 
-        public EditableProperties()
+        public EditableProperties(LevelManager manager)
         {
+            manager.EditableSelected += Selected;
+
             ParentOrigin = Mounts.CenterRight;
             Origin = Mounts.CenterRight;
 
