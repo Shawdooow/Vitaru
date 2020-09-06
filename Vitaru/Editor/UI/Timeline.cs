@@ -9,6 +9,9 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
@@ -17,7 +20,7 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
 {
-    public class Timeline : InputLayer<IDrawable2D>
+    public class Timeline : InputLayer<IDrawable2D>, IHasInputKeys
     {
         private const float width = 1080f;
         private const float height = 140f;
@@ -199,6 +202,22 @@ namespace Vitaru.Editor.UI
 
             timeIn.Text = time;
             timeLeft.Text = left;
+        }
+
+        public bool OnKeyDown(KeyboardKeyEvent e)
+        {
+            if (e.Key == Keys.Space)
+            {
+                TogglePlay();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool OnKeyUp(KeyboardKeyEvent e)
+        {
+            return true;
         }
     }
 }
