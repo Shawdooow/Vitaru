@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -11,6 +12,7 @@ using Prion.Mitochondria.Input.Receivers;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Play;
@@ -36,6 +38,16 @@ namespace Vitaru.Editor.UI
             manager.GeneratorSet += g => manager.SetEditable(g.GetEditable(this));
 
             manager.EditableSet += Selected;
+
+            manager.OnSerializeToLevel += () =>
+            {
+                FormatConverter converter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
+                List<Enemy> master = new List<Enemy>();
+                master.AddRange(UnloadedEnemies);
+                master.AddRange(LoadedEnemies);
+
+                manager.Level.EnemyData = converter.EnemiesToString(master);
+            };
 
             CharacterLayer.Scale = new Vector2(0.5f);
             ProjectilesLayer.Scale = new Vector2(0.5f);

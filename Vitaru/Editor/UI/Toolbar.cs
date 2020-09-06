@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.UI;
 
 namespace Vitaru.Editor.UI
 {
@@ -13,7 +14,7 @@ namespace Vitaru.Editor.UI
     {
         public override string Name => nameof(Toolbar);
 
-        private const float width = 600;
+        private const float width = 1200;
         private const float height = 80;
 
         public Toolbar(LevelManager manager)
@@ -31,7 +32,24 @@ namespace Vitaru.Editor.UI
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
                     Color = Color.Black
-                }
+                },
+                new Button
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterRight,
+
+                    Width = 64,
+                    Height = 24,
+
+                    Text = "Save",
+
+                    SpriteText =
+                    {
+                        TextScale = 0.3f
+                    },
+
+                    OnClick = manager.SerializeToLevel
+                }, 
             };
         }
     }
