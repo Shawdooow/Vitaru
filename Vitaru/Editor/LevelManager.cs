@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Server.Track;
@@ -31,7 +34,7 @@ namespace Vitaru.Editor
             SelectedGenerator = generator;
             GeneratorSet?.Invoke(generator);
         }
-        
+
         public void SetEditable(IEditable editable)
         {
             SelectedEditable = editable;

@@ -39,7 +39,7 @@ namespace Vitaru.Server.Track
         public string GamemodeName;
 
         /// <summary>
-        /// The serialized enemy data
+        ///     The serialized enemy data
         /// </summary>
         public string EnemyData;
     }

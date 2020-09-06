@@ -9,7 +9,9 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Color;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Themes;
 
 namespace Vitaru.Editor.UI
@@ -100,19 +102,19 @@ namespace Vitaru.Editor.UI
                                     Origin = Mounts.TopCenter,
                                     Text = startPos.Value.X.ToString(),
                                     OnEnter = s =>
+                                    {
+                                        float n;
+                                        try
                                         {
-                                            float n;
-                                            try
-                                            {
-                                                n = float.Parse(s);
-                                            }
-                                            catch
-                                            {
-                                                n = startPos.Value.X;
-                                            }
-
-                                            startPos.SetValue(new Vector2(n, startPos.Value.Y));
+                                            n = float.Parse(s);
                                         }
+                                        catch
+                                        {
+                                            n = startPos.Value.X;
+                                        }
+
+                                        startPos.SetValue(new Vector2(n, startPos.Value.Y));
+                                    }
                                 },
                                 y = new TextBox
                                 {
@@ -152,6 +154,77 @@ namespace Vitaru.Editor.UI
 
                             startPos.OnValueUpdated += pos => x.Text = pos.X.ToString();
                             startPos.OnValueUpdated += pos => y.Text = pos.Y.ToString();
+                            continue;
+                        case EditableStartTime startTime:
+
+                            TextBox s;
+
+                            properties.AddArray(new IDrawable2D[]
+                            {
+                                new SpriteText
+                                {
+                                    TextScale = 0.3f,
+                                    ParentOrigin = Mounts.TopCenter,
+                                    Origin = Mounts.TopCenter,
+                                    Text = "Start Time"
+                                },
+                                s = new TextBox
+                                {
+                                    SpriteText =
+                                    {
+                                        TextScale = 0.25f
+                                    },
+
+                                    Size = new Vector2(width - 10, 16),
+                                    ParentOrigin = Mounts.TopCenter,
+                                    Origin = Mounts.TopCenter,
+                                    Text = startTime.Value.ToString(),
+                                    OnEnter = t =>
+                                    {
+                                        double n;
+                                        try
+                                        {
+                                            n = double.Parse(t);
+                                        }
+                                        catch
+                                        {
+                                            n = startTime.Value;
+                                        }
+
+                                        startTime.SetValue(n);
+                                    }
+                                },
+                                new Box
+                                {
+                                    Name = "Spacer",
+                                    ParentOrigin = Mounts.TopCenter,
+                                    Origin = Mounts.TopCenter,
+                                    Size = new Vector2(width - 4, 2),
+                                    Color = ThemeManager.SecondaryColor,
+                                }
+                            });
+
+                            startTime.OnValueUpdated += time => s.Text = time.ToString();
+                            continue;
+                        case EditableColor color:
+                            properties.AddArray(new IDrawable2D[]
+{
+                                new SpriteText
+                                {
+                                    TextScale = 0.3f,
+                                    ParentOrigin = Mounts.TopCenter,
+                                    Origin = Mounts.TopCenter,
+                                    Text = "Color (WIP)"
+                                },
+                                new Box
+                                {
+                                    Name = "Spacer",
+                                    ParentOrigin = Mounts.TopCenter,
+                                    Origin = Mounts.TopCenter,
+                                    Size = new Vector2(width - 4, 2),
+                                    Color = ThemeManager.SecondaryColor,
+                                }
+                            });
                             continue;
                     }
                 }

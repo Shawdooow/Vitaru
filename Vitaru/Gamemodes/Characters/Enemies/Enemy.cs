@@ -5,9 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Color;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Projectiles.Patterns;
@@ -15,7 +20,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition
+    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor
     {
         public static int COUNT;
 
@@ -38,12 +43,22 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             return new DrawableEnemy(this);
         }
 
+        public IDrawable2D GetOverlay(DrawableGameEntity draw) =>
+            new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
+            {
+                Size = ((DrawableEnemy) draw).Sprite.Size,
+                Scale = ((DrawableEnemy) draw).Sprite.Scale,
+                Color = Color.Yellow
+            };
+
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {
-            new EditableStartPosition(this)
+            new EditableStartPosition(this),
+            new EditableStartTime(this),
+            new EditableColor(this),
         };
 
-        public Color Color = ColorExtentions.RandomColor();
+        public Color Color { get; set; } = ColorExtentions.RandomColor();
 
         public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color;
 

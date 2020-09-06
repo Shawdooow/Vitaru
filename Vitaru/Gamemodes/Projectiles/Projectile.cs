@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria.Graphics.Drawables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
@@ -21,6 +22,11 @@ namespace Vitaru.Gamemodes.Projectiles
             DrawableProjectile draw = drawable as DrawableProjectile;
             draw.SetProjectile(this);
             base.SetDrawable(drawable);
+        }
+
+        public virtual IDrawable2D GetOverlay(DrawableGameEntity draw)
+        {
+            throw new NotImplementedException();
         }
 
         public EditableProperty[] GetProperties() => new EditableProperty[]

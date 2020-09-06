@@ -10,6 +10,9 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
+using Vitaru.Editor.Editables;
+using Vitaru.Editor.Editables.Properties;
+using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
@@ -29,6 +32,8 @@ namespace Vitaru.Editor.UI
 
         public Timeline(LevelManager manager)
         {
+            manager.PropertiesSet += Selected;
+
             ParentOrigin = Mounts.BottomCenter;
             Origin = Mounts.BottomCenter;
 
@@ -153,6 +158,13 @@ namespace Vitaru.Editor.UI
             });
 
             speed.Progress = 0.5f;
+        }
+
+        public void Selected(EditableProperty[] properties)
+        {
+            for (int i = 0; i < properties.Length; i++)
+                if (properties[i] is EditableStartTime start)
+                    start.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
         }
 
         public void TogglePlay()

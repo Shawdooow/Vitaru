@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -52,10 +51,10 @@ namespace Vitaru.Editor.UI
                 }
             };
 
-            EditableGenerator[] editables = GamemodeStore.SelectedGamemode.Gamemode.GetEditables();
-            for (int i = 0; i < editables.Length; i++)
+            EditableGenerator[] generators = GamemodeStore.SelectedGamemode.Gamemode.GetGenerators();
+            for (int i = 0; i < generators.Length; i++)
             {
-                ToolboxItem item = new ToolboxItem(editables[i], i);
+                ToolboxItem item = new ToolboxItem(generators[i], i);
                 item.OnClick = () => select(item);
                 items.Add(item);
             }

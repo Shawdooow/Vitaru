@@ -30,10 +30,7 @@ namespace Vitaru.Editor.UI
         {
             this.manager = manager;
 
-            manager.GeneratorSet += g =>
-            {
-                manager.SetEditable(g.GetEditable(this));
-            };
+            manager.GeneratorSet += g => { manager.SetEditable(g.GetEditable(this)); };
 
             manager.EditableSet += Selected;
         }
@@ -41,7 +38,7 @@ namespace Vitaru.Editor.UI
         public void Selected(IEditable editable)
         {
             DrawableGameEntity draw = editable.GenerateDrawable();
-            IDrawable2D outline = manager.SelectedGenerator.GetOverlay(draw);
+            IDrawable2D outline = manager.SelectedEditable.GetOverlay(draw);
             draw.Add(outline);
 
             editable.SetDrawable(draw);
@@ -67,6 +64,7 @@ namespace Vitaru.Editor.UI
                     if (p is EditableStartPosition start)
                         start.SetValue(start.Value + InputManager.Mouse.Position - offset);
             }
+
             offset = InputManager.Mouse.Position;
         }
 
@@ -93,10 +91,6 @@ namespace Vitaru.Editor.UI
                         }
                     }
                 }
-            }
-            else
-            {
-                
             }
 
             return false;

@@ -44,7 +44,8 @@ namespace Vitaru.Tracks
                 list = new ListLayer<Button>
                 {
                     //ParentSizing = Axes.Both,
-                    Size = new Vector2(160, 400)
+                    Size = new Vector2(160, 400),
+                    Spacing = 2,
                 },
             };
             foreach (LevelPack p in LevelStore.LoadedLevels)
@@ -56,16 +57,16 @@ namespace Vitaru.Tracks
 
                     //ParentSizing = Axes.Horizontal,
                     Width = 160,
-                    Height = 20,
+                    Height = 18,
 
                     Text = p.Title,
 
                     SpriteText =
                     {
-                        ParentOrigin = Mounts.TopLeft,
-                        Origin = Mounts.TopLeft,
+                        ParentOrigin = Mounts.CenterLeft,
+                        Origin = Mounts.CenterLeft,
 
-                        TextScale = 0.25f
+                        TextScale = 0.24f
                     },
 
                     OnClick = () =>
