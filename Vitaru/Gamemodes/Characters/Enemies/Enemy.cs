@@ -9,6 +9,7 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Color;
@@ -157,7 +158,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             PreLoaded = true;
 
-            if (Drawable != null)
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
                 Drawable.ClearTransforms();
                 Drawable.Alpha = 0;
@@ -175,7 +176,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         {
             Started = false;
 
-            if (Drawable != null)
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
                 Drawable.ClearTransforms();
                 Drawable.Alpha = 1;
@@ -186,7 +187,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         protected virtual void UnLoad() 
         {
             PreLoaded = false;
-            if (Drawable != null)
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
                 Drawable.ClearTransforms();
                 Drawable.Alpha = 0;
