@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
+using Prion.Nucleus.Timing;
 using Vitaru.Editor;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
@@ -65,6 +66,12 @@ namespace Vitaru.Roots
         private void loadLevelEditor(Level level)
         {
             manager = new LevelManager(level);
+
+            TrackManager.CurrentTrack.LinkedClock = new SeekableClock();
+
+            TrackManager.CurrentTrack.LinkedClock.Start();
+            TrackManager.CurrentTrack.LinkedClock.Seek(TrackManager.CurrentTrack.Clock.Current);
+            TrackManager.CurrentTrack.LinkedClock.Rate = TrackManager.CurrentTrack.Clock.Rate;
 
             editfield = new Editfield(manager)
             {

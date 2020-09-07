@@ -17,6 +17,7 @@ using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Levels;
 using Vitaru.Play;
+using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
 {
@@ -54,6 +55,10 @@ namespace Vitaru.Editor.UI
             CharacterLayer.Scale = new Vector2(0.5f);
             ProjectilesLayer.Scale = new Vector2(0.5f);
             SelectionLayer.Scale = new Vector2(0.5f);
+
+            CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            SelectionLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
         }
 
         public void Selected(IEditable editable)
