@@ -15,6 +15,7 @@ using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
+using Vitaru.Graphics.Particles;
 using Vitaru.Levels;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -52,10 +53,12 @@ namespace Vitaru.Editor.UI
                 LevelStore.SaveCurrentLevel();
             };
 
+            ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
             ProjectilesLayer.Scale = new Vector2(0.5f);
             SelectionLayer.Scale = new Vector2(0.5f);
 
+            ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             SelectionLayer.Clock = TrackManager.CurrentTrack.LinkedClock;

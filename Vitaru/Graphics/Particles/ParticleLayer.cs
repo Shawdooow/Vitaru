@@ -214,9 +214,9 @@ namespace Vitaru.Graphics.Particles
                 if (pLifetime[i] >= 1)
                 {
                     pLifetime[i] = 0;
-                    pStartPosition[i] = particle.StartPosition;
-                    pEndPosition[i] = particle.EndPosition;
-                    pColor[i] = new Vector4(particle.Color, particle.Scale);
+                    pStartPosition[i] = particle.StartPosition * Scale;
+                    pEndPosition[i] = particle.EndPosition * Scale;
+                    pColor[i] = new Vector4(particle.Color, particle.Scale * Math.Min(Scale.X, Scale.Y));
                     bufferParts = true;
                     return;
                 }
