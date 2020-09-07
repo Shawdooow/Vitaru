@@ -224,16 +224,16 @@ namespace Vitaru.Levels
 
         public static void SaveCurrentLevel()
         {
-            string path = $"{CurrentPack.Title}\\{CurrentLevel.LevelDifficulty}.vitaru";
-
-            if (!Vitaru.LevelStorage.Exists(path))
-                Vitaru.LevelStorage.CreateFile(path);
-
-            using (StreamWriter writer =
-                new StreamWriter(Vitaru.LevelStorage.GetStream(path)))
-            {
-
-            }
+            //string path = $"{CurrentPack.Title}\\{CurrentLevel.LevelDifficulty}.vitaru";
+            //
+            //if (!Vitaru.LevelStorage.Exists(path))
+            //    Vitaru.LevelStorage.CreateFile(path);
+            //
+            //using (StreamWriter writer =
+            //    new StreamWriter(Vitaru.LevelStorage.GetStream(path)))
+            //{
+            //
+            //}
         }
     }
 }
