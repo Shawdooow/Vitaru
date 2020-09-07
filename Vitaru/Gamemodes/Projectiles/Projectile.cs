@@ -27,6 +27,8 @@ namespace Vitaru.Gamemodes.Projectiles
             throw new NotImplementedException();
         }
 
+        public bool Selected { get; set; }
+
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {
             new EditableStartPosition(this)

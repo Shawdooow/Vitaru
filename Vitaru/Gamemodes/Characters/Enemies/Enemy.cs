@@ -34,6 +34,22 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public new DrawableEnemy Drawable;
 
+        public bool Selected
+        {
+            get => selected;
+            set
+            {
+                selected = value;
+                if (Drawable != null)
+                {
+                    double current = Clock.Current;
+                    Drawable.Alpha = current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && Selected ? 1 : 0;
+                }
+            }
+        }
+
+        private bool selected;
+
         public override void SetDrawable(DrawableGameEntity drawable)
         {
             base.SetDrawable(drawable);
@@ -122,16 +138,19 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             double current = Clock.Current;
 
-            if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
-                PreLoad();
-            else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
-                     PreLoaded)
-                UnLoad();
+            if (!Selected)
+            {
+                if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
+                    PreLoad();
+                else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
+                         PreLoaded)
+                    UnLoad();
 
-            if (current >= StartTime && current < EndTime && !Started)
-                Start();
-            else if ((current < StartTime || current >= EndTime) && Started)
-                End();
+                if (current >= StartTime && current < EndTime && !Started)
+                    Start();
+                else if ((current < StartTime || current >= EndTime) && Started)
+                    End();
+            }
         }
 
         protected virtual void PreLoad()
@@ -167,6 +186,11 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         protected virtual void UnLoad() 
         {
             PreLoaded = false;
+            if (Drawable != null)
+            {
+                Drawable.ClearTransforms();
+                Drawable.Alpha = 0;
+            }
         }
 
         protected override void Die()

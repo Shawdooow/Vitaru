@@ -39,7 +39,14 @@ namespace Vitaru.Editor
 
         public void SetEditable(IEditable editable)
         {
+            if (SelectedEditable != null)
+                SelectedEditable.Selected = false;
+
             SelectedEditable = editable;
+
+            if (SelectedEditable != null)
+                SelectedEditable.Selected = true;
+
             EditableSet?.Invoke(editable);
         }
 

@@ -15,6 +15,7 @@ using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
+using Vitaru.Levels;
 using Vitaru.Play;
 
 namespace Vitaru.Editor.UI
@@ -47,6 +48,7 @@ namespace Vitaru.Editor.UI
                 master.AddRange(LoadedEnemies);
 
                 manager.Level.EnemyData = converter.EnemiesToString(master);
+                LevelStore.SaveCurrentLevel();
             };
 
             CharacterLayer.Scale = new Vector2(0.5f);

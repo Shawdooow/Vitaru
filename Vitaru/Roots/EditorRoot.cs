@@ -28,6 +28,8 @@ namespace Vitaru.Roots
         private readonly LevelProperties levelProperties;
         private EditableProperties editableProperties;
 
+        private LevelManager manager;
+
         //state to manager loading the editor on draw thread, gets set by a button (the update thread)
         private LoadState state;
 
@@ -62,7 +64,7 @@ namespace Vitaru.Roots
 
         private void loadLevelEditor(Level level)
         {
-            LevelManager manager = new LevelManager(level);
+            manager = new LevelManager(level);
 
             editfield = new Editfield(manager)
             {
@@ -128,6 +130,12 @@ namespace Vitaru.Roots
                 loadLevelEditor(LevelStore.CurrentLevel);
 
             base.PreRender();
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            manager?.SerializeToLevel();
         }
     }
 }
