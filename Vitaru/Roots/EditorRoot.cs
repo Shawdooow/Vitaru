@@ -98,6 +98,7 @@ namespace Vitaru.Roots
             Add(editfield);
 
             //Layers
+            Add(editfield.ParticleLayer);
             Add(editfield.CharacterLayer);
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
@@ -135,6 +136,9 @@ namespace Vitaru.Roots
         {
             if (state == LoadState.PreLoaded)
                 loadLevelEditor(LevelStore.CurrentLevel);
+
+            if (state == LoadState.Loaded)
+                editfield.PreRender();
 
             base.PreRender();
         }

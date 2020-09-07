@@ -71,7 +71,9 @@ namespace Vitaru.Editor.UI
                     DrawableGameEntity draw = editable.GenerateDrawable();
                     editable.SetDrawable(draw);
                     enemy.Drawable.Scale = new Vector2(0.25f);
-                    Add(enemy);
+                    //Add(enemy);
+                    LoadedEnemies.Add(enemy);
+                    enemy.OnAddParticle = ParticleLayer.Add;
                 }
 
                 IDrawable2D outline = manager.SelectedEditable.GetOverlay(enemy.Drawable);

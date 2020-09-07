@@ -9,6 +9,7 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
@@ -219,7 +220,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         protected virtual void Shoot()
         {
-            float angle = 0;
+            float angle = MathF.PI / 2f;
 
             if (ShootPlayer)
             {

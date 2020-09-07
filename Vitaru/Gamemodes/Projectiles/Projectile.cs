@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Nucleus.Debug;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Particles;
