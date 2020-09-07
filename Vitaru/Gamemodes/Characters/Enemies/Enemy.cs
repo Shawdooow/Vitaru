@@ -9,11 +9,11 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Color;
+using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Gamemodes.Characters.Players;
@@ -24,7 +24,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor//, IHasPatternID, IHasEndTime
+    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor, IHasPatternID//, IHasEndTime
     {
         public static int COUNT;
 
@@ -76,6 +76,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableStartPosition(this),
             new EditableStartTime(this),
             new EditableColor(this),
+            new EditablePatternID(this), 
         };
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
@@ -109,6 +110,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public bool PreLoaded { get; private set; }
 
         public bool Started { get; private set; }
+
+        public short PatternID { get; set; }
 
         public bool ShootPlayer { get; set; }
 
@@ -230,7 +233,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             List<Projectile> projectiles;
 
-            switch (PrionMath.RandomNumber(0, 5))
+            switch (PatternID)
             {
                 default:
                     projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);

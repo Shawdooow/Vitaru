@@ -15,7 +15,6 @@ using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Graphics.Particles;
 using Vitaru.Levels;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -78,6 +77,9 @@ namespace Vitaru.Editor.UI
                     LoadedEnemies.Add(enemy);
                     enemy.OnAddParticle = ParticleLayer.Add;
                 }
+
+                enemy.Drawable.ClearTransforms();
+                enemy.Drawable.Alpha = 1;
 
                 IDrawable2D outline = manager.SelectedEditable.GetOverlay(enemy.Drawable);
                 enemy.Drawable.Add(outline);
