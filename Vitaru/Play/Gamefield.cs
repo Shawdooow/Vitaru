@@ -22,6 +22,7 @@ using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
+using Vitaru.Tracks;
 
 namespace Vitaru.Play
 {
@@ -116,6 +117,10 @@ namespace Vitaru.Play
             {
                 //TODO: Multiplayer
             }
+
+            ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
         }
 
         public override void Update()

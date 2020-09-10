@@ -28,7 +28,8 @@ namespace Vitaru.Editor.UI
         public readonly HoverableLayer<DrawableGameEntity> SelectionLayer = new HoverableLayer<DrawableGameEntity>
         {
             Size = new Vector2(1024, 820),
-            Scale = new Vector2(0.5f)
+            Scale = new Vector2(0.5f),
+            Clock = TrackManager.CurrentTrack.LinkedClock
         };
 
         private bool clicked;
@@ -55,12 +56,6 @@ namespace Vitaru.Editor.UI
             ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
             ProjectilesLayer.Scale = new Vector2(0.5f);
-            SelectionLayer.Scale = new Vector2(0.5f);
-
-            ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            SelectionLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
         }
 
         public void Selected(IEditable editable)
