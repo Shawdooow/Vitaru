@@ -40,20 +40,37 @@ namespace Vitaru.Graphics.Particles
         private static int ends;
         private static int colors;
 
-        public float[] pLifetime = new float[MAX_PARTICLES];
+        public readonly float[] pLifetime = new float[MAX_PARTICLES];
 
-        public Vector2[] pStartPosition = new Vector2[MAX_PARTICLES];
+        public readonly Vector2[] pStartPosition = new Vector2[MAX_PARTICLES];
 
-        public Vector2[] pEndPosition = new Vector2[MAX_PARTICLES];
+        public readonly Vector2[] pEndPosition = new Vector2[MAX_PARTICLES];
 
-        public Vector4[] pColor = new Vector4[MAX_PARTICLES];
+        public readonly Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
-        private IntPtr lifeBuffer;
-        private IntPtr startBuffer;
-        private IntPtr endBuffer;
-        private IntPtr colorBuffer;
+        private readonly IntPtr lifeBuffer;
+        private readonly IntPtr startBuffer;
+        private readonly IntPtr endBuffer;
+        private readonly IntPtr colorBuffer;
+
+        private int cap;
 
         private bool bufferParts;
+
+        public ParticleLayer()
+        {
+            GCHandle l = GCHandle.Alloc(pLifetime, GCHandleType.Pinned);
+            lifeBuffer = l.AddrOfPinnedObject();
+
+            GCHandle s = GCHandle.Alloc(pStartPosition, GCHandleType.Pinned);
+            startBuffer = s.AddrOfPinnedObject();
+
+            GCHandle e = GCHandle.Alloc(pEndPosition, GCHandleType.Pinned);
+            endBuffer = e.AddrOfPinnedObject();
+
+            GCHandle c = GCHandle.Alloc(pColor, GCHandleType.Pinned);
+            colorBuffer = c.AddrOfPinnedObject();
+        }
 
         public override void LoadingComplete()
         {
@@ -132,7 +149,11 @@ namespace Vitaru.Graphics.Particles
             {
                 pLifetime[i] += last / 1200;
 
-                if (pLifetime[i] < 1) PARTICLES_IN_USE++;
+                if (pLifetime[i] < 1)
+                {
+                    PARTICLES_IN_USE++;
+                    cap = Math.Max(i, cap);
+                }
             }
         }
 
@@ -196,7 +217,7 @@ namespace Vitaru.Graphics.Particles
             GL.VertexAttribDivisor(13, 1);
             GL.VertexAttribDivisor(14, 1);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, cap);
 
             GL.DisableVertexAttribArray(10);
             GL.DisableVertexAttribArray(11);
@@ -236,36 +257,24 @@ namespace Vitaru.Graphics.Particles
 
         private void bufferLife()
         {
-            GCHandle l = GCHandle.Alloc(pLifetime, GCHandleType.Pinned);
-            lifeBuffer = l.AddrOfPinnedObject();
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 4, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 4, lifeBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 4, lifeBuffer);
         }
 
         private void buffer()
         {
-            GCHandle s = GCHandle.Alloc(pStartPosition, GCHandleType.Pinned);
-            startBuffer = s.AddrOfPinnedObject();
-
-            GCHandle e = GCHandle.Alloc(pEndPosition, GCHandleType.Pinned);
-            endBuffer = e.AddrOfPinnedObject();
-
-            GCHandle c = GCHandle.Alloc(pColor, GCHandleType.Pinned);
-            colorBuffer = c.AddrOfPinnedObject();
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 8, startBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 8, startBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 8, endBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 8, endBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 16, colorBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 16, colorBuffer);
         }
     }
 }

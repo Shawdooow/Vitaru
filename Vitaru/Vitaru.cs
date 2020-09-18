@@ -43,7 +43,7 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 50) == 5;
+            ALKI = PrionMath.RandomNumber(0, 100) == 5;
 
             if (ALKI)
             {
@@ -52,7 +52,7 @@ namespace Vitaru
             }
             else
             {
-                bool somber = false; //PrionMath.RandomNumber(0, 5) == 2;
+                bool somber = PrionMath.RandomNumber(0, 20) == 2;
                 if (somber)
                     ThemeManager.Theme = new Somber();
             }
