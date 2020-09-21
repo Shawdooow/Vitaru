@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;

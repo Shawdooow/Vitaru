@@ -175,7 +175,7 @@ namespace Vitaru.Levels
             b.Record();
             Logger.Benchmark(b);
         }
-        
+
         public static void ReCreateDatabase()
         {
             Benchmark b = new Benchmark("ReCreate Database", true);
@@ -225,14 +225,13 @@ namespace Vitaru.Levels
         public static void SaveCurrentLevel()
         {
             string path = $"{CurrentPack.Title}\\{CurrentLevel.LevelName}.vitaru";
-            
+
             if (!Vitaru.LevelStorage.Exists(path))
                 Vitaru.LevelStorage.CreateFile(path);
-            
+
             using (StreamWriter writer =
                 new StreamWriter(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
             {
-                
             }
         }
     }

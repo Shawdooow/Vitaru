@@ -24,7 +24,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor, IHasPatternID//, IHasEndTime
+    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor, IHasPatternID //, IHasEndTime
     {
         public static int COUNT;
 
@@ -45,7 +45,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 if (Drawable != null)
                 {
                     double current = Clock.Current;
-                    Drawable.Alpha = current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && Selected ? 1 : 0;
+                    Drawable.Alpha = current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && Selected
+                        ? 1
+                        : 0;
                 }
             }
         }
@@ -76,7 +78,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableStartPosition(this),
             new EditableStartTime(this),
             new EditableColor(this),
-            new EditablePatternID(this), 
+            new EditablePatternID(this),
         };
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
@@ -170,13 +172,13 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             }
         }
 
-        protected virtual void Start() 
+        protected virtual void Start()
         {
             Shoot();
             Started = true;
         }
 
-        protected virtual void End() 
+        protected virtual void End()
         {
             Started = false;
 
@@ -188,7 +190,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             }
         }
 
-        protected virtual void UnLoad() 
+        protected virtual void UnLoad()
         {
             PreLoaded = false;
             if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
@@ -205,7 +207,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             for (int i = 0; i < 100; i++)
             {
-                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
+                float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
                 int distance = PrionMath.RandomNumber(80, 160);
 
                 OnAddParticle?.Invoke(new Particle
@@ -227,8 +229,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             if (ShootPlayer)
             {
-                Player player = (Player)Gamefield.PlayerPack.Children[0];
-                angle = (float)Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
+                Player player = (Player) Gamefield.PlayerPack.Children[0];
+                angle = (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
             }
 
             List<Projectile> projectiles;

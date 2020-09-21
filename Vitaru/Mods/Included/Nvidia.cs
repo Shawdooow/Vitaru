@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Drawing;
 using System.Numerics;
 using System.Xml;
@@ -32,7 +35,9 @@ namespace Vitaru.Mods.Included
 
         private class NvidiaRoot : MenuRoot
         {
-            private const string nvidia = @"https://api.digitalriver.com/v1/shoppers/me/products/5438481700/inventory-status?apiKey=9485fa7b159e42edb08a83bde0d83dia";
+            private const string nvidia =
+                @"https://api.digitalriver.com/v1/shoppers/me/products/5438481700/inventory-status?apiKey=9485fa7b159e42edb08a83bde0d83dia";
+
             private const string fail = "PRODUCT_INVENTORY_OUT_OF_STOCK";
 
             readonly XmlDocument doc = new XmlDocument();

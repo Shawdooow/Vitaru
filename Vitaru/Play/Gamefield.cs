@@ -352,7 +352,8 @@ namespace Vitaru.Play
 
                     if (current + p.TimePreLoad >= p.StartTime && current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
                         p.PreLoad();
-                    else if ((current + p.TimePreLoad < p.StartTime || current >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
+                    else if ((current + p.TimePreLoad < p.StartTime || current >= p.EndTime + p.TimeUnLoad) &&
+                             p.PreLoaded)
                     {
                         p.UnLoad();
                         gamefield.Remove(p);

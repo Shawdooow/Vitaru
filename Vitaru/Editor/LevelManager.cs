@@ -24,7 +24,7 @@ namespace Vitaru.Editor
 
         public event Action<EditableProperty[]> PropertiesSet;
 
-        public event Action OnSerializeToLevel; 
+        public event Action OnSerializeToLevel;
 
         public LevelManager(Level level)
         {

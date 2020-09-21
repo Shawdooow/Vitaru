@@ -49,7 +49,7 @@ namespace Vitaru.Editor.UI
                     },
 
                     OnClick = manager.SerializeToLevel
-                }, 
+                },
             };
         }
     }
