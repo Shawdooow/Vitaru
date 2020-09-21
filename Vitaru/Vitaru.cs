@@ -43,7 +43,7 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 50) == 5;
+            ALKI = PrionMath.RandomNumber(0, 100) == 5;
 
             if (ALKI)
             {
@@ -52,7 +52,7 @@ namespace Vitaru
             }
             else
             {
-                bool somber = false; //PrionMath.RandomNumber(0, 5) == 2;
+                bool somber = PrionMath.RandomNumber(0, 20) == 2;
                 if (somber)
                     ThemeManager.Theme = new Somber();
             }
@@ -193,11 +193,13 @@ namespace Vitaru
             //UPDATE: they are disable prion side but lets leave this incase they ever get re-enabled and are still shit
             switch (name)
             {
+                default:
+                    return base.GetContext("GL46");
                 case "Legacy":
                 case "GL41":
                     return base.GetContext("GL41");
-                default:
-                    return base.GetContext("GL46");
+                case "DX12":
+                    return base.GetContext("DX12");
             }
         }
 

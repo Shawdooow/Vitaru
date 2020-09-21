@@ -147,7 +147,7 @@ namespace Vitaru.Gamemodes.Characters
             {
                 Team = Team,
                 StartPosition = Position,
-                StartTime = Clock.LastCurrent,
+                StartTime = Clock.Current,
 
                 Speed = speed,
                 Angle = angle,

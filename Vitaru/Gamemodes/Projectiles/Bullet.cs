@@ -68,11 +68,11 @@ namespace Vitaru.Gamemodes.Projectiles
         public override void Update()
         {
             base.Update();
-            Position = GetPosition(Clock.LastCurrent);
+            Position = GetPosition(Clock.Current);
 
             s += Clock.LastElapsedTime;
 
-            if (particles && Clock.LastCurrent < EndTime && s >= 10 / particles_multiplier)
+            if (particles && Clock.Current < EndTime && s >= 10 / particles_multiplier)
             {
                 s = 0;
 

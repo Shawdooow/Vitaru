@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -11,9 +12,12 @@ using Prion.Mitochondria.Input.Receivers;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
+using Vitaru.Levels;
 using Vitaru.Play;
+using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
 {
@@ -24,7 +28,8 @@ namespace Vitaru.Editor.UI
         public readonly HoverableLayer<DrawableGameEntity> SelectionLayer = new HoverableLayer<DrawableGameEntity>
         {
             Size = new Vector2(1024, 820),
-            Scale = new Vector2(0.5f)
+            Scale = new Vector2(0.5f),
+            Clock = TrackManager.CurrentTrack.LinkedClock
         };
 
         private bool clicked;
@@ -37,9 +42,20 @@ namespace Vitaru.Editor.UI
 
             manager.EditableSet += Selected;
 
+            manager.OnSerializeToLevel += () =>
+            {
+                FormatConverter converter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
+                List<Enemy> master = new List<Enemy>();
+                master.AddRange(UnloadedEnemies);
+                master.AddRange(LoadedEnemies);
+
+                manager.Level.EnemyData = converter.EnemiesToString(master);
+                LevelStore.SaveCurrentLevel();
+            };
+
+            ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
             ProjectilesLayer.Scale = new Vector2(0.5f);
-            SelectionLayer.Scale = new Vector2(0.5f);
         }
 
         public void Selected(IEditable editable)
@@ -52,8 +68,13 @@ namespace Vitaru.Editor.UI
                     DrawableGameEntity draw = editable.GenerateDrawable();
                     editable.SetDrawable(draw);
                     enemy.Drawable.Scale = new Vector2(0.25f);
-                    Add(enemy);
+                    //Add(enemy);
+                    LoadedEnemies.Add(enemy);
+                    enemy.OnAddParticle = ParticleLayer.Add;
                 }
+
+                enemy.Drawable.ClearTransforms();
+                enemy.Drawable.Alpha = 1;
 
                 IDrawable2D outline = manager.SelectedEditable.GetOverlay(enemy.Drawable);
                 enemy.Drawable.Add(outline);

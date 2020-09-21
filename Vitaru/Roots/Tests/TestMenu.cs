@@ -28,7 +28,6 @@ namespace Vitaru.Roots.Tests
         public TestMenu(Vitaru vitaru)
         {
             Button multi;
-            Button edit;
 
             Add(new Button
             {
@@ -62,7 +61,7 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Multi"
             });
-            Add(edit = new Button
+            Add(new Button
             {
                 Y = 60,
                 Size = new Vector2(200, 100),
@@ -73,7 +72,13 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.TrinaryColor
                 },
 
-                Text = "Edit"
+                Text = "Edit",
+
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new EditorRoot());
+                }
             });
             Add(new Button
             {
@@ -121,13 +126,6 @@ namespace Vitaru.Roots.Tests
                     Color = Color.Black,
                     Alpha = 0.5f
                 });
-                edit.Add(new Box
-                {
-                    Size = multi.Size,
-                    Scale = multi.Scale,
-                    Color = Color.Black,
-                    Alpha = 0.5f
-                });
             }
             else
             {
@@ -135,11 +133,6 @@ namespace Vitaru.Roots.Tests
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
-                };
-                edit.OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorRoot());
                 };
             }
         }

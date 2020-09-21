@@ -7,7 +7,6 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
-using Vitaru.Graphics.Particles;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -26,6 +25,8 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             throw new NotImplementedException();
         }
+
+        public bool Selected { get; set; }
 
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {

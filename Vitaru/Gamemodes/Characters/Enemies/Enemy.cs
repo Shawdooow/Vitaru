@@ -8,9 +8,12 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Color;
+using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Gamemodes.Characters.Players;
@@ -21,7 +24,7 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor//, IHasPatternID, IHasEndTime
+    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor, IHasPatternID //, IHasEndTime
     {
         public static int COUNT;
 
@@ -32,6 +35,24 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public override float HitboxDiameter => 50f;
 
         public new DrawableEnemy Drawable;
+
+        public bool Selected
+        {
+            get => selected;
+            set
+            {
+                selected = value;
+                if (Drawable != null)
+                {
+                    double current = Clock.Current;
+                    Drawable.Alpha = current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && Selected
+                        ? 1
+                        : 0;
+                }
+            }
+        }
+
+        private bool selected;
 
         public override void SetDrawable(DrawableGameEntity drawable)
         {
@@ -57,6 +78,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableStartPosition(this),
             new EditableStartTime(this),
             new EditableColor(this),
+            new EditablePatternID(this),
         };
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
@@ -67,7 +89,17 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public Vector2 StartPosition { get; set; }
 
-        public virtual double StartTime { get; set; }
+        public virtual double StartTime
+        {
+            get => startTime;
+            set
+            {
+                startTime = value;
+                EndTime = StartTime + 200;
+            }
+        }
+
+        private double startTime;
 
         public virtual double EndTime { get; protected set; } = double.MaxValue;
 
@@ -80,6 +112,10 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public bool PreLoaded { get; private set; }
 
         public bool Started { get; private set; }
+
+        public short PatternID { get; set; }
+
+        public bool ShootPlayer { get; set; }
 
         private bool shoot = true;
 
@@ -100,67 +136,69 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             base.OnNewBeat();
             shoot = !shoot;
             if (shoot)
-                ShootPlayer();
+                Shoot();
         }
 
         public override void Update()
         {
             base.Update();
 
-            if (Clock.LastCurrent + TimePreLoad >= StartTime && Clock.LastCurrent < EndTime + TimeUnLoad && !PreLoaded)
-                PreLoad();
-            else if ((Clock.LastCurrent + TimePreLoad < StartTime || Clock.LastCurrent >= EndTime + TimeUnLoad) &&
-                     PreLoaded)
-                UnLoad();
+            double current = Clock.Current;
 
-            if (Clock.LastCurrent >= StartTime && Clock.LastCurrent < EndTime && !Started)
-                Start();
-            else if ((Clock.LastCurrent < StartTime || Clock.LastCurrent >= EndTime) && Started)
-                End();
+            if (!Selected)
+            {
+                if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
+                    PreLoad();
+                else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
+                         PreLoaded)
+                    UnLoad();
+
+                if (current >= StartTime && current < EndTime && !Started)
+                    Start();
+                else if ((current < StartTime || current >= EndTime) && Started)
+                    End();
+            }
         }
 
-        protected virtual void ShootPlayer()
+        protected virtual void PreLoad()
         {
-            Player player = (Player) Gamefield.PlayerPack.Children[0];
+            PreLoaded = true;
 
-            float playerAngle =
-                (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
-
-            List<Projectile> projectiles;
-
-            switch (PrionMath.RandomNumber(0, 5))
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
-                default:
-                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
-                    break;
-                case 1:
-                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
-                    break;
-                case 2:
-                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
-                    break;
-                case 3:
-                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.LastCurrent, Team, 1, playerAngle);
-                    break;
-                case 4:
-                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.LastCurrent, Team);
-                    break;
-            }
-
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Color = PrimaryColor;
-                Gamefield.Add(projectile);
+                Drawable.ClearTransforms();
+                Drawable.Alpha = 0;
+                Drawable.FadeTo(1, TimePreLoad);
             }
         }
 
-        protected virtual void PreLoad() => PreLoaded = true;
+        protected virtual void Start()
+        {
+            Shoot();
+            Started = true;
+        }
 
-        protected virtual void Start() => Started = true;
+        protected virtual void End()
+        {
+            Started = false;
 
-        protected virtual void End() => Started = false;
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
+            {
+                Drawable.ClearTransforms();
+                Drawable.Alpha = 1;
+                Drawable.FadeTo(0, TimeUnLoad);
+            }
+        }
 
-        protected virtual void UnLoad() => PreLoaded = false;
+        protected virtual void UnLoad()
+        {
+            PreLoaded = false;
+            if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
+            {
+                Drawable.ClearTransforms();
+                Drawable.Alpha = 0;
+            }
+        }
 
         protected override void Die()
         {
@@ -169,7 +207,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             for (int i = 0; i < 100; i++)
             {
-                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
+                float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
                 int distance = PrionMath.RandomNumber(80, 160);
 
                 OnAddParticle?.Invoke(new Particle
@@ -183,6 +221,56 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             Drawable?.Delete();
             Gamefield.Remove(this);
+        }
+
+        protected virtual void Shoot()
+        {
+            float angle = MathF.PI / 2f;
+
+            if (ShootPlayer)
+            {
+                Player player = (Player) Gamefield.PlayerPack.Children[0];
+                angle = (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
+            }
+
+            List<Projectile> projectiles;
+
+            switch (PatternID)
+            {
+                default:
+                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 1:
+                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 2:
+                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 3:
+                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
+                    break;
+                case 4:
+                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team);
+                    break;
+            }
+
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Color = PrimaryColor;
+                Gamefield.Add(projectile);
+            }
+        }
+
+        private Vector2 getClusterStartPosition()
+        {
+            if (StartPosition.X <= 384f / 2 && StartPosition.Y <= 512f / 2)
+                return StartPosition - new Vector2(384f / 2, 512f / 2);
+            if (StartPosition.X > 384f / 2 && StartPosition.Y <= 512f / 2)
+                return new Vector2(StartPosition.X + 384f / 2, StartPosition.Y - 512f / 2);
+            if (StartPosition.X > 384f / 2 && StartPosition.Y > 512f / 2)
+                return StartPosition + new Vector2(384f / 2, 512f / 2);
+
+            return new Vector2(StartPosition.X - 384f / 2, StartPosition.Y + 512f / 2);
         }
 
         protected override void Dispose(bool finalize)

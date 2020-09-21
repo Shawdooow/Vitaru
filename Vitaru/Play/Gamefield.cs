@@ -22,6 +22,7 @@ using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
+using Vitaru.Tracks;
 
 namespace Vitaru.Play
 {
@@ -116,6 +117,10 @@ namespace Vitaru.Play
             {
                 //TODO: Multiplayer
             }
+
+            ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
         }
 
         public override void Update()
@@ -339,23 +344,24 @@ namespace Vitaru.Play
 
             private void proccessBullets(int s, int e)
             {
-                double last = Clock.LastCurrent;
+                double current = Clock.Current;
 
                 for (int i = s; i < e; i++)
                 {
                     Projectile p = ProtectedChildren[i];
 
-                    if (last + p.TimePreLoad >= p.StartTime && last < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
+                    if (current + p.TimePreLoad >= p.StartTime && current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
                         p.PreLoad();
-                    else if ((last + p.TimePreLoad < p.StartTime || last >= p.EndTime + p.TimeUnLoad) && p.PreLoaded)
+                    else if ((current + p.TimePreLoad < p.StartTime || current >= p.EndTime + p.TimeUnLoad) &&
+                             p.PreLoaded)
                     {
                         p.UnLoad();
                         gamefield.Remove(p);
                     }
 
-                    if (last >= p.StartTime && last < p.EndTime && !p.Started)
+                    if (current >= p.StartTime && current < p.EndTime && !p.Started)
                         p.Start();
-                    else if ((last < p.StartTime || last >= p.EndTime) && p.Started)
+                    else if ((current < p.StartTime || current >= p.EndTime) && p.Started)
                     {
                         p.End();
                     }

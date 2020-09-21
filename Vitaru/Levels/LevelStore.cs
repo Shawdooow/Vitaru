@@ -148,6 +148,7 @@ namespace Vitaru.Levels
             Logger.Benchmark(b);
         }
 
+        //TODO: Try Catch this as a whole, if its broken just regen the whole thing
         public static void ReloadLevelsFromDatabase()
         {
             Benchmark b = new Benchmark("Reload Levels From Database", true);
@@ -175,7 +176,6 @@ namespace Vitaru.Levels
             Logger.Benchmark(b);
         }
 
-        //TODO: Try Catch this as a whole, if its broken just regen the whole thing
         public static void ReCreateDatabase()
         {
             Benchmark b = new Benchmark("ReCreate Database", true);
@@ -220,6 +220,19 @@ namespace Vitaru.Levels
             SetLevel(LoadedLevels[random]);
 
             return CurrentPack.Levels[0].LevelTrack;
+        }
+
+        public static void SaveCurrentLevel()
+        {
+            string path = $"{CurrentPack.Title}\\{CurrentLevel.LevelName}.vitaru";
+
+            if (!Vitaru.LevelStorage.Exists(path))
+                Vitaru.LevelStorage.CreateFile(path);
+
+            using (StreamWriter writer =
+                new StreamWriter(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
+            {
+            }
         }
     }
 }

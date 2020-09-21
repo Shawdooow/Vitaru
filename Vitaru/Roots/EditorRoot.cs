@@ -8,10 +8,12 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Nucleus.Entitys;
+using Prion.Nucleus.Timing;
 using Vitaru.Editor;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
 using Vitaru.Server.Track;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
@@ -26,6 +28,8 @@ namespace Vitaru.Roots
         private Timeline timeline;
         private readonly LevelProperties levelProperties;
         private EditableProperties editableProperties;
+
+        private LevelManager manager;
 
         //state to manager loading the editor on draw thread, gets set by a button (the update thread)
         private LoadState state;
@@ -61,9 +65,18 @@ namespace Vitaru.Roots
 
         private void loadLevelEditor(Level level)
         {
-            LevelManager manager = new LevelManager(level);
+            manager = new LevelManager(level);
 
-            editfield = new Editfield(manager);
+            TrackManager.CurrentTrack.LinkedClock = new SeekableClock();
+
+            TrackManager.CurrentTrack.LinkedClock.Start();
+            TrackManager.CurrentTrack.LinkedClock.Seek(TrackManager.CurrentTrack.Clock.Current);
+            TrackManager.CurrentTrack.LinkedClock.Rate = TrackManager.CurrentTrack.Clock.Rate;
+
+            editfield = new Editfield(manager)
+            {
+                Clock = TrackManager.CurrentTrack.Clock,
+            };
             editableProperties = new EditableProperties(manager);
 
             Add(new SpriteLayer
@@ -85,6 +98,7 @@ namespace Vitaru.Roots
             Add(editfield);
 
             //Layers
+            Add(editfield.ParticleLayer);
             Add(editfield.CharacterLayer);
             Add(editfield.ProjectilesLayer);
             Add(editfield.SelectionLayer);
@@ -123,7 +137,16 @@ namespace Vitaru.Roots
             if (state == LoadState.PreLoaded)
                 loadLevelEditor(LevelStore.CurrentLevel);
 
+            if (state == LoadState.Loaded)
+                editfield.PreRender();
+
             base.PreRender();
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            manager?.SerializeToLevel();
         }
     }
 }

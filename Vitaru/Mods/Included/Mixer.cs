@@ -426,7 +426,7 @@ namespace Vitaru.Mods.Included
             private void setVolume(float v)
             {
                 TrackManager.CurrentTrack.Gain = gain = Math.Clamp(v, 0, 1);
-                volume.Text = $"{MathF.Round(v, 2) * 100}%";
+                volume.Text = $"{MathF.Round(gain * 100, 0)}%";
                 control.Progress = PrionMath.Scale(gain, 0, 1);
             }
 

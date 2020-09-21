@@ -11,6 +11,8 @@ namespace Vitaru.Editor.Editables
 {
     public interface IEditable : IUpdatable
     {
+        bool Selected { get; set; }
+
         Vector2 Position { get; set; }
 
         EditableProperty[] GetProperties();
