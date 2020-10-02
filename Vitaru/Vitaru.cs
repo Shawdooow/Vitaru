@@ -33,7 +33,7 @@ namespace Vitaru
     {
         /// <summary>
         ///     Bool for easter egg Alki mode.
-        ///     It has a 1/50 chance of being true on startup and can not be set manually
+        ///     It has a 1/100 chance of being true on startup and can not be set manually
         /// </summary>
         public static bool ALKI { get; private set; }
 
