@@ -81,8 +81,8 @@ namespace Vitaru.Levels
                                     case "AudioOffset":
                                         track.Offset = double.Parse(line[1]);
                                         continue;
-                                    //case "PreviewStartTime":
-                                    //track.PreviewStartTime = double.Parse(line[1]);
+                                    //case "PreviewTime":
+                                    //track.PreviewTime = double.Parse(line[1]);
                                     //continue;
                                     case "Title":
                                         track.Title = line[1];
