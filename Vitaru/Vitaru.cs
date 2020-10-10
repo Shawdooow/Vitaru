@@ -37,6 +37,8 @@ namespace Vitaru
         /// </summary>
         public static bool ALKI { get; private set; }
 
+        public static bool DX12 { get; private set; }
+
         private static readonly Benchmark startup = new Benchmark("Startup");
 
         public static void Main(string[] args)
@@ -119,68 +121,71 @@ namespace Vitaru
 
             #region Shaders
 
-            //sprite.vert is shared for both shaders
-            string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
-
-            //Sprite
-            Shader sv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
-            Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
-                new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
-
-            Renderer.SpriteProgram.Dispose();
-            Renderer.SpriteProgram = Renderer.ShaderManager.GetShaderProgram(sv, sf);
-
-            GLShaderProgram sprite = (GLShaderProgram) Renderer.SpriteProgram;
-
-            sprite.SetActive();
-
-            Renderer.ShaderManager.ActiveShaderProgram = sprite;
-            Renderer.ShaderManager.SetSpriteLocations();
-
-            sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
-            sprite.Locations["intensity"] = GLShaderManager.GetLocation(sprite, "intensity");
-
-            Renderer.ShaderManager.UpdateInt("shade", 0);
-            Renderer.ShaderManager.UpdateInt("intensity", 1);
-
-            Renderer.OnResize += value =>
+            if (!DX12)
             {
+                //sprite.vert is shared for both shaders
+                string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
+
+                //Sprite
+                Shader sv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
+                Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                    new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
+
+                Renderer.SpriteProgram.Dispose();
+                Renderer.SpriteProgram = Renderer.ShaderManager.GetShaderProgram(sv, sf);
+
+                GLShaderProgram sprite = (GLShaderProgram) Renderer.SpriteProgram;
+
                 sprite.SetActive();
+
                 Renderer.ShaderManager.ActiveShaderProgram = sprite;
-                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
-                    Renderer.Width / -2f,
-                    Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
-            };
+                Renderer.ShaderManager.SetSpriteLocations();
 
-            //Circle
-            //Shader cv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
-            //Shader cf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
-            //    new StreamReader(ShaderStorage.GetStream("circle_shade.frag")).ReadToEnd());
-            //
-            //Renderer.CircularProgram.Dispose();
-            //Renderer.CircularProgram = Renderer.ShaderManager.GetShaderProgram(cv, cf);
-            //
-            //GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
-            //
-            //circle.SetActive();
-            //
-            //Renderer.ShaderManager.ActiveShaderProgram = circle;
-            //Renderer.ShaderManager.SetCircleLocations();
-            //
-            //circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
-            //
-            //Renderer.ShaderManager.UpdateInt("shade", 0);
-            //
-            //Renderer.OnResize += value =>
-            //{
-            //    circle.SetActive();
-            //    Renderer.ShaderManager.ActiveShaderProgram = circle;
-            //    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
-            //        Renderer.Width / -2f,
-            //        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
-            //};
+                sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
+                sprite.Locations["intensity"] = GLShaderManager.GetLocation(sprite, "intensity");
 
-            //TODO: Gradient
+                Renderer.ShaderManager.UpdateInt("shade", 0);
+                Renderer.ShaderManager.UpdateInt("intensity", 1);
+
+                Renderer.OnResize += value =>
+                {
+                    sprite.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = sprite;
+                    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
+                        Renderer.Width / -2f,
+                        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+                };
+
+                //Circle
+                //Shader cv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
+                //Shader cf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                //    new StreamReader(ShaderStorage.GetStream("circle_shade.frag")).ReadToEnd());
+                //
+                //Renderer.CircularProgram.Dispose();
+                //Renderer.CircularProgram = Renderer.ShaderManager.GetShaderProgram(cv, cf);
+                //
+                //GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
+                //
+                //circle.SetActive();
+                //
+                //Renderer.ShaderManager.ActiveShaderProgram = circle;
+                //Renderer.ShaderManager.SetCircleLocations();
+                //
+                //circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
+                //
+                //Renderer.ShaderManager.UpdateInt("shade", 0);
+                //
+                //Renderer.OnResize += value =>
+                //{
+                //    circle.SetActive();
+                //    Renderer.ShaderManager.ActiveShaderProgram = circle;
+                //    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
+                //        Renderer.Width / -2f,
+                //        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+                //};
+
+                //TODO: Gradient
+            }
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
@@ -189,8 +194,6 @@ namespace Vitaru
 
         protected override GraphicsContext GetContext(string name)
         {
-            //We don't want to load DX12 or Vulkan yet because they don't work
-            //UPDATE: they are disable prion side but lets leave this incase they ever get re-enabled and are still shit
             switch (name)
             {
                 default:
@@ -199,6 +202,7 @@ namespace Vitaru
                 case "GL41":
                     return base.GetContext("GL41");
                 case "DX12":
+                    DX12 = true;
                     return base.GetContext("DX12");
             }
         }
