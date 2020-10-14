@@ -31,7 +31,7 @@ void main()
 	color.w *= spriteColor.w;
 
 	if (white == 0)
-		color.xyz *= spriteColor;
+		color.xyz *= spriteColor.xyz;
 
 	switch(shade)
 	{
