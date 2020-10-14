@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
-using Vitaru.Gamemodes.Projectiles;
-using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Graphics.Projectiles.Bullets
 {
     public class BulletLayer : ShadeLayer<IDrawable2D>
     {
-        public const int MAX_BULLETS = 4000;
+        public const int MAX_BULLETS = 100;
+
+        private const int vertLocation = 10;
+        private const int positionLocation = 11;
+        private const int sizeLocation = 12;
+        private const int colorLocation = 13;
 
         public override string Name { get; set; } = nameof(BulletLayer);
 
@@ -144,46 +144,46 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
-            //Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
-            //Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
+            Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
+            Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
 
             // verts
-            GL.EnableVertexAttribArray(20);
+            GL.EnableVertexAttribArray(vertLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.VertexAttribPointer(20, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(vertLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // positions
-            GL.EnableVertexAttribArray(21);
+            GL.EnableVertexAttribArray(positionLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, poss);
-            GL.VertexAttribPointer(21, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(positionLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // sizes
-            GL.EnableVertexAttribArray(22);
+            GL.EnableVertexAttribArray(sizeLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, sizes);
-            GL.VertexAttribPointer(22, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(sizeLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // colors
-            GL.EnableVertexAttribArray(23);
+            GL.EnableVertexAttribArray(colorLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.VertexAttribPointer(23, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
-            GL.VertexAttribDivisor(20, 0);
-            GL.VertexAttribDivisor(21, 1);
-            GL.VertexAttribDivisor(22, 1);
-            GL.VertexAttribDivisor(23, 1);
+            GL.VertexAttribDivisor(vertLocation, 0);
+            GL.VertexAttribDivisor(positionLocation, 1);
+            GL.VertexAttribDivisor(sizeLocation, 1);
+            GL.VertexAttribDivisor(colorLocation, 1);
 
-            //Renderer.ShaderManager.UpdateInt("white", 0);
-            //Renderer.CurrentContext.BindTexture(textures[0]);
+            Renderer.ShaderManager.UpdateInt("white", 0);
+            Renderer.CurrentContext.BindTexture(textures[0]);
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS);
 
-            //Renderer.ShaderManager.UpdateInt("white", 1);
-            //Renderer.CurrentContext.BindTexture(textures[1]);
+            Renderer.ShaderManager.UpdateInt("white", 1);
+            Renderer.CurrentContext.BindTexture(textures[1]);
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS);
 
-            GL.DisableVertexAttribArray(20);
-            GL.DisableVertexAttribArray(21);
-            GL.DisableVertexAttribArray(22);
-            GL.DisableVertexAttribArray(23);
+            GL.DisableVertexAttribArray(vertLocation);
+            GL.DisableVertexAttribArray(positionLocation);
+            GL.DisableVertexAttribArray(sizeLocation);
+            GL.DisableVertexAttribArray(colorLocation);
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;

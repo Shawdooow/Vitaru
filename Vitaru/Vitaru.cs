@@ -201,12 +201,15 @@ namespace Vitaru
 
                 GLShaderProgram gl = (GLShaderProgram)BulletProgram;
 
-                gl.Locations["projection"] = GLShaderManager.GetLocation(BulletProgram, "projection");
+                gl.Locations["projection"] = GLShaderManager.GetLocation(gl, "projection");
 
-                gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(BulletProgram, "spriteTexture");
+                gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(gl, "spriteTexture");
                 gl.Locations["white"] = GLShaderManager.GetLocation(gl, "white");
                 gl.Locations["shade"] = GLShaderManager.GetLocation(gl, "shade");
                 gl.Locations["intensity"] = GLShaderManager.GetLocation(gl, "intensity");
+
+                Renderer.ShaderManager.ActiveShaderProgram = BulletProgram;
+                Renderer.CurrentContext.BindTexture(Game.TextureStore.GetTexture("Gameplay\\glow.png"));
             }
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));

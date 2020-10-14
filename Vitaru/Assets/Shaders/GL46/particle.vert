@@ -2,7 +2,6 @@
 
 layout(location = 10) in vec2 vertex;
 layout(location = 11) in float lifetime;
-//TODO: vec4 positions
 layout(location = 12) in vec2 startPos;
 layout(location = 13) in vec2 endPos;
 layout(location = 14) in vec4 color;
@@ -35,14 +34,6 @@ mat4 rotateZ(float rad)
 	            sin(rad), cos(rad), 0, 0,
 	            0, 0, 1.0, 0,
 	            0, 0, 0, 1.0);
-}
-
-mat4 translateColumn(vec2 p)
-{
-	return mat4(1, 0, 0, p.x,
-	            0, 1, 0, p.y,
-	            0, 0, 1, 0,
-	            0, 0, 0, 1);
 }
 
 mat4 translateRow(vec2 p)

@@ -88,6 +88,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
+            UpdateDrawable();
         }
 
         public virtual void UpdateDrawable()

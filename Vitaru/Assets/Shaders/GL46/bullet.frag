@@ -1,12 +1,12 @@
 #version 460
 
+uniform highp int white;
 uniform sampler2D spriteTexture;
-uniform int white;
 uniform int shade;
 uniform float intensity;
 
 in vec2 texCoords;
-in vec4 bColor;;
+in vec4 bColor;
 
 out vec4 final;
 

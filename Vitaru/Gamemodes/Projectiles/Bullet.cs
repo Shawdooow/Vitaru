@@ -65,7 +65,6 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
-            base.Update();
             Position = GetPosition(Clock.Current);
 
             s += Clock.LastElapsedTime;
@@ -85,6 +84,9 @@ namespace Vitaru.Gamemodes.Projectiles
                     Scale = 1f / PrionMath.RandomNumber(1, 5)
                 });
             }
+
+            //UpdateDrawable Last
+            base.Update();
         }
 
         public override void UpdateDrawable()
