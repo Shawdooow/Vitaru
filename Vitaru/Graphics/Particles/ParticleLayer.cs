@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -48,12 +49,14 @@ namespace Vitaru.Graphics.Particles
 
         public readonly Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
+        public readonly bool[] pDead = new bool[MAX_PARTICLES];
+
+        private readonly Stack<int> dead = new Stack<int>();
+
         private readonly IntPtr lifeBuffer;
         private readonly IntPtr startBuffer;
         private readonly IntPtr endBuffer;
         private readonly IntPtr colorBuffer;
-
-        private int cap;
 
         private bool bufferParts;
 
@@ -70,6 +73,12 @@ namespace Vitaru.Graphics.Particles
 
             GCHandle c = GCHandle.Alloc(pColor, GCHandleType.Pinned);
             colorBuffer = c.AddrOfPinnedObject();
+
+            for (int i = 0; i < pLifetime.Length; i++)
+            {
+                pDead[i] = true;
+                dead.Push(i);
+            }
         }
 
         public override void LoadingComplete()
@@ -150,9 +159,11 @@ namespace Vitaru.Graphics.Particles
                 pLifetime[i] += last / 1200;
 
                 if (pLifetime[i] < 1)
-                {
                     PARTICLES_IN_USE++;
-                    cap = Math.Max(i, cap);
+                else if (!pDead[i])
+                {
+                    pDead[i] = true;
+                    dead.Push(i);
                 }
             }
         }
@@ -217,7 +228,7 @@ namespace Vitaru.Graphics.Particles
             GL.VertexAttribDivisor(13, 1);
             GL.VertexAttribDivisor(14, 1);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, cap);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
 
             GL.DisableVertexAttribArray(10);
             GL.DisableVertexAttribArray(11);
@@ -231,18 +242,14 @@ namespace Vitaru.Graphics.Particles
 
         public void Add(Particle particle)
         {
-            for (int i = 0; i < pLifetime.Length; i++)
-                if (pLifetime[i] >= 1)
-                {
-                    pLifetime[i] = 0;
-                    pStartPosition[i] = particle.StartPosition * Scale;
-                    pEndPosition[i] = particle.EndPosition * Scale;
-                    pColor[i] = new Vector4(particle.Color, particle.Scale * Math.Min(Scale.X, Scale.Y));
-                    bufferParts = true;
-                    return;
-                }
+            int i = dead.Pop();
 
-            Logger.Warning("Too many Particles!");
+            pLifetime[i] = 0;
+            pStartPosition[i] = particle.StartPosition * Scale;
+            pEndPosition[i] = particle.EndPosition * Scale;
+            pColor[i] = new Vector4(particle.Color, particle.Scale * Math.Min(Scale.X, Scale.Y));
+            pDead[i] = false;
+            bufferParts = true;
         }
 
         public override void Add(IDrawable2D child, AddPosition position = AddPosition.Last)
@@ -259,22 +266,22 @@ namespace Vitaru.Graphics.Particles
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 4, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 4, lifeBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 4, lifeBuffer);
         }
 
         private void buffer()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 8, startBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 8, startBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 8, endBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 8, endBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
             GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, cap * 16, colorBuffer);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_PARTICLES * 16, colorBuffer);
         }
     }
 }
