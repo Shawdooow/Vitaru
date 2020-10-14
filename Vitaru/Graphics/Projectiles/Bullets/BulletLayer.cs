@@ -26,7 +26,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         private Texture[] textures;
 
-        private static ShaderProgram program;
+        private ShaderProgram program;
 
         private static int verts;
         private static int poss;
@@ -75,25 +75,9 @@ namespace Vitaru.Graphics.Projectiles.Bullets
                 Game.TextureStore.GetTexture("circle 128.png")
             };
 
-            if (program != null) return;
+            program = Vitaru.BulletProgram;
 
-            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
-                new StreamReader(Vitaru.ShaderStorage.GetStream("bullet.vert")).ReadToEnd());
-            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
-                new StreamReader(Vitaru.ShaderStorage.GetStream("bullet.frag")).ReadToEnd());
-
-            program = Renderer.ShaderManager.GetShaderProgram(vert, frag);
             program.SetActive();
-
-            GLShaderProgram gl = (GLShaderProgram)program;
-
-            gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
-
-            gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
-            gl.Locations["white"] = GLShaderManager.GetLocation(gl, "white");
-            gl.Locations["shade"] = GLShaderManager.GetLocation(gl, "shade");
-            gl.Locations["intensity"] = GLShaderManager.GetLocation(gl, "intensity");
-
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
             Vertex2[] array =

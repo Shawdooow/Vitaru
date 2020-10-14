@@ -8,7 +8,7 @@ layout(location = 23) in vec4 color;
 uniform mat4 projection;
 
 out vec2 texCoords;
-out vec4 spriteColor;
+out vec4 bColor;
 
 mat4 identity()
 {
@@ -30,7 +30,7 @@ mat4 translateRow(vec2 p)
 void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
-	spriteColor = color;
+	bColor = color;
 
 	mat4 model = identity();
 	model *= translateRow(pos);
