@@ -23,7 +23,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 36840;
+        public const int MAX_PARTICLES = 16000;
 
         public static int PARTICLES_IN_USE { get; private set; }
 
@@ -87,8 +87,8 @@ namespace Vitaru.Graphics.Particles
 
             texture = Game.TextureStore.GetTexture("particle.png");
 
-            for (int i = 0; i < pLifetime.Length; i++)
-                pLifetime[i] = 1;
+            //for (int i = 0; i < pLifetime.Length; i++)
+            //    pLifetime[i] = 1;
 
             if (program != null) return;
 

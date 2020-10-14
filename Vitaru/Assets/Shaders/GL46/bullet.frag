@@ -1,23 +1,37 @@
 #version 460
 
 uniform sampler2D spriteTexture;
+uniform int white;
 uniform int shade;
+uniform float intensity;
 
 in vec2 texCoords;
-in vec4 pColor;
+in vec4 spriteColor;
 
 out vec4 final;
 
-void main()
+const float r = 0.299;
+const float g = 0.587;
+const float b = 0.114;
+
+float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
 {
+    float scale = (outputMax - outputMin) / (inputMax - inputMin);
+    return outputMin + (value - inputMin) * scale;
+}
+
+void main()
+{	
 	float red;
 	float green;
 	float blue;
 	float gray;
 
 	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= alpha;
-	color.xyz *= spriteColor;
+	color.w *= spriteColor.w;
+
+	if (white == 0)
+		color.xyz *= spriteColor;
 
 	switch(shade)
 	{

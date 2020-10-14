@@ -53,7 +53,7 @@ namespace Vitaru.Roots.Tests
             //Layers
             Add(gamefield.ParticleLayer);
             Add(gamefield.CharacterLayer);
-            Add(gamefield.ProjectilesLayer);
+            Add(gamefield.BulletLayer);
 
             Add(enemies = new SpriteText
             {

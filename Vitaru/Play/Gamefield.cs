@@ -20,6 +20,7 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
+using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -78,12 +79,10 @@ namespace Vitaru.Play
 
         public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
 
-        public readonly ShadeLayer<DrawableGameEntity> ProjectilesLayer = new ProjectileLayer
+        public readonly BulletLayer BulletLayer = new BulletLayer
         {
             Size = new Vector2(1024, 820),
         };
-
-        protected readonly Queue<DrawableProjectile> RecycledDrawableProjectiles = new Queue<DrawableProjectile>();
 
         public readonly ParticleLayer ParticleLayer = new ParticleLayer
         {
@@ -120,7 +119,7 @@ namespace Vitaru.Play
 
             ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            ProjectilesLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            BulletLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
         }
 
         public override void Update()
@@ -196,31 +195,16 @@ namespace Vitaru.Play
             playerQue.Enqueue(player);
         }
 
-        private readonly ConcurrentQueue<DrawableProjectile> projectileQue = new ConcurrentQueue<DrawableProjectile>();
-
         private readonly ConcurrentQueue<Projectile> deadprojectileQue = new ConcurrentQueue<Projectile>();
-
-        private readonly ConcurrentQueue<DrawableProjectile> drawableProjectileQue =
-            new ConcurrentQueue<DrawableProjectile>();
 
         public void Add(Projectile projectile)
         {
             ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
 
-            DrawableProjectile draw;
-
-            if (RecycledDrawableProjectiles.Count > 0)
-                draw = RecycledDrawableProjectiles.Dequeue();
-            else
-                draw = projectile.GenerateDrawable() as DrawableProjectile;
-
-            projectile.SetDrawable(draw);
-            draw.SetProjectile(projectile);
+            projectile.SetDrawable(BulletLayer.RequestIndex(), BulletLayer);
 
             projectile.OnAddParticle = ParticleLayer.Add;
-            //Que adding the drawable
-            projectileQue.Enqueue(draw);
         }
 
         public void Remove(Projectile projectile)
@@ -230,7 +214,7 @@ namespace Vitaru.Play
             Debugger.Assert(!deadprojectileQue.Contains(projectile),
                 $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
 
-            projectile.Delete();
+            BulletLayer.ReturnIndex(projectile.Drawable);
             deadprojectileQue.Enqueue(projectile);
         }
 
@@ -265,34 +249,6 @@ namespace Vitaru.Play
                 Debugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
             }
-
-            //Add Projectiles
-            while (projectileQue.Count > 0)
-            {
-                Debugger.Assert(projectileQue.TryDequeue(out DrawableProjectile draw));
-                Debugger.Assert(!draw.Disposed,
-                    "This projectile is disposed and should not be in this list anymore");
-
-                draw.OnDelete += () => drawableProjectileQue.Enqueue(draw);
-
-                ProjectilesLayer.Add(draw);
-            }
-
-            //Remove Projectiles
-            while (drawableProjectileQue.Count > 0)
-            {
-                Debugger.Assert(drawableProjectileQue.TryDequeue(out DrawableProjectile draw));
-                ProjectilesLayer.Remove(draw, false);
-                RecycledDrawableProjectiles.Enqueue(draw);
-            }
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            base.Dispose(finalize);
-
-            while (RecycledDrawableProjectiles.Count > 0)
-                RecycledDrawableProjectiles.Dequeue().Dispose();
         }
 
         public class ProjectilePack : Pack<Projectile>, IHasTeam
@@ -396,87 +352,6 @@ namespace Vitaru.Play
 
                 start = st;
                 end = en + remainder;
-            }
-        }
-
-        private class ProjectileLayer : ShadeLayer<DrawableGameEntity>
-        {
-            private readonly Benchmark benchmark = new Benchmark("Bullet Render Time");
-
-            private readonly GraphicsOptions graphics =
-                Vitaru.VitaruSettings.GetValue<GraphicsOptions>(VitaruSetting.BulletVisuals);
-
-            private readonly List<DrawableBullet> bullets = new List<DrawableBullet>();
-
-            public ProjectileLayer()
-            {
-                Name = "Drawable Projectile Layer2D";
-            }
-
-            public override void Render()
-            {
-                benchmark.Start();
-
-                switch (graphics)
-                {
-                    default:
-                        base.Render();
-                        break;
-                    case GraphicsOptions.HighPerformance:
-                        Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
-                        Renderer.ShaderManager.UpdateInt("shade", (int) Shade);
-                        Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
-
-                        //Draw Glows
-                        Renderer.ShaderManager.UpdateVector3("spriteColor", bullets[0].Glow.Color.Vector());
-                        Renderer.CurrentContext.BindTexture(bullets[0].Glow.Texture);
-                        for (int i = 0; i < bullets.Count; i++)
-                        {
-                            Renderer.ShaderManager.UpdateMatrix4("model", bullets[i].Glow.DrawTransform);
-                            Renderer.ShaderManager.UpdateVector2("size", bullets[i].Glow.Size);
-                            Renderer.ShaderManager.UpdateFloat("alpha", bullets[i].Glow.DrawAlpha);
-                            Renderer.CurrentContext.RenderSpriteQuad();
-                        }
-
-                        //Draw Whites
-                        Renderer.ShaderManager.UpdateVector3("spriteColor", Color.White.Vector());
-                        Renderer.CurrentContext.BindTexture(bullets[0].Center.Texture);
-                        for (int i = 0; i < bullets.Count; i++)
-                        {
-                            Renderer.ShaderManager.UpdateMatrix4("model", bullets[i].Center.DrawTransform);
-                            Renderer.ShaderManager.UpdateVector2("size", bullets[i].Center.Size);
-                            Renderer.ShaderManager.UpdateFloat("alpha", bullets[i].Center.DrawAlpha);
-                            Renderer.CurrentContext.RenderSpriteQuad();
-                        }
-
-                        Renderer.ShaderManager.UpdateInt("shade", 0);
-                        Renderer.ShaderManager.UpdateFloat("intensity", 1);
-                        break;
-                }
-
-                benchmark.Record();
-            }
-
-            public override void Add(DrawableGameEntity child, AddPosition position = AddPosition.Last)
-            {
-                if (graphics == GraphicsOptions.HighPerformance && child is DrawableBullet bullet)
-                    bullets.Add(bullet);
-
-                base.Add(child, position);
-            }
-
-            public override void Remove(DrawableGameEntity child, bool dispose = true)
-            {
-                if (graphics == GraphicsOptions.HighPerformance && child is DrawableBullet bullet)
-                    bullets.Remove(bullet);
-
-                base.Remove(child, dispose);
-            }
-
-            protected override void Dispose(bool finalize)
-            {
-                base.Dispose(finalize);
-                Logger.Benchmark(benchmark);
             }
         }
     }
