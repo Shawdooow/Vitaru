@@ -43,7 +43,7 @@ void main()
 	float s = 1;
 
 	if (white == 0)
-		s = 2;
+		s = 3;
 
 	mat4 model = identity();
 	model *= translateRow(pos);
