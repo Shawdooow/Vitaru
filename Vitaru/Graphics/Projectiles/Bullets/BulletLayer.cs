@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
@@ -191,6 +192,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public int RequestIndex()
         {
+            if (!dead.Any()) return 0;
+
             int i = dead.Pop();
             bDead[i] = false;
             return i;

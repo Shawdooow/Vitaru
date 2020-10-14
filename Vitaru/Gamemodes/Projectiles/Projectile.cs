@@ -38,6 +38,8 @@ namespace Vitaru.Gamemodes.Projectiles
             new EditableStartPosition(this)
         };
 
+        public float Alpha = 1;
+
         public Color Color = Color.White;
 
         public float Angle { get; set; } = (float) Math.PI / -2f;
@@ -94,7 +96,7 @@ namespace Vitaru.Gamemodes.Projectiles
         public virtual void UpdateDrawable()
         {
             BulletLayer.bPosition[Drawable] = Position;
-            BulletLayer.bColor[Drawable] = Color.Vector(1);
+            BulletLayer.bColor[Drawable] = Color.Vector(Alpha);
         }
 
         public virtual void Collision()

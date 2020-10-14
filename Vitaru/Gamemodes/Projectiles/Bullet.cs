@@ -123,6 +123,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
             //Drawable.FadeTo(0, 250, Easings.InSine);
             //Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
+            Alpha = 0;
         }
 
         public override void ParseString(string[] data, int offset)

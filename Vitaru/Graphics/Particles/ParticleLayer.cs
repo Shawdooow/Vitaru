@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
@@ -23,7 +24,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 16000;
+        public const int MAX_PARTICLES = 64000;
 
         private const int vertLocation = 10;
         private const int lifetimeLocation = 11;
@@ -245,6 +246,8 @@ namespace Vitaru.Graphics.Particles
 
         public void Add(Particle particle)
         {
+            if (!dead.Any()) return;
+
             int i = dead.Pop();
 
             pLifetime[i] = 0;
