@@ -40,10 +40,10 @@ void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
 
-	float s = 2;
+	float s = 1;
 
-	if (white)
-		s = 1;
+	if (white == 0)
+		s = 2;
 
 	mat4 model = identity();
 	model *= translateRow(pos);

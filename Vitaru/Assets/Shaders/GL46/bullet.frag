@@ -1,6 +1,6 @@
 #version 460
 
-uniform highp int white;
+uniform int white;
 uniform sampler2D spriteTexture;
 uniform int shade;
 uniform float intensity;
