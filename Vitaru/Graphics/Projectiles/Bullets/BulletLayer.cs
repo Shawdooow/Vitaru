@@ -15,7 +15,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 {
     public class BulletLayer : ShadeLayer<IDrawable2D>
     {
-        public const int MAX_BULLETS = 100;
+        public const int MAX_BULLETS = 4000;
 
         private const int vertLocation = 10;
         private const int positionLocation = 11;
