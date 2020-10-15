@@ -215,6 +215,7 @@ namespace Vitaru.Play
                 $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
 
             BulletLayer.ReturnIndex(projectile.Drawable);
+            projectile.SetDrawable(-1, null);
             deadprojectileQue.Enqueue(projectile);
         }
 

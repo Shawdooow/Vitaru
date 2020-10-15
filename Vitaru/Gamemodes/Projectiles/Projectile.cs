@@ -18,9 +18,9 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected BulletLayer BulletLayer { get; private set; }
 
-        public new int Drawable { get; private set; }
+        public new int Drawable { get; private set; } = -1;
 
-        public new void SetDrawable(int i, BulletLayer layer)
+        public void SetDrawable(int i, BulletLayer layer)
         {
             BulletLayer = layer;
             Drawable = i;
@@ -90,7 +90,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
-            UpdateDrawable();
+            if (Drawable != -1) UpdateDrawable();
         }
 
         public virtual void UpdateDrawable()
@@ -145,6 +145,11 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected override void Dispose(bool finalize)
         {
+            if (Drawable != -1)
+            {
+                BulletLayer.ReturnIndex(Drawable);
+                Drawable = -1;
+            }
             BulletLayer = null;
             base.Dispose(finalize);
         }
