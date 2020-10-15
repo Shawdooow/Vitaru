@@ -10,7 +10,6 @@ using Prion.Mitochondria.Graphics.Contexts.GL46.Textures;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Shaders;
-using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 
 namespace Vitaru.Graphics.Projectiles.Bullets
