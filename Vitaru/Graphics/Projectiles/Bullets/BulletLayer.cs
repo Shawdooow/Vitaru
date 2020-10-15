@@ -170,19 +170,16 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             GL.VertexAttribDivisor(vertLocation, 0);
-            GL.VertexAttribDivisor(positionLocation, 1);
-            GL.VertexAttribDivisor(sizeLocation, 1);
-            GL.VertexAttribDivisor(colorLocation, 1);
+            GL.VertexAttribDivisor(positionLocation, 2);
+            GL.VertexAttribDivisor(sizeLocation, 2);
+            GL.VertexAttribDivisor(colorLocation, 2);
 
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, textures[0]);
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, textures[1]);
 
-            Renderer.ShaderManager.UpdateUInt("circleTexture", (uint)textures[0]);
-            Renderer.ShaderManager.UpdateUInt("glowTexture", (uint)textures[1]);
-
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS * 2);
 
             GL.DisableVertexAttribArray(vertLocation);
             GL.DisableVertexAttribArray(positionLocation);

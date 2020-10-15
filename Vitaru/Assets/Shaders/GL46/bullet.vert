@@ -8,7 +8,7 @@ layout(location = 13) in vec4 color;
 uniform mat4 projection;
 
 out vec2 texCoords;
-flat out int white;
+out int white;
 out vec4 bColor;
 
 mat4 identity()
@@ -49,7 +49,7 @@ void main()
 
 	mat4 model = identity();
 	model *= translateRow(pos);
-	model *= scale(1);
+	model *= scale(s);
 
 	gl_Position = projection * model * (vec4(size, 0, 1.0) * vec4(vertex, 0, 1.0));
 
