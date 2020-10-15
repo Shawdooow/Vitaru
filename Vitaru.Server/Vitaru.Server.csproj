@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Project">
-	<TargetFramework>net5.0</TargetFramework>
-	<AnalysisLevel>preview</AnalysisLevel>
-	<LangVersion>9.0</LangVersion>
+	  <TargetFramework>net5.0</TargetFramework>
+	  <AnalysisLevel>preview</AnalysisLevel>
+	  <LangVersion>9.0</LangVersion>
     <AssemblyTitle>Vitaru.Server</AssemblyTitle>
     <Version>0.11.0</Version>
     <Authors>Shawdooow</Authors>
@@ -13,18 +13,16 @@
     <StartupObject />
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
+    <ApplicationIcon>server.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
     <DefineConstant>PUBLISH</DefineConstant>
     <Optimize>true</Optimize>
-	<SignAssembly>true</SignAssembly>
-	<DelaySign>false</DelaySign>
-	<DebugType>none</DebugType>
-	<DebugSymbols>false</DebugSymbols>
-	<AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>server.ico</ApplicationIcon>
+	  <SignAssembly>true</SignAssembly>
+	  <DelaySign>false</DelaySign>
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
