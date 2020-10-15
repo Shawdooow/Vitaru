@@ -205,6 +205,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             dead.Push(i);
             bDead[i] = true;
+            bColor[i].W = 0;
         }
 
         public override void Add(IDrawable2D child, AddPosition position = AddPosition.Last)
