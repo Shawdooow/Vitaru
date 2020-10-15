@@ -1,7 +1,7 @@
 #version 460
 
 layout(location = 0) uniform sampler2D circleTexture;
-layout(location = 2) uniform sampler2D glowTexture;
+layout(location = 1) uniform sampler2D glowTexture;
 //uniform int shade;
 //uniform float intensity;
 
