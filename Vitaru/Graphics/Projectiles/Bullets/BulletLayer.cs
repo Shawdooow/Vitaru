@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Contexts.GL46.Textures;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Shaders;
@@ -25,7 +26,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public override string Name { get; set; } = nameof(BulletLayer);
 
-        private Texture[] textures;
+        private int[] textures;
 
         private ShaderProgram program;
 
@@ -72,8 +73,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             textures = new[]
             {
-                Game.TextureStore.GetTexture("Gameplay\\glow.png"),
-                Game.TextureStore.GetTexture("circle 128.png")
+                ((GLTexture)Game.TextureStore.GetTexture("circle 128.png")).ID,
+                ((GLTexture)Game.TextureStore.GetTexture("Gameplay\\glow.png")).ID,
             };
 
             program = Vitaru.BulletProgram;
@@ -145,8 +146,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
-            Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
-            Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
+            //Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
+            //Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
 
             // verts
             GL.EnableVertexAttribArray(vertLocation);
@@ -173,12 +174,14 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.VertexAttribDivisor(sizeLocation, 1);
             GL.VertexAttribDivisor(colorLocation, 1);
 
-            Renderer.ShaderManager.UpdateInt("white", 0);
-            Renderer.CurrentContext.BindTexture(textures[0]);
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS);
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.BindTexture(TextureTarget.Texture2D, textures[0]);
+            GL.ActiveTexture(TextureUnit.Texture1);
+            GL.BindTexture(TextureTarget.Texture2D, textures[1]);
 
-            Renderer.ShaderManager.UpdateInt("white", 1);
-            Renderer.CurrentContext.BindTexture(textures[1]);
+            Renderer.ShaderManager.UpdateUInt("circleTexture", (uint)textures[0]);
+            Renderer.ShaderManager.UpdateUInt("glowTexture", (uint)textures[1]);
+
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS);
 
             GL.DisableVertexAttribArray(vertLocation);
@@ -186,6 +189,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.DisableVertexAttribArray(sizeLocation);
             GL.DisableVertexAttribArray(colorLocation);
 
+            GL.ActiveTexture(TextureUnit.Texture0);
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }

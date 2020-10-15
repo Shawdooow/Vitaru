@@ -1,11 +1,12 @@
 #version 460
 
-uniform int white;
-uniform sampler2D spriteTexture;
-uniform int shade;
-uniform float intensity;
+uniform sampler2D circleTexture;
+uniform sampler2D glowTexture;
+//uniform int shade;
+//uniform float intensity;
 
 in vec2 texCoords;
+flat in int white;
 in vec4 bColor;
 
 out vec4 final;
@@ -22,11 +23,19 @@ float scale(float value, float inputMin, float inputMax, float outputMin, float 
 
 void main()
 {	
-	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= bColor.w;
+	vec4 color;
 
 	if (white == 0)
+	{
+		color = texture(glowTexture, texCoords);
 		color.xyz *= bColor.xyz;
+	}
+	else
+	{
+		color = texture(circleTexture, texCoords);
+	}
+
+	color.w *= bColor.w;
 
 	final = color;
 }
