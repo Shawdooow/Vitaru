@@ -9,12 +9,13 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Textures;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Debug;
 
 namespace Vitaru.Graphics.Projectiles.Bullets
 {
-    public class BulletLayer : ShadeLayer<IDrawable2D>
+    public class BulletLayer : Layer2D<IDrawable2D>
     {
         public const int MAX_BULLETS = 4000;
 
@@ -144,9 +145,6 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
-
-            //Renderer.ShaderManager.UpdateInt("shade", (int)Shade);
-            //Renderer.ShaderManager.UpdateFloat("intensity", Intensity);
 
             // verts
             GL.EnableVertexAttribArray(vertLocation);
