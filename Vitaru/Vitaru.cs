@@ -5,11 +5,13 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio.OpenAL;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
+using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Stores;
 using Prion.Nucleus;
@@ -26,6 +28,7 @@ using Vitaru.Roots;
 using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 using Vitaru.Themes;
+using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru
 {
@@ -73,6 +76,8 @@ namespace Vitaru
         public static Storage LevelStorage { get; protected set; }
 
         public static TextureStore LevelTextureStore { get; protected set; }
+
+        public static ShaderProgram BulletProgram { get; protected set; }
 
         private readonly AudioDevice device;
 
@@ -185,6 +190,26 @@ namespace Vitaru
                 //};
 
                 //TODO: Gradient
+
+                Shader bv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+                new StreamReader(ShaderStorage.GetStream("bullet.vert")).ReadToEnd());
+                Shader bf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                    new StreamReader(ShaderStorage.GetStream("bullet.frag")).ReadToEnd());
+
+                BulletProgram = Renderer.ShaderManager.GetShaderProgram(bv, bf);
+                BulletProgram.SetActive();
+
+                GLShaderProgram gl = (GLShaderProgram)BulletProgram;
+
+                gl.Locations["projection"] = GLShaderManager.GetLocation(gl, "projection");
+
+                gl.Locations["circleTexture"] = GLShaderManager.GetLocation(gl, "circleTexture");
+                gl.Locations["glowTexture"] = GLShaderManager.GetLocation(gl, "glowTexture");
+
+                //gl.Locations["shade"] = GLShaderManager.GetLocation(gl, "shade");
+                //gl.Locations["intensity"] = GLShaderManager.GetLocation(gl, "intensity");
+
+                Renderer.ShaderManager.ActiveShaderProgram = BulletProgram;
             }
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));

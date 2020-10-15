@@ -5,8 +5,10 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -14,11 +16,14 @@ namespace Vitaru.Gamemodes.Projectiles
     {
         public override string Name { get; set; } = nameof(Projectile);
 
-        public override void SetDrawable(DrawableGameEntity drawable)
+        protected BulletLayer BulletLayer { get; private set; }
+
+        public new int Drawable { get; private set; }
+
+        public new void SetDrawable(int i, BulletLayer layer)
         {
-            DrawableProjectile draw = drawable as DrawableProjectile;
-            draw.SetProjectile(this);
-            base.SetDrawable(drawable);
+            BulletLayer = layer;
+            Drawable = i;
         }
 
         public virtual IDrawable2D GetOverlay(DrawableGameEntity draw)
@@ -32,6 +37,8 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             new EditableStartPosition(this)
         };
+
+        public float Alpha = 1;
 
         public Color Color = Color.White;
 
@@ -83,6 +90,13 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
+            UpdateDrawable();
+        }
+
+        public virtual void UpdateDrawable()
+        {
+            BulletLayer.bPosition[Drawable] = Position;
+            BulletLayer.bColor[Drawable] = Color.Vector(Alpha);
         }
 
         public virtual void Collision()
@@ -110,8 +124,6 @@ namespace Vitaru.Gamemodes.Projectiles
             return distance > 128 ? 0 : 500 / Math.Max(distance, 1);
         }
 
-        public virtual void Delete() => Drawable.Delete();
-
         public virtual void ParseString(string[] data, int offset)
         {
             StartTime = double.Parse(data[0 + offset]);
@@ -129,6 +141,12 @@ namespace Vitaru.Gamemodes.Projectiles
                 StartPosition.ToString(),
                 Damage.ToString()
             };
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            BulletLayer = null;
+            base.Dispose(finalize);
         }
     }
 }

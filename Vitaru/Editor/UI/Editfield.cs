@@ -55,7 +55,7 @@ namespace Vitaru.Editor.UI
 
             ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
-            ProjectilesLayer.Scale = new Vector2(0.5f);
+            BulletLayer.Scale = new Vector2(0.5f);
         }
 
         public void Selected(IEditable editable)

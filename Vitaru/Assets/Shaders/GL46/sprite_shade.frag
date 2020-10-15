@@ -7,6 +7,7 @@ uniform int shade;
 uniform float intensity;
 
 in vec2 texCoords;
+
 out vec4 final;
 
 const float r = 0.299;

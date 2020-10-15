@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Prion.Mitochondria.Graphics.Transforms;
-using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
@@ -23,7 +21,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override string Name { get; set; } = nameof(Bullet);
 
-        public override DrawableGameEntity GenerateDrawable() => new DrawableBullet();
+        public override DrawableGameEntity GenerateDrawable() => null;
 
         public Vector2 EndPosition { get; protected set; }
 
@@ -67,7 +65,6 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
-            base.Update();
             Position = GetPosition(Clock.Current);
 
             s += Clock.LastElapsedTime;
@@ -87,6 +84,15 @@ namespace Vitaru.Gamemodes.Projectiles
                     Scale = 1f / PrionMath.RandomNumber(1, 5)
                 });
             }
+
+            //UpdateDrawable Last
+            base.Update();
+        }
+
+        public override void UpdateDrawable()
+        {
+            base.UpdateDrawable();
+            BulletLayer.bSize[Drawable] = new Vector2(Diameter);
         }
 
         protected virtual Vector2 GetPosition(double time)
@@ -101,12 +107,10 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Start()
         {
-            if (Drawable.LoadState < LoadState.Loaded) return;
-
             base.Start();
 
-            Drawable.FadeTo(1, 200f, Easings.InSine);
-            Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
+            //Drawable.FadeTo(1, 200f, Easings.InSine);
+            //Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
 
         public override void End()
@@ -117,10 +121,9 @@ namespace Vitaru.Gamemodes.Projectiles
             ReturnGreat = false;
             ForceScore = true;
 
-            if (Drawable.LoadState < LoadState.Loaded) return;
-
-            Drawable.FadeTo(0, 250, Easings.InSine);
-            Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
+            //Drawable.FadeTo(0, 250, Easings.InSine);
+            //Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
+            Alpha = 0;
         }
 
         public override void ParseString(string[] data, int offset)

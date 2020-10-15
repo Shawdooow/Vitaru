@@ -120,7 +120,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             intensity();
             Gamefield.Shade = Shades.Gray;
             Gamefield.CharacterLayer.Shade = Shades.Red;
-            Gamefield.ProjectilesLayer.Shade = Shades.Red;
+            Gamefield.BulletLayer.Shade = Shades.Red;
             DrawablePlayer.Sprite.Color = Color.Red;
             DrawablePlayer.HitboxOutline.Color = Color.Red;
             DrawablePlayer.Seal.Reticle.Color = Color.Red;
@@ -143,7 +143,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
             Gamefield.Intensity = scale;
             Gamefield.CharacterLayer.Intensity = scale;
-            Gamefield.ProjectilesLayer.Intensity = scale;
+            Gamefield.BulletLayer.Intensity = scale;
         }
 
         protected override void SpellUpdate()
@@ -170,7 +170,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                         Gamefield.Shade = Shades.None;
                         Gamefield.CharacterLayer.Shade = Shades.None;
-                        Gamefield.ProjectilesLayer.Shade = Shades.None;
+                        Gamefield.BulletLayer.Shade = Shades.None;
                     }
 
                     intensity();

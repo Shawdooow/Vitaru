@@ -1,57 +1,43 @@
 #version 460
 
-uniform sampler2D spriteTexture;
-uniform int shade;
+//layout(location = 0) 
+uniform sampler2D circleTexture;
+//layout(location = 1) 
+uniform sampler2D glowTexture;
+//uniform int shade;
+//uniform float intensity;
 
 in vec2 texCoords;
-in vec4 pColor;
+flat in int white;
+in vec4 bColor;
 
 out vec4 final;
 
-void main()
+const float r = 0.299;
+const float g = 0.587;
+const float b = 0.114;
+
+float scale(float value, float inputMin, float inputMax, float outputMin, float outputMax)
 {
-	float red;
-	float green;
-	float blue;
-	float gray;
+    float scale = (outputMax - outputMin) / (inputMax - inputMin);
+    return outputMin + (value - inputMin) * scale;
+}
 
-	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= alpha;
-	color.xyz *= spriteColor;
+void main()
+{	
+	vec4 color;
 
-	switch(shade)
+	if (white == 0)
 	{
-		default:
-		final = color;
-		break;
-		//Gray
-		case 1:
-		gray = dot(color.xyz, vec3(r, g, b));
-
-		red = scale(intensity, 0, 1, color.x, gray);
-		green = scale(intensity, 0, 1, color.y, gray);
-		blue = scale(intensity, 0, 1, color.z, gray);
-
-		final = vec4(red, green, blue, color.w);
-		break;
-		//Red
-		case 2:
-		gray = dot(color.yz, vec2(g, b));
-
-		green = scale(intensity, 0, 1, color.y, gray);
-		blue = scale(intensity, 0, 1, color.z, gray);
-
-		final = vec4(color.x, green, blue, color.w);
-		break;
-		//Green
-		case 3:
-		gray = dot(color.xz, vec2(r, b));
-		final = vec4(gray, color.y, gray, color.w);
-		break;
-		//Blue
-		case 4:
-		gray = dot(color.xy, vec2(r, g));
-		final = vec4(vec2(gray), color.z, color.w);
-		break;
+		color = texture(glowTexture, texCoords);
+		color.xyz *= bColor.xyz;
 	}
+	else
+	{
+		color = texture(circleTexture, texCoords);
+	}
+
+	color.w *= bColor.w;
+
+	final = color;
 }

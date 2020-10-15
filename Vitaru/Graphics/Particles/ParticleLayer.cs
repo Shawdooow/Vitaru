@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
@@ -23,7 +24,13 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 36840;
+        public const int MAX_PARTICLES = 64000;
+
+        private const int vertLocation = 10;
+        private const int lifetimeLocation = 11;
+        private const int startLocation = 12;
+        private const int endLocation = 13;
+        private const int colorLocation = 14;
 
         public static int PARTICLES_IN_USE { get; private set; }
 
@@ -86,9 +93,6 @@ namespace Vitaru.Graphics.Particles
             Debugger.Assert(Game.DrawThreaded);
 
             texture = Game.TextureStore.GetTexture("particle.png");
-
-            for (int i = 0; i < pLifetime.Length; i++)
-                pLifetime[i] = 1;
 
             if (program != null) return;
 
@@ -198,43 +202,43 @@ namespace Vitaru.Graphics.Particles
             Renderer.CurrentContext.BindTexture(texture);
 
             // verts
-            GL.EnableVertexAttribArray(10);
+            GL.EnableVertexAttribArray(vertLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(vertLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // lifetime
-            GL.EnableVertexAttribArray(11);
+            GL.EnableVertexAttribArray(lifetimeLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, life);
-            GL.VertexAttribPointer(11, 1, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(lifetimeLocation, 1, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // start positions
-            GL.EnableVertexAttribArray(12);
+            GL.EnableVertexAttribArray(startLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
-            GL.VertexAttribPointer(12, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(startLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // end positions
-            GL.EnableVertexAttribArray(13);
+            GL.EnableVertexAttribArray(endLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
-            GL.VertexAttribPointer(13, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(endLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // colors
-            GL.EnableVertexAttribArray(14);
+            GL.EnableVertexAttribArray(colorLocation);
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.VertexAttribPointer(14, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
-            GL.VertexAttribDivisor(10, 0);
-            GL.VertexAttribDivisor(11, 1);
-            GL.VertexAttribDivisor(12, 1);
-            GL.VertexAttribDivisor(13, 1);
-            GL.VertexAttribDivisor(14, 1);
+            GL.VertexAttribDivisor(vertLocation, 0);
+            GL.VertexAttribDivisor(lifetimeLocation, 1);
+            GL.VertexAttribDivisor(startLocation, 1);
+            GL.VertexAttribDivisor(endLocation, 1);
+            GL.VertexAttribDivisor(colorLocation, 1);
 
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
 
-            GL.DisableVertexAttribArray(10);
-            GL.DisableVertexAttribArray(11);
-            GL.DisableVertexAttribArray(12);
-            GL.DisableVertexAttribArray(13);
-            GL.DisableVertexAttribArray(14);
+            GL.DisableVertexAttribArray(vertLocation);
+            GL.DisableVertexAttribArray(lifetimeLocation);
+            GL.DisableVertexAttribArray(startLocation);
+            GL.DisableVertexAttribArray(endLocation);
+            GL.DisableVertexAttribArray(colorLocation);
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
@@ -242,6 +246,8 @@ namespace Vitaru.Graphics.Particles
 
         public void Add(Particle particle)
         {
+            if (!dead.Any()) return;
+
             int i = dead.Pop();
 
             pLifetime[i] = 0;
