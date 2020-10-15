@@ -1,7 +1,9 @@
 #version 460
 
-layout(location = 0) uniform sampler2D circleTexture;
-layout(location = 1) uniform sampler2D glowTexture;
+//layout(location = 0) 
+uniform sampler2D circleTexture;
+//layout(location = 1) 
+uniform sampler2D glowTexture;
 //uniform int shade;
 //uniform float intensity;
 
@@ -29,7 +31,6 @@ void main()
 	{
 		color = texture(glowTexture, texCoords);
 		color.xyz *= bColor.xyz;
-		color.w *= 0.5;
 	}
 	else
 	{

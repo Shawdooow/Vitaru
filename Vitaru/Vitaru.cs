@@ -203,6 +203,9 @@ namespace Vitaru
 
                 gl.Locations["projection"] = GLShaderManager.GetLocation(gl, "projection");
 
+                gl.Locations["circleTexture"] = GLShaderManager.GetLocation(gl, "circleTexture");
+                gl.Locations["glowTexture"] = GLShaderManager.GetLocation(gl, "glowTexture");
+
                 //gl.Locations["shade"] = GLShaderManager.GetLocation(gl, "shade");
                 //gl.Locations["intensity"] = GLShaderManager.GetLocation(gl, "intensity");
 

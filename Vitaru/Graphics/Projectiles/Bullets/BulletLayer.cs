@@ -173,7 +173,9 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.VertexAttribDivisor(sizeLocation, 2);
             GL.VertexAttribDivisor(colorLocation, 2);
 
-            GL.ActiveTexture(TextureUnit.Texture0);
+            Renderer.ShaderManager.UpdateInt("circleTexture", 0);
+            Renderer.ShaderManager.UpdateInt("glowTexture", 1);
+
             GL.BindTexture(TextureTarget.Texture2D, textures[0]);
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, textures[1]);
