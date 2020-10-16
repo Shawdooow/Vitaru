@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -151,12 +152,19 @@ namespace Vitaru.Roots.Tests
                 double start = TrackManager.CurrentTrack.Clock.Current + TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
 
                 for (int i = 0; i < count; i++)
+                {
+                    Color c = Background.Texture.Bitmap.GetPixel(
+                        PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
+                        PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
+
                     gamefield.Add(new Enemy(gamefield)
                     {
                         StartTime = start,
                         StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                        PatternID = (short)PrionMath.RandomNumber(0, 5)
+                        PatternID = (short) PrionMath.RandomNumber(0, 5),
+                        Color = c
                     });
+                }
 
 
                 for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
