@@ -115,22 +115,9 @@ namespace Vitaru.Roots.Tests
             });
         }
 
-        private void enemy()
-        {
-            gamefield.Add(new Enemy(gamefield)
-            {
-                StartTime = TrackManager.CurrentTrack.Clock.LastCurrent,
-                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                OnDie = enemy,
-                PatternID = (short) PrionMath.RandomNumber(0, 5)
-            });
-        }
-
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-
-            enemy();
             Game.TextureStore.GetTexture("particle.png");
         }
 
@@ -160,17 +147,23 @@ namespace Vitaru.Roots.Tests
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
+                int count = PrionMath.RandomNumber(1, 5);
+                double start = TrackManager.CurrentTrack.Clock.Current + TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
+
+                for (int i = 0; i < count; i++)
+                    gamefield.Add(new Enemy(gamefield)
+                    {
+                        StartTime = start,
+                        StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
+                        PatternID = (short)PrionMath.RandomNumber(0, 5)
+                    });
+
+
                 for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
                     gamefield.PlayerPack.Children[i].OnNewBeat();
 
                 for (int i = 0; i < gamefield.LoadedEnemies.Children.Count; i++)
                     gamefield.LoadedEnemies.Children[i].OnNewBeat();
-            }
-
-            while (que > 0)
-            {
-                que--;
-                enemy();
             }
 
             base.Update();
@@ -180,23 +173,6 @@ namespace Vitaru.Roots.Tests
         {
             base.PreRender();
             gamefield.PreRender();
-        }
-
-        private int que;
-
-        protected override void OnKeyDown(KeyboardKeyEvent e)
-        {
-            base.OnKeyDown(e);
-
-            switch (e.Key)
-            {
-                case Keys.R:
-                    que = 1;
-                    break;
-                case Keys.T:
-                    que = 10;
-                    break;
-            }
         }
     }
 }
