@@ -150,6 +150,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 BulletLayer.ReturnIndex(Drawable);
                 Drawable = -1;
             }
+
             BulletLayer = null;
             base.Dispose(finalize);
         }

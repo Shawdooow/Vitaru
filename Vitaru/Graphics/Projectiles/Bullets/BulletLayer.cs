@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -63,7 +66,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GCHandle c = GCHandle.Alloc(bColor, GCHandleType.Pinned);
             colorBuffer = c.AddrOfPinnedObject();
 
-            for (int i = MAX_BULLETS - 1; i >= 0 ; i--)
+            for (int i = MAX_BULLETS - 1; i >= 0; i--)
             {
                 bDead[i] = true;
                 dead.Push(i);
@@ -76,8 +79,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             textures = new[]
             {
-                ((GLTexture)Game.TextureStore.GetTexture("circle 128.png")).ID,
-                ((GLTexture)Game.TextureStore.GetTexture("Gameplay\\glow.png")).ID,
+                ((GLTexture) Game.TextureStore.GetTexture("circle 128.png")).ID,
+                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).ID,
             };
 
             program = Vitaru.BulletProgram;
@@ -125,7 +128,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             base.PreRender();
 
-            oCap = Math.Min(MAX_BULLETS, nCap + 1); ;
+            oCap = Math.Min(MAX_BULLETS, nCap + 1);
 
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
