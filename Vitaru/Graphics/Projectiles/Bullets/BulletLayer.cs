@@ -49,6 +49,9 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         private readonly Stack<int> dead = new Stack<int>();
 
+        private int nCap;
+        private int oCap;
+
         public BulletLayer()
         {
             GCHandle p = GCHandle.Alloc(bPosition, GCHandleType.Pinned);
@@ -60,7 +63,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GCHandle c = GCHandle.Alloc(bColor, GCHandleType.Pinned);
             colorBuffer = c.AddrOfPinnedObject();
 
-            for (int i = 0; i < MAX_BULLETS; i++)
+            for (int i = MAX_BULLETS - 1; i >= 0 ; i--)
             {
                 bDead[i] = true;
                 dead.Push(i);
@@ -122,20 +125,22 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             base.PreRender();
 
+            oCap = Math.Min(MAX_BULLETS, nCap + 1); ;
+
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, poss);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_BULLETS * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_BULLETS * 8, posBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 8, posBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, sizes);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_BULLETS * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_BULLETS * 8, sizeBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 8, sizeBuffer);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_BULLETS * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, MAX_BULLETS * 16, colorBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
+            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 16, colorBuffer);
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
@@ -178,7 +183,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, textures[1]);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_BULLETS * 2);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, oCap * 2);
 
             GL.DisableVertexAttribArray(vertLocation);
             GL.DisableVertexAttribArray(positionLocation);
@@ -192,10 +197,11 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public int RequestIndex()
         {
-            if (!dead.Any()) return 0;
+            if (!dead.Any()) return -1;
 
             int i = dead.Pop();
             bDead[i] = false;
+            nCap = Math.Max(i, nCap);
             return i;
         }
 
