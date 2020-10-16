@@ -121,7 +121,8 @@ namespace Vitaru.Roots.Tests
             {
                 StartTime = TrackManager.CurrentTrack.Clock.LastCurrent,
                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                OnDie = enemy
+                OnDie = enemy,
+                PatternID = (short)PrionMath.RandomNumber(0, 5)
             });
         }
 
