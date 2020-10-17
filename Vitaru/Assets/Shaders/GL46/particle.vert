@@ -7,6 +7,7 @@ layout(location = 13) in vec2 endPos;
 layout(location = 14) in vec4 color;
 
 uniform mat4 projection;
+uniform float size;
 
 out vec2 texCoords;
 out vec4 pColor;
@@ -50,19 +51,26 @@ float scale(float value, float inputMin, float inputMax, float outputMin, float 
     return outputMin + (value - inputMin) * scale;
 }
 
+in int gl_InstanceID;
 void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
+	int counter = gl_InstanceID % 2;
 
 	float easing = 1 - pow(1 - (lifetime / 3 * 2), 3);
 	float fade = 1 - pow(1 - lifetime, 3);
 
 	vec2 pos = vec2(scale(easing, 0, 1, startPos.x, endPos.x), scale(easing, 0, 1, startPos.y, endPos.y));
 
+	float dir = 4;
+
+	if (counter == 0)
+		dir = -dir;
+
 	mat4 model = identity();
 	model *= translateRow(pos);
-	//model *= rotateZ();
-	model *= scale(64);
+	model *= rotateZ(scale(easing, 0, 1, 0, dir));
+	model *= scale(size);
 
 	gl_Position = projection * model * (vec4(vec2(color.w), 0, 1.0) * vec4(vertex, 0, 1.0));
 

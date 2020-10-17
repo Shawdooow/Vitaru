@@ -86,6 +86,7 @@ namespace Vitaru.Graphics.Particles
 
             for (int i = MAX_PARTICLES - 1; i >= 0; i--)
             {
+                pLifetime[i] = 1;
                 pDead[i] = true;
                 dead.Push(i);
             }
@@ -95,7 +96,7 @@ namespace Vitaru.Graphics.Particles
         {
             Debugger.Assert(Game.DrawThreaded);
 
-            texture = Game.TextureStore.GetTexture("particle.png");
+            texture = Game.TextureStore.GetTexture("star.png");
 
             if (program != null) return;
 
@@ -110,10 +111,13 @@ namespace Vitaru.Graphics.Particles
             GLShaderProgram gl = (GLShaderProgram) program;
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
-            gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
+            gl.Locations["size"] = GLShaderManager.GetLocation(program, "size");
+            //gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
 
             Renderer.ShaderManager.ActiveShaderProgram = program;
             Renderer.CurrentContext.BindTexture(texture);
+
+            Renderer.ShaderManager.UpdateFloat("size", 16f);
 
             Vertex2[] array =
             {

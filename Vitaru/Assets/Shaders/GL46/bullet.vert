@@ -40,9 +40,9 @@ in int gl_InstanceID;
 void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
+	white = gl_InstanceID % 2;
 
 	float s = 1;
-	white = gl_InstanceID % 2;
 
 	if (white == 0)
 		s = 3;
