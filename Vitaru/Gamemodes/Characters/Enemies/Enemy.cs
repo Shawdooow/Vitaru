@@ -129,14 +129,6 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             COUNT++;
         }
 
-        //public override void OnNewBeat()
-        //{
-        //    base.OnNewBeat();
-        //    shoot = !shoot;
-        //    if (shoot)
-        //        Shoot();
-        //}
-
         public override void Update()
         {
             base.Update();
