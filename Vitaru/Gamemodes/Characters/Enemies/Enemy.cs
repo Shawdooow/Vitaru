@@ -117,8 +117,6 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public bool ShootPlayer { get; set; }
 
-        private bool shoot = true;
-
         public Enemy(Gamefield gamefield) : base(gamefield)
         {
             Team = ENEMY_TEAM;
@@ -158,6 +156,12 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 else if ((current < StartTime || current >= EndTime) && Started)
                     End();
             }
+        }
+
+        protected override void Collision(Projectile projectile)
+        {
+            if (Drawable != null && Drawable.Alpha > 0)
+                base.Collision(projectile);
         }
 
         protected virtual void PreLoad()
