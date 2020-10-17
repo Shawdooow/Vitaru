@@ -195,21 +195,28 @@ namespace Vitaru.Gamemodes.Characters.Players
         {
             base.ParseProjectile(projectile);
 
-            Vector2 difference = projectile.Position - Position;
-
-            float distance = (float) Math.Sqrt(Math.Pow(difference.X, 2) + Math.Pow(difference.Y, 2));
-            float edgeDistance;
+            const int maxHeal = 64;
+            float distance = float.MaxValue;
+            float edgeDistance = float.MaxValue;
 
             switch (projectile)
             {
                 default:
                     return;
                 case Bullet bullet:
-                    edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
+
+                    float min = bullet.Diameter / 2 + HitboxDiameter / 2;
+
+                    if (Position.Y - bullet.Position.Y < min + maxHeal)
+                        if (Position.X - bullet.Position.X < min + maxHeal)
+                        {
+                            distance = Vector2.Distance(projectile.Position, Position);
+                            edgeDistance = distance - (min);
+                        }
                     break;
             }
 
-            if (edgeDistance < 64)
+            if (edgeDistance < maxHeal)
             {
                 bool add = true;
                 foreach (HealingProjectile healingProjectile in HealingProjectiles)

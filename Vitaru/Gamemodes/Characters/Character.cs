@@ -74,35 +74,29 @@ namespace Vitaru.Gamemodes.Characters
 
                         ParseProjectile(projectile);
 
-                        //TODO: Perform 1D calcs here to skip if possible
-                        //if (projectile.Position.X > Position.X)
-                        //{
-                        //
-                        //}
-                        //else
-                        //{
-                        //    
-                        //}
-                        //
-                        //if (projectile.Position.Y > Position.Y)
-                        //{
-                        //
-                        //}
-                        //else
-                        //{
-                        //
-                        //}
-
-                        float distance = Vector2.Distance(projectile.Position, Position);
-                        float edgeDistance;
+                        float distance = float.MaxValue;
+                        float edgeDistance = float.MaxValue;
 
                         switch (projectile)
                         {
                             default:
                                 continue;
                             case Bullet bullet:
-                                edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
-                                break;
+
+                                float min = bullet.Diameter / 2 + HitboxDiameter / 2;
+
+                                if (Position.Y - bullet.Position.Y < min)
+                                {
+                                    if (Position.X - bullet.Position.X < min)
+                                    {
+                                        distance = Vector2.Distance(projectile.Position, Position);
+                                        edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
+                                        break;
+                                    }
+                                    continue;
+                                }
+                                else
+                                    continue;
                         }
 
                         if (edgeDistance <= 0)
