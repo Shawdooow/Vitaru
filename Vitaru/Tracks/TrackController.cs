@@ -170,7 +170,22 @@ namespace Vitaru.Tracks
             {
                 Benchmark track = new Benchmark("Prime TrackManager", true);
 
-                LevelStore.SetLevel(LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)]);
+                LevelPack p = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)];
+
+                if (Vitaru.ALKI == 1)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki Bells")
+                            p = LevelStore.LoadedLevels[i];
+                }
+                else if (Vitaru.ALKI == 2)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki (All Rhize Remix)")
+                            p = LevelStore.LoadedLevels[i];
+                }
+
+                LevelStore.SetLevel(p);
 
                 LevelTrack t = LevelStore.CurrentLevel.LevelTrack;
                 song.Text = $"Loading: {t.Title}";

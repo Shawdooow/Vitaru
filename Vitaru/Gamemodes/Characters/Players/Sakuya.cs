@@ -49,11 +49,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
-        public override string Background =>
-            "      Sakuya is no stranger to the oddities in the world, but never could they stop her from besting her opponents. " +
-            "Her perfect record has only been tainted by one person, but The Hakureis are close friends of hers now.\n\n" +
-            "       They have put there differences aside once to fight off something bigger then all of them combined, " +
-            "but as the phrase goes: \"Greater than the sum of its parts\" they were able to hold the fort long enough to succeed.";
+        public override string Background => "";
 
         private AdjustableClock adjustable;
 

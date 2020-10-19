@@ -112,7 +112,7 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(10),
                 ParentOrigin = Mounts.TopLeft,
                 Origin = Mounts.TopLeft,
-                Text = Vitaru.ALKI ? "Alki" : "Vitaru"
+                Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"
             });
 
             Renderer.Window.CursorHidden = true;

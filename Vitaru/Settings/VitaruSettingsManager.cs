@@ -25,6 +25,7 @@ namespace Vitaru.Settings
 
             SetValue(VitaruSetting.Particles, true);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
+            SetValue(VitaruSetting.ComboFire, true);
 
             SetValue(VitaruSetting.ThreadBullets, false);
 
@@ -45,6 +46,7 @@ namespace Vitaru.Settings
 
         Particles,
         ParticleMultiplier,
+        ComboFire,
 
         //Performance
         ThreadBullets,
@@ -57,7 +59,7 @@ namespace Vitaru.Settings
     {
         Classic,
         Pretty,
-        HighPerformance,
+        Performance,
         Experimental
     }
 }

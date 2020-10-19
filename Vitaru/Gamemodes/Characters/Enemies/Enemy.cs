@@ -83,9 +83,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
 
-        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI ? Color.Magenta : Color;
+        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI > 0 ? global::Vitaru.Vitaru.ALKI == 2 ? Color.Red : Color.Magenta : Color;
 
-        public override Color SecondaryColor => global::Vitaru.Vitaru.ALKI ? Color.MidnightBlue : Color.Red;
+        public override Color SecondaryColor => global::Vitaru.Vitaru.ALKI > 0 ? global::Vitaru.Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue : Color.Yellow;
 
         public Vector2 StartPosition { get; set; }
 

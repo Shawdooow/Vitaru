@@ -35,7 +35,7 @@ namespace Vitaru
         ///     Bool for easter egg Alki mode.
         ///     It has a 1/100 chance of being true on startup and can not be set manually
         /// </summary>
-        public static bool ALKI { get; private set; }
+        public static ushort ALKI { get; private set; }
 
         public static bool DX12 { get; private set; }
 
@@ -45,12 +45,21 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 100) == 5;
-
-            if (ALKI)
+            ALKI = (ushort)(PrionMath.RandomNumber(0, 100) == 5 ? 1 : 0);
+            
+            if (ALKI == 1)
             {
-                Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
-                ThemeManager.Theme = new Alki();
+                if (PrionMath.RandomNumber(0, 100) == 6)
+                {
+                    ALKI++;
+                    Logger.SystemConsole("ALL RHIZE", ConsoleColor.DarkMagenta);
+                    ThemeManager.Theme = new Rhize();
+                }
+                else
+                {
+                    Logger.SystemConsole("ALKI", ConsoleColor.Magenta);
+                    ThemeManager.Theme = new Alki();
+                }
             }
             else
             {
@@ -228,9 +237,9 @@ namespace Vitaru
 
         public override void Start()
         {
-            Renderer.Window.Title = ALKI ? "Alki" : "Vitaru";
+            Renderer.Window.Title = ALKI > 0 ? ALKI == 2 ? "Rhize" : "Alki" : "Vitaru";
             Renderer.Window.Icon =
-                new Icon(AssetStorage.GetStream(ALKI ? "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+                new Icon(AssetStorage.GetStream(ALKI > 0 ? ALKI == 2 ? "Textures\\rhize.ico" : "Textures\\alki.ico" : "Textures\\vitaru.ico"));
 
             GamemodeStore.ReloadGamemodes();
 
