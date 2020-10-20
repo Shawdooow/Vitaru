@@ -21,12 +21,12 @@ namespace Vitaru.Server.Track
         /// <summary>
         ///     Person who made this level, maybe this should be an array / have a seperate co-author field?
         /// </summary>
-        public string LevelCreator;
+        public string Creator;
 
         /// <summary>
         ///     What the Creator named this level, can be whatever
         /// </summary>
-        public string LevelName;
+        public string Name;
 
         /// <summary>
         ///     The calculated difficulty of this level

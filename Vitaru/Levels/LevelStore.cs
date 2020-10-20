@@ -91,10 +91,10 @@ namespace Vitaru.Levels
                                         track.Artist = line[1];
                                         continue;
                                     case "Creator":
-                                        level.LevelCreator = line[1];
+                                        level.Creator = line[1];
                                         continue;
                                     case "Name":
-                                        level.LevelName = line[1];
+                                        level.Name = line[1];
                                         continue;
                                     case "EnemyData":
                                         level.EnemyData = line[1];
@@ -224,14 +224,27 @@ namespace Vitaru.Levels
 
         public static void SaveCurrentLevel()
         {
-            string path = $"{CurrentPack.Title}\\{CurrentLevel.LevelName}.vitaru";
+            string path = $"{CurrentPack.Title}\\{CurrentLevel.Name}.vitaru";
 
             if (!Vitaru.LevelStorage.Exists(path))
                 Vitaru.LevelStorage.CreateFile(path);
 
+            string header = $"Format={CurrentLevel.Format}{Environment.NewLine}" +
+                            $"Audio={CurrentLevel.LevelTrack.Filename}{Environment.NewLine}" +
+                            $"Image={CurrentLevel.LevelTrack.Image}{Environment.NewLine}" +
+                            $"BPM={CurrentLevel.LevelTrack.BPM}{Environment.NewLine}" +
+                            $"AudioOffset={CurrentLevel.LevelTrack.Offset}{Environment.NewLine}" +
+                            //$"PreviewTime={CurrentLevel.LevelTrack.PreviewTime}{Environment.NewLine}" +
+                            $"Title={CurrentLevel.LevelTrack.Title}{Environment.NewLine}" +
+                            $"Artist={CurrentLevel.LevelTrack.Artist}{Environment.NewLine}" +
+                            $"Creator={CurrentLevel.Creator}{Environment.NewLine}" +
+                            $"Name={CurrentLevel.Name}{Environment.NewLine}" +
+                            $"EnemyData={CurrentLevel.EnemyData}";
+
             using (StreamWriter writer =
                 new StreamWriter(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
             {
+                writer.Write(header);
             }
         }
     }

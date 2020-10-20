@@ -151,7 +151,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelCreator
+                            Text = LevelStore.CurrentLevel.Creator
                         },
                         new Box
                         {
@@ -179,7 +179,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelName
+                            Text = LevelStore.CurrentLevel.Name
                         },
                         new Box
                         {
@@ -227,8 +227,8 @@ namespace Vitaru.Editor.UI
 
             LevelStore.CurrentLevel.LevelTrack.Title = title.Text;
             LevelStore.CurrentLevel.LevelTrack.Artist = artist.Text;
-            LevelStore.CurrentLevel.LevelCreator = creator.Text;
-            LevelStore.CurrentLevel.LevelName = level.Text;
+            LevelStore.CurrentLevel.Creator = creator.Text;
+            LevelStore.CurrentLevel.Name = level.Text;
 
             OnCreate?.Invoke();
         }

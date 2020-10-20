@@ -50,8 +50,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
-        public override string Background => "";
-
         private AdjustableClock adjustable;
 
         public Frost(Gamefield gamefield) : base(gamefield)
