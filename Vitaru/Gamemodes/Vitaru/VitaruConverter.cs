@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Prion.Nucleus.Debug;
@@ -30,7 +31,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override string EnemiesToString(List<Enemy> enemies)
         {
-            string level = "Version=0.1;\n";
+            string level = "Version=0.1;" + Environment.NewLine;
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -44,7 +45,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
                 level += ";";
                 if (i < enemies.Count)
-                    level += "\n";
+                    level += Environment.NewLine;
             }
 
             return level;
@@ -83,7 +84,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override string ProjectilesToString(List<Projectile> projectiles)
         {
-            string pattern = "Version=0.1;\n";
+            string pattern = "Version=0.1;" + Environment.NewLine;
 
             for (int i = 0; i < projectiles.Count; i++)
             {
@@ -97,7 +98,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
                 pattern += ";";
                 if (i < projectiles.Count)
-                    pattern += "\n";
+                    pattern += Environment.NewLine;
             }
 
             return pattern;
