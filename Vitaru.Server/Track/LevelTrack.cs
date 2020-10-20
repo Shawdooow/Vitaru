@@ -33,5 +33,7 @@ namespace Vitaru.Server.Track
         public double GetBeatLength() => 60000 / BPM;
 
         public double Offset;
+
+        public double PreviewTime;
     }
 }

@@ -81,9 +81,9 @@ namespace Vitaru.Levels
                                     case "AudioOffset":
                                         track.Offset = double.Parse(line[1]);
                                         continue;
-                                    //case "PreviewTime":
-                                    //track.PreviewTime = double.Parse(line[1]);
-                                    //continue;
+                                    case "PreviewTime":
+                                        track.PreviewTime = double.Parse(line[1]);
+                                        continue;
                                     case "Title":
                                         track.Title = line[1];
                                         continue;
@@ -234,7 +234,7 @@ namespace Vitaru.Levels
                             $"Image={CurrentLevel.LevelTrack.Image}{Environment.NewLine}" +
                             $"BPM={CurrentLevel.LevelTrack.BPM}{Environment.NewLine}" +
                             $"AudioOffset={CurrentLevel.LevelTrack.Offset}{Environment.NewLine}" +
-                            //$"PreviewTime={CurrentLevel.LevelTrack.PreviewTime}{Environment.NewLine}" +
+                            $"PreviewTime={CurrentLevel.LevelTrack.PreviewTime}{Environment.NewLine}" +
                             $"Title={CurrentLevel.LevelTrack.Title}{Environment.NewLine}" +
                             $"Artist={CurrentLevel.LevelTrack.Artist}{Environment.NewLine}" +
                             $"Creator={CurrentLevel.Creator}{Environment.NewLine}" +
