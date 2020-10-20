@@ -14,7 +14,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override Chapter[] GetChapters() => new Chapter[]
         {
-            new RejectChapter()
+            new AlkiChapter()
         };
     }
 }

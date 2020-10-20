@@ -19,7 +19,7 @@ namespace Vitaru.Gamemodes.Dodge
 
         public override Chapter[] GetChapters() => new Chapter[]
         {
-            new RejectChapter()
+            new AlkiChapter()
         };
 
         //public override Cluster GetCluster() => new VitaruCluster();
