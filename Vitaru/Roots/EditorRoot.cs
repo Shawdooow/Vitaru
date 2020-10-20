@@ -145,8 +145,8 @@ namespace Vitaru.Roots
 
         protected override void Dispose(bool finalize)
         {
-            base.Dispose(finalize);
             manager?.SerializeToLevel();
+            base.Dispose(finalize);
         }
     }
 }

@@ -244,7 +244,9 @@ namespace Vitaru.Levels
             using (StreamWriter writer =
                 new StreamWriter(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
             {
+                Logger.Log($"Saving Current Level: {path}...", LogType.IO);
                 writer.Write(header);
+                Logger.Log($"Current Level Saved!", LogType.IO);
             }
         }
     }
