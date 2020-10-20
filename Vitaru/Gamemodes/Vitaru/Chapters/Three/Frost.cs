@@ -18,7 +18,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
     {
         #region Fields
 
-        public override string Name => "Frost";
+        public override string Name => "Frost Pine";
 
         public override float HealthCapacity => 60;
 
@@ -202,27 +202,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         private void applyToClock(AdjustableClock clock, double speed)
         {
-            //if (VitaruPlayfield.VitaruInputManager.Shade != null)
-            //{
-            //    if (speed > 1)
-            //    {
-            //        VitaruPlayfield.VitaruInputManager.Shade.Colour = Color.Cyan;
-            //        VitaruPlayfield.VitaruInputManager.Shade.Alpha = (float)(speed - 1) * 0.05f;
-            //    }
-            //    else if (speed == 1)
-            //        VitaruPlayfield.VitaruInputManager.Shade.Alpha = 0;
-            //    else if (speed < 1 && speed > 0)
-            //    {
-            //        VitaruPlayfield.VitaruInputManager.Shade.Colour = Color.Orange;
-            //        VitaruPlayfield.VitaruInputManager.Shade.Alpha = (float)(1 - speed) * 0.05f;
-            //    }
-            //    else if (speed < 0)
-            //    {
-            //        VitaruPlayfield.VitaruInputManager.Shade.Colour = Color.Purple;
-            //        VitaruPlayfield.VitaruInputManager.Shade.Alpha = (float)-speed * 0.1f;
-            //    }
-            //}
-
             if (TrackManager.CurrentTrack != null)
                 TrackManager.CurrentTrack.Pitch = (float) speed;
             clock.Rate = speed;
