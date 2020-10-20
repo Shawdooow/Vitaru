@@ -93,6 +93,7 @@ namespace Vitaru.Gamemodes.Characters
                                         edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
                                         break;
                                     }
+
                                     continue;
                                 }
                                 else

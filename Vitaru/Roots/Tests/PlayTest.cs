@@ -9,12 +9,11 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
-using Prion.Mitochondria.Input;
-using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Tracks;
@@ -44,7 +43,7 @@ namespace Vitaru.Roots.Tests
                 OnIntensityChange = intensity => ShadeLayer.Intensity = intensity
             };
 
-            Player player = new Sakuya(gamefield);
+            Player player = new Frost(gamefield);
 
             gamefield.Add(player);
 
@@ -149,7 +148,8 @@ namespace Vitaru.Roots.Tests
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
                 int count = PrionMath.RandomNumber(1, 5);
-                double start = TrackManager.CurrentTrack.Clock.Current + TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
+                double start = TrackManager.CurrentTrack.Clock.Current +
+                               TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
 
                 for (int i = 0; i < count; i++)
                 {

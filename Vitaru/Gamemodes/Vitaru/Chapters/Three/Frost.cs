@@ -6,18 +6,19 @@ using System.Drawing;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
+using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Graphics;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Tracks;
 
-namespace Vitaru.Gamemodes.Characters.Players
+namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 {
-    public class Sakuya : Player
+    public class Frost : Player
     {
         #region Fields
 
-        public override string Name => "Sakuya Izayoi";
+        public override string Name => "Frost";
 
         public override float HealthCapacity => 60;
 
@@ -27,11 +28,11 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public override float EnergyDrainRate => 4;
 
-        public override Color PrimaryColor => Color.Navy;
+        public override Color PrimaryColor => "#a1e4ff".HexToColor();
 
-        public override Color SecondaryColor => "#92a0dd".HexToColor();
+        public override Color SecondaryColor => "#009ad9".HexToColor();
 
-        public override Color ComplementaryColor => "#d6d6d6".HexToColor();
+        public override Color ComplementaryColor => "#c2c2c2".HexToColor();
 
         public double SetRate { get; private set; } = 0.75d;
 
@@ -43,7 +44,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         #endregion
 
-        public override string Ability => "Time Waster";
+        public override string Ability => "Time Traveler";
 
         public override Role Role => Role.Defense;
 
@@ -53,7 +54,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private AdjustableClock adjustable;
 
-        public Sakuya(Gamefield gamefield) : base(gamefield)
+        public Frost(Gamefield gamefield) : base(gamefield)
         {
         }
 
@@ -63,7 +64,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (Clock is AdjustableClock a)
                 adjustable = a;
             else
-                Debugger.InvalidOperation($"{nameof(Sakuya)} requires an {nameof(AdjustableClock)}!");
+                Debugger.InvalidOperation($"{nameof(Frost)} requires an {nameof(AdjustableClock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)

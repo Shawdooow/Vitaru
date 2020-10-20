@@ -45,8 +45,8 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = (ushort)(PrionMath.RandomNumber(0, 100) == 5 ? 1 : 0);
-            
+            ALKI = (ushort) (PrionMath.RandomNumber(0, 100) == 5 ? 1 : 0);
+
             if (ALKI == 1)
             {
                 if (PrionMath.RandomNumber(0, 100) == 6)
@@ -239,7 +239,9 @@ namespace Vitaru
         {
             Renderer.Window.Title = ALKI > 0 ? ALKI == 2 ? "Rhize" : "Alki" : "Vitaru";
             Renderer.Window.Icon =
-                new Icon(AssetStorage.GetStream(ALKI > 0 ? ALKI == 2 ? "Textures\\rhize.ico" : "Textures\\alki.ico" : "Textures\\vitaru.ico"));
+                new Icon(AssetStorage.GetStream(ALKI > 0
+                    ? ALKI == 2 ? "Textures\\rhize.ico" : "Textures\\alki.ico"
+                    : "Textures\\vitaru.ico"));
 
             GamemodeStore.ReloadGamemodes();
 

@@ -76,7 +76,7 @@ namespace Vitaru.Gamemodes.Projectiles
                 float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
                 int distance = PrionMath.RandomNumber(20, 32);
 
-                int radius = (int)Diameter / 2 - 8;
+                int radius = (int) Diameter / 2 - 8;
 
                 Vector2 start = Position + new Vector2(PrionMath.RandomNumber(-radius, radius),
                     PrionMath.RandomNumber(-radius, radius));

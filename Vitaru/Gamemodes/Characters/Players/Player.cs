@@ -213,6 +213,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                             distance = Vector2.Distance(projectile.Position, Position);
                             edgeDistance = distance - (min);
                         }
+
                     break;
             }
 
