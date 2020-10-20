@@ -73,12 +73,20 @@ void main()
 			//Green
 			case 3:
 			gray = dot(color.xz, vec2(r, b));
-			final = vec4(gray, color.y, gray, color.w);
+
+			red = scale(intensity, 0, 1, color.x, gray);
+			blue = scale(intensity, 0, 1, color.z, gray);
+
+			final = vec4(red, color.y, blue, color.w);
 			break;
 			//Blue
 			case 4:
 			gray = dot(color.xy, vec2(r, g));
-			final = vec4(vec2(gray), color.z, color.w);
+
+			red = scale(intensity, 0, 1, color.x, gray);
+			green = scale(intensity, 0, 1, color.y, gray);
+
+			final = vec4(red, green, color.z, color.w);
 			break;
 		}
 	}

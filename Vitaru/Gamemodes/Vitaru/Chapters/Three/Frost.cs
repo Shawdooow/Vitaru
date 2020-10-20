@@ -115,13 +115,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
                 spellEndTime = Clock.LastCurrent - 2000;
 
             intensity();
-            Gamefield.Shade = Shades.Gray;
-            Gamefield.CharacterLayer.Shade = Shades.Red;
-            //Gamefield.BulletLayer.Shade = Shades.Red;
-            DrawablePlayer.Sprite.Color = Color.Red;
-            DrawablePlayer.HitboxOutline.Color = Color.Red;
-            DrawablePlayer.Seal.Reticle.Color = Color.Red;
-            DrawablePlayer.Seal.Sign.Color = Color.Red;
+            Gamefield.Shade = Shades.Blue;
+            Gamefield.CharacterLayer.Shade = Shades.Blue;
+            //Gamefield.BulletLayer.Shade = Shades.Blue;
+            DrawablePlayer.Sprite.Color = Color.Blue;
+            DrawablePlayer.HitboxOutline.Color = Color.Blue;
+            DrawablePlayer.Seal.Reticle.Color = Color.GhostWhite;
+            DrawablePlayer.Seal.Sign.Color = Color.GhostWhite;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -233,7 +233,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
         protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
             float distance)
         {
-            if (SpellActive && color == PrimaryColor) color = Color.Red;
+            if (SpellActive && color == PrimaryColor) color = Color.Blue;
             base.BulletAddRad(speed, angle, color, size, damage, distance);
         }
     }

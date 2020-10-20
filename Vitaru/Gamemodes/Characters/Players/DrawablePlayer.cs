@@ -12,7 +12,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public Seal Seal { get; }
 
-        public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\Sakuya Izayoi.png"))
+        public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\player.png"))
         {
             Sprite.Color = player.PrimaryColor;
             Sprite.Scale = new Vector2(0.3f);
