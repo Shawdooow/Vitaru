@@ -6,6 +6,7 @@ layout(location = 12) in vec2 size;
 layout(location = 13) in vec4 color;
 
 uniform mat4 projection;
+uniform vec2 scale;
 
 out vec2 texCoords;
 out int white;
@@ -20,7 +21,7 @@ mat4 identity()
     0, 0, 0, 1);
 }
 
-mat4 scale(float s)
+mat4 sca(float s)
 {
 	return mat4(s, 0, 0, 0,
 	            0, s, 0, 0,
@@ -48,8 +49,8 @@ void main()
 		s = 3;
 
 	mat4 model = identity();
-	model *= translateRow(pos);
-	model *= scale(s);
+	model *= translateRow(pos * scale);
+	model *= sca(s * min(scale.x, scale.y));
 
 	gl_Position = projection * model * (vec4(size, 0, 1.0) * vec4(vertex, 0, 1.0));
 

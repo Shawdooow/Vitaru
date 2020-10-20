@@ -208,11 +208,14 @@ namespace Vitaru
                 GLShaderProgram gl = (GLShaderProgram) BulletProgram;
 
                 gl.Locations["projection"] = GLShaderManager.GetLocation(gl, "projection");
+                gl.Locations["scale"] = GLShaderManager.GetLocation(gl, "scale");
 
                 gl.Locations["circleTexture"] = GLShaderManager.GetLocation(gl, "circleTexture");
                 gl.Locations["glowTexture"] = GLShaderManager.GetLocation(gl, "glowTexture");
 
                 Renderer.ShaderManager.ActiveShaderProgram = BulletProgram;
+
+                Renderer.ShaderManager.UpdateVector2("scale", Vector2.One);
             }
 
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));

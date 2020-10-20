@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Textures;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -132,6 +133,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
+
+            Renderer.ShaderManager.UpdateVector2("scale", Scale);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, poss);
             GL.BufferData(BufferTarget.ArrayBuffer, oCap * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
