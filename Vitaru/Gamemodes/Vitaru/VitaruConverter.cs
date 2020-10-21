@@ -17,12 +17,12 @@ namespace Vitaru.Gamemodes.Vitaru
         {
             List<Enemy> enemies = new List<Enemy>();
 
-            string[] data = level.Split(";");
+            string[] data = level.Split(";", StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < data.Length; i++)
             {
-                string[] eData = data[i].Split(',');
-                enemies.Add(new Enemy(null));
+                string[] eData = data[i].Split(',', StringSplitOptions.RemoveEmptyEntries);
+                enemies.Add(new Enemy(Gamefield));
                 enemies.Last().ParseString(eData, 0);
             }
 
@@ -31,7 +31,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override string EnemiesToString(List<Enemy> enemies)
         {
-            string level = "Version=0.1;" + Environment.NewLine;
+            string level = "";
 
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -44,8 +44,6 @@ namespace Vitaru.Gamemodes.Vitaru
                 }
 
                 level += ";";
-                if (i < enemies.Count)
-                    level += Environment.NewLine;
             }
 
             return level;
@@ -84,7 +82,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override string ProjectilesToString(List<Projectile> projectiles)
         {
-            string pattern = "Version=0.1;" + Environment.NewLine;
+            string pattern = "";
 
             for (int i = 0; i < projectiles.Count; i++)
             {
@@ -97,8 +95,6 @@ namespace Vitaru.Gamemodes.Vitaru
                 }
 
                 pattern += ";";
-                if (i < projectiles.Count)
-                    pattern += Environment.NewLine;
             }
 
             return pattern;

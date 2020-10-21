@@ -4,11 +4,14 @@
 using System.Collections.Generic;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Play;
 
 namespace Vitaru.Editor.IO
 {
     public abstract class FormatConverter
     {
+        public Gamefield Gamefield;
+
         public abstract List<Enemy> StringToEnemies(string level);
 
         public abstract string EnemiesToString(List<Enemy> enemies);

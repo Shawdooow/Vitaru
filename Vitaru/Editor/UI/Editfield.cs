@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -9,6 +10,7 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Input.Receivers;
+using Prion.Nucleus.Debug;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
@@ -37,6 +39,8 @@ namespace Vitaru.Editor.UI
         public Editfield(LevelManager manager)
         {
             this.manager = manager;
+            FormatConverter converter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
+            converter.Gamefield = this;
 
             manager.GeneratorSet += g => manager.SetEditable(g.GetEditable(this));
 
@@ -44,7 +48,6 @@ namespace Vitaru.Editor.UI
 
             manager.OnSerializeToLevel += () =>
             {
-                FormatConverter converter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
                 List<Enemy> master = new List<Enemy>();
                 master.AddRange(UnloadedEnemies);
                 master.AddRange(LoadedEnemies);
@@ -52,6 +55,21 @@ namespace Vitaru.Editor.UI
                 manager.Level.EnemyData = converter.EnemiesToString(master);
                 LevelStore.SaveCurrentLevel();
             };
+
+#if PUBLISH
+            try
+            {
+#endif
+                if(LevelStore.CurrentLevel.EnemyData != null)
+                    UnloadedEnemies.AddRange(converter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
+#if PUBLISH
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
+                UnloadedEnemies.Clear();
+            }
+#endif
 
             ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
