@@ -38,15 +38,15 @@ namespace Vitaru.Graphics.Particles
 
         private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
-        private static ShaderProgram program;
+        private ShaderProgram program;
 
         private Texture texture;
 
-        private static int verts;
-        private static int life;
-        private static int starts;
-        private static int ends;
-        private static int colors;
+        private int verts;
+        private int life;
+        private int starts;
+        private int ends;
+        private int colors;
 
         public readonly float[] pLifetime = new float[MAX_PARTICLES];
 
@@ -97,8 +97,6 @@ namespace Vitaru.Graphics.Particles
             Debugger.Assert(Game.DrawThreaded);
 
             texture = Game.TextureStore.GetTexture("star.png");
-
-            if (program != null) return;
 
             Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
                 new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
@@ -190,7 +188,7 @@ namespace Vitaru.Graphics.Particles
 
             if (!particles) return;
 
-            oCap = nCap;
+            oCap = MAX_PARTICLES;//nCap;
 
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
@@ -302,6 +300,18 @@ namespace Vitaru.Graphics.Particles
             GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
             GL.BufferData(BufferTarget.ArrayBuffer, oCap * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
             GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 16, colorBuffer);
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            GL.DeleteBuffer(verts);
+            GL.DeleteBuffer(life);
+            GL.DeleteBuffer(starts);
+            GL.DeleteBuffer(ends);
+            GL.DeleteBuffer(colors);
+            program.Dispose();
+
+            base.Dispose(finalize);
         }
     }
 }
