@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Textures;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;

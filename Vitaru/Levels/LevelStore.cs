@@ -246,7 +246,7 @@ namespace Vitaru.Levels
             {
                 Logger.Log($"Saving Current Level: {path}...", LogType.IO);
                 writer.Write(header);
-                Logger.Log($"Current Level Saved!", LogType.IO);
+                Logger.Log("Current Level Saved!", LogType.IO);
             }
         }
     }
