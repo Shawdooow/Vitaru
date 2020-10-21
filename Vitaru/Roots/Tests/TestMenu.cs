@@ -109,9 +109,17 @@ namespace Vitaru.Roots.Tests
 
             Add(new SpriteText
             {
-                Position = new Vector2(10),
-                ParentOrigin = Mounts.TopLeft,
-                Origin = Mounts.TopLeft,
+                Y = -4,
+                ParentOrigin = Mounts.BottomCenter,
+                Origin = Mounts.BottomCenter,
+                TextScale = 0.25f,
+                Text = "0.11.0-preview9.2",
+                Color = Color.Red
+            });
+
+            Add(new SpriteText
+            {
+                Y = -300,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"
             });
 
