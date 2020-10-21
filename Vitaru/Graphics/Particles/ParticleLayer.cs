@@ -110,7 +110,6 @@ namespace Vitaru.Graphics.Particles
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
             gl.Locations["size"] = GLShaderManager.GetLocation(program, "size");
-            //gl.Locations["spriteTexture"] = GLShaderManager.GetLocation(program, "spriteTexture");
 
             Renderer.ShaderManager.ActiveShaderProgram = program;
             Renderer.CurrentContext.BindTexture(texture);
