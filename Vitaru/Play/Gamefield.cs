@@ -9,6 +9,7 @@ using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Groups.Packs;
+using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
@@ -17,6 +18,7 @@ using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
 using Vitaru.Graphics.Projectiles.Bullets;
+using Vitaru.Levels;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -26,6 +28,8 @@ namespace Vitaru.Play
     public class Gamefield : Pack<IPack>
     {
         public override string Name { get; set; } = nameof(Gamefield);
+
+        protected readonly FormatConverter FormatConverter;
 
         public Action<Shades> OnShadeChange;
 
@@ -116,6 +120,24 @@ namespace Vitaru.Play
             ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
             BulletLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+
+            FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
+            FormatConverter.Gamefield = this;
+
+#if PUBLISH
+            try
+            {
+#endif
+            if (LevelStore.CurrentLevel.EnemyData != null)
+                UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
+#if PUBLISH
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
+                UnloadedEnemies.Clear();
+            }
+#endif
         }
 
         public override void Update()
