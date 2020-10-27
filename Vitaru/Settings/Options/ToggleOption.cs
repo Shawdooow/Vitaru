@@ -7,6 +7,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO.Configs;
@@ -39,7 +40,7 @@ namespace Vitaru.Settings.Options
         }
     }
 
-    public abstract class ToggleOption : ClickableLayer<IDrawable2D>
+    public abstract class ToggleOption : Button
     {
         public override string Name { get; set; } = nameof(ToggleOption);
 
@@ -57,25 +58,22 @@ namespace Vitaru.Settings.Options
             }
         }
 
-        public readonly SpriteText Text;
         protected readonly Circle Circle;
 
         protected ToggleOption()
         {
-            Children = new IDrawable2D[]
+            ParentOrigin = Mounts.TopCenter;
+            Origin = Mounts.TopCenter;
+
+            SpriteText.ParentOrigin = Mounts.CenterLeft;
+            SpriteText.Origin = Mounts.CenterLeft;
+            SpriteText.TextScale = 0.2f;
+
+            Add(Circle = new Circle
             {
-                Text = new SpriteText
-                {
-                    ParentOrigin = Mounts.CenterLeft,
-                    Origin = Mounts.CenterLeft,
-                    TextScale = 0.2f
-                },
-                Circle = new Circle
-                {
-                    ParentOrigin = Mounts.CenterRight,
-                    Origin = Mounts.CenterRight
-                }
-            };
+                ParentOrigin = Mounts.CenterRight,
+                Origin = Mounts.CenterRight
+            });
         }
 
         protected virtual void Toggle()

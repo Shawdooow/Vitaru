@@ -4,9 +4,12 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
@@ -46,60 +49,87 @@ namespace Vitaru.Settings
                     Alpha = 0.8f,
                     Size = Size
                 },
-                new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = Vector2.Zero,
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Toggle Fullscreen"
-                    }
-                },
 
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
+                new ListLayer<IDrawable2D>
                 {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 20),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
+                    Size = Size,
+                    Spacing = 2,
+
+                    Children = new IDrawable2D[]
                     {
-                        Text = "Toggle Touch Mode"
-                    }
-                },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 40),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Toggle Particles"
-                    }
-                },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadBullets)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 60),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Multi-Thread Bullets"
-                    }
-                },
-                new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
-                {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
-                    Position = new Vector2(0, 80),
-                    Size = new Vector2(width - 8, 20),
-                    Text =
-                    {
-                        Text = "Toggle \"GOD-KING\" Hacks"
+                        new SpriteText
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Prion",
+                            TextScale = 0.24f
+                        }, 
+                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle Fullscreen",
+                            OnValueChange = value => Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
+                        },
+                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.VSync)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle VSync"
+                        },
+                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.MatchUpdate)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Limit Draw to Update",
+                            OnValueChange = value => Renderer.MatchUpdateRate = value
+                        },
+
+                        new SpriteText
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Gameplay",
+                            TextScale = 0.24f
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle Touch Mode"
+                        },
+
+                        new SpriteText
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Graphics",
+                            TextScale = 0.24f
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle Particles"
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ComboFire)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle Combo Fire"
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadBullets)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Multi-Thread Bullets"
+                        },
+
+                        new SpriteText
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Debug",
+                            TextScale = 0.24f
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
+                        {
+                            Size = new Vector2(width - 8, 20),
+                            Text = "Toggle \"GOD-KING\" Hacks"
+                        }
                     }
                 },
 
