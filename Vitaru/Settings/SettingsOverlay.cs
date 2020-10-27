@@ -24,20 +24,20 @@ namespace Vitaru.Settings
     {
         public override string Name { get; set; } = nameof(SettingsOverlay);
 
-        private const float width = 400;
-        private const float height = 600;
+        public const float WIDTH = 400;
+        public const float HEIGHT = 600;
 
         protected bool Shown;
 
-        private Button toggle;
+        private readonly Button toggle;
 
         public SettingsOverlay()
         {
             ParentOrigin = Mounts.CenterRight;
             Origin = Mounts.CenterRight;
 
-            Size = new Vector2(width, height);
-            Position = new Vector2(width, 0);
+            Size = new Vector2(WIDTH, HEIGHT);
+            Position = new Vector2(WIDTH, 0);
 
 
             Children = new IDrawable2D[]
@@ -53,7 +53,7 @@ namespace Vitaru.Settings
                 new ListLayer<IDrawable2D>
                 {
                     Size = Size,
-                    Spacing = 2,
+                    Spacing = 4,
 
                     Children = new IDrawable2D[]
                     {
@@ -66,18 +66,15 @@ namespace Vitaru.Settings
                         }, 
                         new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle Fullscreen",
                             OnValueChange = value => Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
                         },
                         new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.VSync)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle VSync"
                         },
                         new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.MatchUpdate)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Limit Draw to Update",
                             OnValueChange = value => Renderer.MatchUpdateRate = value
                         },
@@ -91,7 +88,6 @@ namespace Vitaru.Settings
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle Touch Mode"
                         },
 
@@ -104,18 +100,29 @@ namespace Vitaru.Settings
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle Particles"
                         },
+                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleCap, 4096, 65536)
+                        {
+                            Text = "Max Particles"
+                        },
+                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f, 2)
+                        {
+                            Text = "Particle Multiplier"
+                        },
+
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ComboFire)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle Combo Fire"
                         },
+
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadBullets)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Multi-Thread Bullets"
+                        },
+                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
+                        {
+                            Text = "Max Bullets"
                         },
 
                         new SpriteText
@@ -127,7 +134,6 @@ namespace Vitaru.Settings
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
-                            Size = new Vector2(width - 8, 20),
                             Text = "Toggle \"GOD-KING\" Hacks"
                         }
                     }
@@ -189,7 +195,7 @@ namespace Vitaru.Settings
         {
             if (Shown)
             {
-                this.MoveTo(new Vector2(width, 0), 200, Easings.OutCubic);
+                this.MoveTo(new Vector2(WIDTH, 0), 200, Easings.OutCubic);
                 toggle.FadeTo(1, 200, Easings.OutCubic);
                 Shown = false;
             }

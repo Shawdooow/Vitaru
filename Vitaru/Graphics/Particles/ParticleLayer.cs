@@ -24,7 +24,7 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 32768;
+        private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
 
         private const int vertLocation = 10;
 
@@ -40,17 +40,17 @@ namespace Vitaru.Graphics.Particles
 
         private int verts;
 
-        public readonly float[] pLifetime = new float[MAX_PARTICLES];
+        public readonly float[] pLifetime;
 
-        public readonly Vector4[] pPositions = new Vector4[MAX_PARTICLES];
+        public readonly Vector4[] pPositions;
 
-        public readonly Vector4[] pColor = new Vector4[MAX_PARTICLES];
+        public readonly Vector4[] pColor;
 
         private readonly VertexArrayBuffer<float> lifeBuffer;
         private readonly VertexArrayBuffer<Vector4> positionBuffer;
         private readonly VertexArrayBuffer<Vector4> colorBuffer;
 
-        public readonly bool[] pDead = new bool[MAX_PARTICLES];
+        public readonly bool[] pDead;
 
         private readonly Stack<int> dead = new Stack<int>();
 
@@ -58,11 +58,16 @@ namespace Vitaru.Graphics.Particles
 
         public ParticleLayer()
         {
+            pLifetime = new float[particle_cap];
+            pPositions = new Vector4[particle_cap];
+            pColor = new Vector4[particle_cap];
+            pDead = new bool[particle_cap];
+
             lifeBuffer = new VertexArrayBuffer<float>(ref pLifetime, 1, 11);
             positionBuffer = new VertexArrayBuffer<Vector4>(ref pPositions, 4, 12);
             colorBuffer = new VertexArrayBuffer<Vector4>(ref pColor, 4, 13);
 
-            for (int i = MAX_PARTICLES - 1; i >= 0; i--)
+            for (int i = particle_cap - 1; i >= 0; i--)
             {
                 pLifetime[i] = 1;
                 pDead[i] = true;
@@ -183,7 +188,7 @@ namespace Vitaru.Graphics.Particles
 
             GL.VertexAttribDivisor(vertLocation, 0);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, particle_cap);
 
             GL.DisableVertexAttribArray(vertLocation);
             lifeBuffer.UnBind();

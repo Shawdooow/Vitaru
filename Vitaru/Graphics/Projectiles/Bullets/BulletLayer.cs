@@ -15,12 +15,13 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Debug;
+using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Projectiles.Bullets
 {
     public class BulletLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_BULLETS = 4000;
+        private readonly int bullet_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletCap);
 
         private const int vertLocation = 10;
 
@@ -32,30 +33,30 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         private static int verts;
 
-        public readonly Vector2[] bPosition = new Vector2[MAX_BULLETS];
-
-        public readonly Vector2[] bSize = new Vector2[MAX_BULLETS];
-
-        public readonly Vector4[] bColor = new Vector4[MAX_BULLETS];
+        public readonly Vector2[] bPosition;
+        public readonly Vector2[] bSize;
+        public readonly Vector4[] bColor;
 
         private readonly VertexArrayBuffer<Vector2> posBuffer;
         private readonly VertexArrayBuffer<Vector2> sizeBuffer;
         private readonly VertexArrayBuffer<Vector4> colorBuffer;
 
-        public readonly bool[] bDead = new bool[MAX_BULLETS];
+        public readonly bool[] bDead;
 
         private readonly Stack<int> dead = new Stack<int>();
 
-        private int nCap;
-        private int oCap;
-
         public BulletLayer()
         {
+            bPosition = new Vector2[bullet_cap];
+            bSize = new Vector2[bullet_cap];
+            bColor = new Vector4[bullet_cap];
+            bDead = new bool[bullet_cap];
+
             posBuffer = new VertexArrayBuffer<Vector2>(ref bPosition, 2, 11);
             sizeBuffer = new VertexArrayBuffer<Vector2>(ref bSize, 2, 12);
             colorBuffer = new VertexArrayBuffer<Vector4>(ref bColor, 4, 13);
 
-            for (int i = MAX_BULLETS - 1; i >= 0; i--)
+            for (int i = bullet_cap - 1; i >= 0; i--)
             {
                 bDead[i] = true;
                 dead.Push(i);
@@ -109,8 +110,6 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             base.PreRender();
 
-            oCap = Math.Min(MAX_BULLETS, nCap + 1);
-
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
@@ -147,7 +146,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.Texture2D, textures[1]);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, oCap * 2);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, bullet_cap * 2);
 
             GL.DisableVertexAttribArray(vertLocation);
             posBuffer.UnBind();
@@ -165,7 +164,6 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             int i = dead.Pop();
             bDead[i] = false;
-            nCap = Math.Max(i, nCap);
             return i;
         }
 
@@ -178,12 +176,12 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public override void Add(IDrawable2D child, AddPosition position = AddPosition.Last)
         {
-            Debugger.InvalidOperation("Use Add(Bullet)");
+            Debugger.InvalidOperation("Use int RequestIndex()");
         }
 
         public override void Remove(IDrawable2D child, bool dispose = true)
         {
-            Debugger.InvalidOperation("Don't do this, they should be removed automatically");
+            Debugger.InvalidOperation("Use ReturnIndex(int i)");
         }
 
         protected override void Dispose(bool finalize)

@@ -4,9 +4,7 @@
 using System;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
-using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
@@ -30,6 +28,8 @@ namespace Vitaru.Settings.Options
 
             Value = manager.GetBool(setting);
             Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
+
+            Size = new Vector2(SettingsOverlay.WIDTH - 8, 20);
         }
 
         protected override void Toggle()

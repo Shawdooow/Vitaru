@@ -16,6 +16,7 @@ using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
+using Vitaru.Settings;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
@@ -23,6 +24,9 @@ namespace Vitaru.Roots.Tests
     public class PlayTest : PlayRoot
     {
         public override string Name => nameof(PlayTest);
+
+        private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
+        private readonly int bullet_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletCap);
 
         private readonly Gamefield gamefield;
 
@@ -124,8 +128,8 @@ namespace Vitaru.Roots.Tests
         public override void Update()
         {
             enemies.Text = $"{Enemy.COUNT} Enemies";
-            bullets.Text = $"{Bullet.COUNT} Bullets";
-            particles.Text = $"{ParticleLayer.PARTICLES_IN_USE} ({ParticleLayer.MAX_PARTICLES}) Particles";
+            bullets.Text = $"{Bullet.COUNT} ({bullet_cap}) Bullets";
+            particles.Text = $"{ParticleLayer.PARTICLES_IN_USE} ({particle_cap}) Particles";
 
             TrackManager.CurrentTrack.Clock.Update();
 

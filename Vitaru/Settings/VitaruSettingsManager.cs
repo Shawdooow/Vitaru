@@ -24,10 +24,13 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
 
             SetValue(VitaruSetting.Particles, true);
+            SetValue(VitaruSetting.ParticleCap, 32786);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
+
             SetValue(VitaruSetting.ComboFire, true);
 
             SetValue(VitaruSetting.ThreadBullets, false);
+            SetValue(VitaruSetting.BulletCap, 512);
 
             SetValue(VitaruSetting.DebugHacks, false);
         }
@@ -45,11 +48,13 @@ namespace Vitaru.Settings
         LaserVisuals,
 
         Particles,
+        ParticleCap,
         ParticleMultiplier,
+
         ComboFire,
 
-        //Performance
         ThreadBullets,
+        BulletCap,
 
         //Debug
         DebugHacks,
