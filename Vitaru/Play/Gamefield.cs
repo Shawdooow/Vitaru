@@ -117,9 +117,9 @@ namespace Vitaru.Play
                 //TODO: Multiplayer
             }
 
-            ParticleLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            CharacterLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
-            BulletLayer.Clock = TrackManager.CurrentTrack.LinkedClock;
+            ParticleLayer.Clock = TrackManager.CurrentTrack.DrawClock;
+            CharacterLayer.Clock = TrackManager.CurrentTrack.DrawClock;
+            BulletLayer.Clock = TrackManager.CurrentTrack.DrawClock;
 
             FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
             FormatConverter.Gamefield = this;
@@ -162,12 +162,13 @@ namespace Vitaru.Play
                 ProjectilePacks[p.Team].Remove(p);
             }
 
+
+            double current = Clock.Current;
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (Clock.LastCurrent >= e.StartTime - e.TimePreLoad && Clock.LastCurrent < e.EndTime
-                ) // + e.TimeUnLoad)
+                if (current >= e.StartTime - e.TimePreLoad && current < e.EndTime)// + e.TimeUnLoad)
                 {
                     enemyQue.Enqueue(e);
                     UnloadedEnemies.Remove(e);

@@ -67,11 +67,11 @@ namespace Vitaru.Roots
         {
             manager = new LevelManager(level);
 
-            TrackManager.CurrentTrack.LinkedClock = new SeekableClock();
+            TrackManager.CurrentTrack.DrawClock = new SeekableClock();
 
-            TrackManager.CurrentTrack.LinkedClock.Start();
-            TrackManager.CurrentTrack.LinkedClock.Seek(TrackManager.CurrentTrack.Clock.Current);
-            TrackManager.CurrentTrack.LinkedClock.Rate = TrackManager.CurrentTrack.Clock.Rate;
+            TrackManager.CurrentTrack.DrawClock.Start();
+            TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
+            TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.Clock.Rate;
 
             editfield = new Editfield(manager)
             {
@@ -134,6 +134,8 @@ namespace Vitaru.Roots
 
         public override void PreRender()
         {
+            TrackManager.CurrentTrack.DrawClock.Update();
+
             if (state == LoadState.PreLoaded)
                 loadLevelEditor(LevelStore.CurrentLevel);
 

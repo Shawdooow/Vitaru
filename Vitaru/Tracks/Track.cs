@@ -16,7 +16,7 @@ namespace Vitaru.Tracks
 
         public new readonly SeekableClock Clock;
 
-        public SeekableClock LinkedClock { get; set; }
+        public SeekableClock DrawClock { get; set; }
 
         public override float Pitch
         {
@@ -25,7 +25,7 @@ namespace Vitaru.Tracks
             {
                 base.Pitch = value;
                 Clock.Rate = value;
-                if (LinkedClock != null) LinkedClock.Rate = value;
+                if (DrawClock != null) DrawClock.Rate = value;
             }
         }
 
@@ -42,7 +42,7 @@ namespace Vitaru.Tracks
 
             time *= 1000;
             Clock.Seek(time);
-            LinkedClock?.Seek(time);
+            DrawClock?.Seek(time);
         }
 
         public virtual bool CheckNewBeat()

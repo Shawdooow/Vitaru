@@ -22,7 +22,7 @@ namespace Vitaru.Tracks
             Switching = true;
 
             SeekableClock seek = clock ?? CurrentTrack.Clock;
-            SeekableClock linked = CurrentTrack?.LinkedClock;
+            SeekableClock linked = CurrentTrack?.DrawClock;
 
             seek.Stop();
             seek.Reset();
@@ -33,7 +33,7 @@ namespace Vitaru.Tracks
             Logger.Log($"Setting Track \"{level.Title}\"");
             CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Title}"))
             {
-                LinkedClock = linked
+                DrawClock = linked
             };
             OnTrackChange?.Invoke(CurrentTrack);
 
