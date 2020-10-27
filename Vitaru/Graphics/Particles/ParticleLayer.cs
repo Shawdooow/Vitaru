@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -25,13 +24,9 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        public const int MAX_PARTICLES = 64000;
+        public const int MAX_PARTICLES = 32768;
 
         private const int vertLocation = 10;
-        //private const int lifetimeLocation = 11;
-        private const int startLocation = 12;
-        private const int endLocation = 13;
-        private const int colorLocation = 14;
 
         public static int PARTICLES_IN_USE { get; private set; }
 
@@ -44,45 +39,28 @@ namespace Vitaru.Graphics.Particles
         private Texture texture;
 
         private int verts;
-        //private int life;
-        private int starts;
-        private int ends;
-        private int colors;
 
         public readonly float[] pLifetime = new float[MAX_PARTICLES];
 
-        public readonly Vector2[] pStartPosition = new Vector2[MAX_PARTICLES];
-
-        public readonly Vector2[] pEndPosition = new Vector2[MAX_PARTICLES];
+        public readonly Vector4[] pPositions = new Vector4[MAX_PARTICLES];
 
         public readonly Vector4[] pColor = new Vector4[MAX_PARTICLES];
 
         private readonly VertexArrayBuffer<float> lifeBuffer;
-        private readonly IntPtr startBuffer;
-        private readonly IntPtr endBuffer;
-        private readonly IntPtr colorBuffer;
+        private readonly VertexArrayBuffer<Vector4> positionBuffer;
+        private readonly VertexArrayBuffer<Vector4> colorBuffer;
 
         public readonly bool[] pDead = new bool[MAX_PARTICLES];
 
         private readonly Stack<int> dead = new Stack<int>();
 
-        private int nCap;
-        private int oCap;
-
         private bool bufferParts;
 
         public ParticleLayer()
         {
-            lifeBuffer = new VertexArrayBuffer<float>(ref pLifetime, 11);
-
-            GCHandle s = GCHandle.Alloc(pStartPosition, GCHandleType.Pinned);
-            startBuffer = s.AddrOfPinnedObject();
-
-            GCHandle e = GCHandle.Alloc(pEndPosition, GCHandleType.Pinned);
-            endBuffer = e.AddrOfPinnedObject();
-
-            GCHandle c = GCHandle.Alloc(pColor, GCHandleType.Pinned);
-            colorBuffer = c.AddrOfPinnedObject();
+            lifeBuffer = new VertexArrayBuffer<float>(ref pLifetime, 1, 11);
+            positionBuffer = new VertexArrayBuffer<Vector4>(ref pPositions, 4, 12);
+            colorBuffer = new VertexArrayBuffer<Vector4>(ref pColor, 4, 13);
 
             for (int i = MAX_PARTICLES - 1; i >= 0; i--)
             {
@@ -129,21 +107,8 @@ namespace Vitaru.Graphics.Particles
             GL.BufferData(BufferTarget.ArrayBuffer, 8 * 4, array, BufferUsageHint.StaticDraw);
 
             lifeBuffer.InitBuffer();
-            //life = GL.GenBuffer();
-            //GL.BindBuffer(BufferTarget.ArrayBuffer, life);
-            //GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 4, IntPtr.Zero, BufferUsageHint.StreamDraw);
-
-            starts = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-
-            ends = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-
-            colors = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.BufferData(BufferTarget.ArrayBuffer, MAX_PARTICLES * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
+            positionBuffer.InitBuffer();
+            colorBuffer.InitBuffer();
 
             Renderer.OnResize += value =>
             {
@@ -160,7 +125,6 @@ namespace Vitaru.Graphics.Particles
         public void UpdateParticles(float last)
         {
             PARTICLES_IN_USE = 0;
-            int c = 0;
 
             if (particles)
                 for (int i = 0; i < pLifetime.Length; i++)
@@ -168,18 +132,13 @@ namespace Vitaru.Graphics.Particles
                     pLifetime[i] += last / 1200;
 
                     if (pLifetime[i] < 1)
-                    {
                         PARTICLES_IN_USE++;
-                        c = Math.Max(i, c);
-                    }
                     else if (!pDead[i])
                     {
                         pDead[i] = true;
                         dead.Push(i);
                     }
                 }
-
-            nCap = Math.Min(MAX_PARTICLES, c + 1);
         }
 
         public override void PreRender()
@@ -188,17 +147,16 @@ namespace Vitaru.Graphics.Particles
 
             if (!particles) return;
 
-            oCap = MAX_PARTICLES;//nCap;
-
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
-            bufferLife();
+            lifeBuffer.Buffer();
 
             if (bufferParts)
             {
                 bufferParts = false;
-                buffer();
+                positionBuffer.Buffer();
+                colorBuffer.Buffer();
             }
 
             Renderer.SpriteProgram.SetActive();
@@ -220,39 +178,17 @@ namespace Vitaru.Graphics.Particles
 
             // lifetime
             lifeBuffer.Bind();
-            //GL.EnableVertexAttribArray(lifetimeLocation);
-            //GL.BindBuffer(BufferTarget.ArrayBuffer, life);
-            //GL.VertexAttribPointer(lifetimeLocation, 1, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
-
-            // start positions
-            GL.EnableVertexAttribArray(startLocation);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
-            GL.VertexAttribPointer(startLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
-
-            // end positions
-            GL.EnableVertexAttribArray(endLocation);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
-            GL.VertexAttribPointer(endLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
-
-            // colors
-            GL.EnableVertexAttribArray(colorLocation);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.VertexAttribPointer(colorLocation, 4, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            positionBuffer.Bind();
+            colorBuffer.Bind();
 
             GL.VertexAttribDivisor(vertLocation, 0);
-            //GL.VertexAttribDivisor(lifetimeLocation, 1);
-            GL.VertexAttribDivisor(startLocation, 1);
-            GL.VertexAttribDivisor(endLocation, 1);
-            GL.VertexAttribDivisor(colorLocation, 1);
 
-            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, oCap);
+            GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, MAX_PARTICLES);
 
             GL.DisableVertexAttribArray(vertLocation);
             lifeBuffer.UnBind();
-            //GL.DisableVertexAttribArray(lifetimeLocation);
-            GL.DisableVertexAttribArray(startLocation);
-            GL.DisableVertexAttribArray(endLocation);
-            GL.DisableVertexAttribArray(colorLocation);
+            positionBuffer.UnBind();
+            colorBuffer.UnBind();
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
@@ -264,9 +200,11 @@ namespace Vitaru.Graphics.Particles
 
             int i = dead.Pop();
 
+            Vector2 start = particle.StartPosition * Scale;
+            Vector2 end = particle.EndPosition * Scale;
+
             pLifetime[i] = 0;
-            pStartPosition[i] = particle.StartPosition * Scale;
-            pEndPosition[i] = particle.EndPosition * Scale;
+            pPositions[i] = new Vector4(start.X, start.Y, end.X, end.Y);
             pColor[i] = new Vector4(particle.Color, particle.Scale * Math.Min(Scale.X, Scale.Y));
             pDead[i] = false;
             bufferParts = true;
@@ -282,34 +220,12 @@ namespace Vitaru.Graphics.Particles
             Debugger.InvalidOperation("Don't do this, they should be removed automatically");
         }
 
-        private void bufferLife()
-        {
-            lifeBuffer.Buffer();
-        }
-
-        private void buffer()
-        {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, starts);
-            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 8, startBuffer);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, ends);
-            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 8, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 8, endBuffer);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colors);
-            GL.BufferData(BufferTarget.ArrayBuffer, oCap * 16, IntPtr.Zero, BufferUsageHint.StreamDraw);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, oCap * 16, colorBuffer);
-        }
-
         protected override void Dispose(bool finalize)
         {
             GL.DeleteBuffer(verts);
             lifeBuffer.Dispose();
-            //GL.DeleteBuffer(life);
-            GL.DeleteBuffer(starts);
-            GL.DeleteBuffer(ends);
-            GL.DeleteBuffer(colors);
+            positionBuffer.Dispose();
+            colorBuffer.Dispose();
             program.Dispose();
 
             base.Dispose(finalize);
