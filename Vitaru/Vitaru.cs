@@ -49,7 +49,7 @@ namespace Vitaru
 
             if (ALKI == 1)
             {
-                if (PrionMath.RandomNumber(0, 100) == 6)
+                if (PrionMath.RandomNumber(0, 10) == 6)
                 {
                     ALKI++;
                     Logger.SystemConsole("ALL RHIZE", ConsoleColor.DarkMagenta);
