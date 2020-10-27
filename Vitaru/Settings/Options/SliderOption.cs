@@ -114,7 +114,6 @@ namespace Vitaru.Settings.Options
                         try
                         {
                             float value = float.Parse(text);
-                            if (value > max * 2) System.Diagnostics.Process.Start("https://youtu.be/iQIFF1OVic4");
                             PrionMath.Scale(value, Min, Max);
                             Value = value;
                         }
