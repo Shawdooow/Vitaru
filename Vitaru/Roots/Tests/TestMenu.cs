@@ -114,7 +114,7 @@ namespace Vitaru.Roots.Tests
                 Origin = Mounts.BottomCenter,
                 TextScale = 0.25f,
                 Text = "0.11.0-rc1.0",
-                Color = Color.Red
+                Color = Color.Gold
             });
 
             Add(new SpriteText
