@@ -138,9 +138,9 @@ namespace Vitaru.Settings
                             Text = "Toggle Combo Fire"
                         },
 
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ThreadBullets)
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Multithreading)
                         {
-                            Text = "Multi-Thread Bullets"
+                            Text = "Multithreading"
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
                         {

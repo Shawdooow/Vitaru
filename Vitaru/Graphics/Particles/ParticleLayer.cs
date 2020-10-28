@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace Vitaru.Graphics.Particles
 
         public readonly bool[] pDead;
 
-        private readonly Stack<int> dead = new Stack<int>();
+        private readonly ConcurrentStack<int> dead = new ConcurrentStack<int>();
 
         private bool bufferParts;
 
@@ -201,9 +202,7 @@ namespace Vitaru.Graphics.Particles
 
         public void Add(Particle particle)
         {
-            if (!dead.Any()) return;
-
-            int i = dead.Pop();
+            if (!dead.TryPop(out int i)) return;
 
             Vector2 start = particle.StartPosition * Scale;
             Vector2 end = particle.EndPosition * Scale;

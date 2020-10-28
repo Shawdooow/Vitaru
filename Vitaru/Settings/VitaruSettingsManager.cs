@@ -29,7 +29,7 @@ namespace Vitaru.Settings
 
             SetValue(VitaruSetting.ComboFire, true);
 
-            SetValue(VitaruSetting.ThreadBullets, false);
+            SetValue(VitaruSetting.Multithreading, false);
             SetValue(VitaruSetting.BulletCap, 512);
 
             SetValue(VitaruSetting.DebugHacks, false);
@@ -53,7 +53,7 @@ namespace Vitaru.Settings
 
         ComboFire,
 
-        ThreadBullets,
+        Multithreading,
         BulletCap,
 
         //Debug

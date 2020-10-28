@@ -1,15 +1,16 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics.Layers;
+using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Groups.Packs;
+using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters;
@@ -28,6 +29,8 @@ namespace Vitaru.Play
     public class Gamefield : Pack<IPack>
     {
         public override string Name { get; set; } = nameof(Gamefield);
+
+        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Experimental;
 
         public virtual Shades Shade { get; set; }
 
@@ -65,16 +68,21 @@ namespace Vitaru.Play
             Size = new Vector2(1024, 820)
         };
 
+        private readonly ProjectilePack enemys;
+
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
             Add(PlayerPack);
             Add(LoadedEnemies);
 
-            ProjectilePack enemys = new ProjectilePack(this)
+            enemys = new ProjectilePack(this)
             {
                 Name = "Enemy's Projectile Pack",
-                Team = Enemy.ENEMY_TEAM
+                Team = Enemy.ENEMY_TEAM,
+                MultiThreading = multithread
             };
+
+            if (multithread) enemys.AssignTasks();
 
             ProjectilePack players = new ProjectilePack(this)
             {
@@ -153,7 +161,20 @@ namespace Vitaru.Play
                 }
             }
 
-            ParticleLayer.UpdateParticles((float) Clock.LastElapsedTime);
+            if (multithread)
+            {
+                if (enemys.Children.Count > 0)
+                {
+                    enemys.AssignIndexes();
+                    Vitaru.RunThreads();
+                }
+
+                ParticleLayer.UpdateParticles((float) Clock.LastElapsedTime);
+
+                Vitaru.AwaitDynamicThreads();
+            }
+            else
+                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
         }
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
@@ -251,14 +272,15 @@ namespace Vitaru.Play
         {
             public int Team { get; set; }
 
-            private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.ThreadBullets);
+            public bool MultiThreading { get; set; }
 
-            private bool threading;
+            public int[] Indexes = 
+            {
+                0,
+                0
+            };
 
             private readonly Gamefield gamefield;
-
-            private int start;
-            private int end;
 
             public ProjectilePack(Gamefield gamefield)
             {
@@ -267,38 +289,29 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (!threading)
-                    proccessBullets(0, ProtectedChildren.Count);
-                else
-                {
-                    assignIndexes();
-                    Vitaru.RunThreads();
-                    proccessBullets(start, end);
-                    Vitaru.AwaitDynamicThreads();
-                }
+                if (!MultiThreading) proccessBullets(0, 1);
             }
 
             public override void Add(Projectile child, AddPosition position = AddPosition.Last)
             {
                 base.Add(child, position);
-
-                if (multithread && ProtectedChildren.Count >= 500 && !threading)
-                    threading = true;
+                if (!MultiThreading) Indexes[1] = ProtectedChildren.Count;
             }
 
             public override void Remove(Projectile child, bool dispose = true)
             {
                 base.Remove(child, dispose);
-
-                if (ProtectedChildren.Count < 500 && threading)
-                    threading = false;
+                if (!MultiThreading) Indexes[1] = ProtectedChildren.Count;
             }
 
             private void proccessBullets(int s, int e)
             {
                 double current = Clock.Current;
 
-                for (int i = s; i < e; i++)
+                int start = Indexes[s];
+                int end = Indexes[e];
+
+                for (int i = start; i < end; i++)
                 {
                     Projectile p = ProtectedChildren[i];
 
@@ -322,32 +335,41 @@ namespace Vitaru.Play
                 }
             }
 
-            private void assignIndexes()
+            public void AssignTasks()
             {
-                int st = 0;
-                int en = 0;
+                Indexes = new int[Vitaru.DynamicThreads.Count * 2];
 
-                int tcount = ProtectedChildren.Count;
+                for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
+                {
+                    int s = i;
+                    int e = i + Vitaru.DynamicThreads.Count;
+
+                    Vitaru.DynamicThreads[i].Task = () =>
+                    {
+                        proccessBullets(s, e);
+                    };
+                }
+            }
+
+            public void AssignIndexes()
+            {
                 int dcount = Vitaru.DynamicThreads.Count;
 
-                float ratio = (float) tcount / dcount;
-                int remainder = tcount % dcount;
-
-                int iter = (int) Math.Round(ratio, MidpointRounding.ToZero);
+                //Amount of bullets per thread
+                int[] count = PrionMath.DistributeInteger(ProtectedChildren.Count, dcount).ToArray();
+                int roll = 0;
 
                 for (int i = 0; i < dcount; i++)
                 {
-                    en += iter;
+                    roll += count[i];
+                    int s = count[i];
+                    int e = roll;
 
-                    int s = st;
-                    int e = en;
+                    Indexes[i] = s;
+                    Indexes[i + dcount] = e;
 
-                    Vitaru.DynamicThreads[i].Task = () => proccessBullets(s, e);
-                    st = en + 1;
+                    
                 }
-
-                start = st;
-                end = en + remainder;
             }
         }
     }
