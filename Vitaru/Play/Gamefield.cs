@@ -154,17 +154,15 @@ namespace Vitaru.Play
                 ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
 
             //should be safe to kill them from here
-            while (deadEnemyQue.Count > 0)
+            while (deadEnemyQue.TryDequeue(out Enemy e))
             {
-                Debugger.Assert(deadEnemyQue.TryDequeue(out Enemy e));
                 Debugger.Assert(!e.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be in the {nameof(deadEnemyQue)}!");
                 LoadedEnemies.Remove(e, false);
                 UnloadedEnemies.Add(e);
             }
 
-            while (deadprojectileQue.Count > 0)
+            while (deadprojectileQue.TryDequeue(out Projectile p))
             {
-                Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile p));
                 Debugger.Assert(!p.Disposed,
                     $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
 
@@ -250,18 +248,16 @@ namespace Vitaru.Play
         public void PreRender()
         {
             //Add Players
-            while (playerQue.Count > 0)
+            while (playerQue.TryDequeue(out Player player))
             {
-                Debugger.Assert(playerQue.TryDequeue(out Player player));
                 DrawableGameEntity draw = player.GenerateDrawable();
                 player.SetDrawable(draw);
                 CharacterLayer.Add(draw);
             }
 
             //Add Enemies
-            while (enemyQue.Count > 0)
+            while (enemyQue.TryDequeue(out Enemy e))
             {
-                Debugger.Assert(enemyQue.TryDequeue(out Enemy e));
                 Debugger.Assert(!e.Disposed, "This enemy is disposed and should not be in this list anymore");
                 DrawableGameEntity draw = e.GenerateDrawable();
                 e.SetDrawable(draw);
@@ -272,9 +268,8 @@ namespace Vitaru.Play
             }
 
             //Remove Enemies
-            while (drawableEnemyQue.Count > 0)
+            while (drawableEnemyQue.TryDequeue(out DrawableGameEntity draw))
             {
-                Debugger.Assert(drawableEnemyQue.TryDequeue(out DrawableGameEntity draw));
                 CharacterLayer.Remove(draw);
             }
         }
@@ -369,9 +364,9 @@ namespace Vitaru.Play
 
                 for (int i = 0; i < dcount; i++)
                 {
+                    int s = roll;
                     roll += count[i];
-                    int s = count[i];
-                    int e = roll;
+                    int e = roll - 1;
 
                     Indexes[i] = s;
                     Indexes[i + dcount] = e;
