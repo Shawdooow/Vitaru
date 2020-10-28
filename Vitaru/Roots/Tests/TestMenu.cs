@@ -5,11 +5,13 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
+using Prion.Nucleus.IO.Configs;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -113,7 +115,7 @@ namespace Vitaru.Roots.Tests
                 ParentOrigin = Mounts.BottomCenter,
                 Origin = Mounts.BottomCenter,
                 TextScale = 0.25f,
-                Text = "0.11.0-rc2.0",
+                Text = "0.11.0-rc1.1",
                 Color = Color.Gold
             });
 

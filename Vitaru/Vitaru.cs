@@ -115,7 +115,7 @@ namespace Vitaru
                 }
             }
 
-            int dtco = PrionSettings.GetInt(PrionSetting.DynamicThreadCountOverride);
+            int dtco = Settings.GetInt(PrionSetting.DynamicThreadCountOverride);
 
             if (dtco <= -1)
             {

@@ -64,16 +64,16 @@ namespace Vitaru.Settings
                             Text = "Prion",
                             TextScale = 0.24f
                         }, 
-                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.Fullscreen)
+                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.Fullscreen)
                         {
                             Text = "Toggle Fullscreen",
                             OnValueChange = value => Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
                         },
-                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.VSync)
+                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.VSync)
                         {
                             Text = "Toggle VSync"
                         },
-                        new ToggleOption<PrionSetting>(Game.PrionSettings, PrionSetting.MatchUpdate)
+                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.MatchUpdate)
                         {
                             Text = "Limit Draw to Update",
                             OnValueChange = value => Renderer.MatchUpdateRate = value

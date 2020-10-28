@@ -10,7 +10,7 @@ namespace Vitaru.Settings
     {
         protected override string Filename => "vitaru.ini";
 
-        public VitaruSettingsManager(Storage storage, bool init = true) : base(storage, init)
+        public VitaruSettingsManager(Storage storage) : base(storage)
         {
         }
 
