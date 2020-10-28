@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Groups.Packs;
 using Vitaru.Editor.IO;
@@ -15,7 +16,6 @@ using Vitaru.Gamemodes.Characters;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
-using Vitaru.Graphics;
 using Vitaru.Graphics.Particles;
 using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Levels;
@@ -29,42 +29,18 @@ namespace Vitaru.Play
     {
         public override string Name { get; set; } = nameof(Gamefield);
 
+        public virtual Shades Shade { get; set; }
+
+        public virtual float Intensity { get; set; } = 1;
+
         protected readonly FormatConverter FormatConverter;
-
-        public Action<Shades> OnShadeChange;
-
-        public Action<float> OnIntensityChange;
-
-        public Shades Shade
-        {
-            get => shade;
-            set
-            {
-                shade = value;
-                OnShadeChange?.Invoke(shade);
-            }
-        }
-
-        private Shades shade;
-
-        public float Intensity
-        {
-            get => intensity;
-            set
-            {
-                intensity = value;
-                OnIntensityChange?.Invoke(intensity);
-            }
-        }
-
-        private float intensity;
 
         public readonly Pack<Character> PlayerPack = new Pack<Character>
         {
             Name = "Player Pack"
         };
 
-        public readonly ShadeLayer<DrawableGameEntity> CharacterLayer = new ShadeLayer<DrawableGameEntity>
+        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
         {
             Name = "Drawable Character Layer2D",
             Size = new Vector2(1024, 820),

@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
@@ -43,8 +44,6 @@ namespace Vitaru.Roots.Tests
             gamefield = new Gamefield
             {
                 Clock = TrackManager.CurrentTrack.Clock,
-                OnShadeChange = shade => ShadeLayer.Shade = shade,
-                OnIntensityChange = intensity => ShadeLayer.Intensity = intensity
             };
 
             Player player = new Frost(gamefield);
@@ -185,6 +184,20 @@ namespace Vitaru.Roots.Tests
         {
             base.PreRender();
             gamefield.PreRender();
+        }
+
+        public override void PostProcessing()
+        {
+            base.PostProcessing();
+            Renderer.ShaderManager.UpdateInt("shade", (int)gamefield.Shade);
+            Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            Renderer.ShaderManager.UpdateInt("shade", (int)Shades.Color);
+            Renderer.ShaderManager.UpdateFloat("intensity", 1);
+            base.Dispose(finalize);
         }
     }
 }

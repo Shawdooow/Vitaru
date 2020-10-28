@@ -134,69 +134,28 @@ namespace Vitaru
 
             if (!DX12)
             {
-                //sprite.vert is shared for both shaders
-                string vert = new StreamReader(ShaderStorage.GetStream("sprite.vert")).ReadToEnd();
+                //Post
+                Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, 
+                    new StreamReader(ShaderStorage.GetStream("post.vert")).ReadToEnd());
+                Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                    new StreamReader(ShaderStorage.GetStream("post_shade.frag")).ReadToEnd());
 
-                //Sprite
-                Shader sv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
-                Shader sf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
-                    new StreamReader(ShaderStorage.GetStream("sprite_shade.frag")).ReadToEnd());
+                Renderer.PostProgram.Dispose();
+                Renderer.PostProgram = Renderer.ShaderManager.GetShaderProgram(pv, pf);
 
-                Renderer.SpriteProgram.Dispose();
-                Renderer.SpriteProgram = Renderer.ShaderManager.GetShaderProgram(sv, sf);
+                GLShaderProgram post = (GLShaderProgram) Renderer.PostProgram;
 
-                GLShaderProgram sprite = (GLShaderProgram) Renderer.SpriteProgram;
+                post.SetActive();
 
-                sprite.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = post;
 
-                Renderer.ShaderManager.ActiveShaderProgram = sprite;
-                Renderer.ShaderManager.SetSpriteLocations();
-
-                sprite.Locations["shade"] = GLShaderManager.GetLocation(sprite, "shade");
-                sprite.Locations["intensity"] = GLShaderManager.GetLocation(sprite, "intensity");
+                post.Locations["shade"] = GLShaderManager.GetLocation(post, "shade");
+                post.Locations["intensity"] = GLShaderManager.GetLocation(post, "intensity");
 
                 Renderer.ShaderManager.UpdateInt("shade", 0);
                 Renderer.ShaderManager.UpdateInt("intensity", 1);
 
-                Renderer.OnResize += value =>
-                {
-                    sprite.SetActive();
-                    Renderer.ShaderManager.ActiveShaderProgram = sprite;
-                    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
-                        Renderer.Width / -2f,
-                        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
-                };
-
-                //Circle
-                //Shader cv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, vert);
-                //Shader cf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
-                //    new StreamReader(ShaderStorage.GetStream("circle_shade.frag")).ReadToEnd());
-                //
-                //Renderer.CircularProgram.Dispose();
-                //Renderer.CircularProgram = Renderer.ShaderManager.GetShaderProgram(cv, cf);
-                //
-                //GLShaderProgram circle = (GLShaderProgram) Renderer.CircularProgram;
-                //
-                //circle.SetActive();
-                //
-                //Renderer.ShaderManager.ActiveShaderProgram = circle;
-                //Renderer.ShaderManager.SetCircleLocations();
-                //
-                //circle.Locations["shade"] = GLShaderManager.GetLocation(circle, "shade");
-                //
-                //Renderer.ShaderManager.UpdateInt("shade", 0);
-                //
-                //Renderer.OnResize += value =>
-                //{
-                //    circle.SetActive();
-                //    Renderer.ShaderManager.ActiveShaderProgram = circle;
-                //    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreateOrthographicOffCenter(
-                //        Renderer.Width / -2f,
-                //        Renderer.Width / 2f, Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
-                //};
-
-                //TODO: Gradient
-
+                //Bullet
                 Shader bv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
                     new StreamReader(ShaderStorage.GetStream("bullet.vert")).ReadToEnd());
                 Shader bf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
@@ -270,5 +229,15 @@ namespace Vitaru
             VitaruSettings.Dispose();
             base.Dispose();
         }
+    }
+
+    public enum Shades
+    {
+        Color = 0,
+        None = 0,
+        Gray,
+        Red,
+        Green,
+        Blue
     }
 }

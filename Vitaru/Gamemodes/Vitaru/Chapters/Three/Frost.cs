@@ -114,8 +114,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
             intensity();
             Gamefield.Shade = Shades.Blue;
-            Gamefield.CharacterLayer.Shade = Shades.Blue;
-            //Gamefield.BulletLayer.Shade = Shades.Blue;
             DrawablePlayer.Sprite.Color = Color.Blue;
             DrawablePlayer.HitboxOutline.Color = Color.Blue;
             DrawablePlayer.Seal.Reticle.Color = Color.GhostWhite;
@@ -137,8 +135,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
             float scale = (float) Easing.ApplyEasing(Easings.OutQuad,
                 Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
             Gamefield.Intensity = scale;
-            Gamefield.CharacterLayer.Intensity = scale;
-            //Gamefield.BulletLayer.Intensity = scale;
         }
 
         protected override void SpellUpdate()
@@ -164,8 +160,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
                         applyToClock(adjustable, currentRate);
 
                         Gamefield.Shade = Shades.None;
-                        Gamefield.CharacterLayer.Shade = Shades.None;
-                        //Gamefield.BulletLayer.Shade = Shades.None;
                     }
 
                     intensity();

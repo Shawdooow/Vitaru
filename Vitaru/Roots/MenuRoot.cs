@@ -7,12 +7,12 @@ using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
-using Vitaru.Graphics;
 using Vitaru.Themes;
 using Vitaru.Tracks;
 
@@ -30,7 +30,7 @@ namespace Vitaru.Roots
 
         protected virtual bool InvertParallax => false;
 
-        protected readonly ShadeLayer<IDrawable2D> ShadeLayer;
+        protected readonly Layer2D<IDrawable2D> BackgroundLayer;
         protected readonly Sprite Background;
         protected readonly Box Dim;
         protected Button Back;
@@ -39,7 +39,7 @@ namespace Vitaru.Roots
 
         protected MenuRoot()
         {
-            Add(ShadeLayer = new ShadeLayer<IDrawable2D>
+            Add(BackgroundLayer = new Layer2D<IDrawable2D>
             {
                 Children = new[]
                 {

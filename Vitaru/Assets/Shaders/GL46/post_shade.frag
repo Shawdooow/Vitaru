@@ -1,13 +1,10 @@
 #version 460
 
-uniform sampler2D spriteTexture;
-uniform float alpha;
-uniform vec3 spriteColor;
+uniform sampler2D postTexture;
 uniform int shade;
 uniform float intensity;
 
 in vec2 texCoords;
-
 out vec4 final;
 
 const float r = 0.299;
@@ -27,9 +24,7 @@ void main()
 	float blue;
 	float gray;
 
-	vec4 color = texture(spriteTexture, texCoords);
-	color.w *= alpha;
-	color.xyz *= spriteColor;
+	vec4 color = texture(postTexture, texCoords);
 
 	switch(shade)
 	{
