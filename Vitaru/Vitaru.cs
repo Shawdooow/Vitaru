@@ -70,7 +70,7 @@ namespace Vitaru
 
             using (Vitaru vitaru = new Vitaru(args))
             {
-                if (FEATURES >= Features.Experimental)
+                if (FEATURES >= Features.Radioactive)
                     vitaru.Start(new MainMenuRoot(vitaru));
                 else
                     vitaru.Start(new TestMenu(vitaru));
@@ -97,7 +97,7 @@ namespace Vitaru
         protected Vitaru(string[] args) : base(host, args)
         {
 #if !PUBLISH
-            FEATURES = Features.Upcoming;
+            FEATURES = Features.Experimental;
 #endif
 
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
