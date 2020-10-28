@@ -344,10 +344,7 @@ namespace Vitaru.Play
                     int s = i;
                     int e = i + Vitaru.DynamicThreads.Count;
 
-                    Vitaru.DynamicThreads[i].Task = () =>
-                    {
-                        proccessBullets(s, e);
-                    };
+                    Vitaru.DynamicThreads[i].Task = () => proccessBullets(s, e);
                 }
             }
 
@@ -367,8 +364,6 @@ namespace Vitaru.Play
 
                     Indexes[i] = s;
                     Indexes[i + dcount] = e;
-
-                    
                 }
             }
         }
