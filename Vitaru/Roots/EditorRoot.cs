@@ -134,7 +134,7 @@ namespace Vitaru.Roots
 
         public override void PreRender()
         {
-            TrackManager.CurrentTrack.DrawClock.Update();
+            TrackManager.CurrentTrack.DrawClock?.Update();
 
             if (state == LoadState.PreLoaded)
                 loadLevelEditor(LevelStore.CurrentLevel);
