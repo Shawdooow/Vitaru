@@ -131,6 +131,21 @@ namespace Vitaru.Play
         {
             base.Update();
 
+            if (multithread)
+            {
+                if (enemys.Children.Count > 0)
+                {
+                    enemys.AssignIndexes();
+                    Vitaru.RunThreads();
+                }
+
+                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
+
+                Vitaru.AwaitDynamicThreads();
+            }
+            else
+                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
+
             //should be safe to kill them from here
             while (deadEnemyQue.Count > 0)
             {
@@ -163,21 +178,6 @@ namespace Vitaru.Play
                     //Boss?.Enemies.Add(e);
                 }
             }
-
-            if (multithread)
-            {
-                if (enemys.Children.Count > 0)
-                {
-                    enemys.AssignIndexes();
-                    Vitaru.RunThreads();
-                }
-
-                ParticleLayer.UpdateParticles((float) Clock.LastElapsedTime);
-
-                Vitaru.AwaitDynamicThreads();
-            }
-            else
-                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
         }
 
         private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
