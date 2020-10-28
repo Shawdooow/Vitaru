@@ -58,6 +58,8 @@ namespace Vitaru.Settings.Options
         public readonly float Min;
         public readonly float Max;
 
+        public Action<float> OnValueChange;
+
         public virtual float Value
         {
             get => value;
@@ -68,6 +70,7 @@ namespace Vitaru.Settings.Options
                 this.value = value;
                 Slider.Progress = PrionMath.Scale(Value, Min, Max);
                 TextBox.Text = Value.ToString();
+                OnValueChange?.Invoke(Value);
             }
         }
 

@@ -24,14 +24,14 @@ namespace Vitaru.Settings
     {
         public override string Name { get; set; } = nameof(SettingsOverlay);
 
-        public const float WIDTH = 400;
-        public const float HEIGHT = 600;
+        public const float WIDTH = 360;
+        public const float HEIGHT = 640;
 
         protected bool Shown;
 
         private readonly Button toggle;
 
-        public SettingsOverlay()
+        public SettingsOverlay(Game game)
         {
             ParentOrigin = Mounts.CenterRight;
             Origin = Mounts.CenterRight;
@@ -74,10 +74,30 @@ namespace Vitaru.Settings
                         {
                             Text = "Toggle VSync"
                         },
-                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.MatchUpdate)
+                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.UpdateFrequency, 30, 1000)
+                        {
+                            Text = "Update Frequency",
+                            OnValueChange = value => game.UpdateFrequency = (int)value
+                        },
+                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.DrawFrequency, 30, 1000)
+                        {
+                            Text = "Draw Frequency",
+                            OnValueChange = value => Renderer.DrawFrequency = (int)value
+                        },
+                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleUpdate, 10, 60)
+                        {
+                            Text = "Idle Update Frequency",
+                            OnValueChange = value => game.IdleUpdate = (int)value
+                        },
+                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleDraw, 10, 60)
+                        {
+                            Text = "Idle Draw Frequency",
+                            OnValueChange = value => Renderer.IdleDraw = (int)value
+                        },
+                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.LimitDrawToUpdate)
                         {
                             Text = "Limit Draw to Update",
-                            OnValueChange = value => Renderer.MatchUpdateRate = value
+                            OnValueChange = value => Renderer.LimitDrawToUpdate = value
                         },
 
                         new SpriteText

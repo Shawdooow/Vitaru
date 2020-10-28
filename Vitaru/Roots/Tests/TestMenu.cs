@@ -105,7 +105,7 @@ namespace Vitaru.Roots.Tests
             Add(new TrackSelect());
 
             //Add(new WikiOverlay());
-            Add(new SettingsOverlay());
+            Add(new SettingsOverlay(vitaru));
 
             Add(new SpriteText
             {
