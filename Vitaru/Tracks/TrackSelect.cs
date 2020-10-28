@@ -39,14 +39,14 @@ namespace Vitaru.Tracks
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    ParentSizing = Axes.Both,
+                    ParentSizing = Axes.Both
                 },
                 list = new ListLayer<Button>
                 {
                     //ParentSizing = Axes.Both,
                     Size = new Vector2(160, 400),
-                    Spacing = 2,
-                },
+                    Spacing = 2
+                }
             };
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {

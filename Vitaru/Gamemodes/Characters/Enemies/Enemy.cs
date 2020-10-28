@@ -78,7 +78,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableStartPosition(this),
             new EditableStartTime(this),
             new EditableColor(this),
-            new EditablePatternID(this),
+            new EditablePatternID(this)
         };
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();

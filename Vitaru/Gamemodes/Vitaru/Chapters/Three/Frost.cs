@@ -7,7 +7,6 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Graphics;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Tracks;

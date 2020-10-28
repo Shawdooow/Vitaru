@@ -57,7 +57,7 @@ namespace Vitaru.Settings
         BulletCap,
 
         //Debug
-        DebugHacks,
+        DebugHacks
     }
 
     public enum GraphicsOptions

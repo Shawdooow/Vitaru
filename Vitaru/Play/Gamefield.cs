@@ -43,7 +43,7 @@ namespace Vitaru.Play
         public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
         {
             Name = "Drawable Character Layer2D",
-            Size = new Vector2(1024, 820),
+            Size = new Vector2(1024, 820)
         };
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
@@ -57,12 +57,12 @@ namespace Vitaru.Play
 
         public readonly BulletLayer BulletLayer = new BulletLayer
         {
-            Size = new Vector2(1024, 820),
+            Size = new Vector2(1024, 820)
         };
 
         public readonly ParticleLayer ParticleLayer = new ParticleLayer
         {
-            Size = new Vector2(1024, 820),
+            Size = new Vector2(1024, 820)
         };
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
@@ -144,7 +144,7 @@ namespace Vitaru.Play
             for (int i = 0; i < UnloadedEnemies.Count; i++)
             {
                 Enemy e = UnloadedEnemies[i];
-                if (current >= e.StartTime - e.TimePreLoad && current < e.EndTime)// + e.TimeUnLoad)
+                if (current >= e.StartTime - e.TimePreLoad && current < e.EndTime) // + e.TimeUnLoad)
                 {
                     enemyQue.Enqueue(e);
                     UnloadedEnemies.Remove(e);

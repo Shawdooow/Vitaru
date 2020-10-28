@@ -60,7 +60,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Format",
-                            Color = ThemeManager.PrimaryColor,
+                            Color = ThemeManager.PrimaryColor
                         },
                         new SpriteText
                         {
@@ -75,7 +75,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor,
+                            Color = ThemeManager.SecondaryColor
                         },
                         new SpriteText
                         {
@@ -83,7 +83,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Title",
-                            Color = ThemeManager.PrimaryColor,
+                            Color = ThemeManager.PrimaryColor
                         },
                         title = new TextBox
                         {
@@ -103,7 +103,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor,
+                            Color = ThemeManager.SecondaryColor
                         },
                         new SpriteText
                         {
@@ -111,7 +111,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Artist",
-                            Color = ThemeManager.PrimaryColor,
+                            Color = ThemeManager.PrimaryColor
                         },
                         artist = new TextBox
                         {
@@ -131,7 +131,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor,
+                            Color = ThemeManager.SecondaryColor
                         },
                         new SpriteText
                         {
@@ -139,7 +139,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Creator (You)",
-                            Color = ThemeManager.PrimaryColor,
+                            Color = ThemeManager.PrimaryColor
                         },
                         creator = new TextBox
                         {
@@ -159,7 +159,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor,
+                            Color = ThemeManager.SecondaryColor
                         },
                         new SpriteText
                         {
@@ -167,7 +167,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Level Name",
-                            Color = ThemeManager.PrimaryColor,
+                            Color = ThemeManager.PrimaryColor
                         },
                         level = new TextBox
                         {
@@ -187,7 +187,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor,
+                            Color = ThemeManager.SecondaryColor
                         },
 
                         new Button
@@ -199,14 +199,14 @@ namespace Vitaru.Editor.UI
 
                             BackgroundSprite =
                             {
-                                Color = ThemeManager.PrimaryColor,
+                                Color = ThemeManager.PrimaryColor
                             },
 
                             Text = "Create",
                             OnClick = create
-                        },
+                        }
                     }
-                },
+                }
             };
         }
 

@@ -63,11 +63,12 @@ namespace Vitaru.Settings
                             Origin = Mounts.TopCenter,
                             Text = "Prion",
                             TextScale = 0.24f
-                        }, 
+                        },
                         new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.Fullscreen)
                         {
                             Text = "Toggle Fullscreen",
-                            OnValueChange = value => Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
+                            OnValueChange = value =>
+                                Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
                         },
                         new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.VSync)
                         {
@@ -106,7 +107,8 @@ namespace Vitaru.Settings
                         {
                             Text = "Max Particles"
                         },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f, 2)
+                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f,
+                            2)
                         {
                             Text = "Particle Multiplier"
                         },

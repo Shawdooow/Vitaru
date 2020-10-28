@@ -15,7 +15,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters
 
         public override Player[] GetPlayers(Gamefield gamefield = null) => new Player[]
         {
-            new Frost(gamefield),
+            new Frost(gamefield)
         };
     }
 }

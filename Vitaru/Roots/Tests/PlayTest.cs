@@ -43,7 +43,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield = new Gamefield
             {
-                Clock = TrackManager.CurrentTrack.Clock,
+                Clock = TrackManager.CurrentTrack.Clock
             };
 
             Player player = new Frost(gamefield);
@@ -189,13 +189,13 @@ namespace Vitaru.Roots.Tests
         public override void PostProcessing()
         {
             base.PostProcessing();
-            Renderer.ShaderManager.UpdateInt("shade", (int)gamefield.Shade);
+            Renderer.ShaderManager.UpdateInt("shade", (int) gamefield.Shade);
             Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
         }
 
         protected override void Dispose(bool finalize)
         {
-            Renderer.ShaderManager.UpdateInt("shade", (int)Shades.Color);
+            Renderer.ShaderManager.UpdateInt("shade", (int) Shades.Color);
             Renderer.ShaderManager.UpdateFloat("intensity", 1);
             base.Dispose(finalize);
         }

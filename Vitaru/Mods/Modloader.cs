@@ -26,7 +26,7 @@ namespace Vitaru.Mods
             {
                 new Included.Prion(),
                 new Mixer(),
-                new Tanks(),
+                new Tanks()
             };
 
             loadedAssemblies = new Dictionary<Assembly, Type>();

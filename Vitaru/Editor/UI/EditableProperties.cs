@@ -64,7 +64,7 @@ namespace Vitaru.Editor.UI
                     ParentSizing = Axes.Both,
                     Spacing = 4,
                     ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
+                    Origin = Mounts.TopCenter
                 }
             };
 
@@ -153,7 +153,7 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor,
+                                        Color = ThemeManager.SecondaryColor
                                     }
                                 });
 
@@ -203,7 +203,7 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor,
+                                        Color = ThemeManager.SecondaryColor
                                     }
                                 });
 
@@ -225,7 +225,7 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor,
+                                        Color = ThemeManager.SecondaryColor
                                     }
                                 });
                                 continue;
@@ -273,7 +273,7 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor,
+                                        Color = ThemeManager.SecondaryColor
                                     }
                                 });
 

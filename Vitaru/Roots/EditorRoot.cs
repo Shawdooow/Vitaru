@@ -75,7 +75,7 @@ namespace Vitaru.Roots
 
             editfield = new Editfield(manager)
             {
-                Clock = TrackManager.CurrentTrack.Clock,
+                Clock = TrackManager.CurrentTrack.Clock
             };
             editableProperties = new EditableProperties(manager);
 

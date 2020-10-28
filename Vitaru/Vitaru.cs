@@ -135,7 +135,7 @@ namespace Vitaru
             if (!DX12)
             {
                 //Post
-                Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, 
+                Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
                     new StreamReader(ShaderStorage.GetStream("post.vert")).ReadToEnd());
                 Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
                     new StreamReader(ShaderStorage.GetStream("post_shade.frag")).ReadToEnd());
