@@ -77,22 +77,22 @@ namespace Vitaru.Settings
                         new SliderOption<PrionSetting>(Game.Settings, PrionSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
-                            OnValueChange = value => game.UpdateFrequency = (int)value
+                            OnValueChange = value => game.UpdateFrequency = (int) value
                         },
                         new SliderOption<PrionSetting>(Game.Settings, PrionSetting.DrawFrequency, 30, 1000)
                         {
                             Text = "Draw Frequency",
-                            OnValueChange = value => Renderer.DrawFrequency = (int)value
+                            OnValueChange = value => Renderer.DrawFrequency = (int) value
                         },
                         new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleUpdate, 10, 60)
                         {
                             Text = "Idle Update Frequency",
-                            OnValueChange = value => game.IdleUpdate = (int)value
+                            OnValueChange = value => game.IdleUpdate = (int) value
                         },
                         new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleDraw, 10, 60)
                         {
                             Text = "Idle Draw Frequency",
-                            OnValueChange = value => Renderer.IdleDraw = (int)value
+                            OnValueChange = value => Renderer.IdleDraw = (int) value
                         },
                         new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.LimitDrawToUpdate)
                         {
