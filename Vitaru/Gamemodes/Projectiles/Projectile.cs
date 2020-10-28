@@ -111,13 +111,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public virtual void End() => Started = false;
 
-        public event Action OnUnLoad;
-
-        public virtual void UnLoad()
-        {
-            PreLoaded = false;
-            OnUnLoad?.Invoke();
-        }
+        public virtual void UnLoad() => PreLoaded = false;
 
         protected virtual double Weight(double distance)
         {

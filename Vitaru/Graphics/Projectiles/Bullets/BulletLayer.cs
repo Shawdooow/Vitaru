@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -43,7 +44,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public readonly bool[] bDead;
 
-        private readonly Stack<int> dead = new Stack<int>();
+        private readonly ConcurrentStack<int> dead = new ConcurrentStack<int>();
 
         public BulletLayer()
         {
@@ -160,9 +161,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public int RequestIndex()
         {
-            if (!dead.Any()) return -1;
+            if (!dead.TryPop(out int i)) return -1;
 
-            int i = dead.Pop();
             bDead[i] = false;
             return i;
         }

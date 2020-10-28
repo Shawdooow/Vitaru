@@ -33,6 +33,10 @@ namespace Vitaru.Play
     {
         public override string Name { get; set; } = nameof(Gamefield);
 
+        public static double Current { get; private set; }
+
+        public static double LastElapsedTime { get; private set; }
+
         private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Experimental;
 
         public virtual Shades Shade { get; set; }
@@ -131,6 +135,9 @@ namespace Vitaru.Play
         {
             base.Update();
 
+            Current = Clock.Current;
+            LastElapsedTime = Clock.LastElapsedTime;
+
             if (multithread)
             {
                 if (enemys.Children.Count > 0)
@@ -160,6 +167,9 @@ namespace Vitaru.Play
                 Debugger.Assert(deadprojectileQue.TryDequeue(out Projectile p));
                 Debugger.Assert(!p.Disposed,
                     $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
+
+                BulletLayer.ReturnIndex(p.Drawable);
+                p.SetDrawable(-1, null);
 
                 ProjectilePacks[p.Team].Remove(p);
             }
@@ -233,8 +243,6 @@ namespace Vitaru.Play
             Debugger.Assert(!deadprojectileQue.Contains(projectile),
                 $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
 
-            BulletLayer.ReturnIndex(projectile.Drawable);
-            projectile.SetDrawable(-1, null);
             deadprojectileQue.Enqueue(projectile);
         }
 

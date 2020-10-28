@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
 using Vitaru.Graphics.Particles;
+using Vitaru.Play;
 using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -65,11 +66,11 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
-            Position = GetPosition(Clock.Current);
+            Position = GetPosition(Gamefield.Current);
 
-            s += Clock.LastElapsedTime;
+            s += Gamefield.LastElapsedTime;
 
-            if (particles && Clock.Current < EndTime && s >= 10 / particles_multiplier)
+            if (particles && Gamefield.Current < EndTime && s >= 10 / particles_multiplier)
             {
                 s = 0;
 
