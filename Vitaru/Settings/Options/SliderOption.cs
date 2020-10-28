@@ -132,7 +132,7 @@ namespace Vitaru.Settings.Options
                 Slider = new Slider
                 {
                     Y = 10,
-                    Size = new Vector2(SettingsOverlay.WIDTH - 8, 20),
+                    Size = new Vector2(SettingsOverlay.WIDTH - 24, 20),
 
                     OnProgressInput = p => Value = PrionMath.Scale(p, 0, 1, Min, Max)
                 }
