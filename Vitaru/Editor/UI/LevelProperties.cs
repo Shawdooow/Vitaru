@@ -23,6 +23,9 @@ namespace Vitaru.Editor.UI
 
         private readonly TextBox title;
         private readonly TextBox artist;
+        private readonly TextBox filename;
+        private readonly TextBox bpm;
+        private readonly TextBox image;
         private readonly TextBox creator;
         private readonly TextBox level;
 
@@ -138,6 +141,90 @@ namespace Vitaru.Editor.UI
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
+                            Text = "Filename",
+                            Color = ThemeManager.PrimaryColor
+                        },
+                        artist = new TextBox
+                        {
+                            SpriteText =
+                            {
+                                TextScale = 0.3f
+                            },
+
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = LevelStore.CurrentLevel.LevelTrack.Filename
+                        },
+                        new Box
+                        {
+                            Name = "Spacer",
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor
+                        },
+                        new SpriteText
+                        {
+                            TextScale = 0.35f,
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "BPM",
+                            Color = ThemeManager.PrimaryColor
+                        },
+                        bpm = new TextBox
+                        {
+                            SpriteText =
+                            {
+                                TextScale = 0.3f
+                            },
+
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = LevelStore.CurrentLevel.LevelTrack.BPM.ToString()
+                        },
+                        new Box
+                        {
+                            Name = "Spacer",
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor
+                        },
+                        new SpriteText
+                        {
+                            TextScale = 0.35f,
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Image Filename",
+                            Color = ThemeManager.PrimaryColor
+                        },
+                        image = new TextBox
+                        {
+                            SpriteText =
+                            {
+                                TextScale = 0.3f
+                            },
+
+                            Size = new Vector2(width - 60, 16),
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = LevelStore.CurrentLevel.LevelTrack.Image
+                        },
+                        new Box
+                        {
+                            Name = "Spacer",
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Size = new Vector2(width - 20, 2),
+                            Color = ThemeManager.SecondaryColor
+                        },
+                        new SpriteText
+                        {
+                            TextScale = 0.35f,
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
                             Text = "Creator (You)",
                             Color = ThemeManager.PrimaryColor
                         },
@@ -223,10 +310,24 @@ namespace Vitaru.Editor.UI
                 if (drawable is TextBox text && text.Text == null)
                     return;
 
+            double b;
+
+            try
+            {
+                b = double.Parse(bpm.Text);
+            }
+            catch
+            {
+                return;
+            }
+
             LevelStore.CurrentLevel.Format = LevelStore.VERSION_ONE;
 
             LevelStore.CurrentLevel.LevelTrack.Title = title.Text;
             LevelStore.CurrentLevel.LevelTrack.Artist = artist.Text;
+            LevelStore.CurrentLevel.LevelTrack.Filename = filename.Text;
+            LevelStore.CurrentLevel.LevelTrack.BPM = b;
+            LevelStore.CurrentLevel.LevelTrack.Image = image.Text;
             LevelStore.CurrentLevel.Creator = creator.Text;
             LevelStore.CurrentLevel.Name = level.Text;
 
