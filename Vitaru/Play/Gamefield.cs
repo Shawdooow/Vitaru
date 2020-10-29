@@ -37,7 +37,7 @@ namespace Vitaru.Play
 
         public static double LastElapsedTime { get; private set; }
 
-        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Experimental;
+        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Upcoming;
 
         public virtual Shades Shade { get; set; }
 
