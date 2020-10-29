@@ -29,6 +29,8 @@ namespace Vitaru.Roots.Tests
         private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
         private readonly int bullet_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletCap);
 
+        private readonly int enemy_multiplier = Vitaru.VitaruSettings.GetInt(VitaruSetting.EnemyMultiplier);
+
         private readonly Gamefield gamefield;
 
         private readonly SpriteText enemies;
@@ -150,7 +152,7 @@ namespace Vitaru.Roots.Tests
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
-                int count = PrionMath.RandomNumber(1, 5);
+                int count = PrionMath.RandomNumber(1 * enemy_multiplier, 5 * enemy_multiplier);
                 double start = TrackManager.CurrentTrack.Clock.Current +
                                TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
 

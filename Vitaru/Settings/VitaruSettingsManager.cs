@@ -33,6 +33,8 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.BulletCap, 512);
 
             SetValue(VitaruSetting.DebugHacks, false);
+            SetValue(VitaruSetting.EnemyMultiplier, 1);
+            SetValue(VitaruSetting.BulletMultiplier, 1);
         }
     }
 
@@ -57,7 +59,9 @@ namespace Vitaru.Settings
         BulletCap,
 
         //Debug
-        DebugHacks
+        DebugHacks,
+        EnemyMultiplier,
+        BulletMultiplier,
     }
 
     public enum GraphicsOptions

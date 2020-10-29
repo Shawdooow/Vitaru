@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2020 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,6 +142,17 @@ namespace Vitaru.Play
             Current = Clock.Current;
             LastElapsedTime = Clock.LastElapsedTime;
 
+            while (deadprojectileQue.TryDequeue(out Projectile p))
+            {
+                Debugger.Assert(!p.Disposed,
+                    $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
+
+                BulletLayer.ReturnIndex(p.Drawable);
+                p.SetDrawable(-1, null);
+
+                ProjectilePacks[p.Team].Remove(p);
+            }
+
             if (multithread)
             {
                 if (enemys.Children.Count > 0)
@@ -161,18 +173,6 @@ namespace Vitaru.Play
                 LoadedEnemies.Remove(e, false);
                 UnloadedEnemies.Add(e);
             }
-
-            while (deadprojectileQue.TryDequeue(out Projectile p))
-            {
-                Debugger.Assert(!p.Disposed,
-                    $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
-
-                BulletLayer.ReturnIndex(p.Drawable);
-                p.SetDrawable(-1, null);
-
-                ProjectilePacks[p.Team].Remove(p);
-            }
-
 
             double current = Clock.Current;
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
@@ -281,7 +281,7 @@ namespace Vitaru.Play
 
             public bool MultiThreading { get; set; }
 
-            public int[] Indexes = 
+            public int[] Indexes =
             {
                 0,
                 0
