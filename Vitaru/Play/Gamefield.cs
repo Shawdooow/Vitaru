@@ -133,6 +133,9 @@ namespace Vitaru.Play
 
         public override void Update()
         {
+            //Wait before we update Characters, that will mess this up
+            Vitaru.AwaitDynamicThreads();
+
             base.Update();
 
             Current = Clock.Current;
@@ -147,8 +150,6 @@ namespace Vitaru.Play
                 }
 
                 ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
-
-                Vitaru.AwaitDynamicThreads();
             }
             else
                 ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
@@ -312,8 +313,6 @@ namespace Vitaru.Play
 
             private void proccessBullets(int s, int e)
             {
-                double current = Clock.Current;
-
                 int start = Indexes[s];
                 int end = Indexes[e];
 
@@ -321,18 +320,18 @@ namespace Vitaru.Play
                 {
                     Projectile p = ProtectedChildren[i];
 
-                    if (current + p.TimePreLoad >= p.StartTime && current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
+                    if (Current + p.TimePreLoad >= p.StartTime && Current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
                         p.PreLoad();
-                    else if ((current + p.TimePreLoad < p.StartTime || current >= p.EndTime + p.TimeUnLoad) &&
+                    else if ((Current + p.TimePreLoad < p.StartTime || Current >= p.EndTime + p.TimeUnLoad) &&
                              p.PreLoaded)
                     {
                         p.UnLoad();
                         gamefield.Remove(p);
                     }
 
-                    if (current >= p.StartTime && current < p.EndTime && !p.Started)
+                    if (Current >= p.StartTime && Current < p.EndTime && !p.Started)
                         p.Start();
-                    else if ((current < p.StartTime || current >= p.EndTime) && p.Started)
+                    else if ((Current < p.StartTime || Current >= p.EndTime) && p.Started)
                     {
                         p.End();
                     }
@@ -343,8 +342,6 @@ namespace Vitaru.Play
 
             public void AssignTasks()
             {
-                Indexes = new int[Vitaru.DynamicThreads.Count * 2];
-
                 for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
                 {
                     int s = i;
@@ -356,20 +353,29 @@ namespace Vitaru.Play
 
             public void AssignIndexes()
             {
-                int dcount = Vitaru.DynamicThreads.Count;
+                int tCount = Vitaru.DynamicThreads.Count;
+                int pCount = ProtectedChildren.Count;
+
+                Indexes = new int[tCount * 2];
 
                 //Amount of bullets per thread
-                int[] count = PrionMath.DistributeInteger(ProtectedChildren.Count, dcount).ToArray();
+                int[] count = PrionMath.DistributeInteger(pCount, tCount).ToArray();
                 int roll = 0;
 
-                for (int i = 0; i < dcount; i++)
+                for (int i = 0; i < tCount; i++)
                 {
                     int s = roll;
                     roll += count[i];
-                    int e = roll - 1;
+                    int e = roll;
+
+                    if (count[i] == 0)
+                    {
+                        s = 0;
+                        e = 0;
+                    }
 
                     Indexes[i] = s;
-                    Indexes[i + dcount] = e;
+                    Indexes[i + tCount] = e;
                 }
             }
         }
