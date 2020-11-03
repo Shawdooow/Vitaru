@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pinger", "..\Prion\Pinger\P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Chromatin", "..\Prion\Prion.Chromatin\Prion.Chromatin.csproj", "{73090A08-3577-4426-8B84-28B024F79656}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMEtoMER", "..\Prion\SMEtoMER\SMEtoMER.csproj", "{3612B294-2540-4DE1-8106-4BF5505CF2A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,12 @@ Global
 		{73090A08-3577-4426-8B84-28B024F79656}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{73090A08-3577-4426-8B84-28B024F79656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73090A08-3577-4426-8B84-28B024F79656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Publish|Any CPU.Build.0 = Publish|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +104,7 @@ Global
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467} = {E0619336-A94F-4280-838B-484A35261D76}
 		{DEC70F10-AA14-4E33-9D18-E2A556D8449A} = {E0619336-A94F-4280-838B-484A35261D76}
 		{73090A08-3577-4426-8B84-28B024F79656} = {E0619336-A94F-4280-838B-484A35261D76}
+		{3612B294-2540-4DE1-8106-4BF5505CF2A5} = {E0619336-A94F-4280-838B-484A35261D76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FF9E9E5-F170-4859-B102-80968AAE1D5A}
