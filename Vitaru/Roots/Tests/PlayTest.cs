@@ -15,7 +15,6 @@ using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
-using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -129,8 +128,8 @@ namespace Vitaru.Roots.Tests
         public override void Update()
         {
             enemies.Text = $"{Enemy.COUNT} Enemies";
-            bullets.Text = $"{Bullet.COUNT} ({bullet_cap}) Bullets";
-            particles.Text = $"{ParticleLayer.PARTICLES_IN_USE} ({particle_cap}) Particles";
+            bullets.Text = $"{Bullet.COUNT} Bullets (Max Drawables = {bullet_cap})";
+            particles.Text = $"Max Particles = {particle_cap}";
 
             TrackManager.CurrentTrack.Clock.Update();
 

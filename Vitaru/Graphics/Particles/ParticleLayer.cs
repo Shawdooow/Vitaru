@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Numerics;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria;
@@ -28,8 +26,6 @@ namespace Vitaru.Graphics.Particles
         private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
 
         private const int vertLocation = 10;
-
-        public static int PARTICLES_IN_USE { get; set; }
 
         public override string Name { get; set; } = nameof(ParticleLayer);
 
@@ -135,9 +131,7 @@ namespace Vitaru.Graphics.Particles
                 {
                     pLifetime[i] += last / 1200;
 
-                    if (pLifetime[i] < 1)
-                        PARTICLES_IN_USE++;
-                    else if (!pDead[i])
+                    if (pLifetime[i] > 1 && !pDead[i])
                     {
                         pDead[i] = true;
                         dead.Push(i);

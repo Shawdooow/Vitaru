@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Utilities;
@@ -161,8 +160,6 @@ namespace Vitaru.Play
 
                 ProjectilePacks[p.Team].Remove(p);
             }
-
-            ParticleLayer.PARTICLES_IN_USE = 0;
 
             if (multithread)
             {
