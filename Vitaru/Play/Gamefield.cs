@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Utilities;
@@ -40,9 +41,17 @@ namespace Vitaru.Play
 
         private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Upcoming;
 
+        private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
+
         public virtual Shades Shade { get; set; }
 
         public virtual float Intensity { get; set; } = 1;
+
+        public int[] Indexes =
+        {
+            0,
+            0
+        };
 
         protected readonly FormatConverter FormatConverter;
 
@@ -90,7 +99,7 @@ namespace Vitaru.Play
                 MultiThreading = multithread
             };
 
-            if (multithread) enemys.AssignTasks();
+            if (multithread) AssignTasks(enemys);
 
             ProjectilePack players = new ProjectilePack(this)
             {
@@ -153,18 +162,15 @@ namespace Vitaru.Play
                 ProjectilePacks[p.Team].Remove(p);
             }
 
+            ParticleLayer.PARTICLES_IN_USE = 0;
+
             if (multithread)
             {
-                if (enemys.Children.Count > 0)
-                {
-                    enemys.AssignIndexes();
-                    Vitaru.RunThreads();
-                }
-
-                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
+                AssignIndexes(enemys);
+                Vitaru.RunThreads();
             }
             else
-                ParticleLayer.UpdateParticles((float)Clock.LastElapsedTime);
+                ParticleLayer.UpdateParticles(0, particle_cap, (float)Clock.LastElapsedTime);
 
             //should be safe to kill them from here
             while (deadEnemyQue.TryDequeue(out Enemy e))
@@ -275,17 +281,94 @@ namespace Vitaru.Play
             }
         }
 
+        public void AssignTasks(ProjectilePack pack)
+        {
+            for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
+            {
+                int s = i;
+                int e = i + Vitaru.DynamicThreads.Count;
+
+                Vitaru.DynamicThreads[i].Task = () =>
+                {
+                    if (pack.Children.Count > 0)
+                        pack.ProcessBullets(s, e);
+                    processParticles(s, e);
+                };
+            }
+
+            int tCount = Vitaru.DynamicThreads.Count;
+            int pCount = particle_cap;
+
+            Indexes = new int[tCount * 2];
+
+            //Amount of particles per thread
+            int[] count = PrionMath.DistributeInteger(pCount, tCount).ToArray();
+            int roll = 0;
+
+            for (int i = 0; i < tCount; i++)
+            {
+                int s = roll;
+                roll += count[i];
+                int e = roll;
+
+                if (count[i] == 0)
+                {
+                    s = 0;
+                    e = 0;
+                }
+
+                Indexes[i] = s;
+                Indexes[i + tCount] = e;
+            }
+        }
+
+        public void AssignIndexes(ProjectilePack pack)
+        {
+            int tCount = Vitaru.DynamicThreads.Count;
+            int pCount = pack.Children.Count;
+
+            pack.Indexes = new int[tCount * 2];
+
+            //Amount of bullets per thread
+            int[] count = PrionMath.DistributeInteger(pCount, tCount).ToArray();
+            int roll = 0;
+
+            for (int i = 0; i < tCount; i++)
+            {
+                int s = roll;
+                roll += count[i];
+                int e = roll;
+
+                if (count[i] == 0)
+                {
+                    s = 0;
+                    e = 0;
+                }
+
+                pack.Indexes[i] = s;
+                pack.Indexes[i + tCount] = e;
+            }
+        }
+
+        private void processParticles(int s, int e)
+        {
+            int start = Indexes[s];
+            int end = Indexes[e];
+
+            ParticleLayer.UpdateParticles(start, end, (float)Clock.LastElapsedTime);
+        }
+
         public class ProjectilePack : Pack<Projectile>, IHasTeam
         {
             public int Team { get; set; }
-
-            public bool MultiThreading { get; set; }
 
             public int[] Indexes =
             {
                 0,
                 0
             };
+
+            public bool MultiThreading { get; set; }
 
             private readonly Gamefield gamefield;
 
@@ -296,7 +379,7 @@ namespace Vitaru.Play
 
             public override void Update()
             {
-                if (!MultiThreading) proccessBullets(0, 1);
+                if (!MultiThreading) ProcessBullets(0, 1);
             }
 
             public override void Add(Projectile child, AddPosition position = AddPosition.Last)
@@ -311,8 +394,9 @@ namespace Vitaru.Play
                 if (!MultiThreading) Indexes[1] = ProtectedChildren.Count;
             }
 
-            private void proccessBullets(int s, int e)
+            public void ProcessBullets(int s, int e)
             {
+                Random r = new Random();
                 int start = Indexes[s];
                 int end = Indexes[e];
 
@@ -336,46 +420,7 @@ namespace Vitaru.Play
                         p.End();
                     }
 
-                    p.Update();
-                }
-            }
-
-            public void AssignTasks()
-            {
-                for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)
-                {
-                    int s = i;
-                    int e = i + Vitaru.DynamicThreads.Count;
-
-                    Vitaru.DynamicThreads[i].Task = () => proccessBullets(s, e);
-                }
-            }
-
-            public void AssignIndexes()
-            {
-                int tCount = Vitaru.DynamicThreads.Count;
-                int pCount = ProtectedChildren.Count;
-
-                Indexes = new int[tCount * 2];
-
-                //Amount of bullets per thread
-                int[] count = PrionMath.DistributeInteger(pCount, tCount).ToArray();
-                int roll = 0;
-
-                for (int i = 0; i < tCount; i++)
-                {
-                    int s = roll;
-                    roll += count[i];
-                    int e = roll;
-
-                    if (count[i] == 0)
-                    {
-                        s = 0;
-                        e = 0;
-                    }
-
-                    Indexes[i] = s;
-                    Indexes[i + tCount] = e;
+                    p.ConcurrentUpdate(r);
                 }
             }
         }

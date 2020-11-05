@@ -82,10 +82,18 @@ namespace Vitaru.Gamemodes.Projectiles
         //return a great
         public bool ReturnGreat;
 
+        protected Random Random;
+
         public override void LoadingComplete()
         {
             base.LoadingComplete();
             Position = StartPosition;
+        }
+
+        public virtual void ConcurrentUpdate(Random random)
+        {
+            Random = random;
+            Update();
         }
 
         public override void Update()

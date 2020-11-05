@@ -74,20 +74,20 @@ namespace Vitaru.Gamemodes.Projectiles
             {
                 s = 0;
 
-                float angle = ((float) PrionMath.ConcurrentRandomNumber(0, 360)).ToRadians();
-                int distance = PrionMath.ConcurrentRandomNumber(20, 32);
+                float angle = ((float)Random.Next(0, 360)).ToRadians();
+                int distance = Random.Next(20, 32);
 
                 int radius = (int) Diameter / 2 - 8;
 
-                Vector2 start = Position + new Vector2(PrionMath.ConcurrentRandomNumber(-radius, radius),
-                    PrionMath.ConcurrentRandomNumber(-radius, radius));
+                Vector2 start = Position + new Vector2(Random.Next(-radius, radius),
+                    Random.Next(-radius, radius));
 
                 OnAddParticle?.Invoke(new Particle
                 {
                     StartPosition = start,
                     EndPosition = start + PrionMath.Offset(distance, angle),
                     Color = Color.Vector(),
-                    Scale = 1f / PrionMath.ConcurrentRandomNumber(1, 5)
+                    Scale = 1f / Random.Next(1, 5)
                 });
             }
 

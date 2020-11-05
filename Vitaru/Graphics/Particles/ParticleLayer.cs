@@ -29,7 +29,7 @@ namespace Vitaru.Graphics.Particles
 
         private const int vertLocation = 10;
 
-        public static int PARTICLES_IN_USE { get; private set; }
+        public static int PARTICLES_IN_USE { get; set; }
 
         public override string Name { get; set; } = nameof(ParticleLayer);
 
@@ -128,12 +128,10 @@ namespace Vitaru.Graphics.Particles
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
         }
 
-        public void UpdateParticles(float last)
+        public void UpdateParticles(int start, int end, float last)
         {
-            PARTICLES_IN_USE = 0;
-
             if (particles)
-                for (int i = 0; i < pLifetime.Length; i++)
+                for (int i = start; i < end; i++)
                 {
                     pLifetime[i] += last / 1200;
 
