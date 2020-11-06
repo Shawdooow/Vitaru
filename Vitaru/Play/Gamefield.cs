@@ -8,7 +8,6 @@ using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics.Layers;
-using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Groups.Packs;
 using Prion.Nucleus.Utilities;
@@ -24,6 +23,7 @@ using Vitaru.Levels;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
+
 #if PUBLISH
 using System;
 #endif
@@ -38,7 +38,7 @@ namespace Vitaru.Play
 
         public static double LastElapsedTime { get; private set; }
 
-        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading) && Vitaru.FEATURES >= Features.Upcoming;
+        private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading);
 
         private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
 
@@ -167,7 +167,7 @@ namespace Vitaru.Play
                 Vitaru.RunThreads();
             }
             else
-                ParticleLayer.UpdateParticles(0, particle_cap, (float)Clock.LastElapsedTime);
+                ParticleLayer.UpdateParticles(0, particle_cap, (float) Clock.LastElapsedTime);
 
             //should be safe to kill them from here
             while (deadEnemyQue.TryDequeue(out Enemy e))
@@ -352,7 +352,7 @@ namespace Vitaru.Play
             int start = Indexes[s];
             int end = Indexes[e];
 
-            ParticleLayer.UpdateParticles(start, end, (float)Clock.LastElapsedTime);
+            ParticleLayer.UpdateParticles(start, end, (float) Clock.LastElapsedTime);
         }
 
         public class ProjectilePack : Pack<Projectile>, IHasTeam

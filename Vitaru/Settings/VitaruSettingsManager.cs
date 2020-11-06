@@ -61,7 +61,7 @@ namespace Vitaru.Settings
         //Debug
         DebugHacks,
         EnemyMultiplier,
-        BulletMultiplier,
+        BulletMultiplier
     }
 
     public enum GraphicsOptions

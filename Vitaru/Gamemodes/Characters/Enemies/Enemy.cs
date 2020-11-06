@@ -33,7 +33,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         public const int ENEMY_TEAM = 0;
 
-        private readonly int bullet_multiplier = global::Vitaru.Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletMultiplier);
+        private readonly int bullet_multiplier =
+            global::Vitaru.Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletMultiplier);
 
         public override float HitboxDiameter => 50f;
 
@@ -244,13 +245,16 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                     projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier, angle);
                     break;
                 case 1:
-                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier, angle);
+                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                        angle);
                     break;
                 case 2:
-                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier, angle);
+                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                        angle);
                     break;
                 case 3:
-                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier, angle);
+                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                        angle);
                     break;
                 case 4:
                     projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier);

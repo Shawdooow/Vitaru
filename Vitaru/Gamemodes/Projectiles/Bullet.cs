@@ -74,7 +74,7 @@ namespace Vitaru.Gamemodes.Projectiles
             {
                 s = 0;
 
-                float angle = ((float)Random.Next(0, 360)).ToRadians();
+                float angle = ((float) Random.Next(0, 360)).ToRadians();
                 int distance = Random.Next(20, 32);
 
                 int radius = (int) Diameter / 2 - 8;
