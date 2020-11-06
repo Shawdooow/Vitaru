@@ -131,7 +131,7 @@ namespace Vitaru.Graphics.Particles
                 {
                     pLifetime[i] += last / 1200;
 
-                    if (pLifetime[i] > 1 && !pDead[i])
+                    if (!pDead[i] && pLifetime[i] > 1)
                     {
                         pDead[i] = true;
                         dead.Push(i);
