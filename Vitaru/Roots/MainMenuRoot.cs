@@ -24,7 +24,7 @@ namespace Vitaru.Roots
 
             Add(new MainMenuPanel());
 
-            Add(new SpriteText
+            Add(new InstancedText
             {
                 Position = new Vector2(-90, 90),
                 ParentOrigin = Mounts.TopRight,

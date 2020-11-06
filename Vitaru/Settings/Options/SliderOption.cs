@@ -78,11 +78,11 @@ namespace Vitaru.Settings.Options
 
         public string Text
         {
-            get => SpriteText.Text;
-            set => SpriteText.Text = value;
+            get => InstancedText.Text;
+            set => InstancedText.Text = value;
         }
 
-        protected readonly SpriteText SpriteText;
+        protected readonly InstancedText InstancedText;
         protected readonly TextBox TextBox;
         protected readonly Slider Slider;
 
@@ -96,7 +96,7 @@ namespace Vitaru.Settings.Options
 
             Children = new IDrawable2D[]
             {
-                SpriteText = new SpriteText
+                InstancedText = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterLeft,
@@ -110,7 +110,7 @@ namespace Vitaru.Settings.Options
                     Y = -10,
                     Size = new Vector2((SettingsOverlay.WIDTH - 8) / 2, 20),
 
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.2f
                     },

@@ -61,7 +61,7 @@ namespace Vitaru.Tracks
 
                     Text = p.Title,
 
-                    SpriteText =
+                    InstancedText =
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,

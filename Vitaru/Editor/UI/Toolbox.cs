@@ -110,7 +110,7 @@ namespace Vitaru.Editor.UI
                         Size = Size,
                         Color = Color.White
                     },
-                    new SpriteText
+                    new InstancedText
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterRight,

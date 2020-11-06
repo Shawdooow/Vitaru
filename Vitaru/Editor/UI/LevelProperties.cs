@@ -57,7 +57,7 @@ namespace Vitaru.Editor.UI
 
                     Children = new IDrawable2D[]
                     {
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -65,7 +65,7 @@ namespace Vitaru.Editor.UI
                             Text = "Format",
                             Color = ThemeManager.PrimaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.3f,
                             ParentOrigin = Mounts.TopCenter,
@@ -80,7 +80,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -90,7 +90,7 @@ namespace Vitaru.Editor.UI
                         },
                         title = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -108,7 +108,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -118,7 +118,7 @@ namespace Vitaru.Editor.UI
                         },
                         artist = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -136,7 +136,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -146,7 +146,7 @@ namespace Vitaru.Editor.UI
                         },
                         artist = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -164,7 +164,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -174,7 +174,7 @@ namespace Vitaru.Editor.UI
                         },
                         bpm = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -192,7 +192,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -202,7 +202,7 @@ namespace Vitaru.Editor.UI
                         },
                         image = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -220,7 +220,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -230,7 +230,7 @@ namespace Vitaru.Editor.UI
                         },
                         creator = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },
@@ -248,7 +248,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
                             TextScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
@@ -258,7 +258,7 @@ namespace Vitaru.Editor.UI
                         },
                         level = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
                                 TextScale = 0.3f
                             },

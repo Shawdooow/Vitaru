@@ -54,18 +54,18 @@ namespace Vitaru.Mods.Included
 
             private TrackController controller;
 
-            private SpriteText song;
+            private InstancedText song;
 
-            private SpriteText volume;
+            private InstancedText volume;
             private Slider control;
 
-            private SpriteText pitch;
+            private InstancedText pitch;
             private Slider slider;
 
             private Button play;
-            private SpriteText timeIn;
+            private InstancedText timeIn;
             private Slider seek;
-            private SpriteText timeLeft;
+            private InstancedText timeLeft;
 
             private bool accel;
 
@@ -73,7 +73,7 @@ namespace Vitaru.Mods.Included
             {
                 AddArray(new ILayer[]
                 {
-                    song = new SpriteText
+                    song = new InstancedText
                     {
                         Y = 16,
                         ParentOrigin = Mounts.TopCenter,
@@ -96,7 +96,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -118,7 +118,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -140,7 +140,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -161,7 +161,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -183,7 +183,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -205,7 +205,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -227,7 +227,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.5f
                         },
@@ -249,7 +249,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        SpriteText =
+                        InstancedText =
                         {
                             TextScale = 0.25f
                         },
@@ -258,7 +258,7 @@ namespace Vitaru.Mods.Included
                         OnClick = () => accel = !accel
                     },
 
-                    pitch = new SpriteText
+                    pitch = new InstancedText
                     {
                         Position = new Vector2(0, -160),
                         Text = TrackManager.CurrentTrack.Pitch.ToString()
@@ -270,7 +270,7 @@ namespace Vitaru.Mods.Included
                         OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
                     },
 
-                    volume = new SpriteText
+                    volume = new InstancedText
                     {
                         Position = new Vector2(0, -280),
                         TextScale = 0.5f,
@@ -332,7 +332,7 @@ namespace Vitaru.Mods.Included
 
                 slider.AddArray(new IDrawable2D[]
                 {
-                    new SpriteText
+                    new InstancedText
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
@@ -340,7 +340,7 @@ namespace Vitaru.Mods.Included
                         TextScale = 0.25f,
                         Text = "0.05x"
                     },
-                    new SpriteText
+                    new InstancedText
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
@@ -352,14 +352,14 @@ namespace Vitaru.Mods.Included
 
                 seek.AddArray(new IDrawable2D[]
                 {
-                    timeIn = new SpriteText
+                    timeIn = new InstancedText
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
                         TextScale = 0.25f
                     },
-                    timeLeft = new SpriteText
+                    timeLeft = new InstancedText
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,

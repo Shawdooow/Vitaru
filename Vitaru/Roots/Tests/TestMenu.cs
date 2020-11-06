@@ -107,7 +107,7 @@ namespace Vitaru.Roots.Tests
             //Add(new WikiOverlay());
             Add(new SettingsOverlay(vitaru));
 
-            Add(new SpriteText
+            Add(new InstancedText
             {
                 Y = -4,
                 ParentOrigin = Mounts.BottomCenter,
@@ -117,7 +117,7 @@ namespace Vitaru.Roots.Tests
                 Color = Color.Gold
             });
 
-            Add(new SpriteText
+            Add(new InstancedText
             {
                 Y = -300,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"

@@ -24,11 +24,11 @@ namespace Vitaru.Editor.UI
         private const float width = 1080f;
         private const float height = 140f;
 
-        private readonly SpriteText timeIn;
-        private readonly SpriteText msIn;
+        private readonly InstancedText timeIn;
+        private readonly InstancedText msIn;
         private readonly Slider scrubber;
-        private readonly SpriteText timeLeft;
-        private readonly SpriteText msLeft;
+        private readonly InstancedText timeLeft;
+        private readonly InstancedText msLeft;
 
         private readonly Button play;
 
@@ -89,28 +89,28 @@ namespace Vitaru.Editor.UI
 
             scrubber.AddArray(new IDrawable2D[]
             {
-                timeIn = new SpriteText
+                timeIn = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-12, -2),
                     TextScale = 0.25f
                 },
-                msIn = new SpriteText
+                msIn = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-12, 2),
                     TextScale = 0.25f
                 },
-                timeLeft = new SpriteText
+                timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(12, -2),
                     TextScale = 0.25f
                 },
-                msLeft = new SpriteText
+                msLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.TopLeft,
@@ -127,7 +127,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
                     X = -12,
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.25f,
                         Text = "0.5x"
@@ -145,7 +145,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.BottomCenter,
                     Y = -12,
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.25f,
                         Text = "1x"
@@ -163,7 +163,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
                     X = 12,
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.25f,
                         Text = "1.5x"

@@ -57,7 +57,7 @@ namespace Vitaru.Settings
 
                     Children = new IDrawable2D[]
                     {
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
@@ -100,7 +100,7 @@ namespace Vitaru.Settings
                             OnValueChange = value => Renderer.LimitDrawToUpdate = value
                         },
 
-                        //new SpriteText
+                        //new InstancedText
                         //{
                         //    ParentOrigin = Mounts.TopCenter,
                         //    Origin = Mounts.TopCenter,
@@ -112,7 +112,7 @@ namespace Vitaru.Settings
                         //    Text = "Toggle Touch Mode"
                         //},
 
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
@@ -147,7 +147,7 @@ namespace Vitaru.Settings
                             Text = "Max Bullets"
                         },
 
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
@@ -178,7 +178,7 @@ namespace Vitaru.Settings
 
                     Background = Game.TextureStore.GetTexture("square.png"),
                     Text = "Settings",
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.25f
                     },

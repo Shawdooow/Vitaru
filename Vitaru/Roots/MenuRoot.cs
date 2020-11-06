@@ -93,7 +93,7 @@ namespace Vitaru.Roots
                     },
 
                     Text = "Back",
-                    SpriteText =
+                    InstancedText =
                     {
                         TextScale = 0.35f
                     },
