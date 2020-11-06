@@ -100,17 +100,17 @@ namespace Vitaru.Settings
                             OnValueChange = value => Renderer.LimitDrawToUpdate = value
                         },
 
-                        new SpriteText
-                        {
-                            ParentOrigin = Mounts.TopCenter,
-                            Origin = Mounts.TopCenter,
-                            Text = "Gameplay",
-                            TextScale = 0.24f
-                        },
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
-                        {
-                            Text = "Toggle Touch Mode"
-                        },
+                        //new SpriteText
+                        //{
+                        //    ParentOrigin = Mounts.TopCenter,
+                        //    Origin = Mounts.TopCenter,
+                        //    Text = "Gameplay",
+                        //    TextScale = 0.24f
+                        //},
+                        //new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
+                        //{
+                        //    Text = "Toggle Touch Mode"
+                        //},
 
                         new SpriteText
                         {
@@ -140,7 +140,7 @@ namespace Vitaru.Settings
 
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Multithreading)
                         {
-                            Text = "Multithreading"
+                            Text = "Additional Multithreading"
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
                         {
