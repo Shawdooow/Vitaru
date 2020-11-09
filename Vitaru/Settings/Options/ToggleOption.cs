@@ -65,9 +65,9 @@ namespace Vitaru.Settings.Options
             ParentOrigin = Mounts.TopCenter;
             Origin = Mounts.TopCenter;
 
-            SpriteText.ParentOrigin = Mounts.CenterLeft;
-            SpriteText.Origin = Mounts.CenterLeft;
-            SpriteText.TextScale = 0.2f;
+            InstancedText.ParentOrigin = Mounts.CenterLeft;
+            InstancedText.Origin = Mounts.CenterLeft;
+            InstancedText.FontScale = 0.2f;
 
             Add(Circle = new Circle
             {

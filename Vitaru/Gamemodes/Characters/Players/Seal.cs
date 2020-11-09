@@ -23,11 +23,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         public readonly Sprite Sign;
         public readonly Sprite Reticle;
 
-        public readonly SpriteText EnergyValue;
-        public readonly SpriteText HealthValue;
+        public readonly InstancedText EnergyValue;
+        public readonly InstancedText HealthValue;
 
-        public readonly SpriteText RightValue;
-        public readonly SpriteText LeftValue;
+        public readonly InstancedText RightValue;
+        public readonly InstancedText LeftValue;
 
         private readonly CircularMask circular;
 
@@ -57,38 +57,38 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Color = player.PrimaryColor
                 },
 
-                EnergyValue = new SpriteText
+                EnergyValue = new InstancedText
                 {
                     Position = new Vector2(-60, 10),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopRight,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
-                HealthValue = new SpriteText
+                HealthValue = new InstancedText
                 {
                     Position = new Vector2(60, 10),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
 
-                LeftValue = new SpriteText
+                LeftValue = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 },
-                RightValue = new SpriteText
+                RightValue = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 }

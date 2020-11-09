@@ -61,12 +61,12 @@ namespace Vitaru.Tracks
 
                     Text = p.Title,
 
-                    SpriteText =
+                    InstancedText =
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,
 
-                        TextScale = 0.24f
+                        FontScale = 0.24f
                     },
 
                     OnClick = () =>

@@ -57,17 +57,17 @@ namespace Vitaru.Editor.UI
 
                     Children = new IDrawable2D[]
                     {
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Format",
                             Color = ThemeManager.PrimaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.3f,
+                            FontScale = 0.3f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.Format
@@ -80,9 +80,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Title",
@@ -90,9 +90,9 @@ namespace Vitaru.Editor.UI
                         },
                         title = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -108,9 +108,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Artist",
@@ -118,9 +118,9 @@ namespace Vitaru.Editor.UI
                         },
                         artist = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -136,9 +136,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Filename",
@@ -146,9 +146,9 @@ namespace Vitaru.Editor.UI
                         },
                         artist = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -164,9 +164,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "BPM",
@@ -174,9 +174,9 @@ namespace Vitaru.Editor.UI
                         },
                         bpm = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -192,9 +192,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Image Filename",
@@ -202,9 +202,9 @@ namespace Vitaru.Editor.UI
                         },
                         image = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -220,9 +220,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Creator (You)",
@@ -230,9 +230,9 @@ namespace Vitaru.Editor.UI
                         },
                         creator = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -248,9 +248,9 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 20, 2),
                             Color = ThemeManager.SecondaryColor
                         },
-                        new SpriteText
+                        new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Level Name",
@@ -258,9 +258,9 @@ namespace Vitaru.Editor.UI
                         },
                         level = new TextBox
                         {
-                            SpriteText =
+                            InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),

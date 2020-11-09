@@ -127,9 +127,11 @@ namespace Vitaru.Graphics.Particles
         public void UpdateParticles(int start, int end, float last)
         {
             if (particles)
+            {
+                float l = last / 1200;
                 for (int i = start; i < end; i++)
                 {
-                    pLifetime[i] += last / 1200;
+                    pLifetime[i] += l;
 
                     if (!pDead[i] && pLifetime[i] > 1)
                     {
@@ -137,6 +139,7 @@ namespace Vitaru.Graphics.Particles
                         dead.Push(i);
                     }
                 }
+            }
         }
 
         public override void PreRender()

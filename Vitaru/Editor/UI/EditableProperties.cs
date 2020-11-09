@@ -25,7 +25,7 @@ namespace Vitaru.Editor.UI
 
         private readonly LevelManager manager;
 
-        private SpriteText name;
+        private InstancedText name;
         private ListLayer<IDrawable2D> properties;
 
         public EditableProperties(LevelManager manager)
@@ -51,12 +51,12 @@ namespace Vitaru.Editor.UI
                     ParentSizing = Axes.Both,
                     Color = Color.Black
                 },
-                name = new SpriteText
+                name = new InstancedText
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
-                    TextScale = 0.4f
+                    FontScale = 0.4f
                 },
                 properties = new ListLayer<IDrawable2D>
                 {
@@ -88,18 +88,18 @@ namespace Vitaru.Editor.UI
 
                                 properties.AddArray(new IDrawable2D[]
                                 {
-                                    new SpriteText
+                                    new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Position (x, y)"
                                     },
                                     x = new TextBox
                                     {
-                                        SpriteText =
+                                        InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -123,9 +123,9 @@ namespace Vitaru.Editor.UI
                                     },
                                     y = new TextBox
                                     {
-                                        SpriteText =
+                                        InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -164,18 +164,18 @@ namespace Vitaru.Editor.UI
 
                                 properties.AddArray(new IDrawable2D[]
                                 {
-                                    new SpriteText
+                                    new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Start Time"
                                     },
                                     s = new TextBox
                                     {
-                                        SpriteText =
+                                        InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -212,9 +212,9 @@ namespace Vitaru.Editor.UI
                             case EditableColor color:
                                 properties.AddArray(new IDrawable2D[]
                                 {
-                                    new SpriteText
+                                    new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Color (WIP)"
@@ -233,18 +233,18 @@ namespace Vitaru.Editor.UI
 
                                 properties.AddArray(new IDrawable2D[]
                                 {
-                                    new SpriteText
+                                    new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Pattern ID"
                                     },
                                     s = new TextBox
                                     {
-                                        SpriteText =
+                                        InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),

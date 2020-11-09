@@ -57,12 +57,12 @@ namespace Vitaru.Settings
 
                     Children = new IDrawable2D[]
                     {
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Prion",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.Fullscreen)
                         {
@@ -100,7 +100,7 @@ namespace Vitaru.Settings
                             OnValueChange = value => Renderer.LimitDrawToUpdate = value
                         },
 
-                        //new SpriteText
+                        //new InstancedText
                         //{
                         //    ParentOrigin = Mounts.TopCenter,
                         //    Origin = Mounts.TopCenter,
@@ -112,12 +112,12 @@ namespace Vitaru.Settings
                         //    Text = "Toggle Touch Mode"
                         //},
 
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Graphics",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
                         {
@@ -147,12 +147,12 @@ namespace Vitaru.Settings
                             Text = "Max Bullets"
                         },
 
-                        new SpriteText
+                        new InstancedText
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Debug",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
@@ -178,9 +178,9 @@ namespace Vitaru.Settings
 
                     Background = Game.TextureStore.GetTexture("square.png"),
                     Text = "Settings",
-                    SpriteText =
+                    InstancedText =
                     {
-                        TextScale = 0.25f
+                        FontScale = 0.25f
                     },
                     BackgroundSprite =
                     {

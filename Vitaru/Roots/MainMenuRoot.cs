@@ -24,13 +24,13 @@ namespace Vitaru.Roots
 
             Add(new MainMenuPanel());
 
-            Add(new SpriteText
+            Add(new InstancedText
             {
                 Position = new Vector2(-90, 90),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
-                TextScale = 1.5f
+                FontScale = 1.5f
             });
         }
 

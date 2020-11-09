@@ -32,13 +32,13 @@ namespace Vitaru.Roots.Tests
 
         private readonly Gamefield gamefield;
 
-        private readonly SpriteText enemies;
-        private readonly SpriteText bullets;
-        private readonly SpriteText particles;
+        private readonly InstancedText enemies;
+        private readonly InstancedText bullets;
+        private readonly InstancedText particles;
 
-        private readonly SpriteText timeIn;
+        private readonly InstancedText timeIn;
         private readonly Slider slider;
-        private readonly SpriteText timeLeft;
+        private readonly InstancedText timeLeft;
 
         public PlayTest()
         {
@@ -59,26 +59,26 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.CharacterLayer);
             Add(gamefield.BulletLayer);
 
-            Add(enemies = new SpriteText
+            Add(enemies = new InstancedText
             {
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
-            Add(bullets = new SpriteText
+            Add(bullets = new InstancedText
             {
                 Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
-            Add(particles = new SpriteText
+            Add(particles = new InstancedText
             {
                 Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
 
             //Intentional, as we dont want the slider to receive input...
@@ -102,19 +102,19 @@ namespace Vitaru.Roots.Tests
 
             slider.AddArray(new IDrawable2D[]
             {
-                timeIn = new SpriteText
+                timeIn = new InstancedText
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 },
-                timeLeft = new SpriteText
+                timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-8, 8),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 }
             });
         }

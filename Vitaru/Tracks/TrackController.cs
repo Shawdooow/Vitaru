@@ -26,11 +26,11 @@ namespace Vitaru.Tracks
     {
         private readonly Sprite background;
         private readonly Button play;
-        private readonly SpriteText song;
+        private readonly InstancedText song;
 
-        private readonly SpriteText timeIn;
+        private readonly InstancedText timeIn;
         private readonly Slider seek;
-        private readonly SpriteText timeLeft;
+        private readonly InstancedText timeLeft;
 
         private string bg = string.Empty;
 
@@ -85,12 +85,12 @@ namespace Vitaru.Tracks
                     Size = new Vector2(-32, 32),
                     Background = Vitaru.TextureStore.GetTexture("skip.png")
                 },
-                song = new SpriteText
+                song = new InstancedText
                 {
                     Position = new Vector2(4),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    TextScale = 0.2f,
+                    FontScale = 0.2f,
                     Text = "Loading..."
                 },
                 seek = new Slider
@@ -103,19 +103,19 @@ namespace Vitaru.Tracks
 
             seek.AddArray(new IDrawable2D[]
             {
-                timeIn = new SpriteText
+                timeIn = new InstancedText
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(8, -8),
-                    TextScale = 0.2f
+                    FontScale = 0.2f
                 },
-                timeLeft = new SpriteText
+                timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-8),
-                    TextScale = 0.2f
+                    FontScale = 0.2f
                 }
             });
         }
