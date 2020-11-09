@@ -19,11 +19,11 @@ namespace Vitaru.Tracks
         {
             Alpha = 0.75f;
 
-            ParentOrigin = Mounts.CenterLeft;
-            Origin = Mounts.CenterLeft;
+            ParentOrigin = Mounts.TopLeft;
+            Origin = Mounts.TopLeft;
 
-            X = 8;
-            Size = new Vector2(160, 400);
+            Position = new Vector2(8);
+            Size = new Vector2(160, 600);
         }
 
         public override void LoadingComplete()
@@ -44,7 +44,7 @@ namespace Vitaru.Tracks
                 list = new ListLayer<Button>
                 {
                     //ParentSizing = Axes.Both,
-                    Size = new Vector2(160, 400),
+                    Size = Size,
                     Spacing = 2
                 }
             };
