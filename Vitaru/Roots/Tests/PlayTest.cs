@@ -64,21 +64,21 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
             Add(bullets = new InstancedText
             {
                 Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
             Add(particles = new InstancedText
             {
                 Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                TextScale = 0.25f
+                FontScale = 0.25f
             });
 
             //Intentional, as we dont want the slider to receive input...
@@ -107,14 +107,14 @@ namespace Vitaru.Roots.Tests
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 },
                 timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-8, 8),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 }
             });
         }

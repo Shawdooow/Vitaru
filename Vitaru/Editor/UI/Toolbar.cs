@@ -45,7 +45,7 @@ namespace Vitaru.Editor.UI
 
                     InstancedText =
                     {
-                        TextScale = 0.3f
+                        FontScale = 0.3f
                     },
 
                     OnClick = manager.SerializeToLevel

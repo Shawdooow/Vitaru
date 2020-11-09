@@ -100,7 +100,7 @@ namespace Vitaru.Settings.Options
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterLeft,
-                    TextScale = 0.2f,
+                    FontScale = 0.2f,
                     Y = -10
                 },
                 TextBox = new TextBox
@@ -112,7 +112,7 @@ namespace Vitaru.Settings.Options
 
                     InstancedText =
                     {
-                        TextScale = 0.2f
+                        FontScale = 0.2f
                     },
 
                     OnEnter = text =>

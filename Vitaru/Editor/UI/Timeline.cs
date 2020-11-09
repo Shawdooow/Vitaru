@@ -94,28 +94,28 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-12, -2),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 },
                 msIn = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-12, 2),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 },
                 timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(12, -2),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 },
                 msLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(12, 2),
-                    TextScale = 0.25f
+                    FontScale = 0.25f
                 }
             });
 
@@ -129,7 +129,7 @@ namespace Vitaru.Editor.UI
                     X = -12,
                     InstancedText =
                     {
-                        TextScale = 0.25f,
+                        FontScale = 0.25f,
                         Text = "0.5x"
                     },
 
@@ -147,7 +147,7 @@ namespace Vitaru.Editor.UI
                     Y = -12,
                     InstancedText =
                     {
-                        TextScale = 0.25f,
+                        FontScale = 0.25f,
                         Text = "1x"
                     },
 
@@ -165,7 +165,7 @@ namespace Vitaru.Editor.UI
                     X = 12,
                     InstancedText =
                     {
-                        TextScale = 0.25f,
+                        FontScale = 0.25f,
                         Text = "1.5x"
                     },
 

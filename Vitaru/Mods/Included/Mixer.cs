@@ -78,7 +78,7 @@ namespace Vitaru.Mods.Included
                         Y = 16,
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
-                        TextScale = 0.6f,
+                        FontScale = 0.6f,
                         Text = TrackManager.CurrentTrack.Level.Title
                     },
 
@@ -98,7 +98,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "++",
@@ -120,7 +120,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "1.5x",
@@ -142,7 +142,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "+",
@@ -163,7 +163,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "1x",
@@ -185,7 +185,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "-",
@@ -207,7 +207,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
 
                         Text = "0.75x",
@@ -229,7 +229,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.5f
+                            FontScale = 0.5f
                         },
                         Text = "--",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
@@ -251,7 +251,7 @@ namespace Vitaru.Mods.Included
                         },
                         InstancedText =
                         {
-                            TextScale = 0.25f
+                            FontScale = 0.25f
                         },
 
                         Text = "Accel",
@@ -273,7 +273,7 @@ namespace Vitaru.Mods.Included
                     volume = new InstancedText
                     {
                         Position = new Vector2(0, -280),
-                        TextScale = 0.5f,
+                        FontScale = 0.5f,
                         Text = (TrackManager.CurrentTrack.Gain * 100).ToString()
                     },
                     control = new Slider
@@ -337,7 +337,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        TextScale = 0.25f,
+                        FontScale = 0.25f,
                         Text = "0.05x"
                     },
                     new InstancedText
@@ -345,7 +345,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
                         X = 12,
-                        TextScale = 0.25f,
+                        FontScale = 0.25f,
                         Text = "2x"
                     }
                 });
@@ -357,14 +357,14 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        TextScale = 0.25f
+                        FontScale = 0.25f
                     },
                     timeLeft = new InstancedText
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
                         X = 12,
-                        TextScale = 0.25f
+                        FontScale = 0.25f
                     }
                 });
 

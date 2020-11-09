@@ -59,7 +59,7 @@ namespace Vitaru.Editor.UI
                     {
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Format",
@@ -67,7 +67,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.3f,
+                            FontScale = 0.3f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = LevelStore.CurrentLevel.Format
@@ -82,7 +82,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Title",
@@ -92,7 +92,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -110,7 +110,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Artist",
@@ -120,7 +120,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -138,7 +138,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Filename",
@@ -148,7 +148,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -166,7 +166,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "BPM",
@@ -176,7 +176,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -194,7 +194,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Image Filename",
@@ -204,7 +204,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -222,7 +222,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Creator (You)",
@@ -232,7 +232,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),
@@ -250,7 +250,7 @@ namespace Vitaru.Editor.UI
                         },
                         new InstancedText
                         {
-                            TextScale = 0.35f,
+                            FontScale = 0.35f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Level Name",
@@ -260,7 +260,7 @@ namespace Vitaru.Editor.UI
                         {
                             InstancedText =
                             {
-                                TextScale = 0.3f
+                                FontScale = 0.3f
                             },
 
                             Size = new Vector2(width - 60, 16),

@@ -116,7 +116,7 @@ namespace Vitaru.Editor.UI
                         Origin = Mounts.CenterRight,
                         Position = new Vector2(-2, 0),
                         Text = edit.Name,
-                        TextScale = 0.2f
+                        FontScale = 0.2f
                     },
                     draw
                 };

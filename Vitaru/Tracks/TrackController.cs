@@ -90,7 +90,7 @@ namespace Vitaru.Tracks
                     Position = new Vector2(4),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
-                    TextScale = 0.2f,
+                    FontScale = 0.2f,
                     Text = "Loading..."
                 },
                 seek = new Slider
@@ -108,14 +108,14 @@ namespace Vitaru.Tracks
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(8, -8),
-                    TextScale = 0.2f
+                    FontScale = 0.2f
                 },
                 timeLeft = new InstancedText
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-8),
-                    TextScale = 0.2f
+                    FontScale = 0.2f
                 }
             });
         }

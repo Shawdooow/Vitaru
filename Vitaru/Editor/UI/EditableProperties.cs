@@ -56,7 +56,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
-                    TextScale = 0.4f
+                    FontScale = 0.4f
                 },
                 properties = new ListLayer<IDrawable2D>
                 {
@@ -90,7 +90,7 @@ namespace Vitaru.Editor.UI
                                 {
                                     new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Position (x, y)"
@@ -99,7 +99,7 @@ namespace Vitaru.Editor.UI
                                     {
                                         InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -125,7 +125,7 @@ namespace Vitaru.Editor.UI
                                     {
                                         InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -166,7 +166,7 @@ namespace Vitaru.Editor.UI
                                 {
                                     new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Start Time"
@@ -175,7 +175,7 @@ namespace Vitaru.Editor.UI
                                     {
                                         InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -214,7 +214,7 @@ namespace Vitaru.Editor.UI
                                 {
                                     new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Color (WIP)"
@@ -235,7 +235,7 @@ namespace Vitaru.Editor.UI
                                 {
                                     new InstancedText
                                     {
-                                        TextScale = 0.3f,
+                                        FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Text = "Pattern ID"
@@ -244,7 +244,7 @@ namespace Vitaru.Editor.UI
                                     {
                                         InstancedText =
                                         {
-                                            TextScale = 0.25f
+                                            FontScale = 0.25f
                                         },
 
                                         Size = new Vector2(width - 10, 16),

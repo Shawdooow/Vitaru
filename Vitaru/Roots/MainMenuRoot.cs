@@ -30,7 +30,7 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
-                TextScale = 1.5f
+                FontScale = 1.5f
             });
         }
 

@@ -62,7 +62,7 @@ namespace Vitaru.Settings
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Prion",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.Fullscreen)
                         {
@@ -117,7 +117,7 @@ namespace Vitaru.Settings
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Graphics",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
                         {
@@ -152,7 +152,7 @@ namespace Vitaru.Settings
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Debug",
-                            TextScale = 0.24f
+                            FontScale = 0.24f
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
@@ -180,7 +180,7 @@ namespace Vitaru.Settings
                     Text = "Settings",
                     InstancedText =
                     {
-                        TextScale = 0.25f
+                        FontScale = 0.25f
                     },
                     BackgroundSprite =
                     {

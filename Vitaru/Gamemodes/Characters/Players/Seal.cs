@@ -62,7 +62,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Position = new Vector2(-60, 10),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopRight,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
@@ -71,7 +71,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Position = new Vector2(60, 10),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
@@ -80,7 +80,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 },
@@ -88,7 +88,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
-                    TextScale = 0.25f,
+                    FontScale = 0.25f,
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 }

@@ -95,7 +95,7 @@ namespace Vitaru.Roots
                     Text = "Back",
                     InstancedText =
                     {
-                        TextScale = 0.35f
+                        FontScale = 0.35f
                     },
 
                     OnClick = DropRoot

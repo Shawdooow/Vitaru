@@ -66,7 +66,7 @@ namespace Vitaru.Tracks
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,
 
-                        TextScale = 0.24f
+                        FontScale = 0.24f
                     },
 
                     OnClick = () =>
