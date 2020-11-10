@@ -13,6 +13,7 @@ using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
+using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
@@ -188,7 +189,7 @@ namespace Vitaru.Graphics.ComboFire
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
         }
 
-        public void Add(Flame flame)
+        public void Add(Particle flame)
         {
             if (!dead.TryPop(out int i)) return;
 
