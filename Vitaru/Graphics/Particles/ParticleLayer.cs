@@ -23,11 +23,9 @@ namespace Vitaru.Graphics.Particles
 {
     public class ParticleLayer : Layer2D<IDrawable2D>
     {
-        private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
-
-        private const int vertLocation = 10;
-
         public override string Name { get; set; } = nameof(ParticleLayer);
+
+        private readonly int particle_cap = Vitaru.VitaruSettings.GetInt(VitaruSetting.ParticleCap);
 
         private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
@@ -173,20 +171,20 @@ namespace Vitaru.Graphics.Particles
             Renderer.CurrentContext.BindTexture(texture);
 
             // verts
-            GL.EnableVertexAttribArray(vertLocation);
+            GL.EnableVertexAttribArray(10);
             GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.VertexAttribPointer(vertLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
+            GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // lifetime
             lifeBuffer.Bind();
             positionBuffer.Bind();
             colorBuffer.Bind();
 
-            GL.VertexAttribDivisor(vertLocation, 0);
+            GL.VertexAttribDivisor(10, 0);
 
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, particle_cap);
 
-            GL.DisableVertexAttribArray(vertLocation);
+            GL.DisableVertexAttribArray(10);
             lifeBuffer.UnBind();
             positionBuffer.UnBind();
             colorBuffer.UnBind();

@@ -78,8 +78,3 @@ void main()
 
 	pColor = vec4(color.xyz, 1 - fade);
 }
-
-//drawTransform *= draw.ScaleTransform;
-//drawTransform *= draw.RotationTransform;
-//drawTransform *= draw.TranslationTransform;
-//drawTransform *= parentTransform;
