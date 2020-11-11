@@ -119,12 +119,6 @@ namespace Vitaru.Roots.Tests
             });
         }
 
-        public override void LoadingComplete()
-        {
-            base.LoadingComplete();
-            Game.TextureStore.GetTexture("particle.png");
-        }
-
         public override void Update()
         {
             enemies.Text = $"{Enemy.COUNT} Enemies";

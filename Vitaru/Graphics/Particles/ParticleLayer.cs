@@ -142,8 +142,6 @@ namespace Vitaru.Graphics.Particles
 
         public override void PreRender()
         {
-            base.PreRender();
-
             if (!particles) return;
 
             program.SetActive();
