@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
 using Prion.Golgi.Graphics.Overlays;
+using Prion.Golgi.Graphics.Weather;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
@@ -52,6 +53,8 @@ namespace Vitaru.Mods.Included
             private PlayerBinds input;
             private TexturedModel turret;
 
+            private SnowLayer snow;
+
             private LightPointer global;
             private LightPointer red;
             private LightPointer green;
@@ -95,16 +98,18 @@ namespace Vitaru.Mods.Included
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.CurrentContext.BufferMeshes(turret);
 
-                Add(new Layer3D<TexturedModel>
-                {
-                    //TODO: make this work Scale = new Vector3(0.05f),
+                //Add(new Layer3D<TexturedModel>
+                //{
+                //    //TODO: make this work Scale = new Vector3(0.05f),
+                //
+                //    Children = new[]
+                //    {
+                //        body,
+                //        turret
+                //    }
+                //});
 
-                    Children = new[]
-                    {
-                        body,
-                        turret
-                    }
-                });
+                Add(snow = new SnowLayer());
 
                 Renderer.TextureProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
@@ -121,9 +126,31 @@ namespace Vitaru.Mods.Included
             private double dx, dy, lx, ly;
             private MouseState m;
 
+            private double s;
+
             public override void Update()
             {
                 base.Update();
+
+                s += Clock.LastElapsedTime;
+
+                if (s >= 5)
+                {
+                    s = 0;
+
+                    Vector3 start = new Vector3(PrionMath.RandomNumber(-50, 50), PrionMath.RandomNumber(-50, 50), 50);
+                    Vector3 end = start - new Vector3(PrionMath.RandomNumber(-5, 5), PrionMath.RandomNumber(-5, 5), 100) - new Vector3(10, 10, 0);
+
+                    snow.Add(new SnowParticle
+                    {
+                        StartPosition = start,
+                        EndPosition = end,
+                        Alpha = 1,
+                        Scale = 1f// / PrionMath.RandomNumber(1, 5)
+                    });
+                }
+
+                snow.UpdateParticles(0, 8192, (float)Clock.LastElapsedTime);
 
                 if (Renderer.Window.Focused)
                 {
