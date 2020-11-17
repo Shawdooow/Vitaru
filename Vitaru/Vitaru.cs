@@ -68,6 +68,10 @@ namespace Vitaru
                     ThemeManager.Theme = new Somber();
             }
 
+#if !PUBLISH
+            FEATURES = Features.Experimental;
+#endif
+
             using (Vitaru vitaru = new Vitaru(args))
             {
                 if (FEATURES >= Features.Radioactive)
@@ -96,10 +100,6 @@ namespace Vitaru
 
         protected Vitaru(string[] args) : base(host, args)
         {
-#if !PUBLISH
-            FEATURES = Features.Experimental;
-#endif
-
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             bool levels = ApplicationDataStorage.Exists("Levels");
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
