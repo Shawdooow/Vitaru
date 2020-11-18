@@ -15,7 +15,7 @@ namespace Vitaru.Tracks
 
         public static Action<Track> OnTrackChange;
 
-        public static bool Switching { get; private set; }
+        public static bool Switching { get; set; }
 
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
         {

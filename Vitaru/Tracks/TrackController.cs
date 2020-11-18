@@ -230,6 +230,8 @@ namespace Vitaru.Tracks
         {
             if (TrackManager.Switching) return;
 
+            TrackManager.Switching = true;
+
             Game.ScheduleLoad(() =>
             {
                 Benchmark b = new Benchmark("Switch Level", true);
