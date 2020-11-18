@@ -131,11 +131,12 @@ namespace Vitaru.Graphics.Particles
                 {
                     pLifetime[i] += l;
 
-                    if (!pDead[i] && pLifetime[i] > 1)
-                    {
-                        pDead[i] = true;
-                        dead.Push(i);
-                    }
+                    if (!pDead[i])
+                        if (pLifetime[i] > 1)
+                        {
+                            pDead[i] = true;
+                            dead.Push(i);
+                        }
                 }
             }
         }
