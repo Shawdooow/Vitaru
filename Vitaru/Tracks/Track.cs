@@ -2,13 +2,14 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Mitochondria.Audio;
+using Prion.Mitochondria.Audio.Contexts;
 using Prion.Nucleus.IO;
 using Prion.Nucleus.Timing;
 using Vitaru.Server.Track;
 
 namespace Vitaru.Tracks
 {
-    public class Track : RepeatableSample
+    public class Track : Song
     {
         public readonly LevelTrack Level;
 
@@ -29,8 +30,7 @@ namespace Vitaru.Tracks
             }
         }
 
-        public Track(LevelTrack level, SeekableClock clock, Storage storage) : base(level.Filename, clock,
-            storage)
+        public Track(LevelTrack level, SeekableClock clock, Sample sample) : base(clock, sample)
         {
             Clock = clock;
             Level = level;
