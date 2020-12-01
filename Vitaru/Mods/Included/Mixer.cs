@@ -291,7 +291,7 @@ namespace Vitaru.Mods.Included
                         Width = 800,
                         OnProgressInput = p =>
                             TrackManager.CurrentTrack.Seek(
-                                PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Length))
+                                PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
                     },
 
                     play = new Button
@@ -386,7 +386,7 @@ namespace Vitaru.Mods.Included
                 controller.TryNextLevel();
 
                 float current = (float) TrackManager.CurrentTrack.Clock.Current;
-                float length = (float) TrackManager.CurrentTrack.Length * 1000;
+                float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
                 if (!seek.Dragging)
                     seek.Progress = PrionMath.Scale(current, 0, length);
