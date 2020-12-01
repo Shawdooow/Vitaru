@@ -12,7 +12,6 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.SSBOs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
@@ -139,18 +138,20 @@ namespace Vitaru.Mods.Included
                     s = 0;
 
                     Vector3 start = new Vector3(PrionMath.RandomNumber(-50, 50), PrionMath.RandomNumber(-50, 50), 50);
-                    Vector3 end = start - new Vector3(PrionMath.RandomNumber(-5, 5), PrionMath.RandomNumber(-5, 5), 100) - new Vector3(10, 10, 0);
+                    Vector3 end = start -
+                                  new Vector3(PrionMath.RandomNumber(-5, 5), PrionMath.RandomNumber(-5, 5), 100) -
+                                  new Vector3(10, 10, 0);
 
                     snow.Add(new SnowParticle
                     {
                         StartPosition = start,
                         EndPosition = end,
                         Alpha = 1,
-                        Scale = 1f// / PrionMath.RandomNumber(1, 5)
+                        Scale = 1f // / PrionMath.RandomNumber(1, 5)
                     });
                 }
 
-                snow.UpdateParticles(0, 8192, (float)Clock.LastElapsedTime);
+                snow.UpdateParticles(0, 8192, (float) Clock.LastElapsedTime);
 
                 if (Renderer.Window.Focused)
                 {

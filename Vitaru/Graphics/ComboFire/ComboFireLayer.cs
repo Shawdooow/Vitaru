@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Numerics;
@@ -80,7 +83,7 @@ namespace Vitaru.Graphics.ComboFire
             program = Renderer.ShaderManager.GetShaderProgram(vert, frag);
             program.SetActive();
 
-            GLShaderProgram gl = (GLShaderProgram)program;
+            GLShaderProgram gl = (GLShaderProgram) program;
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
             gl.Locations["size"] = GLShaderManager.GetLocation(program, "size");

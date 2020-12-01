@@ -4,7 +4,6 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -96,7 +95,8 @@ namespace Vitaru.Roots.Tests
 
                     Width = 800,
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                            TrackManager.CurrentTrack.Sample.Length))
                 }
             });
 

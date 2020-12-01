@@ -64,7 +64,8 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.TopCenter,
 
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                            TrackManager.CurrentTrack.Sample.Length))
                 },
                 play = new Button
                 {

@@ -97,7 +97,8 @@ namespace Vitaru.Tracks
                 {
                     Width = Size.X,
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
+                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                            TrackManager.CurrentTrack.Sample.Length))
                 }
             });
 
