@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Audio.OpenAL;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
@@ -89,8 +88,6 @@ namespace Vitaru
 
         public static ShaderProgram BulletProgram { get; protected set; }
 
-        private readonly AudioDevice device;
-
         private const string host =
 #if true
             "VitaruDebug";
@@ -127,8 +124,6 @@ namespace Vitaru
                 while (DynamicThreads.Count < dtco)
                     CreateDynamicTask();
             }
-
-            device = new AudioDevice();
 
             #region Shaders
 
@@ -182,18 +177,18 @@ namespace Vitaru
             #endregion
         }
 
-        protected override GraphicsContext GetContext(string name)
+        protected override GraphicsContext GetGraphicsContext(string name)
         {
             switch (name)
             {
                 default:
-                    return base.GetContext("GL46");
+                    return base.GetGraphicsContext("GL46");
                 case "Legacy":
                 case "GL41":
-                    return base.GetContext("GL41");
+                    return base.GetGraphicsContext("GL41");
                 case "DX12":
                     DX12 = true;
-                    return base.GetContext("DX12");
+                    return base.GetGraphicsContext("DX12");
             }
         }
 

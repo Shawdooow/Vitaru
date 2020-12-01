@@ -2,6 +2,8 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using Prion.Mitochondria.Audio;
+using Prion.Mitochondria.Audio.Contexts;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Timing;
 using Vitaru.Levels;
@@ -31,7 +33,10 @@ namespace Vitaru.Tracks
             CurrentTrack?.Dispose();
 
             Logger.Log($"Setting Track \"{level.Title}\"");
-            CurrentTrack = new Track(level, seek, Vitaru.LevelStorage.GetStorage($"{level.Title}"))
+
+            Sample sample = AudioManager.CurrentContext.ConvertSample(Vitaru.LevelStorage.GetStream($"{level.Title}\\{level.Filename}"),
+                $"{level.Filename}");
+            CurrentTrack = new Track(level, seek, sample)
             {
                 DrawClock = linked
             };
