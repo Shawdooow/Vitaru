@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Audio.OpenAL;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
