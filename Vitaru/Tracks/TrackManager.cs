@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Audio.Contexts;
 using Prion.Nucleus.Debug;
@@ -34,8 +35,19 @@ namespace Vitaru.Tracks
 
             Logger.Log($"Setting Track \"{level.Title}\"");
 
-            Sample sample = AudioManager.CurrentContext.ConvertSample(Vitaru.LevelStorage.GetStream($"{level.Title}\\{level.Filename}"),
-                $"{level.Filename}");
+            Sample sample;
+            string file = $"{level.Title}\\{level.Filename}";
+
+            if (!Game.SampleStore.ObjectDictionary.ContainsKey(file))
+            {
+                sample = AudioManager.CurrentContext.ConvertSample(
+                    Vitaru.LevelStorage.GetStream(file),
+                    $"{level.Filename}");
+                Game.SampleStore.ObjectDictionary[file] = sample;
+            }
+            else
+                sample = Game.SampleStore.ObjectDictionary[file];
+
             CurrentTrack = new Track(level, seek, sample)
             {
                 DrawClock = linked
