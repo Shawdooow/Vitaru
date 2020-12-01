@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -155,6 +156,9 @@ namespace Vitaru.Roots.Tests
         {
             base.OnResume();
             TrackManager.CurrentTrack.Pitch = 1;
+            AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
+            AudioManager.CurrentContext.Listener.Velocity = Vector3.One;
+            AudioManager.CurrentContext.Listener.Direction = Vector3.Zero;
         }
 
         public override void Update()
