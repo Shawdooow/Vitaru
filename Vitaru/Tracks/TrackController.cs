@@ -194,8 +194,6 @@ namespace Vitaru.Tracks
 
                 TrackManager.SetTrack(t, new SeekableClock());
 
-                TrackManager.SetAudioDefaults();
-
                 track.Finish();
             });
         }

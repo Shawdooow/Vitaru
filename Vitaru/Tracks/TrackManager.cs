@@ -65,6 +65,8 @@ namespace Vitaru.Tracks
             };
             OnTrackChange?.Invoke(CurrentTrack);
 
+            SetAudioDefaults();
+
             seek.Start();
             CurrentTrack.Play();
             Switching = false;
