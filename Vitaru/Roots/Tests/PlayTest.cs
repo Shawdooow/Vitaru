@@ -117,6 +117,11 @@ namespace Vitaru.Roots.Tests
                     FontScale = 0.25f
                 }
             });
+
+            TrackManager.CurrentTrack.Gain = 1.5f;
+            TrackManager.CurrentTrack.Rolloff = 0.001f;
+            TrackManager.CurrentTrack.StereoDistance = new Vector3(2000, 0, 0);
+            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -500);
         }
 
         public override void Update()

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
@@ -187,6 +188,8 @@ namespace Vitaru.Gamemodes.Characters.Players
             DrawablePlayer?.Seal.Update();
 
             Position = GetPositionOffset(0.3f);
+
+            AudioManager.CurrentContext.Listener.Position = new Vector3(Position.X, Position.Y, 0);
 
             SpellUpdate();
         }

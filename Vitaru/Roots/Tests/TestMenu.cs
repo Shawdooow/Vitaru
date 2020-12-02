@@ -156,9 +156,10 @@ namespace Vitaru.Roots.Tests
         {
             base.OnResume();
             TrackManager.CurrentTrack.Pitch = 1;
+            TrackManager.CurrentTrack.Rolloff = 1;
+            TrackManager.CurrentTrack.StereoDistance = Vector3.Zero;
+            TrackManager.CurrentTrack.Position = Vector3.Zero;
             AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
-            AudioManager.CurrentContext.Listener.Velocity = Vector3.One;
-            AudioManager.CurrentContext.Listener.Direction = Vector3.Zero;
         }
 
         public override void Update()
