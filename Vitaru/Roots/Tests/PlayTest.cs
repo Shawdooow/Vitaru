@@ -120,8 +120,8 @@ namespace Vitaru.Roots.Tests
 
             TrackManager.CurrentTrack.Gain = 1.5f;
             TrackManager.CurrentTrack.Rolloff = 0.001f;
-            TrackManager.CurrentTrack.StereoDistance = new Vector3(2000, 0, 0);
-            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -500);
+            TrackManager.CurrentTrack.StereoDistance = new Vector3(1600, 0, 0);
+            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -800);
         }
 
         public override void Update()
