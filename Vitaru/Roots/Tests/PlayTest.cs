@@ -14,6 +14,7 @@ using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
+using Vitaru.Graphics;
 using Vitaru.Play;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -38,6 +39,8 @@ namespace Vitaru.Roots.Tests
         private readonly InstancedText timeIn;
         private readonly Slider slider;
         private readonly InstancedText timeLeft;
+
+        private readonly SurroundSoundVisualizer surround;
 
         public PlayTest()
         {
@@ -122,6 +125,8 @@ namespace Vitaru.Roots.Tests
             TrackManager.CurrentTrack.Rolloff = 0.002f;
             TrackManager.CurrentTrack.StereoDistance = new Vector3(1600, 0, 0);
             TrackManager.CurrentTrack.Position = new Vector3(0, 0, -400);
+
+            Add(surround = new SurroundSoundVisualizer());
         }
 
         public override void Update()
@@ -169,6 +174,7 @@ namespace Vitaru.Roots.Tests
                     });
                 }
 
+                surround.OnNewBeat();
 
                 for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
                     gamefield.PlayerPack.Children[i].OnNewBeat();
