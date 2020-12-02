@@ -155,11 +155,7 @@ namespace Vitaru.Roots.Tests
         protected override void OnResume()
         {
             base.OnResume();
-            TrackManager.CurrentTrack.Pitch = 1;
-            TrackManager.CurrentTrack.Rolloff = 1;
-            TrackManager.CurrentTrack.StereoDistance = Vector3.Zero;
-            TrackManager.CurrentTrack.Position = Vector3.Zero;
-            AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
+            TrackManager.SetAudioDefaults();
         }
 
         public override void Update()

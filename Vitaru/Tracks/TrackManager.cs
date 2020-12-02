@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Audio.Contexts;
@@ -19,6 +20,16 @@ namespace Vitaru.Tracks
         public static Action<Track> OnTrackChange;
 
         public static bool Switching { get; set; }
+
+        public static void SetAudioDefaults()
+        {
+            TrackManager.CurrentTrack.Gain = 1f;
+            TrackManager.CurrentTrack.Pitch = 1;
+            TrackManager.CurrentTrack.Rolloff = 0.1f;
+            TrackManager.CurrentTrack.StereoDistance = new Vector3(4, 0, 0);
+            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -4);
+            AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
+        }
 
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
         {
