@@ -189,7 +189,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Position = GetPositionOffset(0.3f);
 
-            AudioManager.CurrentContext.Listener.Position = new Vector3(Position.X, Position.Y, 0);
+            AudioManager.CurrentContext.Listener.Position = new Vector3(Position.X, 0, Position.Y);
 
             SpellUpdate();
         }
