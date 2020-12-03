@@ -8,10 +8,12 @@ using OpenTK.Input;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Golgi.Graphics.Weather;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.SSBOs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
+using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
@@ -20,6 +22,7 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
+using Vitaru.Tracks;
 
 namespace Vitaru.Mods.Included
 {
@@ -52,7 +55,7 @@ namespace Vitaru.Mods.Included
             private PlayerBinds input;
             private TexturedModel turret;
 
-            private SnowLayer snow;
+            //private SnowLayer snow;
 
             private LightPointer global;
             private LightPointer red;
@@ -66,6 +69,7 @@ namespace Vitaru.Mods.Included
             public override void LoadingComplete()
             {
                 camera = new Camera();
+                Mouse.SetPosition(1920f / 2, 1080f / 2);
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
@@ -97,18 +101,38 @@ namespace Vitaru.Mods.Included
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.CurrentContext.BufferMeshes(turret);
 
-                //Add(new Layer3D<TexturedModel>
-                //{
-                //    //TODO: make this work Scale = new Vector3(0.05f),
-                //
-                //    Children = new[]
-                //    {
-                //        body,
-                //        turret
-                //    }
-                //});
+                TexturedModel left = new TexturedModel
+                {
+                    Position = TrackManager.CurrentTrack.Source.LeftPosition,
+                    Scale = new Vector3(scale),
+                    Color = Color.Blue
+                };
+                left.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
+                Renderer.CurrentContext.BufferMeshes(left);
 
-                Add(snow = new SnowLayer());
+                TexturedModel right = new TexturedModel
+                {
+                    Position = TrackManager.CurrentTrack.Source.RightPosition,
+                    Scale = new Vector3(scale),
+                    Color = Color.Red
+                };
+                right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
+                Renderer.CurrentContext.BufferMeshes(right);
+
+                Add(new Layer3D<TexturedModel>
+                {
+                    //TODO: make this work Scale = new Vector3(0.05f),
+                
+                    Children = new[]
+                    {
+                        body,
+                        turret,
+                        left,
+                        right
+                    }
+                });
+
+                //Add(snow = new SnowLayer());
 
                 Renderer.TextureProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
@@ -133,25 +157,25 @@ namespace Vitaru.Mods.Included
 
                 s += Clock.LastElapsedTime;
 
-                if (s >= 5)
-                {
-                    s = 0;
+                //if (s >= 5)
+                //{
+                //    s = 0;
+                //
+                //    Vector3 start = new Vector3(PrionMath.RandomNumber(-50, 50), PrionMath.RandomNumber(-50, 50), 50);
+                //    Vector3 end = start -
+                //                  new Vector3(PrionMath.RandomNumber(-5, 5), PrionMath.RandomNumber(-5, 5), 100) -
+                //                  new Vector3(10, 10, 0);
+                //
+                //    snow.Add(new SnowParticle
+                //    {
+                //        StartPosition = start,
+                //        EndPosition = end,
+                //        Alpha = 1,
+                //        Scale = 1f // / PrionMath.RandomNumber(1, 5)
+                //    });
+                //}
 
-                    Vector3 start = new Vector3(PrionMath.RandomNumber(-50, 50), PrionMath.RandomNumber(-50, 50), 50);
-                    Vector3 end = start -
-                                  new Vector3(PrionMath.RandomNumber(-5, 5), PrionMath.RandomNumber(-5, 5), 100) -
-                                  new Vector3(10, 10, 0);
-
-                    snow.Add(new SnowParticle
-                    {
-                        StartPosition = start,
-                        EndPosition = end,
-                        Alpha = 1,
-                        Scale = 1f // / PrionMath.RandomNumber(1, 5)
-                    });
-                }
-
-                snow.UpdateParticles(0, 8192, (float) Clock.LastElapsedTime);
+                //snow.UpdateParticles(0, 8192, (float) Clock.LastElapsedTime);
 
                 if (Renderer.Window.Focused)
                 {
@@ -182,6 +206,9 @@ namespace Vitaru.Mods.Included
                     Mouse.SetPosition(1920f / 2, 1080f / 2);
                     lx = 1920f / 2;
                     ly = 1080f / 2;
+
+                    AudioManager.CurrentContext.Listener.Position = camera.Position;
+                    AudioManager.CurrentContext.Listener.Direction = camera.Front;
                 }
             }
 

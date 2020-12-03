@@ -23,12 +23,13 @@ namespace Vitaru.Tracks
 
         public static void SetAudioDefaults()
         {
-            TrackManager.CurrentTrack.Gain = 1f;
-            TrackManager.CurrentTrack.Pitch = 1;
-            TrackManager.CurrentTrack.Rolloff = 0.1f;
-            TrackManager.CurrentTrack.StereoDistance = new Vector3(4, 0, 0);
-            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -4);
+            CurrentTrack.Gain = 1f;
+            CurrentTrack.Pitch = 1;
+            CurrentTrack.Rolloff = 0.1f;
+            CurrentTrack.StereoDistance = new Vector3(4, 0, 0);
+            CurrentTrack.Position = new Vector3(0, 0, -4);
             AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
+            AudioManager.CurrentContext.Listener.Direction = new Vector3(0, 0, -1);
         }
 
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
