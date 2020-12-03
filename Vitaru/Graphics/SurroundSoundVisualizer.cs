@@ -23,10 +23,18 @@ namespace Vitaru.Graphics
                 left = new Bumper
                 {
                     Position = TrackManager.CurrentTrack.Source.LeftPosition.XZ(),
+                    Circle =
+                    {
+                        Color = Color.Blue
+                    }
                 },
                 right = new Bumper
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition.XZ(),
+                    Circle =
+                    {
+                        Color = Color.Red
+                    }
                 },
             };
         }
@@ -39,9 +47,9 @@ namespace Vitaru.Graphics
 
         public class Bumper : Layer2D<IDrawable2D>
         {
-            private Sprite glow1;
-            private Sprite glow2;
-            private Sprite circle;
+            private readonly Sprite glow1;
+            private readonly Sprite glow2;
+            public readonly Sprite Circle;
 
             public Bumper()
             {
@@ -63,7 +71,7 @@ namespace Vitaru.Graphics
                         Alpha = 0,
                         Color = ThemeManager.SecondaryColor
                     },
-                    circle = new Sprite
+                    Circle = new Sprite
                     {
                         Texture = Game.TextureStore.GetTexture("Cursor\\ring.png"),
                         Size = new Vector2(128),
@@ -90,8 +98,8 @@ namespace Vitaru.Graphics
                 flip.Scale = new Vector2(0.5f);
                 flip.FadeTo(0.5f, length, Easings.InCubic);
 
-                circle.ScaleTo(new Vector2(0.45f), 20, Easings.OutQuart).OnComplete(() => 
-                    circle.ScaleTo(new Vector2(0.5f), length - 20, Easings.OutSine));
+                Circle.ScaleTo(new Vector2(0.45f), 20, Easings.OutQuart).OnComplete(() =>
+                    Circle.ScaleTo(new Vector2(0.5f), length - 20, Easings.OutSine));
             }
         }
     }
