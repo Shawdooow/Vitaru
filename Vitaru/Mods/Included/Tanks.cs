@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
 using Prion.Golgi.Graphics.Overlays;
-using Prion.Golgi.Graphics.Weather;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
@@ -60,12 +59,13 @@ namespace Vitaru.Mods.Included
             //private SnowLayer snow;
 
             private LightPointer global;
+            private LightPointer blue;
             private LightPointer red;
-            private LightPointer green;
 
             public TanksRoot()
             {
                 input = new PlayerBinds();
+                TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
             }
 
             public override void LoadingComplete()
@@ -79,13 +79,13 @@ namespace Vitaru.Mods.Included
                 global.Position = new Vector3(0, -200, -100);
                 global.Diffuse = Color.BurlyWood.Vector();
 
-                red = LightManager.GetLight();
-                red.Position = new Vector3(-50, -200, 0);
-                red.Diffuse = Color.Red.Vector();
+                blue = LightManager.GetLight();
+                blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
+                blue.Diffuse = Color.Blue.Vector();
 
-                green = LightManager.GetLight();
-                green.Position = new Vector3(50, -200, 0);
-                green.Diffuse = Color.GreenYellow.Vector();
+                red = LightManager.GetLight();
+                red.Position = TrackManager.CurrentTrack.Source.RightPosition;
+                red.Diffuse = Color.Red.Vector();
 
                 const float scale = 0.05f;
 
@@ -257,8 +257,8 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
-                LightManager.ReturnLight(green);
                 LightManager.ReturnLight(red);
+                LightManager.ReturnLight(blue);
                 LightManager.ReturnLight(global);
             }
         }
