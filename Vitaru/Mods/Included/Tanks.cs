@@ -30,7 +30,7 @@ namespace Vitaru.Mods.Included
 {
     public class Tanks : Mod
     {
-        public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Upcoming;
+        public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>
             new Button
@@ -91,14 +91,16 @@ namespace Vitaru.Mods.Included
 
                 TexturedModel body = new TexturedModel
                 {
-                    Scale = new Vector3(scale)
+                    Scale = new Vector3(scale),
+                    Yaw = MathF.PI
                 };
                 body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
                 Renderer.CurrentContext.BufferMeshes(body);
 
                 turret = new TexturedModel
                 {
-                    Scale = new Vector3(scale)
+                    Scale = new Vector3(scale),
+                    Yaw = MathF.PI
                 };
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.CurrentContext.BufferMeshes(turret);
