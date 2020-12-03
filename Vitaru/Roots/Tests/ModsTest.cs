@@ -55,6 +55,12 @@ namespace Vitaru.Roots.Tests
             base.LoadingComplete();
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            TrackManager.SetAudioDefaults();
+        }
+
         public override void Update()
         {
             base.Update();
