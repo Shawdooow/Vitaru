@@ -13,11 +13,13 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.SSBOs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Roots;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
@@ -141,6 +143,14 @@ namespace Vitaru.Mods.Included
                     Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
                 Add(new PerformanceDisplay(DisplayType.FPS));
+
+                Add(new Layer2D<IDrawable2D>
+                {
+                    Child = new Circle
+                    {
+                        Size = new Vector2(6)
+                    }
+                });
 
                 base.LoadingComplete();
             }
