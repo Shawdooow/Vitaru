@@ -62,14 +62,11 @@ namespace Vitaru.Mods.Included
             private LightPointer blue;
             private LightPointer red;
 
-            public TanksRoot()
+            public override void LoadingComplete()
             {
                 input = new PlayerBinds();
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
-            }
 
-            public override void LoadingComplete()
-            {
                 camera = new Camera();
                 Mouse.SetPosition(1920f / 2, 1080f / 2);
 
