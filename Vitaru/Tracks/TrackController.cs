@@ -193,6 +193,9 @@ namespace Vitaru.Tracks
                 song.Text = $"Loading: {t.Title}";
 
                 TrackManager.SetTrack(t, new SeekableClock());
+                
+                TrackManager.SetTrackDefaults();
+                TrackManager.SetPositionalDefaults();
 
                 track.Finish();
             });

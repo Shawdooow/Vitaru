@@ -58,7 +58,7 @@ namespace Vitaru.Roots.Tests
         protected override void OnResume()
         {
             base.OnResume();
-            TrackManager.SetAudioDefaults();
+            TrackManager.SetPositionalDefaults();
         }
 
         public override void Update()

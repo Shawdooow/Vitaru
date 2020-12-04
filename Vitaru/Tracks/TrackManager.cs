@@ -21,10 +21,14 @@ namespace Vitaru.Tracks
 
         public static bool Switching { get; set; }
 
-        public static void SetAudioDefaults()
+        public static void SetTrackDefaults()
         {
             CurrentTrack.Gain = 1f;
             CurrentTrack.Pitch = 1;
+        }
+
+        public static void SetPositionalDefaults()
+        {
             CurrentTrack.Rolloff = 0.1f;
             CurrentTrack.StereoDistance = new Vector3(4, 0, 0);
             CurrentTrack.Position = new Vector3(0, 0, -4);
@@ -42,8 +46,8 @@ namespace Vitaru.Tracks
             seek.Stop();
             seek.Reset();
 
-            CurrentTrack?.Pause();
-            CurrentTrack?.Dispose();
+            Track old = CurrentTrack;
+            old?.Pause();
 
             Logger.Log($"Setting Track \"{level.Title}\"");
 
@@ -60,13 +64,25 @@ namespace Vitaru.Tracks
             else
                 sample = Game.SampleStore.ObjectDictionary[file];
 
+            seek.Reset();
             CurrentTrack = new Track(level, seek, sample)
             {
                 DrawClock = linked
             };
-            OnTrackChange?.Invoke(CurrentTrack);
 
-            SetAudioDefaults();
+            if (old != null)
+            {
+                CurrentTrack.Gain = old.Gain;
+                CurrentTrack.Pitch = old.Pitch;
+                CurrentTrack.Rolloff = old.Rolloff;
+
+                CurrentTrack.StereoDistance = old.StereoDistance;
+                CurrentTrack.Position = old.Position;
+
+                old.Dispose();
+            }
+
+            OnTrackChange?.Invoke(CurrentTrack);
 
             seek.Start();
             CurrentTrack.Play();
