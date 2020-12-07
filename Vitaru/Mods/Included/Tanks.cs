@@ -123,7 +123,7 @@ namespace Vitaru.Mods.Included
                 Add(new Layer3D<TexturedModel>
                 {
                     //TODO: make this work Scale = new Vector3(0.05f),
-                
+
                     Children = new[]
                     {
                         body,
@@ -226,7 +226,7 @@ namespace Vitaru.Mods.Included
             private void mouseInput()
             {
                 const float sens = 0.002f;
-                camera.Rotation += new Vector3(0, (float) deltaY * sens, -(float) deltaX * sens);
+                camera.Rotation += new Vector3(0, deltaY * sens, -deltaX * sens);
             }
 
             public override void PreRender()

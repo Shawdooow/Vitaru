@@ -5,7 +5,6 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -193,7 +192,7 @@ namespace Vitaru.Tracks
                 song.Text = $"Loading: {t.Title}";
 
                 TrackManager.SetTrack(t, new SeekableClock());
-                
+
                 TrackManager.SetTrackDefaults();
                 TrackManager.SetPositionalDefaults();
 
