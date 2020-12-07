@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using OpenTK.Input;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -68,7 +69,7 @@ namespace Vitaru.Mods.Included
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
 
                 camera = new Camera();
-                Mouse.SetPosition(1920f / 2, 1080f / 2);
+                //Mouse.SetPosition(1920f / 2, 1080f / 2);
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
@@ -188,7 +189,7 @@ namespace Vitaru.Mods.Included
 
                 if (Renderer.Window.Focused)
                 {
-                    m = Mouse.GetCursorState();
+                    //m = Mouse.GetCursorState();
                     dx = lx - m.X;
                     dy = ly - m.Y;
 
@@ -212,7 +213,7 @@ namespace Vitaru.Mods.Included
 
                     mouseInput();
 
-                    Mouse.SetPosition(1920f / 2, 1080f / 2);
+                    //Mouse.SetPosition(1920f / 2, 1080f / 2);
                     lx = 1920f / 2;
                     ly = 1080f / 2;
 
