@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Audio;
-using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Projectiles;

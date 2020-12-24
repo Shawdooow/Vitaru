@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Transforms;
@@ -71,7 +72,7 @@ namespace Vitaru.Roots
 
             TrackManager.CurrentTrack.DrawClock.Start();
             TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
-            TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.Clock.Rate;
+            TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
 
             editfield = new Editfield(manager)
             {

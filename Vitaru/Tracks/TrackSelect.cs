@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;

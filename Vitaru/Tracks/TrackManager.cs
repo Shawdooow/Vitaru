@@ -40,7 +40,7 @@ namespace Vitaru.Tracks
         {
             Switching = true;
 
-            SeekableClock seek = clock ?? CurrentTrack.Clock;
+            SeekableClock seek = clock ?? CurrentTrack.SeekableClock;
             SeekableClock linked = CurrentTrack?.DrawClock;
 
             seek.Stop();
@@ -92,7 +92,7 @@ namespace Vitaru.Tracks
         public static void NextTrack()
         {
             LevelTrack next = LevelStore.SetRandomLevel(CurrentTrack.Level);
-            SetTrack(next, CurrentTrack.Clock);
+            SetTrack(next, CurrentTrack.SeekableClock);
         }
 
         public static void TryNextTrack()
