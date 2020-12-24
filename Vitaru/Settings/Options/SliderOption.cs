@@ -68,7 +68,7 @@ namespace Vitaru.Settings.Options
                 if (this.value == value) return;
 
                 this.value = value;
-                Slider.Progress = PrionMath.Scale(Value, Min, Max);
+                Slider.Progress = PrionMath.Remap(Value, Min, Max);
                 TextBox.Text = Value.ToString();
                 OnValueChange?.Invoke(Value);
             }
@@ -120,7 +120,7 @@ namespace Vitaru.Settings.Options
                         try
                         {
                             float value = float.Parse(text);
-                            PrionMath.Scale(value, Min, Max);
+                            PrionMath.Remap(value, Min, Max);
                             Value = value;
                         }
                         catch
@@ -134,7 +134,7 @@ namespace Vitaru.Settings.Options
                     Y = 10,
                     Size = new Vector2(SettingsOverlay.WIDTH - 24, 20),
 
-                    OnProgressInput = p => Value = PrionMath.Scale(p, 0, 1, Min, Max)
+                    OnProgressInput = p => Value = PrionMath.Remap(p, 0, 1, Min, Max)
                 }
             };
         }

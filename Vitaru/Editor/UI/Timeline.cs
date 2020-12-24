@@ -64,7 +64,7 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.TopCenter,
 
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                        TrackManager.CurrentTrack.Seek(PrionMath.Remap(p, 0, 1, 0,
                             TrackManager.CurrentTrack.Sample.Length))
                 },
                 play = new Button
@@ -84,7 +84,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
 
-                    OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Scale(p, 0, 1, 0.5f, 1.5f)
+                    OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Remap(p, 0, 1, 0.5f, 1.5f)
                 }
             };
 
@@ -219,7 +219,7 @@ namespace Vitaru.Editor.UI
             float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!scrubber.Dragging)
-                scrubber.Progress = PrionMath.Scale(current, 0, length);
+                scrubber.Progress = PrionMath.Remap(current, 0, length);
 
             TimeSpan t = TimeSpan.FromMilliseconds(current);
             TimeSpan l = TimeSpan.FromMilliseconds(length - current);

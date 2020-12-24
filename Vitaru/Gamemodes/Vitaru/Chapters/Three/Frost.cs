@@ -132,7 +132,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
         private void intensity()
         {
             float scale = (float) Easing.ApplyEasing(Easings.OutQuad,
-                Math.Min(PrionMath.Scale(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
+                Math.Min(PrionMath.Remap(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
             Gamefield.Intensity = scale;
         }
 

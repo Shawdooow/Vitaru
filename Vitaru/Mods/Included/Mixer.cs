@@ -267,7 +267,7 @@ namespace Vitaru.Mods.Included
                     {
                         Width = 1000,
                         Position = new Vector2(0, -100),
-                        OnProgressInput = p => setRate(PrionMath.Scale(p, 0, 1, min, max))
+                        OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max))
                     },
 
                     volume = new InstancedText
@@ -291,7 +291,7 @@ namespace Vitaru.Mods.Included
                         Width = 800,
                         OnProgressInput = p =>
                             TrackManager.CurrentTrack.Seek(
-                                PrionMath.Scale(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
+                                PrionMath.Remap(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
                     },
 
                     play = new Button
@@ -389,10 +389,10 @@ namespace Vitaru.Mods.Included
                 float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
                 if (!seek.Dragging)
-                    seek.Progress = PrionMath.Scale(current, 0, length);
+                    seek.Progress = PrionMath.Remap(current, 0, length);
 
                 if (accel)
-                    setRate(PrionMath.Scale(current, 0, length, 0.75f, 1.5f));
+                    setRate(PrionMath.Remap(current, 0, length, 0.75f, 1.5f));
 
                 TimeSpan t = TimeSpan.FromMilliseconds(current);
                 TimeSpan l = TimeSpan.FromMilliseconds(length - current);
@@ -415,14 +415,14 @@ namespace Vitaru.Mods.Included
             {
                 TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
                 pitch.Text = $"{MathF.Round(r, 2)}x";
-                slider.Progress = PrionMath.Scale(rate, min, max);
+                slider.Progress = PrionMath.Remap(rate, min, max);
             }
 
             private void setVolume(float v)
             {
                 TrackManager.CurrentTrack.Gain = gain = Math.Clamp(v, 0, 1);
                 volume.Text = $"{MathF.Round(gain * 100, 0)}%";
-                control.Progress = PrionMath.Scale(gain, 0, 1);
+                control.Progress = PrionMath.Remap(gain, 0, 1);
             }
 
             private void toggle()

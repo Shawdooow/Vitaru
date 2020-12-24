@@ -430,7 +430,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         protected virtual float GetBulletHealingMultiplier(float value) =>
-            PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
+            PrionMath.Remap(value, 0, healing_range, healing_min, healing_max);
 
         protected class HealingProjectile
         {
