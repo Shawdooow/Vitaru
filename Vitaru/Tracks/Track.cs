@@ -8,7 +8,7 @@ using Vitaru.Server.Track;
 
 namespace Vitaru.Tracks
 {
-    public class Track : Song
+    public class Track : Sound
     {
         public readonly LevelTrack Level;
 
