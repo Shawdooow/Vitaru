@@ -98,7 +98,7 @@ namespace Vitaru.Roots.Tests
 
                     Width = 800,
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                        TrackManager.CurrentTrack.Seek(PrionMath.Remap(p, 0, 1, 0,
                             TrackManager.CurrentTrack.Sample.Length))
                 }
             });
@@ -141,7 +141,7 @@ namespace Vitaru.Roots.Tests
             float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!slider.Dragging)
-                slider.Progress = PrionMath.Scale(current, 0, length);
+                slider.Progress = PrionMath.Remap(current, 0, length);
 
             TimeSpan t = TimeSpan.FromMilliseconds(current);
             TimeSpan l = TimeSpan.FromMilliseconds(length - current);

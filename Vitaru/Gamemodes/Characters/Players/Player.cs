@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Audio;
-using Prion.Mitochondria.Graphics.Transforms;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Projectiles;
@@ -430,7 +430,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         }
 
         protected virtual float GetBulletHealingMultiplier(float value) =>
-            PrionMath.Scale(value, 0, healing_range, healing_min, healing_max);
+            PrionMath.Remap(value, 0, healing_range, healing_min, healing_max);
 
         protected class HealingProjectile
         {

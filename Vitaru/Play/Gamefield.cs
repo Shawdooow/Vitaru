@@ -143,7 +143,9 @@ namespace Vitaru.Play
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
-            Vitaru.AwaitDynamicThreads();
+            while (Vitaru.ThreadsRunning())
+            {
+            }
 
             base.Update();
 

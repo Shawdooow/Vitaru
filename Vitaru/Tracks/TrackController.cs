@@ -97,7 +97,7 @@ namespace Vitaru.Tracks
                 {
                     Width = Size.X,
                     OnProgressInput = p =>
-                        TrackManager.CurrentTrack.Seek(PrionMath.Scale(p, 0, 1, 0,
+                        TrackManager.CurrentTrack.Seek(PrionMath.Remap(p, 0, 1, 0,
                             TrackManager.CurrentTrack.Sample.Length))
                 }
             });
@@ -141,7 +141,7 @@ namespace Vitaru.Tracks
             float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!seek.Dragging)
-                seek.Progress = PrionMath.Scale(current, 0, length);
+                seek.Progress = PrionMath.Remap(current, 0, length);
 
             TimeSpan t = TimeSpan.FromMilliseconds(current);
             TimeSpan l = TimeSpan.FromMilliseconds(length - current);

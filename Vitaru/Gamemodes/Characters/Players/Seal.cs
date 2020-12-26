@@ -9,7 +9,6 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.Transforms;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
@@ -112,7 +111,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             EnergyValue.Text = $"{Math.Round(player.Energy, 0)}/{player.EnergyCapacity}J";
             HealthValue.Text = $"{Math.Round(player.Health, 0)}/{player.HealthCapacity}HP";
 
-            Sign.Alpha = PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, 0.1f);
+            Sign.Alpha = PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, 0.1f);
         }
 
         public void Shoot(double flash)
@@ -212,11 +211,11 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 Renderer.ShaderManager.UpdateFloat("startAngle", start);
                 Renderer.ShaderManager.UpdateFloat("endAngle",
-                    PrionMath.Scale(player.Energy, 0, player.EnergyCapacity, start, end));
+                    PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, start, end));
                 outer.Render();
 
                 Renderer.ShaderManager.UpdateFloat("startAngle",
-                    PrionMath.Scale(player.Health, 0, player.HealthCapacity, end, start));
+                    PrionMath.Remap(player.Health, 0, player.HealthCapacity, end, start));
                 Renderer.ShaderManager.UpdateFloat("endAngle", end);
                 inner.Render();
 
