@@ -4,7 +4,6 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using OpenTK.Input;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -20,6 +19,7 @@ using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
@@ -68,7 +68,7 @@ namespace Vitaru.Mods.Included
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
 
                 camera = new Camera();
-                Mouse.SetPosition(1920f / 2, 1080f / 2);
+                InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
                 LightManager.SetSSBO(new SSBO<Light>(1));
 
@@ -123,7 +123,7 @@ namespace Vitaru.Mods.Included
                 Add(new Layer3D<TexturedModel>
                 {
                     //TODO: make this work Scale = new Vector3(0.05f),
-                
+
                     Children = new[]
                     {
                         body,
@@ -155,16 +155,20 @@ namespace Vitaru.Mods.Included
             }
 
             private float speed = 5;
-            private double dx, dy, lx, ly;
-            private MouseState m;
 
-            private double s;
+            private int w = 1920 / 2;
+            private int h = 1080 / 2;
+
+            private float deltaX;
+            private float deltaY;
+
+            //private double s;
 
             public override void Update()
             {
                 base.Update();
 
-                s += Clock.LastElapsedTime;
+                //s += Clock.LastElapsedTime;
 
                 //if (s >= 5)
                 //{
@@ -188,9 +192,11 @@ namespace Vitaru.Mods.Included
 
                 if (Renderer.Window.Focused)
                 {
-                    m = Mouse.GetCursorState();
-                    dx = lx - m.X;
-                    dy = ly - m.Y;
+                    Vector2 m = InputManager.Mouse.ScreenPosition;
+                    deltaX = w - m.X;
+                    deltaY = h - m.Y;
+
+                    mouseInput();
 
                     float t = (float) Clock.LastElapsedTime / 1000f;
                     t *= speed;
@@ -210,11 +216,7 @@ namespace Vitaru.Mods.Included
                     else if (input[VitaruActions.Sneak])
                         camera.Position -= camera.Up * t;
 
-                    mouseInput();
-
-                    Mouse.SetPosition(1920f / 2, 1080f / 2);
-                    lx = 1920f / 2;
-                    ly = 1080f / 2;
+                    InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
                     AudioManager.CurrentContext.Listener.Position = camera.Position;
                     AudioManager.CurrentContext.Listener.Direction = camera.Front;
@@ -224,7 +226,7 @@ namespace Vitaru.Mods.Included
             private void mouseInput()
             {
                 const float sens = 0.002f;
-                camera.Rotation += new Vector3(0, (float) dy * sens, -(float) dx * sens);
+                camera.Rotation += new Vector3(0, deltaY * sens, -deltaX * sens);
             }
 
             public override void PreRender()

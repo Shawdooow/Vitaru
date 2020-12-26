@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2020 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -35,7 +38,7 @@ namespace Vitaru.Graphics
                     {
                         Color = Color.Red
                     }
-                },
+                }
             };
         }
 
@@ -75,8 +78,8 @@ namespace Vitaru.Graphics
                     {
                         Texture = Game.TextureStore.GetTexture("Cursor\\ring.png"),
                         Size = new Vector2(128),
-                        Scale = new Vector2(0.5f),
-                    },
+                        Scale = new Vector2(0.5f)
+                    }
                 };
             }
 
