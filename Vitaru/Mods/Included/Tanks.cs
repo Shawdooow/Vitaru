@@ -13,6 +13,8 @@ using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Mitochondria.Graphics.Layers._3D;
 using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;

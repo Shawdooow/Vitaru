@@ -7,6 +7,7 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
+using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input;
@@ -222,6 +223,19 @@ namespace Vitaru.Gamemodes.Characters.Players
                 Renderer.SpriteProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
             }
+        }
+
+        private class MaskSprite : Sprite
+        {
+            public MaskSprite()
+            {
+            }
+
+            public MaskSprite(Texture t) : base(t)
+            {
+            }
+
+            public override void Render() => Renderer.CurrentContext.Render(this, Renderer.CircularProgram);
         }
     }
 }
