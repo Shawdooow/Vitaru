@@ -8,8 +8,8 @@ using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders.Structs;
-using Prion.Mitochondria.Graphics.Contexts.GL46.SSBOs;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -70,7 +70,7 @@ namespace Vitaru.Mods.Included
                 camera = new Camera();
                 InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
-                LightManager.SetSSBO(new SSBO<Light>(1));
+                LightManager.SetShaderStorageBuffer(new ShaderStorageBuffer<Light>(1));
 
                 global = LightManager.GetLight();
                 global.Position = new Vector3(0, -200, -100);
@@ -237,7 +237,7 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
 
                 LightManager.UpdateLights();
-                LightManager.UpdateSSBO();
+                LightManager.UpdateShaderStorageBuffer();
 
                 Matrix4x4 m = Matrix4x4.CreateScale(new Vector3(
                     (float) Math.Sin(DrawClock.Current / 1000f * speed) * 0.5f + 1f,
