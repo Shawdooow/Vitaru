@@ -55,6 +55,7 @@ namespace Vitaru.Settings
                 {
                     Size = Size,
                     Spacing = 4,
+                    PassDownInput = false,
 
                     Children = new IDrawable2D[]
                     {
