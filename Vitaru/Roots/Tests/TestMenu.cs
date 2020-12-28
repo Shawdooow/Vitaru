@@ -113,7 +113,7 @@ namespace Vitaru.Roots.Tests
                 ParentOrigin = Mounts.BottomCenter,
                 Origin = Mounts.BottomCenter,
                 FontScale = 0.25f,
-                Text = "0.11.0-rc4.0",
+                Text = "0.11.0-rc5.0",
                 Color = Color.Gold
             });
 
