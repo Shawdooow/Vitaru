@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
@@ -25,7 +24,9 @@ namespace Vitaru.Tracks
 {
     public class TrackController : InputLayer<IDrawable2D>, IHasInputKeys
     {
+        private readonly MaskingLayer<Sprite> mask;
         private readonly Sprite background;
+
         private readonly Button play;
         private readonly InstancedText song;
 
@@ -46,12 +47,38 @@ namespace Vitaru.Tracks
 
             AddArray(new IDrawable2D[]
             {
-                background = new Sprite
+                mask = new MaskingLayer<Sprite>
                 {
-                    //TODO: requires masking... AutoScaleDirection = Direction.Both,
-                    Size = Size,
-                    Texture = ThemeManager.GetBackground()
-                },
+                    Children = new[]
+                    {
+                        background = new Sprite
+                        {
+                            AutoScaleDirection = Direction.Both,
+                            Size = Size,
+                            Texture = ThemeManager.GetBackground()
+                        }
+                    },
+
+                    Masks = new Sprite[]
+                    {
+                        //new Box
+                        //{
+                        //    Origin = Mounts.BottomCenter,
+                        //    ParentOrigin = Mounts.TopCenter,
+                        //    Alpha = 0f,
+                        //    Size = Size,
+                        //    Y = -Height / 2f + 0.5f,
+                        //},
+                        new Box
+                        {
+                            //Origin = Mounts.TopCenter,
+                            //ParentOrigin = Mounts.BottomCenter,
+                            Alpha = 1f,
+                            Size = Size,
+                            //Y = Height / 2f - 0.5f,
+                        }
+                    }
+                }, 
                 new Box
                 {
                     Alpha = 0.6f,
@@ -162,6 +189,12 @@ namespace Vitaru.Tracks
             {
                 background.Texture =
                     bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
+
+                //float height = (background.DrawSize.Y - Height) / 2;
+
+                //mask.Masks[0].Height = height;
+                //mask.Masks[1].Height = height;
+
                 bg = string.Empty;
             }
         }
