@@ -30,6 +30,7 @@ namespace Vitaru.Settings
 
         protected bool Shown;
 
+        private readonly ListLayer<IDrawable2D> list;
         private readonly Button toggle;
 
         public SettingsOverlay(Game game)
@@ -39,7 +40,6 @@ namespace Vitaru.Settings
 
             Size = new Vector2(WIDTH, HEIGHT);
             Position = new Vector2(WIDTH, 0);
-
 
             Children = new IDrawable2D[]
             {
@@ -51,7 +51,7 @@ namespace Vitaru.Settings
                     Size = Size
                 },
 
-                new ListLayer<IDrawable2D>
+                list = new ListLayer<IDrawable2D>
                 {
                     Size = Size,
                     Spacing = 4,
@@ -219,6 +219,7 @@ namespace Vitaru.Settings
                 this.MoveTo(Vector2.Zero, 200, Easings.OutCubic);
                 toggle.FadeTo(0, 200, Easings.OutCubic);
                 Shown = true;
+                list.PassDownInput = true;
             }
         }
 
@@ -229,6 +230,7 @@ namespace Vitaru.Settings
                 this.MoveTo(new Vector2(WIDTH, 0), 200, Easings.OutCubic);
                 toggle.FadeTo(1, 200, Easings.OutCubic);
                 Shown = false;
+                list.PassDownInput = false;
             }
         }
     }
