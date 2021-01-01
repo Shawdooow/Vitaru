@@ -161,7 +161,7 @@ namespace Vitaru.Roots
                                 ParentOrigin = Mounts.TopLeft,
                                 Origin = Mounts.TopLeft,
                                 Size = new Vector2(64),
-                                Background = Vitaru.TextureStore.GetTexture("pause.png"),
+                                Background = Vitaru.TextureStore.GetTexture("wiki.png"),
 
                                 HoverSprite =
                                 {
@@ -176,7 +176,7 @@ namespace Vitaru.Roots
                                 ParentOrigin = Mounts.TopLeft,
                                 Origin = Mounts.TopLeft,
                                 Size = new Vector2(64),
-                                Background = Vitaru.TextureStore.GetTexture("skip.png"),
+                                Background = Vitaru.TextureStore.GetTexture("mods.png"),
 
                                 HoverSprite =
                                 {
