@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2020 Shawn Bozek.
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
@@ -43,7 +43,7 @@ namespace Vitaru.Roots
             {
                 Position = new Vector2(40, -40),
                 Origin = Mounts.BottomLeft,
-                ParentOrigin = Mounts.BottomLeft,
+                ParentOrigin = Mounts.BottomLeft
             });
             Add(new InstancedText
             {
@@ -210,7 +210,7 @@ namespace Vitaru.Roots
                         Size = new Vector2(Width, 10),
                         Color = Color.White
                     },
-                    body = new InputLayer<IDrawable2D>(),
+                    body = new InputLayer<IDrawable2D>()
                 };
 
                 bar.Color = ThemeManager.PrimaryColor;

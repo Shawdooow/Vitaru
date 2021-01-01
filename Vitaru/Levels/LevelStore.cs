@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2020 Shawn Bozek.
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -74,7 +74,7 @@ namespace Vitaru.Levels
                                         continue;
                                     case "Image":
                                         track.Image = line[1];
-                                        continue;                                    
+                                        continue;
                                     case "Autoplay":
                                         track.Autoplay = line[1] == "true" || line[1] == "1";
                                         continue;
@@ -214,7 +214,8 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title || !LoadedLevels[random].Levels[0].LevelTrack.Autoplay)
+                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title ||
+                    !LoadedLevels[random].Levels[0].LevelTrack.Autoplay)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;

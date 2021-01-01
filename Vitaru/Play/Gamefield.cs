@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2020 Shawn Bozek.
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -24,9 +24,8 @@ using Vitaru.Levels;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
-
 #if PUBLISH
-using System;
+
 #endif
 
 namespace Vitaru.Play
@@ -134,8 +133,8 @@ namespace Vitaru.Play
             try
             {
 #endif
-            if (LevelStore.CurrentLevel.EnemyData != null)
-                UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
+                if (LevelStore.CurrentLevel.EnemyData != null)
+                    UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
 #if PUBLISH
             }
             catch (Exception e)
