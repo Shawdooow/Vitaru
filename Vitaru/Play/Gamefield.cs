@@ -64,7 +64,7 @@ namespace Vitaru.Play
         public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
         {
             Name = "Drawable Character Layer2D",
-            Size = new Vector2(1024, 820)
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
         protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
@@ -78,12 +78,12 @@ namespace Vitaru.Play
 
         public readonly BulletLayer BulletLayer = new BulletLayer
         {
-            Size = new Vector2(1024, 820)
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
         public readonly ParticleLayer ParticleLayer = new ParticleLayer
         {
-            Size = new Vector2(1024, 820)
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
         public readonly GamefieldBorder Border;
@@ -116,7 +116,7 @@ namespace Vitaru.Play
             Add(enemys);
             Add(players);
 
-            Border = new GamefieldBorder(new Vector2(1024, 820));
+            Border = new GamefieldBorder(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize());
 
             if (vitaruNet != null)
             {
@@ -435,29 +435,30 @@ namespace Vitaru.Play
         {
             public GamefieldBorder(Vector2 size)
             {
+                const int w = 2;
                 Children = new[]
                 {
                     new Box
                     {
-                        Height = 3,
+                        Height = w,
                         Width = size.X,
                         Y = -size.Y / 2
                     },
                     new Box
                     {
-                        Height = 3,
+                        Height = w,
                         Width = size.X,
                         Y = size.Y / 2
                     },
                     new Box
                     {
-                        Width = 3,
+                        Width = w,
                         Height = size.Y,
                         X = -size.X / 2
                     },
                     new Box
                     {
-                        Width = 3,
+                        Width = w,
                         Height = size.Y,
                         X = size.X / 2
                     }

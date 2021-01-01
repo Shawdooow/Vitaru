@@ -73,6 +73,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private double shootTime;
 
+        private readonly Vector2 border = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize() / 2;
+
         private bool GOD_KING;
 
         protected DrawablePlayer DrawablePlayer { get; set; }
@@ -356,11 +358,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             if (Binds[VitaruActions.Right])
                 playerPosition.X += (float) xTranslationDistance;
 
-            //if (!VitaruPlayfield.BOUNDLESS)
-            //{
-            //    playerPosition = Vector2.ComponentMin(playerPosition, ChapterSet.PlayfieldBounds.Zw);
-            //    playerPosition = Vector2.ComponentMax(playerPosition, ChapterSet.PlayfieldBounds.Xy);
-            //}
+            playerPosition = Vector2.Clamp(playerPosition, -border, border);
 
             return playerPosition;
         }
