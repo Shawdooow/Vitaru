@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;

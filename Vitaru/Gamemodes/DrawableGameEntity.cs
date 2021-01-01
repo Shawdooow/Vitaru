@@ -3,7 +3,6 @@
 
 using System;
 using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
 
 namespace Vitaru.Gamemodes

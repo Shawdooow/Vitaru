@@ -74,11 +74,11 @@ namespace Vitaru.Tracks
                             //Origin = Mounts.TopCenter,
                             //ParentOrigin = Mounts.BottomCenter,
                             Alpha = 1f,
-                            Size = Size,
+                            Size = Size
                             //Y = Height / 2f - 0.5f,
                         }
                     }
-                }, 
+                },
                 new Box
                 {
                     Alpha = 0.6f,

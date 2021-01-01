@@ -300,7 +300,10 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(64),
-                        Background = Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing ? "pause.png" : "play.png"),
+                        Background =
+                            Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing
+                                ? "pause.png"
+                                : "play.png"),
 
                         OnClick = toggle
                     },
