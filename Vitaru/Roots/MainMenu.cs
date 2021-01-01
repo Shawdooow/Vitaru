@@ -157,7 +157,7 @@ namespace Vitaru.Roots
                             },
                             new MenuButton
                             {
-                                X = 192,
+                                X = 128 + 64,
                                 ParentOrigin = Mounts.TopLeft,
                                 Origin = Mounts.TopLeft,
                                 Size = new Vector2(64),
@@ -184,6 +184,21 @@ namespace Vitaru.Roots
                                 },
 
                                 OnClick = () => select(Buttons.Mods)
+                            },
+                            new MenuButton
+                            {
+                                X = 256 + 64,
+                                ParentOrigin = Mounts.TopLeft,
+                                Origin = Mounts.TopLeft,
+                                Size = new Vector2(64),
+                                Background = Vitaru.TextureStore.GetTexture("star.png"),
+
+                                HoverSprite =
+                                {
+                                    Color = Color.LightSeaGreen
+                                },
+
+                                OnClick = () => select(Buttons.Settings)
                             }
                         }
                     },
@@ -227,6 +242,9 @@ namespace Vitaru.Roots
                     case Buttons.Mods:
                         bar.ColorTo(Color.DarkOrange, 200);
                         break;
+                    case Buttons.Settings:
+                        bar.ColorTo(Color.LightSeaGreen, 200);
+                        break;
                     case Buttons.Quit:
                         bar.ColorTo(Color.Red, 200);
                         break;
@@ -240,6 +258,7 @@ namespace Vitaru.Roots
                 Edit,
                 Wiki,
                 Mods,
+                Settings,
 
                 Quit
             }
