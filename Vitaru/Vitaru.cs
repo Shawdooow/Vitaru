@@ -2,8 +2,10 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -34,7 +36,7 @@ namespace Vitaru
         ///     Bool for easter egg Alki mode.
         ///     It has a 1/100 chance of being true on startup and can not be set manually
         /// </summary>
-        public static ushort ALKI { get; private set; }
+        public static byte ALKI { get; private set; }
 
         public static bool DX12 { get; private set; }
 
@@ -44,11 +46,11 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = (ushort) (PrionMath.RandomNumber(0, 100) == 5 ? 1 : 0);
+            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? 1 : 0;
 
             if (ALKI == 1)
             {
-                if (PrionMath.RandomNumber(0, 10) == 6)
+                if (PrionMath.RandomNumber(0, 5) == 4)
                 {
                     ALKI++;
                     Logger.SystemConsole("ALL RHIZE", ConsoleColor.DarkMagenta);
@@ -67,11 +69,14 @@ namespace Vitaru
                     ThemeManager.Theme = new Somber();
             }
 
+            List<string> launch = new List<string>(args);
+
 #if !PUBLISH
-            FEATURES = Features.Experimental;
+            if (!launch.Any(arg => arg.Contains("Features")))
+                launch.Add($"Features={Features.Experimental}");
 #endif
 
-            using (Vitaru vitaru = new Vitaru(args))
+            using (Vitaru vitaru = new Vitaru(launch.ToArray()))
             {
                 if (FEATURES >= Features.Radioactive)
                     vitaru.Start(new MainMenu(vitaru));
@@ -181,15 +186,12 @@ namespace Vitaru
         {
             switch (name)
             {
-                default:
-                    return base.GetGraphicsContext("GL46");
-                case "Legacy":
-                case "GL41":
-                    return base.GetGraphicsContext("GL41");
                 case "DX12":
                     DX12 = true;
-                    return base.GetGraphicsContext("DX12");
+                    break;
             }
+
+            return base.GetGraphicsContext(name);
         }
 
         public override void Start()
