@@ -1,5 +1,6 @@
 Format=preview5.2
 Audio=alki all rhize.wav
+Autoplay=1
 BPM=96
 AudioOffset=0
 PreviewTime=0

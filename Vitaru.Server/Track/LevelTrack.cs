@@ -23,6 +23,8 @@ namespace Vitaru.Server.Track
         /// </summary>
         public string Image = string.Empty;
 
+        public bool Autoplay = true;
+
         /// <summary>
         ///     Song's Artist Name
         /// </summary>

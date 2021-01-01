@@ -74,6 +74,9 @@ namespace Vitaru.Levels
                                         continue;
                                     case "Image":
                                         track.Image = line[1];
+                                        continue;                                    
+                                    case "Autoplay":
+                                        track.Autoplay = line[1] == "true" || line[1] == "1";
                                         continue;
                                     case "BPM":
                                         track.BPM = double.Parse(line[1]);
@@ -211,7 +214,7 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title)
+                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title || !LoadedLevels[random].Levels[0].LevelTrack.Autoplay)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;
