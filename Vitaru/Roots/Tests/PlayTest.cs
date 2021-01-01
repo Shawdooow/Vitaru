@@ -61,6 +61,7 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.ParticleLayer);
             Add(gamefield.CharacterLayer);
             Add(gamefield.BulletLayer);
+            Add(gamefield.Border);
 
             Add(enemies = new InstancedText
             {

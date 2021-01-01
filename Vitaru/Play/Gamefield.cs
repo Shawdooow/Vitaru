@@ -9,6 +9,7 @@ using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Groups.Packs;
 using Prion.Nucleus.Utilities;
@@ -85,6 +86,8 @@ namespace Vitaru.Play
             Size = new Vector2(1024, 820)
         };
 
+        public readonly GamefieldBorder Border;
+
         private readonly ProjectilePack enemys;
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
@@ -113,6 +116,8 @@ namespace Vitaru.Play
             Add(enemys);
             Add(players);
 
+            Border = new GamefieldBorder(new Vector2(1024, 820));
+
             if (vitaruNet != null)
             {
                 //TODO: Multiplayer
@@ -121,6 +126,7 @@ namespace Vitaru.Play
             ParticleLayer.Clock = TrackManager.CurrentTrack.DrawClock;
             CharacterLayer.Clock = TrackManager.CurrentTrack.DrawClock;
             BulletLayer.Clock = TrackManager.CurrentTrack.DrawClock;
+            Border.Clock = TrackManager.CurrentTrack.DrawClock;
 
             FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
             FormatConverter.Gamefield = this;
@@ -422,6 +428,40 @@ namespace Vitaru.Play
 
                     p.ConcurrentUpdate(r);
                 }
+            }
+        }
+
+        public class GamefieldBorder : Layer2D<Box>
+        {
+            public GamefieldBorder(Vector2 size)
+            {
+                Children = new[]
+                {
+                    new Box
+                    {
+                        Height = 3,
+                        Width = size.X,
+                        Y = -size.Y / 2
+                    },
+                    new Box
+                    {
+                        Height = 3,
+                        Width = size.X,
+                        Y = size.Y / 2
+                    },
+                    new Box
+                    {
+                        Width = 3,
+                        Height = size.Y,
+                        X = -size.X / 2
+                    },
+                    new Box
+                    {
+                        Width = 3,
+                        Height = size.Y,
+                        X = size.X / 2
+                    }
+                };
             }
         }
     }
