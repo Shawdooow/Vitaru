@@ -27,8 +27,6 @@ namespace Vitaru.Roots.Tests
 
         public TestMenu(Vitaru vitaru)
         {
-            Button multi;
-
             Add(new Button
             {
                 Y = -180,
@@ -48,7 +46,7 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new PlayTest());
                 }
             });
-            Add(multi = new Button
+            Add(new Button
             {
                 Y = -60,
                 Size = new Vector2(200, 100),
@@ -59,7 +57,14 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.SecondaryColor
                 },
 
-                Text = "Multi"
+                Text = "Multi",
+
+                Disabled = Vitaru.FEATURES < Features.Experimental,
+                OnClick = () =>
+                {
+                    if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
+                        AddRoot(new MultiMenu());
+                }
             });
             Add(new Button
             {
@@ -113,8 +118,8 @@ namespace Vitaru.Roots.Tests
                 ParentOrigin = Mounts.BottomCenter,
                 Origin = Mounts.BottomCenter,
                 FontScale = 0.25f,
-                Text = "0.11.0-rc5.0",
-                Color = Color.Gold
+                Text = "0.11.0",
+                Color = Color.LimeGreen
             });
 
             Add(new InstancedText
@@ -124,25 +129,6 @@ namespace Vitaru.Roots.Tests
             });
 
             Renderer.Window.CursorHidden = true;
-
-            if (Vitaru.FEATURES < Features.Upcoming)
-            {
-                multi.Add(new Box
-                {
-                    Size = multi.Size,
-                    Scale = multi.Scale,
-                    Color = Color.Black,
-                    Alpha = 0.5f
-                });
-            }
-            else
-            {
-                multi.OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new MultiMenu());
-                };
-            }
         }
 
         public override void LoadingComplete()
