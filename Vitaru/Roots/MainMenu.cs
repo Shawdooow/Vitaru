@@ -10,15 +10,21 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Events;
+using Prion.Nucleus;
 using Vitaru.Themes;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
-    public class MainMenuRoot : MenuRoot
+    public class MainMenu : MenuRoot
     {
-        public override string Name => nameof(MainMenuRoot);
+        public override string Name => nameof(MainMenu);
 
-        public MainMenuRoot(Vitaru vitaru)
+        protected override bool Parallax => true;
+
+        private readonly TrackController controller;
+
+        public MainMenu(Vitaru vitaru)
         {
             Back = new Button();
 
@@ -26,12 +32,51 @@ namespace Vitaru.Roots
 
             Add(new InstancedText
             {
-                Position = new Vector2(-90, 90),
+                Position = new Vector2(-40, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
                 FontScale = 1.5f
             });
+
+            Add(controller = new TrackController
+            {
+                Position = new Vector2(40, -40),
+                Origin = Mounts.BottomLeft,
+                ParentOrigin = Mounts.BottomLeft,
+            });
+            Add(new InstancedText
+            {
+                Y = -4,
+                ParentOrigin = Mounts.BottomCenter,
+                Origin = Mounts.BottomCenter,
+                FontScale = 0.25f,
+                Text = Vitaru.FEATURES != Features.Standard ? $"0.11.0 - {Vitaru.FEATURES}" : "0.11.0",
+                Color = Color.LimeGreen
+            });
+
+            Renderer.Window.CursorHidden = true;
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            controller.PrimeTrackManager();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            TrackManager.SetTrackDefaults();
+            TrackManager.SetPositionalDefaults();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            controller.Update();
+            controller.TryNextLevel();
         }
 
         protected override void DropRoot()
@@ -47,7 +92,7 @@ namespace Vitaru.Roots
 
             public MainMenuPanel()
             {
-                Position = new Vector2(100);
+                Position = new Vector2(40);
                 ParentOrigin = Mounts.TopLeft;
                 Origin = Mounts.TopLeft;
 
@@ -150,7 +195,7 @@ namespace Vitaru.Roots
                         Size = new Vector2(Width, 10),
                         Color = Color.White
                     },
-                    body = new InputLayer<IDrawable2D>()
+                    body = new InputLayer<IDrawable2D>(),
                 };
 
                 bar.Color = ThemeManager.PrimaryColor;
