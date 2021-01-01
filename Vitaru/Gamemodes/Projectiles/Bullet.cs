@@ -142,7 +142,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override string[] SerializeToStrings()
         {
-            List<string> data = new List<string>
+            List<string> data = new()
             {
                 "b",
                 Diameter.ToString(),

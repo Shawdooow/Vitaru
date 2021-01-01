@@ -13,15 +13,15 @@ namespace Vitaru.Gamemodes
 
         public virtual string Description => null;
 
-        public virtual Vector2 PlayfieldAspectRatio => new Vector2(5, 4);
+        public virtual Vector2 PlayfieldAspectRatio => new(5, 4);
 
-        public virtual Vector2 PlayfieldSize => new Vector2(1024, 820);
+        public virtual Vector2 PlayfieldSize => new(1024, 820);
 
-        public virtual Vector4 PlayfieldBounds => new Vector4(0, 0, PlayfieldSize.X, PlayfieldSize.Y);
+        public virtual Vector4 PlayfieldBounds => new(0, 0, PlayfieldSize.X, PlayfieldSize.Y);
 
-        public virtual Vector2 PlayerStartingPosition => new Vector2(PlayfieldSize.X / 2, 700);
+        public virtual Vector2 PlayerStartingPosition => new(PlayfieldSize.X / 2, 700);
 
-        public virtual Vector2 ClusterOffset => new Vector2(256, 0);
+        public virtual Vector2 ClusterOffset => new(256, 0);
 
         public abstract Player[] GetPlayers(Gamefield gamefield = null);
     }

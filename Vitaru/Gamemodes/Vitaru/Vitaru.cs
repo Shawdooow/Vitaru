@@ -17,7 +17,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override FormatConverter GetFormatConverter() => new VitaruConverter();
 
-        public override Gamefield GetGamefield() => new Gamefield();
+        public override Gamefield GetGamefield() => new();
 
         public override Chapter[] GetChapters() => new Chapter[]
         {

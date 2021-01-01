@@ -27,6 +27,6 @@ namespace Vitaru.Gamemodes
 
         public abstract EditableGenerator[] GetGenerators();
 
-        public virtual Vector2 GetGamefieldSize() => new Vector2(1024, 820);
+        public virtual Vector2 GetGamefieldSize() => new(1024, 820);
     }
 }

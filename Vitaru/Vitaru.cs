@@ -40,7 +40,7 @@ namespace Vitaru
 
         public static bool DX12 { get; private set; }
 
-        private static readonly Benchmark startup = new Benchmark("Startup");
+        private static readonly Benchmark startup = new("Startup");
 
         public static void Main(string[] args)
         {
@@ -69,14 +69,14 @@ namespace Vitaru
                     ThemeManager.Theme = new Somber();
             }
 
-            List<string> launch = new List<string>(args);
+            List<string> launch = new(args);
 
 #if !PUBLISH
             if (!launch.Any(arg => arg.Contains("Features")))
                 launch.Add($"Features={Features.Experimental}");
 #endif
 
-            using (Vitaru vitaru = new Vitaru(launch.ToArray()))
+            using (Vitaru vitaru = new(launch.ToArray()))
             {
                 if (FEATURES >= Features.Radioactive)
                     vitaru.Start(new MainMenu(vitaru));

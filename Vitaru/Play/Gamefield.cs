@@ -24,9 +24,6 @@ using Vitaru.Levels;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
-#if PUBLISH
-
-#endif
 
 namespace Vitaru.Play
 {
@@ -54,32 +51,32 @@ namespace Vitaru.Play
 
         protected readonly FormatConverter FormatConverter;
 
-        public readonly Pack<Character> PlayerPack = new Pack<Character>
+        public readonly Pack<Character> PlayerPack = new()
         {
             Name = "Player Pack"
         };
 
-        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new Layer2D<DrawableGameEntity>
+        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new()
         {
             Name = "Drawable Character Layer2D",
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
-        protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
+        protected readonly List<Enemy> UnloadedEnemies = new();
 
-        public readonly Pack<Enemy> LoadedEnemies = new Pack<Enemy>
+        public readonly Pack<Enemy> LoadedEnemies = new()
         {
             Name = "Loaded Enemies Pack"
         };
 
-        public readonly List<ProjectilePack> ProjectilePacks = new List<ProjectilePack>();
+        public readonly List<ProjectilePack> ProjectilePacks = new();
 
-        public readonly BulletLayer BulletLayer = new BulletLayer
+        public readonly BulletLayer BulletLayer = new()
         {
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
-        public readonly ParticleLayer ParticleLayer = new ParticleLayer
+        public readonly ParticleLayer ParticleLayer = new()
         {
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
@@ -102,7 +99,7 @@ namespace Vitaru.Play
 
             if (multithread) AssignTasks(enemys);
 
-            ProjectilePack players = new ProjectilePack(this)
+            ProjectilePack players = new(this)
             {
                 Name = "Player's Projectile Pack",
                 Team = Player.PLAYER_TEAM
@@ -133,8 +130,8 @@ namespace Vitaru.Play
             try
             {
 #endif
-                if (LevelStore.CurrentLevel.EnemyData != null)
-                    UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
+            if (LevelStore.CurrentLevel.EnemyData != null)
+                UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
 #if PUBLISH
             }
             catch (Exception e)
@@ -199,12 +196,12 @@ namespace Vitaru.Play
             }
         }
 
-        private readonly ConcurrentQueue<Enemy> enemyQue = new ConcurrentQueue<Enemy>();
+        private readonly ConcurrentQueue<Enemy> enemyQue = new();
 
-        private readonly ConcurrentQueue<Enemy> deadEnemyQue = new ConcurrentQueue<Enemy>();
+        private readonly ConcurrentQueue<Enemy> deadEnemyQue = new();
 
         private readonly ConcurrentQueue<DrawableGameEntity> drawableEnemyQue =
-            new ConcurrentQueue<DrawableGameEntity>();
+            new();
 
         public void Add(Enemy enemy)
         {
@@ -223,7 +220,7 @@ namespace Vitaru.Play
             deadEnemyQue.Enqueue(enemy);
         }
 
-        private readonly ConcurrentQueue<Player> playerQue = new ConcurrentQueue<Player>();
+        private readonly ConcurrentQueue<Player> playerQue = new();
 
         public void Add(Player player)
         {
@@ -233,7 +230,7 @@ namespace Vitaru.Play
             playerQue.Enqueue(player);
         }
 
-        private readonly ConcurrentQueue<Projectile> deadprojectileQue = new ConcurrentQueue<Projectile>();
+        private readonly ConcurrentQueue<Projectile> deadprojectileQue = new();
 
         public void Add(Projectile projectile)
         {
@@ -400,7 +397,7 @@ namespace Vitaru.Play
 
             public void ProcessBullets(int s, int e)
             {
-                Random r = new Random();
+                Random r = new();
                 int start = Indexes[s];
                 int end = Indexes[e];
 

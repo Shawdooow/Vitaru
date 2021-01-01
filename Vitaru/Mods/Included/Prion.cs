@@ -18,7 +18,7 @@ namespace Vitaru.Mods.Included
         public override bool Disabled => Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>
-            new Button
+            new()
             {
                 Y = -280,
                 Size = new Vector2(80, 80),

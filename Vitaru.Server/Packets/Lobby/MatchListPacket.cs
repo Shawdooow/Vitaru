@@ -14,6 +14,6 @@ namespace Vitaru.Server.Packets.Lobby
         public override int PacketSize =>
             Convert.ToInt32(MatchInfoList.Count > 0 ? MatchInfoList.Count * 1024 + 1024 : 2048);
 
-        public List<MatchInfo> MatchInfoList = new List<MatchInfo>();
+        public List<MatchInfo> MatchInfoList = new();
     }
 }

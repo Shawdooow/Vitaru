@@ -54,7 +54,7 @@ namespace Vitaru.Editor.UI
             EditableGenerator[] generators = GamemodeStore.SelectedGamemode.Gamemode.GetGenerators();
             for (int i = 0; i < generators.Length; i++)
             {
-                ToolboxItem item = new ToolboxItem(generators[i], i);
+                ToolboxItem item = new(generators[i], i);
                 item.OnClick = () => select(item);
                 items.Add(item);
             }

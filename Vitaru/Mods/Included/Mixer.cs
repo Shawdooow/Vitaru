@@ -22,7 +22,7 @@ namespace Vitaru.Mods.Included
     public class Mixer : Mod
     {
         public override Button GetMenuButton() =>
-            new Button
+            new()
             {
                 Y = -180,
                 Size = new Vector2(200, 100),

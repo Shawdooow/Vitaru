@@ -20,14 +20,14 @@ namespace Vitaru.Server.Server
     {
         protected override string Gamekey => "vitaru";
 
-        protected readonly List<VitaruMatch> VitaruMatches = new List<VitaruMatch>();
+        protected readonly List<VitaruMatch> VitaruMatches = new();
 
-        protected override VitaruServer GetClient() => new VitaruServer();
+        protected override VitaruServer GetClient() => new();
 
         protected uint MatchID;
 
         protected override VitaruClient GetClient(TcpClient client, IPEndPoint end) =>
-            new VitaruClient(PrionClient, client, end)
+            new(PrionClient, client, end)
             {
                 LastConnection = Clock.Current,
                 Statues = ConnectionStatues.Connecting
@@ -95,7 +95,7 @@ namespace Vitaru.Server.Server
 
                 case GetMatchListPacket getMatch:
                     //Send them a list of matches
-                    MatchListPacket matchList = new MatchListPacket
+                    MatchListPacket matchList = new()
                     {
                         MatchInfoList = GetMatches()
                     };
@@ -226,7 +226,7 @@ namespace Vitaru.Server.Server
                         });
 
                         //Update their matchlist next
-                        MatchListPacket list = new MatchListPacket();
+                        MatchListPacket list = new();
                         list = (MatchListPacket) SignPacket(list);
                         list.MatchInfoList = GetMatches();
 
@@ -321,7 +321,7 @@ namespace Vitaru.Server.Server
         /// <returns></returns>
         protected List<MatchInfo> GetMatches()
         {
-            List<MatchInfo> matches = new List<MatchInfo>();
+            List<MatchInfo> matches = new();
 
             foreach (VitaruMatch match in VitaruMatches)
                 matches.Add(match.MatchInfo);
@@ -356,9 +356,9 @@ namespace Vitaru.Server.Server
         {
             public MatchInfo MatchInfo;
 
-            public List<VitaruClient> Clients = new List<VitaruClient>();
+            public List<VitaruClient> Clients = new();
 
-            public List<VitaruClient> LoadedClients = new List<VitaruClient>();
+            public List<VitaruClient> LoadedClients = new();
 
             public double MatchLastUpdateTime;
 

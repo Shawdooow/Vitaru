@@ -18,7 +18,7 @@ namespace Vitaru.Levels
 
         public static LevelPack CurrentPack { get; private set; }
 
-        public static List<LevelPack> LoadedLevels { get; private set; } = new List<LevelPack>();
+        public static List<LevelPack> LoadedLevels { get; private set; } = new();
 
         public const string BLANK_LEVEL = "BLANK";
         public const string VERSION_ONE = "preview5.2";
@@ -26,7 +26,7 @@ namespace Vitaru.Levels
         //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
         {
-            Benchmark b = new Benchmark("Reload Levels From Folders", true);
+            Benchmark b = new("Reload Levels From Folders", true);
 
             LoadedLevels = new List<LevelPack>();
 
@@ -36,23 +36,23 @@ namespace Vitaru.Levels
             {
                 string[] files = Vitaru.LevelStorage.GetFiles(directories[i]);
 
-                LevelPack pack = new LevelPack
+                LevelPack pack = new()
                 {
                     Title = directories[i]
                 };
-                List<Level> levels = new List<Level>();
+                List<Level> levels = new();
 
                 for (int j = 0; j < files.Length; j++)
                 {
                     string[] ext = files[j].Split('.');
 
-                    Level level = new Level();
-                    LevelTrack track = new LevelTrack();
+                    Level level = new();
+                    LevelTrack track = new();
 
                     if (ext.Last() == "vitaru")
                     {
                         using (StreamReader reader =
-                            new StreamReader(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
+                            new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                         {
                             string contents = reader.ReadToEnd();
                             string[] lines = contents.Split(new[] {Environment.NewLine},
@@ -154,10 +154,10 @@ namespace Vitaru.Levels
         //TODO: Try Catch this as a whole, if its broken just regen the whole thing
         public static void ReloadLevelsFromDatabase()
         {
-            Benchmark b = new Benchmark("Reload Levels From Database", true);
+            Benchmark b = new("Reload Levels From Database", true);
 
             LoadedLevels = new List<LevelPack>();
-            using (StreamReader reader = new StreamReader(Vitaru.LevelStorage.GetStream("database.vib")))
+            using (StreamReader reader = new(Vitaru.LevelStorage.GetStream("database.vib")))
             {
                 string contents = reader.ReadToEnd();
                 string[] lines = contents.Split(';');
@@ -165,7 +165,7 @@ namespace Vitaru.Levels
                 {
                     string[] data = lines[i].Split(':');
 
-                    LevelPack pack = new LevelPack
+                    LevelPack pack = new()
                     {
                         Title = data[0]
                     };
@@ -181,7 +181,7 @@ namespace Vitaru.Levels
 
         public static void ReCreateDatabase()
         {
-            Benchmark b = new Benchmark("ReCreate Database", true);
+            Benchmark b = new("ReCreate Database", true);
 
             string[] directories = Vitaru.LevelStorage.GetDirectories();
 
@@ -246,7 +246,7 @@ namespace Vitaru.Levels
                             $"EnemyData={CurrentLevel.EnemyData}";
 
             using (StreamWriter writer =
-                new StreamWriter(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
+                new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
             {
                 Logger.Log($"Saving Current Level: {path}...", LogType.IO);
                 writer.Write(header);

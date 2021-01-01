@@ -118,8 +118,8 @@ namespace Vitaru.Roots
 
             if (Parallax)
             {
-                Vector2 min = new Vector2(-ParallaxAmount / 2);
-                Vector2 max = new Vector2(ParallaxAmount / 2);
+                Vector2 min = new(-ParallaxAmount / 2);
+                Vector2 max = new(ParallaxAmount / 2);
 
                 Vector2 parallax = PrionMath.Remap(InputManager.Mouse.Position,
                     new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),

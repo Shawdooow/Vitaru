@@ -33,7 +33,7 @@ namespace Vitaru.Mods.Included
         public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>
-            new Button
+            new()
             {
                 Y = -60,
                 Size = new Vector2(200, 100),
@@ -87,7 +87,7 @@ namespace Vitaru.Mods.Included
 
                 const float scale = 0.05f;
 
-                TexturedModel body = new TexturedModel
+                TexturedModel body = new()
                 {
                     Scale = new Vector3(scale),
                     Yaw = MathF.PI
@@ -103,7 +103,7 @@ namespace Vitaru.Mods.Included
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.CurrentContext.BufferMeshes(turret);
 
-                TexturedModel left = new TexturedModel
+                TexturedModel left = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.LeftPosition,
                     Scale = new Vector3(scale),
@@ -112,7 +112,7 @@ namespace Vitaru.Mods.Included
                 left.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.CurrentContext.BufferMeshes(left);
 
-                TexturedModel right = new TexturedModel
+                TexturedModel right = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition,
                     Scale = new Vector3(scale),

@@ -9,7 +9,7 @@ namespace Vitaru.Server
     {
         public static void Main(string[] args)
         {
-            using (VitaruServer server = new VitaruServer(args))
+            using (VitaruServer server = new(args))
                 server.Start();
         }
 

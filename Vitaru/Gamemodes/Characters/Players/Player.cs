@@ -59,7 +59,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         //Is reset after healing applied
         public float HealingMultiplier = 1;
 
-        protected List<HealingProjectile> HealingProjectiles { get; private set; } = new List<HealingProjectile>();
+        protected List<HealingProjectile> HealingProjectiles { get; private set; } = new();
 
         protected const float HEALING_FALL_OFF = 0.85f;
 

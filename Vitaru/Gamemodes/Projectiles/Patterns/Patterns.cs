@@ -15,7 +15,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Wave(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             int bulletCount = (int) (complexity * 5);
             float directionModifier = (float) Math.PI / 2 / (bulletCount - 1);
@@ -45,7 +45,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Line(float startSpeed, float endSpeed, float diameter, float damage,
             Vector2 position, double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             int bulletCount = (int) (complexity * 3);
             float speedModifier = (endSpeed - startSpeed) / bulletCount;
@@ -75,7 +75,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Triangle(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             int bulletCount = (int) (complexity * 3);
 
@@ -123,7 +123,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Wedge(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             int bulletCount = (int) (complexity * 7);
 
@@ -164,7 +164,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Circle(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             int bulletCount = (int) (complexity * 12);
             float directionModifier = (float) Math.PI * 2 / bulletCount;
@@ -194,7 +194,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Swipe(float speed, float diameter, float damage, double startTime, int team,
             float complexity = 1)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             const float dist = 800;
             int bulletCount = (int) (complexity * 4);
@@ -203,7 +203,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
 
             for (int i = 1; i <= bulletCount; i++)
             {
-                Vector2 offset = new Vector2((float) Math.Cos(direction) * (-dist / 2),
+                Vector2 offset = new((float) Math.Cos(direction) * (-dist / 2),
                     (float) Math.Sin(direction) * (-dist / 2));
 
                 projectiles.Add(new Bullet
@@ -231,7 +231,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Cross(float speed, float diameter, float damage, double startTime, int team,
             float complexity = 1)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             const float dist = max_dist;
             int bulletCount = (int) (complexity * 4);
@@ -240,7 +240,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
 
             for (int i = 1; i <= bulletCount; i++)
             {
-                Vector2 offset = new Vector2((float) Math.Cos(direction) * (-dist / 2),
+                Vector2 offset = new((float) Math.Cos(direction) * (-dist / 2),
                     (float) Math.Sin(direction) * (-dist / 2));
 
                 projectiles.Add(new Bullet
@@ -268,7 +268,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         public static List<Projectile> Flower(float speed, float diameter, float damage, Vector2 position,
             double startTime, double duration, int team, double beatLength = 500, float complexity = 1, int arms = 16)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             float direction = 0;
 

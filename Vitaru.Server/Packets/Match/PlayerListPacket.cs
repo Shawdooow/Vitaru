@@ -13,6 +13,6 @@ namespace Vitaru.Server.Packets.Match
     {
         public override int PacketSize => Convert.ToInt32(Players.Count > 0 ? Players.Count * 1024 + 1024 : 1024);
 
-        public List<VitaruUser> Players = new List<VitaruUser>();
+        public List<VitaruUser> Players = new();
     }
 }

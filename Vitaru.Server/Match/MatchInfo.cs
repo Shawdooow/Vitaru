@@ -15,9 +15,9 @@ namespace Vitaru.Server.Match
 
         public uint MatchID;
 
-        public List<VitaruUser> Users = new List<VitaruUser>();
+        public List<VitaruUser> Users = new();
 
-        public List<Setting> Settings = new List<Setting>();
+        public List<Setting> Settings = new();
 
         public VitaruUser Host;
 

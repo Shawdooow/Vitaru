@@ -22,7 +22,7 @@ namespace Vitaru.Server.Server
 
         public string Country;
 
-        public List<Setting> UserSettings = new List<Setting>();
+        public List<Setting> UserSettings = new();
 
         public PlayerStatues Statues;
     }

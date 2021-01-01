@@ -42,7 +42,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public readonly bool[] bDead;
 
-        private readonly ConcurrentStack<int> dead = new ConcurrentStack<int>();
+        private readonly ConcurrentStack<int> dead = new();
 
         public BulletLayer()
         {
@@ -79,10 +79,10 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             Vertex2[] array =
             {
-                new Vertex2(new Vector2(-1f)),
-                new Vertex2(new Vector2(-1f, 1f)),
-                new Vertex2(new Vector2(1f, -1f)),
-                new Vertex2(new Vector2(1f))
+                new(new Vector2(-1f)),
+                new(new Vector2(-1f, 1f)),
+                new(new Vector2(1f, -1f)),
+                new(new Vector2(1f))
             };
 
             verts = GL.GenBuffer();

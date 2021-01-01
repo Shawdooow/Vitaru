@@ -15,9 +15,9 @@ namespace Vitaru.Multiplayer.Client
     {
         protected override string Gamekey => "vitaru";
 
-        public VitaruUser VitaruUser { get; set; } = new VitaruUser();
+        public VitaruUser VitaruUser { get; set; } = new();
 
-        protected override VitaruHost GetClient() => new VitaruHost();
+        protected override VitaruHost GetClient() => new();
 
         protected override void PacketReceived(PacketInfo<VitaruHost> info)
         {

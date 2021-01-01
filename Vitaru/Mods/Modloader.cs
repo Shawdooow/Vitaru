@@ -16,7 +16,7 @@ namespace Vitaru.Mods
     {
         public const string MOD_NAME = "Vitaru.Mods.*.dll";
 
-        public static List<Mod> LoadedMods = new List<Mod>();
+        public static List<Mod> LoadedMods = new();
 
         private static Dictionary<Assembly, Type> loadedAssemblies;
 

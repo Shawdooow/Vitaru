@@ -24,7 +24,7 @@ namespace Vitaru.Editor.UI
     {
         private readonly LevelManager manager;
 
-        public readonly HoverableLayer<DrawableGameEntity> SelectionLayer = new HoverableLayer<DrawableGameEntity>
+        public readonly HoverableLayer<DrawableGameEntity> SelectionLayer = new()
         {
             Size = new Vector2(1024, 820),
             Scale = new Vector2(0.5f),
@@ -43,7 +43,7 @@ namespace Vitaru.Editor.UI
 
             manager.OnSerializeToLevel += () =>
             {
-                List<Enemy> master = new List<Enemy>();
+                List<Enemy> master = new();
                 master.AddRange(UnloadedEnemies);
                 master.AddRange(LoadedEnemies);
 
@@ -113,7 +113,7 @@ namespace Vitaru.Editor.UI
                 {
                     if (ey.Drawable.Alpha > 0)
                     {
-                        Vector4 transform = new Vector4(InputManager.Mouse.Position, 1, 1);
+                        Vector4 transform = new(InputManager.Mouse.Position, 1, 1);
                         Matrix4x4.Invert(ey.Drawable.TotalTransform, out Matrix4x4 inverse);
 
                         transform = Vector4.Transform(transform, inverse);

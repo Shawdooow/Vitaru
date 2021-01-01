@@ -17,13 +17,13 @@ namespace Vitaru.Gamemodes
 
         public static LoadedGamemode SelectedGamemode { get; private set; }
 
-        public static List<LoadedGamemode> LoadedGamemodes { get; private set; } = new List<LoadedGamemode>();
+        public static List<LoadedGamemode> LoadedGamemodes { get; private set; } = new();
 
         private static Dictionary<Assembly, Type> loadedAssemblies;
 
         public static void ReloadGamemodes()
         {
-            List<Gamemode> loadedGamemodes = new List<Gamemode>
+            List<Gamemode> loadedGamemodes = new()
             {
                 new Vitaru.Vitaru()
                 //new Tanks.Tanks(),
@@ -110,9 +110,9 @@ namespace Vitaru.Gamemodes
 
             public string SelectedCharacter;
 
-            public readonly List<Chapter> Chapters = new List<Chapter>();
+            public readonly List<Chapter> Chapters = new();
 
-            public readonly List<Player> Players = new List<Player>();
+            public readonly List<Player> Players = new();
 
             public LoadedGamemode(Gamemode gamemode)
             {

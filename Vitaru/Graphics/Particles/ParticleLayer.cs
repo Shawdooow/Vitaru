@@ -46,7 +46,7 @@ namespace Vitaru.Graphics.Particles
 
         public readonly bool[] pDead;
 
-        private readonly ConcurrentStack<int> dead = new ConcurrentStack<int>();
+        private readonly ConcurrentStack<int> dead = new();
 
         private bool bufferParts;
 
@@ -95,10 +95,10 @@ namespace Vitaru.Graphics.Particles
 
             Vertex2[] array =
             {
-                new Vertex2(new Vector2(-1f)),
-                new Vertex2(new Vector2(-1f, 1f)),
-                new Vertex2(new Vector2(1f, -1f)),
-                new Vertex2(new Vector2(1f))
+                new(new Vector2(-1f)),
+                new(new Vector2(-1f, 1f)),
+                new(new Vector2(1f, -1f)),
+                new(new Vector2(1f))
             };
 
             verts = GL.GenBuffer();

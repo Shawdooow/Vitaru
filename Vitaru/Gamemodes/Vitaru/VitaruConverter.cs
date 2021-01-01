@@ -15,7 +15,7 @@ namespace Vitaru.Gamemodes.Vitaru
     {
         public override List<Enemy> StringToEnemies(string level)
         {
-            List<Enemy> enemies = new List<Enemy>();
+            List<Enemy> enemies = new();
 
             string[] data = level.Split(";", StringSplitOptions.RemoveEmptyEntries);
 
@@ -51,7 +51,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override List<Projectile> StringToProjectiles(string pattern)
         {
-            List<Projectile> projectiles = new List<Projectile>();
+            List<Projectile> projectiles = new();
 
             string[] data = pattern.Split(";");
 
@@ -64,7 +64,7 @@ namespace Vitaru.Gamemodes.Vitaru
                         Logger.Error($"Projectile type {pData[0]} not supported!", LogType.IO);
                         break;
                     case "b":
-                        Bullet b = new Bullet();
+                        Bullet b = new();
                         b.ParseString(pData, 1);
                         projectiles.Add(b);
                         break;

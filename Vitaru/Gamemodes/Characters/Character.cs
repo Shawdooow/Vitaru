@@ -138,7 +138,7 @@ namespace Vitaru.Gamemodes.Characters
         protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage,
             float distance)
         {
-            Bullet bullet = new Bullet
+            Bullet bullet = new()
             {
                 Team = Team,
                 StartPosition = Position,
