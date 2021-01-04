@@ -89,7 +89,7 @@ namespace Vitaru.Graphics.Particles
             gl.Locations["size"] = GLShaderManager.GetLocation(program, "size");
 
             Renderer.ShaderManager.ActiveShaderProgram = program;
-            Renderer.CurrentContext.BindTexture(texture);
+            Renderer.Context.BindTexture(texture);
 
             Renderer.ShaderManager.UpdateFloat("size", 16f);
 
@@ -166,7 +166,7 @@ namespace Vitaru.Graphics.Particles
 
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
-            Renderer.CurrentContext.BindTexture(texture);
+            Renderer.Context.BindTexture(texture);
 
             // verts
             GL.EnableVertexAttribArray(10);

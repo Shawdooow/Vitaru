@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
+using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
@@ -111,15 +112,7 @@ namespace Vitaru.Roots.Tests
             //Add(new WikiOverlay());
             Add(new SettingsOverlay(vitaru));
 
-            Add(new InstancedText
-            {
-                Y = -4,
-                ParentOrigin = Mounts.BottomCenter,
-                Origin = Mounts.BottomCenter,
-                FontScale = 0.25f,
-                Text = "0.11.2",
-                Color = Color.LimeGreen
-            });
+            Add(new Version());
 
             Add(new InstancedText
             {

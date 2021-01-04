@@ -10,6 +10,7 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
+using Prion.Mitochondria.Graphics.Contexts.DX12;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Stores;
@@ -32,15 +33,22 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
+        public const string VERSION = "0.11.2";
+
         /// <summary>
         ///     Bool for easter egg Alki mode.
         ///     It has a 1/100 chance of being true on startup and can not be set manually
         /// </summary>
         public static byte ALKI { get; private set; }
 
-        public static bool DX12 { get; private set; }
-
         private static readonly Benchmark startup = new("Startup");
+
+        private const string host =
+#if true
+            "VitaruDebug";
+#else
+            "Vitaru";
+#endif
 
         public static void Main(string[] args)
         {
@@ -76,7 +84,13 @@ namespace Vitaru
                 launch.Add($"Features={Features.Experimental}");
 #endif
 
-            using (Vitaru vitaru = new(launch.ToArray()))
+            VitaruLaunchArgs v = new()
+            {
+                Name = host
+            };
+            VitaruLaunchArgs.ProccessArgs(launch.ToArray());
+
+            using (Vitaru vitaru = new(v))
             {
                 if (FEATURES >= Features.Radioactive)
                     vitaru.Start(new MainMenu(vitaru));
@@ -93,14 +107,7 @@ namespace Vitaru
 
         public static ShaderProgram BulletProgram { get; protected set; }
 
-        private const string host =
-#if true
-            "VitaruDebug";
-#else
-            "Vitaru";
-#endif
-
-        protected Vitaru(string[] args) : base(host, args)
+        protected Vitaru(VitaruLaunchArgs args) : base(args)
         {
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             bool levels = ApplicationDataStorage.Exists("Levels");
@@ -132,7 +139,9 @@ namespace Vitaru
 
             #region Shaders
 
-            if (!DX12)
+#if !PUBLISH
+            if (!(Renderer.Context is DirectX12))
+#endif
             {
                 //Post
                 Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
@@ -180,18 +189,6 @@ namespace Vitaru
             Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
 
             #endregion
-        }
-
-        protected override GraphicsContext GetGraphicsContext(string name)
-        {
-            switch (name)
-            {
-                case "DX12":
-                    DX12 = true;
-                    break;
-            }
-
-            return base.GetGraphicsContext(name);
         }
 
         public override void Start()
