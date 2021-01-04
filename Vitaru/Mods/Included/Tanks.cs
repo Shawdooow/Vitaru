@@ -93,7 +93,7 @@ namespace Vitaru.Mods.Included
                     Yaw = MathF.PI
                 };
                 body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
-                Renderer.CurrentContext.BufferMeshes(body);
+                Renderer.Context.BufferMeshes(body);
 
                 turret = new TexturedModel
                 {
@@ -101,7 +101,7 @@ namespace Vitaru.Mods.Included
                     Yaw = MathF.PI
                 };
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
-                Renderer.CurrentContext.BufferMeshes(turret);
+                Renderer.Context.BufferMeshes(turret);
 
                 TexturedModel left = new()
                 {
@@ -110,7 +110,7 @@ namespace Vitaru.Mods.Included
                     Color = Color.Blue
                 };
                 left.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
-                Renderer.CurrentContext.BufferMeshes(left);
+                Renderer.Context.BufferMeshes(left);
 
                 TexturedModel right = new()
                 {
@@ -119,7 +119,7 @@ namespace Vitaru.Mods.Included
                     Color = Color.Red
                 };
                 right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
-                Renderer.CurrentContext.BufferMeshes(right);
+                Renderer.Context.BufferMeshes(right);
 
                 Add(new Layer3D<TexturedModel>
                 {
@@ -219,8 +219,8 @@ namespace Vitaru.Mods.Included
 
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
-                    AudioManager.CurrentContext.Listener.Position = camera.Position;
-                    AudioManager.CurrentContext.Listener.Direction = camera.Front;
+                    AudioManager.Context.Listener.Position = camera.Position;
+                    AudioManager.Context.Listener.Direction = camera.Front;
                 }
             }
 

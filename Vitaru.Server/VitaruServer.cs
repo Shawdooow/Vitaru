@@ -7,12 +7,6 @@ namespace Vitaru.Server
 {
     public class VitaruServer : Application
     {
-        public static void Main(string[] args)
-        {
-            using (VitaruServer server = new(args))
-                server.Start();
-        }
-
         private const string host =
 #if true
             "VitaruDebug";
@@ -20,7 +14,19 @@ namespace Vitaru.Server
             "Vitaru";
 #endif
 
-        protected VitaruServer(string[] args) : base(host, args)
+        public static void Main(string[] args)
+        {
+            NucleusLaunchArgs n = new()
+            {
+                Name = host
+            };
+            NucleusLaunchArgs.ProccessArgs(args);
+
+            using (VitaruServer server = new(n))
+                server.Start();
+        }
+
+        protected VitaruServer(NucleusLaunchArgs args) : base(args)
         {
         }
     }

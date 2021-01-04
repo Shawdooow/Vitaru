@@ -32,8 +32,8 @@ namespace Vitaru.Tracks
             CurrentTrack.Rolloff = 0.1f;
             CurrentTrack.StereoDistance = new Vector3(4, 0, 0);
             CurrentTrack.Position = new Vector3(0, 0, -4);
-            AudioManager.CurrentContext.Listener.Position = Vector3.Zero;
-            AudioManager.CurrentContext.Listener.Direction = new Vector3(0, 0, -1);
+            AudioManager.Context.Listener.Position = Vector3.Zero;
+            AudioManager.Context.Listener.Direction = new Vector3(0, 0, -1);
         }
 
         public static void SetTrack(LevelTrack level, SeekableClock clock = null)
@@ -56,7 +56,7 @@ namespace Vitaru.Tracks
 
             if (!Game.SampleStore.ObjectDictionary.ContainsKey(file))
             {
-                sample = AudioManager.CurrentContext.ConvertSample(
+                sample = AudioManager.Context.ConvertSample(
                     Vitaru.LevelStorage.GetStream(file),
                     $"{level.Filename}");
                 Game.SampleStore.ObjectDictionary[file] = sample;

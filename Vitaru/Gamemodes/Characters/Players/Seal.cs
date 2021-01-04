@@ -234,7 +234,7 @@ namespace Vitaru.Gamemodes.Characters.Players
             {
             }
 
-            public override void Render() => Renderer.CurrentContext.Render(this, Renderer.CircularProgram);
+            public override void Render() => Renderer.Context.Render(this, Renderer.CircularProgram);
         }
     }
 }
