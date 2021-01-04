@@ -139,7 +139,9 @@ namespace Vitaru
 
             #region Shaders
 
+#if !PUBLISH
             if (!(Renderer.Context is DirectX12))
+#endif
             {
                 //Post
                 Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
