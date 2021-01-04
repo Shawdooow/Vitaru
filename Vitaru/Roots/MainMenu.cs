@@ -51,7 +51,9 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.BottomCenter,
                 Origin = Mounts.BottomCenter,
                 FontScale = 0.25f,
-                Text = NucleusLaunchArgs.Features != Features.Standard ? $"{Vitaru.VERSION} - {Vitaru.FEATURES}" : Vitaru.VERSION,
+                Text = NucleusLaunchArgs.Features != Features.Standard
+                    ? $"{Vitaru.VERSION} - {Vitaru.FEATURES}"
+                    : Vitaru.VERSION,
                 Color = Color.LimeGreen
             });
 

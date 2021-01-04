@@ -9,7 +9,6 @@ using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Contexts.DX12;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
