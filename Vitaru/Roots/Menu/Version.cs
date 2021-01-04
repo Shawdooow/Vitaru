@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus;
@@ -9,9 +10,9 @@ namespace Vitaru.Roots.Menu
     {
         private const string version =
 #if !PUBLISH
-            Vitaru.VERSION;
+            "DEBUG " + Vitaru.VERSION;
 #else
-            $"DEBUG {Vitaru.VERSION}";
+            Vitaru.VERSION;
 #endif
 
         public Version()
@@ -27,11 +28,27 @@ namespace Vitaru.Roots.Menu
                 ? $"{version} - {Vitaru.FEATURES}"
                 : version;
 
-            Color =
 #if !PUBLISH
-                Color.LimeGreen;
+            Color = Color.Red;
 #else
-                Color.Gold;
+            switch (NucleusLaunchArgs.Features)
+            {
+                case Features.Safe:
+                    Color = Color.DeepSkyBlue;
+                    break;
+                default:
+                    Color = Color.LimeGreen;
+                    break;
+                case Features.Upcoming:
+                    Color = Color.Gold;
+                    break;
+                case Features.Experimental:
+                    Color = Color.OrangeRed;
+                    break;
+                case Features.Radioactive:
+                    Color = Color.Purple;
+                    break;
+            }
 # endif
         }
     }
