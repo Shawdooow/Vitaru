@@ -13,7 +13,8 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
-using Prion.Nucleus.IO.Configs;
+using Prion.Mitochondria.Settings;
+using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
 using Vitaru.Settings.Options;
 
@@ -64,37 +65,37 @@ namespace Vitaru.Settings
                             Text = "Prion",
                             FontScale = 0.24f
                         },
-                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.Fullscreen)
+                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.Fullscreen)
                         {
                             Text = "Toggle Fullscreen",
                             OnValueChange = value =>
                                 Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
                         },
-                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.VSync)
+                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.VSync)
                         {
                             Text = "Toggle VSync"
                         },
-                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.UpdateFrequency, 30, 1000)
+                        new SliderOption<NucleusSetting>(Game.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
                             OnValueChange = value => game.UpdateFrequency = (int) value
                         },
-                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.DrawFrequency, 30, 1000)
+                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.DrawFrequency, 30, 1000)
                         {
                             Text = "Draw Frequency",
                             OnValueChange = value => Renderer.DrawFrequency = (int) value
                         },
-                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleUpdate, 10, 60)
+                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleUpdate, 10, 60)
                         {
                             Text = "Idle Update Frequency",
                             OnValueChange = value => game.IdleUpdate = (int) value
                         },
-                        new SliderOption<PrionSetting>(Game.Settings, PrionSetting.IdleDraw, 10, 60)
+                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleDraw, 10, 60)
                         {
                             Text = "Idle Draw Frequency",
                             OnValueChange = value => Renderer.IdleDraw = (int) value
                         },
-                        new ToggleOption<PrionSetting>(Game.Settings, PrionSetting.LimitDrawToUpdate)
+                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.LimitDrawToUpdate)
                         {
                             Text = "Limit Draw to Update",
                             OnValueChange = value => Renderer.LimitDrawToUpdate = value

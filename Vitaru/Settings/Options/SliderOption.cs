@@ -8,7 +8,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Receivers;
-using Prion.Nucleus.IO.Configs;
+using Prion.Nucleus.IO;
 using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Settings.Options

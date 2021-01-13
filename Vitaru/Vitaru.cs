@@ -17,8 +17,8 @@ using Prion.Nucleus;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.IO;
-using Prion.Nucleus.IO.Configs;
 using Prion.Nucleus.Platform;
+using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
@@ -123,7 +123,7 @@ namespace Vitaru
                 }
             }
 
-            int dtco = Settings.GetInt(PrionSetting.DynamicThreadCountOverride);
+            int dtco = Settings.GetInt(NucleusSetting.DynamicThreadCountOverride);
 
             if (dtco <= -1)
             {
