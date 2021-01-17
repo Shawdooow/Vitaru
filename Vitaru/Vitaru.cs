@@ -32,7 +32,7 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
-        public const string VERSION = "0.11.2";
+        public const string VERSION = "0.11.3";
 
         /// <summary>
         ///     Bool for easter egg Alki mode.
