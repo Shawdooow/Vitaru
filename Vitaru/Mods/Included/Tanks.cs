@@ -78,11 +78,11 @@ namespace Vitaru.Mods.Included
                 global.Diffuse = Color.BurlyWood.Vector();
 
                 blue = LightManager.GetLight();
-                blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
+                blue.Position = TrackManager.CurrentTrack.Source.LeftPosition.NegativeXZ();
                 blue.Diffuse = Color.Blue.Vector();
 
                 red = LightManager.GetLight();
-                red.Position = TrackManager.CurrentTrack.Source.RightPosition;
+                red.Position = TrackManager.CurrentTrack.Source.RightPosition.NegativeXZ();
                 red.Diffuse = Color.Red.Vector();
 
                 const float scale = 0.05f;
