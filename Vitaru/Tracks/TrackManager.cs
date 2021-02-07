@@ -91,7 +91,7 @@ namespace Vitaru.Tracks
 
         public static void NextTrack()
         {
-            LevelTrack next = LevelStore.SetRandomLevel(CurrentTrack.Level);
+            LevelTrack next = LevelStore.SetRandomLevel(LevelStore.CurrentPack);
             SetTrack(next, CurrentTrack.SeekableClock);
         }
 

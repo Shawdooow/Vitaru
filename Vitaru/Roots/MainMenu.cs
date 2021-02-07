@@ -41,9 +41,9 @@ namespace Vitaru.Roots
 
             Add(controller = new TrackController
             {
-                Position = new Vector2(40, -40),
-                Origin = Mounts.BottomLeft,
-                ParentOrigin = Mounts.BottomLeft
+                Position = new Vector2(-40),
+                Origin = Mounts.BottomRight,
+                ParentOrigin = Mounts.BottomRight
             });
             Add(new InstancedText
             {

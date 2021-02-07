@@ -208,13 +208,20 @@ namespace Vitaru.Levels
         /// </summary>
         /// <param name="last"></param>
         /// <returns></returns>
-        public static LevelTrack SetRandomLevel(LevelTrack last)
+        public static LevelTrack SetRandomLevel(LevelPack last)
+        {
+            SetLevel(GetRandomLevel(last));
+
+            return CurrentPack.Levels[0].LevelTrack;
+        }
+
+        public static LevelPack GetRandomLevel(LevelPack last)
         {
             int random = PrionMath.RandomNumber(0, LoadedLevels.Count);
 
             for (int i = 0; i < 10; i++)
             {
-                if (LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title ||
+                if (last != null && LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title ||
                     !LoadedLevels[random].Levels[0].LevelTrack.Autoplay)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
@@ -223,7 +230,7 @@ namespace Vitaru.Levels
 
             SetLevel(LoadedLevels[random]);
 
-            return CurrentPack.Levels[0].LevelTrack;
+            return CurrentPack;
         }
 
         public static void SaveCurrentLevel()

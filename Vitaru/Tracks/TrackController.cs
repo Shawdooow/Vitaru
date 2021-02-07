@@ -205,7 +205,7 @@ namespace Vitaru.Tracks
             {
                 Benchmark track = new("Prime TrackManager", true);
 
-                LevelPack p = LevelStore.LoadedLevels[PrionMath.RandomNumber(0, LevelStore.LoadedLevels.Count)];
+                LevelPack p = LevelStore.GetRandomLevel(null);
 
                 if (Vitaru.ALKI == 1)
                 {
@@ -274,7 +274,7 @@ namespace Vitaru.Tracks
             {
                 Benchmark b = new("Switch Level", true);
 
-                LevelTrack n = LevelStore.SetRandomLevel(TrackManager.CurrentTrack.Level);
+                LevelTrack n = LevelStore.SetRandomLevel(LevelStore.CurrentPack);
                 song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
