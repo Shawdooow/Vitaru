@@ -35,6 +35,14 @@ namespace Vitaru
         public const string VERSION = "0.11.3";
 
         /// <summary>
+        ///     For Online Connections
+        /// </summary>
+        public static readonly string[] COMPATABLE_VERSIONS = 
+        {
+            VERSION,
+        };
+
+        /// <summary>
         ///     Bool for easter egg Alki mode.
         ///     It has a 1/100 chance of being true on startup and can not be set manually
         /// </summary>
@@ -49,6 +57,10 @@ namespace Vitaru
             "Vitaru";
 #endif
 
+        /// <summary>
+        ///     StartupObject EntryPoint
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             startup.Start();
@@ -123,16 +135,16 @@ namespace Vitaru
                 }
             }
 
-            int dtco = Settings.GetInt(NucleusSetting.DynamicThreadCountOverride);
+            int threads = Settings.GetInt(NucleusSetting.DynamicThreadCountOverride);
 
-            if (dtco <= -1)
+            if (threads <= -1)
             {
                 while (FreeProcessors > 0)
                     CreateDynamicTask();
             }
             else
             {
-                while (DynamicThreads.Count < dtco)
+                while (DynamicThreads.Count < threads)
                     CreateDynamicTask();
             }
 

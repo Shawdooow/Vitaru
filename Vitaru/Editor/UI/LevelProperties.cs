@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Vitaru.Levels;
 using Vitaru.Themes;
 
@@ -321,7 +322,7 @@ namespace Vitaru.Editor.UI
                 return;
             }
 
-            LevelStore.CurrentLevel.Format = LevelStore.VERSION_ONE;
+            LevelStore.CurrentLevel.Format = Vitaru.FEATURES >= Features.Experimental ? LevelStore.EXPERIMENTAL : LevelStore.STABLE;
 
             LevelStore.CurrentLevel.LevelTrack.Title = title.Text;
             LevelStore.CurrentLevel.LevelTrack.Artist = artist.Text;
