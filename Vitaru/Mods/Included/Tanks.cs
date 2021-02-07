@@ -78,14 +78,32 @@ namespace Vitaru.Mods.Included
                 global.Diffuse = Color.BurlyWood.Vector();
 
                 blue = LightManager.GetLight();
-                blue.Position = TrackManager.CurrentTrack.Source.LeftPosition.NegativeXZ();
+                blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
                 blue.Diffuse = Color.Blue.Vector();
 
                 red = LightManager.GetLight();
-                red.Position = TrackManager.CurrentTrack.Source.RightPosition.NegativeXZ();
+                red.Position = TrackManager.CurrentTrack.Source.RightPosition;
                 red.Diffuse = Color.Red.Vector();
 
                 const float scale = 0.05f;
+
+                TexturedModel world = new()
+                {
+                    Position = new Vector3(0, -100, 0),
+                    Scale = new Vector3(1),
+                    Yaw = MathF.PI
+                };
+                world.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
+                Renderer.Context.BufferMeshes(world);
+
+                TexturedModel starship = new()
+                {
+                    Position = new Vector3(0, -20, -20),
+                    Scale = new Vector3(1),
+                    Yaw = MathF.PI
+                };
+                starship.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("SN9.obj")));
+                Renderer.Context.BufferMeshes(starship);
 
                 TexturedModel body = new()
                 {
@@ -127,6 +145,8 @@ namespace Vitaru.Mods.Included
 
                     Children = new[]
                     {
+                        world,
+                        starship,
                         body,
                         turret,
                         left,
