@@ -60,6 +60,7 @@ namespace Vitaru.Mods.Included
             //private SnowLayer snow;
 
             private LightPointer global;
+            private LightPointer green;
             private LightPointer blue;
             private LightPointer red;
 
@@ -76,6 +77,9 @@ namespace Vitaru.Mods.Included
                 global = LightManager.GetLight();
                 global.Position = new Vector3(0, -200, -100);
                 global.Diffuse = Color.BurlyWood.Vector();
+
+                green = LightManager.GetLight();
+                green.Diffuse = Color.LawnGreen.Vector();
 
                 blue = LightManager.GetLight();
                 blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
@@ -237,6 +241,8 @@ namespace Vitaru.Mods.Included
                     else if (input[VitaruActions.Sneak])
                         camera.Position -= camera.Up * t;
 
+                    green.Position = camera.Position;
+
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
                     AudioManager.Context.Listener.Position = camera.Position;
@@ -277,6 +283,7 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
+                LightManager.ReturnLight(green);
                 LightManager.ReturnLight(red);
                 LightManager.ReturnLight(blue);
                 LightManager.ReturnLight(global);
