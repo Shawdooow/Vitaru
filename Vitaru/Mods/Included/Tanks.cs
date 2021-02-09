@@ -19,6 +19,7 @@ using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus;
@@ -64,6 +65,8 @@ namespace Vitaru.Mods.Included
             private LightPointer blue;
             private LightPointer red;
 
+            private InstancedText position;
+
             public override void LoadingComplete()
             {
                 input = new PlayerBinds();
@@ -75,7 +78,7 @@ namespace Vitaru.Mods.Included
                 LightManager.SetShaderStorageBuffer(new ShaderStorageBuffer<Light>(1));
 
                 global = LightManager.GetLight();
-                global.Position = new Vector3(0, -200, -100);
+                global.Position = new Vector3(10, -200, 10);
                 global.Diffuse = Color.BurlyWood.Vector();
 
                 green = LightManager.GetLight();
@@ -167,6 +170,12 @@ namespace Vitaru.Mods.Included
                     Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
                 Add(new PerformanceDisplay(DisplayType.FPS));
+                Add(position = new InstancedText
+                {
+                    ParentOrigin = Mounts.TopRight,
+                    Origin = Mounts.TopRight,
+                    FontScale = 0.25f,
+                });
 
                 Add(new Layer2D<IDrawable2D>
                 {
@@ -242,6 +251,7 @@ namespace Vitaru.Mods.Included
                         camera.Position -= camera.Up * t;
 
                     green.Position = camera.Position;
+                    position.Text = $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Y, 2)}])";
 
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
