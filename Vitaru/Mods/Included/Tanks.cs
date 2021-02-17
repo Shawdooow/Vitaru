@@ -96,8 +96,8 @@ namespace Vitaru.Mods.Included
 
                 TexturedModel world = new()
                 {
-                    Position = new Vector3(0, -100, 0),
-                    Scale = new Vector3(1),
+                    Position = new Vector3(0, -10, 0),
+                    Scale = new Vector3(0.01f),
                     Yaw = MathF.PI
                 };
                 world.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
@@ -131,7 +131,7 @@ namespace Vitaru.Mods.Included
                 TexturedModel left = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.LeftPosition,
-                    Scale = new Vector3(scale),
+                    Scale = new Vector3(scale * 4),
                     Color = Color.Blue
                 };
                 left.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
@@ -140,7 +140,7 @@ namespace Vitaru.Mods.Included
                 TexturedModel right = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition,
-                    Scale = new Vector3(scale),
+                    Scale = new Vector3(scale * 4),
                     Color = Color.Red
                 };
                 right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
@@ -165,9 +165,6 @@ namespace Vitaru.Mods.Included
 
                 Renderer.TextureProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
-
-                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.7f,
-                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
                 Add(new PerformanceDisplay(DisplayType.FPS));
                 Add(position = new InstancedText
