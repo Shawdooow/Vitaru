@@ -74,9 +74,9 @@ namespace Vitaru.Graphics.ComboFire
 
             texture = Game.TextureStore.GetTexture("flame.png");
 
-            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex, "Fire",
                 new StreamReader(Vitaru.ShaderStorage.GetStream("combo_fire.vert")).ReadToEnd());
-            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel, "Fire",
                 new StreamReader(Vitaru.ShaderStorage.GetStream("combo_fire.frag")).ReadToEnd());
 
             program = Renderer.ShaderManager.GetShaderProgram(vert, frag);

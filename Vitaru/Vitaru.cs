@@ -155,9 +155,9 @@ namespace Vitaru
 #endif
             {
                 //Post
-                Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+                Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, "Post",
                     new StreamReader(ShaderStorage.GetStream("post.vert")).ReadToEnd());
-                Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                Shader pf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, "Post",
                     new StreamReader(ShaderStorage.GetStream("post_shade.frag")).ReadToEnd());
 
                 Renderer.PostProgram.Dispose();
@@ -176,9 +176,9 @@ namespace Vitaru
                 Renderer.ShaderManager.UpdateFloat("intensity", 1);
 
                 //Bullet
-                Shader bv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+                Shader bv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, "Bullets",
                     new StreamReader(ShaderStorage.GetStream("bullet.vert")).ReadToEnd());
-                Shader bf = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+                Shader bf = Renderer.ShaderManager.GetShader(ShaderType.Pixel, "Bullets",
                     new StreamReader(ShaderStorage.GetStream("bullet.frag")).ReadToEnd());
 
                 BulletProgram = Renderer.ShaderManager.GetShaderProgram(bv, bf);

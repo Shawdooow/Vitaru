@@ -75,9 +75,9 @@ namespace Vitaru.Graphics.Particles
 
             texture = Game.TextureStore.GetTexture("star.png");
 
-            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex,
+            Shader vert = Renderer.ShaderManager.GetShader(ShaderType.Vertex, "Particles",
                 new StreamReader(Vitaru.ShaderStorage.GetStream("particle.vert")).ReadToEnd());
-            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel,
+            Shader frag = Renderer.ShaderManager.GetShader(ShaderType.Pixel, "Particles",
                 new StreamReader(Vitaru.ShaderStorage.GetStream("particle.frag")).ReadToEnd());
 
             program = Renderer.ShaderManager.GetShaderProgram(vert, frag);

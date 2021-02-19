@@ -1,10 +1,13 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+#define NORMAL
+
 using System;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using OpenTK.Graphics.OpenGL4;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -24,10 +27,12 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Tracks;
+using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 namespace Vitaru.Mods.Included
 {
@@ -69,40 +74,77 @@ namespace Vitaru.Mods.Included
 
             private InstancedText position;
 
+            private bool wireframe;
+            private bool normal;
+
             public override void LoadingComplete()
             {
 #if NORMAL
-                string v = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.vert")).ReadToEnd();
-                string g = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.geom")).ReadToEnd();
-                string f = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.frag")).ReadToEnd();
+                string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();
+                string g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.geom")).ReadToEnd();
+                string f = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.frag")).ReadToEnd();
 
-                Shader vert = new GLShader(ShaderType.Vertex, v);
-                Shader geom = new GLShader(ShaderType.Geometry, g);
-                Shader frag = new GLShader(ShaderType.Pixel, f);
+                Shader vert = new GLShader(ShaderType.Vertex, "VertexNormal", v);
+                Shader geom = new GLShader(ShaderType.Geometry, "VertexNormal", g);
+                Shader frag = new GLShader(ShaderType.Pixel, "VertexNormal", f);
 
-                normal = new(vert, geom, frag)
+                vNormal = new(vert, geom, frag)
                 {
-                    Name = "Normal"
+                    Name = "VertexNormal"
                 };
 
                 //Vertex
-                normal.Locations["projection"] = GLShaderManager.GetLocation(normal, "projection");
-                normal.Locations["model"] = GLShaderManager.GetLocation(normal, "model");
-                normal.Locations["view"] = GLShaderManager.GetLocation(normal, "view");
+                vNormal.Locations["projection"] = GLShaderManager.GetLocation(vNormal, "projection");
+                vNormal.Locations["model"] = GLShaderManager.GetLocation(vNormal, "model");
+                vNormal.Locations["view"] = GLShaderManager.GetLocation(vNormal, "view");
 
                 //Pixel
-                normal.Locations["modelColor"] = GLShaderManager.GetLocation(normal, "modelColor");
+                vNormal.Locations["modelColor"] = GLShaderManager.GetLocation(vNormal, "modelColor");
 
                 Renderer.OnResize += value =>
                 {
-                    normal.SetActive();
-                    Renderer.ShaderManager.ActiveShaderProgram = normal;
+                    vNormal.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 1000f));
+                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
                 };
 
-                normal.SetActive();
-                Renderer.ShaderManager.ActiveShaderProgram = normal;
+                vNormal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = vNormal;
+                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
+                    Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+
+                v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.vert")).ReadToEnd();
+                g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.geom")).ReadToEnd();
+                f = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.frag")).ReadToEnd();
+
+                vert = new GLShader(ShaderType.Vertex, "FaceNormal", v);
+                geom = new GLShader(ShaderType.Geometry, "FaceNormal", g);
+                frag = new GLShader(ShaderType.Pixel, "FaceNormal", f);
+
+                fNormal = new(vert, geom, frag)
+                {
+                    Name = "FaceNormal"
+                };
+
+                //Vertex
+                fNormal.Locations["projection"] = GLShaderManager.GetLocation(fNormal, "projection");
+                fNormal.Locations["model"] = GLShaderManager.GetLocation(fNormal, "model");
+                fNormal.Locations["view"] = GLShaderManager.GetLocation(fNormal, "view");
+
+                //Pixel
+                fNormal.Locations["modelColor"] = GLShaderManager.GetLocation(fNormal, "modelColor");
+
+                Renderer.OnResize += value =>
+                {
+                    fNormal.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = fNormal;
+                    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
+                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                };
+
+                fNormal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
                     Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
 #endif
@@ -161,6 +203,7 @@ namespace Vitaru.Mods.Included
                 turret = new TexturedModel
                 {
                     Scale = new Vector3(scale),
+                    Position = new Vector3(0, 1, 0),
                     Yaw = MathF.PI
                 };
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
@@ -231,7 +274,8 @@ namespace Vitaru.Mods.Included
             private float deltaX;
             private float deltaY;
 #if NORMAL
-            private GLShaderProgram normal;
+            private GLShaderProgram vNormal;
+            private GLShaderProgram fNormal;
 #endif
 
             //private double s;
@@ -325,8 +369,14 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
 
 #if NORMAL
-                normal.SetActive();
-                Renderer.ShaderManager.ActiveShaderProgram = normal;
+                vNormal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = vNormal;
+
+                Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
+                Renderer.ShaderManager.UpdateMatrix4("model", m);
+
+                fNormal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = fNormal;
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
@@ -339,17 +389,42 @@ namespace Vitaru.Mods.Included
 #if NORMAL
             public override void Render3D()
             {
+                if (wireframe) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
                 base.Render3D();
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
-                normal.SetActive();
-                Renderer.ShaderManager.ActiveShaderProgram = normal;
+                if (normal)
+                {
+                    vNormal.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = vNormal;
 
-                Layers3D.Render();
+                    Layers3D.Render();
 
-                Renderer.TextureProgram.SetActive();
-                Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
+                    fNormal.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = fNormal;
+
+                    Layers3D.Render();
+
+                    Renderer.TextureProgram.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
+                }
             }
 #endif
+
+            protected override void OnKeyDown(KeyboardKeyEvent e)
+            {
+                base.OnKeyDown(e);
+
+                switch (e.Key)
+                {
+                    case Keys.F:
+                        wireframe = !wireframe;
+                        break;
+                    case Keys.N:
+                        normal = !normal;
+                        break;
+                }
+            }
 
             protected override void Dispose(bool finalize)
             {
@@ -358,7 +433,8 @@ namespace Vitaru.Mods.Included
                 if (global == null) return;
 
 #if NORMAL
-                normal.Dispose();
+                fNormal.Dispose();
+                vNormal.Dispose();
 #endif
 
                 LightManager.ReturnLight(green);
