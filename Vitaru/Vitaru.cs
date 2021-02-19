@@ -173,7 +173,7 @@ namespace Vitaru
                 post.Locations["intensity"] = GLShaderManager.GetLocation(post, "intensity");
 
                 Renderer.ShaderManager.UpdateInt("shade", 0);
-                Renderer.ShaderManager.UpdateInt("intensity", 1);
+                Renderer.ShaderManager.UpdateFloat("intensity", 1);
 
                 //Bullet
                 Shader bv = Renderer.ShaderManager.GetShader(ShaderType.Vertex,

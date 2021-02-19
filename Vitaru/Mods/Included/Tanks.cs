@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using System.Numerics;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
@@ -18,6 +19,7 @@ using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Roots;
+using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
@@ -69,6 +71,42 @@ namespace Vitaru.Mods.Included
 
             public override void LoadingComplete()
             {
+#if NORMAL
+                string v = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.vert")).ReadToEnd();
+                string g = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.geom")).ReadToEnd();
+                string f = new StreamReader(Game.ShaderStorage.GetStream("3D\\normal.frag")).ReadToEnd();
+
+                Shader vert = new GLShader(ShaderType.Vertex, v);
+                Shader geom = new GLShader(ShaderType.Geometry, g);
+                Shader frag = new GLShader(ShaderType.Pixel, f);
+
+                normal = new(vert, geom, frag)
+                {
+                    Name = "Normal"
+                };
+
+                //Vertex
+                normal.Locations["projection"] = GLShaderManager.GetLocation(normal, "projection");
+                normal.Locations["model"] = GLShaderManager.GetLocation(normal, "model");
+                normal.Locations["view"] = GLShaderManager.GetLocation(normal, "view");
+
+                //Pixel
+                normal.Locations["modelColor"] = GLShaderManager.GetLocation(normal, "modelColor");
+
+                Renderer.OnResize += value =>
+                {
+                    normal.SetActive();
+                    Renderer.ShaderManager.ActiveShaderProgram = normal;
+                    Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
+                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 1000f));
+                };
+
+                normal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = normal;
+                Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
+                    Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+#endif
+
                 input = new PlayerBinds();
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
 
@@ -192,6 +230,9 @@ namespace Vitaru.Mods.Included
 
             private float deltaX;
             private float deltaY;
+#if NORMAL
+            private GLShaderProgram normal;
+#endif
 
             //private double s;
 
@@ -282,13 +323,43 @@ namespace Vitaru.Mods.Included
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
+
+#if NORMAL
+                normal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = normal;
+
+                Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
+                Renderer.ShaderManager.UpdateMatrix4("model", m);
+
+                Renderer.TextureProgram.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
+#endif
             }
+
+#if NORMAL
+            public override void Render3D()
+            {
+                base.Render3D();
+
+                normal.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = normal;
+
+                Layers3D.Render();
+
+                Renderer.TextureProgram.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
+            }
+#endif
 
             protected override void Dispose(bool finalize)
             {
                 base.Dispose(finalize);
 
                 if (global == null) return;
+
+#if NORMAL
+                normal.Dispose();
+#endif
 
                 LightManager.ReturnLight(green);
                 LightManager.ReturnLight(red);
