@@ -61,6 +61,8 @@ namespace Vitaru.Mods.Included
         {
             public override string Name => nameof(TanksRoot);
 
+            private TrackController controller;
+
             private Camera camera;
             private PlayerBinds input;
             private TexturedModel turret;
@@ -148,6 +150,15 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
                     Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
 #endif
+
+                Add(controller = new TrackController
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
+                    Position = new Vector2(20),
+                    Alpha = 0.8f,
+                    PassDownInput = false
+                });
 
                 input = new PlayerBinds();
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
@@ -284,6 +295,9 @@ namespace Vitaru.Mods.Included
             public override void Update()
             {
                 base.Update();
+
+                controller.Update();
+                controller.TryRepeat();
 
                 //s += Clock.LastElapsedTime;
 
