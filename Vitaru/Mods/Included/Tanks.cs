@@ -158,11 +158,12 @@ namespace Vitaru.Mods.Included
                 LightManager.SetShaderStorageBuffer(new ShaderStorageBuffer<Light>(1));
 
                 global = LightManager.GetLight();
-                global.Position = new Vector3(10, -200, 10);
+                global.Position = new Vector3(100, -200, 100);
                 global.Diffuse = Color.BurlyWood.Vector();
 
                 green = LightManager.GetLight();
                 green.Diffuse = Color.LawnGreen.Vector();
+                green.Falloffs = green.Falloffs * 2f;
 
                 blue = LightManager.GetLight();
                 blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
@@ -333,7 +334,7 @@ namespace Vitaru.Mods.Included
                         camera.Position -= camera.Up * t;
 
                     green.Position = camera.Position;
-                    position.Text = $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Y, 2)}])";
+                    position.Text = $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Z, 2)}])";
 
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
