@@ -187,10 +187,12 @@ namespace Vitaru.Mods.Included
                 blue = LightManager.GetLight();
                 blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
                 blue.Diffuse = Color.Blue.Vector();
+                blue.Falloffs = new Vector3(0.1f);
 
                 red = LightManager.GetLight();
                 red.Position = TrackManager.CurrentTrack.Source.RightPosition;
                 red.Diffuse = Color.Red.Vector();
+                red.Falloffs = new Vector3(0.1f);
 
                 const float scale = 0.05f;
 
@@ -311,18 +313,18 @@ namespace Vitaru.Mods.Included
 
                 if (TrackManager.CurrentTrack.CheckNewBeat())
                 {
-                    blue.Falloffs = new Vector3(0.5f, 0.5f, 0.5f);
-                    red.Falloffs = new Vector3(0.5f, 0.5f, 0.5f);
+                    blue.Falloffs = new Vector3(0.1f);
+                    red.Falloffs = new Vector3(0.1f);
 
-                    Vector3 flash = new Vector3(1f, 1f, 1f);
+                    Vector3 dim = new Vector3(0.5f);
 
-                    new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs, 
-                        flash, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                    new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs,
+                        dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
                     {
                         Name = "Blue"
                     };
                     new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
-                        flash, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                        dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
                     {
                         Name = "Red"
                     };
