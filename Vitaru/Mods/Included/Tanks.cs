@@ -245,7 +245,7 @@ namespace Vitaru.Mods.Included
                 right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(right);
 
-                bill = new BillboardSprite
+                bill = new BillboardSprite(camera)
                 {
                     Position = new Vector3(0, 4, 0)
                 };
@@ -365,12 +365,7 @@ namespace Vitaru.Mods.Included
                     AudioManager.Context.Listener.Direction = camera.Front;
                 }
 
-                Vector3 look = camera.Position - bill.Position + camera.Right;
-
-                look = Vector3.Normalize(look);
-
-                bill.Pitch = look.Y;
-                bill.Yaw = look.Z;
+                bill.UpdateRotation();
             }
 
             private void mouseInput()
