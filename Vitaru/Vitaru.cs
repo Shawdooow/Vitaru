@@ -37,7 +37,7 @@ namespace Vitaru
         /// <summary>
         ///     For Online Connections
         /// </summary>
-        public static readonly string[] COMPATABLE_VERSIONS = 
+        public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS = 
         {
             VERSION,
         };
