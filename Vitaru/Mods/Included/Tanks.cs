@@ -66,18 +66,25 @@ namespace Vitaru.Mods.Included
             private Camera camera;
             private PlayerBinds input;
             private TexturedModel turret;
+            private BillboardSprite bill;
 
             //private SnowLayer snow;
 
             private LightPointer global;
-            private LightPointer green;
+            private LightPointer torch;
             private LightPointer blue;
             private LightPointer red;
 
             private InstancedText position;
 
-            private bool wireframe;
+#if NORMAL
+            private GLShaderProgram vNormal;
+            private GLShaderProgram fNormal;
+#endif
+
+            private bool flashlight = true;
             private bool normal;
+            private bool wireframe;
 
             public override void LoadingComplete()
             {
@@ -169,12 +176,12 @@ namespace Vitaru.Mods.Included
                 LightManager.SetShaderStorageBuffer(new ShaderStorageBuffer<Light>(1));
 
                 global = LightManager.GetLight();
-                global.Position = new Vector3(100, -200, 100);
-                global.Diffuse = Color.BurlyWood.Vector();
+                global.Position = new Vector3(100, -100, 500);
+                global.Diffuse = new Vector3(0.8f, 0.9f, 1f) / 2;
 
-                green = LightManager.GetLight();
-                green.Diffuse = Color.LawnGreen.Vector();
-                green.Falloffs = green.Falloffs * 2f;
+                torch = LightManager.GetLight();
+                torch.Diffuse = Color.DarkOrange.Vector();
+                torch.Falloffs = new Vector3(0.5f, 0.5f, 0.05f);
 
                 blue = LightManager.GetLight();
                 blue.Position = TrackManager.CurrentTrack.Source.LeftPosition;
@@ -188,7 +195,7 @@ namespace Vitaru.Mods.Included
 
                 TexturedModel world = new()
                 {
-                    Position = new Vector3(0, -10, 0),
+                    Position = new Vector3(0, 10, 0),
                     Scale = new Vector3(0.01f),
                     Yaw = MathF.PI
                 };
@@ -197,7 +204,7 @@ namespace Vitaru.Mods.Included
 
                 TexturedModel starship = new()
                 {
-                    Position = new Vector3(0, -20, -20),
+                    Position = new Vector3(0, -2, -20),
                     Scale = new Vector3(1),
                     Yaw = MathF.PI
                 };
@@ -215,7 +222,6 @@ namespace Vitaru.Mods.Included
                 turret = new TexturedModel
                 {
                     Scale = new Vector3(scale),
-                    Position = new Vector3(0, 1, 0),
                     Yaw = MathF.PI
                 };
                 turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
@@ -239,6 +245,12 @@ namespace Vitaru.Mods.Included
                 right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(right);
 
+                bill = new BillboardSprite
+                {
+                    Position = new Vector3(0, 4, 0)
+                };
+                Renderer.Context.BufferMeshes(bill);
+
                 Add(new Layer3D<TexturedModel>
                 {
                     //TODO: make this work Scale = new Vector3(0.05f),
@@ -250,7 +262,8 @@ namespace Vitaru.Mods.Included
                         body,
                         turret,
                         left,
-                        right
+                        right,
+                        bill
                     }
                 });
 
@@ -285,10 +298,6 @@ namespace Vitaru.Mods.Included
 
             private float deltaX;
             private float deltaY;
-#if NORMAL
-            private GLShaderProgram vNormal;
-            private GLShaderProgram fNormal;
-#endif
 
             //private double s;
 
@@ -347,7 +356,7 @@ namespace Vitaru.Mods.Included
                     else if (input[VitaruActions.Sneak])
                         camera.Position -= camera.Up * t;
 
-                    green.Position = camera.Position;
+                    torch.Position = camera.Position;
                     position.Text = $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Z, 2)}])";
 
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
@@ -355,6 +364,13 @@ namespace Vitaru.Mods.Included
                     AudioManager.Context.Listener.Position = camera.Position;
                     AudioManager.Context.Listener.Direction = camera.Front;
                 }
+
+                Vector3 look = camera.Position - bill.Position + camera.Right;
+
+                look = Vector3.Normalize(look);
+
+                bill.Pitch = look.Y;
+                bill.Yaw = look.Z;
             }
 
             private void mouseInput()
@@ -433,10 +449,14 @@ namespace Vitaru.Mods.Included
                 switch (e.Key)
                 {
                     case Keys.F:
-                        wireframe = !wireframe;
+                        flashlight = !flashlight;
+                        torch.Diffuse = flashlight ? Color.DarkOrange.Vector() : Vector3.Zero;
                         break;
                     case Keys.N:
                         normal = !normal;
+                        break;
+                    case Keys.M:
+                        wireframe = !wireframe;
                         break;
                 }
             }
@@ -452,7 +472,7 @@ namespace Vitaru.Mods.Included
                 vNormal.Dispose();
 #endif
 
-                LightManager.ReturnLight(green);
+                LightManager.ReturnLight(torch);
                 LightManager.ReturnLight(red);
                 LightManager.ReturnLight(blue);
                 LightManager.ReturnLight(global);
