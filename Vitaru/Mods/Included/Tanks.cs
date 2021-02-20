@@ -28,6 +28,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
+using Prion.Mitochondria.Utilities;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
@@ -308,6 +309,25 @@ namespace Vitaru.Mods.Included
                 controller.Update();
                 controller.TryRepeat();
 
+                if (TrackManager.CurrentTrack.CheckNewBeat())
+                {
+                    blue.Falloffs = new Vector3(0.5f, 0.5f, 0.5f);
+                    red.Falloffs = new Vector3(0.5f, 0.5f, 0.5f);
+
+                    Vector3 flash = new Vector3(1f, 1f, 1f);
+
+                    new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs, 
+                        flash, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                    {
+                        Name = "Blue"
+                    };
+                    new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
+                        flash, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                    {
+                        Name = "Red"
+                    };
+                }
+
                 //s += Clock.LastElapsedTime;
 
                 //if (s >= 5)
@@ -330,7 +350,7 @@ namespace Vitaru.Mods.Included
 
                 //snow.UpdateParticles(0, 8192, (float) Clock.LastElapsedTime);
 
-                if (Renderer.Window.Focused)
+                    if (Renderer.Window.Focused)
                 {
                     Vector2 m = InputManager.Mouse.ScreenPosition;
                     deltaX = w - m.X;
