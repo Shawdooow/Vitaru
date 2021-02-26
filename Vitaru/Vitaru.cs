@@ -65,13 +65,13 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? 1 : 0;
+            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
 
             if (ALKI == 1)
             {
                 if (PrionMath.RandomNumber(0, 5) == 4)
                 {
-                    ALKI++;
+                    ALKI = 2;
                     Logger.SystemConsole("ALL RHIZE", ConsoleColor.DarkMagenta);
                     ThemeManager.Theme = new Rhize();
                 }
