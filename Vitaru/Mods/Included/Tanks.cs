@@ -84,6 +84,8 @@ namespace Vitaru.Mods.Included
 #endif
 
             private bool flashlight = true;
+            private bool lighthouses = true;
+            private bool left;
             private bool normal;
             private bool wireframe;
 
@@ -311,23 +313,14 @@ namespace Vitaru.Mods.Included
                 controller.Update();
                 controller.TryRepeat();
 
-                if (TrackManager.CurrentTrack.CheckNewBeat())
+                if (TrackManager.CurrentTrack.CheckNewBeat() && lighthouses)
                 {
-                    blue.Falloffs = new Vector3(0.1f);
-                    red.Falloffs = new Vector3(0.1f);
+                    left = !left;
 
-                    Vector3 dim = new Vector3(0.5f);
-
-                    new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs,
-                        dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
-                    {
-                        Name = "Blue"
-                    };
-                    new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
-                        dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
-                    {
-                        Name = "Red"
-                    };
+                    if (left)
+                        flashLeft();
+                    else
+                        flashRight();
                 }
 
                 //s += Clock.LastElapsedTime;
@@ -394,6 +387,30 @@ namespace Vitaru.Mods.Included
             {
                 const float sens = 0.002f;
                 camera.Rotation += new Vector3(0, deltaY * sens, -deltaX * sens);
+            }
+
+            private readonly Vector3 dim = new Vector3(0.5f);
+
+            private void flashLeft()
+            {
+                blue.Falloffs = new Vector3(0.1f);
+
+                new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs,
+                    dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                {
+                    Name = "Blue"
+                };
+            }
+
+            private void flashRight()
+            {
+                red.Falloffs = new Vector3(0.1f);
+
+                new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
+                    dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                {
+                    Name = "Red"
+                };
             }
 
             public override void PreRender()
@@ -469,11 +486,36 @@ namespace Vitaru.Mods.Included
                         flashlight = !flashlight;
                         torch.Diffuse = flashlight ? Color.DarkOrange.Vector() : Vector3.Zero;
                         break;
+                    case Keys.R:
+                        lighthouses = !lighthouses;
+                        break;
                     case Keys.N:
                         normal = !normal;
                         break;
                     case Keys.M:
                         wireframe = !wireframe;
+                        break;
+
+                    case Keys.Z:
+                        flashLeft();
+                        break;
+                    case Keys.X:
+                        flashRight();
+                        break;
+                }
+            }
+
+            protected override void OnMouseDown(MouseButtonEvent e)
+            {
+                base.OnMouseDown(e);
+
+                switch (e.Button)
+                {
+                    case MouseButtons.Left:
+                        flashLeft();
+                        break;
+                    case MouseButtons.Right:
+                        flashRight();
                         break;
                 }
             }
