@@ -77,6 +77,7 @@ namespace Vitaru.Mods.Included
             private LightPointer red;
 
             private InstancedText position;
+            private InstancedText mission;
 
 #if NORMAL
             private GLShaderProgram vNormal;
@@ -88,6 +89,9 @@ namespace Vitaru.Mods.Included
             private bool left;
             private bool normal;
             private bool wireframe;
+
+            private int launch;
+            private double time = -10;
 
             public override void LoadingComplete()
             {
@@ -284,6 +288,14 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f,
                 });
+                Add(mission = new InstancedText
+                {
+                    Position = new Vector2(-80, 10),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopLeft,
+                    Alpha = 0,
+                    Text = "T-10"
+                });
 
                 Add(new Layer2D<IDrawable2D>
                 {
@@ -323,6 +335,12 @@ namespace Vitaru.Mods.Included
                         flashRight();
                 }
 
+                if (launch == 4)
+                {
+                    time += Clock.LastElapsedTime / 1000;
+                    mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
+                }
+
                 //s += Clock.LastElapsedTime;
 
                 //if (s >= 5)
@@ -345,7 +363,7 @@ namespace Vitaru.Mods.Included
 
                 //snow.UpdateParticles(0, 8192, (float) Clock.LastElapsedTime);
 
-                    if (Renderer.Window.Focused)
+                if (Renderer.Window.Focused)
                 {
                     Vector2 m = InputManager.Mouse.ScreenPosition;
                     deltaX = w - m.X;
@@ -501,6 +519,26 @@ namespace Vitaru.Mods.Included
                         break;
                     case Keys.X:
                         flashRight();
+                        break;
+                }
+
+                switch (e.Key)
+                {
+                    default:
+                        if (launch < 4) launch = 0;
+                        break;
+                    case Keys.T when launch == 0:
+                        launch++;
+                        break;
+                    case Keys.Minus when launch == 1:
+                        launch++;
+                        break;
+                    case Keys.One when launch == 2:
+                        launch++;
+                        break;
+                    case Keys.Zero when launch == 3:
+                        launch++;
+                        mission.Alpha = 1;
                         break;
                 }
             }
