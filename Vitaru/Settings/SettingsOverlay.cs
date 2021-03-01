@@ -80,7 +80,8 @@ namespace Vitaru.Settings
                             Text = "Update Frequency",
                             OnValueChange = value => game.UpdateFrequency = (int) value
                         },
-                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.DrawFrequency, 30, 1000)
+                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.DrawFrequency, 30,
+                            1000)
                         {
                             Text = "Draw Frequency",
                             OnValueChange = value => Renderer.DrawFrequency = (int) value

@@ -37,9 +37,9 @@ namespace Vitaru
         /// <summary>
         ///     For Online Connections
         /// </summary>
-        public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS = 
+        public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS =
         {
-            VERSION,
+            VERSION
         };
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
+            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte) 1 : (byte) 0;
 
             if (ALKI == 1)
             {

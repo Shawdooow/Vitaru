@@ -104,7 +104,7 @@ namespace Vitaru.Mods.Included
                 Shader geom = new GLShader(ShaderType.Geometry, "VertexNormal", g);
                 Shader frag = new GLShader(ShaderType.Pixel, "VertexNormal", f);
 
-                vNormal = new(vert, geom, frag)
+                vNormal = new GLShaderProgram(vert, geom, frag)
                 {
                     Name = "VertexNormal"
                 };
@@ -122,13 +122,13 @@ namespace Vitaru.Mods.Included
                     vNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                        Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
                 };
 
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 
                 v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.vert")).ReadToEnd();
                 g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.geom")).ReadToEnd();
@@ -138,7 +138,7 @@ namespace Vitaru.Mods.Included
                 geom = new GLShader(ShaderType.Geometry, "FaceNormal", g);
                 frag = new GLShader(ShaderType.Pixel, "FaceNormal", f);
 
-                fNormal = new(vert, geom, frag)
+                fNormal = new GLShaderProgram(vert, geom, frag)
                 {
                     Name = "FaceNormal"
                 };
@@ -156,13 +156,13 @@ namespace Vitaru.Mods.Included
                     fNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                        Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
                 };
 
                 fNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderWidth / (float)Renderer.RenderHeight, 0.1f, 100f));
+                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 #endif
 
                 Add(controller = new TrackController
@@ -286,7 +286,7 @@ namespace Vitaru.Mods.Included
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.TopRight,
-                    FontScale = 0.25f,
+                    FontScale = 0.25f
                 });
                 Add(mission = new InstancedText
                 {
@@ -390,7 +390,8 @@ namespace Vitaru.Mods.Included
                         camera.Position -= camera.Up * t;
 
                     torch.Position = camera.Position;
-                    position.Text = $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Z, 2)}])";
+                    position.Text =
+                        $"Position = (X = [{Math.Round(camera.Position.X, 2)}], Y = [{Math.Round(camera.Position.Y, 2)}], Z = [{Math.Round(camera.Position.Z, 2)}])";
 
                     InputManager.Translator.SetMousePosition(1920 / 2, 1080 / 2);
 
@@ -407,7 +408,7 @@ namespace Vitaru.Mods.Included
                 camera.Rotation += new Vector3(0, deltaY * sens, -deltaX * sens);
             }
 
-            private readonly Vector3 dim = new Vector3(0.5f);
+            private readonly Vector3 dim = new(0.5f);
 
             private void flashLeft()
             {

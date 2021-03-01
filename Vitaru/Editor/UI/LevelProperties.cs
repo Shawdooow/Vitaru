@@ -322,7 +322,8 @@ namespace Vitaru.Editor.UI
                 return;
             }
 
-            LevelStore.CurrentLevel.Format = Vitaru.FEATURES >= Features.Experimental ? LevelStore.EXPERIMENTAL : LevelStore.STABLE;
+            LevelStore.CurrentLevel.Format =
+                Vitaru.FEATURES >= Features.Experimental ? LevelStore.EXPERIMENTAL : LevelStore.STABLE;
 
             LevelStore.CurrentLevel.LevelTrack.Title = title.Text;
             LevelStore.CurrentLevel.LevelTrack.Artist = artist.Text;
