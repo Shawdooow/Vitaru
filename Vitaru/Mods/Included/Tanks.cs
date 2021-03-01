@@ -217,7 +217,7 @@ namespace Vitaru.Mods.Included
                     Scale = new Vector3(1),
                     Yaw = MathF.PI
                 };
-                starship.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("SN9.obj")));
+                starship.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("SN10.obj")));
                 Renderer.Context.BufferMeshes(starship);
 
                 TexturedModel body = new()
