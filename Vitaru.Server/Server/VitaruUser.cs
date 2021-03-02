@@ -14,20 +14,20 @@ namespace Vitaru.Server.Server
     [Serializable]
     public class VitaruUser
     {
-        public string Username = "Alex";
+        public string Username = "User";
 
         public long ID = -1;
 
-        public string Colour = "#ffffff";
+        public string Color = "#ffffff";
 
         public string Country;
 
         public List<Setting> UserSettings = new();
 
-        public PlayerStatues Statues;
+        public PlayerStatus Status;
     }
 
-    public enum PlayerStatues
+    public enum PlayerStatus
     {
         [Description("Joining...")] JoiningMatch,
         [Description("Missing Gamemode")] MissingGamemode,

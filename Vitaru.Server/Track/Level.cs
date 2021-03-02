@@ -5,7 +5,6 @@ using System;
 
 namespace Vitaru.Server.Track
 {
-    [Serializable]
     public class Level
     {
         /// <summary>

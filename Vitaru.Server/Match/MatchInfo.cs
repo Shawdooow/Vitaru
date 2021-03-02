@@ -9,15 +9,15 @@ namespace Vitaru.Server.Match
 {
     public class MatchInfo
     {
-        public string Name = @"Welcome to Vitaru!";
+        public string Name = "Welcome to Vitaru!";
 
         public uint MatchID;
+
+        public long Host;
 
         public List<VitaruUser> Users = new();
 
         public List<Setting> Settings = new();
-
-        public VitaruUser Host;
 
         public Level Level;
     }
