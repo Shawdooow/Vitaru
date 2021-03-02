@@ -4,7 +4,7 @@
 using System;
 using System.Numerics;
 using Prion.Centrosome.NetworkingHandlers;
-using Prion.Centrosome.Packets;
+using Prion.Centrosome.Packets.Types;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
@@ -14,7 +14,6 @@ using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
 using Vitaru.Multiplayer.Client;
 using Vitaru.Server.Match;
-using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Server;
 using Vitaru.Themes;
 
@@ -132,42 +131,42 @@ namespace Vitaru.Roots.Multi
             }
         }
 
-        private void createMatch()
-        {
-            SendPacket(new CreateMatchPacket
-            {
-                MatchInfo = new MatchInfo
-                {
-                    Host = vitaruNet.VitaruUser
-                    //Level = 
-                }
-            });
-        }
-
-        protected virtual void SendPacket(Packet packet) => vitaruNet.SendToServer(packet);
-
-        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
-        {
-            switch (info.Packet)
-            {
-                //Lobby Simulation
-                case MatchListPacket matchListPacket:
-                    //rooms.Children = new Container();
-                    //foreach (MatchInfo m in matchListPacket.MatchInfoList)
-                    //    rooms.Add(new MatchTile(vitaruNet, m));
-                    break;
-                case MatchCreatedPacket matchCreated:
-                    //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
-                    SendPacket(new JoinMatchPacket
-                    {
-                        Match = matchCreated.MatchInfo,
-                        User = vitaruNet.VitaruUser
-                    });
-                    break;
-                case JoinedMatchPacket joinedMatch:
-                    //Push(new MatchScreen(vitaruNet, joinedMatch));
-                    break;
-            }
-        }
+        //private void createMatch()
+        //{
+        //    SendPacket(new CreateMatchPacket
+        //    {
+        //        MatchInfo = new MatchInfo
+        //        {
+        //            Host = vitaruNet.VitaruUser
+        //            //Level = 
+        //        }
+        //    });
+        //}
+        //
+        //protected virtual void SendPacket(Packet packet) => vitaruNet.SendToServer(packet);
+        //
+        //protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
+        //{
+        //    switch (info.Packet)
+        //    {
+        //        //Lobby Simulation
+        //        case MatchListPacket matchListPacket:
+        //            //rooms.Children = new Container();
+        //            //foreach (MatchInfo m in matchListPacket.MatchInfoList)
+        //            //    rooms.Add(new MatchTile(vitaruNet, m));
+        //            break;
+        //        case MatchCreatedPacket matchCreated:
+        //            //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
+        //            SendPacket(new JoinMatchPacket
+        //            {
+        //                Match = matchCreated.MatchInfo,
+        //                User = vitaruNet.VitaruUser
+        //            });
+        //            break;
+        //        case JoinedMatchPacket joinedMatch:
+        //            //Push(new MatchScreen(vitaruNet, joinedMatch));
+        //            break;
+        //    }
+        //}
     }
 }

@@ -3,6 +3,7 @@
 
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Centrosome.Packets;
+using Prion.Centrosome.Packets.Types;
 using Vitaru.Multiplayer.Client;
 
 namespace Vitaru.Roots.Multi
@@ -18,7 +19,7 @@ namespace Vitaru.Roots.Multi
             VitaruNet = vitaruNet;
         }
 
-        protected virtual void SendPacket(Packet packet) => VitaruNet.SendToServer(packet);
+        //protected virtual void SendPacket(Packet packet) => VitaruNet.SendToServer(packet);
 
         protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
         {
