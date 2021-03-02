@@ -32,7 +32,7 @@ namespace Vitaru
 {
     public class Vitaru : Game
     {
-        public const string VERSION = "0.11.3";
+        public const string VERSION = "0.12.0";
 
         /// <summary>
         ///     For Online Connections
