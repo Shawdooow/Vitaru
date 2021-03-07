@@ -67,6 +67,7 @@ namespace Vitaru.Server.Server
         [Description("Joining...")] JoiningMatch,
         [Description("Missing Gamemode")] MissingGamemode,
         [Description("Missing Level")] MissingLevel,
+        [Description("Downloading Level")] DownloadingLevel,
 
         [Description("Searching For Level...")]
         SearchingForLevel,
