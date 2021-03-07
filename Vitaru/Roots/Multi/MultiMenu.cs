@@ -138,7 +138,7 @@ namespace Vitaru.Roots.Multi
             {
                 MatchInfo = new MatchInfo
                 {
-                    Host = vitaruNet.VitaruUser
+                    Host = vitaruNet.VitaruUser.ID
                     //Level = 
                 }
             });
@@ -152,7 +152,7 @@ namespace Vitaru.Roots.Multi
             {
                 //Lobby Simulation
                 case MatchListPacket matchListPacket:
-                    //rooms.Children = new Container();
+                    //rooms.Clear();
                     //foreach (MatchInfo m in matchListPacket.MatchInfoList)
                     //    rooms.Add(new MatchTile(vitaruNet, m));
                     break;
@@ -160,7 +160,7 @@ namespace Vitaru.Roots.Multi
                     //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
                     SendPacket(new JoinMatchPacket
                     {
-                        Match = matchCreated.MatchInfo,
+                        Match = matchCreated.Match.ID,
                         User = vitaruNet.VitaruUser
                     });
                     break;

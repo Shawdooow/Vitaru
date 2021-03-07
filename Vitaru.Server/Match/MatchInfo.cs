@@ -14,8 +14,11 @@ namespace Vitaru.Server.Match
     {
         public string Name = "Welcome to Vitaru!";
 
-        public uint MatchID;
+        public uint ID;
 
+        /// <summary>
+        ///     Lets assume they will always be in <see cref="Users"/> and just save their ID for sanity
+        /// </summary>
         public long Host;
 
         public List<VitaruUser> Users = new();
@@ -30,7 +33,7 @@ namespace Vitaru.Server.Match
 
             //Fist lets convert each field one at a time to byte arrays
             byte[] name = Name.ToLengthAndBytes();
-            byte[] id = Unsafe.As<uint, byte[]>(ref MatchID);
+            byte[] id = Unsafe.As<uint, byte[]>(ref ID);
             byte[] host = Unsafe.As<long, byte[]>(ref Host);
 
             //Make sure we list how many users are in this lobby
