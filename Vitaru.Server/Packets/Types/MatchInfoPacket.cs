@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using Prion.Centrosome;
 using Prion.Centrosome.Packets.Types;
 using Vitaru.Server.Match;
-using Vitaru.Server.Server;
 
 namespace Vitaru.Server.Packets.Types
 {

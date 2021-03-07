@@ -4,7 +4,7 @@
 	  <AnalysisLevel>preview</AnalysisLevel>
 	  <LangVersion>9.0</LangVersion>
     <AssemblyTitle>Vitaru.Server</AssemblyTitle>
-    <Version>0.11.0</Version>
+    <Version>0.12.0</Version>
     <Authors>Shawdooow</Authors>
     <Company>Sym</Company>
     <Description>Vitaru's Dedicated Server</Description>

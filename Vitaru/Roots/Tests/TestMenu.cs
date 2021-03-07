@@ -59,12 +59,17 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Multi",
 
-                Disabled = Vitaru.FEATURES < Features.Experimental,
+#if PUBLISH
+                //Disabled = Vitaru.FEATURES < Features.Experimental,
+                Disabled = true,
+#else
                 OnClick = () =>
                 {
-                    if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
+                    //if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
+                    if (TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
                 }
+#endif
             });
             Add(new Button
             {

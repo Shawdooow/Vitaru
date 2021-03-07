@@ -38,10 +38,10 @@ namespace Vitaru.Server.Server
 
             //Make sure we list how many settings there are
             int us = UserSettings.Count;
-            byte[] usersettingslength = Unsafe.As<int, byte[]>(ref us);
-            List<byte> usersettings = new();
+            byte[] settingslength = Unsafe.As<int, byte[]>(ref us);
+            List<byte> settings = new();
             foreach (Setting setting in UserSettings)
-                usersettings.AddRange(setting.Serialize());
+                settings.AddRange(setting.Serialize());
 
             byte[] status = Unsafe.As<PlayerStatus, byte[]>(ref Status);
 
@@ -49,8 +49,8 @@ namespace Vitaru.Server.Server
             data.AddRange(userid);
             data.AddRange(color);
             data.AddRange(country);
-            data.AddRange(usersettingslength);
-            data.AddRange(usersettings);
+            data.AddRange(settingslength);
+            data.AddRange(settings);
             data.AddRange(status);
 
             return data.ToArray();

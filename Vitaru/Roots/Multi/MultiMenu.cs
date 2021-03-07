@@ -13,8 +13,6 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
 using Vitaru.Multiplayer.Client;
-using Vitaru.Server.Match;
-using Vitaru.Server.Packets.Lobby;
 using Vitaru.Server.Server;
 using Vitaru.Themes;
 
@@ -128,46 +126,15 @@ namespace Vitaru.Roots.Multi
             }
             catch (Exception e)
             {
-                Logger.Error(e, "Failed to create Local Networking Handler!");
+                Logger.Error(e, "Failed to create Local Networking Handler!", LogType.Network);
             }
         }
 
-        private void createMatch()
-        {
-            SendPacket(new CreateMatchPacket
-            {
-                MatchInfo = new MatchInfo
-                {
-                    Host = vitaruNet.VitaruUser.ID
-                    //Level = 
-                }
-            });
-        }
-        
         protected virtual void SendPacket(IPacket packet) => vitaruNet.SendPacketTCP(packet);
         
         protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
         {
-            switch (info.Packet)
-            {
-                //Lobby Simulation
-                case MatchListPacket matchListPacket:
-                    //rooms.Clear();
-                    //foreach (MatchInfo m in matchListPacket.MatchInfoList)
-                    //    rooms.Add(new MatchTile(vitaruNet, m));
-                    break;
-                case MatchCreatedPacket matchCreated:
-                    //rooms.Add(new MatchTile(vitaruNet, matchCreated.MatchInfo));
-                    SendPacket(new JoinMatchPacket
-                    {
-                        Match = matchCreated.Match.ID,
-                        User = vitaruNet.VitaruUser
-                    });
-                    break;
-                case JoinedMatchPacket joinedMatch:
-                    //Push(new MatchScreen(vitaruNet, joinedMatch));
-                    break;
-            }
+
         }
     }
 }

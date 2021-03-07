@@ -4,7 +4,7 @@
     <AnalysisLevel>preview</AnalysisLevel>
 	  <LangVersion>9.0</LangVersion>
     <AssemblyTitle>Vitaru</AssemblyTitle>
-	  <Version>0.11.0</Version>
+	  <Version>0.12.0</Version>
 	  <Authors>Shawdooow</Authors>
 	  <Company>Sym</Company>
 	  <Description>A bullet dodging rhythym game.</Description>
@@ -14,7 +14,6 @@
     <Configurations>Debug;Release;Publish</Configurations>
     <Platform>AnyCPU</Platform>
     <ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
     <DefineConstant>PUBLISH</DefineConstant>
@@ -35,7 +34,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.deps.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.dev.json&quot; &quot;$(TargetDir)&quot; /Y&#xD;&#xA;if $(ConfigurationName) == Publish xcopy &quot;$(SolutionDir)\Vitaru.Server\bin\Publish\net5.0\Vitaru.Server.runtimeconfig.json&quot; &quot;$(TargetDir)&quot; /Y" />
-  </Target>
 </Project>
