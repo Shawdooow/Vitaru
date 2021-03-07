@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using Prion.Centrosome.Packets;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.DX12;
@@ -25,6 +26,7 @@ using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots;
 using Vitaru.Roots.Tests;
+using Vitaru.Server.Server;
 using Vitaru.Settings;
 using Vitaru.Themes;
 
@@ -55,6 +57,10 @@ namespace Vitaru
             "VitaruDebug";
 #else
             "Vitaru";
+#endif
+
+#if !PUBLISH
+        private static CentrosomePackets loadMyModulesYouDumbFuck;
 #endif
 
         /// <summary>
