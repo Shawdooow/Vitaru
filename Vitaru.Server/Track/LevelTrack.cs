@@ -2,10 +2,12 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
+using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Server.Track
 {
-    public class LevelTrack
+    public class LevelTrack : ISerializableToBytes
     {
         /// <summary>
         ///     Name of the Song
@@ -36,5 +38,17 @@ namespace Vitaru.Server.Track
         public double Offset;
 
         public double PreviewTime;
+
+        public byte[] Serialize()
+        {
+            List<byte> data = new();
+
+            return data.ToArray();
+        }
+
+        public void DeSerialize(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

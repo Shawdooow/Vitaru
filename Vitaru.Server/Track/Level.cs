@@ -2,10 +2,12 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
+using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Server.Track
 {
-    public class Level
+    public class Level : ISerializableToBytes
     {
         /// <summary>
         ///     Information about the Song
@@ -41,5 +43,17 @@ namespace Vitaru.Server.Track
         ///     The serialized enemy data
         /// </summary>
         public string EnemyData;
+
+        public byte[] Serialize()
+        {
+            List<byte> data = new();
+
+            return data.ToArray();
+        }
+
+        public void DeSerialize(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
