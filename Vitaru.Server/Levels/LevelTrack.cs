@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Prion.Nucleus.Utilities.Interfaces;
 
-namespace Vitaru.Server.Track
+namespace Vitaru.Server.Levels
 {
     public class LevelTrack : ISerializableToBytes
     {
@@ -41,6 +41,8 @@ namespace Vitaru.Server.Track
 
         public byte[] Serialize()
         {
+            throw new NotImplementedException();
+
             List<byte> data = new();
 
             return data.ToArray();
