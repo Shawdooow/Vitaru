@@ -130,7 +130,7 @@ namespace Vitaru.Roots.Multi
             }
         }
 
-        protected virtual void SendPacket(IPacket packet) => vitaruNet.SendPacketTCP(packet);
+        protected virtual void SendPacket(IPacket packet) => vitaruNet.SendPacketTcp(packet);
         
         protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
         {
