@@ -21,7 +21,7 @@ using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics.Particles;
 using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Levels;
-using Vitaru.Multiplayer.Client;
+using Vitaru.Networking.Client;
 using Vitaru.Settings;
 using Vitaru.Tracks;
 

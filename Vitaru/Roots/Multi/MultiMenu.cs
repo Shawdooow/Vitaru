@@ -12,7 +12,7 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
-using Vitaru.Multiplayer.Client;
+using Vitaru.Networking.Client;
 using Vitaru.Server.Server;
 using Vitaru.Themes;
 

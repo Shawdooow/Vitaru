@@ -4,7 +4,7 @@
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Centrosome.Packets;
 using Prion.Centrosome.Packets.Types;
-using Vitaru.Multiplayer.Client;
+using Vitaru.Networking.Client;
 
 namespace Vitaru.Roots.Multi
 {

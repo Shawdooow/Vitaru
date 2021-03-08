@@ -3,7 +3,7 @@
 
 using Prion.Centrosome.NetworkingHandlers.Client;
 
-namespace Vitaru.Multiplayer.Client
+namespace Vitaru.Networking.Client
 {
     public sealed class VitaruHost : Host
     {
