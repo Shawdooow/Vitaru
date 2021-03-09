@@ -87,7 +87,7 @@ namespace Vitaru.Roots.Multi
                 vitaruNet.OnConnectedToHost += host =>
                 {
                     Logger.Log("Connected to local server", LogType.Network);
-                    AddRoot(new Lobby(vitaruNet));
+                    //AddRoot(new Lobby(vitaruNet));
                 };
                 vitaruNet.Connect();
             }
@@ -120,7 +120,7 @@ namespace Vitaru.Roots.Multi
                 vitaruNet.OnConnectedToHost += host =>
                 {
                     Logger.Log("Connected to local server", LogType.Network);
-                    AddRoot(new Lobby(vitaruNet));
+                    //AddRoot(new Lobby(vitaruNet));
                 };
                 vitaruNet.Connect();
             }

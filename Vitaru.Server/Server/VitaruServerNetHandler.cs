@@ -62,7 +62,7 @@ namespace Vitaru.Server.Server
         protected void ShareWithMatchClients(MatchInfo match, Packet packet)
         {
             foreach (VitaruUser user in match.Users)
-                SendPacketTCP(packet, FindClient(user).TcpEndPoint);
+                SendPacketTcp(packet, FindClient(user).TcpEndPoint);
         }
 
         /// <summary>
