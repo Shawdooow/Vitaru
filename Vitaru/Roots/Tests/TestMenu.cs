@@ -8,7 +8,6 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
-using Prion.Nucleus;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;

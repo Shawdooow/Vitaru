@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Prion.Centrosome;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
 using Prion.Centrosome.Packets.Types;
 using Vitaru.Server.Match;
 
@@ -19,7 +18,7 @@ namespace Vitaru.Server.Packets.Types
         {
             byte[] data = MatchInfo.Serialize();
 
-            Length = (uint)data.Length;
+            Length = (uint) data.Length;
             return data;
         }
 

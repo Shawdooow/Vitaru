@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Prion.Centrosome;
@@ -17,7 +18,7 @@ namespace Vitaru.Server.Match
         public uint ID;
 
         /// <summary>
-        ///     Lets assume they will always be in <see cref="Users"/> and just save their ID for sanity
+        ///     Lets assume they will always be in <see cref="Users" /> and just save their ID for sanity
         /// </summary>
         public long Host;
 
@@ -69,7 +70,7 @@ namespace Vitaru.Server.Match
 
         public void DeSerialize(byte[] data)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

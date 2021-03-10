@@ -118,14 +118,14 @@ namespace Vitaru.Mods.Included
                     Gain = 100
                 };
                 raptor1 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
-                { 
-                    Gain = 100,
+                {
+                    Gain = 100
                 };
                 raptor2 = new Sound(new SeekableClock
                 {
                     Rate = 1.02d
                 }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
-                { 
+                {
                     Gain = 100,
                     Pitch = 1.02f
                 };
@@ -133,7 +133,7 @@ namespace Vitaru.Mods.Included
                 {
                     Rate = 0.98d
                 }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
-                { 
+                {
                     Gain = 100,
                     Pitch = 0.98f
                 };
@@ -255,7 +255,7 @@ namespace Vitaru.Mods.Included
                 world.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
-                starship = new()
+                starship = new TexturedModel()
                 {
                     Position = new Vector3(0, -2, -20),
                     Scale = new Vector3(1),
@@ -402,8 +402,8 @@ namespace Vitaru.Mods.Included
                         raptor2.TryRepeat();
                         raptor3.TryRepeat();
 
-                        starship.Position += velocity * (float)Clock.LastElapsedTime / 1000f;
-                        velocity += acceleration * (float)Clock.LastElapsedTime / 1000f;
+                        starship.Position += velocity * (float) Clock.LastElapsedTime / 1000f;
+                        velocity += acceleration * (float) Clock.LastElapsedTime / 1000f;
 
                         if (time >= 8 && time <= 22)
                             acceleration =
