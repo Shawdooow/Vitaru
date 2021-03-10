@@ -70,6 +70,8 @@ namespace Vitaru.Mods.Included
             private TexturedModel turret;
             private BillboardSprite bill;
 
+            private Vector3 velocity = Vector3.Zero;
+            private Vector3 acceleration = new(0, 1, 0);
             private TexturedModel starship;
 
             //private SnowLayer snow;
@@ -117,15 +119,23 @@ namespace Vitaru.Mods.Included
                 };
                 raptor1 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
                 { 
-                    Gain = 100
+                    Gain = 100,
                 };
-                raptor2 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                raptor2 = new Sound(new SeekableClock
+                {
+                    Rate = 1.02d
+                }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
                 { 
-                    Gain = 100
+                    Gain = 100,
+                    Pitch = 1.02f
                 };
-                raptor2 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                raptor3 = new Sound(new SeekableClock
+                {
+                    Rate = 0.98d
+                }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
                 { 
-                    Gain = 100
+                    Gain = 100,
+                    Pitch = 0.98f
                 };
 
 
@@ -374,9 +384,32 @@ namespace Vitaru.Mods.Included
                     time += Clock.LastElapsedTime / 1000;
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
-                    if (launch == 4)
+                    if (launch == 4 && time >= 0)
                     {
+                        launch++;
+                        raptor1.Play();
+                        raptor2.Play();
+                        raptor3.Play();
+                    }
 
+                    if (launch >= 5)
+                    {
+                        raptor1.SeekableClock.Update();
+                        raptor2.SeekableClock.Update();
+                        raptor3.SeekableClock.Update();
+
+                        raptor1.TryRepeat();
+                        raptor2.TryRepeat();
+                        raptor3.TryRepeat();
+
+                        starship.Position += velocity * (float)Clock.LastElapsedTime / 1000f;
+                        velocity += acceleration * (float)Clock.LastElapsedTime / 1000f;
+
+                        if (time >= 8 && time <= 22)
+                            acceleration =
+                                PrionMath.Clamp(
+                                    PrionMath.Remap((float) time, 10, 20, new Vector3(0, 1, 0), new Vector3(0, 2, 0)),
+                                    new Vector3(0, 1, 0), new Vector3(0, 2, 0));
                     }
 
                     countdown.Position = starship.Position;
