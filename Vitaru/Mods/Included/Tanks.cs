@@ -97,25 +97,36 @@ namespace Vitaru.Mods.Included
             private double time = -10.6f;
 
             private Sound countdown;
-            private Sound raptors;
+            private Sound raptor1; // 0, 4, 3
+            private Sound raptor2; // -3, 4, -3
+            private Sound raptor3; // 3, 4, -3
 
             public override void PreLoading()
             {
                 base.PreLoading();
 
                 Game.SampleStore.GetSample("SN10 Countdown.wav");
-                //Game.SampleStore.GetSample("SN10 Raptors.wav");
+                Game.SampleStore.GetSample("SN10 Raptor.wav");
             }
 
             public override void LoadingComplete()
             {
                 countdown = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Countdown.wav"))
                 {
-                    Gain = 10
+                    Gain = 100
                 };
-                //raptors = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptors.wav")){
-                //    Gain = 10
-                //};
+                raptor1 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                { 
+                    Gain = 100
+                };
+                raptor2 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                { 
+                    Gain = 100
+                };
+                raptor2 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                { 
+                    Gain = 100
+                };
 
 
 #if NORMAL
@@ -358,13 +369,20 @@ namespace Vitaru.Mods.Included
                         flashRight();
                 }
 
-                if (launch == 4)
+                if (launch >= 4)
                 {
                     time += Clock.LastElapsedTime / 1000;
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
+                    if (launch == 4)
+                    {
+
+                    }
+
                     countdown.Position = starship.Position;
-                    //raptors.Position = starship.Position;
+                    raptor1.Position = starship.Position + new Vector3(0, 4, 3);
+                    raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
+                    raptor3.Position = starship.Position + new Vector3(3, 4, -3);
                 }
 
                 //s += Clock.LastElapsedTime;
@@ -593,7 +611,9 @@ namespace Vitaru.Mods.Included
                 if (global == null) return;
 
                 countdown.Dispose();
-                //raptors.Dispose();
+                raptor1.Dispose();
+                raptor2.Dispose();
+                raptor3.Dispose();
 
 #if NORMAL
                 fNormal.Dispose();
