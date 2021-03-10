@@ -30,6 +30,7 @@ using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Utilities;
 using Prion.Nucleus;
+using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Tracks;
@@ -69,6 +70,8 @@ namespace Vitaru.Mods.Included
             private TexturedModel turret;
             private BillboardSprite bill;
 
+            private TexturedModel starship;
+
             //private SnowLayer snow;
 
             private LightPointer global;
@@ -91,10 +94,30 @@ namespace Vitaru.Mods.Included
             private bool wireframe;
 
             private int launch;
-            private double time = -10;
+            private double time = -10.6f;
+
+            private Sound countdown;
+            private Sound raptors;
+
+            public override void PreLoading()
+            {
+                base.PreLoading();
+
+                Game.SampleStore.GetSample("SN10 Countdown.wav");
+                //Game.SampleStore.GetSample("SN10 Raptors.wav");
+            }
 
             public override void LoadingComplete()
             {
+                countdown = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Countdown.wav"))
+                {
+                    Gain = 10
+                };
+                //raptors = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptors.wav")){
+                //    Gain = 10
+                //};
+
+
 #if NORMAL
                 string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();
                 string g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.geom")).ReadToEnd();
@@ -211,7 +234,7 @@ namespace Vitaru.Mods.Included
                 world.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
-                TexturedModel starship = new()
+                starship = new()
                 {
                     Position = new Vector3(0, -2, -20),
                     Scale = new Vector3(1),
@@ -294,7 +317,7 @@ namespace Vitaru.Mods.Included
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
                     Alpha = 0,
-                    Text = "T-10"
+                    Text = "T-10.6"
                 });
 
                 Add(new Layer2D<IDrawable2D>
@@ -339,6 +362,9 @@ namespace Vitaru.Mods.Included
                 {
                     time += Clock.LastElapsedTime / 1000;
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
+
+                    countdown.Position = starship.Position;
+                    //raptors.Position = starship.Position;
                 }
 
                 //s += Clock.LastElapsedTime;
@@ -540,6 +566,7 @@ namespace Vitaru.Mods.Included
                     case Keys.Zero when launch == 3:
                         launch++;
                         mission.Alpha = 1;
+                        countdown.Play();
                         break;
                 }
             }
@@ -564,6 +591,9 @@ namespace Vitaru.Mods.Included
                 base.Dispose(finalize);
 
                 if (global == null) return;
+
+                countdown.Dispose();
+                //raptors.Dispose();
 
 #if NORMAL
                 fNormal.Dispose();
