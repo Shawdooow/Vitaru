@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
@@ -58,17 +59,13 @@ namespace Vitaru.Roots.Tests
 
                 Text = "Multi",
 
-#if PUBLISH
-                //Disabled = Vitaru.FEATURES < Features.Experimental,
-                Disabled = true,
-#else
+                Disabled = Vitaru.FEATURES < Features.Experimental,
+
                 OnClick = () =>
                 {
-                    //if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
-                    if (TrackManager.CurrentTrack != null)
+                    if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
                 }
-#endif
             });
             Add(new Button
             {
