@@ -98,6 +98,9 @@ namespace Vitaru
 #if !PUBLISH
             if (!launch.Any(arg => arg.Contains("Features")))
                 launch.Add($"Features={Features.Experimental}");
+
+            //if (!launch.Any(arg => arg.Contains("GContext")))
+            //    launch.Add("GContext=GL41");
 #endif
 
             VitaruLaunchArgs v = new()
