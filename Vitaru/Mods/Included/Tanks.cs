@@ -99,9 +99,9 @@ namespace Vitaru.Mods.Included
             private double time = -10.6f;
 
             private Sound flight;
-            //private Sound raptor1; // 0, 4, 3
-            //private Sound raptor2; // -3, 4, -3
-            //private Sound raptor3; // 3, 4, -3
+            private LightPointer raptor1; // 0, 4, 3
+            private LightPointer raptor2; // -3, 4, -3
+            private LightPointer raptor3; // 3, 4, -3
 
             public override void PreLoading()
             {
@@ -328,6 +328,23 @@ namespace Vitaru.Mods.Included
                     }
                 });
 
+                flight.Position = starship.Position;
+
+                raptor1 = LightManager.GetLight();
+                raptor1.Position = starship.Position + new Vector3(0, 4, 3);
+                raptor1.Diffuse = Color.Black.Vector();
+                raptor1.Falloffs = new Vector3(0.01f);
+
+                raptor2 = LightManager.GetLight();
+                raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
+                raptor2.Diffuse = Color.Black.Vector();
+                raptor2.Falloffs = new Vector3(0.01f);
+
+                raptor3 = LightManager.GetLight();
+                raptor3.Position = starship.Position + new Vector3(3, 4, -3);
+                raptor3.Diffuse = Color.Black.Vector();
+                raptor3.Falloffs = new Vector3(0.01f);
+
                 base.LoadingComplete();
             }
 
@@ -339,7 +356,7 @@ namespace Vitaru.Mods.Included
             private float deltaX;
             private float deltaY;
 
-            //private double s;
+            private double flicker1, flicker2, flicker3;
 
             public override void Update()
             {
@@ -361,14 +378,44 @@ namespace Vitaru.Mods.Included
                 if (launch >= 4)
                 {
                     time += Clock.LastElapsedTime / 1000;
+
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
+                    //Actual launch time
                     if (launch == 4 && time >= 0)
+                    {
                         launch++;
+
+                        new Vector3Transform(value => raptor1.Diffuse = value, raptor1.Diffuse,
+                            Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
+                        {
+                            Name = "Raptor 1"
+                        };
+                        new Vector3Transform(value => raptor2.Diffuse = value, raptor2.Diffuse,
+                            Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
+                        {
+                            Name = "Raptor 2"
+                        };
+                        new Vector3Transform(value => raptor3.Diffuse = value, raptor3.Diffuse,
+                            Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
+                        {
+                            Name = "Raptor 3"
+                        };
+                    }
 
                     if (launch >= 5)
                     {
+                        flicker1 += Clock.LastElapsedTime;
+                        flicker2 += Clock.LastElapsedTime;
+                        flicker3 += Clock.LastElapsedTime;
+
                         starship.Position += velocity * (float) Clock.LastElapsedTime / 1000f;
+
+                        flight.Position = starship.Position;
+                        raptor1.Position = starship.Position;
+                        raptor2.Position = starship.Position;
+                        raptor3.Position = starship.Position;
+
                         velocity += acceleration * (float) Clock.LastElapsedTime / 1000f;
 
                         if (time >= 8 && time <= 22)
@@ -376,9 +423,43 @@ namespace Vitaru.Mods.Included
                                 PrionMath.Clamp(
                                     PrionMath.Remap((float) time, 10, 20, new Vector3(0, 1, 0), new Vector3(0, 2, 0)),
                                     new Vector3(0, 1, 0), new Vector3(0, 2, 0));
-                    }
 
-                    flight.Position = starship.Position;
+                        if (flicker1 > PrionMath.RandomNumber(200, 400))
+                        {
+                            flicker1 = 0;
+                            raptor1.Falloffs = new Vector3(0.009f);
+
+                            new Vector3Transform(value => raptor1.Falloffs = value, raptor1.Falloffs,
+                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                            {
+                                Name = "Raptor 1"
+                            };
+                        }
+
+                        if (flicker2 > PrionMath.RandomNumber(200, 400))
+                        {
+                            flicker2 = 0;
+                            raptor2.Falloffs = new Vector3(0.009f);
+
+                            new Vector3Transform(value => raptor2.Falloffs = value, raptor2.Falloffs,
+                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                            {
+                                Name = "Raptor 2"
+                            };
+                        }
+
+                        if (flicker3 > PrionMath.RandomNumber(200, 400))
+                        {
+                            flicker3 = 0;
+                            raptor3.Falloffs = new Vector3(0.009f);
+
+                            new Vector3Transform(value => raptor3.Falloffs = value, raptor3.Falloffs,
+                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                            {
+                                Name = "Raptor 3"
+                            };
+                        }
+                    }
                 }
 
                 //s += Clock.LastElapsedTime;
