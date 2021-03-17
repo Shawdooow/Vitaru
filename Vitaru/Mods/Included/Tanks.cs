@@ -694,9 +694,12 @@ namespace Vitaru.Mods.Included
                 vNormal.Dispose();
 #endif
 
-                LightManager.ReturnLight(torch);
+                LightManager.ReturnLight(raptor3);
+                LightManager.ReturnLight(raptor2);
+                LightManager.ReturnLight(raptor1);
                 LightManager.ReturnLight(red);
                 LightManager.ReturnLight(blue);
+                LightManager.ReturnLight(torch);
                 LightManager.ReturnLight(global);
             }
         }
