@@ -98,46 +98,25 @@ namespace Vitaru.Mods.Included
             private int launch;
             private double time = -10.6f;
 
-            private Sound countdown;
-            private Sound raptor1; // 0, 4, 3
-            private Sound raptor2; // -3, 4, -3
-            private Sound raptor3; // 3, 4, -3
+            private Sound flight;
+            //private Sound raptor1; // 0, 4, 3
+            //private Sound raptor2; // -3, 4, -3
+            //private Sound raptor3; // 3, 4, -3
 
             public override void PreLoading()
             {
                 base.PreLoading();
 
-                Game.SampleStore.GetSample("SN10 Countdown.wav");
-                Game.SampleStore.GetSample("SN10 Raptor.wav");
+                Game.SampleStore.GetSample("SN10 Flight.wav");
             }
 
             public override void LoadingComplete()
             {
-                countdown = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Countdown.wav"))
-                {
-                    Gain = 100
-                };
-                raptor1 = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Raptor.wav"))
-                {
-                    Gain = 100
-                };
-                raptor2 = new Sound(new SeekableClock
-                {
-                    Rate = 1.02d
-                }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
+                flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
-                    Pitch = 1.02f
+                    Rolloff = 0,
                 };
-                raptor3 = new Sound(new SeekableClock
-                {
-                    Rate = 0.98d
-                }, Game.SampleStore.GetSample("SN10 Raptor.wav"))
-                {
-                    Gain = 100,
-                    Pitch = 0.98f
-                };
-
 
 #if NORMAL
                 string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();
@@ -385,23 +364,10 @@ namespace Vitaru.Mods.Included
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
                     if (launch == 4 && time >= 0)
-                    {
                         launch++;
-                        raptor1.Play();
-                        raptor2.Play();
-                        raptor3.Play();
-                    }
 
                     if (launch >= 5)
                     {
-                        raptor1.SeekableClock.Update();
-                        raptor2.SeekableClock.Update();
-                        raptor3.SeekableClock.Update();
-
-                        raptor1.TryRepeat();
-                        raptor2.TryRepeat();
-                        raptor3.TryRepeat();
-
                         starship.Position += velocity * (float) Clock.LastElapsedTime / 1000f;
                         velocity += acceleration * (float) Clock.LastElapsedTime / 1000f;
 
@@ -412,10 +378,7 @@ namespace Vitaru.Mods.Included
                                     new Vector3(0, 1, 0), new Vector3(0, 2, 0));
                     }
 
-                    countdown.Position = starship.Position;
-                    raptor1.Position = starship.Position + new Vector3(0, 4, 3);
-                    raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
-                    raptor3.Position = starship.Position + new Vector3(3, 4, -3);
+                    flight.Position = starship.Position;
                 }
 
                 //s += Clock.LastElapsedTime;
@@ -617,7 +580,7 @@ namespace Vitaru.Mods.Included
                     case Keys.Zero when launch == 3:
                         launch++;
                         mission.Alpha = 1;
-                        countdown.Play();
+                        flight.Play();
                         break;
                 }
             }
@@ -643,10 +606,7 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
-                countdown.Dispose();
-                raptor1.Dispose();
-                raptor2.Dispose();
-                raptor3.Dispose();
+                flight.Dispose();
 
 #if NORMAL
                 fNormal.Dispose();
