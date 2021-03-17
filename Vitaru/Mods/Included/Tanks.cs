@@ -14,7 +14,6 @@ using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Cameras;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
-using Prion.Mitochondria.Graphics.Contexts.GL46.Vertices;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Layers._3D;
@@ -67,12 +66,12 @@ namespace Vitaru.Mods.Included
 
             private Camera camera;
             private PlayerBinds input;
-            private TexturedModel turret;
+            private Model turret;
             private BillboardSprite bill;
 
             private Vector3 velocity = Vector3.Zero;
             private Vector3 acceleration = new(0, 1, 0);
-            private TexturedModel starship;
+            private Model starship;
 
             //private SnowLayer snow;
 
@@ -225,56 +224,56 @@ namespace Vitaru.Mods.Included
 
                 const float scale = 0.05f;
 
-                TexturedModel world = new()
+                Model world = new()
                 {
                     Position = new Vector3(0, 10, 0),
                     Scale = new Vector3(0.01f),
                     Yaw = MathF.PI
                 };
-                world.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
+                world.Add(new Mesh(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
-                starship = new TexturedModel()
+                starship = new Model()
                 {
                     Position = new Vector3(0, -2, -20),
                     Scale = new Vector3(1),
                     Yaw = MathF.PI
                 };
-                starship.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("SN10.obj")));
+                starship.Add(new Mesh(Game.MeshStore.GetVertecies("SN10.obj")));
                 Renderer.Context.BufferMeshes(starship);
 
-                TexturedModel body = new()
+                Model body = new()
                 {
                     Scale = new Vector3(scale),
                     Yaw = MathF.PI
                 };
-                body.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank body.obj")));
+                body.Add(new Mesh(Game.MeshStore.GetVertecies("tank body.obj")));
                 Renderer.Context.BufferMeshes(body);
 
-                turret = new TexturedModel
+                turret = new Model
                 {
                     Scale = new Vector3(scale),
                     Yaw = MathF.PI
                 };
-                turret.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("tank turret.obj")));
+                turret.Add(new Mesh(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.Context.BufferMeshes(turret);
 
-                TexturedModel left = new()
+                Model left = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.LeftPosition,
                     Scale = new Vector3(scale * 4),
                     Color = Color.Blue
                 };
-                left.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
+                left.Add(new Mesh(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(left);
 
-                TexturedModel right = new()
+                Model right = new()
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition,
                     Scale = new Vector3(scale * 4),
                     Color = Color.Red
                 };
-                right.Add(new Mesh<Vertex3Textured>(Game.MeshStore.GetVertecies("sphere.obj")));
+                right.Add(new Mesh(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(right);
 
                 bill = new BillboardSprite(camera)
@@ -283,7 +282,7 @@ namespace Vitaru.Mods.Included
                 };
                 Renderer.Context.BufferMeshes(bill);
 
-                Add(new Layer3D<TexturedModel>
+                Add(new Layer3D<Model>
                 {
                     //TODO: make this work Scale = new Vector3(0.05f),
 
