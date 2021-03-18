@@ -115,7 +115,7 @@ namespace Vitaru.Roots.Tests
 
             Add(new Version());
 
-            Add(new InstancedText
+            Add(new InstancedText(10, true)
             {
                 Y = -300,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"
