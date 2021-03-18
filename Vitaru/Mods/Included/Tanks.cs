@@ -383,13 +383,13 @@ namespace Vitaru.Mods.Included
 
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
-                    //Actual launch time
-                    if (launch == 4 && time >= 0)
+                    //Engine startup
+                    if (launch == 4 && time >= -0.6d)
                     {
                         launch++;
 
                         new Vector3Transform(value => raptor1.Diffuse = value, raptor1.Diffuse,
-                            Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
+                            Color.LightSalmon.Vector(), this, Clock.Current, 170, Easings.None)
                         {
                             Name = "Raptor 1"
                         };
@@ -399,18 +399,18 @@ namespace Vitaru.Mods.Included
                             Name = "Raptor 2"
                         };
                         new Vector3Transform(value => raptor3.Diffuse = value, raptor3.Diffuse,
-                            Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
+                            Color.LightSalmon.Vector(), this, Clock.Current, 190, Easings.None)
                         {
                             Name = "Raptor 3"
                         };
                     }
 
-                    if (launch >= 5)
-                    {
-                        flicker1 += Clock.LastElapsedTime;
-                        flicker2 += Clock.LastElapsedTime;
-                        flicker3 += Clock.LastElapsedTime;
+                    //Actual launch time
+                    if (launch >= 5 && time >= 0)
+                        launch++;
 
+                    if (launch >= 6)
+                    {
                         starship.Position += velocity * (float) Clock.LastElapsedTime / 1000f;
 
                         flight.Position = starship.Position;
@@ -426,37 +426,40 @@ namespace Vitaru.Mods.Included
                                     PrionMath.Remap((float) time, 10, 20, new Vector3(0, 1, 0), new Vector3(0, 2, 0)),
                                     new Vector3(0, 1, 0), new Vector3(0, 2, 0));
 
-                        if (flicker1 > PrionMath.RandomNumber(200, 400))
+                        if (Clock.LastCurrent > flicker1)
                         {
-                            flicker1 = 0;
+                            int length = PrionMath.RandomNumber(200, 400);
+                            flicker1 = Clock.LastCurrent + length;
                             raptor1.Falloffs = new Vector3(0.009f);
 
                             new Vector3Transform(value => raptor1.Falloffs = value, raptor1.Falloffs,
-                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                                new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
                                 Name = "Raptor 1"
                             };
                         }
 
-                        if (flicker2 > PrionMath.RandomNumber(200, 400))
+                        if (Clock.LastCurrent > flicker2)
                         {
-                            flicker2 = 0;
+                            int length = PrionMath.RandomNumber(200, 400);
+                            flicker2 = Clock.LastCurrent + length;
                             raptor2.Falloffs = new Vector3(0.009f);
 
                             new Vector3Transform(value => raptor2.Falloffs = value, raptor2.Falloffs,
-                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                                new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
                                 Name = "Raptor 2"
                             };
                         }
 
-                        if (flicker3 > PrionMath.RandomNumber(200, 400))
+                        if (Clock.LastCurrent > flicker3)
                         {
-                            flicker3 = 0;
+                            int length = PrionMath.RandomNumber(200, 400);
+                            flicker3 = Clock.LastCurrent + length;
                             raptor3.Falloffs = new Vector3(0.009f);
 
                             new Vector3Transform(value => raptor3.Falloffs = value, raptor3.Falloffs,
-                                new Vector3(0.01f), this, Clock.Current, 180, Easings.None)
+                                new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
                                 Name = "Raptor 3"
                             };
