@@ -7,6 +7,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using System.Runtime;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
@@ -61,6 +62,8 @@ namespace Vitaru.Mods.Included
         private class TanksRoot : ExitableRoot
         {
             public override string Name => nameof(TanksRoot);
+
+            protected override GCLatencyMode GCLatencyMode => GCLatencyMode.SustainedLowLatency;
 
             private TrackController controller;
 

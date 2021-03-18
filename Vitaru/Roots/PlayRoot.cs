@@ -13,6 +13,8 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
+        protected override GCLatencyMode GCLatencyMode => GCLatencyMode.SustainedLowLatency;
+
         public PlayRoot()
         {
             TrackManager.CurrentTrack.DrawClock = new SeekableClock();
