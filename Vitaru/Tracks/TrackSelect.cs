@@ -50,7 +50,7 @@ namespace Vitaru.Tracks
             };
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
-                list.Add(new Button(p.Title.Length)
+                list.Add(new Button(p.Title.Length, true)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
