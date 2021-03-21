@@ -58,10 +58,6 @@ namespace Vitaru
             "Vitaru";
 #endif
 
-#if !PUBLISH
-        private static CentrosomePackets loadMyModulesYouDumbFuck;
-#endif
-
         /// <summary>
         ///     StartupObject EntryPoint
         /// </summary>
