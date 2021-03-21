@@ -8,12 +8,15 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Multi
 {
     public class Lobby : MultiRoot
     {
         protected override bool Parallax => true;
+
+        private TrackController controller;
 
         public Lobby(Pack<Updatable> networking) : base(networking)
         {
@@ -29,6 +32,20 @@ namespace Vitaru.Roots.Multi
                 },
                 new Rooms()
             });
+
+            Add(controller = new TrackController
+            {
+                Alpha = 0,
+                PassDownInput = false
+            });
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            controller.Update();
+            controller.TryRepeat();
         }
 
         public class Rooms : Layer2D<IDrawable2D>

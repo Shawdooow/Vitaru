@@ -15,6 +15,7 @@ using Prion.Nucleus.Groups.Packs;
 using Vitaru.Networking.Client;
 using Vitaru.Server.Server;
 using Vitaru.Themes;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Multi
 {
@@ -23,6 +24,8 @@ namespace Vitaru.Roots.Multi
         protected override bool UseLevelBackground => true;
 
         protected override bool Parallax => true;
+
+        private TrackController controller;
 
         private readonly TextBox ip;
 
@@ -70,6 +73,20 @@ namespace Vitaru.Roots.Multi
             connect.BackgroundSprite.Color = ThemeManager.PrimaryColor;
 
             Add(networking = new Pack<Updatable>());
+
+            Add(controller = new TrackController
+            {
+                Alpha = 0,
+                PassDownInput = false
+            });
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            controller.Update();
+            controller.TryRepeat();
         }
 
         protected virtual void JoinServer()

@@ -133,7 +133,6 @@ namespace Vitaru.Roots.Tests
         protected override void OnResume()
         {
             base.OnResume();
-            TrackManager.SetTrackDefaults();
             TrackManager.SetPositionalDefaults();
         }
 

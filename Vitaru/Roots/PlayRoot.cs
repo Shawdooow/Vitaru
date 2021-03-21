@@ -17,6 +17,9 @@ namespace Vitaru.Roots
 
         public PlayRoot()
         {
+            TrackManager.SetTrackDefaults();
+            TrackManager.SetPositionalDefaults();
+
             TrackManager.CurrentTrack.DrawClock = new SeekableClock();
 
             TrackManager.CurrentTrack.DrawClock.Start();
