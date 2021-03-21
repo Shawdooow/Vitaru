@@ -33,18 +33,18 @@ namespace Vitaru.Server.Server
             List<byte> data = new();
 
             byte[] username = Username.ToLengthAndBytes();
-            byte[] userid = Unsafe.As<long, byte[]>(ref ID);
+            byte[] userid = BitConverter.GetBytes(ID);
             byte[] color = Color.ToLengthAndBytes();
             byte[] country = Country.ToLengthAndBytes();
 
             //Make sure we list how many settings there are
             int us = UserSettings.Count;
-            byte[] settingslength = Unsafe.As<int, byte[]>(ref us);
+            byte[] settingslength = BitConverter.GetBytes(us);
             List<byte> settings = new();
             foreach (Setting setting in UserSettings)
                 settings.AddRange(setting.Serialize());
 
-            byte[] status = Unsafe.As<PlayerStatus, byte[]>(ref Status);
+            byte[] status = BitConverter.GetBytes((ushort)Status);
 
             data.AddRange(username);
             data.AddRange(userid);

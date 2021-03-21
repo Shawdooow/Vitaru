@@ -34,12 +34,12 @@ namespace Vitaru.Server.Match
 
             //Fist lets convert each field one at a time to byte arrays
             byte[] name = Name.ToLengthAndBytes();
-            byte[] id = Unsafe.As<uint, byte[]>(ref ID);
-            byte[] host = Unsafe.As<long, byte[]>(ref Host);
+            byte[] id = BitConverter.GetBytes(ID);
+            byte[] host = BitConverter.GetBytes(Host);
 
             //Make sure we list how many users are in this lobby
             int ul = Users.Count;
-            byte[] userslength = Unsafe.As<int, byte[]>(ref ul);
+            byte[] userslength = BitConverter.GetBytes(ul);
             List<byte> users = new();
 
             foreach (VitaruUser user in Users)
@@ -47,7 +47,7 @@ namespace Vitaru.Server.Match
 
             //Make sure we list how many settings there are
             int ls = Settings.Count;
-            byte[] settingslength = Unsafe.As<int, byte[]>(ref ls);
+            byte[] settingslength = BitConverter.GetBytes(ls);
             List<byte> settings = new();
 
             foreach (Setting setting in Settings)

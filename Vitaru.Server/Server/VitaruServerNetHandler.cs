@@ -25,18 +25,6 @@ namespace Vitaru.Server.Server
                 Status = ConnectionStatus.Connecting
             };
 
-        protected override void PacketReceived(PacketInfo<VitaruClient> info)
-        {
-            base.PacketReceived(info);
-
-            switch (info.Packet)
-            {
-                default:
-                    base.PacketReceived(info);
-                    break;
-            }
-        }
-
         public override void Update()
         {
             base.Update();

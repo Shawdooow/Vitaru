@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Prion.Centrosome;
 using Prion.Nucleus.Utilities.Interfaces;
 
@@ -23,7 +22,7 @@ namespace Vitaru.Server.Server
 
             byte[] name = Name.ToLengthAndBytes();
             byte[] value = Value.ToLengthAndBytes();
-            byte[] sync = Unsafe.As<Sync, byte[]>(ref Sync);
+            byte[] sync = BitConverter.GetBytes((ushort)Sync);
 
             data.AddRange(name);
             data.AddRange(value);
