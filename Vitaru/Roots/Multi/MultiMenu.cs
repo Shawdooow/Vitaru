@@ -87,7 +87,7 @@ namespace Vitaru.Roots.Multi
                 vitaruNet.OnConnectedToHost += host =>
                 {
                     Logger.Log("Connected to local server", LogType.Network);
-                    AddRoot(new Lobby(vitaruNet));
+                    AddRoot(new Lobby(networking));
                 };
                 vitaruNet.Connect();
             }
@@ -107,12 +107,12 @@ namespace Vitaru.Roots.Multi
 
             try
             {
-                networking.Add(vitaruServer = new VitaruServerNetHandler
+                networking.Add(vitaruNet = new VitaruNetHandler
                 {
                     Address = ip.Text
                 });
 
-                networking.Add(vitaruNet = new VitaruNetHandler
+                networking.Add(vitaruServer = new VitaruServerNetHandler
                 {
                     Address = ip.Text
                 });
@@ -120,7 +120,7 @@ namespace Vitaru.Roots.Multi
                 vitaruNet.OnConnectedToHost += host =>
                 {
                     Logger.Log("Connected to local server", LogType.Network);
-                    AddRoot(new Lobby(vitaruNet));
+                    AddRoot(new Lobby(networking));
                 };
                 vitaruNet.Connect();
             }
@@ -128,6 +128,18 @@ namespace Vitaru.Roots.Multi
             {
                 Logger.Error(e, "Failed to create Local Networking Handler!", LogType.Network);
             }
+        }
+
+        protected override void OnPause()
+        {
+            Remove(networking, false);
+            base.OnPause();
+        }
+
+        protected override void OnResume()
+        {
+            Add(networking);
+            base.OnResume();
         }
 
         protected virtual void SendPacket(IPacket packet) => vitaruNet.SendPacketTcp(packet);

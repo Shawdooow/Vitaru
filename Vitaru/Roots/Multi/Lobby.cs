@@ -6,7 +6,8 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
-using Vitaru.Networking.Client;
+using Prion.Nucleus.Entitys;
+using Prion.Nucleus.Groups.Packs;
 
 namespace Vitaru.Roots.Multi
 {
@@ -14,7 +15,7 @@ namespace Vitaru.Roots.Multi
     {
         protected override bool Parallax => true;
 
-        public Lobby(VitaruNetHandler vitaruNet) : base(vitaruNet)
+        public Lobby(Pack<Updatable> networking) : base(networking)
         {
             AddArray(new ILayer[]
             {
