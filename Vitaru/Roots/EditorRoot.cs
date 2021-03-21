@@ -36,6 +36,9 @@ namespace Vitaru.Roots
 
         public EditorRoot()
         {
+            TrackManager.SetTrackDefaults();
+            TrackManager.SetPositionalDefaults();
+
             levelProperties = new LevelProperties
             {
                 OnCreate = create
