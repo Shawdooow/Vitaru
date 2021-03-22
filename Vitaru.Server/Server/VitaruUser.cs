@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Prion.Centrosome;
 using Prion.Nucleus.Utilities.Interfaces;
 
@@ -26,7 +25,7 @@ namespace Vitaru.Server.Server
 
         public List<Setting> UserSettings = new();
 
-        public PlayerStatus Status;
+        public PlayerStatus Status = PlayerStatus.JoiningMatch;
 
         public byte[] Serialize()
         {
