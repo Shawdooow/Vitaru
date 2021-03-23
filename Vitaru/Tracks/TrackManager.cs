@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -16,6 +17,8 @@ namespace Vitaru.Tracks
     public static class TrackManager
     {
         public static Track CurrentTrack { get; private set; }
+
+        public static Stack<LevelTrack> PreviousLevels { get; private set; } = new();
 
         public static Action<Track> OnTrackChange;
 

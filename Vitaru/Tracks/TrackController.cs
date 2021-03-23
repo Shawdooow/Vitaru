@@ -3,6 +3,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -111,7 +112,9 @@ namespace Vitaru.Tracks
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
                     Size = new Vector2(-32, 32),
-                    Background = Vitaru.TextureStore.GetTexture("skip.png")
+                    Background = Vitaru.TextureStore.GetTexture("skip.png"),
+
+                    OnClick = PreviousLevel
                 },
                 song = new InstancedText
                 {
@@ -272,12 +275,34 @@ namespace Vitaru.Tracks
 
             Game.ScheduleLoad(() =>
             {
-                Benchmark b = new("Switch Level", true);
+                Benchmark b = new("Switch to Next Level", true);
+
+                TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.LevelTrack);
 
                 LevelTrack n = LevelStore.SetRandomLevel(LevelStore.CurrentPack);
                 song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
+                
+                b.Finish();
+            });
+        }
+
+        public void PreviousLevel()
+        {
+            if (TrackManager.Switching || !TrackManager.PreviousLevels.Any()) return;
+
+            TrackManager.Switching = true;
+
+            Game.ScheduleLoad(() =>
+            {
+                Benchmark b = new("Switch to Previous Level", true);
+
+                LevelTrack previous = TrackManager.PreviousLevels.Pop();
+                LevelStore.SetLevel(LevelStore.GetLevelPack(previous));
+                song.Text = $"Loading: {previous.Title}";
+
+                TrackManager.SetTrack(previous);
                 b.Finish();
             });
         }
@@ -310,6 +335,9 @@ namespace Vitaru.Tracks
                     return true;
                 case Keys.NextTrack:
                     NextLevel();
+                    return true;
+                case Keys.PreviousTrack:
+                    PreviousLevel();
                     return true;
                 case Keys.Stop:
                     TrackManager.CurrentTrack.Pause();

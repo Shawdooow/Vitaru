@@ -323,7 +323,9 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(-64, 64),
-                        Background = Vitaru.TextureStore.GetTexture("skip.png")
+                        Background = Vitaru.TextureStore.GetTexture("skip.png"),
+
+                        OnClick = previous
                     },
 
                     controller = new TrackController
@@ -444,6 +446,8 @@ namespace Vitaru.Mods.Included
 
             private void next() => controller.NextLevel();
 
+            private void previous() => controller.PreviousLevel();
+
             private void change(Track t) => song.Text = t.Level.Title;
 
             protected override void OnKeyDown(KeyboardKeyEvent e)
@@ -458,9 +462,6 @@ namespace Vitaru.Mods.Included
                             Vitaru.TextureStore.GetTexture(TrackManager.CurrentTrack.Playing
                                 ? "play.png"
                                 : "pause.png");
-                        break;
-                    case Keys.NextTrack:
-                        //play.Background = Vitaru.TextureStore.GetTexture("play.png");
                         break;
                     case Keys.Stop:
                         play.Background = Vitaru.TextureStore.GetTexture("play.png");

@@ -72,11 +72,15 @@ namespace Vitaru.Tracks
                     OnClick = () =>
                     {
                         if (!TrackManager.Switching)
+                        {
+                            TrackManager.Switching = true;
                             Game.ScheduleLoad(() =>
                             {
+                                TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.LevelTrack);
                                 LevelStore.SetLevel(p);
                                 TrackManager.SetTrack(p.Levels[0].LevelTrack);
                             });
+                        }
                     }
                 });
             }

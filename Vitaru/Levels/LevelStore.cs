@@ -242,6 +242,16 @@ namespace Vitaru.Levels
             return CurrentPack;
         }
 
+        public static LevelPack GetLevelPack(LevelTrack track)
+        {
+            foreach (LevelPack pack in LoadedLevels)
+                foreach (Level level in pack.Levels)
+                    if (level.LevelTrack == track)
+                        return pack;
+
+            return null;
+        }
+
         public static void SaveCurrentLevel()
         {
             string path = $"{CurrentPack.Title}\\{CurrentLevel.Name}.vitaru";
