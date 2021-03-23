@@ -1,14 +1,10 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-#define NORMAL
-
 using System;
 using System.Drawing;
-using System.IO;
 using System.Numerics;
 using System.Runtime;
-using OpenTK.Graphics.OpenGL4;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -22,7 +18,6 @@ using Prion.Mitochondria.Graphics.Lights;
 using Prion.Mitochondria.Graphics.Models;
 using Prion.Mitochondria.Graphics.Models.Meshes;
 using Prion.Mitochondria.Graphics.Roots;
-using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
@@ -34,7 +29,12 @@ using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Tracks;
+#if !PUBLISH
+using System.IO;
+using OpenTK.Graphics.OpenGL4;
+using Prion.Mitochondria.Graphics.Shaders;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
+#endif
 
 namespace Vitaru.Mods.Included
 {
@@ -72,9 +72,11 @@ namespace Vitaru.Mods.Included
             private Model turret;
             private BillboardSprite bill;
 
+#if !PUBLISH
             private Vector3 velocity = Vector3.Zero;
             private Vector3 acceleration = new(0, 1, 0);
             private Model starship;
+#endif
 
             //private SnowLayer snow;
 
@@ -84,9 +86,9 @@ namespace Vitaru.Mods.Included
             private LightPointer red;
 
             private InstancedText position;
+#if !PUBLISH
             private InstancedText mission;
 
-#if NORMAL
             private GLShaderProgram vNormal;
             private GLShaderProgram fNormal;
 #endif
@@ -97,6 +99,7 @@ namespace Vitaru.Mods.Included
             private bool normal;
             private bool wireframe;
 
+#if !PUBLISH
             private int launch;
             private double time = -10.6f;
 
@@ -111,16 +114,17 @@ namespace Vitaru.Mods.Included
 
                 Game.SampleStore.GetSample("SN10 Flight.wav");
             }
+#endif
 
             public override void LoadingComplete()
             {
+#if !PUBLISH
                 flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
                     Rolloff = 0,
                 };
 
-#if NORMAL
                 string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();
                 string g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.geom")).ReadToEnd();
                 string f = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.frag")).ReadToEnd();
@@ -236,6 +240,7 @@ namespace Vitaru.Mods.Included
                 world.Add(new Mesh(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
+#if !PUBLISH
                 starship = new Model()
                 {
                     Position = new Vector3(0, -2, -20),
@@ -244,6 +249,7 @@ namespace Vitaru.Mods.Included
                 };
                 starship.Add(new Mesh(Game.MeshStore.GetVertecies("SN10.obj")));
                 Renderer.Context.BufferMeshes(starship);
+#endif
 
                 Model body = new()
                 {
@@ -292,7 +298,9 @@ namespace Vitaru.Mods.Included
                     Children = new[]
                     {
                         world,
+#if !PUBLISH
                         starship,
+#endif
                         body,
                         turret,
                         left,
@@ -313,6 +321,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f
                 });
+#if !PUBLISH
                 Add(mission = new InstancedText
                 {
                     Position = new Vector2(-80, 10),
@@ -321,6 +330,7 @@ namespace Vitaru.Mods.Included
                     Alpha = 0,
                     Text = "T-10.6"
                 });
+#endif
 
                 Add(new Layer2D<IDrawable2D>
                 {
@@ -330,6 +340,7 @@ namespace Vitaru.Mods.Included
                     }
                 });
 
+#if !PUBLISH
                 flight.Position = starship.Position;
 
                 raptor1 = LightManager.GetLight();
@@ -346,6 +357,7 @@ namespace Vitaru.Mods.Included
                 raptor3.Position = starship.Position + new Vector3(3, 4, -3);
                 raptor3.Diffuse = Color.Black.Vector();
                 raptor3.Falloffs = new Vector3(0.01f);
+#endif
 
                 base.LoadingComplete();
             }
@@ -358,7 +370,9 @@ namespace Vitaru.Mods.Included
             private float deltaX;
             private float deltaY;
 
+#if !PUBLISH
             private double flicker1, flicker2, flicker3;
+#endif
 
             public override void Update()
             {
@@ -377,6 +391,7 @@ namespace Vitaru.Mods.Included
                         flashRight();
                 }
 
+#if !PUBLISH
                 if (launch >= 4)
                 {
                     time += Clock.LastElapsedTime / 1000;
@@ -466,6 +481,7 @@ namespace Vitaru.Mods.Included
                         }
                     }
                 }
+#endif
 
                 //s += Clock.LastElapsedTime;
 
@@ -578,7 +594,7 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
 
-#if NORMAL
+#if !PUBLISH
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
 
@@ -596,7 +612,7 @@ namespace Vitaru.Mods.Included
 #endif
             }
 
-#if NORMAL
+#if !PUBLISH
             public override void Render3D()
             {
                 if (wireframe) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
@@ -649,6 +665,7 @@ namespace Vitaru.Mods.Included
                         break;
                 }
 
+#if !PUBLISH
                 switch (e.Key)
                 {
                     default:
@@ -669,6 +686,7 @@ namespace Vitaru.Mods.Included
                         flight.Play();
                         break;
                 }
+#endif
             }
 
             protected override void OnMouseDown(MouseButtonEvent e)
@@ -692,16 +710,16 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
+#if !PUBLISH
                 flight.Dispose();
 
-#if NORMAL
                 fNormal.Dispose();
                 vNormal.Dispose();
-#endif
 
                 LightManager.ReturnLight(raptor3);
                 LightManager.ReturnLight(raptor2);
                 LightManager.ReturnLight(raptor1);
+#endif
                 LightManager.ReturnLight(red);
                 LightManager.ReturnLight(blue);
                 LightManager.ReturnLight(torch);
