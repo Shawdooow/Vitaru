@@ -10,7 +10,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Events;
-using Prion.Nucleus;
 using Vitaru.Roots.Menu;
 using Vitaru.Themes;
 using Vitaru.Tracks;
