@@ -30,6 +30,8 @@ namespace Vitaru.Tracks
 
         private readonly Button play;
         private readonly InstancedText song;
+        private readonly InstancedText speed;
+        private readonly InstancedText volume;
 
         private readonly InstancedText timeIn;
         private readonly Slider seek;
@@ -124,6 +126,22 @@ namespace Vitaru.Tracks
                     FontScale = 0.2f,
                     Text = "Loading..."
                 },
+                speed = new InstancedText
+                {
+                    Position = new Vector2(-16),
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomRight,
+                    FontScale = 0.2f,
+                    Text = "1x"
+                },
+                volume = new InstancedText
+                {
+                    Position = new Vector2(16, -16),
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomLeft,
+                    FontScale = 0.2f,
+                    Text = "100%"
+                },
                 seek = new Slider
                 {
                     Width = Size.X,
@@ -182,6 +200,9 @@ namespace Vitaru.Tracks
 
             timeIn.Text = time;
             timeLeft.Text = left;
+
+            speed.Text = $"{Math.Round(TrackManager.CurrentTrack.Pitch, 2)}x";
+            volume.Text = $"{Math.Round(TrackManager.CurrentTrack.Gain * 100, 2)}%";
         }
 
         public override void PreRender()
