@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus;
+using Vitaru.Roots.Menu;
 using Vitaru.Themes;
 using Vitaru.Tracks;
 
@@ -45,17 +46,7 @@ namespace Vitaru.Roots
                 Origin = Mounts.BottomRight,
                 ParentOrigin = Mounts.BottomRight
             });
-            Add(new InstancedText
-            {
-                Y = -4,
-                ParentOrigin = Mounts.BottomCenter,
-                Origin = Mounts.BottomCenter,
-                FontScale = 0.25f,
-                Text = NucleusLaunchArgs.Features != Features.Standard
-                    ? $"{Vitaru.VERSION} - {Vitaru.FEATURES}"
-                    : Vitaru.VERSION,
-                Color = Color.LimeGreen
-            });
+            Add(new Version());
 
             Renderer.Window.CursorHidden = true;
         }
