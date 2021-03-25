@@ -25,6 +25,9 @@
 	  <DebugSymbols>false</DebugSymbols>
 	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Personal'">
+    <DefineConstant>PERSONAL</DefineConstant>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Golgi\Prion.Golgi.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
