@@ -11,11 +11,11 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <Configurations>Debug;Release;Publish</Configurations>
+    <Configurations>Debug;Release;Publish;Personal</Configurations>
     <Platform>AnyCPU</Platform>
     <ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)'=='Publish' Or '$(Configuration)'=='Personal'">
     <DefineConstant>PUBLISH</DefineConstant>
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
@@ -29,7 +29,7 @@
     <ProjectReference Include="..\..\Prion\Prion.Golgi\Prion.Golgi.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
+  <ItemGroup Condition="'$(Configuration)'=='Publish'">
     <None Remove="Assets\Models\SN10.obj" />
     <None Remove="Assets\Sounds\SN10 Flight.wav" />
   </ItemGroup>
