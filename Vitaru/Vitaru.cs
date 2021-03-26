@@ -90,7 +90,7 @@ namespace Vitaru
 
             List<string> launch = new(args);
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             if (!launch.Any(arg => arg.Contains("Features")))
                 launch.Add($"Features={Features.Experimental}");
 

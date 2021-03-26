@@ -25,14 +25,14 @@ using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Utilities;
 using Prion.Nucleus;
-using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Tracks;
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
 using System.IO;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria.Graphics.Shaders;
+using Prion.Nucleus.Timing;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 #endif
 
@@ -72,7 +72,7 @@ namespace Vitaru.Mods.Included
             private Model turret;
             private BillboardSprite bill;
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             private Vector3 velocity = Vector3.Zero;
             private Vector3 acceleration = new(0, 1, 0);
             private Model starship;
@@ -86,7 +86,7 @@ namespace Vitaru.Mods.Included
             private LightPointer red;
 
             private InstancedText position;
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             private InstancedText mission;
 
             private GLShaderProgram vNormal;
@@ -99,7 +99,7 @@ namespace Vitaru.Mods.Included
             private bool normal;
             private bool wireframe;
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             private int launch;
             private double time = -10.6f;
 
@@ -118,7 +118,7 @@ namespace Vitaru.Mods.Included
 
             public override void LoadingComplete()
             {
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
@@ -240,7 +240,7 @@ namespace Vitaru.Mods.Included
                 world.Add(new Mesh(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 starship = new Model()
                 {
                     Position = new Vector3(0, -2, -20),
@@ -298,7 +298,7 @@ namespace Vitaru.Mods.Included
                     Children = new[]
                     {
                         world,
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                         starship,
 #endif
                         body,
@@ -321,7 +321,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f
                 });
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 Add(mission = new InstancedText
                 {
                     Position = new Vector2(-80, 10),
@@ -340,7 +340,7 @@ namespace Vitaru.Mods.Included
                     }
                 });
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 flight.Position = starship.Position;
 
                 raptor1 = LightManager.GetLight();
@@ -370,7 +370,7 @@ namespace Vitaru.Mods.Included
             private float deltaX;
             private float deltaY;
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             private double flicker1, flicker2, flicker3;
 #endif
 
@@ -391,7 +391,7 @@ namespace Vitaru.Mods.Included
                         flashRight();
                 }
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 if (launch >= 4)
                 {
                     time += Clock.LastElapsedTime / 1000;
@@ -594,7 +594,7 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
 
@@ -612,7 +612,7 @@ namespace Vitaru.Mods.Included
 #endif
             }
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
             public override void Render3D()
             {
                 if (wireframe) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
@@ -665,7 +665,7 @@ namespace Vitaru.Mods.Included
                         break;
                 }
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 switch (e.Key)
                 {
                     default:
@@ -710,7 +710,7 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
-#if !PUBLIC
+#if !PUBLIC || PERSONAL
                 flight.Dispose();
 
                 fNormal.Dispose();
