@@ -145,7 +145,7 @@ namespace Vitaru.Editor.UI
                             Text = "Filename",
                             Color = ThemeManager.PrimaryColor
                         },
-                        artist = new TextBox
+                        filename = new TextBox
                         {
                             InstancedText =
                             {

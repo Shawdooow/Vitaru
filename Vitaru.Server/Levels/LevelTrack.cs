@@ -43,9 +43,11 @@ namespace Vitaru.Server.Levels
         {
             throw new NotImplementedException();
 
+#pragma warning disable 162
             List<byte> data = new();
 
             return data.ToArray();
+#pragma warning restore 162
         }
 
         public void DeSerialize(byte[] data)
