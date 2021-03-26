@@ -16,14 +16,14 @@
     <ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Publish' Or '$(Configuration)'=='Personal'">
-    <DefineConstant>PUBLISH</DefineConstant>
+    <DefineConstants>PUBLIC</DefineConstants>
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
-	  <SignAssembly>true</SignAssembly>
-	  <DelaySign>false</DelaySign>
-	  <DebugType>none</DebugType>
-	  <DebugSymbols>false</DebugSymbols>
-	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Personal'">
     <DefineConstant>PERSONAL</DefineConstant>

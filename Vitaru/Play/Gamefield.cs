@@ -126,13 +126,13 @@ namespace Vitaru.Play
             FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
             FormatConverter.Gamefield = this;
 
-#if PUBLISH
+#if PUBLIC
             try
             {
 #endif
             if (LevelStore.CurrentLevel.EnemyData != null)
                 UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
-#if PUBLISH
+#if PUBLIC
             }
             catch (Exception e)
             {

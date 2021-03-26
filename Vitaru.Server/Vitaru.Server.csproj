@@ -16,13 +16,13 @@
     <ApplicationIcon>server.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Publish' Or '$(Configuration)'=='Personal'">
-    <DefineConstant>PUBLISH</DefineConstant>
+    <DefineConstants>PUBLIC</DefineConstants>
     <Optimize>true</Optimize>
-	  <SignAssembly>true</SignAssembly>
-	  <DelaySign>false</DelaySign>
-	  <DebugType>none</DebugType>
-	  <DebugSymbols>false</DebugSymbols>
-	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />

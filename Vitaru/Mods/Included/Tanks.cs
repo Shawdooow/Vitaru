@@ -29,7 +29,7 @@ using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Tracks;
-#if !PUBLISH
+#if !PUBLIC
 using System.IO;
 using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria.Graphics.Shaders;
@@ -72,7 +72,7 @@ namespace Vitaru.Mods.Included
             private Model turret;
             private BillboardSprite bill;
 
-#if !PUBLISH
+#if !PUBLIC
             private Vector3 velocity = Vector3.Zero;
             private Vector3 acceleration = new(0, 1, 0);
             private Model starship;
@@ -86,7 +86,7 @@ namespace Vitaru.Mods.Included
             private LightPointer red;
 
             private InstancedText position;
-#if !PUBLISH
+#if !PUBLIC
             private InstancedText mission;
 
             private GLShaderProgram vNormal;
@@ -99,7 +99,7 @@ namespace Vitaru.Mods.Included
             private bool normal;
             private bool wireframe;
 
-#if !PUBLISH
+#if !PUBLIC
             private int launch;
             private double time = -10.6f;
 
@@ -118,7 +118,7 @@ namespace Vitaru.Mods.Included
 
             public override void LoadingComplete()
             {
-#if !PUBLISH
+#if !PUBLIC
                 flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
@@ -240,7 +240,7 @@ namespace Vitaru.Mods.Included
                 world.Add(new Mesh(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
 
-#if !PUBLISH
+#if !PUBLIC
                 starship = new Model()
                 {
                     Position = new Vector3(0, -2, -20),
@@ -298,7 +298,7 @@ namespace Vitaru.Mods.Included
                     Children = new[]
                     {
                         world,
-#if !PUBLISH
+#if !PUBLIC
                         starship,
 #endif
                         body,
@@ -321,7 +321,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f
                 });
-#if !PUBLISH
+#if !PUBLIC
                 Add(mission = new InstancedText
                 {
                     Position = new Vector2(-80, 10),
@@ -340,7 +340,7 @@ namespace Vitaru.Mods.Included
                     }
                 });
 
-#if !PUBLISH
+#if !PUBLIC
                 flight.Position = starship.Position;
 
                 raptor1 = LightManager.GetLight();
@@ -370,7 +370,7 @@ namespace Vitaru.Mods.Included
             private float deltaX;
             private float deltaY;
 
-#if !PUBLISH
+#if !PUBLIC
             private double flicker1, flicker2, flicker3;
 #endif
 
@@ -391,7 +391,7 @@ namespace Vitaru.Mods.Included
                         flashRight();
                 }
 
-#if !PUBLISH
+#if !PUBLIC
                 if (launch >= 4)
                 {
                     time += Clock.LastElapsedTime / 1000;
@@ -594,7 +594,7 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
 
-#if !PUBLISH
+#if !PUBLIC
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
 
@@ -612,7 +612,7 @@ namespace Vitaru.Mods.Included
 #endif
             }
 
-#if !PUBLISH
+#if !PUBLIC
             public override void Render3D()
             {
                 if (wireframe) GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
@@ -665,7 +665,7 @@ namespace Vitaru.Mods.Included
                         break;
                 }
 
-#if !PUBLISH
+#if !PUBLIC
                 switch (e.Key)
                 {
                     default:
@@ -710,7 +710,7 @@ namespace Vitaru.Mods.Included
 
                 if (global == null) return;
 
-#if !PUBLISH
+#if !PUBLIC
                 flight.Dispose();
 
                 fNormal.Dispose();
