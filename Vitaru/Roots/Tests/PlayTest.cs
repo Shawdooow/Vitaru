@@ -15,6 +15,7 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Graphics;
+using Vitaru.Levels;
 using Vitaru.Play;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -32,6 +33,8 @@ namespace Vitaru.Roots.Tests
 
         private readonly Gamefield gamefield;
 
+        private readonly bool random;
+
         private readonly InstancedText enemies;
         private readonly InstancedText bullets;
         private readonly InstancedText particles;
@@ -48,6 +51,9 @@ namespace Vitaru.Roots.Tests
             {
                 Clock = TrackManager.CurrentTrack.Clock
             };
+
+            if (LevelStore.CurrentLevel.EnemyData == String.Empty)
+                random = true;
 
             Player player = new Frost(gamefield);
 
@@ -156,23 +162,26 @@ namespace Vitaru.Roots.Tests
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
-                int count = PrionMath.RandomNumber(1 * enemy_multiplier, 5 * enemy_multiplier);
-                double start = TrackManager.CurrentTrack.Clock.Current +
-                               TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
-
-                for (int i = 0; i < count; i++)
+                if (random)
                 {
-                    Color c = Background.Texture.Bitmap.GetPixel(
-                        PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
-                        PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
+                    int count = PrionMath.RandomNumber(1 * enemy_multiplier, 5 * enemy_multiplier);
+                    double start = TrackManager.CurrentTrack.Clock.Current +
+                                   TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
 
-                    gamefield.Add(new Enemy(gamefield)
+                    for (int i = 0; i < count; i++)
                     {
-                        StartTime = start,
-                        StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                        PatternID = (short) PrionMath.RandomNumber(0, 5),
-                        Color = c
-                    });
+                        Color c = Background.Texture.Bitmap.GetPixel(
+                            PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
+                            PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
+
+                        gamefield.Add(new Enemy(gamefield)
+                        {
+                            StartTime = start,
+                            StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
+                            PatternID = (short)PrionMath.RandomNumber(0, 5),
+                            Color = c
+                        });
+                    }
                 }
 
                 surround.OnNewBeat();
@@ -185,6 +194,12 @@ namespace Vitaru.Roots.Tests
             }
 
             base.Update();
+        }
+
+        protected override void OnExiting()
+        {
+            base.OnExiting();
+            TrackManager.CurrentTrack.Gain = 1f;
         }
 
         public override void PreRender()
