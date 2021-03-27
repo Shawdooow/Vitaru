@@ -126,20 +126,17 @@ namespace Vitaru.Play
             FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
             FormatConverter.Gamefield = this;
 
-#if PUBLIC
             try
             {
-#endif
-            if (LevelStore.CurrentLevel.EnemyData != null)
-                UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
-#if PUBLIC
+                if (LevelStore.CurrentLevel.EnemyData != null)
+                    UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
             }
             catch (Exception e)
             {
                 Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
                 UnloadedEnemies.Clear();
+                LevelStore.CurrentLevel.EnemyData = String.Empty;
             }
-#endif
         }
 
         public override void Update()

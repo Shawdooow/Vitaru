@@ -47,7 +47,8 @@ namespace Vitaru.Roots
 
         public override void LoadingComplete()
         {
-            //TODO: get around this...
+            //TODO: get around these...
+            Game.TextureStore.GetTexture("Gameplay\\enemy.png");
             Game.TextureStore.GetTexture("Edit\\enemyOutline.png");
 
             Add(levelProperties);

@@ -70,8 +70,6 @@ namespace Vitaru.Editor.UI
 
             manager.PropertiesSet += ps =>
             {
-                properties.ClearChildren();
-
                 if (ps != null)
                 {
                     foreach (EditableProperty p in ps)
@@ -86,7 +84,7 @@ namespace Vitaru.Editor.UI
                                 TextBox x;
                                 TextBox y;
 
-                                properties.AddArray(new IDrawable2D[]
+                                properties.Children = new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -155,14 +153,14 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                });
+                                };
 
                                 startPos.OnValueUpdated += pos => x.Text = pos.X.ToString();
                                 startPos.OnValueUpdated += pos => y.Text = pos.Y.ToString();
                                 continue;
                             case EditableStartTime startTime:
 
-                                properties.AddArray(new IDrawable2D[]
+                                properties.Children = new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -205,12 +203,12 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                });
+                                };
 
                                 startTime.OnValueUpdated += time => s.Text = time.ToString();
                                 continue;
                             case EditableColor color:
-                                properties.AddArray(new IDrawable2D[]
+                                properties.Children = new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -227,11 +225,11 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                });
+                                };
                                 continue;
                             case EditablePatternID id:
 
-                                properties.AddArray(new IDrawable2D[]
+                                properties.Children = new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -275,7 +273,7 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                });
+                                };
 
                                 id.OnValueUpdated += time => s.Text = time.ToString();
                                 continue;
