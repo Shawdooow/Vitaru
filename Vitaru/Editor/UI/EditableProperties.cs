@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -70,6 +71,8 @@ namespace Vitaru.Editor.UI
 
             manager.PropertiesSet += ps =>
             {
+                List<IDrawable2D> list = new List<IDrawable2D>();
+
                 if (ps != null)
                 {
                     foreach (EditableProperty p in ps)
@@ -84,7 +87,7 @@ namespace Vitaru.Editor.UI
                                 TextBox x;
                                 TextBox y;
 
-                                properties.Children = new IDrawable2D[]
+                                list.AddRange(new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -153,14 +156,13 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                };
+                                });
 
                                 startPos.OnValueUpdated += pos => x.Text = pos.X.ToString();
                                 startPos.OnValueUpdated += pos => y.Text = pos.Y.ToString();
                                 continue;
                             case EditableStartTime startTime:
-
-                                properties.Children = new IDrawable2D[]
+                                list.AddRange(new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -203,12 +205,12 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                };
+                                });
 
                                 startTime.OnValueUpdated += time => s.Text = time.ToString();
                                 continue;
                             case EditableColor color:
-                                properties.Children = new IDrawable2D[]
+                                list.AddRange(new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -225,11 +227,11 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                };
+                                });
                                 continue;
                             case EditablePatternID id:
 
-                                properties.Children = new IDrawable2D[]
+                                list.AddRange(new IDrawable2D[]
                                 {
                                     new InstancedText
                                     {
@@ -273,7 +275,7 @@ namespace Vitaru.Editor.UI
                                         Size = new Vector2(width - 4, 2),
                                         Color = ThemeManager.SecondaryColor
                                     }
-                                };
+                                });
 
                                 id.OnValueUpdated += time => s.Text = time.ToString();
                                 continue;
@@ -284,6 +286,8 @@ namespace Vitaru.Editor.UI
                 }
                 else
                     name.Text = "None";
+
+                properties.Children = list.ToArray();
             };
 
             base.LoadingComplete();
