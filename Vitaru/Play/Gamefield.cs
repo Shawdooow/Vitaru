@@ -62,7 +62,7 @@ namespace Vitaru.Play
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
-        protected readonly List<Enemy> UnloadedEnemies = new();
+        public readonly List<Enemy> UnloadedEnemies = new();
 
         public readonly Pack<Enemy> LoadedEnemies = new()
         {

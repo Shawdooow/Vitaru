@@ -52,7 +52,7 @@ namespace Vitaru.Roots.Tests
                 Clock = TrackManager.CurrentTrack.Clock
             };
 
-            if (LevelStore.CurrentLevel.EnemyData == String.Empty)
+            if (gamefield.UnloadedEnemies.Count <= 0)
                 random = true;
 
             Player player = new Frost(gamefield);
