@@ -27,8 +27,10 @@ namespace Vitaru.Levels
 
         public const string BLANK_LEVEL = "BLANK";
         public const string VERSION_01 = "preview5.2";
-        public const string VERSION_02 = "0.12.0";
-        public const string VERSION_03 = "0.13.0";
+        //Migrate to separate Header + Content files to make loading large libraries faster
+        public const string VERSION_02 = "0.13.0 maybe?";
+        //Migrate to a binary format for ultimate speed!
+        public const string VERSION_03 = "before 1.0.0?";
 
         #endregion
 
