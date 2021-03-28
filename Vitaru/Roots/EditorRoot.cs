@@ -31,7 +31,7 @@ namespace Vitaru.Roots
 
         private LevelManager manager;
 
-        //state to manager loading the editor on draw thread, gets set by a button (the update thread)
+        //state to manage loading the editor on draw thread, gets set by a button (the update thread)
         private LoadState state;
 
         public EditorRoot()
