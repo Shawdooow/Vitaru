@@ -71,7 +71,7 @@ namespace Vitaru.Editor.UI
 
             manager.PropertiesSet += ps =>
             {
-                List<IDrawable2D> list = new List<IDrawable2D>();
+                List<IDrawable2D> list = new();
 
                 if (ps != null)
                 {
