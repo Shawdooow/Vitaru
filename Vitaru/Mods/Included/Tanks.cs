@@ -34,6 +34,7 @@ using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Timing;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
+
 #endif
 
 namespace Vitaru.Mods.Included
@@ -122,7 +123,7 @@ namespace Vitaru.Mods.Included
                 flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
-                    Rolloff = 0,
+                    Rolloff = 0
                 };
 
                 string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();

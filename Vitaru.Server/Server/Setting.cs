@@ -22,7 +22,7 @@ namespace Vitaru.Server.Server
 
             byte[] name = Name.ToLengthAndBytes();
             byte[] value = Value.ToLengthAndBytes();
-            byte[] sync = BitConverter.GetBytes((ushort)Sync);
+            byte[] sync = BitConverter.GetBytes((ushort) Sync);
 
             data.AddRange(name);
             data.AddRange(value);

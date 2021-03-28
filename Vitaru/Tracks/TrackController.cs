@@ -304,7 +304,7 @@ namespace Vitaru.Tracks
                 song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
-                
+
                 b.Finish();
             });
         }

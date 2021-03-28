@@ -26,9 +26,12 @@ namespace Vitaru.Levels
         public const string STABLE = VERSION_01;
 
         public const string BLANK_LEVEL = "BLANK";
+
         public const string VERSION_01 = "preview5.2";
+
         //Migrate to separate Header + Content files to make loading large libraries faster
         public const string VERSION_02 = "0.13.0 maybe?";
+
         //Migrate to a binary format for ultimate speed!
         public const string VERSION_03 = "before 1.0.0?";
 
@@ -247,9 +250,9 @@ namespace Vitaru.Levels
         public static LevelPack GetLevelPack(LevelTrack track)
         {
             foreach (LevelPack pack in LoadedLevels)
-                foreach (Level level in pack.Levels)
-                    if (level.LevelTrack == track)
-                        return pack;
+            foreach (Level level in pack.Levels)
+                if (level.LevelTrack == track)
+                    return pack;
 
             return null;
         }

@@ -43,7 +43,7 @@ namespace Vitaru.Server.Server
             foreach (Setting setting in UserSettings)
                 settings.AddRange(setting.Serialize());
 
-            byte[] status = BitConverter.GetBytes((ushort)Status);
+            byte[] status = BitConverter.GetBytes((ushort) Status);
 
             data.AddRange(username);
             data.AddRange(userid);

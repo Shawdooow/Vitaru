@@ -52,7 +52,6 @@ namespace Vitaru.Roots.Multi
         {
             public Rooms()
             {
-
             }
         }
     }

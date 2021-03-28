@@ -52,7 +52,7 @@ namespace Vitaru.Roots.Tests
             {
                 ParentOrigin = Mounts.TopLeft,
                 Origin = Mounts.TopLeft,
-                Position = new Vector2(20),
+                Position = new Vector2(20)
             });
 
             base.LoadingComplete();

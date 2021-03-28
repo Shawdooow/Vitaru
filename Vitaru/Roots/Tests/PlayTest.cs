@@ -15,7 +15,6 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Graphics;
-using Vitaru.Levels;
 using Vitaru.Play;
 using Vitaru.Settings;
 using Vitaru.Tracks;
@@ -177,8 +176,9 @@ namespace Vitaru.Roots.Tests
                         gamefield.Add(new Enemy(gamefield)
                         {
                             StartTime = start,
-                            StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200), PrionMath.RandomNumber(-300, 0)),
-                            PatternID = (short)PrionMath.RandomNumber(0, 5),
+                            StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
+                                PrionMath.RandomNumber(-300, 0)),
+                            PatternID = (short) PrionMath.RandomNumber(0, 5),
                             Color = c
                         });
                     }
