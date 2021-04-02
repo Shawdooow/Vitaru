@@ -594,7 +594,7 @@ namespace Vitaru.Mods.Included
                 double t;
                 if (time >= 0 && time < rise_to_1km)
                 {
-                    t = Easing.ApplyEasing(Easings.InQuart, PrionMath.Remap(time, 0, rise_to_1km));
+                    t = Easing.ApplyEasing(Easings.InCubic, PrionMath.Remap(time, 0, rise_to_1km));
                     return PrionMath.Remap((float) t, 0, 1,
                         new Vector3(0, 0, 0), new Vector3(0, 1000, 0));
                 }
@@ -606,7 +606,7 @@ namespace Vitaru.Mods.Included
                 }
                 else if (time >= rise_to_4km && time < rise_to_10km)
                 {
-                    t = Easing.ApplyEasing(Easings.OutQuart, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                    t = Easing.ApplyEasing(Easings.OutCubic, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
                     return PrionMath.Remap((float)t, 0, 1,
                         new Vector3(0, 4000, -100), new Vector3(0, 10000, -500));
                 }
