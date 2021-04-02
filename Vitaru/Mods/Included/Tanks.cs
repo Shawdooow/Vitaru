@@ -122,6 +122,9 @@ namespace Vitaru.Mods.Included
             private LightPointer raptor2; // -3, 4, -3
             private LightPointer raptor3; // 3, 4, -3
 
+            private Vector3 saved;
+            private bool ride;
+
             public override void PreLoading()
             {
                 base.PreLoading();
@@ -458,10 +461,11 @@ namespace Vitaru.Mods.Included
 
                     if (launch >= 6)
                     {
-                        float old = starship.Y;
+                        Vector3 old = starship.Position;
                         starship.Position = getStarshipPosition(time) + new Vector3(0, -2, -20);
+                        if (ride) camera.Position += starship.Position - old;
 
-                        velocity.Text = $"{Math.Round((starship.Y - old) * (1000 / Clock.LastElapsedTime), 1)} m/s";
+                        velocity.Text = $"{Math.Round((starship.Y - old.Y) * (1000 / Clock.LastElapsedTime), 1)} m/s";
 
                         flight.Position = starship.Position;
                         raptor1.Position = starship.Position + new Vector3(0, 4, 3);
@@ -613,13 +617,13 @@ namespace Vitaru.Mods.Included
                 }
                 else if (time >= rise_to_1km && time < rise_to_4km)
                 {
-                    t = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                    t = Easing.ApplyEasing(Easings.OutQuad, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
                     return PrionMath.Remap((float)t, 0, 1,
                         new Vector3(0, 1000, 0), new Vector3(0, 4000, -100));
                 }
                 else if (time >= rise_to_4km && time < rise_to_10km)
                 {
-                    t = Easing.ApplyEasing(Easings.OutCubic, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                    t = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
                     return PrionMath.Remap((float)t, 0, 1,
                         new Vector3(0, 4000, -100), new Vector3(0, 10000, -500));
                 }
@@ -717,6 +721,21 @@ namespace Vitaru.Mods.Included
                     case Keys.X:
                         flashRight();
                         break;
+#if !PUBLISH || PERSONAL
+                    case Keys.Q:
+                        if (!ride)
+                        {
+                            ride = true;
+                            saved = camera.Position;
+                            camera.Position = starship.Position + new Vector3(0, 48, 2);
+                        }
+                        else
+                        {
+                            ride = false;
+                            camera.Position = saved;
+                        }
+                        break;
+#endif
                 }
 
 #if !PUBLISH || PERSONAL
