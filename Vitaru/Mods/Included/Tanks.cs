@@ -73,6 +73,8 @@ namespace Vitaru.Mods.Included
             private Model turret;
             private BillboardSprite bill;
 
+            private const float walking_speed = 1.34f;
+
 #if !PUBLISH || PERSONAL
             private Vector3 velocity = Vector3.Zero;
             private Vector3 acceleration = new(0, 1, 0);
@@ -246,10 +248,9 @@ namespace Vitaru.Mods.Included
                 Renderer.Context.BufferMeshes(world);
 
 #if !PUBLISH || PERSONAL
-                starship = new Model()
+                starship = new()
                 {
                     Position = new Vector3(0, -2, -20),
-                    Scale = new Vector3(1),
                     Yaw = MathF.PI
                 };
                 starship.Add(new Mesh(Game.MeshStore.GetVertecies("SN10.obj")));
@@ -375,8 +376,6 @@ namespace Vitaru.Mods.Included
 
                 base.LoadingComplete();
             }
-
-            private float speed = 5;
 
             private int w = 1920 / 2;
             private int h = 1080 / 2;
@@ -531,7 +530,7 @@ namespace Vitaru.Mods.Included
                     mouseInput();
 
                     float t = (float) Clock.LastElapsedTime / 1000f;
-                    t *= speed;
+                    t *= walking_speed;
 
                     if (input[VitaruActions.Up])
                         camera.Position += camera.Front * t;
@@ -602,11 +601,11 @@ namespace Vitaru.Mods.Included
                 LightManager.UpdateShaderStorageBuffer();
 
                 Matrix4x4 m = Matrix4x4.CreateScale(new Vector3(
-                    (float) Math.Sin(DrawClock.Current / 1000f * speed) * 0.5f + 1f,
-                    (float) Math.Cos(DrawClock.Current / 1000f * speed) * 0.5f + 1f, 1));
+                    (float) Math.Sin(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f,
+                    (float) Math.Cos(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f, 1));
 
                 m *= Matrix4x4.CreateFromAxisAngle(new Vector3(0, 1, 0),
-                    (float) (DrawClock.Current / 1000d) * speed);
+                    (float) (DrawClock.Current / 1000d) * walking_speed);
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);
