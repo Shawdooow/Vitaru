@@ -76,8 +76,6 @@ namespace Vitaru.Mods.Included
             private const float walking_speed = 1.34f;
 
 #if !PUBLISH || PERSONAL
-            private Vector3 velocity = Vector3.Zero;
-            private Vector3 acceleration = new(0, 1, 0);
             private Model starship;
 #endif
 
@@ -108,7 +106,15 @@ namespace Vitaru.Mods.Included
             private double time = -10.6f;
 
             private const float max_altitude = 10000;
-            private const double time_to_max_altitude = 420d;
+            private const double time_to_max_altitude = 260d;
+
+            private const double rise_to_1km = 40d;
+            private const double rise_to_4km = 114d;
+            private const double rise_to_10km = 237d;
+
+            private const double fall_to_6km = 293d;
+            private const double fall_to_2km = 333d;
+            private const double fall_to_1km = 344d;
 
             private Sound flight;
             private LightPointer raptor1; // 0, 4, 3
@@ -442,20 +448,12 @@ namespace Vitaru.Mods.Included
 
                     if (launch >= 6)
                     {
-                        starship.Position += velocity * (float) Clock.LastElapsedTime / 1000f;
+                        starship.Position = getStarshipPosition(time);
 
                         flight.Position = starship.Position;
                         raptor1.Position = starship.Position;
                         raptor2.Position = starship.Position;
                         raptor3.Position = starship.Position;
-
-                        velocity += acceleration * (float) Clock.LastElapsedTime / 1000f;
-
-                        if (time >= 8 && time <= 30)
-                            acceleration =
-                                PrionMath.Clamp(
-                                    PrionMath.Remap((float) time, 10, 20, new Vector3(0, 1, 0), new Vector3(0, 2, 0)),
-                                    new Vector3(0, 1, 0), new Vector3(0, 2, 0));
 
                         if (Clock.LastCurrent > flicker1)
                         {
@@ -589,6 +587,33 @@ namespace Vitaru.Mods.Included
                     Name = "Red"
                 };
             }
+
+#if !PUBLISH || PERSONAL
+            private Vector3 getStarshipPosition(double time)
+            {
+                double t;
+                if (time >= 0 && time < rise_to_1km)
+                {
+                    t = Easing.ApplyEasing(Easings.InQuart, PrionMath.Remap(time, 0, rise_to_1km));
+                    return PrionMath.Remap((float) t, 0, 1,
+                        new Vector3(0, 0, -20), new Vector3(0, 1000, -20));
+                }
+                else if (time >= rise_to_1km && time < rise_to_4km)
+                {
+                    t = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                    return PrionMath.Remap((float)t, 0, 1,
+                        new Vector3(0, 1000, -20), new Vector3(0, 4000, -100));
+                }
+                else if (time >= rise_to_4km && time < rise_to_10km)
+                {
+                    t = Easing.ApplyEasing(Easings.OutQuart, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                    return PrionMath.Remap((float)t, 0, 1,
+                        new Vector3(0, 4000, -100), new Vector3(0, 10000, -500));
+                }
+
+                return starship.Position;
+            }
+#endif
 
             public override void PreRender()
             {
