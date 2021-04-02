@@ -90,7 +90,7 @@ namespace Vitaru
 
             List<string> launch = new(args);
 
-#if !PUBLIC || PERSONAL
+#if !PUBLISH || PERSONAL
             if (!launch.Any(arg => arg.Contains("Features")))
                 launch.Add($"Features={Features.Experimental}");
 
@@ -153,7 +153,7 @@ namespace Vitaru
 
             #region Shaders
 
-#if !PUBLIC
+#if !PUBLISH
             if (!(Renderer.Context is DirectX12))
 #endif
             {

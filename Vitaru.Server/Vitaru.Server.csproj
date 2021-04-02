@@ -11,12 +11,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <Configurations>Debug;Release;Publish;Personal</Configurations>
+    <Configurations>Debug;Release;Public;Personal</Configurations>
     <Platform>AnyCPU</Platform>
     <ApplicationIcon>server.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Publish' Or '$(Configuration)'=='Personal'">
-    <DefineConstants>PUBLIC</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
+    <DefineConstants>PUBLISH</DefineConstants>
     <Optimize>true</Optimize>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>

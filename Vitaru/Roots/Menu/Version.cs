@@ -11,7 +11,7 @@ namespace Vitaru.Roots.Menu
     public class Version : InstancedText
     {
         private const string version =
-#if !PUBLIC
+#if !PUBLISH
             "DEBUG " + Vitaru.VERSION;
 #else
             Vitaru.VERSION;
@@ -30,7 +30,7 @@ namespace Vitaru.Roots.Menu
                 ? $"{version} - {Vitaru.FEATURES}"
                 : version;
 
-#if !PUBLIC
+#if !PUBLISH
             Color = Color.Red;
 #else
             switch (NucleusLaunchArgs.Features)

@@ -11,12 +11,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <Configurations>Debug;Release;Publish;Personal</Configurations>
+    <Configurations>Debug;Release;Public;Personal</Configurations>
     <Platform>AnyCPU</Platform>
     <ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Publish' Or '$(Configuration)'=='Personal'">
-    <DefineConstants>PUBLIC</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
+    <DefineConstants>PUBLISH</DefineConstants>
     <OutputType>WinExe</OutputType>
     <Optimize>true</Optimize>
     <SignAssembly>true</SignAssembly>
@@ -26,13 +26,13 @@
     <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Personal'">
-    <DefineConstants>PUBLIC;PERSONAL</DefineConstants>
+    <DefineConstants>PUBLISH;PERSONAL</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Golgi\Prion.Golgi.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Publish'">
+  <ItemGroup Condition="'$(Configuration)'=='Public'">
     <None Remove="Assets\Models\SN10.obj" />
     <None Remove="Assets\Sounds\SN10 Flight.wav" />
   </ItemGroup>
