@@ -89,6 +89,7 @@ namespace Vitaru.Mods.Included
             private InstancedText position;
 #if !PUBLIC || PERSONAL
             private InstancedText mission;
+            private InstancedText altitude;
 
             private GLShaderProgram vNormal;
             private GLShaderProgram fNormal;
@@ -103,6 +104,9 @@ namespace Vitaru.Mods.Included
 #if !PUBLIC || PERSONAL
             private int launch;
             private double time = -10.6f;
+
+            private const float max_altitude = 10000;
+            private const double time_to_max_altitude = 420d;
 
             private Sound flight;
             private LightPointer raptor1; // 0, 4, 3
@@ -325,11 +329,20 @@ namespace Vitaru.Mods.Included
 #if !PUBLIC || PERSONAL
                 Add(mission = new InstancedText
                 {
-                    Position = new Vector2(-80, 10),
+                    Position = new Vector2(-120, 10),
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
                     Alpha = 0,
                     Text = "T-10.6"
+                });
+                Add(altitude = new InstancedText
+                {
+                    Position = new Vector2(120, 80),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopRight,
+                    FontScale = 0.5f,
+                    Alpha = 0,
+                    Text = "0 Meters"
                 });
 #endif
 
@@ -399,6 +412,9 @@ namespace Vitaru.Mods.Included
 
                     mission.Text = time < 0 ? $"T{Math.Round(time, 1)}" : $"T+{Math.Round(time, 1)}";
 
+                    float alt = starship.Y + 2f;
+                    altitude.Text = alt >= 1000 ? $"{Math.Round(alt / 1000, 1)} KM" : $"{Math.Round(alt, 1)} Meters";
+
                     //Engine startup
                     if (launch == 4 && time >= -0.6d)
                     {
@@ -436,7 +452,7 @@ namespace Vitaru.Mods.Included
 
                         velocity += acceleration * (float) Clock.LastElapsedTime / 1000f;
 
-                        if (time >= 8 && time <= 22)
+                        if (time >= 8 && time <= 30)
                             acceleration =
                                 PrionMath.Clamp(
                                     PrionMath.Remap((float) time, 10, 20, new Vector3(0, 1, 0), new Vector3(0, 2, 0)),
@@ -684,6 +700,7 @@ namespace Vitaru.Mods.Included
                     case Keys.Zero when launch == 3:
                         launch++;
                         mission.Alpha = 1;
+                        altitude.Alpha = 1;
                         flight.Play();
                         break;
                 }
