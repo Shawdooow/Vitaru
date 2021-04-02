@@ -464,9 +464,9 @@ namespace Vitaru.Mods.Included
                         velocity.Text = $"{Math.Round((starship.Y - old) * (1000 / Clock.LastElapsedTime), 1)} m/s";
 
                         flight.Position = starship.Position;
-                        raptor1.Position = starship.Position;
-                        raptor2.Position = starship.Position;
-                        raptor3.Position = starship.Position;
+                        raptor1.Position = starship.Position + new Vector3(0, 4, 3);
+                        raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
+                        raptor3.Position = starship.Position + new Vector3(3, 4, -3);
 
                         if (Clock.LastCurrent > flicker1)
                         {
