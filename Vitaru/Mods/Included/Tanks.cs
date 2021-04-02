@@ -90,6 +90,7 @@ namespace Vitaru.Mods.Included
 #if !PUBLISH || PERSONAL
             private InstancedText mission;
             private InstancedText altitude;
+            private InstancedText velocity;
 
             private GLShaderProgram vNormal;
             private GLShaderProgram fNormal;
@@ -351,6 +352,15 @@ namespace Vitaru.Mods.Included
                     Alpha = 0,
                     Text = "0 Meters"
                 });
+                Add(velocity = new InstancedText
+                {
+                    Position = new Vector2(100, 120),
+                    ParentOrigin = Mounts.TopCenter,
+                    Origin = Mounts.TopRight,
+                    FontScale = 0.5f,
+                    Alpha = 0,
+                    Text = "0 m/s"
+                });
 #endif
 
                 Add(new Layer2D<IDrawable2D>
@@ -448,7 +458,10 @@ namespace Vitaru.Mods.Included
 
                     if (launch >= 6)
                     {
+                        float old = starship.Y;
                         starship.Position = getStarshipPosition(time) + new Vector3(0, -2, -20);
+
+                        velocity.Text = $"{Math.Round((starship.Y - old) * (1000 / Clock.LastElapsedTime), 1)} m/s";
 
                         flight.Position = starship.Position;
                         raptor1.Position = starship.Position;
@@ -725,6 +738,7 @@ namespace Vitaru.Mods.Included
                         launch++;
                         mission.Alpha = 1;
                         altitude.Alpha = 1;
+                        velocity.Alpha = 1;
                         flight.Play();
                         break;
                 }
