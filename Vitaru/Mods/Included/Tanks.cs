@@ -466,12 +466,12 @@ namespace Vitaru.Mods.Included
                         starship.Position = getStarshipPosition(time) + new Vector3(0, -2, -20);
                         if (ride) camera.Position += starship.Position - old;
 
-                        velocity.Text = $"{Math.Round((starship.Y - old.Y) * (1000 / Clock.LastElapsedTime), 1)} m/s";
-
                         flight.Position = starship.Position;
                         raptor1.Position = starship.Position + new Vector3(0, 4, 3);
                         raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
                         raptor3.Position = starship.Position + new Vector3(3, 4, -3);
+
+                        velocity.Text = $"{Math.Round((starship.Y - old.Y) * (1000 / Clock.LastElapsedTime), 1)} m/s";
 
                         if (Clock.LastCurrent > flicker1)
                         {
