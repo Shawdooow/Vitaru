@@ -122,7 +122,8 @@ namespace Vitaru.Mods.Included
             private LightPointer raptor2; // -3, 4, -3
             private LightPointer raptor3; // 3, 4, -3
 
-            private Vector3 saved;
+            private Vector3 savedPos;
+            private Vector3 savedRot;
             private bool ride;
 
             public override void PreLoading()
@@ -726,13 +727,24 @@ namespace Vitaru.Mods.Included
                         if (!ride)
                         {
                             ride = true;
-                            saved = camera.Position;
+
+                            Vector3 rot = camera.Rotation;
+                            camera.Rotation = savedRot;
+                            savedRot = rot;
+
+                            savedPos = camera.Position;
+
                             camera.Position = starship.Position + new Vector3(0, 48, 2);
                         }
                         else
                         {
                             ride = false;
-                            camera.Position = saved;
+
+                            Vector3 rot = camera.Rotation;
+                            camera.Rotation = savedRot;
+                            savedRot = rot;
+
+                            camera.Position = savedPos;
                         }
                         break;
 #endif
