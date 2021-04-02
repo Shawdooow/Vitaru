@@ -448,7 +448,7 @@ namespace Vitaru.Mods.Included
 
                     if (launch >= 6)
                     {
-                        starship.Position = getStarshipPosition(time);
+                        starship.Position = getStarshipPosition(time) + new Vector3(0, -2, -20);
 
                         flight.Position = starship.Position;
                         raptor1.Position = starship.Position;
@@ -596,13 +596,13 @@ namespace Vitaru.Mods.Included
                 {
                     t = Easing.ApplyEasing(Easings.InQuart, PrionMath.Remap(time, 0, rise_to_1km));
                     return PrionMath.Remap((float) t, 0, 1,
-                        new Vector3(0, 0, -20), new Vector3(0, 1000, -20));
+                        new Vector3(0, 0, 0), new Vector3(0, 1000, 0));
                 }
                 else if (time >= rise_to_1km && time < rise_to_4km)
                 {
                     t = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
                     return PrionMath.Remap((float)t, 0, 1,
-                        new Vector3(0, 1000, -20), new Vector3(0, 4000, -100));
+                        new Vector3(0, 1000, 0), new Vector3(0, 4000, -100));
                 }
                 else if (time >= rise_to_4km && time < rise_to_10km)
                 {
