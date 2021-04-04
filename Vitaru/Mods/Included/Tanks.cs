@@ -378,17 +378,17 @@ namespace Vitaru.Mods.Included
                 flight.Position = starship.Position;
 
                 raptor1 = LightManager.GetLight();
-                raptor1.Position = starship.Position + new Vector3(0, 4, 3);
+                raptor1.Position = starship.Position + new Vector3(0, 4, 2.5f);
                 raptor1.Diffuse = Color.Black.Vector();
                 raptor1.Falloffs = new Vector3(0.01f);
 
                 raptor2 = LightManager.GetLight();
-                raptor2.Position = starship.Position + new Vector3(-3, 4, -3);
+                raptor2.Position = starship.Position + new Vector3(-2.5f, 4, -2.5f);
                 raptor2.Diffuse = Color.Black.Vector();
                 raptor2.Falloffs = new Vector3(0.01f);
 
                 raptor3 = LightManager.GetLight();
-                raptor3.Position = starship.Position + new Vector3(3, 4, -3);
+                raptor3.Position = starship.Position + new Vector3(2.5f, 4, -2.5f);
                 raptor3.Diffuse = Color.Black.Vector();
                 raptor3.Falloffs = new Vector3(0.01f);
 #endif
