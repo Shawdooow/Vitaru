@@ -33,6 +33,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         public override Color ComplementaryColor => "#c2c2c2".HexToColor();
 
+        public override string Ability => "Time Traveler";
+
+        public override Role Role => Role.Defense;
+
+        public override Difficulty Difficulty => Difficulty.Normal;
+
         public double SetRate { get; private set; } = 0.75d;
 
         private double originalRate;
@@ -41,15 +47,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         private double spellEndTime { get; set; } = double.MinValue;
 
-        #endregion
-
-        public override string Ability => "Time Traveler";
-
-        public override Role Role => Role.Defense;
-
-        public override Difficulty Difficulty => Difficulty.Normal;
-
         private AdjustableClock adjustable;
+
+        #endregion
 
         public Frost(Gamefield gamefield) : base(gamefield)
         {
