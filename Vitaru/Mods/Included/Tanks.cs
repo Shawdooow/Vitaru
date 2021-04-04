@@ -622,7 +622,7 @@ namespace Vitaru.Mods.Included
                         break;
                     case >= rise_to_1km and < rise_to_4km:
                         x = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
-                        y = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                        y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
 
                         position.X = PrionMath.Remap((float) x, 0, 1, 0, -100);
                         position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
