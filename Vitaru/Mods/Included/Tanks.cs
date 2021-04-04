@@ -628,8 +628,8 @@ namespace Vitaru.Mods.Included
                         position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
                         break;
                     case >= rise_to_4km and < rise_to_10km:
-                        x = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
-                        y = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                        x = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                        y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
 
                         position.X = PrionMath.Remap((float)x, 0, 1, -100, -500);
                         position.Y = PrionMath.Remap((float)y, 0, 1, 4000, 10000);
