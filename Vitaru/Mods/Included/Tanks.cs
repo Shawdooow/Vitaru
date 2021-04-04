@@ -611,7 +611,7 @@ namespace Vitaru.Mods.Included
                 double x;
                 double y;
 
-                Vector3 position = starship.Position;
+                Vector3 position = Vector3.Zero;
 
                 switch (time)
                 {
