@@ -34,7 +34,6 @@ using OpenTK.Graphics.OpenGL4;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Timing;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
-
 #endif
 
 namespace Vitaru.Mods.Included
@@ -609,27 +608,35 @@ namespace Vitaru.Mods.Included
 #if !PUBLISH || PERSONAL
             private Vector3 getStarshipPosition(double time)
             {
-                double t;
-                if (time >= 0 && time < rise_to_1km)
+                double x;
+                double y;
+
+                Vector3 position = starship.Position;
+
+                switch (time)
                 {
-                    t = Easing.ApplyEasing(Easings.InCubic, PrionMath.Remap(time, 0, rise_to_1km));
-                    return PrionMath.Remap((float) t, 0, 1,
-                        new Vector3(0, 0, 0), new Vector3(0, 1000, 0));
-                }
-                else if (time >= rise_to_1km && time < rise_to_4km)
-                {
-                    t = Easing.ApplyEasing(Easings.OutQuad, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
-                    return PrionMath.Remap((float)t, 0, 1,
-                        new Vector3(0, 1000, 0), new Vector3(0, 4000, -100));
-                }
-                else if (time >= rise_to_4km && time < rise_to_10km)
-                {
-                    t = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
-                    return PrionMath.Remap((float)t, 0, 1,
-                        new Vector3(0, 4000, -100), new Vector3(0, 10000, -500));
+                    case >= 0 and < rise_to_1km:
+                        y = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, 0, rise_to_1km));
+
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 0, 1000);
+                        break;
+                    case >= rise_to_1km and < rise_to_4km:
+                        x = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                        y = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+
+                        position.X = PrionMath.Remap((float) x, 0, 1, 0, -100);
+                        position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
+                        break;
+                    case >= rise_to_4km and < rise_to_10km:
+                        x = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                        y = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+
+                        position.X = PrionMath.Remap((float)x, 0, 1, -100, -500);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 4000, 10000);
+                        break;
                 }
 
-                return starship.Position;
+                return position;
             }
 #endif
 
