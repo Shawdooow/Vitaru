@@ -608,8 +608,8 @@ namespace Vitaru.Mods.Included
 #if !PUBLISH || PERSONAL
             private Vector3 getStarshipPosition(double time)
             {
-                double x;
                 double y;
+                double z;
 
                 Vector3 position = Vector3.Zero;
 
@@ -621,18 +621,18 @@ namespace Vitaru.Mods.Included
                         position.Y = PrionMath.Remap((float)y, 0, 1, 0, 1000);
                         break;
                     case >= rise_to_1km and < rise_to_4km:
-                        x = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
+                        z = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
 
-                        position.X = PrionMath.Remap((float) x, 0, 1, 0, -100);
                         position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, 0, -100);
                         break;
                     case >= rise_to_4km and < rise_to_10km:
-                        x = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
+                        z = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
 
-                        position.X = PrionMath.Remap((float)x, 0, 1, -100, -500);
                         position.Y = PrionMath.Remap((float)y, 0, 1, 4000, 10000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, -100, -500);
                         break;
                 }
 
