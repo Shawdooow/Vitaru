@@ -4,6 +4,7 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -11,8 +12,9 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Events;
+using Vitaru.Levels;
 using Vitaru.Roots.Menu;
-using Vitaru.Themes;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
@@ -22,7 +24,7 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
-        private readonly TrackController controller;
+        private readonly VitaruTrackController controller;
 
         public MainMenu(Vitaru vitaru)
         {
@@ -39,7 +41,7 @@ namespace Vitaru.Roots
                 FontScale = 1.5f
             });
 
-            Add(controller = new TrackController
+            Add(controller = new VitaruTrackController
             {
                 Position = new Vector2(-40),
                 Origin = Mounts.BottomRight,
@@ -53,6 +55,29 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            controller.OnPrimeTrackManager = () =>
+            {
+                LevelPack p = LevelStore.GetRandomLevel(null);
+
+                if (Vitaru.ALKI == 1)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki Bells")
+                            p = LevelStore.LoadedLevels[i];
+                }
+                else if (Vitaru.ALKI == 2)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki (All Rhize Remix)")
+                            p = LevelStore.LoadedLevels[i];
+                }
+
+                LevelStore.SetLevel(p);
+
+                return LevelStore.CurrentLevel.Metadata;
+            };
+
             controller.PrimeTrackManager();
         }
 

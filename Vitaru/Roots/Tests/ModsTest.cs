@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Mods;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -20,7 +21,7 @@ namespace Vitaru.Roots.Tests
 
         protected override bool Parallax => true;
 
-        private TrackController controller;
+        private VitaruTrackController controller;
 
         public override void LoadingComplete()
         {
@@ -48,7 +49,7 @@ namespace Vitaru.Roots.Tests
                 }
             }
 
-            Add(controller = new TrackController
+            Add(controller = new VitaruTrackController
             {
                 ParentOrigin = Mounts.TopLeft,
                 Origin = Mounts.TopLeft,

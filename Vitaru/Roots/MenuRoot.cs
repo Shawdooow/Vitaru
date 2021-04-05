@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Golgi.Audio;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Graphics.Overlays;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -15,7 +16,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
-using Vitaru.Themes;
 
 namespace Vitaru.Roots
 {

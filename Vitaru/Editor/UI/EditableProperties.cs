@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -15,7 +16,6 @@ using Vitaru.Editor.Editables.Properties.Color;
 using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
-using Vitaru.Themes;
 
 namespace Vitaru.Editor.UI
 {

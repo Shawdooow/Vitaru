@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Centrosome.Packets.Types;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Text;
@@ -15,7 +16,6 @@ using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
 using Vitaru.Networking.Client;
 using Vitaru.Server.Server;
-using Vitaru.Themes;
 
 namespace Vitaru.Roots.Multi
 {

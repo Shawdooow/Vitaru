@@ -4,8 +4,8 @@
 using System;
 using System.Drawing;
 using System.Numerics;
-using Prion.Golgi.Audio;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -16,7 +16,7 @@ using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
-using Vitaru.Themes;
+using Vitaru.Tracks;
 
 namespace Vitaru.Mods.Included
 {
@@ -53,7 +53,7 @@ namespace Vitaru.Mods.Included
             private float rate = 1f;
             private float gain = 1f;
 
-            private TrackController controller;
+            private VitaruTrackController controller;
 
             private InstancedText song;
 
@@ -329,7 +329,7 @@ namespace Vitaru.Mods.Included
                         OnClick = previous
                     },
 
-                    controller = new TrackController
+                    controller = new VitaruTrackController
                     {
                         Alpha = 0,
                         PassDownInput = false

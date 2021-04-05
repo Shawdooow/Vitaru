@@ -4,16 +4,18 @@
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
+using Vitaru.Levels;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
-using Vitaru.Themes;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -23,7 +25,7 @@ namespace Vitaru.Roots.Tests
 
         protected override bool Parallax => true;
 
-        private readonly TrackController controller;
+        private readonly VitaruTrackController controller;
 
         public TestMenu(Vitaru vitaru)
         {
@@ -107,7 +109,7 @@ namespace Vitaru.Roots.Tests
             });
             Add(Back = new Exit(vitaru));
 
-            Add(controller = new TrackController());
+            Add(controller = new VitaruTrackController());
             Add(new TrackSelect());
 
             //Add(new WikiOverlay());
@@ -127,6 +129,29 @@ namespace Vitaru.Roots.Tests
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            controller.OnPrimeTrackManager = () =>
+            {
+                LevelPack p = LevelStore.GetRandomLevel(null);
+
+                if (Vitaru.ALKI == 1)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki Bells")
+                            p = LevelStore.LoadedLevels[i];
+                }
+                else if (Vitaru.ALKI == 2)
+                {
+                    for (int i = 0; i < LevelStore.LoadedLevels.Count; i++)
+                        if (LevelStore.LoadedLevels[i].Title == "Alki (All Rhize Remix)")
+                            p = LevelStore.LoadedLevels[i];
+                }
+
+                LevelStore.SetLevel(p);
+
+                return LevelStore.CurrentLevel.Metadata;
+            };
+
             controller.PrimeTrackManager();
         }
 

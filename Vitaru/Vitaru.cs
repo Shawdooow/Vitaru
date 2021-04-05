@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.DX12;
@@ -26,7 +27,6 @@ using Vitaru.Mods;
 using Vitaru.Roots;
 using Vitaru.Roots.Tests;
 using Vitaru.Settings;
-using Vitaru.Themes;
 
 namespace Vitaru
 {

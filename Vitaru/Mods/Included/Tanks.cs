@@ -28,6 +28,7 @@ using Prion.Mitochondria.Utilities;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
+using Vitaru.Tracks;
 #if !PUBLISH || PERSONAL
 using System.IO;
 using OpenTK.Graphics.OpenGL4;
@@ -65,7 +66,7 @@ namespace Vitaru.Mods.Included
 
             protected override GCLatencyMode GCLatencyMode => GCLatencyMode.SustainedLowLatency;
 
-            private TrackController controller;
+            private VitaruTrackController controller;
 
             private Camera camera;
             private PlayerBinds input;
@@ -211,7 +212,7 @@ namespace Vitaru.Mods.Included
                     Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
 #endif
 
-                Add(controller = new TrackController
+                Add(controller = new VitaruTrackController
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,

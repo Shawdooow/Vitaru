@@ -3,13 +3,13 @@
 
 using System;
 using System.Numerics;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO;
-using Vitaru.Themes;
 
 namespace Vitaru.Settings.Options
 {

@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Themes;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -11,7 +12,6 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Vitaru.Levels;
-using Vitaru.Themes;
 
 namespace Vitaru.Editor.UI
 {
