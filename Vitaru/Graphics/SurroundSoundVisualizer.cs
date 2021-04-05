@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -10,7 +11,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Utilities;
 using Vitaru.Themes;
-using Vitaru.Tracks;
 
 namespace Vitaru.Graphics
 {
@@ -93,7 +93,7 @@ namespace Vitaru.Graphics
 
             private void pulse(Sprite current, Sprite flip)
             {
-                double length = TrackManager.CurrentTrack.Level.GetBeatLength() * 0.9f;
+                double length = TrackManager.CurrentTrack.Metadata.GetBeatLength() * 0.9f;
 
                 current.ScaleTo(new Vector2(0.75f), length, Easings.OutCubic);
                 current.FadeTo(0, length, Easings.InCubic);

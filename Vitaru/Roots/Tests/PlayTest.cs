@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -17,7 +18,6 @@ using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Graphics;
 using Vitaru.Play;
 using Vitaru.Settings;
-using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {
@@ -165,7 +165,7 @@ namespace Vitaru.Roots.Tests
                 {
                     int count = PrionMath.RandomNumber(1 * enemy_multiplier, 5 * enemy_multiplier);
                     double start = TrackManager.CurrentTrack.Clock.Current +
-                                   TrackManager.CurrentTrack.Level.GetBeatLength() * 2;
+                                   TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2;
 
                     for (int i = 0; i < count; i++)
                     {

@@ -3,6 +3,8 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -14,7 +16,6 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Themes;
-using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
@@ -66,10 +67,10 @@ namespace Vitaru.Roots
                 Background.Height += ParallaxAmount;
             }
 
-            if (UseLevelBackground && TrackManager.CurrentTrack.Level.Image != string.Empty)
+            if (UseLevelBackground && TrackManager.CurrentTrack.Metadata.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
-                        $"{TrackManager.CurrentTrack.Level.Title}\\{TrackManager.CurrentTrack.Level.Image}");
+                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}");
         }
 
         public override void LoadingComplete()
@@ -146,8 +147,8 @@ namespace Vitaru.Roots
 
         protected virtual void TrackChange(Track t)
         {
-            if (t.Level.Image != string.Empty)
-                bg = $"{t.Level.Title}\\{t.Level.Image}";
+            if (t.Metadata.Image != string.Empty)
+                bg = $"{t.Metadata.Title}\\{t.Metadata.Image}";
             else
                 bg = "default";
         }

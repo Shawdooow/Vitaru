@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using System.Runtime;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
@@ -27,7 +28,6 @@ using Prion.Mitochondria.Utilities;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
-using Vitaru.Tracks;
 #if !PUBLISH || PERSONAL
 using System.IO;
 using OpenTK.Graphics.OpenGL4;
@@ -588,7 +588,7 @@ namespace Vitaru.Mods.Included
                 blue.Falloffs = new Vector3(0.1f);
 
                 new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs,
-                    dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                    dim, this, Clock.Current, TrackManager.CurrentTrack.Metadata.GetBeatLength() * 0.8f, Easings.None)
                 {
                     Name = "Blue"
                 };
@@ -599,7 +599,7 @@ namespace Vitaru.Mods.Included
                 red.Falloffs = new Vector3(0.1f);
 
                 new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
-                    dim, this, Clock.Current, TrackManager.CurrentTrack.Level.GetBeatLength() * 0.8f, Easings.None)
+                    dim, this, Clock.Current, TrackManager.CurrentTrack.Metadata.GetBeatLength() * 0.8f, Easings.None)
                 {
                     Name = "Red"
                 };

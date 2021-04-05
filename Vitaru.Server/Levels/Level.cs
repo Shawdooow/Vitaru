@@ -4,15 +4,16 @@
 using System;
 using System.Collections.Generic;
 using Prion.Nucleus.Utilities.Interfaces;
+using Prion.Ribosome.Audio;
 
 namespace Vitaru.Server.Levels
 {
     public class Level : ISerializableToBytes
     {
         /// <summary>
-        ///     Information about the Song
+        ///     Metadata about the Song
         /// </summary>
-        public LevelTrack LevelTrack;
+        public TrackMetadata Metadata;
 
         /// <summary>
         ///     The Version of vitaru this Level was made for (used to load old levels properly)

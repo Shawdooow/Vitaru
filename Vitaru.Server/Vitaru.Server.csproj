@@ -26,5 +26,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
+    <ProjectReference Include="..\..\Prion\Prion.Ribosome\Prion.Ribosome.csproj" />
   </ItemGroup>
 </Project>

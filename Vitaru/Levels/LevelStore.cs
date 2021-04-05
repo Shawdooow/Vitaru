@@ -8,6 +8,7 @@ using System.Linq;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Utilities;
+using Prion.Ribosome.Audio;
 using Vitaru.Server.Levels;
 
 namespace Vitaru.Levels
@@ -61,7 +62,7 @@ namespace Vitaru.Levels
                     string[] ext = files[j].Split('.');
 
                     Level level = new();
-                    LevelTrack track = new();
+                    TrackMetadata track = new();
 
                     if (ext.Last() == "vitaru")
                     {
@@ -120,7 +121,7 @@ namespace Vitaru.Levels
                             }
                         }
 
-                        level.LevelTrack = track;
+                        level.Metadata = track;
                         levels.Add(level);
                     }
                 }
@@ -144,7 +145,7 @@ namespace Vitaru.Levels
                         levels.Add(new Level
                         {
                             Format = BLANK_LEVEL,
-                            LevelTrack = new LevelTrack
+                            Metadata = new TrackMetadata
                             {
                                 Title = pack.Title,
                                 Filename = audio,
@@ -222,11 +223,11 @@ namespace Vitaru.Levels
         /// </summary>
         /// <param name="last"></param>
         /// <returns></returns>
-        public static LevelTrack SetRandomLevel(LevelPack last)
+        public static TrackMetadata SetRandomLevel(LevelPack last)
         {
             SetLevel(GetRandomLevel(last));
 
-            return CurrentPack.Levels[0].LevelTrack;
+            return CurrentPack.Levels[0].Metadata;
         }
 
         public static LevelPack GetRandomLevel(LevelPack last)
@@ -235,8 +236,8 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (last != null && LoadedLevels[random].Levels[0].LevelTrack.Title == last.Title ||
-                    !LoadedLevels[random].Levels[0].LevelTrack.Autoplay)
+                if (last != null && LoadedLevels[random].Levels[0].Metadata.Title == last.Title ||
+                    !LoadedLevels[random].Levels[0].Metadata.Autoplay)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;
@@ -247,11 +248,11 @@ namespace Vitaru.Levels
             return CurrentPack;
         }
 
-        public static LevelPack GetLevelPack(LevelTrack track)
+        public static LevelPack GetLevelPack(TrackMetadata data)
         {
             foreach (LevelPack pack in LoadedLevels)
             foreach (Level level in pack.Levels)
-                if (level.LevelTrack == track)
+                if (level.Metadata == data)
                     return pack;
 
             return null;
@@ -265,13 +266,13 @@ namespace Vitaru.Levels
                 Vitaru.LevelStorage.CreateFile(path);
 
             string header = $"Format={CurrentLevel.Format}{Environment.NewLine}" +
-                            $"Audio={CurrentLevel.LevelTrack.Filename}{Environment.NewLine}" +
-                            $"Image={CurrentLevel.LevelTrack.Image}{Environment.NewLine}" +
-                            $"BPM={CurrentLevel.LevelTrack.BPM}{Environment.NewLine}" +
-                            $"AudioOffset={CurrentLevel.LevelTrack.Offset}{Environment.NewLine}" +
-                            $"PreviewTime={CurrentLevel.LevelTrack.PreviewTime}{Environment.NewLine}" +
-                            $"Title={CurrentLevel.LevelTrack.Title}{Environment.NewLine}" +
-                            $"Artist={CurrentLevel.LevelTrack.Artist}{Environment.NewLine}" +
+                            $"Audio={CurrentLevel.Metadata.Filename}{Environment.NewLine}" +
+                            $"Image={CurrentLevel.Metadata.Image}{Environment.NewLine}" +
+                            $"BPM={CurrentLevel.Metadata.BPM}{Environment.NewLine}" +
+                            $"AudioOffset={CurrentLevel.Metadata.Offset}{Environment.NewLine}" +
+                            $"PreviewTime={CurrentLevel.Metadata.PreviewTime}{Environment.NewLine}" +
+                            $"Title={CurrentLevel.Metadata.Title}{Environment.NewLine}" +
+                            $"Artist={CurrentLevel.Metadata.Artist}{Environment.NewLine}" +
                             $"Creator={CurrentLevel.Creator}{Environment.NewLine}" +
                             $"Name={CurrentLevel.Name}{Environment.NewLine}" +
                             $"EnemyData={CurrentLevel.EnemyData}";

@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -13,7 +14,6 @@ using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Settings;
 using Vitaru.Themes;
-using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests
 {

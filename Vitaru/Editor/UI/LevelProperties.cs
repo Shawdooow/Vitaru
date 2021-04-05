@@ -99,7 +99,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelTrack.Title
+                            Text = LevelStore.CurrentLevel.Metadata.Title
                         },
                         new Box
                         {
@@ -127,7 +127,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelTrack.Artist
+                            Text = LevelStore.CurrentLevel.Metadata.Artist
                         },
                         new Box
                         {
@@ -155,7 +155,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelTrack.Filename
+                            Text = LevelStore.CurrentLevel.Metadata.Filename
                         },
                         new Box
                         {
@@ -183,7 +183,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelTrack.BPM.ToString()
+                            Text = LevelStore.CurrentLevel.Metadata.BPM.ToString()
                         },
                         new Box
                         {
@@ -211,7 +211,7 @@ namespace Vitaru.Editor.UI
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.LevelTrack.Image
+                            Text = LevelStore.CurrentLevel.Metadata.Image
                         },
                         new Box
                         {
@@ -325,11 +325,11 @@ namespace Vitaru.Editor.UI
             LevelStore.CurrentLevel.Format =
                 Vitaru.FEATURES >= Features.Experimental ? LevelStore.EXPERIMENTAL : LevelStore.STABLE;
 
-            LevelStore.CurrentLevel.LevelTrack.Title = title.Text;
-            LevelStore.CurrentLevel.LevelTrack.Artist = artist.Text;
-            LevelStore.CurrentLevel.LevelTrack.Filename = filename.Text;
-            LevelStore.CurrentLevel.LevelTrack.BPM = b;
-            LevelStore.CurrentLevel.LevelTrack.Image = image.Text;
+            LevelStore.CurrentLevel.Metadata.Title = title.Text;
+            LevelStore.CurrentLevel.Metadata.Artist = artist.Text;
+            LevelStore.CurrentLevel.Metadata.Filename = filename.Text;
+            LevelStore.CurrentLevel.Metadata.BPM = b;
+            LevelStore.CurrentLevel.Metadata.Image = image.Text;
             LevelStore.CurrentLevel.Creator = creator.Text;
             LevelStore.CurrentLevel.Name = level.Text;
 

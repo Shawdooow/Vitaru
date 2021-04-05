@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -15,7 +16,6 @@ using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Time;
-using Vitaru.Tracks;
 
 namespace Vitaru.Editor.UI
 {

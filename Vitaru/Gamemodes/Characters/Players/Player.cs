@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Input;
@@ -14,7 +15,6 @@ using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Settings;
-using Vitaru.Tracks;
 
 namespace Vitaru.Gamemodes.Characters.Players
 {
@@ -117,8 +117,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             OnHalfBeat();
             lastQuarterBeat = Clock.LastCurrent;
-            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Level.GetBeatLength() / 2;
-            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Level.GetBeatLength() / 4;
+            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
+            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
         }
 
         protected virtual void OnHalfBeat()
@@ -129,7 +129,7 @@ namespace Vitaru.Gamemodes.Characters.Players
         protected virtual void OnQuarterBeat()
         {
             lastQuarterBeat = nextQuarterBeat;
-            nextQuarterBeat += TrackManager.CurrentTrack.Level.GetBeatLength() / 4;
+            nextQuarterBeat += TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
 
             if (HealingProjectiles.Count > 0)
             {
@@ -245,7 +245,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected virtual void PatternWave()
         {
-            double half = TrackManager.CurrentTrack.Level.GetBeatLength() / 2;
+            double half = TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
             shootTime = Clock.LastCurrent + half;
 
             DrawablePlayer?.Seal.Shoot(half);

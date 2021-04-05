@@ -4,6 +4,8 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
@@ -15,7 +17,6 @@ using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
 using Vitaru.Themes;
-using Vitaru.Tracks;
 
 namespace Vitaru.Mods.Included
 {
@@ -79,7 +80,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
                         FontScale = 0.6f,
-                        Text = TrackManager.CurrentTrack.Level.Title
+                        Text = TrackManager.CurrentTrack.Metadata.Title
                     },
 
                     new Button
@@ -448,7 +449,7 @@ namespace Vitaru.Mods.Included
 
             private void previous() => controller.PreviousLevel();
 
-            private void change(Track t) => song.Text = t.Level.Title;
+            private void change(Track t) => song.Text = t.Metadata.Title;
 
             protected override void OnKeyDown(KeyboardKeyEvent e)
             {
