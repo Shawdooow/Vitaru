@@ -3,7 +3,6 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Golgi.Audio;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Golgi.Themes;
