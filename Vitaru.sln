@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Vitaru.sln.DotSettings = Vitaru.sln.DotSettings
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Ribosome", "..\Prion\Prion.Ribosome\Prion.Ribosome.csproj", "{4C16CC3D-046A-4219-ADA7-9A69F54E8116}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,14 @@ Global
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Public|Any CPU.Build.0 = Public|Any CPU
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Personal|Any CPU.ActiveCfg = Personal|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Personal|Any CPU.Build.0 = Personal|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Public|Any CPU.Build.0 = Public|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +109,7 @@ Global
 		{00D24C17-2873-49A5-B82B-638FCC759D95} = {E0619336-A94F-4280-838B-484A35261D76}
 		{E0360528-22FC-4DEA-AECF-153B832F8DBC} = {E0619336-A94F-4280-838B-484A35261D76}
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467} = {E0619336-A94F-4280-838B-484A35261D76}
+		{4C16CC3D-046A-4219-ADA7-9A69F54E8116} = {E0619336-A94F-4280-838B-484A35261D76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FF9E9E5-F170-4859-B102-80968AAE1D5A}
