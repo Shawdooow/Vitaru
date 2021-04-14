@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes
 {
@@ -95,14 +96,16 @@ namespace Vitaru.Gamemodes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Player GetPlayer(string name)
+        public static Player GetPlayer(string name, Gamefield gamefield = null)
         {
             string[] split = name.Split(':');
             foreach (LoadedGamemode set in LoadedGamemodes)
                 if (set.Gamemode.Name == split[0])
-                    foreach (Player p in set.Players)
-                        if (p.Name == split[1])
-                            return p;
+                    foreach (Chapter c in set.Chapters)
+                        if (c.Title == split[1])
+                            foreach (Player p in c.GetPlayers(gamefield))
+                                if (p.Name == split[2])
+                                    return p;
             return null;
         }
 
@@ -126,7 +129,7 @@ namespace Vitaru.Gamemodes
 
             public readonly List<Chapter> Chapters = new();
 
-            public readonly List<Player> Players = new();
+            public readonly List<KeyValuePair<Chapter, Player>> Players = new();
 
             public LoadedGamemode(Gamemode gamemode)
             {
@@ -139,15 +142,15 @@ namespace Vitaru.Gamemodes
                 foreach (Player v in c.GetPlayers())
                 {
                     bool add = true;
-                    foreach (Player p in Players)
-                        if (p.Name == v.Name)
+                    foreach (KeyValuePair<Chapter, Player> p in Players)
+                        if (p.Value.Name == v.Name)
                         {
                             add = false;
                             break;
                         }
 
                     if (add)
-                        Players.Add(v);
+                        Players.Add(new KeyValuePair<Chapter, Player>(c, v));
                 }
             }
         }

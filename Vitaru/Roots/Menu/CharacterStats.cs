@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Windows.Forms.VisualStyles;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
@@ -16,7 +15,7 @@ namespace Vitaru.Roots.Menu
         private readonly Text2D ability;
         private readonly Text2D role;
         private readonly Text2D difficulty;
-        private readonly Text2D background;
+        //private readonly Text2D background;
 
         public CharacterStats()
         {

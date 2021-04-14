@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics;
@@ -65,12 +66,12 @@ namespace Vitaru.Roots.Menu
             private readonly Box background;
             private readonly Box flash;
 
-            private readonly Player character;
+            private readonly KeyValuePair<Chapter, Player> pair;
             private Sprite sign;
 
-            public SelectableCharacter(Player character, int index)
+            public SelectableCharacter(KeyValuePair<Chapter, Player> pair, int index)
             {
-                this.character = character;
+                this.pair = pair;
 
                 ParentOrigin = Mounts.TopLeft;
                 Origin = Mounts.TopLeft;
@@ -101,17 +102,17 @@ namespace Vitaru.Roots.Menu
             {
                 base.LoadingComplete();
 
-                DrawableGameEntity drawable = character.GenerateDrawable();
+                DrawableGameEntity drawable = pair.Value.GenerateDrawable();
                 drawable.Position = Vector2.Zero;
                 AddArray(new IDrawable2D[]
                 {
                     drawable,
-                    new Text2D(character.Name.Length)
+                    new Text2D(pair.Value.Name.Length)
                     {
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
                         Y = 2,
-                        Text = character.Name,
+                        Text = pair.Value.Name,
                         FontScale = 0.3f
                     }
                 });
@@ -153,7 +154,7 @@ namespace Vitaru.Roots.Menu
             public void Select()
             {
                 background.Color = Color.GreenYellow;
-                GamemodeStore.SelectedGamemode.SelectedCharacter = character.Name;
+                GamemodeStore.SelectedGamemode.SelectedCharacter = $"{pair.Key.Title}:{pair.Value.Name}";
             }
 
             public void DeSelect()

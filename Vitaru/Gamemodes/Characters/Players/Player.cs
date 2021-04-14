@@ -99,7 +99,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Position = new Vector2(0, 200);
             Team = PLAYER_TEAM;
-            Binds = new PlayerBinds();
+
+            if (gamefield != null) Binds = new PlayerBinds();
         }
 
         public override void LoadingComplete()
@@ -423,7 +424,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         protected override void Dispose(bool finalize)
         {
-            Binds.Dispose();
+            Binds?.Dispose();
             base.Dispose(finalize);
         }
 

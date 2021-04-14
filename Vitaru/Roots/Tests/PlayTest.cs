@@ -56,7 +56,7 @@ namespace Vitaru.Roots.Tests
                 random = true;
 
             Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty ? 
-                GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter) : 
+                GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield) : 
                 new Frost(gamefield);
 
             gamefield.Add(player);
