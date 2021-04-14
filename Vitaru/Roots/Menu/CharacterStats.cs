@@ -10,6 +10,7 @@ namespace Vitaru.Roots.Menu
     public class CharacterStats : ListLayer<IDrawable2D>
     {
         private readonly Text2D name;
+        private readonly Text2D implemented;
         private readonly Text2D health;
         private readonly Text2D energy;
         private readonly Text2D ability;
@@ -31,6 +32,13 @@ namespace Vitaru.Roots.Menu
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
                     Text = "Name"
+                },
+                implemented = new Text2D
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
+                    FontScale = 0.3f,
+                    Text = "Implemented"
                 },
                 health = new Text2D
                 {
@@ -83,6 +91,7 @@ namespace Vitaru.Roots.Menu
         private void change(Player player)
         {
             name.Text = $"Name: {player.Name}";
+            implemented.Text = player.Implemented ? "Finished" : "Un-finished";
             health.Text = $"Health: {player.HealthCapacity}";
             energy.Text = $"Energy: {player.EnergyCapacity}";
             ability.Text = $"Ability: {player.Ability}";

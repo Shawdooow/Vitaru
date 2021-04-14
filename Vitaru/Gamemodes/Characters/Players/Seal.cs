@@ -134,10 +134,10 @@ namespace Vitaru.Gamemodes.Characters.Players
 
                 circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
-                //EnergyValue.FadeTo(0.8f, duration);
+                EnergyValue.FadeTo(0.8f, duration);
                 EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
 
-                //HealthValue.FadeTo(0.8f, duration);
+                HealthValue.FadeTo(0.8f, duration);
                 HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
 
                 LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);

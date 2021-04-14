@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Utilities;
@@ -20,7 +21,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.One
 
         public const double BLINK_DISTANCE = 320;
 
-        public override string Name => "Tyle ";
+        public override string Name => "Tyle";
 
         public override float HealthCapacity => 60;
 
@@ -30,17 +31,19 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.One
 
         public override float EnergyDrainRate => 8;
 
-        //public override Color PrimaryColor => "#a1e4ff".HexToColor();
+        public override Color PrimaryColor => "#4903fc".HexToColor();
 
-        //public override Color SecondaryColor => "#009ad9".HexToColor();
+        public override Color SecondaryColor => "#262626".HexToColor();
 
-        //public override Color ComplementaryColor => "#c2c2c2".HexToColor();
+        public override Color ComplementaryColor => "#8e70db".HexToColor();
 
         public override string Ability => "Shadow Skipper";
 
         public override Role Role => Role.Offense;
 
         public override Difficulty Difficulty => Difficulty.Hard;
+
+        public override bool Implemented => true;
 
         /// <summary>
         /// scale from 0 - 1 on how charged our blink is
@@ -77,6 +80,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.One
 
             if (Gamefield.Current >= spellEndTime)
                 HitDetection = true;
+
+            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{Math.Round(BLINK_DISTANCE * charge, 0)}p";
         }
 
         protected override void SpellDeactivate(VitaruActions action)

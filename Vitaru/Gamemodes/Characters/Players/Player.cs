@@ -52,6 +52,8 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public virtual Difficulty Difficulty { get; } = Difficulty.Easy;
 
+        public virtual bool Implemented { get; } = false;
+
         public virtual string Background => "Default Background Text   C:<";
 
         public PlayerBinds Binds { get; set; }

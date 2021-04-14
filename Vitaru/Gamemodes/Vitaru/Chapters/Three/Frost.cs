@@ -39,6 +39,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
+        public override bool Implemented => true;
+
         public double SetRate { get; private set; } = 0.75d;
 
         private double originalRate;
