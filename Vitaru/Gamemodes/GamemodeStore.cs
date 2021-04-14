@@ -63,7 +63,7 @@ namespace Vitaru.Gamemodes
         }
 
         /// <summary>
-        ///     Trys to find a loaded gamemode with the given name
+        ///     Try to find a loaded gamemode with the given name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -77,7 +77,7 @@ namespace Vitaru.Gamemodes
         }
 
         /// <summary>
-        ///     Trys to find a loaded chapter with the given title
+        ///     Try to find a loaded chapter with the given title
         /// </summary>
         /// <param name="title"></param>
         /// <returns></returns>
@@ -91,16 +91,18 @@ namespace Vitaru.Gamemodes
         }
 
         /// <summary>
-        ///     Trys to find a loaded player with the given name
+        ///     Try to find a loaded player with the given name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         public static Player GetPlayer(string name)
         {
+            string[] split = name.Split(':');
             foreach (LoadedGamemode set in LoadedGamemodes)
-            foreach (Player p in set.Players)
-                if (p.Name == name)
-                    return p;
+                if (set.Gamemode.Name == split[0])
+                    foreach (Player p in set.Players)
+                        if (p.Name == split[1])
+                            return p;
             return null;
         }
 
@@ -108,7 +110,19 @@ namespace Vitaru.Gamemodes
         {
             public readonly Gamemode Gamemode;
 
-            public string SelectedCharacter;
+            public string SelectedCharacter
+            {
+                get => selected;
+                set 
+                {
+                    selected = $"{Gamemode.Name}:{value}";
+                    OnSelectedCharacterChange?.Invoke(selected);
+                }
+            }
+
+            private string selected;
+
+            public event Action<string> OnSelectedCharacterChange;
 
             public readonly List<Chapter> Chapters = new();
 
