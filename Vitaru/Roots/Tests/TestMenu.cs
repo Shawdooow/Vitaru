@@ -48,6 +48,30 @@ namespace Vitaru.Roots.Tests
                         AddRoot(new PlayTest());
                 }
             });
+            if(Vitaru.FEATURES >= Features.Experimental)
+                Add(new Button
+                {
+                    Position = new Vector2(150, -180),
+                    Size = new Vector2(50, 100),
+
+                    Background = Game.TextureStore.GetTexture("square.png"),
+                    BackgroundSprite =
+                    {
+                        Color = Color.DarkCyan
+                    },
+
+                    Text = "Levels",
+                    InstancedText =
+                    {
+                        FontScale = 0.25f
+                    },
+
+                    OnClick = () =>
+                    {
+                        if (TrackManager.CurrentTrack != null)
+                            AddRoot(new LevelSelect());
+                    }
+                });
             Add(new Button
             {
                 Y = -60,

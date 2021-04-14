@@ -73,7 +73,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         private double shootTime;
 
-        private readonly Vector2 border = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize() / 2;
+        private readonly Vector2 border = GamemodeStore.SelectedGamemode?.Gamemode.GetGamefieldSize() / 2 ?? Vector2.One;
 
         private bool GOD_KING;
 

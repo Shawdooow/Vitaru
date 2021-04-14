@@ -4,6 +4,7 @@
 using Prion.Mitochondria.Graphics.Sprites;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
+using Vitaru.Gamemodes.Vitaru.Chapters;
 using Vitaru.Gamemodes.Vitaru.Edit;
 using Vitaru.Play;
 
@@ -21,6 +22,7 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override Chapter[] GetChapters() => new Chapter[]
         {
+            new AlkiChapter()
         };
 
         public override EditableGenerator[] GetGenerators() => new EditableGenerator[]

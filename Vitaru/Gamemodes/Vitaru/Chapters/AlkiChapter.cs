@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Gamemodes.Vitaru.Chapters.One;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
 using Vitaru.Play;
 
@@ -15,7 +16,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters
 
         public override Player[] GetPlayers(Gamefield gamefield = null) => new Player[]
         {
-            new Frost(gamefield)
+            new Frost(gamefield),
+            new Tyle(gamefield)
         };
     }
 }

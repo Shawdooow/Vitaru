@@ -7,9 +7,9 @@ using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Chapters
 {
-    public class TouhosuChapter : Chapter
+    public class TauChapter : Chapter
     {
-        public override string Title => "Touhosu";
+        public override string Title => "Tau";
 
         public override Player[] GetPlayers(Gamefield gamefield = null)
         {
