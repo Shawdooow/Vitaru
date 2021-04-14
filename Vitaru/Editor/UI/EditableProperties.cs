@@ -26,7 +26,7 @@ namespace Vitaru.Editor.UI
 
         private readonly LevelManager manager;
 
-        private InstancedText name;
+        private Text2D name;
         private ListLayer<IDrawable2D> properties;
 
         public EditableProperties(LevelManager manager)
@@ -52,7 +52,7 @@ namespace Vitaru.Editor.UI
                     ParentSizing = Axes.Both,
                     Color = Color.Black
                 },
-                name = new InstancedText
+                name = new Text2D
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
@@ -89,7 +89,7 @@ namespace Vitaru.Editor.UI
 
                                 list.AddRange(new IDrawable2D[]
                                 {
-                                    new InstancedText
+                                    new Text2D
                                     {
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
@@ -164,7 +164,7 @@ namespace Vitaru.Editor.UI
                             case EditableStartTime startTime:
                                 list.AddRange(new IDrawable2D[]
                                 {
-                                    new InstancedText
+                                    new Text2D
                                     {
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
@@ -212,7 +212,7 @@ namespace Vitaru.Editor.UI
                             case EditableColor color:
                                 list.AddRange(new IDrawable2D[]
                                 {
-                                    new InstancedText
+                                    new Text2D
                                     {
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
@@ -233,7 +233,7 @@ namespace Vitaru.Editor.UI
 
                                 list.AddRange(new IDrawable2D[]
                                 {
-                                    new InstancedText
+                                    new Text2D
                                     {
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,

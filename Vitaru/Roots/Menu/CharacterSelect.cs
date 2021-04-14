@@ -106,7 +106,7 @@ namespace Vitaru.Roots.Menu
                 AddArray(new IDrawable2D[]
                 {
                     drawable,
-                    new InstancedText(character.Name.Length)
+                    new Text2D(character.Name.Length)
                     {
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,

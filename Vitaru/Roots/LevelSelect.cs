@@ -42,6 +42,7 @@ namespace Vitaru.Roots
             });
             Add(new TrackSelect());
             Add(new CharacterSelect());
+            Add(new CharacterStats());
             Add(controller = new VitaruTrackController());
         }
 

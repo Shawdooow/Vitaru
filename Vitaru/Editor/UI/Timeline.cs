@@ -24,11 +24,11 @@ namespace Vitaru.Editor.UI
         private const float width = 1080f;
         private const float height = 140f;
 
-        private readonly InstancedText timeIn;
-        private readonly InstancedText msIn;
+        private readonly Text2D timeIn;
+        private readonly Text2D msIn;
         private readonly Slider scrubber;
-        private readonly InstancedText timeLeft;
-        private readonly InstancedText msLeft;
+        private readonly Text2D timeLeft;
+        private readonly Text2D msLeft;
 
         private readonly Button play;
 
@@ -90,28 +90,28 @@ namespace Vitaru.Editor.UI
 
             scrubber.AddArray(new IDrawable2D[]
             {
-                timeIn = new InstancedText
+                timeIn = new Text2D
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-12, -2),
                     FontScale = 0.25f
                 },
-                msIn = new InstancedText
+                msIn = new Text2D
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-12, 2),
                     FontScale = 0.25f
                 },
-                timeLeft = new InstancedText
+                timeLeft = new Text2D
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(12, -2),
                     FontScale = 0.25f
                 },
-                msLeft = new InstancedText
+                msLeft = new Text2D
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.TopLeft,

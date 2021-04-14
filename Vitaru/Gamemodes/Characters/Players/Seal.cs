@@ -22,11 +22,11 @@ namespace Vitaru.Gamemodes.Characters.Players
         public readonly Sprite Sign;
         public readonly Sprite Reticle;
 
-        public readonly InstancedText EnergyValue;
-        public readonly InstancedText HealthValue;
+        public readonly Text2D EnergyValue;
+        public readonly Text2D HealthValue;
 
-        public readonly InstancedText RightValue;
-        public readonly InstancedText LeftValue;
+        public readonly Text2D RightValue;
+        public readonly Text2D LeftValue;
 
         private readonly CircularMask circular;
 
@@ -56,7 +56,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Color = player.PrimaryColor
                 },
 
-                EnergyValue = new InstancedText
+                EnergyValue = new Text2D
                 {
                     Position = new Vector2(-60, 10),
                     ParentOrigin = Mounts.TopCenter,
@@ -65,7 +65,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
-                HealthValue = new InstancedText
+                HealthValue = new Text2D
                 {
                     Position = new Vector2(60, 10),
                     ParentOrigin = Mounts.TopCenter,
@@ -75,7 +75,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     //Color = player.SecondaryColor,
                 },
 
-                LeftValue = new InstancedText
+                LeftValue = new Text2D
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
@@ -83,7 +83,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 },
-                RightValue = new InstancedText
+                RightValue = new Text2D
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,

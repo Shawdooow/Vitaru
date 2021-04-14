@@ -58,7 +58,7 @@ namespace Vitaru.Settings
 
                     Children = new IDrawable2D[]
                     {
-                        new InstancedText
+                        new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
@@ -114,7 +114,7 @@ namespace Vitaru.Settings
                         //    Text = "Toggle Touch Mode"
                         //},
 
-                        new InstancedText
+                        new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
@@ -149,7 +149,7 @@ namespace Vitaru.Settings
                             Text = "Max Bullets"
                         },
 
-                        new InstancedText
+                        new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,

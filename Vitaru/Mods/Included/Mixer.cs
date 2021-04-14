@@ -55,18 +55,18 @@ namespace Vitaru.Mods.Included
 
             private VitaruTrackController controller;
 
-            private InstancedText song;
+            private Text2D song;
 
-            private InstancedText volume;
+            private Text2D volume;
             private Slider control;
 
-            private InstancedText pitch;
+            private Text2D pitch;
             private Slider slider;
 
             private Button play;
-            private InstancedText timeIn;
+            private Text2D timeIn;
             private Slider seek;
-            private InstancedText timeLeft;
+            private Text2D timeLeft;
 
             private bool accel;
 
@@ -74,7 +74,7 @@ namespace Vitaru.Mods.Included
             {
                 AddArray(new ILayer[]
                 {
-                    song = new InstancedText
+                    song = new Text2D
                     {
                         Y = 16,
                         ParentOrigin = Mounts.TopCenter,
@@ -259,7 +259,7 @@ namespace Vitaru.Mods.Included
                         OnClick = () => accel = !accel
                     },
 
-                    pitch = new InstancedText
+                    pitch = new Text2D
                     {
                         Position = new Vector2(0, -160),
                         Text = TrackManager.CurrentTrack.Pitch.ToString()
@@ -271,7 +271,7 @@ namespace Vitaru.Mods.Included
                         OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max))
                     },
 
-                    volume = new InstancedText
+                    volume = new Text2D
                     {
                         Position = new Vector2(0, -280),
                         FontScale = 0.5f,
@@ -338,7 +338,7 @@ namespace Vitaru.Mods.Included
 
                 slider.AddArray(new IDrawable2D[]
                 {
-                    new InstancedText
+                    new Text2D
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
@@ -346,7 +346,7 @@ namespace Vitaru.Mods.Included
                         FontScale = 0.25f,
                         Text = "0.05x"
                     },
-                    new InstancedText
+                    new Text2D
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
@@ -358,14 +358,14 @@ namespace Vitaru.Mods.Included
 
                 seek.AddArray(new IDrawable2D[]
                 {
-                    timeIn = new InstancedText
+                    timeIn = new Text2D
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
                         FontScale = 0.25f
                     },
-                    timeLeft = new InstancedText
+                    timeLeft = new Text2D
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,

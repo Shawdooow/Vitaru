@@ -35,13 +35,13 @@ namespace Vitaru.Roots.Tests
 
         private readonly bool random;
 
-        private readonly InstancedText enemies;
-        private readonly InstancedText bullets;
-        private readonly InstancedText particles;
+        private readonly Text2D enemies;
+        private readonly Text2D bullets;
+        private readonly Text2D particles;
 
-        private readonly InstancedText timeIn;
+        private readonly Text2D timeIn;
         private readonly Slider slider;
-        private readonly InstancedText timeLeft;
+        private readonly Text2D timeLeft;
 
         private readonly SurroundSoundVisualizer surround;
 
@@ -70,21 +70,21 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.BulletLayer);
             Add(gamefield.Border);
 
-            Add(enemies = new InstancedText
+            Add(enemies = new Text2D
             {
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 FontScale = 0.25f
             });
-            Add(bullets = new InstancedText
+            Add(bullets = new Text2D
             {
                 Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 FontScale = 0.25f
             });
-            Add(particles = new InstancedText
+            Add(particles = new Text2D
             {
                 Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
@@ -114,14 +114,14 @@ namespace Vitaru.Roots.Tests
 
             slider.AddArray(new IDrawable2D[]
             {
-                timeIn = new InstancedText
+                timeIn = new Text2D
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
                     FontScale = 0.25f
                 },
-                timeLeft = new InstancedText
+                timeLeft = new Text2D
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,

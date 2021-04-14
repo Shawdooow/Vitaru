@@ -22,7 +22,7 @@ namespace Vitaru.Roots.Multi
         {
             AddArray(new ILayer[]
             {
-                new InstancedText(10, true)
+                new Text2D(10, true)
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,

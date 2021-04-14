@@ -87,11 +87,11 @@ namespace Vitaru.Mods.Included
             private LightPointer blue;
             private LightPointer red;
 
-            private InstancedText position;
+            private Text2D position;
 #if !PUBLISH || PERSONAL
-            private InstancedText mission;
-            private InstancedText altitude;
-            private InstancedText velocity;
+            private Text2D mission;
+            private Text2D altitude;
+            private Text2D velocity;
 
             private GLShaderProgram vNormal;
             private GLShaderProgram fNormal;
@@ -333,14 +333,14 @@ namespace Vitaru.Mods.Included
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.TextureProgram;
 
                 Add(new PerformanceDisplay(DisplayType.FPS));
-                Add(position = new InstancedText
+                Add(position = new Text2D
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f
                 });
 #if !PUBLISH || PERSONAL
-                Add(mission = new InstancedText
+                Add(mission = new Text2D
                 {
                     Position = new Vector2(-120, 10),
                     ParentOrigin = Mounts.TopCenter,
@@ -348,7 +348,7 @@ namespace Vitaru.Mods.Included
                     Alpha = 0,
                     Text = "T-10.6"
                 });
-                Add(altitude = new InstancedText
+                Add(altitude = new Text2D
                 {
                     Position = new Vector2(120, 80),
                     ParentOrigin = Mounts.TopCenter,
@@ -357,7 +357,7 @@ namespace Vitaru.Mods.Included
                     Alpha = 0,
                     Text = "0 Meters"
                 });
-                Add(velocity = new InstancedText
+                Add(velocity = new Text2D
                 {
                     Position = new Vector2(100, 120),
                     ParentOrigin = Mounts.TopCenter,

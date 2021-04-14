@@ -32,7 +32,7 @@ namespace Vitaru.Roots
 
             Add(new MainMenuPanel());
 
-            Add(new InstancedText
+            Add(new Text2D
             {
                 Position = new Vector2(-40, 40),
                 ParentOrigin = Mounts.TopRight,

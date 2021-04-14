@@ -82,7 +82,7 @@ namespace Vitaru.Settings.Options
             set => InstancedText.Text = value;
         }
 
-        protected readonly InstancedText InstancedText;
+        protected readonly Text2D InstancedText;
         protected readonly TextBox TextBox;
         protected readonly Slider Slider;
 
@@ -96,7 +96,7 @@ namespace Vitaru.Settings.Options
 
             Children = new IDrawable2D[]
             {
-                InstancedText = new InstancedText
+                InstancedText = new Text2D
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterLeft,

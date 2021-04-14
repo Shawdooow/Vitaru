@@ -8,7 +8,7 @@ using Prion.Nucleus;
 
 namespace Vitaru.Roots.Menu
 {
-    public class Version : InstancedText
+    public class Version : Text2D
     {
         private const string version =
 #if !PUBLISH
