@@ -153,6 +153,7 @@ namespace Vitaru.Roots.Menu
             public void Select()
             {
                 background.Color = Color.GreenYellow;
+                GamemodeStore.SelectedGamemode.SelectedCharacter = character.Name;
             }
 
             public void DeSelect()

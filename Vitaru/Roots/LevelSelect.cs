@@ -5,6 +5,7 @@ using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Tests;
@@ -24,8 +25,10 @@ namespace Vitaru.Roots
         {
             Add(new Button
             {
-                X = 400,
-                Size = new Vector2(200, 100),
+                ParentOrigin = Mounts.BottomRight,
+                Origin = Mounts.BottomRight,
+                Position = new Vector2(-10, -20),
+                Size = new Vector2(100, 50),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =

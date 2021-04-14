@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
+using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
@@ -54,7 +55,9 @@ namespace Vitaru.Roots.Tests
             if (gamefield.UnloadedEnemies.Count <= 0)
                 random = true;
 
-            Player player = new Frost(gamefield);
+            Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty ? 
+                GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter) : 
+                new Frost(gamefield);
 
             gamefield.Add(player);
 
