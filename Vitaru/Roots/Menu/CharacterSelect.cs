@@ -47,6 +47,8 @@ namespace Vitaru.Roots.Menu
                 item.OnClick = () => select(item);
                 items.Add(item);
             }
+
+            select(items.Children[0]);
         }
 
         private void select(SelectableCharacter item)
@@ -63,8 +65,13 @@ namespace Vitaru.Roots.Menu
             private readonly Box background;
             private readonly Box flash;
 
+            private readonly Player character;
+            private Sprite sign;
+
             public SelectableCharacter(Player character, int index)
             {
+                this.character = character;
+
                 ParentOrigin = Mounts.TopLeft;
                 Origin = Mounts.TopLeft;
 
@@ -86,15 +93,37 @@ namespace Vitaru.Roots.Menu
                         Alpha = 0,
                         Size = Size,
                         Color = Color.White
-                    },
+                    }
+                };
+            }
+
+            public override void LoadingComplete()
+            {
+                base.LoadingComplete();
+
+                DrawableGameEntity drawable = character.GenerateDrawable();
+                drawable.Position = Vector2.Zero;
+                AddArray(new IDrawable2D[]
+                {
+                    drawable,
                     new InstancedText(character.Name.Length)
                     {
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
+                        Y = 2,
                         Text = character.Name,
-                        FontScale = 0.25f
+                        FontScale = 0.3f
                     }
-                };
+                });
+
+                if (drawable is DrawablePlayer p)
+                    sign = p.Seal.Sign;
+            }
+
+            public override void PreRender()
+            {
+                base.PreRender();
+                sign.Rotation += (float)(Clock.LastElapsedTime / 1000);
             }
 
             public override bool OnMouseDown(MouseButtonEvent e)
