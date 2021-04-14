@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Linq;
+using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
@@ -10,13 +12,14 @@ namespace Vitaru.Roots.Menu
     public class CharacterStats : ListLayer<IDrawable2D>
     {
         private readonly Text2D name;
-        private readonly Text2D implemented;
         private readonly Text2D health;
         private readonly Text2D energy;
         private readonly Text2D ability;
         private readonly Text2D role;
         private readonly Text2D difficulty;
         //private readonly Text2D background;
+
+        private readonly Text2D implemented;
 
         public CharacterStats()
         {
@@ -32,13 +35,6 @@ namespace Vitaru.Roots.Menu
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
                     Text = "Name"
-                },
-                implemented = new Text2D
-                {
-                    ParentOrigin = Mounts.TopLeft,
-                    Origin = Mounts.TopLeft,
-                    FontScale = 0.3f,
-                    Text = "Implemented"
                 },
                 health = new Text2D
                 {
@@ -84,6 +80,15 @@ namespace Vitaru.Roots.Menu
                 //}
             };
 
+            implemented = new Text2D
+            {
+                ParentOrigin = Mounts.TopLeft,
+                Origin = Mounts.TopLeft,
+                FontScale = 0.3f,
+                Text = "Un-finished!",
+                Color = Color.Red
+            };
+
             GamemodeStore.SelectedGamemode.OnSelectedCharacterChange += value => change(GamemodeStore.GetPlayer(value));
             change(GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter));
         }
@@ -91,13 +96,17 @@ namespace Vitaru.Roots.Menu
         private void change(Player player)
         {
             name.Text = $"Name: {player.Name}";
-            implemented.Text = player.Implemented ? "Finished" : "Un-finished";
             health.Text = $"Health: {player.HealthCapacity}";
             energy.Text = $"Energy: {player.EnergyCapacity}";
             ability.Text = $"Ability: {player.Ability}";
             role.Text = $"Role: {player.Role}";
             difficulty.Text = $"Difficulty: {player.Difficulty}";
             //background.Text = $"Background: {player.Difficulty}";
+
+            if (!player.Implemented && !Children.Contains(implemented))
+                Add(implemented);
+            else if (player.Implemented && Children.Contains(implemented))
+                Remove(implemented, false);
         }
     }
 }
