@@ -20,6 +20,8 @@ namespace Vitaru.Gamemodes.Characters
 
         public virtual float HitboxDiameter { get; protected set; } = 10;
 
+        public virtual bool HitDetection { get; protected set; } = true;
+
         public bool Dead { get; protected set; }
 
         protected new DrawableCharacter Drawable;
@@ -57,7 +59,7 @@ namespace Vitaru.Gamemodes.Characters
 
         public override void Update()
         {
-            if (!Dead)
+            if (!Dead && HitDetection)
             {
                 foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
                 {
