@@ -27,7 +27,7 @@ namespace Vitaru.Roots
             {
                 ParentOrigin = Mounts.BottomRight,
                 Origin = Mounts.BottomRight,
-                Position = new Vector2(-10, -20),
+                Position = new Vector2(-10, -60),
                 Size = new Vector2(100, 50),
 
                 Background = Game.TextureStore.GetTexture("square.png"),

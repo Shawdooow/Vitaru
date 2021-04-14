@@ -58,7 +58,6 @@ namespace Vitaru.Roots.Menu
                 i.DeSelect();
 
             item.Select();
-            Logger.Log("Set Character HERE!!", Output.SystemConsole);
         }
 
         public class SelectableCharacter : ClickableLayer<IDrawable2D>
