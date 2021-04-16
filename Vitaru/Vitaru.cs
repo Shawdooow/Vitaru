@@ -65,7 +65,31 @@ namespace Vitaru
         {
             startup.Start();
 
-            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte) 1 : (byte) 0;
+
+            #region Startup
+
+
+            List<string> launch = new(args);
+
+#if !PUBLISH || PERSONAL
+            if (!launch.Any(arg => arg.Contains("Features")))
+                launch.Add($"Features={Features.Experimental}");
+
+            //if (!launch.Any(arg => arg.Contains("GContext")))
+            //    launch.Add("GContext=GL41");
+#endif
+
+            VitaruLaunchArgs v = new()
+            {
+                Name = host
+            };
+            VitaruLaunchArgs.ProccessArgs(launch.ToArray());
+
+
+            #endregion
+
+
+            ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
 
             if (ALKI == 1)
             {
@@ -87,22 +111,6 @@ namespace Vitaru
                 if (somber)
                     ThemeManager.Theme = new Somber();
             }
-
-            List<string> launch = new(args);
-
-#if !PUBLISH || PERSONAL
-            if (!launch.Any(arg => arg.Contains("Features")))
-                launch.Add($"Features={Features.Experimental}");
-
-            //if (!launch.Any(arg => arg.Contains("GContext")))
-            //    launch.Add("GContext=GL41");
-#endif
-
-            VitaruLaunchArgs v = new()
-            {
-                Name = host
-            };
-            VitaruLaunchArgs.ProccessArgs(launch.ToArray());
 
             using (Vitaru vitaru = new(v))
             {
