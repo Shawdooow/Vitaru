@@ -204,7 +204,6 @@ namespace Vitaru.Gamemodes.Characters.Players
             base.ParseProjectile(projectile);
 
             const int maxHeal = 64;
-            float distance = float.MaxValue;
             float edgeDistance = float.MaxValue;
 
             switch (projectile)
@@ -218,8 +217,8 @@ namespace Vitaru.Gamemodes.Characters.Players
                     if (Position.Y - bullet.Position.Y < min + maxHeal)
                         if (Position.X - bullet.Position.X < min + maxHeal)
                         {
-                            distance = Vector2.Distance(projectile.Position, Position);
-                            edgeDistance = distance - (min);
+                            float distance = Vector2.Distance(projectile.Position, Position);
+                            edgeDistance = distance - min;
                         }
 
                     break;
@@ -238,9 +237,6 @@ namespace Vitaru.Gamemodes.Characters.Players
                 if (add)
                     HealingProjectiles.Add(new HealingProjectile(projectile, edgeDistance));
             }
-
-            //if (ChapterSet is DodgeChapterSet)
-            //    edgeDistance *= 1.5f;
 
             if (edgeDistance < projectile.MinDistance)
                 projectile.MinDistance = edgeDistance;

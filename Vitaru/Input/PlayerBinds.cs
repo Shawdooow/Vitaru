@@ -20,8 +20,8 @@ namespace Vitaru.Input
             BindSettings.SetValue(VitaruActions.Jump, Keys.Space);
             BindSettings.SetValue(VitaruActions.Shoot, MouseButtons.Left);
             BindSettings.SetValue(VitaruActions.Spell, MouseButtons.Right);
-            BindSettings.SetValue(VitaruActions.Increase, Keys.E);
-            BindSettings.SetValue(VitaruActions.Decrease, Keys.Q);
+            BindSettings.SetValue(VitaruActions.ModifierOne, Keys.E);
+            BindSettings.SetValue(VitaruActions.ModifierTwo, Keys.Q);
             BindSettings.SetValue(VitaruActions.Pull, Keys.F);
         }
     }
@@ -37,8 +37,8 @@ namespace Vitaru.Input
         Shoot,
         Spell,
 
-        Increase,
-        Decrease,
+        ModifierOne,
+        ModifierTwo,
 
         Pull
     }

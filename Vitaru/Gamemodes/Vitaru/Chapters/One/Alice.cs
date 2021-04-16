@@ -4,6 +4,7 @@
 using System.Drawing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Input;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.One
@@ -36,6 +37,18 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.One
 
         public Alice(Gamefield gamefield) : base(gamefield)
         {
+        }
+
+        protected override void SpellUpdate()
+        {
+            base.SpellUpdate();
+        }
+
+        protected override void SpellActivate(VitaruActions action)
+        {
+            base.SpellActivate(action);
+
+            Gamefield.Shade = Shades.Gray;
         }
     }
 }

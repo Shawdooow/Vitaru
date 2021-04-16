@@ -68,9 +68,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         protected override bool CheckSpellActivate(VitaruActions action)
         {
-            if (action == VitaruActions.Increase)
+            if (action == VitaruActions.ModifierOne)
                 return true;
-            if (action == VitaruActions.Decrease)
+            if (action == VitaruActions.ModifierTwo)
                 return true;
 
             return base.CheckSpellActivate(action);
@@ -78,7 +78,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
 
         protected override void SpellActivate(VitaruActions action)
         {
-            if (action == VitaruActions.Increase)
+            if (action == VitaruActions.ModifierOne)
             {
                 SetRate = Math.Min(
                     Binds[VitaruActions.Sneak]
@@ -88,7 +88,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
                 return;
             }
 
-            if (action == VitaruActions.Decrease)
+            if (action == VitaruActions.ModifierTwo)
             {
                 SetRate = Math.Max(
                     Binds[VitaruActions.Sneak]
