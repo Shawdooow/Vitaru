@@ -46,7 +46,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public virtual string Ability => "None";
 
-        public virtual string AbilityStats => null;
+        public virtual string[] AbilityStats => null;
 
         public virtual Role Role { get; } = Role.Offense;
 

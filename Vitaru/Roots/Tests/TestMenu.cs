@@ -40,12 +40,12 @@ namespace Vitaru.Roots.Tests
                     Color = ThemeManager.PrimaryColor
                 },
 
-                Text = "Play",
+                Text = "Levels",
 
                 OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
-                        AddRoot(new PlayTest());
+                        AddRoot(new LevelSelect());
                 }
             });
             Add(new Button
@@ -59,18 +59,16 @@ namespace Vitaru.Roots.Tests
                     Color = Color.DarkCyan
                 },
 
-                Text = "Levels",
+                Text = "Play",
                 InstancedText =
                 {
                     FontScale = 0.25f
                 },
 
-                Disabled = Vitaru.FEATURES < Features.Upcoming,
-
                 OnClick = () =>
                 {
-                    if (Vitaru.FEATURES >= Features.Upcoming && TrackManager.CurrentTrack != null)
-                        AddRoot(new LevelSelect());
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new PlayTest());
                 }
             });
             Add(new Button
