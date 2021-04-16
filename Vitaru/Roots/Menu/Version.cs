@@ -11,7 +11,7 @@ namespace Vitaru.Roots.Menu
     public class Version : Text2D
     {
         private const string version =
-#if !PUBLISH
+# !PUBLISH
             "DEBUG " + Vitaru.VERSION;
 #else
             Vitaru.VERSION;
@@ -30,7 +30,7 @@ namespace Vitaru.Roots.Menu
                 ? $"{version} - {Vitaru.FEATURES}"
                 : version;
 
-#if !PUBLISH
+# !PUBLISH
             Color = Color.Red;
 #else
             switch (NucleusLaunchArgs.Features)
