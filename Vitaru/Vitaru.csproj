@@ -29,6 +29,7 @@
     <DefineConstants>PUBLISH;PERSONAL</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Prion\Breeder\Breeder.csproj" />
     <ProjectReference Include="..\..\Prion\Prion.Golgi\Prion.Golgi.csproj" />
     <ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />
   </ItemGroup>
