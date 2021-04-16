@@ -63,7 +63,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
             if (Clock is AdjustableClock a)
                 adjustable = a;
             else
-                Debugger.InvalidOperation($"{nameof(Frost)} requires an {nameof(AdjustableClock)}!");
+                Debugger.InvalidOperation($"{nameof(Frost)} requires an {nameof(AdjustableClock)} as it's {nameof(Clock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)

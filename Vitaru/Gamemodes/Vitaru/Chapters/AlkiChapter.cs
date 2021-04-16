@@ -4,6 +4,7 @@
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Vitaru.Chapters.One;
 using Vitaru.Gamemodes.Vitaru.Chapters.Three;
+using Vitaru.Gamemodes.Vitaru.Chapters.Two;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters
@@ -18,6 +19,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters
         {
             new Arysa(gamefield),
             new Tyle(gamefield),
+            new Alice(gamefield),
+            new Yuie(gamefield),
             new Frost(gamefield)
         };
     }
