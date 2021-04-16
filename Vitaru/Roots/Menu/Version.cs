@@ -10,12 +10,7 @@ namespace Vitaru.Roots.Menu
 {
     public class Version : Text2D
     {
-        private const string version =
-# !PUBLISH
-            "DEBUG " + Vitaru.VERSION;
-#else
-            Vitaru.VERSION;
-#endif
+        private readonly string version = Application.PUBLISH ? Vitaru.VERSION : "DEBUG " + Vitaru.VERSION;
 
         public Version()
         {
@@ -30,28 +25,27 @@ namespace Vitaru.Roots.Menu
                 ? $"{version} - {Vitaru.FEATURES}"
                 : version;
 
-# !PUBLISH
-            Color = Color.Red;
-#else
-            switch (NucleusLaunchArgs.Features)
-            {
-                case Features.Safe:
-                    Color = Color.DeepSkyBlue;
-                    break;
-                default:
-                    Color = Color.LimeGreen;
-                    break;
-                case Features.Upcoming:
-                    Color = Color.Gold;
-                    break;
-                case Features.Experimental:
-                    Color = Color.OrangeRed;
-                    break;
-                case Features.Radioactive:
-                    Color = Color.Purple;
-                    break;
-            }
-# endif
+            if (!Application.PUBLISH)
+                Color = Color.Red;
+            else
+                switch (NucleusLaunchArgs.Features)
+                {
+                    case Features.Safe:
+                        Color = Color.DeepSkyBlue;
+                        break;
+                    default:
+                        Color = Color.LimeGreen;
+                        break;
+                    case Features.Upcoming:
+                        Color = Color.Gold;
+                        break;
+                    case Features.Experimental:
+                        Color = Color.OrangeRed;
+                        break;
+                    case Features.Radioactive:
+                        Color = Color.Purple;
+                        break;
+                }
         }
     }
 }

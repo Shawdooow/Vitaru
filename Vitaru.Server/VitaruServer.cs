@@ -9,7 +9,7 @@ namespace Vitaru.Server
     public class VitaruServer : Application
     {
         private const string host =
-# true
+#if true
             "VitaruServerDebug";
 #else
             "Vitaru";

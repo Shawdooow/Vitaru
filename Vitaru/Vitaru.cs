@@ -51,7 +51,7 @@ namespace Vitaru
         private static readonly Benchmark startup = new("Startup");
 
         private const string host =
-# true
+#if true
             "VitaruDebug";
 #else
             "Vitaru";
@@ -71,7 +71,7 @@ namespace Vitaru
 
             List<string> launch = new(args);
 
-# !PUBLISH || PERSONAL
+#if !PUBLISH || PERSONAL
             if (!launch.Any(arg => arg.Contains("Features")))
                 launch.Add($"Features={Features.Experimental}");
 
@@ -84,7 +84,6 @@ namespace Vitaru
                 Name = host
             };
             VitaruLaunchArgs.ProccessArgs(launch.ToArray());
-
 
             #endregion
 
@@ -161,7 +160,7 @@ namespace Vitaru
 
             #region Shaders
 
-# !PUBLISH
+#if !PUBLISH
             if (!(Renderer.Context is DirectX12))
 #endif
             {
