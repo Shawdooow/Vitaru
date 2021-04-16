@@ -4,7 +4,7 @@
 using Prion.Mitochondria.Graphics.Sprites;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
-using Vitaru.Gamemodes.Vitaru.Chapters;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki;
 using Vitaru.Gamemodes.Vitaru.Edit;
 using Vitaru.Play;
 

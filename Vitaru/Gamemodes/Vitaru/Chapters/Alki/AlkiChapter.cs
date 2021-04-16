@@ -2,12 +2,12 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Vitaru.Chapters.One;
-using Vitaru.Gamemodes.Vitaru.Chapters.Three;
-using Vitaru.Gamemodes.Vitaru.Chapters.Two;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.One;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two;
 using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Vitaru.Chapters
+namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
 {
     public class AlkiChapter : Chapter
     {
@@ -20,6 +20,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters
             new Arysa(gamefield),
             new Tyle(gamefield),
             new Alice(gamefield),
+            new Sarah(gamefield),
             new Yuie(gamefield),
             new Frost(gamefield)
         };

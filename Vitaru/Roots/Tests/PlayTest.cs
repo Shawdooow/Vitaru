@@ -15,7 +15,7 @@ using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
-using Vitaru.Gamemodes.Vitaru.Chapters.Three;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
 using Vitaru.Graphics;
 using Vitaru.Play;
 using Vitaru.Settings;

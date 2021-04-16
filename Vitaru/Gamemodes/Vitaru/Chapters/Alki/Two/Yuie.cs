@@ -6,7 +6,7 @@ using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Vitaru.Chapters.Two
+namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 {
     public class Yuie : Player
     {

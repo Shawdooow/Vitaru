@@ -11,7 +11,7 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Input;
 using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Vitaru.Chapters.Three
+namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 {
     public class Frost : Player
     {

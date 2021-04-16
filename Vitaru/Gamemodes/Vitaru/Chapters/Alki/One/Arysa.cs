@@ -6,7 +6,7 @@ using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Vitaru.Chapters.One
+namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {
     public class Arysa : Player
     {
