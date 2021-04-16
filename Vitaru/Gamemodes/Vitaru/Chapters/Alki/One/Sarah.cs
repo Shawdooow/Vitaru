@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
+using System.Numerics;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Input;
@@ -35,6 +36,16 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
+        private const int maxCharges = 4;
+
+        private int charges;
+
+        private const double chargeTime = 400;
+
+        private double nextCharge;
+
+        private double lastMovement;
+
         #endregion
 
         public Sarah(Gamefield gamefield) : base(gamefield)
@@ -44,11 +55,28 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
+            nextCharge = Gamefield.Current + chargeTime;
         }
 
         protected override void SpellUpdate()
         {
             base.SpellUpdate();
+
+            if (Gamefield.Current >= nextCharge && charges < maxCharges)
+            {
+
+            }
+
+            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{charges}x";
+        }
+
+        protected override Vector2 GetPositionOffset(double playerSpeed)
+        {
+            Vector2 position = base.GetPositionOffset(playerSpeed);
+
+            if (Position != position) lastMovement = Gamefield.Current;
+
+            return position;
         }
     }
 }
