@@ -2,7 +2,7 @@
   <PropertyGroup Label="Project">
 	  <TargetFramework>net6.0-windows</TargetFramework>
     <AnalysisLevel>preview</AnalysisLevel>
-	  <LangVersion>9.0</LangVersion>
+	  <LangVersion>preview</LangVersion>
     <AssemblyTitle>Vitaru</AssemblyTitle>
 	  <Version>0.12.0</Version>
 	  <Authors>Shawdooow</Authors>
