@@ -68,6 +68,11 @@ namespace Vitaru.Mods.Included
             private Slider seek;
             private Text2D timeLeft;
 
+            private Slider accelMin;
+            private Text2D accelMinTime;
+            private Slider accelMax;
+            private Text2D accelMaxTime;
+
             private bool accel;
 
             public override void LoadingComplete()
@@ -294,6 +299,47 @@ namespace Vitaru.Mods.Included
                             TrackManager.CurrentTrack.Seek(
                                 PrionMath.Remap(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
                     },
+                    accelMin = new Slider
+                    {
+                        Y = -80,
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Width = 800,
+                        OnProgressInput = p =>
+                        {
+                            accelMin.Progress = Math.Min(p, accelMax.Progress);
+
+                            float current = PrionMath.Remap(p, 0, 1, 0,
+                                (float) TrackManager.CurrentTrack.Sample.Length * 1000);
+
+                            TimeSpan t = TimeSpan.FromMilliseconds(current);
+
+                            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+
+                            accelMinTime.Text = time;
+                        }
+                    },
+                    accelMax = new Slider
+                    {
+                        Y = -40,
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Width = 800,
+                        Progress = 1,
+                        OnProgressInput = p =>
+                        {
+                            accelMax.Progress = Math.Max(p, accelMin.Progress);
+
+                            float current = PrionMath.Remap(p, 0, 1, 0,
+                                (float) TrackManager.CurrentTrack.Sample.Length * 1000);
+
+                            TimeSpan t = TimeSpan.FromMilliseconds(current);
+
+                            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+
+                            accelMaxTime.Text = time;
+                        }
+                    },
 
                     play = new Button
                     {
@@ -373,6 +419,26 @@ namespace Vitaru.Mods.Included
                         FontScale = 0.25f
                     }
                 });
+                accelMin.AddArray(new IDrawable2D[]
+                {
+                    accelMinTime = new Text2D
+                    {
+                        ParentOrigin = Mounts.CenterLeft,
+                        Origin = Mounts.CenterRight,
+                        X = -12,
+                        FontScale = 0.25f
+                    }
+                });
+                accelMax.AddArray(new IDrawable2D[]
+                {
+                    accelMaxTime = new Text2D
+                    {
+                        ParentOrigin = Mounts.CenterLeft,
+                        Origin = Mounts.CenterRight,
+                        X = -12,
+                        FontScale = 0.25f
+                    }
+                });
 
                 setRate(TrackManager.CurrentTrack.Pitch);
                 setVolume(TrackManager.CurrentTrack.Gain);
@@ -398,7 +464,12 @@ namespace Vitaru.Mods.Included
                     seek.Progress = PrionMath.Remap(current, 0, length);
 
                 if (accel)
-                    setRate(PrionMath.Remap(current, 0, length, 0.75f, 1.5f));
+                {
+                    float mn = PrionMath.Remap(accelMin.Progress, 0, 1, 0, length);
+                    float mx = PrionMath.Remap(accelMax.Progress, 0, 1, 0, length);
+
+                    setRate(Math.Clamp(PrionMath.Remap(current, mn, mx, 0.75f, 1.5f), 0.75f, 1.5f));
+                }
 
                 TimeSpan t = TimeSpan.FromMilliseconds(current);
                 TimeSpan l = TimeSpan.FromMilliseconds(length - current);
@@ -420,7 +491,7 @@ namespace Vitaru.Mods.Included
             private void setRate(float r)
             {
                 TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
-                pitch.Text = $"{MathF.Round(r, 2)}x";
+                pitch.Text = $"{MathF.Round(rate, 2)}x";
                 slider.Progress = PrionMath.Remap(rate, min, max);
             }
 
