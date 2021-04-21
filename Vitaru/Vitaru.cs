@@ -175,9 +175,7 @@ namespace Vitaru
                 Renderer.PostProgram = Renderer.ShaderManager.GetShaderProgram(pv, pf);
 
                 GLShaderProgram post = (GLShaderProgram) Renderer.PostProgram;
-
                 post.SetActive();
-
                 Renderer.ShaderManager.ActiveShaderProgram = post;
 
                 post.Locations["shade"] = GLShaderManager.GetLocation(post, "shade");
@@ -193,17 +191,16 @@ namespace Vitaru
                     new StreamReader(ShaderStorage.GetStream("bullet.frag")).ReadToEnd());
 
                 BulletProgram = Renderer.ShaderManager.GetShaderProgram(bv, bf);
-                BulletProgram.SetActive();
 
-                GLShaderProgram gl = (GLShaderProgram) BulletProgram;
+                GLShaderProgram bp = (GLShaderProgram) BulletProgram;
+                bp.SetActive();
+                Renderer.ShaderManager.ActiveShaderProgram = bp;
 
-                gl.Locations["projection"] = GLShaderManager.GetLocation(gl, "projection");
-                gl.Locations["scale"] = GLShaderManager.GetLocation(gl, "scale");
+                bp.Locations["projection"] = GLShaderManager.GetLocation(bp, "projection");
+                bp.Locations["scale"] = GLShaderManager.GetLocation(bp, "scale");
 
-                gl.Locations["circleTexture"] = GLShaderManager.GetLocation(gl, "circleTexture");
-                gl.Locations["glowTexture"] = GLShaderManager.GetLocation(gl, "glowTexture");
-
-                Renderer.ShaderManager.ActiveShaderProgram = BulletProgram;
+                bp.Locations["circleTexture"] = GLShaderManager.GetLocation(bp, "circleTexture");
+                bp.Locations["glowTexture"] = GLShaderManager.GetLocation(bp, "glowTexture");
 
                 Renderer.ShaderManager.UpdateVector2("scale", Vector2.One);
             }

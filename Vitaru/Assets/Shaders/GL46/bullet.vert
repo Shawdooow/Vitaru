@@ -9,7 +9,7 @@ uniform mat4 projection;
 uniform vec2 scale;
 
 out vec2 texCoords;
-out int white;
+flat out int white;
 out vec4 bColor;
 
 mat4 identity()
