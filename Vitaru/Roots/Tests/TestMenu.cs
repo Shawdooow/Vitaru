@@ -50,29 +50,6 @@ namespace Vitaru.Roots.Tests
             });
             Add(new Button
             {
-                Position = new Vector2(150, -180),
-                Size = new Vector2(50, 100),
-
-                Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = Color.DarkCyan
-                },
-
-                Text = "Play",
-                InstancedText =
-                {
-                    FontScale = 0.25f
-                },
-
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new PlayTest());
-                }
-            });
-            Add(new Button
-            {
                 Y = -60,
                 Size = new Vector2(200, 100),
 
