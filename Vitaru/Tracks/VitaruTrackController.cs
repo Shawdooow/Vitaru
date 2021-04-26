@@ -86,7 +86,7 @@ namespace Vitaru.Tracks
                 Benchmark b = new("Switch to Previous Level", true);
 
                 TrackMetadata previous = TrackManager.PreviousLevels.Pop();
-                LevelStore.SetLevel(LevelStore.GetLevelPack(previous));
+                LevelStore.SetLevel(LevelStore.GetLevelPack(previous), 0);
                 Song.Text = $"Loading: {previous.Title}";
 
                 TrackManager.SetTrack(previous);

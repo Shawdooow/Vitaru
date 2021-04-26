@@ -17,6 +17,7 @@ using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
 using Vitaru.Graphics;
+using Vitaru.Levels;
 using Vitaru.Play;
 using Vitaru.Settings;
 
@@ -52,7 +53,7 @@ namespace Vitaru.Roots.Tests
                 Clock = TrackManager.CurrentTrack.Clock
             };
 
-            if (gamefield.UnloadedEnemies.Count <= 0)
+            if (gamefield.UnloadedEnemies.Count <= 0 || LevelStore.UseRandom)
                 random = true;
 
             Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty ? 

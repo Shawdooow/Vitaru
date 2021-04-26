@@ -15,9 +15,15 @@ namespace Vitaru.Levels
 {
     public static class LevelStore
     {
+        public static bool UseRandom { get; private set; }
+
         public static Level CurrentLevel { get; private set; }
 
+        public static event Action<Level> OnLevelChange;
+
         public static LevelPack CurrentPack { get; private set; }
+
+        public static event Action<LevelPack> OnPackChange; 
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new();
 
@@ -160,7 +166,9 @@ namespace Vitaru.Levels
             }
 
             CurrentPack = LoadedLevels[0];
+            OnPackChange?.Invoke(CurrentPack);
             CurrentLevel = CurrentPack.Levels[0];
+            OnLevelChange?.Invoke(CurrentLevel);
 
             b.Record();
             Logger.Benchmark(b);
@@ -188,7 +196,9 @@ namespace Vitaru.Levels
             }
 
             CurrentPack = LoadedLevels[0];
+            OnPackChange?.Invoke(CurrentPack);
             CurrentLevel = CurrentPack.Levels[0];
+            OnLevelChange?.Invoke(CurrentLevel);
 
             b.Record();
             Logger.Benchmark(b);
@@ -213,10 +223,17 @@ namespace Vitaru.Levels
         {
         }
 
-        public static void SetLevel(LevelPack p)
+        public static void SetLevel(LevelPack p, int index)
         {
-            CurrentPack = p;
-            CurrentLevel = CurrentPack.Levels[0];
+            if (index >= 0)
+            {
+                CurrentPack = p;
+                OnPackChange?.Invoke(CurrentPack);
+                CurrentLevel = CurrentPack.Levels[index];
+                OnLevelChange?.Invoke(CurrentLevel);
+                UseRandom = false;
+            }
+            else UseRandom = true;
         }
 
         /// <summary>
@@ -225,7 +242,7 @@ namespace Vitaru.Levels
         /// <returns></returns>
         public static TrackMetadata SetRandomLevel(LevelPack last)
         {
-            SetLevel(GetRandomLevel(last));
+            SetLevel(GetRandomLevel(last), 0);
 
             return CurrentPack.Levels[0].Metadata;
         }
@@ -243,7 +260,7 @@ namespace Vitaru.Levels
                     break;
             }
 
-            SetLevel(LoadedLevels[random]);
+            SetLevel(LoadedLevels[random], 0);
 
             return CurrentPack;
         }

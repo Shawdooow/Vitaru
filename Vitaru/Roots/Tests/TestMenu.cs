@@ -45,7 +45,7 @@ namespace Vitaru.Roots.Tests
                 OnClick = () =>
                 {
                     if (TrackManager.CurrentTrack != null)
-                        AddRoot(new LevelSelect());
+                        AddRoot(new LevelRoot());
                 }
             });
             Add(new Button
@@ -147,7 +147,7 @@ namespace Vitaru.Roots.Tests
                             p = LevelStore.LoadedLevels[i];
                 }
 
-                LevelStore.SetLevel(p);
+                LevelStore.SetLevel(p, 0);
 
                 return LevelStore.CurrentLevel.Metadata;
             };

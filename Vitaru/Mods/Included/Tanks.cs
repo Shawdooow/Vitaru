@@ -260,7 +260,7 @@ namespace Vitaru.Mods.Included
                 Renderer.Context.BufferMeshes(world);
 
 #if !PUBLISH || PERSONAL
-                starship = new Model()
+                starship = new Model
                 {
                     Position = new Vector3(0, -2, -20),
                     Yaw = MathF.PI

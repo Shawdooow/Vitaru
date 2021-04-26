@@ -73,7 +73,7 @@ namespace Vitaru.Roots
                             p = LevelStore.LoadedLevels[i];
                 }
 
-                LevelStore.SetLevel(p);
+                LevelStore.SetLevel(p, 0);
 
                 return LevelStore.CurrentLevel.Metadata;
             };

@@ -13,15 +13,15 @@ using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
-    public class LevelSelect : MenuRoot
+    public class LevelRoot : MenuRoot
     {
-        public override string Name => nameof(LevelSelect);
+        public override string Name => nameof(LevelRoot);
 
         protected override bool UseLevelBackground => true;
 
         private readonly VitaruTrackController controller;
 
-        public LevelSelect()
+        public LevelRoot()
         {
             Add(new Button
             {
@@ -41,6 +41,7 @@ namespace Vitaru.Roots
                 OnClick = () => AddRoot(new PlayTest())
             });
             Add(new TrackSelect());
+            Add(new LevelSelect());
             Add(new CharacterSelect());
             Add(new CharacterStats());
             Add(controller = new VitaruTrackController());
