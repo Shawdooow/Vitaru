@@ -11,7 +11,7 @@ namespace Vitaru.Tracks
     {
         public static void NextTrack()
         {
-            TrackMetadata next = LevelStore.SetRandomLevel(LevelStore.CurrentPack);
+            TrackMetadata next = LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
             TrackManager.SetTrack(next, TrackManager.CurrentTrack.SeekableClock);
         }
 

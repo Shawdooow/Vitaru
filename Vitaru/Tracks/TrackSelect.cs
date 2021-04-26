@@ -78,7 +78,7 @@ namespace Vitaru.Tracks
                             Game.ScheduleLoad(() =>
                             {
                                 TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.Metadata);
-                                LevelStore.SetLevel(p, 0);
+                                LevelStore.SetLevelPack(p);
                                 TrackManager.SetTrack(p.Levels[0].Metadata);
                             });
                         }

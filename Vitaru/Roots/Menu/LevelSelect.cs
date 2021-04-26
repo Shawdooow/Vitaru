@@ -53,13 +53,13 @@ namespace Vitaru.Roots.Menu
             {
                 items.ClearChildren();
 
-                LevelItem r = new(null, -1, "Random");
+                LevelItem r = new(-1, "Random");
                 r.OnClick = () => select(r);
                 items.Add(r);
 
                 for (int i = 0; i < pack.Levels.Length; i++)
                 {
-                    LevelItem item = new(pack, i, pack.Levels[i].Name);
+                    LevelItem item = new(i, pack.Levels[i].Name);
                     item.OnClick = () => select(item);
                     items.Add(item);
                 }
@@ -79,7 +79,7 @@ namespace Vitaru.Roots.Menu
                 i.DeSelect();
 
             item.Select();
-            LevelStore.SetLevel(item.Pack, item.Index);
+            LevelStore.SetLevel(item.Index);
         }
 
         protected override void Dispose(bool finalize)
@@ -90,15 +90,13 @@ namespace Vitaru.Roots.Menu
 
         private class LevelItem : ClickableLayer<IDrawable2D>
         {
-            public readonly LevelPack Pack;
             public readonly int Index;
 
             private readonly Box background;
             private readonly Box flash;
 
-            public LevelItem(LevelPack pack, int index, string name)
+            public LevelItem(int index, string name)
             {
-                Pack = pack;
                 Index = index;
 
                 index++;

@@ -132,7 +132,7 @@ namespace Vitaru.Roots.Tests
 
             controller.OnPrimeTrackManager = () =>
             {
-                LevelPack p = LevelStore.GetRandomLevel(null);
+                LevelPack p = LevelStore.GetRandomLevelPack(null);
 
                 if (Vitaru.ALKI == 1)
                 {
@@ -147,7 +147,7 @@ namespace Vitaru.Roots.Tests
                             p = LevelStore.LoadedLevels[i];
                 }
 
-                LevelStore.SetLevel(p, 0);
+                LevelStore.SetLevelPack(p);
 
                 return LevelStore.CurrentLevel.Metadata;
             };

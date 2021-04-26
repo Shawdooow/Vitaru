@@ -57,7 +57,7 @@ namespace Vitaru.Tracks
 
                 TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.Metadata);
 
-                TrackMetadata n = LevelStore.SetRandomLevel(LevelStore.CurrentPack);
+                TrackMetadata n = LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
                 Song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
@@ -86,7 +86,7 @@ namespace Vitaru.Tracks
                 Benchmark b = new("Switch to Previous Level", true);
 
                 TrackMetadata previous = TrackManager.PreviousLevels.Pop();
-                LevelStore.SetLevel(LevelStore.GetLevelPack(previous), 0);
+                LevelStore.SetLevelPack(LevelStore.GetLevelPack(previous));
                 Song.Text = $"Loading: {previous.Title}";
 
                 TrackManager.SetTrack(previous);
