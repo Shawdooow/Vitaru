@@ -42,12 +42,39 @@ namespace Vitaru.Tracks
                     Alpha = 0.8f,
                     ParentSizing = Axes.Both
                 },
-                list = new ListLayer<Button>
+                new MaskingLayer<IDrawable2D>
                 {
-                    //ParentSizing = Axes.Both,
-                    Size = Size,
-                    Spacing = 2
-                }
+                    Children = new[]
+                    {
+                        list = new ListLayer<Button>
+                        {
+                            //ParentSizing = Axes.Both,
+                            Size = Size,
+                            Spacing = 2
+                        }
+                    },
+
+                    Masks = new Sprite[]
+                    {
+                        //new Box
+                        //{
+                        //    Origin = Mounts.BottomCenter,
+                        //    ParentOrigin = Mounts.TopCenter,
+                        //    Alpha = 0f,
+                        //    Size = Size,
+                        //    Y = -Height / 2f + 0.5f,
+                        //},
+                        new Box
+                        {
+                            //Origin = Mounts.TopCenter,
+                            //ParentOrigin = Mounts.BottomCenter,
+                            Alpha = 1f,
+                            Size = Size
+                            //Y = Height / 2f - 0.5f,
+                        }
+                    }
+                },
+
             };
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
