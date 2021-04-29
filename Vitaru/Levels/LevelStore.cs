@@ -217,33 +217,37 @@ namespace Vitaru.Levels
         {
         }
 
-        public static void SetLevelPack(LevelPack p)
+        public static void SetLevelPack(LevelPack p, int index = 0) => SetLevelPack(p, p.Levels[index]);
+
+        public static void SetLevelPack(LevelPack p, Level level)
         {
             CurrentPack = p;
             OnPackChange?.Invoke(CurrentPack);
-            SetLevel(0);
+            SetLevel(level);
         }
 
         public static void SetLevel(int index)
         {
-            if (index >= 0)
-            {
-                CurrentLevel = CurrentPack.Levels[index];
-                OnLevelChange?.Invoke(CurrentLevel);
-                UseRandom = false;
-            }
-            else UseRandom = true;
+            if (index >= 0) 
+                SetLevel(CurrentPack.Levels[index]);
+            else 
+                UseRandom = true;
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="last"></param>
-        /// <returns></returns>
-        public static TrackMetadata SetRandomLevelPack(LevelPack last)
+        public static void SetLevel(Level level)
+        {
+            Debugger.Assert(CurrentPack.Levels.Contains(level));
+            CurrentLevel = level;
+            OnLevelChange?.Invoke(CurrentLevel);
+            UseRandom = false;
+        }
+
+        public static LevelPack SetRandomLevelPack(LevelPack last)
         {
             SetLevelPack(GetRandomLevelPack(last));
+            SetLevel(GetRandomLevel(null));
 
-            return CurrentPack.Levels[0].Metadata;
+            return CurrentPack;
         }
 
         public static LevelPack GetRandomLevelPack(LevelPack last)
@@ -252,23 +256,59 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (last != null && LoadedLevels[random].Levels[0].Metadata.Title == last.Title ||
-                    !LoadedLevels[random].Levels[0].Metadata.Autoplay)
+                if (last != null && LoadedLevels[random].Title == last.Title)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;
             }
 
-            SetLevelPack(LoadedLevels[random]);
-
-            return CurrentPack;
+            return LoadedLevels[random];
         }
 
-        public static LevelPack GetLevelPack(TrackMetadata data)
+        public static Level SetRandomLevel(Level last)
+        {
+            SetLevel(GetRandomLevel(last));
+
+            return CurrentLevel;
+        }
+
+        public static Level GetRandomLevel(Level last)
+        {
+            LevelPack p = GetLevelPack(last);
+
+            int random = PrionMath.RandomNumber(0, p.Levels.Length);
+            int j = 0;
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (last == null || p.Levels[random].Name != last.Name)
+                    while (j < LoadedLevels[random].Levels.Length)
+                    {
+                        if (LoadedLevels[random].Levels[j].Metadata.Autoplay)
+                            break;
+                        j++;
+                    }
+
+                PrionMath.RandomNumber(0, p.Levels.Length);
+            }
+
+            return p.Levels[j];
+        }
+
+        public static Level GetLevel(TrackMetadata data)
         {
             foreach (LevelPack pack in LoadedLevels)
             foreach (Level level in pack.Levels)
                 if (level.Metadata == data)
+                    return level;
+
+            return null;
+        }
+
+        public static LevelPack GetLevelPack(Level level)
+        {
+            foreach (LevelPack pack in LoadedLevels)
+                if (pack.Levels.Contains(level))
                     return pack;
 
             return null;

@@ -13,6 +13,7 @@ using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Ribosome.Audio;
 using Vitaru.Levels;
+using Vitaru.Server.Levels;
 
 namespace Vitaru.Tracks
 {
@@ -55,9 +56,10 @@ namespace Vitaru.Tracks
             {
                 Benchmark b = new("Switch to Next Level", true);
 
-                TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.Metadata);
+                TrackManager.PreviousTracks.Push(LevelStore.CurrentLevel.Metadata);
 
-                TrackMetadata n = LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
+                LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
+                TrackMetadata n = LevelStore.CurrentLevel.Metadata;
                 Song.Text = $"Loading: {n.Title}";
 
                 TrackManager.SetTrack(n);
@@ -77,7 +79,7 @@ namespace Vitaru.Tracks
 
         public void PreviousLevel()
         {
-            if (TrackManager.Switching || !TrackManager.PreviousLevels.Any()) return;
+            if (TrackManager.Switching || !TrackManager.PreviousTracks.Any()) return;
 
             TrackManager.Switching = true;
 
@@ -85,8 +87,10 @@ namespace Vitaru.Tracks
             {
                 Benchmark b = new("Switch to Previous Level", true);
 
-                TrackMetadata previous = TrackManager.PreviousLevels.Pop();
-                LevelStore.SetLevelPack(LevelStore.GetLevelPack(previous));
+                TrackMetadata previous = TrackManager.PreviousTracks.Pop();
+                Level l = LevelStore.GetLevel(previous);
+                LevelPack p = LevelStore.GetLevelPack(l);
+                LevelStore.SetLevelPack(p, l);
                 Song.Text = $"Loading: {previous.Title}";
 
                 TrackManager.SetTrack(previous);

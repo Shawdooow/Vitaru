@@ -115,7 +115,7 @@ namespace Vitaru.Tracks
                             TrackManager.Switching = true;
                             Game.ScheduleLoad(() =>
                             {
-                                TrackManager.PreviousLevels.Push(LevelStore.CurrentLevel.Metadata);
+                                TrackManager.PreviousTracks.Push(LevelStore.CurrentLevel.Metadata);
                                 LevelStore.SetLevelPack(p);
                                 TrackManager.SetTrack(p.Levels[0].Metadata);
                             });
