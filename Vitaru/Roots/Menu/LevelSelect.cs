@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -54,14 +56,24 @@ namespace Vitaru.Roots.Menu
                 items.ClearChildren();
 
                 LevelItem r = new(-1, "Random");
-                r.OnClick = () => select(r);
+                r.OnClick = () =>
+                {
+                    if (!TrackManager.Switching) select(r);
+                };
                 items.Add(r);
 
                 for (int i = 0; i < pack.Levels.Length; i++)
                 {
                     if (pack.Levels[i].Format == LevelStore.BLANK_LEVEL) continue;
                     LevelItem item = new(i, pack.Levels[i].Name);
-                    item.OnClick = () => select(item);
+                    item.OnClick = () =>
+                    {
+                        if (TrackManager.Switching) return;
+                        select(item);
+
+                        TrackManager.Switching = true;
+                        Game.ScheduleLoad(() => TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata));
+                    };
                     items.Add(item);
                 }
 
