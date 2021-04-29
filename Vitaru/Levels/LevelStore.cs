@@ -256,7 +256,18 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < 10; i++)
             {
-                if (last != null && LoadedLevels[random].Title == last.Title)
+                bool skip = true;
+
+                if (i < 5)
+                {
+                    for (int j = 0; j < LoadedLevels[random].Levels.Length; j++)
+                        if (LoadedLevels[random].Levels[j].Metadata.Autoplay)
+                            skip = false;
+                }
+                else
+                    skip = false;
+
+                if (last != null && LoadedLevels[random].Title == last.Title || skip)
                     random = PrionMath.RandomNumber(0, LoadedLevels.Count);
                 else
                     break;
@@ -274,7 +285,7 @@ namespace Vitaru.Levels
 
         public static Level GetRandomLevel(Level last)
         {
-            LevelPack p = GetLevelPack(last);
+            LevelPack p = last == null ? CurrentPack : GetLevelPack(last);
 
             int random = PrionMath.RandomNumber(0, p.Levels.Length);
             int j = 0;
