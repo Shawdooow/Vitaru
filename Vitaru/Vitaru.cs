@@ -10,7 +10,7 @@ using System.Numerics;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Contexts.DX12;
+using Prion.Mitochondria.Graphics.Contexts.GL46;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Stores;
@@ -161,9 +161,7 @@ namespace Vitaru
 
             #region Shaders
 
-#if !PUBLISH
-            if (!(Renderer.Context is DirectX12))
-#endif
+            if (Renderer.Context is OpenGL46)
             {
                 //Post
                 Shader pv = Renderer.ShaderManager.GetShader(ShaderType.Vertex, "Post",
