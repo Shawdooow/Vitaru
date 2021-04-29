@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Vitaru.Levels;
 
 namespace Vitaru.Tracks
@@ -41,18 +42,22 @@ namespace Vitaru.Tracks
                     Color = Color.Black,
                     Alpha = 0.8f,
                     ParentSizing = Axes.Both
-                },
-                new MaskingLayer<IDrawable2D>
+                }
+            };
+
+            list = new ListLayer<Button>
+            {
+                //ParentSizing = Axes.Both,
+                Size = Size,
+                Spacing = 2
+            };
+
+#if !PUBLISH
+            if (Game.FEATURES >= Features.Experimental)
+            {
+                Add(new MaskingLayer<IDrawable2D>
                 {
-                    Children = new[]
-                    {
-                        list = new ListLayer<Button>
-                        {
-                            //ParentSizing = Axes.Both,
-                            Size = Size,
-                            Spacing = 2
-                        }
-                    },
+                    Child = list,
 
                     Masks = new Sprite[]
                     {
@@ -73,9 +78,15 @@ namespace Vitaru.Tracks
                             //Y = Height / 2f - 0.5f,
                         }
                     }
-                },
+                });
+            }
+            else
+#endif
+            {
+                Add(list);
+            }
 
-            };
+
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
                 list.Add(new Button(p.Title.Length, true)
