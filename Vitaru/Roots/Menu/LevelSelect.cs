@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
+using Prion.Ribosome.Audio;
 using Vitaru.Levels;
 
 namespace Vitaru.Roots.Menu
@@ -72,7 +73,13 @@ namespace Vitaru.Roots.Menu
                         select(item);
 
                         TrackManager.Switching = true;
-                        Game.ScheduleLoad(() => TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata));
+                        Game.ScheduleLoad(() =>
+                        {
+                            TrackMetadata meta = TrackManager.CurrentTrack.Metadata;
+                            double time = TrackManager.CurrentTrack.SeekableClock.Current;
+                            TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata);
+                            if (TrackManager.CurrentTrack.Metadata == meta) TrackManager.CurrentTrack.Seek(time / 1000);
+                        });
                     };
                     items.Add(item);
                 }
