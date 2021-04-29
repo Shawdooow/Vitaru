@@ -78,7 +78,7 @@ namespace Vitaru.Roots.Menu
                             TrackMetadata meta = TrackManager.CurrentTrack.Metadata;
                             double time = TrackManager.CurrentTrack.SeekableClock.Current;
                             TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata);
-                            if (TrackManager.CurrentTrack.Metadata == meta) TrackManager.CurrentTrack.Seek(time / 1000);
+                            if (TrackManager.CurrentTrack.Metadata.Filename == meta.Filename) TrackManager.CurrentTrack.Seek(time / 1000);
                         });
                     };
                     items.Add(item);
