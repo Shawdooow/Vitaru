@@ -16,6 +16,7 @@ using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
+using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 
 namespace Vitaru.Mods.Included
@@ -446,6 +447,7 @@ namespace Vitaru.Mods.Included
                 TrackManager.OnTrackChange += change;
 
                 Add(new TrackSelect());
+                Add(new LevelSelect());
 
                 base.LoadingComplete();
             }
