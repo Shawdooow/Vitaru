@@ -44,7 +44,7 @@ namespace Vitaru
 
         /// <summary>
         ///     Bool for easter egg Alki mode.
-        ///     It has a 1/100 chance of being true on startup and can not be set manually
+        ///     It has a 1/100 chance of being 1 or greater on startup and can not be set manually
         /// </summary>
         public static byte ALKI { get; private set; }
 
