@@ -45,7 +45,7 @@ namespace Vitaru.Server.Server
                 if (match.MatchInfo.Users.Count == 0 && match.MatchLastUpdateTime + 60000 <= Clock.Current)
                 {
                     VitaruMatches.Remove(match);
-                    Logger.Log("Empty match deleted!");
+                    Logger.Log("Empty match expired and has been deleted!");
                 }
 
                 if (match.MatchInfo.Users.Count > 0)
