@@ -128,7 +128,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
                     X = -12,
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.25f,
                         Text = "0.5x"
@@ -146,7 +146,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.BottomCenter,
                     Y = -12,
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.25f,
                         Text = "1x"
@@ -164,7 +164,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
                     X = 12,
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.25f,
                         Text = "1.5x"

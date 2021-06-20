@@ -7,6 +7,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
 
@@ -52,6 +53,15 @@ namespace Vitaru.Roots.Multi
         {
             public Rooms()
             {
+
+            }
+
+            public class Room : Button
+            {
+                public Room()
+                {
+                    Text2D = new Text2D()
+                }
             }
         }
     }

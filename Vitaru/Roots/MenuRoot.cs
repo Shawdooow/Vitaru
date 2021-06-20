@@ -93,7 +93,7 @@ namespace Vitaru.Roots
                     },
 
                     Text = "Back",
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.35f
                     },

@@ -100,7 +100,7 @@ namespace Vitaru.Tracks
 
                     Text = p.Title,
 
-                    InstancedText =
+                    Text2D =
                     {
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,

@@ -103,7 +103,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -125,7 +125,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -147,7 +147,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -168,7 +168,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -190,7 +190,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -212,7 +212,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.PrimaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -234,7 +234,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.5f
                         },
@@ -256,7 +256,7 @@ namespace Vitaru.Mods.Included
                         {
                             Color = ThemeManager.SecondaryColor
                         },
-                        InstancedText =
+                        Text2D =
                         {
                             FontScale = 0.25f
                         },

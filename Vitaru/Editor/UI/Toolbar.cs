@@ -43,7 +43,7 @@ namespace Vitaru.Editor.UI
 
                     Text = "Save",
 
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.3f
                     },

@@ -30,7 +30,7 @@ namespace Vitaru.Mods.Included
                 },
 
                 Text = "Prion",
-                InstancedText =
+                Text2D =
                 {
                     FontScale = 0.35f
                 }

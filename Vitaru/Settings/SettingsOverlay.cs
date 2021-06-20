@@ -180,7 +180,7 @@ namespace Vitaru.Settings
 
                     Background = Game.TextureStore.GetTexture("square.png"),
                     Text = "Settings",
-                    InstancedText =
+                    Text2D =
                     {
                         FontScale = 0.25f
                     },
