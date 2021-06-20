@@ -8,7 +8,7 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class JoinedMatchPacket : VariableLengthPacket
     {
-        public JoinedMatchPacket() : base(37)
+        public JoinedMatchPacket() : base((ushort)VitaruPackets.JoinedMatch)
         {
         }
 

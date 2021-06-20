@@ -8,7 +8,7 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class MatchListPacket : VariableLengthPacket
     {
-        public MatchListPacket() : base(32)
+        public MatchListPacket() : base((ushort)VitaruPackets.MatchList)
         {
         }
 

@@ -11,7 +11,7 @@ namespace Vitaru.Server.Packets.Lobby
     {
         public MatchInfo Match;
 
-        public MatchCreatedPacket() : base(34)
+        public MatchCreatedPacket() : base((ushort)VitaruPackets.MatchCreated)
         {
         }
 

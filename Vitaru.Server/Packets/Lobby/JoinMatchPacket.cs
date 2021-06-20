@@ -13,7 +13,7 @@ namespace Vitaru.Server.Packets.Lobby
 
         public VitaruUser User;
 
-        public JoinMatchPacket() : base(36)
+        public JoinMatchPacket() : base((ushort)VitaruPackets.JoinMatch)
         {
         }
 

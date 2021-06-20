@@ -58,4 +58,13 @@ namespace Vitaru.Server
             base.Dispose();
         }
     }
+
+    public enum VitaruPackets
+    {
+        MatchList = 101,
+        CreateMatch = 102,
+        MatchCreated = 103,
+        JoinMatch = 104,
+        JoinedMatch = 105,
+    }
 }

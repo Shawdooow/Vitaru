@@ -6,14 +6,25 @@ using System.Net;
 using System.Net.Sockets;
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Centrosome.NetworkingHandlers.Server;
+using Prion.Centrosome.Packets;
 using Prion.Centrosome.Packets.Types;
 using Prion.Nucleus.Debug;
 using Vitaru.Server.Match;
+using Vitaru.Server.Packets.Lobby;
 
 namespace Vitaru.Server.Server
 {
     public class VitaruServerNetHandler : ServerNetHandler<VitaruServer, VitaruClient>
     {
+        static VitaruServerNetHandler()
+        {
+            PacketManager.RegisterPacket(new MatchListPacket());
+            PacketManager.RegisterPacket(new CreateMatchPacket());
+            PacketManager.RegisterPacket(new MatchCreatedPacket());
+            PacketManager.RegisterPacket(new JoinMatchPacket());
+            PacketManager.RegisterPacket(new JoinedMatchPacket());
+        }
+
         protected readonly List<VitaruMatch> VitaruMatches = new();
 
         protected override VitaruServer GetClient() => new();
@@ -41,6 +52,15 @@ namespace Vitaru.Server.Server
                 {
                     match.MatchLastUpdateTime = Clock.Current;
                 }
+            }
+        }
+
+        protected override void PacketReceived(PacketInfo<VitaruClient> info)
+        {
+            base.PacketReceived(info);
+
+            switch (info.Packet)
+            {
             }
         }
 
