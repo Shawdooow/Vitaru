@@ -60,7 +60,8 @@ namespace Vitaru.Roots.Multi
             {
                 public Room()
                 {
-                    Text2D = new Text2D()
+                    Text2D.Origin = Mounts.TopLeft;
+                    Text2D.ParentOrigin = Mounts.TopLeft;
                 }
             }
         }
