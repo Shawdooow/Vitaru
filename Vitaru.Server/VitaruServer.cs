@@ -61,10 +61,11 @@ namespace Vitaru.Server
 
     public enum VitaruPackets
     {
-        MatchList = 101,
-        CreateMatch = 102,
-        MatchCreated = 103,
-        JoinMatch = 104,
-        JoinedMatch = 105,
+        RequestMatchList = 101,
+        MatchList,
+        CreateMatch,
+        MatchCreated,
+        JoinMatch,
+        JoinedMatch,
     }
 }

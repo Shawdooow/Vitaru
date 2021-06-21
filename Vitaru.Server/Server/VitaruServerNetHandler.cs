@@ -18,6 +18,7 @@ namespace Vitaru.Server.Server
     {
         static VitaruServerNetHandler()
         {
+            PacketManager.RegisterPacket(new RequestMatchListPacket());
             PacketManager.RegisterPacket(new MatchListPacket());
             PacketManager.RegisterPacket(new CreateMatchPacket());
             PacketManager.RegisterPacket(new MatchCreatedPacket());
@@ -61,6 +62,9 @@ namespace Vitaru.Server.Server
 
             switch (info.Packet)
             {
+                case RequestMatchListPacket request:
+                    SendToClient(new MatchListPacket(), info.Client);
+                    break;
             }
         }
 
