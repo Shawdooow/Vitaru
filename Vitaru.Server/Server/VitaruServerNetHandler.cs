@@ -62,7 +62,7 @@ namespace Vitaru.Server.Server
 
             switch (info.Packet)
             {
-                case RequestMatchListPacket request:
+                case RequestMatchListPacket:
                     SendToClient(new MatchListPacket(), info.Client);
                     break;
             }

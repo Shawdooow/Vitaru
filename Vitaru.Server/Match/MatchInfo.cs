@@ -14,6 +14,9 @@ namespace Vitaru.Server.Match
     {
         public string Name = "Welcome to Vitaru!";
 
+        /// <summary>
+        ///     Assigned by Server for keeping track of matches more easily
+        /// </summary>
         public uint ID;
 
         /// <summary>
