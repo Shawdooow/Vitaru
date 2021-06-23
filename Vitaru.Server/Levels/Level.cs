@@ -56,6 +56,10 @@ namespace Vitaru.Server.Levels
 #pragma warning restore 162
         }
 
+        /// <summary>
+        /// Does NOT includes the 4 bytes of (int)size of this <see cref="Setting"/>
+        /// </summary>
+        /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
             throw new NotImplementedException();

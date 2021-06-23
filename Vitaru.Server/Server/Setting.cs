@@ -28,9 +28,18 @@ namespace Vitaru.Server.Server
             data.AddRange(value);
             data.AddRange(sync);
 
+            //last we stick the size in.
+            //while it is technically possible to deduce the size of the data on the other side it is wildly impractical to implement
+            byte[] size = BitConverter.GetBytes(data.Count);
+            data.InsertRange(0, size);
+
             return data.ToArray();
         }
 
+        /// <summary>
+        /// Does NOT includes the 4 bytes of (int)size of this <see cref="Setting"/>
+        /// </summary>
+        /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
             throw new NotImplementedException();
@@ -39,8 +48,22 @@ namespace Vitaru.Server.Server
 
     public enum Sync
     {
+        /// <summary>
+        /// This <see cref="Setting"/> does not need to be synced with the server or other clients.
+        /// EXAMPLE: Graphics quality
+        /// </summary>
         None,
+
+        /// <summary>
+        /// This <see cref="Setting"/> needs to be synced with the server but not necessarily with other clients until we load in.
+        /// EXAMPLE: The character we want to play as
+        /// </summary>
         Client,
+
+        /// <summary>
+        /// This <see cref="Setting"/> needs to be the exact same across the server and all clients.
+        /// EXAMPLE: Increased enemy difficulty
+        /// </summary>
         All
     }
 }

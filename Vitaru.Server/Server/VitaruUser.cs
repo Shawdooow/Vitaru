@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Prion.Centrosome;
+using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Server.Server
@@ -53,12 +54,31 @@ namespace Vitaru.Server.Server
             data.AddRange(settings);
             data.AddRange(status);
 
+            //last we stick the size in.
+            //while it is technically possible to deduce the size of the data on the other side it is wildly impractical to implement
+            byte[] size = BitConverter.GetBytes(data.Count);
+            data.InsertRange(0, size);
+
             return data.ToArray();
         }
 
+        /// <summary>
+        /// Does NOT includes the 4 bytes of (int)size of this <see cref="VitaruUser"/>
+        /// </summary>
+        /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
-            throw new NotImplementedException();
+            int offset = 0;
+
+            //start with name
+            byte[] length = data.SubArray(offset, 4);
+            offset += length.Length;
+            int size = BitConverter.ToInt32(length);
+
+            byte[] name = data.SubArray(offset, size);
+            offset += name.Length;
+
+            Username = BitConverter.ToString(name);
         }
     }
 
