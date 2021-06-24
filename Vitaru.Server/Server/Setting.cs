@@ -11,9 +11,9 @@ namespace Vitaru.Server.Server
 {
     public class Setting : ISerializableToBytes
     {
-        public string Name;
+        public string Name = "null";
 
-        public string Value;
+        public string Value = "null";
 
         public Sync Sync;
 

@@ -20,17 +20,17 @@ namespace Vitaru.Server.Levels
         /// <summary>
         ///     The Version of vitaru this Level was made for (used to load old levels properly)
         /// </summary>
-        public string Format;
+        public string Format = "null";
 
         /// <summary>
         ///     Person who made this level, maybe this should be an array / have a seperate co-author field?
         /// </summary>
-        public string Creator;
+        public string Creator = "null";
 
         /// <summary>
         ///     What the Creator named this level, can be whatever
         /// </summary>
-        public string Name;
+        public string Name = "null";
 
         /// <summary>
         ///     The calculated difficulty of this level
@@ -40,12 +40,12 @@ namespace Vitaru.Server.Levels
         /// <summary>
         ///     The gamemode this level was made for
         /// </summary>
-        public string Gamemode;
+        public string Gamemode = "null";
 
         /// <summary>
         ///     The serialized enemy data
         /// </summary>
-        public string EnemyData;
+        public string EnemyData = "null";
 
         public byte[] Serialize()
         {

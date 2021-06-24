@@ -85,6 +85,9 @@ namespace Vitaru.Server.Match
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
+            Users = new List<VitaruUser>();
+            Settings = new List<Setting>();
+
             int offset = 4;
 
             //start with name

@@ -65,6 +65,8 @@ namespace Vitaru.Server.Server
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
+            UserSettings = new List<Setting>();
+
             int offset = 0;
 
             //start with name

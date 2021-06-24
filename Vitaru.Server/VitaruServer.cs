@@ -49,6 +49,23 @@ namespace Vitaru.Server
             server.Clock = Clock;
             server.LoadingComplete();
 
+            base.RunUpdate();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            server.Update();
+        }
+
+        public override void Dispose()
+        {
+            server.Dispose();
+            base.Dispose();
+        }
+
+        private void test()
+        {
             MatchInfo m = new()
             {
                 Name = "Test Match",
@@ -101,38 +118,24 @@ namespace Vitaru.Server
                         Status = PlayerStatus.DownloadingLevel
                     },
                 },
-
+            
                 Settings = new List<Setting>
                 {
                     new Setting
                     {
-
+            
                     }
                 },
-
+            
                 Level = new Level
                 {
-
+            
                 }
             };
-
+            
             byte[] data = m.Serialize();
-
+            
             m.DeSerialize(data);
-
-            base.RunUpdate();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-            server.Update();
-        }
-
-        public override void Dispose()
-        {
-            server.Dispose();
-            base.Dispose();
         }
     }
 
