@@ -131,9 +131,9 @@ namespace Vitaru.Server.Match
                 VitaruUser v = new();
                 v.DeSerialize(user);
                 Users.Add(v);
-
-                offset += i;
             }
+
+            offset = users;
 
             //Settings now, should be a bit easier...
             length = data.SubArray(offset, 4);
@@ -157,9 +157,9 @@ namespace Vitaru.Server.Match
                 Setting s = new();
                 s.DeSerialize(setting);
                 Settings.Add(s);
-
-                offset += i;
             }
+
+            offset = settings;
 
             //get level size
             length = data.SubArray(offset, 4);

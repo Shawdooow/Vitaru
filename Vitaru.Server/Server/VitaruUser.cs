@@ -115,9 +115,9 @@ namespace Vitaru.Server.Server
                 Setting s = new();
                 s.DeSerialize(setting);
                 UserSettings.Add(s);
-
-                offset += i;
             }
+
+            offset = settings;
 
             //Status
             byte[] status = data.SubArray(offset, 2);
