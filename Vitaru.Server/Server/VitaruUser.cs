@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Prion.Centrosome;
+using System.Text;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
@@ -22,8 +22,6 @@ namespace Vitaru.Server.Server
 
         public string Color = "#ffffff";
 
-        public string Country;
-
         public List<Setting> UserSettings = new();
 
         public PlayerStatus Status = PlayerStatus.JoiningMatch;
@@ -35,21 +33,20 @@ namespace Vitaru.Server.Server
             byte[] username = Username.ToLengthAndBytes();
             byte[] userid = BitConverter.GetBytes(ID);
             byte[] color = Color.ToLengthAndBytes();
-            byte[] country = Country.ToLengthAndBytes();
 
-            //Make sure we list how many settings there are
-            int us = UserSettings.Count;
-            byte[] settingslength = BitConverter.GetBytes(us);
+            //Settings
             List<byte> settings = new();
             foreach (Setting setting in UserSettings)
                 settings.AddRange(setting.Serialize());
+
+            //Length of setting bytes
+            byte[] settingslength = BitConverter.GetBytes(settings.Count);
 
             byte[] status = BitConverter.GetBytes((ushort) Status);
 
             data.AddRange(username);
             data.AddRange(userid);
             data.AddRange(color);
-            data.AddRange(country);
             data.AddRange(settingslength);
             data.AddRange(settings);
             data.AddRange(status);
@@ -78,7 +75,55 @@ namespace Vitaru.Server.Server
             byte[] name = data.SubArray(offset, size);
             offset += name.Length;
 
-            Username = BitConverter.ToString(name);
+            Username = Encoding.ASCII.GetString(name);
+
+            //then ID...
+            byte[] id = data.SubArray(offset, 8);
+            offset += id.Length;
+
+            ID = BitConverter.ToInt64(id);
+
+            //Color
+            length = data.SubArray(offset, 4);
+            offset += length.Length;
+            size = BitConverter.ToInt32(length);
+
+            byte[] color = data.SubArray(offset, size);
+            offset += color.Length;
+
+            Color = Encoding.ASCII.GetString(color);
+
+            //Settings now, should be a bit easier...
+            length = data.SubArray(offset, 4);
+            offset += length.Length;
+
+            //Settings length
+            int settings = BitConverter.ToInt32(length);
+            settings += offset;
+
+            int i = offset;
+            while (i < settings)
+            {
+                //get setting size
+                length = data.SubArray(i, 4);
+                i += length.Length;
+                size = BitConverter.ToInt32(length);
+
+                byte[] setting = data.SubArray(i, size);
+                i += setting.Length;
+
+                Setting s = new();
+                s.DeSerialize(setting);
+                UserSettings.Add(s);
+
+                offset += i;
+            }
+
+            //Status
+            byte[] status = data.SubArray(offset, 2);
+            offset += status.Length;
+
+            Status = (PlayerStatus)BitConverter.ToUInt16(status);
         }
     }
 

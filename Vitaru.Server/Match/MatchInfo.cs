@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Prion.Centrosome;
+using System.Text;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Server.Levels;
@@ -40,21 +40,23 @@ namespace Vitaru.Server.Match
             byte[] id = BitConverter.GetBytes(ID);
             byte[] host = BitConverter.GetBytes(Host);
 
-            //Make sure we list how many users are in this lobby
-            int ul = Users.Count;
-            byte[] userslength = BitConverter.GetBytes(ul);
+            //Users
             List<byte> users = new();
 
             foreach (VitaruUser user in Users)
                 users.AddRange(user.Serialize());
 
-            //Make sure we list how many settings there are
-            int ls = Settings.Count;
-            byte[] settingslength = BitConverter.GetBytes(ls);
+            //Length of user bytes
+            byte[] userslength = BitConverter.GetBytes(users.Count);
+
+            //Settings
             List<byte> settings = new();
 
             foreach (Setting setting in Settings)
                 settings.AddRange(setting.Serialize());
+
+            //Length of setting bytes
+            byte[] settingslength = BitConverter.GetBytes(settings.Count);
 
             byte[] level = Level.Serialize();
 
@@ -66,7 +68,7 @@ namespace Vitaru.Server.Match
             data.AddRange(users);
             data.AddRange(settingslength);
             data.AddRange(settings);
-            //data.AddRange(level);
+            data.AddRange(level);
 
             //last we stick the size in.
             //while it is technically possible to deduce the size of the data on the other side it is wildly impractical to implement
@@ -78,12 +80,12 @@ namespace Vitaru.Server.Match
 
 
         /// <summary>
-        /// Does NOT includes the 4 bytes of (int)size of this <see cref="MatchInfo"/>
+        /// Includes the 4 bytes of (int)size of this <see cref="MatchInfo"/>
         /// </summary>
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
-            int offset = 0;
+            int offset = 4;
 
             //start with name
             byte[] length = data.SubArray(offset, 4);
@@ -93,7 +95,7 @@ namespace Vitaru.Server.Match
             byte[] name = data.SubArray(offset, size);
             offset += name.Length;
 
-            Name = BitConverter.ToString(name);
+            Name = Encoding.ASCII.GetString(name);
 
             //next is ID
             byte[] id = data.SubArray(offset, 4);
@@ -111,6 +113,7 @@ namespace Vitaru.Server.Match
             length = data.SubArray(offset, 4);
             offset += length.Length;
 
+            //Users length
             int users = BitConverter.ToInt32(length);
             users += offset;
 
@@ -136,6 +139,7 @@ namespace Vitaru.Server.Match
             length = data.SubArray(offset, 4);
             offset += length.Length;
 
+            //Settings length
             int settings = BitConverter.ToInt32(length);
             settings += offset;
 
@@ -158,16 +162,16 @@ namespace Vitaru.Server.Match
             }
 
             //get level size
-            //length = data.SubArray(offset, 4);
-            //offset += length.Length;
-            //size = BitConverter.ToInt32(length);
-            //
-            //byte[] level = data.SubArray(offset, size);
-            //offset += level.Length;
-            //
-            //Level l = new();
-            //l.DeSerialize(level);
-            //Level = l;
+            length = data.SubArray(offset, 4);
+            offset += length.Length;
+            size = BitConverter.ToInt32(length);
+            
+            byte[] level = data.SubArray(offset, size);
+            offset += level.Length;
+            
+            Level l = new();
+            l.DeSerialize(level);
+            Level = l;
         }
     }
 }

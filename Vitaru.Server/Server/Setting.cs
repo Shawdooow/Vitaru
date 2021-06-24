@@ -3,7 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using Prion.Centrosome;
+using System.Text;
+using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Server.Server
@@ -42,7 +43,33 @@ namespace Vitaru.Server.Server
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
         {
-            throw new NotImplementedException();
+            int offset = 0;
+
+            //start with name
+            byte[] length = data.SubArray(offset, 4);
+            offset += length.Length;
+            int size = BitConverter.ToInt32(length);
+
+            byte[] name = data.SubArray(offset, size);
+            offset += name.Length;
+
+            Name = Encoding.ASCII.GetString(name);
+
+            //Value
+            length = data.SubArray(offset, 4);
+            offset += length.Length;
+            size = BitConverter.ToInt32(length);
+
+            byte[] value = data.SubArray(offset, size);
+            offset += value.Length;
+
+            Value = Encoding.ASCII.GetString(value);
+
+            //Sync
+            byte[] sync = data.SubArray(offset, 2);
+            offset += sync.Length;
+
+            Sync = (Sync)BitConverter.ToUInt16(sync);
         }
     }
 

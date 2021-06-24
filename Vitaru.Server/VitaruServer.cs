@@ -1,7 +1,13 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Prion.Nucleus;
+using Prion.Nucleus.Utilities;
+using Vitaru.Server.Levels;
+using Vitaru.Server.Match;
 using Vitaru.Server.Server;
 
 namespace Vitaru.Server
@@ -42,6 +48,77 @@ namespace Vitaru.Server
             server.PreLoading();
             server.Clock = Clock;
             server.LoadingComplete();
+
+            MatchInfo m = new()
+            {
+                Name = "Test Match",
+                ID = 36840,
+                Host = 15,
+                Users = new List<VitaruUser>
+                {
+                    new VitaruUser
+                    {
+                        Username = "Carl",
+                        ID = 1,
+                        Color = "#white",
+                        UserSettings = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Name = "Character",
+                                Value = "Arysa",
+                                Sync = Sync.Client,
+                            },
+                            new Setting
+                            {
+                                Name = "Hard?",
+                                Value = "Bab",
+                                Sync = Sync.All,
+                            },
+                        },
+                        Status = PlayerStatus.SearchingForLevel
+                    },
+                    new VitaruUser
+                    {
+                        Username = "Weeb",
+                        ID = 2,
+                        Color = "#green",
+                        UserSettings = new List<Setting>
+                        {
+                            new Setting
+                            {
+                                Name = "Character",
+                                Value = "Nobody",
+                                Sync = Sync.Client,
+                            },
+                            new Setting
+                            {
+                                Name = "Easy",
+                                Value = "yet",
+                                Sync = Sync.All,
+                            },
+                        },
+                        Status = PlayerStatus.DownloadingLevel
+                    },
+                },
+
+                Settings = new List<Setting>
+                {
+                    new Setting
+                    {
+
+                    }
+                },
+
+                Level = new Level
+                {
+
+                }
+            };
+
+            byte[] data = m.Serialize();
+
+            m.DeSerialize(data);
 
             base.RunUpdate();
         }
