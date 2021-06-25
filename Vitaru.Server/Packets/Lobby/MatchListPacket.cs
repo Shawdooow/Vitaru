@@ -10,7 +10,7 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class MatchListPacket : VariableLengthPacket
     {
-        public List<MatchInfo> MatchInfos;
+        public List<MatchInfo> MatchInfos = new();
 
         public MatchListPacket() : base((ushort)VitaruPackets.MatchList)
         {
@@ -23,6 +23,8 @@ namespace Vitaru.Server.Packets.Lobby
             List<byte> data = new();
 
             int length = MatchInfos.Count;
+
+            if (length == 0) return data.ToArray();
 
             data.AddRange(BitConverter.GetBytes(length));
 

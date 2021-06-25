@@ -39,6 +39,8 @@ namespace Vitaru.Roots.Multi
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
+
+                    Size = new Vector2(200, 20),
                     Text = "Create Room",
                     OnClick = create
                 },
@@ -46,6 +48,8 @@ namespace Vitaru.Roots.Multi
                 {
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
+
+                    Size = new Vector2(200, 20),
                     Text = "Join Room",
                     OnClick = join
                 },
@@ -53,6 +57,8 @@ namespace Vitaru.Roots.Multi
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
+
+                    Size = new Vector2(200, 20),
                     Text = "Refresh",
                     OnClick = refresh
                 }
