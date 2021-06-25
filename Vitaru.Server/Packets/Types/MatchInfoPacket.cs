@@ -25,8 +25,7 @@ namespace Vitaru.Server.Packets.Types
         public override void DeSerialize(byte[] data)
         {
             MatchInfo = new MatchInfo();
-
-            //string name = Encoding.ASCII.GetString();
+            MatchInfo.DeSerialize(data);
         }
     }
 }
