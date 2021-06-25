@@ -31,7 +31,25 @@ namespace Vitaru.Roots.Multi
                     Position = new Vector2(10),
                     Text = "Rooms:"
                 },
-                new Rooms()
+                new Rooms(),
+                new Button
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomLeft,
+                    Text = "Create Room"
+                },
+                new Button
+                {
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+                    Text = "Join Room"
+                },
+                new Button
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomRight,
+                    Text = "Refresh"
+                }
             });
 
             Add(controller = new TrackController
@@ -49,7 +67,7 @@ namespace Vitaru.Roots.Multi
             controller.TryRepeat();
         }
 
-        public class Rooms : Layer2D<IDrawable2D>
+        public class Rooms : InputLayer<IDrawable2D>
         {
             public Rooms()
             {
