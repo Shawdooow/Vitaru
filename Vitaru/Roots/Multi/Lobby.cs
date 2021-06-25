@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
+using Vitaru.Server.Packets.Lobby;
 
 namespace Vitaru.Roots.Multi
 {
@@ -36,19 +37,22 @@ namespace Vitaru.Roots.Multi
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
-                    Text = "Create Room"
+                    Text = "Create Room",
+                    OnClick = create
                 },
                 new Button
                 {
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
-                    Text = "Join Room"
+                    Text = "Join Room",
+                    OnClick = join
                 },
                 new Button
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
-                    Text = "Refresh"
+                    Text = "Refresh",
+                    OnClick = refresh
                 }
             });
 
@@ -65,6 +69,21 @@ namespace Vitaru.Roots.Multi
 
             controller.Update();
             controller.TryRepeat();
+        }
+
+        private void create()
+        {
+            VitaruNet.SendPacketTcp(new CreateMatchPacket());
+        }
+
+        private void join()
+        {
+            VitaruNet.SendPacketTcp(new JoinMatchPacket());
+        }
+
+        private void refresh()
+        {
+            VitaruNet.SendPacketTcp(new RequestMatchListPacket());
         }
 
         public class Rooms : InputLayer<IDrawable2D>
