@@ -10,6 +10,8 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
+using Vitaru.Levels;
+using Vitaru.Server.Match;
 using Vitaru.Server.Packets.Lobby;
 
 namespace Vitaru.Roots.Multi
@@ -73,12 +75,25 @@ namespace Vitaru.Roots.Multi
 
         private void create()
         {
-            VitaruNet.SendPacketTcp(new CreateMatchPacket());
+            VitaruNet.SendPacketTcp(new CreateMatchPacket
+            {
+                MatchInfo = new MatchInfo
+                {
+                    Host = VitaruNet.VitaruUser.ID,
+
+                    Level = LevelStore.CurrentLevel
+                }
+            });
         }
 
         private void join()
         {
-            VitaruNet.SendPacketTcp(new JoinMatchPacket());
+            VitaruNet.SendPacketTcp(new JoinMatchPacket
+            {
+                //provide selected match on list
+                Match = 0,
+                User = VitaruNet.VitaruUser
+            });
         }
 
         private void refresh()
