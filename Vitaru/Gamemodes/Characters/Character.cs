@@ -100,6 +100,8 @@ namespace Vitaru.Gamemodes.Characters
                                 }
                                 else
                                     continue;
+                            case Laser laser:
+                                continue;
                         }
 
                         if (edgeDistance <= 0)
