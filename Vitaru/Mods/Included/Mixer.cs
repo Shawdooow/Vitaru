@@ -292,7 +292,7 @@ namespace Vitaru.Mods.Included
 
                     seek = new Slider
                     {
-                        Y = -60,
+                        Y = -75,
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Width = 800,
@@ -302,23 +302,11 @@ namespace Vitaru.Mods.Included
                     },
                     accelMin = new Slider
                     {
-                        Y = -80,
+                        Y = -110,
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Width = 800,
-                        OnProgressInput = p =>
-                        {
-                            accelMin.Progress = Math.Min(p, accelMax.Progress);
-
-                            float current = PrionMath.Remap(p, 0, 1, 0,
-                                (float) TrackManager.CurrentTrack.Sample.Length * 1000);
-
-                            TimeSpan t = TimeSpan.FromMilliseconds(current);
-
-                            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
-
-                            accelMinTime.Text = time;
-                        }
+                        OnProgressInput = aMin
                     },
                     accelMax = new Slider
                     {
@@ -327,24 +315,12 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.BottomCenter,
                         Width = 800,
                         Progress = 1,
-                        OnProgressInput = p =>
-                        {
-                            accelMax.Progress = Math.Max(p, accelMin.Progress);
-
-                            float current = PrionMath.Remap(p, 0, 1, 0,
-                                (float) TrackManager.CurrentTrack.Sample.Length * 1000);
-
-                            TimeSpan t = TimeSpan.FromMilliseconds(current);
-
-                            string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
-
-                            accelMaxTime.Text = time;
-                        }
+                        OnProgressInput = aMax
                     },
 
                     play = new Button
                     {
-                        Position = new Vector2(0, -120),
+                        Position = new Vector2(0, -140),
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(64),
@@ -357,7 +333,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
-                        Position = new Vector2(72, -120),
+                        Position = new Vector2(72, -140),
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(64),
@@ -367,7 +343,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
-                        Position = new Vector2(-72, -120),
+                        Position = new Vector2(-72, -140),
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Size = new Vector2(-64, 64),
@@ -450,6 +426,9 @@ namespace Vitaru.Mods.Included
                 Add(new LevelSelect());
 
                 base.LoadingComplete();
+
+                aMax(1);
+                aMin(0);
             }
 
             public override void Update()
@@ -523,6 +502,34 @@ namespace Vitaru.Mods.Included
             private void previous() => controller.PreviousLevel();
 
             private void change(Track t) => song.Text = t.Metadata.Title;
+
+            private void aMax(float p)
+            {
+                accelMax.Progress = Math.Max(p, accelMin.Progress);
+
+                float current = PrionMath.Remap(p, 0, 1, 0,
+                    (float)TrackManager.CurrentTrack.Sample.Length * 1000);
+
+                TimeSpan t = TimeSpan.FromMilliseconds(current);
+
+                string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+
+                accelMaxTime.Text = time;
+            }
+
+            private void aMin(float p)
+            {
+                accelMin.Progress = Math.Min(p, accelMax.Progress);
+
+                float current = PrionMath.Remap(p, 0, 1, 0,
+                    (float)TrackManager.CurrentTrack.Sample.Length * 1000);
+
+                TimeSpan t = TimeSpan.FromMilliseconds(current);
+
+                string time = $"{t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D3}";
+
+                accelMinTime.Text = time;
+            }
 
             protected override void OnKeyDown(KeyboardKeyEvent e)
             {
