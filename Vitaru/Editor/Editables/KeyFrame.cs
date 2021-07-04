@@ -28,21 +28,10 @@ namespace Vitaru.Editor.Editables
         /// <param name="current"></param>
         public virtual void ApplyKeyFrame(double current)
         {
-            double c = PrionMath.Remap(current, StartTime, EndTime);
+            float c = (float)PrionMath.Remap(current, StartTime, EndTime);
 
             for (int i = 0; i < Effects.Count; i++)
                 Effects[i].Apply(c);
-        }
-
-        public abstract class KeyFrameEffect : IHasName
-        {
-            public virtual string Name { get; set; } = nameof(KeyFrameEffect);
-
-            public virtual Easings Easing { get; set; } = Easings.None;
-
-            public virtual void Apply(double current) => ApplyEffect(Prion.Nucleus.Utilities.Easing.ApplyEasing(Easing, current));
-
-            protected abstract void ApplyEffect(double current);
         }
     }
 }
