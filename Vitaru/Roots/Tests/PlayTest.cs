@@ -35,6 +35,7 @@ namespace Vitaru.Roots.Tests
         private readonly Gamefield gamefield;
 
         private readonly bool random;
+        private double spiral;
 
         private readonly Text2D enemies;
         private readonly Text2D bullets;
@@ -167,7 +168,7 @@ namespace Vitaru.Roots.Tests
             {
                 if (random)
                 {
-                    int count = PrionMath.RandomNumber(1 * enemy_multiplier, 5 * enemy_multiplier);
+                    int count = PrionMath.RandomNumber(1, 5 * enemy_multiplier);
                     double start = TrackManager.CurrentTrack.Clock.Current +
                                    TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2;
 
@@ -177,14 +178,28 @@ namespace Vitaru.Roots.Tests
                             PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
                             PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
 
-                        gamefield.Add(new Enemy(gamefield)
+                        bool s = count == 1 && PrionMath.RandomNumber(0, 10) == 5;
+
+                        if (!s)
+                            gamefield.Add(new Enemy(gamefield)
+                            {
+                                StartTime = start,
+                                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
+                                    PrionMath.RandomNumber(-300, 0)),
+                                PatternID = (short) PrionMath.RandomNumber(0, 5),
+                                Color = c
+                            });
+                        else
                         {
-                            StartTime = start,
-                            StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
-                                PrionMath.RandomNumber(-300, 0)),
-                            PatternID = (short) PrionMath.RandomNumber(0, 5),
-                            Color = c
-                        });
+                            gamefield.Add(new Enemy(gamefield)
+                            {
+                                StartTime = start,
+                                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
+                                    PrionMath.RandomNumber(-300, 0)),
+                                PatternID = (short) PrionMath.RandomNumber(0, 5),
+                                Color = c
+                            });
+                        }
                     }
                 }
 

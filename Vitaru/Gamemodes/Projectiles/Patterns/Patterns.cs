@@ -272,19 +272,19 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
 
             float direction = 0;
 
-            //for (int i = 1; i <= 4; i++)
-            //{
-            //    projectiles.Add(new Laser
-            //    {
-            //        StartTime = startTime,
-            //        EndTime = startTime + duration,
-            //        StartPosition = position,
-            //        Angle = 90 * i + 45,
-            //        Size = new Vector2(diameter, diameter * 32),
-            //        Damage = damage * 2,
-            //        Team = team,
-            //    });
-            //}
+            for (int i = 1; i <= 4; i++)
+            {
+                projectiles.Add(new Laser
+                {
+                    StartTime = startTime,
+                    EndTime = startTime + duration,
+                    StartPosition = position,
+                    Angle = 90 * i + 45,
+                    Size = new Vector2(diameter, diameter * 32),
+                    Damage = damage * 2,
+                    Team = team,
+                });
+            }
 
             for (double j = startTime; j <= startTime + duration; j += beatLength / 2)
             {

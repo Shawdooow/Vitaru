@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
+using Vitaru.Editor.Editables;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Settings;

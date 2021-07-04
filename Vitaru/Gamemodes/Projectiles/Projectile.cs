@@ -2,17 +2,19 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Nucleus.Utilities;
+using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
-    public abstract class Projectile : GameEntity, IHasStartPosition
+    public abstract class Projectile : GameEntity, IHasStartPosition, IHasKeyFrames
     {
         public override string Name { get; set; } = nameof(Projectile);
 
@@ -37,6 +39,8 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             new EditableStartPosition(this)
         };
+
+        public List<KeyFrame> KeyFrames { get; set; }
 
         public float Alpha = 1;
 

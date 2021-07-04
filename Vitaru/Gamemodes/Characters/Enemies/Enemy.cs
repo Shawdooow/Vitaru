@@ -109,7 +109,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
         private double startTime;
 
-        public virtual double EndTime { get; protected set; } = double.MaxValue;
+        public virtual double EndTime { get; set; } = double.MaxValue;
 
         public double Duration => EndTime - StartTime;
 
