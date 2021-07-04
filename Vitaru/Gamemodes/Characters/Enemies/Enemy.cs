@@ -16,6 +16,7 @@ using Vitaru.Editor.Editables.Properties.Color;
 using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
+using Vitaru.Editor.KeyFrames;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Projectiles.Patterns;
@@ -25,7 +26,7 @@ using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Characters.Enemies
 {
-    public class Enemy : Character, IHasStartPosition, IHasStartTime, IHasColor, IHasPatternID //, IHasEndTime
+    public class Enemy : Character, IHasKeyFrames, IHasStartPosition, IHasColor, IHasPatternID
     {
         public static int COUNT;
 
@@ -84,6 +85,8 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditableColor(this),
             new EditablePatternID(this)
         };
+
+        public List<KeyFrame> KeyFrames { get; set; }
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
 
@@ -145,6 +148,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
 
             if (!Selected)
             {
+                for (int i = 0; i < KeyFrames.Count; i++)
+                    KeyFrames[i].ApplyKeyFrame(current);
+
                 if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
                     PreLoad();
                 else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&

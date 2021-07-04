@@ -7,9 +7,9 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Nucleus.Utilities;
-using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
+using Vitaru.Editor.KeyFrames;
 using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -52,7 +52,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public virtual double StartTime { get; set; }
 
-        public virtual double EndTime { get; protected set; }
+        public virtual double EndTime { get; set; }
 
         public double Duration => EndTime - StartTime;
 
@@ -102,6 +102,10 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void Update()
         {
+            double current = Clock.Current;
+            for (int i = 0; i < KeyFrames.Count; i++)
+                KeyFrames[i].ApplyKeyFrame(current);
+
             if (Drawable != -1) UpdateDrawable();
         }
 

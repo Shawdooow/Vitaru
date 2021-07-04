@@ -1,4 +1,5 @@
-﻿using Vitaru.Settings;
+﻿using System.Numerics;
+using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -14,6 +15,8 @@ namespace Vitaru.Gamemodes.Projectiles
         public override string Name { get; set; } = nameof(Laser);
 
         public override DrawableGameEntity GenerateDrawable() => null;
+
+        public Vector2 Size { get; set; }
 
         protected override void Dispose(bool finalize)
         {

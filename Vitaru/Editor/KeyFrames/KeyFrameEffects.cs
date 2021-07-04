@@ -4,7 +4,7 @@ using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Gamemodes.Projectiles;
 
-namespace Vitaru.Editor.Editables
+namespace Vitaru.Editor.KeyFrames
 {
     #region Enemy
 

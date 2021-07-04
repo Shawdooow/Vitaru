@@ -2,7 +2,7 @@
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
-namespace Vitaru.Editor.Editables
+namespace Vitaru.Editor.KeyFrames
 {
     public class KeyFrame : IHasName
     {
@@ -10,20 +10,18 @@ namespace Vitaru.Editor.Editables
 
         /// <summary>
         /// Time this KeyFrame's <see cref="Effects"/> start.
-        /// Remapped to between 0 - 1 for a given entity's StartTime to it's EndTime
         /// </summary>
         public double StartTime;
 
         /// <summary>
         /// Time this KeyFrame's <see cref="Effects"/> end.
-        /// Remapped to between 0 - 1 for a given entity's StartTime to it's EndTime
         /// </summary>
         public double EndTime;
 
         public List<KeyFrameEffect> Effects = new();
 
         /// <summary>
-        /// <see cref="current"/> should be remapped to between 0 - 1 for a given entity's StartTime to it's EndTime
+        /// 
         /// </summary>
         /// <param name="current"></param>
         public virtual void ApplyKeyFrame(double current)
