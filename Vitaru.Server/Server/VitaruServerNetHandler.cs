@@ -66,6 +66,16 @@ namespace Vitaru.Server.Server
                     SendToClient(new MatchListPacket(), info.Client);
                     break;
                 case CreateMatchPacket create:
+                    VitaruMatch match = new()
+                    {
+                        MatchInfo = create.MatchInfo,
+                        MatchLastUpdateTime = Clock.Current,
+                    };
+                    VitaruMatches.Add(match);
+
+                    match.Add(info.Client);
+
+                    SendToClient(new MatchCreatedPacket(), info.Client);
                     break;
             }
         }
