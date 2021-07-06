@@ -26,20 +26,23 @@ using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots;
 using Vitaru.Roots.Tests;
+using Vitaru.Server;
 using Vitaru.Settings;
 
 namespace Vitaru
 {
     public class Vitaru : Game
     {
-        public const string VERSION = "0.12.0-preview3.0";
+        public const string VERSION = VitaruServer.VERSION;
 
         /// <summary>
-        ///     For Online Connections
+        ///     For Online Connections.
+        ///     Often contains the same value more than once
         /// </summary>
         public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS =
         {
-            VERSION
+            VERSION,
+            VitaruServer.VERSION
         };
 
         /// <summary>
