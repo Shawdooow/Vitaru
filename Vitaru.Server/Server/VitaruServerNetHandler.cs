@@ -65,6 +65,8 @@ namespace Vitaru.Server.Server
                 case RequestMatchListPacket:
                     SendToClient(new MatchListPacket(), info.Client);
                     break;
+                case CreateMatchPacket create:
+                    break;
             }
         }
 

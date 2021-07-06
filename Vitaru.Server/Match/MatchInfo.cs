@@ -88,7 +88,7 @@ namespace Vitaru.Server.Match
             Users = new List<VitaruUser>();
             Settings = new List<Setting>();
 
-            int offset = 4;
+            int offset = 0;
 
             //start with name
             byte[] length = data.SubArray(offset, 4);
