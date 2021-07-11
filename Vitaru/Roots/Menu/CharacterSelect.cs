@@ -116,7 +116,11 @@ namespace Vitaru.Roots.Menu
                 });
 
                 if (drawable is DrawablePlayer p)
+                {
                     sign = p.Seal.Sign;
+                    p.Hitbox.Alpha = 1;
+                    p.HitboxOutline.Alpha = 1;
+                }
             }
 
             public override void PreRender()
