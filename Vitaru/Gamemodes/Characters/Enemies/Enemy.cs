@@ -86,7 +86,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditablePatternID(this)
         };
 
-        public List<KeyFrame> KeyFrames { get; set; }
+        public List<KeyFrame> KeyFrames { get; set; } = new List<KeyFrame>();
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
 

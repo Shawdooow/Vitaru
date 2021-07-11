@@ -40,7 +40,7 @@ namespace Vitaru.Gamemodes.Projectiles
             new EditableStartPosition(this)
         };
 
-        public List<KeyFrame> KeyFrames { get; set; }
+        public List<KeyFrame> KeyFrames { get; set; } = new List<KeyFrame>();
 
         public float Alpha = 1;
 
