@@ -115,6 +115,7 @@ namespace Vitaru
                     ThemeManager.Theme = new Somber();
             }
 
+            //OK Now buckle your fuckle, we are ready to go!
             using (Vitaru vitaru = new(v))
             {
                 if (FEATURES >= Features.Radioactive)
