@@ -14,13 +14,13 @@ namespace Vitaru.Editor.UI
     {
         public override string Name => nameof(Toolbar);
 
-        private const float width = 1200;
-        private const float height = 80;
+        private const float width = 1280;
+        private const float height = 120;
 
         public Toolbar(LevelManager manager)
         {
-            ParentOrigin = Mounts.TopCenter;
-            Origin = Mounts.TopCenter;
+            ParentOrigin = Mounts.BottomCenter;
+            Origin = Mounts.BottomCenter;
 
             Size = new Vector2(width, height);
 
@@ -35,17 +35,17 @@ namespace Vitaru.Editor.UI
                 },
                 new Button
                 {
-                    ParentOrigin = Mounts.CenterRight,
-                    Origin = Mounts.CenterRight,
+                    ParentOrigin = Mounts.TopRight,
+                    Origin = Mounts.TopRight,
 
-                    Width = 64,
-                    Height = 24,
+                    Width = 72,
+                    Height = 32,
 
                     Text = "Save",
 
                     Text2D =
                     {
-                        FontScale = 0.3f
+                        FontScale = 0.35f
                     },
 
                     OnClick = manager.SerializeToLevel

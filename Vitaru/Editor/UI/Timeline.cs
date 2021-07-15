@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -21,8 +22,8 @@ namespace Vitaru.Editor.UI
 {
     public class Timeline : InputLayer<IDrawable2D>, IHasInputKeys
     {
-        private const float width = 1080f;
-        private const float height = 140f;
+        private const float width = 1280f;
+        private const float height = 100f;
 
         private readonly Text2D timeIn;
         private readonly Text2D msIn;
@@ -40,8 +41,8 @@ namespace Vitaru.Editor.UI
         {
             manager.PropertiesSet += Selected;
 
-            ParentOrigin = Mounts.BottomCenter;
-            Origin = Mounts.BottomCenter;
+            ParentOrigin = Mounts.TopCenter;
+            Origin = Mounts.TopCenter;
 
             Size = new Vector2(width, height);
 
@@ -60,6 +61,8 @@ namespace Vitaru.Editor.UI
                 scrubber = new Slider
                 {
                     Y = 8,
+                    Width = width - 280,
+
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
@@ -69,10 +72,10 @@ namespace Vitaru.Editor.UI
                 },
                 play = new Button
                 {
-                    Position = new Vector2(0, -12),
-                    ParentOrigin = Mounts.Center,
-                    Origin = Mounts.Center,
-                    Size = new Vector2(32),
+                    Y = -8,
+                    ParentOrigin = Mounts.BottomCenter,
+                    Origin = Mounts.BottomCenter,
+                    Size = new Vector2(48),
                     Background = Vitaru.TextureStore.GetTexture("pause.png"),
 
                     OnClick = TogglePlay
@@ -80,9 +83,9 @@ namespace Vitaru.Editor.UI
                 speed = new Slider
                 {
                     Width = 200,
-                    Y = -8,
-                    ParentOrigin = Mounts.BottomCenter,
-                    Origin = Mounts.BottomCenter,
+                    Position = new Vector2(80, -8),
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomLeft,
 
                     OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Remap(p, 0, 1, 0.5f, 1.5f)
                 }
@@ -212,6 +215,12 @@ namespace Vitaru.Editor.UI
         {
             TrackManager.CurrentTrack.Clock.Update();
 
+            if (TrackManager.CurrentTrack.Playing && TrackManager.CurrentTrack.CheckFinish())
+            {
+                TogglePlay();
+                TrackManager.CurrentTrack.Seek(TrackManager.CurrentTrack.Sample.Length);
+            }
+
             if (TrackManager.CurrentTrack.Playing)
                 start?.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
 
@@ -235,7 +244,7 @@ namespace Vitaru.Editor.UI
 
         public bool OnKeyDown(KeyboardKeyEvent e)
         {
-            if (e.Key == Keys.Space)
+            if (Renderer.Window.Focused && e.Key == Keys.Space)
             {
                 TogglePlay();
                 return true;
