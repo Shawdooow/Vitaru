@@ -31,9 +31,12 @@ namespace Vitaru.Editor.UI
         private readonly Text2D timeLeft;
         private readonly Text2D msLeft;
 
+        private readonly Text2D percentGain;
+
         private readonly Button play;
 
-        private readonly Slider speed;
+        private readonly Slider pitch;
+        private readonly Slider gain;
 
         private EditableStartTime start;
 
@@ -80,7 +83,7 @@ namespace Vitaru.Editor.UI
 
                     OnClick = TogglePlay
                 },
-                speed = new Slider
+                pitch = new Slider
                 {
                     Width = 200,
                     Position = new Vector2(80, -8),
@@ -88,6 +91,16 @@ namespace Vitaru.Editor.UI
                     Origin = Mounts.BottomLeft,
 
                     OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Remap(p, 0, 1, 0.5f, 1.5f)
+                },
+
+                gain = new Slider
+                {
+                    Width = 200,
+                    Position = new Vector2(-80, -8),
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomRight,
+
+                    OnProgressInput = p => TrackManager.CurrentTrack.Gain = p
                 }
             };
 
@@ -123,7 +136,7 @@ namespace Vitaru.Editor.UI
                 }
             });
 
-            speed.AddArray(new IDrawable2D[]
+            pitch.AddArray(new IDrawable2D[]
             {
                 new Button
                 {
@@ -139,7 +152,7 @@ namespace Vitaru.Editor.UI
 
                     OnClick = () =>
                     {
-                        speed.Progress = 0f;
+                        pitch.Progress = 0f;
                         TrackManager.CurrentTrack.Pitch = 0.5f;
                     }
                 },
@@ -157,7 +170,7 @@ namespace Vitaru.Editor.UI
 
                     OnClick = () =>
                     {
-                        speed.Progress = 0.5f;
+                        pitch.Progress = 0.5f;
                         TrackManager.CurrentTrack.Pitch = 1f;
                     }
                 },
@@ -175,13 +188,24 @@ namespace Vitaru.Editor.UI
 
                     OnClick = () =>
                     {
-                        speed.Progress = 1f;
+                        pitch.Progress = 1f;
                         TrackManager.CurrentTrack.Pitch = 1.5f;
                     }
                 }
             });
 
-            speed.Progress = 0.5f;
+            gain.Add(percentGain = new Text2D
+            {
+                ParentOrigin = Mounts.TopCenter,
+                Origin = Mounts.BottomCenter,
+                Y = -12,
+
+                FontScale = 0.25f,
+                Text = "1x"
+            });
+
+            pitch.Progress = 0.5f;
+            gain.Progress = TrackManager.CurrentTrack.Gain;
         }
 
         public void Selected(EditableProperty[] properties)
@@ -240,6 +264,8 @@ namespace Vitaru.Editor.UI
             msIn.Text = Math.Round(t.TotalMilliseconds, 2).ToString();
             timeLeft.Text = left;
             msLeft.Text = $"-{Math.Round(l.TotalMilliseconds, 2)}";
+
+            percentGain.Text = $"{MathF.Round(TrackManager.CurrentTrack.Gain * 100, 0)}%";
         }
 
         public bool OnKeyDown(KeyboardKeyEvent e)
