@@ -31,7 +31,7 @@ using Vitaru.Input;
 using Vitaru.Tracks;
 #if !PUBLISH || PERSONAL
 using System.IO;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Nucleus.Timing;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;

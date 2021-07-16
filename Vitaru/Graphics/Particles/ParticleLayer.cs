@@ -5,7 +5,9 @@ using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Numerics;
-using OpenTK.Graphics.OpenGL4;
+using System.Runtime.InteropServices;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
@@ -32,7 +34,7 @@ namespace Vitaru.Graphics.Particles
 
         private Texture texture;
 
-        private int verts;
+        private BufferHandle verts;
 
         public readonly float[] pLifetime;
 
@@ -101,9 +103,12 @@ namespace Vitaru.Graphics.Particles
                 new(new Vector2(1f))
             };
 
+            GCHandle h = GCHandle.Alloc(array, GCHandleType.Pinned);
+            IntPtr address = h.AddrOfPinnedObject();
+
             verts = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.BufferData(BufferTarget.ArrayBuffer, 8 * 4, array, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTargetARB.ArrayBuffer, verts);
+            GL.BufferData(BufferTargetARB.ArrayBuffer, 8 * 4, address, BufferUsageARB.StaticDraw);
 
             lifeBuffer.InitBuffer();
             positionBuffer.InitBuffer();
@@ -170,7 +175,7 @@ namespace Vitaru.Graphics.Particles
 
             // verts
             GL.EnableVertexAttribArray(10);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
+            GL.BindBuffer(BufferTargetARB.ArrayBuffer, verts);
             GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             // lifetime
