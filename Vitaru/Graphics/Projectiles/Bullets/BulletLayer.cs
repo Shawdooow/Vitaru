@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Numerics;
-using OpenTK.Graphics.OpenGL4;
+using System.Runtime.InteropServices;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts.GL46.Shaders;
@@ -26,11 +28,11 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public override string Name { get; set; } = nameof(BulletLayer);
 
-        private int[] textures;
+        private TextureHandle[] textures;
 
         private ShaderProgram program;
 
-        private static int verts;
+        private static BufferHandle verts;
 
         public readonly Vector2[] bPosition;
         public readonly Vector2[] bSize;
@@ -68,8 +70,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             textures = new[]
             {
-                ((GLTexture) Game.TextureStore.GetTexture("circle 128.png")).ID,
-                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).ID
+                ((GLTexture) Game.TextureStore.GetTexture("circle 128.png")).Handle,
+                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).Handle
             };
 
             program = Vitaru.BulletProgram;
@@ -85,9 +87,12 @@ namespace Vitaru.Graphics.Projectiles.Bullets
                 new(new Vector2(1f))
             };
 
+            GCHandle h = GCHandle.Alloc(array, GCHandleType.Pinned);
+            IntPtr address = h.AddrOfPinnedObject();
+
             verts = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
-            GL.BufferData(BufferTarget.ArrayBuffer, 8 * 4, array, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTargetARB.ArrayBuffer, verts);
+            GL.BufferData(BufferTargetARB.ArrayBuffer, 8 * 4, address, BufferUsageARB.StaticDraw);
 
             posBuffer.InitBuffer();
             sizeBuffer.InitBuffer();
@@ -129,7 +134,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             // verts
             GL.EnableVertexAttribArray(vertLocation);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, verts);
+            GL.BindBuffer(BufferTargetARB.ArrayBuffer, verts);
             GL.VertexAttribPointer(vertLocation, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
 
             posBuffer.Bind(2);
@@ -141,9 +146,9 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             Renderer.ShaderManager.UpdateInt("circleTexture", 0);
             Renderer.ShaderManager.UpdateInt("glowTexture", 1);
 
-            GL.BindTexture(TextureTarget.Texture2D, textures[0]);
+            GL.BindTexture(TextureTarget.Texture2d, textures[0]);
             GL.ActiveTexture(TextureUnit.Texture1);
-            GL.BindTexture(TextureTarget.Texture2D, textures[1]);
+            GL.BindTexture(TextureTarget.Texture2d, textures[1]);
 
             GL.DrawArraysInstanced(PrimitiveType.TriangleStrip, 0, 4, bullet_cap * 2);
 
