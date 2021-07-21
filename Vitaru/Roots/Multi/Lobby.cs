@@ -1,6 +1,9 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
+using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Numerics;
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Golgi.Audio.Tracks;
@@ -26,6 +29,8 @@ namespace Vitaru.Roots.Multi
 
         private readonly TrackController controller;
 
+        private uint selected;
+
         public Lobby(Pack<Updatable> networking) : base(networking)
         {
             AddArray(new ILayer[]
@@ -38,13 +43,13 @@ namespace Vitaru.Roots.Multi
                     Position = new Vector2(10),
                     Text = "Rooms:"
                 },
-                rooms = new Rooms(),
+                rooms = new Rooms(value => selected = value),
                 new Button
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
 
-                    Size = new Vector2(200, 20),
+                    Size = new Vector2(240, 40),
                     Text = "Create Room",
                     OnClick = create
                 },
@@ -53,7 +58,7 @@ namespace Vitaru.Roots.Multi
                     ParentOrigin = Mounts.BottomCenter,
                     Origin = Mounts.BottomCenter,
 
-                    Size = new Vector2(200, 20),
+                    Size = new Vector2(240, 40),
                     Text = "Join Room",
                     OnClick = join
                 },
@@ -62,7 +67,7 @@ namespace Vitaru.Roots.Multi
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
 
-                    Size = new Vector2(200, 20),
+                    Size = new Vector2(240, 40),
                     Text = "Refresh",
                     OnClick = refresh
                 }
@@ -90,7 +95,10 @@ namespace Vitaru.Roots.Multi
             switch (info.Packet)
             {
                 case MatchListPacket list:
-                    rooms.RefreshRooms(list);
+                    //rooms.RefreshRooms(list);
+                    break;
+                case MatchCreatedPacket created:
+                    AddRoot(new MatchRoot(created.MatchInfo, Networking));
                     break;
             }
         }
@@ -113,7 +121,7 @@ namespace Vitaru.Roots.Multi
             VitaruNet.SendPacketTcp(new JoinMatchPacket
             {
                 //provide selected match on list
-                Match = 0,
+                Match = selected,
                 User = VitaruNet.VitaruUser
             });
         }
@@ -125,22 +133,68 @@ namespace Vitaru.Roots.Multi
 
         public class Rooms : InputLayer<IDrawable2D>
         {
-            public Rooms()
-            {
+            private const float width = 1200;
+            private const float height = 600;
 
+            private Action<uint> select;
+            private ListLayer<Room> rooms;
+
+            public Rooms(Action<uint> select)
+            {
+                this.select = select;
+
+                ParentOrigin = Mounts.TopCenter;
+                Origin = Mounts.TopCenter;
+
+                Size = new Vector2(width, height);
+                Y = 200;
+
+                RefreshRooms(new MatchListPacket
+                {
+                    MatchInfos = new List<MatchInfo>()
+                    {
+                        new MatchInfo
+                        {
+                            Name = "Old Spice"
+                        }
+                    }
+                });
             }
 
             public void RefreshRooms(MatchListPacket list)
             {
+                Children = new IDrawable2D[]
+                {
+                    rooms = new ListLayer<Room>
+                    {
+                        ParentOrigin = Mounts.Center,
+                        Origin = Mounts.Center,
 
+                        Size = new Vector2(width, height)
+                    }
+                };
+
+                for (int i = 0; i < list.MatchInfos.Count; i++)
+                    rooms.Add(new Room(list.MatchInfos[i], select)
+                    {
+                        Size = new Vector2(width, height / 8),
+                    });
+                    
             }
 
             public class Room : Button
             {
-                public Room()
+                public Room(MatchInfo match, Action<uint> select)
                 {
+                    ParentOrigin = Mounts.TopCenter;
+                    Origin = Mounts.TopCenter;
+
                     Text2D.Origin = Mounts.TopLeft;
                     Text2D.ParentOrigin = Mounts.TopLeft;
+
+                    Text2D.Text = match.Name;
+
+                    OnClick = () => select.Invoke(match.ID);
                 }
             }
         }

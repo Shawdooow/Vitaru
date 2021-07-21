@@ -77,6 +77,10 @@ namespace Vitaru.Server.Server
 
                     SendToClient(new MatchCreatedPacket(), info.Client);
                     break;
+                case JoinMatchPacket join:
+                    match = FindMatch(join.Match);
+                    match.Add(FindClient(join.User.ID));
+                    break;
             }
         }
 
@@ -108,6 +112,14 @@ namespace Vitaru.Server.Server
             foreach (VitaruMatch m in VitaruMatches)
             foreach (VitaruUser p in m.MatchInfo.Users)
                 if (p.ID == player.ID)
+                    return m;
+            return null;
+        }
+
+        protected VitaruMatch FindMatch(uint id)
+        {
+            foreach (VitaruMatch m in VitaruMatches)
+                if (m.MatchInfo.ID == id)
                     return m;
             return null;
         }

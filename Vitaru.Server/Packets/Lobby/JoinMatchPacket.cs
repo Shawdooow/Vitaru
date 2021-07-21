@@ -11,7 +11,7 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class JoinMatchPacket : VariableLengthPacket
     {
-        public long Match;
+        public uint Match;
 
         public VitaruUser User;
 
@@ -51,7 +51,7 @@ namespace Vitaru.Server.Packets.Lobby
             byte[] match = data.SubArray(offset, size);
             offset += match.Length;
 
-            Match = BitConverter.ToInt64(match);
+            Match = BitConverter.ToUInt32(match);
 
             //now do the user
             length = data.SubArray(offset, 4);
