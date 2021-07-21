@@ -15,35 +15,35 @@ namespace Vitaru.Roots.Multi
 
         protected readonly VitaruNetHandler VitaruNet;
 
-        private readonly Pack<Updatable> networking;
+        protected readonly Pack<Updatable> Networking;
 
         protected MultiRoot(Pack<Updatable> networking)
         {
-            this.networking = networking;
+            Networking = networking;
             VitaruNet = networking.Children[0] as VitaruNetHandler;
         }
 
         public override void LoadingComplete()
         {
-            Add(networking);
+            Add(Networking);
             base.LoadingComplete();
         }
 
         protected override void OnPause()
         {
-            Remove(networking, false);
+            Remove(Networking, false);
             base.OnPause();
         }
 
         protected override void OnResume()
         {
-            Add(networking);
+            Add(Networking);
             base.OnResume();
         }
 
         protected override void OnExiting()
         {
-            Remove(networking, false);
+            Remove(Networking, false);
             base.OnExiting();
         }
 
