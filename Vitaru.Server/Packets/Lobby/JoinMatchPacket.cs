@@ -46,9 +46,9 @@ namespace Vitaru.Server.Packets.Lobby
             //start with match
             byte[] length = data.SubArray(offset, 4);
             offset += length.Length;
-            int size = BitConverter.ToInt32(length);
+            int size;
 
-            byte[] match = data.SubArray(offset, size);
+            byte[] match = data.SubArray(offset, 4);
             offset += match.Length;
 
             Match = BitConverter.ToUInt32(match);
