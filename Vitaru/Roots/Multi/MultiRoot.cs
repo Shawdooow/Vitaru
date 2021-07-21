@@ -26,6 +26,7 @@ namespace Vitaru.Roots.Multi
         public override void LoadingComplete()
         {
             Add(Networking);
+            VitaruNet.OnPacketReceive = OnPacketRecieve;
             base.LoadingComplete();
         }
 
@@ -38,6 +39,7 @@ namespace Vitaru.Roots.Multi
         protected override void OnResume()
         {
             Add(Networking);
+            VitaruNet.OnPacketReceive = OnPacketRecieve;
             base.OnResume();
         }
 
