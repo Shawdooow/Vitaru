@@ -95,7 +95,7 @@ namespace Vitaru.Roots.Multi
             switch (info.Packet)
             {
                 case MatchListPacket list:
-                    //rooms.RefreshRooms(list);
+                    rooms.RefreshRooms(list);
                     break;
                 case MatchCreatedPacket created:
                     AddRoot(new MatchRoot(created.MatchInfo, Networking));
@@ -120,7 +120,6 @@ namespace Vitaru.Roots.Multi
         {
             VitaruNet.SendPacketTcp(new JoinMatchPacket
             {
-                //provide selected match on list
                 Match = selected,
                 User = VitaruNet.VitaruUser
             });
@@ -147,18 +146,7 @@ namespace Vitaru.Roots.Multi
                 Origin = Mounts.TopCenter;
 
                 Size = new Vector2(width, height);
-                Y = 200;
-
-                RefreshRooms(new MatchListPacket
-                {
-                    MatchInfos = new List<MatchInfo>()
-                    {
-                        new MatchInfo
-                        {
-                            Name = "Old Spice"
-                        }
-                    }
-                });
+                Y = 100;
             }
 
             public void RefreshRooms(MatchListPacket list)
