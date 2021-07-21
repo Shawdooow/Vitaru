@@ -2,8 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Numerics;
 using Prion.Centrosome.NetworkingHandlers;
 using Prion.Golgi.Audio.Tracks;
@@ -98,7 +96,8 @@ namespace Vitaru.Roots.Multi
                     rooms.RefreshRooms(list);
                     break;
                 case MatchCreatedPacket created:
-                    AddRoot(new MatchRoot(created.MatchInfo, Networking));
+                    selected = created.MatchInfo.ID;
+                    join();
                     break;
             }
         }

@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Prion.Centrosome.NetworkingHandlers;
@@ -71,11 +72,13 @@ namespace Vitaru.Server.Server
                         MatchInfo = create.MatchInfo,
                         MatchLastUpdateTime = Clock.Current,
                     };
+                    match.MatchInfo.ID = VitaruMatches.Any() ? VitaruMatches.Last().MatchInfo.ID + 1 : 1;
                     VitaruMatches.Add(match);
 
-                    match.Add(info.Client);
-
-                    SendToClient(new MatchCreatedPacket(), info.Client);
+                    SendToClient(new MatchCreatedPacket
+                    {
+                        MatchInfo = match.MatchInfo
+                    }, info.Client);
                     break;
                 case JoinMatchPacket join:
                     match = FindMatch(join.Match);
