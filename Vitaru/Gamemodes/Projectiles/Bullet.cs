@@ -125,15 +125,8 @@ namespace Vitaru.Gamemodes.Projectiles
                     return new Vector2( PrionMath.Remap(t, 0, 1, StartPosition.X, EndPosition.X),
                         PrionMath.Remap(t, 0, 1, StartPosition.Y, EndPosition.Y));
                 case CurveType.Bezier:
-                    return bezier(t, StartPosition, CurvePoint, EndPosition);
+                    return PrionMath.Bezier(t, StartPosition, CurvePoint, EndPosition);
             }
-        }
-
-        private Vector2 bezier(float t, Vector2 start, Vector2 mid, Vector2 end)
-        {
-            Vector2 ab = Vector2.Lerp(start, mid, t);
-            Vector2 bc = Vector2.Lerp(mid, end, t);
-            return Vector2.Lerp(ab, bc, t);
         }
 
         public override void Start()
