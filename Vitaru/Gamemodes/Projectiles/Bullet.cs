@@ -36,8 +36,6 @@ namespace Vitaru.Gamemodes.Projectiles
 
         protected Vector2 CurvePoint { get; set; }
 
-        protected List<Vector2> CurvePoints { get; set; } = new();
-
         public float Speed { get; set; }
 
         public Easings SpeedEasing { get; set; }
