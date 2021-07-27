@@ -30,7 +30,9 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public CurveType CurveType { get; set; }
 
-        public int Curviness { get; set; }
+        public float CurveAmount { get; set; }
+
+        protected Vector2 CurvePoint { get; set; }
 
         public float Speed { get; set; }
 
@@ -50,14 +52,18 @@ namespace Vitaru.Gamemodes.Projectiles
         protected virtual void UpdatePath()
         {
             EndPosition = StartPosition + PrionMath.Offset(Distance, Angle);
+            EndTime = StartTime + Distance / Speed;
 
             switch (CurveType)
             {
-                default:
-                    EndTime = StartTime + Distance / Speed;
-                    break;
                 case CurveType.Target:
                     StartTime -= Distance / Speed / 2f;
+                    break;
+                case CurveType.Bezier:
+                    //Half way to the EndPoint
+                    CurvePoint = StartPosition + PrionMath.Offset(Distance / 2, Angle) + 
+                                 //Then add the "CurveAmount" to slide it to one side or the other
+                                 PrionMath.Offset(CurveAmount, Angle - MathF.PI / -2f);
                     break;
             }
         }
@@ -104,11 +110,23 @@ namespace Vitaru.Gamemodes.Projectiles
         protected virtual Vector2 GetPosition(double time)
         {
             double scale = Math.Clamp(PrionMath.Remap(time, StartTime, EndTime), 0, 1);
-            return new Vector2(
-                (float) PrionMath.Remap(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.X,
-                    EndPosition.X),
-                (float) PrionMath.Remap(Easing.ApplyEasing(SpeedEasing, scale), 0, 1, StartPosition.Y,
-                    EndPosition.Y));
+            float t = (float)Easing.ApplyEasing(SpeedEasing, scale);
+
+            switch (CurveType)
+            {
+                default:
+                    return new Vector2( PrionMath.Remap(t, 0, 1, StartPosition.X, EndPosition.X),
+                        PrionMath.Remap(t, 0, 1, StartPosition.Y, EndPosition.Y));
+                case CurveType.Bezier:
+                    return bezier(t, StartPosition, CurvePoint, EndPosition);
+            }
+        }
+
+        private Vector2 bezier(float t, Vector2 start, Vector2 mid, Vector2 end)
+        {
+            Vector2 ab = Vector2.Lerp(start, mid, t);
+            Vector2 bc = Vector2.Lerp(mid, end, t);
+            return Vector2.Lerp(ab, bc, t);
         }
 
         public override void Start()
@@ -166,8 +184,7 @@ namespace Vitaru.Gamemodes.Projectiles
         Straight,
         Target,
 
-        CurveRight,
-        CurveLeft
+        Bezier,
     }
 
     public enum Shape
