@@ -42,7 +42,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public List<KeyFrame> KeyFrames { get; set; } = new List<KeyFrame>();
 
-        public float Alpha = 1;
+        public float Alpha = 0;
 
         public Color Color = Color.White;
 

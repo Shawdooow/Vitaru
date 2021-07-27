@@ -233,10 +233,6 @@ namespace Vitaru.Play
         {
             ProjectilePacks[projectile.Team].Add(projectile);
             //projectile.OnUnLoad += () => Remove(projectile);
-
-            projectile.SetDrawable(BulletLayer.RequestIndex(), BulletLayer);
-
-            projectile.OnAddParticle = ParticleLayer.Add;
         }
 
         public void Remove(Projectile projectile)
@@ -403,7 +399,12 @@ namespace Vitaru.Play
                     Projectile p = ProtectedChildren[i];
 
                     if (Current + p.TimePreLoad >= p.StartTime && Current < p.EndTime + p.TimeUnLoad && !p.PreLoaded)
+                    {
+                        p.SetDrawable(gamefield.BulletLayer.RequestIndex(), gamefield.BulletLayer);
+                        p.OnAddParticle = gamefield.ParticleLayer.Add;
+
                         p.PreLoad();
+                    }
                     else if ((Current + p.TimePreLoad < p.StartTime || Current >= p.EndTime + p.TimeUnLoad) &&
                              p.PreLoaded)
                     {

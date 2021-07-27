@@ -178,7 +178,7 @@ namespace Vitaru.Roots.Tests
                             PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
                             PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
 
-                        bool s = count == 1 && PrionMath.RandomNumber(0, 10) == 5;
+                        bool s = count == 1 && PrionMath.RandomNumber(0, 5) == 2;
 
                         if (!s)
                             gamefield.Add(new Enemy(gamefield)
@@ -191,7 +191,7 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 8;
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 16;
                             Enemy e = new(gamefield)
                             {
                                 StartTime = start,

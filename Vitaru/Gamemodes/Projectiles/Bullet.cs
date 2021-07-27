@@ -20,6 +20,8 @@ namespace Vitaru.Gamemodes.Projectiles
         private readonly float particles_multiplier =
             global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
+        private readonly Vector2 border = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize() / 2;
+
         public override string Name { get; set; } = nameof(Bullet);
 
         public override DrawableGameEntity GenerateDrawable() => null;
@@ -33,6 +35,8 @@ namespace Vitaru.Gamemodes.Projectiles
         public float CurveAmount { get; set; }
 
         protected Vector2 CurvePoint { get; set; }
+
+        protected List<Vector2> CurvePoints { get; set; } = new();
 
         public float Speed { get; set; }
 
@@ -74,9 +78,12 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             Position = GetPosition(Gamefield.Current);
 
+            if (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y)
+                End();
+
             s += Gamefield.LastElapsedTime;
 
-            if (particles && Gamefield.Current < EndTime && s >= 10 / particles_multiplier)
+            if (particles && s >= 10 / particles_multiplier && Started && CurveType < CurveType.Target)
             {
                 s = 0;
 
@@ -133,6 +140,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             base.Start();
 
+            Alpha = 1;
             //Drawable.FadeTo(1, 200f, Easings.InSine);
             //Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
