@@ -46,6 +46,9 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public Color Color = Color.White;
 
+        /// <summary>
+        ///     Radians
+        /// </summary>
         public float Angle { get; set; } = (float) Math.PI / -2f;
 
         public Vector2 StartPosition { get; set; }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -264,6 +265,9 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                     break;
                 case 4:
                     projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier);
+                    break;
+                case 5:
+                    projectiles = Patterns.Flower(0.5f, 28, 12, Position, Clock.Current, Duration, Team, TrackManager.CurrentTrack.Metadata.GetBeatLength(), bullet_multiplier);
                     break;
             }
 

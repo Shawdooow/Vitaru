@@ -290,7 +290,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
             {
                 for (int i = 1; i <= arms; i++)
                 {
-                    CurveType type = i % 2 == 0 ? CurveType.CurveLeft : CurveType.CurveRight;
+                    float amount = i % 2 == 0 ? 240 : -240;
 
                     projectiles.Add(new Bullet
                     {
@@ -300,10 +300,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         Angle = direction,
                         Diameter = diameter,
                         Damage = damage,
-                        Distance = 400,
+                        Distance = 600,
                         SpeedEasing = Easings.OutCubic,
-                        CurveType = type,
-                        Curviness = 2,
+                        CurveType = CurveType.Bezier,
+                        CurveAmount = amount,
                         Team = team
                     });
 

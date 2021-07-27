@@ -166,7 +166,7 @@ namespace Vitaru.Roots.Tests
             TrackManager.TryRepeatTrack();
             if (TrackManager.CurrentTrack.CheckNewBeat())
             {
-                if (random)
+                if (random && TrackManager.CurrentTrack.Clock.Current >= spiral)
                 {
                     int count = PrionMath.RandomNumber(1, 5 * enemy_multiplier);
                     double start = TrackManager.CurrentTrack.Clock.Current +
@@ -191,14 +191,16 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            gamefield.Add(new Enemy(gamefield)
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 8;
+                            Enemy e = new(gamefield)
                             {
                                 StartTime = start,
-                                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
-                                    PrionMath.RandomNumber(-300, 0)),
-                                PatternID = (short) PrionMath.RandomNumber(0, 5),
+                                EndTime = spiral,
+                                StartPosition = Vector2.Zero,
+                                PatternID = 5,
                                 Color = c
-                            });
+                            };
+                            gamefield.Add(e);
                         }
                     }
                 }
