@@ -11,6 +11,7 @@ using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups.Packs;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
@@ -139,12 +140,17 @@ namespace Vitaru.Play
             }
         }
 
+        private Benchmark waiting = new Benchmark("Waiting");
+
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
+            
+            waiting.Start();
             while (Vitaru.ThreadsRunning())
             {
             }
+            waiting.Record();
 
             base.Update();
 
@@ -350,6 +356,12 @@ namespace Vitaru.Play
             int end = Indexes[e];
 
             ParticleLayer.UpdateParticles(start, end, (float) Clock.LastElapsedTime);
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            Logger.Benchmark(waiting);
         }
 
         public class ProjectilePack : Pack<Projectile>, IHasTeam
