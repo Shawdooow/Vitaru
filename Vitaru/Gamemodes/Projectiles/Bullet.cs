@@ -91,7 +91,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             Position = GetPosition(Gamefield.Current);
 
-            if (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y)
+            if (ObeyBoundries && Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y)
                 End();
 
             s += Gamefield.LastElapsedTime;

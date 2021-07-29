@@ -68,7 +68,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public float Damage { get; set; } = 20;
 
-        public bool ObeyBoundries { get; set; }
+        public bool ObeyBoundries { get; set; } = true;
 
         public bool TargetPlayer { get; set; }
 
