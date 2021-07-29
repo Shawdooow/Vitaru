@@ -24,8 +24,6 @@ namespace Vitaru.Gamemodes.Characters.Players
 
         public const int PLAYER_TEAM = 1;
 
-        public override float HitboxDiameter => 6f;
-
         public override Color PrimaryColor => Color.Navy;
 
         public override Color SecondaryColor => "#92a0dd".HexToColor();
@@ -101,6 +99,7 @@ namespace Vitaru.Gamemodes.Characters.Players
 
             Position = new Vector2(0, 200);
             Team = PLAYER_TEAM;
+            CircularHitbox.Diameter = 6;
 
             if (gamefield != null) Binds = new PlayerBinds();
         }
@@ -212,7 +211,7 @@ namespace Vitaru.Gamemodes.Characters.Players
                     return;
                 case Bullet bullet:
 
-                    float min = bullet.Diameter / 2 + HitboxDiameter / 2;
+                    float min = bullet.CircularHitbox.Radius + Hitbox.Radius;
 
                     if (Position.Y - bullet.Position.Y < min + maxHeal)
                         if (Position.X - bullet.Position.X < min + maxHeal)

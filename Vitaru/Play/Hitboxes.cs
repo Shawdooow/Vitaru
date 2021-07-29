@@ -40,6 +40,8 @@ namespace Vitaru.Play
     {
         public Vector2 Size;
 
+        public float Rotation;
+
         public Vector2 Position { get; set; }
     }
 

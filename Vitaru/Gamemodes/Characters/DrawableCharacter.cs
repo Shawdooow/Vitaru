@@ -30,12 +30,12 @@ namespace Vitaru.Gamemodes.Characters
             Add(HitboxOutline = new Circle
             {
                 Color = character.PrimaryColor,
-                Size = new Vector2(character.HitboxDiameter * 1.75f),
+                Size = new Vector2(character.Hitbox.Diameter * 1.75f),
                 Alpha = 0
             });
             Add(Hitbox = new Circle
             {
-                Size = new Vector2(character.HitboxDiameter),
+                Size = new Vector2(character.Hitbox.Diameter),
                 Alpha = 0
             });
         }

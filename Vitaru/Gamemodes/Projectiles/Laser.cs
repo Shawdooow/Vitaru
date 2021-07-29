@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Vitaru.Play;
 using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Projectiles
@@ -15,6 +16,13 @@ namespace Vitaru.Gamemodes.Projectiles
         public override string Name { get; set; } = nameof(Laser);
 
         public override DrawableGameEntity GenerateDrawable() => null;
+
+        public override Hitbox GetHitbox() => RectangularHitbox;
+
+        public RectangularHitbox RectangularHitbox = new()
+        {
+            Size = new Vector2(4, 10)
+        };
 
         public Vector2 Size { get; set; }
 

@@ -14,11 +14,26 @@ namespace Vitaru.Gamemodes.Characters
     {
         public override string Name { get; set; } = nameof(Character);
 
+        public override Vector2 Position
+        {
+            get => base.Position;
+            set
+            {
+                base.Position = value;
+                CircularHitbox.Position = value;
+            }
+        }
+
         public virtual float HealthCapacity => 60f;
 
         public virtual float Health { get; protected set; }
 
-        public virtual float HitboxDiameter { get; protected set; } = 10;
+        public virtual CircularHitbox Hitbox => CircularHitbox;
+
+        protected CircularHitbox CircularHitbox = new()
+        {
+            Diameter = 10
+        };
 
         public virtual bool HitDetection { get; protected set; } = true;
 
@@ -76,35 +91,30 @@ namespace Vitaru.Gamemodes.Characters
 
                         ParseProjectile(projectile);
 
-                        float distance = float.MaxValue;
-                        float edgeDistance = float.MaxValue;
+                        HitResults? results;
 
                         switch (projectile)
                         {
                             default:
                                 continue;
                             case Bullet bullet:
-
-                                float min = bullet.Diameter / 2 + HitboxDiameter / 2;
-
-                                if (Position.Y - bullet.Position.Y < min)
+                                if (Hitbox.HitDetectionPossible(bullet.CircularHitbox))
                                 {
-                                    if (Position.X - bullet.Position.X < min)
-                                    {
-                                        distance = Vector2.Distance(projectile.Position, Position);
-                                        edgeDistance = distance - (bullet.Diameter / 2 + HitboxDiameter / 2);
-                                        break;
-                                    }
-
-                                    continue;
+                                    results = Hitbox.HitDetectionResults(bullet.CircularHitbox);
+                                    break;
                                 }
                                 else
                                     continue;
                             case Laser laser:
+                                //if (laser.Hitbox.HitDetectionPossible(Hitbox))
+                                //{
+                                //    results = laser.Hitbox.HitDetectionResults(Hitbox);
+                                //    break;
+                                //}
                                 continue;
                         }
 
-                        if (edgeDistance <= 0)
+                        if (results?.EdgeDistance <= 0)
                         {
                             Collision(projectile);
                             if (Dead) return;
@@ -151,7 +161,10 @@ namespace Vitaru.Gamemodes.Characters
                 Speed = speed,
                 Angle = angle,
                 Color = color,
-                Diameter = size,
+                CircularHitbox = new()
+                {
+                    Diameter = size
+                },
                 Damage = damage,
                 Distance = distance
             };

@@ -11,6 +11,7 @@ using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.KeyFrames;
 using Vitaru.Graphics.Projectiles.Bullets;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles
 {
@@ -40,7 +41,9 @@ namespace Vitaru.Gamemodes.Projectiles
             new EditableStartPosition(this)
         };
 
-        public List<KeyFrame> KeyFrames { get; set; } = new List<KeyFrame>();
+        public List<KeyFrame> KeyFrames { get; set; } = new();
+
+        public abstract Hitbox GetHitbox();
 
         public float Alpha = 0;
 

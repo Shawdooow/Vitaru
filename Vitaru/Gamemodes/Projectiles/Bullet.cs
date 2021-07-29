@@ -26,6 +26,23 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override DrawableGameEntity GenerateDrawable() => null;
 
+        public override Hitbox GetHitbox() => CircularHitbox;
+
+        public CircularHitbox CircularHitbox = new()
+        {
+            Diameter = 10
+        };
+
+        public override Vector2 Position
+        {
+            get => base.Position;
+            set
+            {
+                base.Position = value;
+                CircularHitbox.Position = value;
+            }
+        }
+
         public Vector2 EndPosition { get; protected set; }
 
         public float Distance { get; set; }
@@ -39,8 +56,6 @@ namespace Vitaru.Gamemodes.Projectiles
         public float Speed { get; set; }
 
         public Easings SpeedEasing { get; set; }
-
-        public float Diameter { get; set; } = 10;
 
         public Shape Shape { get; set; }
 
@@ -81,14 +96,15 @@ namespace Vitaru.Gamemodes.Projectiles
 
             s += Gamefield.LastElapsedTime;
 
-            if (particles && s >= 10 / particles_multiplier && Started && CurveType < CurveType.Target)
+            //Emit Particles?
+            if (particles && s >= 10 / particles_multiplier && Started)
             {
                 s = 0;
 
                 float angle = ((float) Random.Next(0, 360)).ToRadians();
                 int distance = Random.Next(20, 32);
 
-                int radius = (int) Diameter / 2 - 8;
+                int radius = (int)CircularHitbox.Radius - 8;
 
                 Vector2 start = Position + new Vector2(Random.Next(-radius, radius),
                     Random.Next(-radius, radius));
@@ -109,7 +125,7 @@ namespace Vitaru.Gamemodes.Projectiles
         public override void UpdateDrawable()
         {
             base.UpdateDrawable();
-            BulletLayer.bSize[Drawable] = new Vector2(Diameter);
+            BulletLayer.bSize[Drawable] = new Vector2(CircularHitbox.Diameter);
         }
 
         protected virtual Vector2 GetPosition(double time)
@@ -151,7 +167,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public override void ParseString(string[] data, int offset)
         {
-            Diameter = float.Parse(data[0 + offset]);
+            CircularHitbox.Diameter = float.Parse(data[0 + offset]);
             Speed = float.Parse(data[1 + offset]);
 
             base.ParseString(data, offset + 2);
@@ -162,7 +178,7 @@ namespace Vitaru.Gamemodes.Projectiles
             List<string> data = new()
             {
                 "b",
-                Diameter.ToString(),
+                CircularHitbox.Diameter.ToString(),
                 Speed.ToString()
             };
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
+using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Projectiles.Patterns
 {
@@ -32,7 +33,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutSine,
-                    Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = i % 2 == 1 ? diameter : diameter * 1.5f
+                    },
                     Damage = i % 2 == 1 ? damage : damage * 0.8f,
                     Team = team
                 });
@@ -62,7 +66,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutQuad,
-                    Diameter = diameter,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = diameter
+                    },
                     Damage = damage,
                     Team = team
                 });
@@ -98,7 +105,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutQuad,
-                    Diameter = diameter,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = diameter
+                    },
                     Damage = damage,
                     Team = team
                 });
@@ -146,7 +156,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutSine,
-                    Diameter = diameter,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = diameter
+                    },
                     Damage = damage,
                     Team = team
                 });
@@ -181,7 +194,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = max_dist,
                     CurveType = CurveType.Straight,
                     SpeedEasing = Easings.OutCubic,
-                    Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = i % 2 == 1 ? diameter : diameter * 1.5f
+                    },
                     Damage = i % 2 == 1 ? damage : damage * 0.8f,
                     Team = team
                 });
@@ -218,7 +234,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = dist,
                     CurveType = CurveType.Target,
                     SpeedEasing = Easings.InOutQuint,
-                    Diameter = diameter,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = diameter
+                    },
                     Damage = damage,
                     Team = team
                 });
@@ -255,7 +274,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                     Distance = dist,
                     CurveType = CurveType.Target,
                     SpeedEasing = Easings.InOutQuint,
-                    Diameter = diameter,
+                    CircularHitbox = new CircularHitbox
+                    {
+                        Diameter = diameter
+                    },
                     Damage = damage,
                     Team = team
                 });
@@ -298,7 +320,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         StartPosition = position,
                         Speed = speed,
                         Angle = direction,
-                        Diameter = diameter,
+                        CircularHitbox = new CircularHitbox
+                        {
+                            Diameter = diameter
+                        },
                         Damage = damage,
                         Distance = 720,
                         SpeedEasing = Easings.OutCubic,

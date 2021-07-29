@@ -38,8 +38,6 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         private readonly int bullet_multiplier =
             global::Vitaru.Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletMultiplier);
 
-        public override float HitboxDiameter => 50f;
-
         public new DrawableEnemy Drawable;
 
         public bool Selected
@@ -87,7 +85,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             new EditablePatternID(this)
         };
 
-        public List<KeyFrame> KeyFrames { get; set; } = new List<KeyFrame>();
+        public List<KeyFrame> KeyFrames { get; set; } = new();
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
 
@@ -132,6 +130,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
         public Enemy(Gamefield gamefield) : base(gamefield)
         {
             Team = ENEMY_TEAM;
+            CircularHitbox.Diameter = 50;
         }
 
         public override void LoadingComplete()
@@ -301,7 +300,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
             StartTime = double.Parse(data[0 + offset]);
             EndTime = double.Parse(data[1 + offset]);
             StartPosition = new Vector2(float.Parse(data[2 + offset]), float.Parse(data[3 + offset]));
-            HitboxDiameter = float.Parse(data[4 + offset]);
+            CircularHitbox.Diameter = float.Parse(data[4 + offset]);
         }
 
         public virtual string[] SerializeToStrings()
@@ -311,7 +310,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                 StartTime.ToString(),
                 EndTime.ToString(),
                 $"{StartPosition.X},{StartPosition.Y}",
-                HitboxDiameter.ToString()
+                CircularHitbox.Diameter.ToString()
             };
         }
     }
