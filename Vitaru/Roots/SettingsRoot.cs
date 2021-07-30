@@ -11,10 +11,28 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
+        private Vitaru vitaru;
+
         public SettingsRoot(Vitaru vitaru)
         {
+            this.vitaru = vitaru;
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
             Add(new NucleusSettingsOverlay(vitaru));
+            Add(new MitochondriaSettingsOverlay(vitaru));
+            Add(new VitaruSettingsOverlay());
             Add(new Version());
+            Remove(Cursor, false);
+            Add(Cursor);
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            vitaru = null;
         }
     }
 }

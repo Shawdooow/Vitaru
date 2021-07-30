@@ -39,7 +39,7 @@ namespace Vitaru.Settings.Options
 
             Value = manager.GetFloat(setting);
 
-            Size = new Vector2(NucleusSettingsOverlay.WIDTH - 8, 40);
+            Size = new Vector2(VitaruSettingsOverlay.WIDTH - 8, 40);
         }
 
         private bool dragging;
@@ -109,7 +109,7 @@ namespace Vitaru.Settings.Options
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterRight,
                     Y = -10,
-                    Size = new Vector2((NucleusSettingsOverlay.WIDTH - 8) / 2, 20),
+                    Size = new Vector2((VitaruSettingsOverlay.WIDTH - 8) / 2, 20),
 
                     InstancedText =
                     {
@@ -133,7 +133,7 @@ namespace Vitaru.Settings.Options
                 Slider = new Slider
                 {
                     Y = 10,
-                    Size = new Vector2(NucleusSettingsOverlay.WIDTH - 24, 20),
+                    Size = new Vector2(VitaruSettingsOverlay.WIDTH - 24, 20),
 
                     OnProgressInput = p => Value = PrionMath.Remap(p, 0, 1, Min, Max)
                 }

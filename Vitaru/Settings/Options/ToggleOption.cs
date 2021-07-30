@@ -30,7 +30,7 @@ namespace Vitaru.Settings.Options
             Value = manager.GetBool(setting);
             Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
 
-            Size = new Vector2(NucleusSettingsOverlay.WIDTH - 8, 20);
+            Size = new Vector2(VitaruSettingsOverlay.WIDTH - 8, 20);
         }
 
         protected override void Toggle()

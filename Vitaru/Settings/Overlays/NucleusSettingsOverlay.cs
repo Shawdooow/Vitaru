@@ -3,14 +3,11 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Mitochondria;
-using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Contexts;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Settings;
+using Prion.Nucleus;
 using Prion.Nucleus.Settings;
 using Vitaru.Settings.Options;
 
@@ -20,13 +17,10 @@ namespace Vitaru.Settings.Overlays
     {
         public override string Name { get; set; } = nameof(NucleusSettingsOverlay);
 
-        public const float WIDTH = 360;
-        public const float HEIGHT = 640;
-
-        public NucleusSettingsOverlay(Game game)
+        public NucleusSettingsOverlay(Application application)
         {
-            Size = new Vector2(WIDTH, HEIGHT);
-            Position = new Vector2(-WIDTH - 20, 0);
+            Size = new Vector2(VitaruSettingsOverlay.WIDTH, VitaruSettingsOverlay.HEIGHT);
+            Position = new Vector2(-VitaruSettingsOverlay.WIDTH - 20, 0);
 
             Children = new IDrawable2D[]
             {
@@ -42,7 +36,6 @@ namespace Vitaru.Settings.Overlays
                 {
                     Size = Size,
                     Spacing = 4,
-                    PassDownInput = false,
 
                     Children = new IDrawable2D[]
                     {
@@ -50,112 +43,14 @@ namespace Vitaru.Settings.Overlays
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = "Prion",
+                            Text = "Nucleus",
                             FontScale = 0.24f
                         },
-                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.Fullscreen)
-                        {
-                            Text = "Toggle Fullscreen",
-                            OnValueChange = value =>
-                                Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
-                        },
-                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.VSync)
-                        {
-                            Text = "Toggle VSync"
-                        },
-                        new SliderOption<NucleusSetting>(Game.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
+                        new SliderOption<NucleusSetting>(Application.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
-                            OnValueChange = value => game.UpdateFrequency = (int) value
+                            OnValueChange = value => application.UpdateFrequency = (int) value
                         },
-                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.DrawFrequency, 30,
-                            1000)
-                        {
-                            Text = "Draw Frequency",
-                            OnValueChange = value => Renderer.DrawFrequency = (int) value
-                        },
-                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleUpdate, 10, 60)
-                        {
-                            Text = "Idle Update Frequency",
-                            OnValueChange = value => game.IdleUpdate = (int) value
-                        },
-                        new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleDraw, 10, 60)
-                        {
-                            Text = "Idle Draw Frequency",
-                            OnValueChange = value => Renderer.IdleDraw = (int) value
-                        },
-                        new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.LimitDrawToUpdate)
-                        {
-                            Text = "Limit Draw to Update",
-                            OnValueChange = value => Renderer.LimitDrawToUpdate = value
-                        },
-
-                        //new InstancedText
-                        //{
-                        //    ParentOrigin = Mounts.TopCenter,
-                        //    Origin = Mounts.TopCenter,
-                        //    Text = "Gameplay",
-                        //    TextScale = 0.24f
-                        //},
-                        //new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
-                        //{
-                        //    Text = "Toggle Touch Mode"
-                        //},
-
-                        new Text2D
-                        {
-                            ParentOrigin = Mounts.TopCenter,
-                            Origin = Mounts.TopCenter,
-                            Text = "Graphics",
-                            FontScale = 0.24f
-                        },
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
-                        {
-                            Text = "Toggle Particles"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleCap, 4096, 65536)
-                        {
-                            Text = "Max Particles"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f,
-                            2)
-                        {
-                            Text = "Particle Multiplier"
-                        },
-
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ComboFire)
-                        {
-                            Text = "Toggle Combo Fire"
-                        },
-
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Multithreading)
-                        {
-                            Text = "Additional Multi-threading"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
-                        {
-                            Text = "Max Bullets"
-                        },
-
-                        new Text2D
-                        {
-                            ParentOrigin = Mounts.TopCenter,
-                            Origin = Mounts.TopCenter,
-                            Text = "Debug",
-                            FontScale = 0.24f
-                        },
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
-                        {
-                            Text = "Toggle \"GOD-KING\" Hacks"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.EnemyMultiplier, 1, 4)
-                        {
-                            Text = "Enemy Multiplier"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletMultiplier, 1, 4)
-                        {
-                            Text = "Bullet Multiplier"
-                        }
                     }
                 },
             };
