@@ -50,7 +50,7 @@ namespace Vitaru.Roots
             base.Update();
 
             controller.Update();
-            controller.TryRepeat();
+            controller.TryNextLevel();
         }
 
         protected override void Dispose(bool finalize)

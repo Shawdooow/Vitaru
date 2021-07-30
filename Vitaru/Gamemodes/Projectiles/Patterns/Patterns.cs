@@ -288,7 +288,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
         }
 
         public static List<Projectile> Flower(float speed, float diameter, float damage, Vector2 position,
-            double startTime, double duration, int team, double beatLength = 500, float complexity = 1, int arms = 16)
+            double startTime, double duration, int team, double beatLength = 500, float complexity = 1, int arms = 8)
         {
             List<Projectile> projectiles = new();
 
@@ -308,12 +308,10 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
             //    });
             //}
 
-            for (double j = startTime; j <= startTime + duration; j += beatLength / 4)
+            for (double j = startTime; j <= startTime + duration; j += beatLength / 16)
             {
                 for (int i = 1; i <= arms; i++)
                 {
-                    float amount = i % 2 == 0 ? 240 : -240;
-
                     projectiles.Add(new Bullet
                     {
                         StartTime = j,
@@ -328,15 +326,15 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         Distance = 720,
                         SpeedEasing = Easings.OutCubic,
                         CurveType = CurveType.Bezier,
-                        CurveAmount = amount,
-                        Team = team
+                        CurveAmount = -240,
+                        Team = team,
+                        ObeyBoundries = false,
                     });
 
-                    if (i % 2 == 0)
-                        direction += MathF.PI / (arms / 4f);
+                    direction += MathF.PI / (arms / 2f);
                 }
 
-                direction += MathF.PI / (arms / 2f) + MathF.PI / 32;
+                direction += MathF.PI / 15.5f;
             }
 
             return projectiles;

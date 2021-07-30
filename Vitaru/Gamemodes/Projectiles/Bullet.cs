@@ -80,7 +80,7 @@ namespace Vitaru.Gamemodes.Projectiles
                     //Half way to the EndPoint
                     CurvePoint = StartPosition + PrionMath.Offset(Distance / 2, Angle) + 
                                  //Then add the "CurveAmount" to slide it to one side or the other
-                                 PrionMath.Offset(CurveAmount, Angle - MathF.PI / -2f);
+                                 PrionMath.Offset(CurveAmount, Angle - MathF.PI / 2f);
                     break;
             }
         }
@@ -91,7 +91,7 @@ namespace Vitaru.Gamemodes.Projectiles
         {
             Position = GetPosition(Gamefield.Current);
 
-            if (ObeyBoundries && Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y)
+            if (ObeyBoundries && (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y))
                 End();
 
             s += Gamefield.LastElapsedTime;

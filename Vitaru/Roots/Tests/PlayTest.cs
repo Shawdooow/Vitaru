@@ -191,7 +191,7 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 16;
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 4;
                             Enemy e = new(gamefield)
                             {
                                 StartTime = start,

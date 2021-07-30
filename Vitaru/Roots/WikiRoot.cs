@@ -42,7 +42,7 @@ namespace Vitaru.Roots
             base.Update();
 
             controller.Update();
-            controller.TryRepeat();
+            controller.TryNextLevel();
         }
     }
 }
