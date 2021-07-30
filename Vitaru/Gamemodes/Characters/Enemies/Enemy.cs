@@ -266,7 +266,14 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                     projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier);
                     break;
                 case 5:
-                    projectiles = Patterns.Flower(0.5f, 28, 12, Position, Clock.Current, Duration, Team, TrackManager.CurrentTrack.Metadata.GetBeatLength(), bullet_multiplier);
+                    projectiles = Patterns.Spiral(0.5f, 28, 12, Position, Clock.Current, Duration, Team,
+                        TrackManager.CurrentTrack.Metadata.GetBeatLength(), bullet_multiplier);
+                    break;
+                case 6:
+                    projectiles = Patterns.Cross(0.5f, 28, 4, Clock.Current, Team, bullet_multiplier);
+                    break;
+                case 7:
+                    projectiles = Patterns.Swipe(0.5f, 28, 4, Clock.Current, Team, bullet_multiplier);
                     break;
             }
 

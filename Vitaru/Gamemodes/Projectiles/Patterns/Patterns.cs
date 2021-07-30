@@ -287,26 +287,12 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
             return projectiles;
         }
 
-        public static List<Projectile> Flower(float speed, float diameter, float damage, Vector2 position,
+        public static List<Projectile> Spiral(float speed, float diameter, float damage, Vector2 position,
             double startTime, double duration, int team, double beatLength = 500, float complexity = 1, int arms = 8)
         {
             List<Projectile> projectiles = new();
 
             float direction = 0;
-
-            //for (int i = 1; i <= 4; i++)
-            //{
-            //    projectiles.Add(new Laser
-            //    {
-            //        StartTime = startTime,
-            //        EndTime = startTime + duration,
-            //        StartPosition = position,
-            //        Angle = 90 * i + 45,
-            //        Size = new Vector2(diameter, diameter * 32),
-            //        Damage = damage * 2,
-            //        Team = team,
-            //    });
-            //}
 
             for (double j = startTime; j <= startTime + duration; j += beatLength / 16)
             {
@@ -327,7 +313,7 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         SpeedEasing = Easings.OutCubic,
                         CurveType = CurveType.Bezier,
                         CurveAmount = -240,
-                        Team = team,
+                        Team = team
                     });
 
                     direction += MathF.PI / (arms / 2f);
