@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Themes;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -30,16 +31,18 @@ namespace Vitaru.Roots
         {
             Back = new Button();
 
-            Add(new MainMenuPanel());
+            //Add(new OldMainMenuPanel());
 
             Add(new Text2D
             {
-                Position = new Vector2(-40, 40),
-                ParentOrigin = Mounts.TopRight,
-                Origin = Mounts.TopRight,
+                Y = 40,
+                ParentOrigin = Mounts.TopCenter,
+                Origin = Mounts.TopCenter,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
                 FontScale = 1.5f
             });
+
+            Add(Back = new Exit(vitaru));
 
             Add(controller = new VitaruTrackController
             {
@@ -101,13 +104,37 @@ namespace Vitaru.Roots
             //base.DropRoot();
         }
 
-        private class MainMenuPanel : InputLayer<IDrawable2D>
+        private class Exit : Button
+        {
+            public Exit(Vitaru vitaru)
+            {
+                ParentOrigin = Mounts.TopRight;
+                Origin = Mounts.TopRight;
+                Position = new Vector2(-10);
+                Size = new Vector2(80, 40);
+
+                Background = Game.TextureStore.GetTexture("square.png");
+                BackgroundSprite.Color = Color.Red;
+
+                Text = "Exit";
+
+                OnClick = vitaru.Exit;
+            }
+
+            protected override void Flash()
+            {
+                //Don't do it because it crashes
+                //base.Flash();
+            }
+        }
+
+        private class OldMainMenuPanel : InputLayer<IDrawable2D>
         {
             private InputLayer<IDrawable2D> header;
             private Box bar;
             private InputLayer<IDrawable2D> body;
 
-            public MainMenuPanel()
+            public OldMainMenuPanel()
             {
                 Position = new Vector2(40);
                 ParentOrigin = Mounts.TopLeft;
