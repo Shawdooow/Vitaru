@@ -13,8 +13,11 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input.Events;
+using Prion.Nucleus;
 using Vitaru.Levels;
 using Vitaru.Roots.Menu;
+using Vitaru.Roots.Multi;
+using Vitaru.Roots.Tests;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots
@@ -27,19 +30,132 @@ namespace Vitaru.Roots
 
         private readonly VitaruTrackController controller;
 
+        private const int x = 100;
+        private const int y = 50;
+        private const int width = 180;
+        private const int height = 80;
+
         public MainMenu(Vitaru vitaru)
         {
-            Back = new Button();
-
-            //Add(new OldMainMenuPanel());
-
-            Add(new Text2D
+            Add(new Button
             {
-                Y = 40,
-                ParentOrigin = Mounts.TopCenter,
-                Origin = Mounts.TopCenter,
-                Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
-                FontScale = 1.5f
+                Position = new Vector2(-x, -y - height / 2),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.PrimaryColor
+                },
+
+                Text = "Levels",
+
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new LevelRoot());
+                }
+            });
+            Add(new Button
+            {
+                Position = new Vector2(x, -y - height / 2),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.SecondaryColor
+                },
+
+                Text = "Multi",
+
+                Disabled = Vitaru.FEATURES < Features.Experimental,
+
+                OnClick = () =>
+                {
+                    if (Vitaru.FEATURES >= Features.Experimental && TrackManager.CurrentTrack != null)
+                        AddRoot(new MultiMenu());
+                }
+            });
+            Add(new Button
+            {
+                Position = new Vector2(-x, 0),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.TrinaryColor
+                },
+
+                Text = "Edit",
+
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new EditorRoot());
+                }
+            });
+            Add(new Button
+            {
+                Position = new Vector2(x, 0),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.QuadnaryColor
+                },
+
+                Text = "Mods",
+
+                OnClick = () =>
+                {
+                    if (TrackManager.CurrentTrack != null)
+                        AddRoot(new ModsTest());
+                }
+            });
+            Add(new Button
+            {
+                Position = new Vector2(-x, y + height / 2),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.SecondaryColor
+                },
+
+                Text = "Wiki",
+
+                Disabled = Vitaru.FEATURES < Features.Radioactive,
+
+                OnClick = () =>
+                {
+                    if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
+                        AddRoot(new WikiRoot());
+                }
+            });
+            Add(new Button
+            {
+                Position = new Vector2(x, y + height / 2),
+                Size = new Vector2(width, height),
+
+                Background = Game.TextureStore.GetTexture("square.png"),
+                BackgroundSprite =
+                {
+                    Color = ThemeManager.PrimaryColor
+                },
+
+                Text = "Settings",
+
+                Disabled = Vitaru.FEATURES < Features.Radioactive,
+
+                OnClick = () =>
+                {
+                    if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
+                        AddRoot(new SettingsRoot());
+                }
             });
 
             Add(Back = new Exit(vitaru));
@@ -50,7 +166,14 @@ namespace Vitaru.Roots
                 Origin = Mounts.BottomRight,
                 ParentOrigin = Mounts.BottomRight
             });
+
             Add(new Version());
+
+            Add(new Text2D(10, true)
+            {
+                Y = -300,
+                Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"
+            });
 
             Renderer.Window.CursorHidden = true;
         }
@@ -87,7 +210,6 @@ namespace Vitaru.Roots
         protected override void OnResume()
         {
             base.OnResume();
-            TrackManager.SetTrackDefaults();
             TrackManager.SetPositionalDefaults();
         }
 
@@ -110,13 +232,13 @@ namespace Vitaru.Roots
             {
                 ParentOrigin = Mounts.TopRight;
                 Origin = Mounts.TopRight;
-                Position = new Vector2(-10);
-                Size = new Vector2(80, 40);
+                Position = new Vector2(-10, 10);
+                Size = new Vector2(40);
 
                 Background = Game.TextureStore.GetTexture("square.png");
                 BackgroundSprite.Color = Color.Red;
 
-                Text = "Exit";
+                Text = "X";
 
                 OnClick = vitaru.Exit;
             }
