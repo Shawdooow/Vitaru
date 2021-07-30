@@ -149,11 +149,9 @@ namespace Vitaru.Roots
 
                 Text = "Settings",
 
-                Disabled = Vitaru.FEATURES < Features.Radioactive,
-
                 OnClick = () =>
                 {
-                    if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
+                    if (TrackManager.CurrentTrack != null)
                         AddRoot(new SettingsRoot(vitaru));
                 }
             });

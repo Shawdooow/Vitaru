@@ -118,7 +118,7 @@ namespace Vitaru
             //OK Now buckle your fuckle, we are ready to go!
             using (Vitaru vitaru = new(v))
             {
-                if (FEATURES >= Features.Radioactive)
+                if (FEATURES >= Features.Experimental)
                     vitaru.Start(new MainMenu(vitaru));
                 else
                     vitaru.Start(new TestMenu(vitaru));
