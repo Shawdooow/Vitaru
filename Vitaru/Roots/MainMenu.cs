@@ -154,7 +154,7 @@ namespace Vitaru.Roots
                 OnClick = () =>
                 {
                     if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
-                        AddRoot(new SettingsRoot());
+                        AddRoot(new SettingsRoot(vitaru));
                 }
             });
 

@@ -10,35 +10,23 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UI;
-using Prion.Mitochondria.Input;
-using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Settings;
 using Prion.Nucleus.Settings;
-using Prion.Nucleus.Utilities;
 using Vitaru.Settings.Options;
 
-namespace Vitaru.Settings
+namespace Vitaru.Settings.Overlays
 {
-    public class SettingsOverlay : HoverableLayer<IDrawable2D>
+    public class NucleusSettingsOverlay : InputLayer<IDrawable2D>
     {
-        public override string Name { get; set; } = nameof(SettingsOverlay);
+        public override string Name { get; set; } = nameof(NucleusSettingsOverlay);
 
         public const float WIDTH = 360;
         public const float HEIGHT = 640;
 
-        protected bool Shown;
-
-        private readonly ListLayer<IDrawable2D> list;
-        private readonly Button toggle;
-
-        public SettingsOverlay(Game game)
+        public NucleusSettingsOverlay(Game game)
         {
-            ParentOrigin = Mounts.CenterRight;
-            Origin = Mounts.CenterRight;
-
             Size = new Vector2(WIDTH, HEIGHT);
-            Position = new Vector2(WIDTH, 0);
+            Position = new Vector2(-WIDTH - 20, 0);
 
             Children = new IDrawable2D[]
             {
@@ -50,7 +38,7 @@ namespace Vitaru.Settings
                     Size = Size
                 },
 
-                list = new ListLayer<IDrawable2D>
+                new ListLayer<IDrawable2D>
                 {
                     Size = Size,
                     Spacing = 4,
@@ -142,7 +130,7 @@ namespace Vitaru.Settings
 
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Multithreading)
                         {
-                            Text = "Additional Multithreading"
+                            Text = "Additional Multi-threading"
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
                         {
@@ -170,69 +158,7 @@ namespace Vitaru.Settings
                         }
                     }
                 },
-
-                toggle = new Button
-                {
-                    ParentOrigin = Mounts.CenterLeft,
-                    Origin = Mounts.CenterRight,
-
-                    Size = new Vector2(100, 200),
-
-                    Background = Game.TextureStore.GetTexture("square.png"),
-                    Text = "Settings",
-                    Text2D =
-                    {
-                        FontScale = 0.25f
-                    },
-                    BackgroundSprite =
-                    {
-                        Color = Color.DarkSlateBlue
-                    },
-
-                    OnClick = () =>
-                    {
-                        if (toggle.Alpha > 0)
-                            Toggle();
-                    }
-                }
             };
-        }
-
-        public override bool OnMouseDown(MouseButtonEvent e)
-        {
-            if (e.Button == MouseButtons.Left && !Hovered && toggle.Alpha < 1)
-                Hide();
-            return base.OnMouseDown(e);
-        }
-
-        public void Toggle()
-        {
-            if (Shown)
-                Hide();
-            else
-                Show();
-        }
-
-        public void Show()
-        {
-            if (!Shown)
-            {
-                this.MoveTo(Vector2.Zero, 200, Easings.OutCubic);
-                toggle.FadeTo(0, 200, Easings.OutCubic);
-                Shown = true;
-                list.PassDownInput = true;
-            }
-        }
-
-        public void Hide()
-        {
-            if (Shown)
-            {
-                this.MoveTo(new Vector2(WIDTH, 0), 200, Easings.OutCubic);
-                toggle.FadeTo(1, 200, Easings.OutCubic);
-                Shown = false;
-                list.PassDownInput = false;
-            }
         }
     }
 }

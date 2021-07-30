@@ -1,4 +1,5 @@
 ﻿using Vitaru.Roots.Menu;
+using Vitaru.Settings.Overlays;
 
 namespace Vitaru.Roots
 {
@@ -10,8 +11,9 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
-        public SettingsRoot()
+        public SettingsRoot(Vitaru vitaru)
         {
+            Add(new NucleusSettingsOverlay(vitaru));
             Add(new Version());
         }
     }

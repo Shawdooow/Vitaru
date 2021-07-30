@@ -1,4 +1,5 @@
 ﻿using Vitaru.Roots.Menu;
+using Vitaru.Roots.Wiki;
 
 namespace Vitaru.Roots
 {
@@ -12,6 +13,7 @@ namespace Vitaru.Roots
 
         public WikiRoot()
         {
+            Add(new Index());
             Add(new Version());
         }
     }

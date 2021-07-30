@@ -1,6 +1,9 @@
-﻿namespace Vitaru.Roots.Wiki
+﻿using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Mitochondria.Graphics.UI;
+
+namespace Vitaru.Roots.Wiki
 {
-    public class Index
+    public class Index : ListLayer<Button>
     {
     }
 }

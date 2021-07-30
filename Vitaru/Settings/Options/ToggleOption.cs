@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Nucleus.IO;
+using Vitaru.Settings.Overlays;
 
 namespace Vitaru.Settings.Options
 {
@@ -29,7 +30,7 @@ namespace Vitaru.Settings.Options
             Value = manager.GetBool(setting);
             Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
 
-            Size = new Vector2(SettingsOverlay.WIDTH - 8, 20);
+            Size = new Vector2(NucleusSettingsOverlay.WIDTH - 8, 20);
         }
 
         protected override void Toggle()
