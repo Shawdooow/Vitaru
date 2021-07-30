@@ -53,7 +53,7 @@ namespace Vitaru.Tracks
             };
 
 #if !PUBLISH
-            if (Game.FEATURES >= Features.Radioactive)
+            if (false)//Game.FEATURES >= Features.Radioactive)
             {
                 Add(new MaskingLayer<IDrawable2D>
                 {
