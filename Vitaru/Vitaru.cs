@@ -76,7 +76,7 @@ namespace Vitaru
 
 #if !PUBLISH || PERSONAL
             if (!launch.Any(arg => arg.Contains("Features")))
-                launch.Add($"Features={Features.Experimental}");
+                launch.Add($"Features={Features.Radioactive}");
 
             //if (!launch.Any(arg => arg.Contains("GContext")))
             //    launch.Add("GContext=GL41");
