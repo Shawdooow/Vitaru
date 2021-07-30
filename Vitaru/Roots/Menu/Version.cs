@@ -31,7 +31,15 @@ namespace Vitaru.Roots.Menu
                 : version;
 
 #if !PUBLISH
-            Color = Color.Red;
+            switch (NucleusLaunchArgs.Features)
+            {
+                default:
+                    Color = Color.Red;
+                    break;
+                case Features.Radioactive:
+                    Color = Color.BlueViolet;
+                    break;
+            }
 #else
             switch (NucleusLaunchArgs.Features)
             {
@@ -48,7 +56,7 @@ namespace Vitaru.Roots.Menu
                     Color = Color.OrangeRed;
                     break;
                 case Features.Radioactive:
-                    Color = Color.Purple;
+                    Color = Color.BlueViolet;
                     break;
             }
 # endif
