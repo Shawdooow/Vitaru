@@ -57,9 +57,9 @@ namespace Vitaru.Roots.Tests
             if (gamefield.UnloadedEnemies.Count <= 0 || LevelStore.UseRandom)
                 random = true;
 
-            Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty ? 
-                GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield) : 
-                new Frost(gamefield);
+            Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty
+                ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield)
+                : new Frost(gamefield);
 
             gamefield.Add(player);
 

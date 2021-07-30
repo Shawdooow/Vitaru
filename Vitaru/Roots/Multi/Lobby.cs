@@ -164,9 +164,8 @@ namespace Vitaru.Roots.Multi
                 for (int i = 0; i < list.MatchInfos.Count; i++)
                     rooms.Add(new Room(list.MatchInfos[i], select)
                     {
-                        Size = new Vector2(width, height / 8),
+                        Size = new Vector2(width, height / 8)
                     });
-                    
             }
 
             public class Room : Button
