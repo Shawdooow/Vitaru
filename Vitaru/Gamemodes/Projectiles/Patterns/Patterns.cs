@@ -328,7 +328,6 @@ namespace Vitaru.Gamemodes.Projectiles.Patterns
                         CurveType = CurveType.Bezier,
                         CurveAmount = -240,
                         Team = team,
-                        ObeyBoundries = false,
                     });
 
                     direction += MathF.PI / (arms / 2f);
