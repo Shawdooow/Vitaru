@@ -71,7 +71,7 @@ namespace Vitaru
 
             #region Startup
 
-
+            //Do Launch args stuff first incase someone wants STATIC READONLYS!!!!
             List<string> launch = new(args);
 
 #if !PUBLISH || PERSONAL
@@ -91,7 +91,7 @@ namespace Vitaru
 
             #endregion
 
-
+            //Easter Egg Time...
             ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
 
             if (ALKI == 1)

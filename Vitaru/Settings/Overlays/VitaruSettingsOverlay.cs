@@ -40,23 +40,18 @@ namespace Vitaru.Settings.Overlays
 
                     Children = new IDrawable2D[]
                     {
-                        //new InstancedText
-                        //{
-                        //    ParentOrigin = Mounts.TopCenter,
-                        //    Origin = Mounts.TopCenter,
-                        //    Text = "Gameplay",
-                        //    TextScale = 0.24f
-                        //},
-                        //new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Touch)
-                        //{
-                        //    Text = "Toggle Touch Mode"
-                        //},
-
                         new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Vitaru",
+                            FontScale = 0.36f
+                        },
+                        new Text2D
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Graphics",
                             FontScale = 0.24f
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)

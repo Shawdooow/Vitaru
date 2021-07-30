@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using System.Numerics;
+using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Contexts;
@@ -46,6 +47,13 @@ namespace Vitaru.Settings.Overlays
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Mitochondria",
+                            FontScale = 0.36f
+                        },
+                        new Text2D
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Graphics",
                             FontScale = 0.24f
                         },
                         new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.Fullscreen)
@@ -78,7 +86,19 @@ namespace Vitaru.Settings.Overlays
                         {
                             Text = "Limit Draw to Update",
                             OnValueChange = value => Renderer.LimitDrawToUpdate = value
-                        }
+                        },
+                        new Text2D
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Audio",
+                            FontScale = 0.24f
+                        },
+                        new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Music, 0, 100)
+                        {
+                            Text = "Music",
+                            OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
+                        },
                     }
                 },
             };

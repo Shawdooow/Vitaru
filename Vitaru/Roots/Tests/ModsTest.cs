@@ -51,9 +51,9 @@ namespace Vitaru.Roots.Tests
 
             Add(controller = new VitaruTrackController
             {
-                ParentOrigin = Mounts.TopLeft,
-                Origin = Mounts.TopLeft,
-                Position = new Vector2(20)
+                Position = new Vector2(-40),
+                Origin = Mounts.BottomRight,
+                ParentOrigin = Mounts.BottomRight
             });
 
             base.LoadingComplete();

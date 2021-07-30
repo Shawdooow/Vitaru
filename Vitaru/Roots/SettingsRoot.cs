@@ -1,5 +1,8 @@
-﻿using Vitaru.Roots.Menu;
+﻿using System.Numerics;
+using Prion.Mitochondria.Graphics.Drawables;
+using Vitaru.Roots.Menu;
 using Vitaru.Settings.Overlays;
+using Vitaru.Tracks;
 
 namespace Vitaru.Roots
 {
@@ -11,6 +14,8 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
+        private VitaruTrackController controller;
+
         private Vitaru vitaru;
 
         public SettingsRoot(Vitaru vitaru)
@@ -21,12 +26,31 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+
+            Add(controller = new VitaruTrackController
+            {
+                Position = new Vector2(-40),
+                Origin = Mounts.BottomRight,
+                ParentOrigin = Mounts.BottomRight,
+
+                PassDownInput = false,
+                Alpha = 0
+            });
+
             Add(new NucleusSettingsOverlay(vitaru));
             Add(new MitochondriaSettingsOverlay(vitaru));
             Add(new VitaruSettingsOverlay());
             Add(new Version());
             Remove(Cursor, false);
             Add(Cursor);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            controller.Update();
+            controller.TryRepeat();
         }
 
         protected override void Dispose(bool finalize)
