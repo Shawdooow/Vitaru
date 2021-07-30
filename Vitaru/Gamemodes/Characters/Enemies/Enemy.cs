@@ -20,7 +20,6 @@ using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Editor.KeyFrames;
 using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Gamemodes.Projectiles;
-using Vitaru.Gamemodes.Projectiles.Patterns;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play;
 using Vitaru.Settings;
@@ -266,7 +265,7 @@ namespace Vitaru.Gamemodes.Characters.Enemies
                     projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier);
                     break;
                 case 5:
-                    projectiles = Patterns.Spiral(0.5f, 28, 12, Position, Clock.Current, Duration, Team,
+                    projectiles = Patterns.Spiral(0.5f, 28, 6, Position, Clock.Current, Duration, Team,
                         TrackManager.CurrentTrack.Metadata.GetBeatLength(), bullet_multiplier);
                     break;
                 case 6:
