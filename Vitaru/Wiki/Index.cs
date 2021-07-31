@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Levels;
+using Vitaru.Mods;
 
 namespace Vitaru.Wiki
 {
@@ -84,7 +85,7 @@ namespace Vitaru.Wiki
                 Add(list);
             }
 
-            foreach ()
+            foreach (Mod mod in Modloader.LoadedMods)
             {
                 list.Add(new Button(p.Title.Length, true)
                 {

@@ -4,7 +4,7 @@
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
 
-namespace Vitaru.Play.Mods
+namespace Vitaru.Mods
 {
     public abstract class Mod
     {
@@ -16,7 +16,7 @@ namespace Vitaru.Play.Mods
 
         //public virtual ModSubSection GetSettings() => null;
 
-        //public virtual WikiSet GetWikiSet() => null;
+        public virtual WikiSet GetWikiSet() => null;
 
         public virtual void LoadingComplete()
         {

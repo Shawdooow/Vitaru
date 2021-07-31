@@ -8,9 +8,9 @@ using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
 using Vitaru.Gamemodes;
-using Vitaru.Play.Mods.Included;
+using Vitaru.Mods.Included;
 
-namespace Vitaru.Play.Mods
+namespace Vitaru.Mods
 {
     public static class Modloader
     {

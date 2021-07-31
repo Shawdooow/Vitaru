@@ -20,6 +20,8 @@ namespace Vitaru.Gamemodes
 
         public abstract Texture Icon { get; }
 
+        public virtual WikiSet GetWikiSet() => null;
+
         public abstract FormatConverter GetFormatConverter();
 
         public abstract Gamefield GetGamefield();

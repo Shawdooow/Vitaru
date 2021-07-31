@@ -23,7 +23,7 @@ using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
-using Vitaru.Play.Mods;
+using Vitaru.Mods;
 using Vitaru.Roots;
 using Vitaru.Server;
 using Vitaru.Settings;

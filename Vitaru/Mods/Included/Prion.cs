@@ -11,7 +11,7 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Vitaru.Roots;
 
-namespace Vitaru.Play.Mods.Included
+namespace Vitaru.Mods.Included
 {
     public sealed class Prion : Mod
     {

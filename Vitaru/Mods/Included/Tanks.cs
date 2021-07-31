@@ -38,7 +38,7 @@ using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
 #endif
 
-namespace Vitaru.Play.Mods.Included
+namespace Vitaru.Mods.Included
 {
     public class Tanks : Mod
     {
