@@ -118,10 +118,7 @@ namespace Vitaru
             //OK Now buckle your fuckle, we are ready to go!
             using (Vitaru vitaru = new(v))
             {
-                if (FEATURES >= Features.Upcoming)
-                    vitaru.Start(new MainMenu(vitaru));
-                else
-                    vitaru.Start(new TestMenu(vitaru));
+                vitaru.Start(new MainMenu(vitaru));
             }
         }
 
