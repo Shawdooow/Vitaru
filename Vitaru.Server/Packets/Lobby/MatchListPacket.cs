@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Prion.Centrosome.Packets.Types;
+using Prion.Nucleus.Debug;
 using Vitaru.Server.Match;
 
 namespace Vitaru.Server.Packets.Lobby
@@ -36,7 +37,7 @@ namespace Vitaru.Server.Packets.Lobby
 
         public override void DeSerialize(byte[] data)
         {
-            throw new NotImplementedException();
+            throw Debugger.NotImplemented("");
         }
     }
 }

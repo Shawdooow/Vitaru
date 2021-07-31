@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Nucleus.Debug;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
@@ -31,7 +32,7 @@ namespace Vitaru.Gamemodes.Projectiles
 
         public virtual IDrawable2D GetOverlay(DrawableGameEntity draw)
         {
-            throw new NotImplementedException();
+            throw Debugger.NotImplemented("");
         }
 
         public bool Selected { get; set; }
