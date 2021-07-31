@@ -1,9 +1,39 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
+
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 {
-    class Claire
+    public class Claire : Player
     {
+        #region Fields
+
+        public override string Name => "Claire";
+
+        //public override float HealthCapacity => 60;
+
+        //public override float EnergyCapacity => 32;
+
+        //public override float EnergyCost => 16;
+
+        //public override Color PrimaryColor => "#00ffbb".HexToColor();
+
+        //public override Color SecondaryColor => "#b0b0b0".HexToColor();
+
+        //public override Color ComplementaryColor => "#3d2a69".HexToColor();
+
+        public override string Ability => "Snap Shot";
+
+        public override Role Role => Role.Support;
+
+        public override Difficulty Difficulty => Difficulty.Hard;
+
+        #endregion
+
+        public Claire(Gamefield gamefield) : base(gamefield)
+        {
+        }
     }
 }
