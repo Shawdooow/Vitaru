@@ -12,7 +12,7 @@ namespace Vitaru.Gamemodes.Dodge
         public override string Name => "Dodge";
 
         public override string Description =>
-            "The simple dodging experiance, no shooting, no killing, no place to hide.";
+            "The simple dodging experience, no shooting, no killing, no place to hide.";
 
         public override Vector2 PlayfieldSize => new(512 + 256, 384);
 
