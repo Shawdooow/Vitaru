@@ -110,10 +110,18 @@ namespace Vitaru.Roots
                 sections.ClearChildren();
                 WikiSection[] s = panel.GetSections();
                 foreach (WikiSection section in s)
-                    sections.Add(new SectionButton(section)
+                {
+                    SectionButton button = new(section);
+                    button.OnClick = () =>
                     {
-                        OnClick = () => content.Child = section.GetSection()
-                    });
+                        foreach (SectionButton b in sections)
+                            b.DeSelect();
+
+                        button.Select();
+                        content.Child = section.GetSection();
+                    };
+                    sections.Add(button);
+                }
 
                 sections.Children[0].Select();
                 content.Child = s[0].GetSection();
