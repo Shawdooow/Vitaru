@@ -9,6 +9,7 @@ using Vitaru.Chapters;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
+using Vitaru.Wiki;
 
 namespace Vitaru.Gamemodes
 {
@@ -20,7 +21,7 @@ namespace Vitaru.Gamemodes
 
         public abstract Texture Icon { get; }
 
-        public virtual WikiSet GetWikiSet() => null;
+        public virtual WikiPanel GetWikiPanel() => null;
 
         public abstract FormatConverter GetFormatConverter();
 

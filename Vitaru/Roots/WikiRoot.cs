@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Vitaru.Roots.Menu;
-using Vitaru.Roots.Wiki;
 using Vitaru.Tracks;
+using Vitaru.Wiki;
 
 namespace Vitaru.Roots
 {
