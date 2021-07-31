@@ -22,7 +22,9 @@ namespace Vitaru.Wiki.Included
                 Children = new IDrawable2D[]
                 {
                     new Header("What is Vitaru?"),
-                    new Description("Hell!")
+                    new Description("Vitaru is a rhythm-based bullet hell."),
+                    new Header("So what do I do?"),
+                    new Description("Avoid the bullets flying at you. Although this is usually easier said than done.")
                 }
             };
         }
