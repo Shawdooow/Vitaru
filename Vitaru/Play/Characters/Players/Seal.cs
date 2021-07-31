@@ -13,7 +13,7 @@ using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
-namespace Vitaru.Gamemodes.Characters.Players
+namespace Vitaru.Play.Characters.Players
 {
     public class Seal : Layer2D<IDrawable2D>
     {

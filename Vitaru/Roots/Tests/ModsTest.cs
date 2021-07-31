@@ -8,7 +8,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Mods;
+using Vitaru.Play.Mods;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots.Tests

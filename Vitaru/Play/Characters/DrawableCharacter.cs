@@ -4,7 +4,7 @@
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Sprites;
 
-namespace Vitaru.Gamemodes.Characters
+namespace Vitaru.Play.Characters
 {
     public abstract class DrawableCharacter : DrawableGameEntity
     {

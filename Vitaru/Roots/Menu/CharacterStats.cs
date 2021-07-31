@@ -5,7 +5,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Gamemodes;
-using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Roots.Menu
 {

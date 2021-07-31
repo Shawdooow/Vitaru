@@ -3,8 +3,8 @@
 
 using System.Drawing;
 using Vitaru.Editor.Editables;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
+using Vitaru.Play.Projectiles;
 
 namespace Vitaru.Gamemodes.Vitaru.Edit
 {

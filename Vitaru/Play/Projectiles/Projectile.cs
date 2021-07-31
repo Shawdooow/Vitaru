@@ -12,9 +12,8 @@ using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.KeyFrames;
 using Vitaru.Graphics.Projectiles.Bullets;
-using Vitaru.Play;
 
-namespace Vitaru.Gamemodes.Projectiles
+namespace Vitaru.Play.Projectiles
 {
     public abstract class Projectile : GameEntity, IHasStartPosition, IHasKeyFrames
     {

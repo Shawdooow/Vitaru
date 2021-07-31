@@ -18,13 +18,12 @@ using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Editor.KeyFrames;
-using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics.Particles;
-using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
+using Vitaru.Play.Projectiles;
 using Vitaru.Settings;
 
-namespace Vitaru.Gamemodes.Characters.Enemies
+namespace Vitaru.Play.Characters.Enemies
 {
     public class Enemy : Character, IHasKeyFrames, IHasStartPosition, IHasColor, IHasPatternID
     {

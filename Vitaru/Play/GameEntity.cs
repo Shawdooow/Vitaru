@@ -8,7 +8,7 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Entitys;
 using Vitaru.Graphics.Particles;
 
-namespace Vitaru.Gamemodes
+namespace Vitaru.Play
 {
     public abstract class GameEntity : Updatable, IHasTeam
     {

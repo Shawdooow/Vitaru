@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria;
 
-namespace Vitaru.Gamemodes.Characters.Enemies
+namespace Vitaru.Play.Characters.Enemies
 {
     public class DrawableEnemy : DrawableCharacter
     {

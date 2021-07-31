@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
+using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
-using Vitaru.Play;
 using Vitaru.Settings;
 
-namespace Vitaru.Gamemodes.Projectiles
+namespace Vitaru.Play.Projectiles
 {
     public class Bullet : Projectile
     {

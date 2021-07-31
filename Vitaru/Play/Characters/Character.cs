@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using Vitaru.Gamemodes.Projectiles;
-using Vitaru.Play;
+using Vitaru.Play.Projectiles;
 
-namespace Vitaru.Gamemodes.Characters
+namespace Vitaru.Play.Characters
 {
     public abstract class Character : GameEntity
     {

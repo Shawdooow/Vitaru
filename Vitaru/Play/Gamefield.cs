@@ -16,14 +16,14 @@ using Prion.Nucleus.Groups.Packs;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
-using Vitaru.Gamemodes.Characters;
-using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Graphics.Particles;
 using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Levels;
 using Vitaru.Networking.Client;
+using Vitaru.Play.Characters;
+using Vitaru.Play.Characters.Enemies;
+using Vitaru.Play.Characters.Players;
+using Vitaru.Play.Projectiles;
 using Vitaru.Settings;
 
 namespace Vitaru.Play
@@ -281,6 +281,7 @@ namespace Vitaru.Play
             }
         }
 
+        //Assign the multithreads their tasks
         public void AssignTasks(ProjectilePack pack)
         {
             for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)

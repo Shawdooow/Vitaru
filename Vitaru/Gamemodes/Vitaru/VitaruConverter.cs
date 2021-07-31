@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Prion.Nucleus.Debug;
 using Vitaru.Editor.IO;
-using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Play.Characters.Enemies;
+using Vitaru.Play.Projectiles;
 
 namespace Vitaru.Gamemodes.Vitaru
 {

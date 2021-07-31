@@ -2,9 +2,9 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
-using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Enemies;
+using Vitaru.Play.Projectiles;
 
 namespace Vitaru.Editor.IO
 {

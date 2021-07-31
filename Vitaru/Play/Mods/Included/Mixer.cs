@@ -19,7 +19,7 @@ using Vitaru.Roots;
 using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 
-namespace Vitaru.Mods.Included
+namespace Vitaru.Play.Mods.Included
 {
     public class Mixer : Mod
     {

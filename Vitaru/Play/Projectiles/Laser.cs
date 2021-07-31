@@ -1,8 +1,7 @@
 ﻿using System.Numerics;
-using Vitaru.Play;
 using Vitaru.Settings;
 
-namespace Vitaru.Gamemodes.Projectiles
+namespace Vitaru.Play.Projectiles
 {
     public class Laser : Projectile
     {

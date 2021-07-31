@@ -4,7 +4,7 @@
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
 
-namespace Vitaru.Mods
+namespace Vitaru.Play.Mods
 {
     public abstract class Mod
     {

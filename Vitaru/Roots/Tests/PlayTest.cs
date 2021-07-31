@@ -12,13 +12,13 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
-using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Gamemodes.Characters.Players;
-using Vitaru.Gamemodes.Projectiles;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
 using Vitaru.Graphics;
 using Vitaru.Levels;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Enemies;
+using Vitaru.Play.Characters.Players;
+using Vitaru.Play.Projectiles;
 using Vitaru.Settings;
 
 namespace Vitaru.Roots.Tests

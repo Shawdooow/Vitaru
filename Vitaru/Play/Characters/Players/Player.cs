@@ -11,12 +11,12 @@ using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
-using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Gamemodes;
 using Vitaru.Input;
-using Vitaru.Play;
+using Vitaru.Play.Projectiles;
 using Vitaru.Settings;
 
-namespace Vitaru.Gamemodes.Characters.Players
+namespace Vitaru.Play.Characters.Players
 {
     public abstract class Player : Character
     {

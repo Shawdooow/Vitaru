@@ -5,7 +5,7 @@ using System;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 
-namespace Vitaru.Gamemodes
+namespace Vitaru.Play
 {
     public class DrawableGameEntity : Layer2D<IDrawable2D>
     {

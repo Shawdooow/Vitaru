@@ -14,9 +14,9 @@ using Vitaru.Editor.Editables;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Gamemodes;
-using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Levels;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Enemies;
 
 namespace Vitaru.Editor.UI
 {

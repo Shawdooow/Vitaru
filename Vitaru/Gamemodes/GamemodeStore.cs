@@ -7,8 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
-using Vitaru.Gamemodes.Characters.Players;
+using Vitaru.Chapters;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes
 {

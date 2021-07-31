@@ -3,6 +3,7 @@
 
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
+using Vitaru.Chapters;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;

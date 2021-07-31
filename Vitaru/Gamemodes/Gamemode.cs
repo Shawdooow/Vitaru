@@ -5,6 +5,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities.Interfaces;
+using Vitaru.Chapters;
 using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;

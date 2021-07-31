@@ -3,9 +3,9 @@
 
 using System.Drawing;
 using Prion.Nucleus.Utilities;
-using Vitaru.Gamemodes.Characters.Players;
 using Vitaru.Input;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {

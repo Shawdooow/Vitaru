@@ -3,8 +3,8 @@
 
 using System.Drawing;
 using Vitaru.Editor.Editables;
-using Vitaru.Gamemodes.Characters.Enemies;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Enemies;
 
 namespace Vitaru.Gamemodes.Vitaru.Edit
 {

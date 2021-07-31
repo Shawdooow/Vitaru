@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
-using Vitaru.Gamemodes.Characters.Enemies;
-using Vitaru.Gamemodes.Projectiles;
+using Vitaru.Play.Characters.Enemies;
+using Vitaru.Play.Projectiles;
 
 namespace Vitaru.Editor.KeyFrames
 {
