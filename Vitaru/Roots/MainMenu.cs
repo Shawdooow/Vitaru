@@ -125,11 +125,9 @@ namespace Vitaru.Roots
 
                 Text = "Wiki",
 
-                Disabled = Vitaru.FEATURES < Features.Radioactive,
-
                 OnClick = () =>
                 {
-                    if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
+                    if (TrackManager.CurrentTrack != null)
                         AddRoot(new WikiRoot());
                 }
             });
