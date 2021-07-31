@@ -94,6 +94,16 @@ namespace Vitaru.Settings.Overlays
                             Text = "Audio",
                             FontScale = 0.24f
                         },
+                        new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Master, 0, 100)
+                        {
+                            Text = "Master",
+                            //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
+                        },
+                        new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Sounds, 0, 100)
+                        {
+                            Text = "Sounds",
+                            //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
+                        },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Music, 0, 100)
                         {
                             Text = "Music",
