@@ -118,7 +118,7 @@ namespace Vitaru.Wiki
 
                     //ParentSizing = Axes.Horizontal,
                     Width = 160,
-                    Height = 18,
+                    Height = 24,
 
                     Text = p.Name,
 
@@ -127,7 +127,7 @@ namespace Vitaru.Wiki
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,
 
-                        FontScale = 0.24f
+                        FontScale = 0.28f
                     },
 
                     OnClick = () => OnSetPanel?.Invoke(p)
