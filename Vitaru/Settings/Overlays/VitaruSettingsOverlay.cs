@@ -63,7 +63,7 @@ namespace Vitaru.Settings.Overlays
                             Text = "Max Particles"
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f,
-                            2)
+                            4)
                         {
                             Text = "Particle Multiplier"
                         },
@@ -92,14 +92,6 @@ namespace Vitaru.Settings.Overlays
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
                             Text = "Toggle \"GOD-KING\" Hacks"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.EnemyMultiplier, 1, 4)
-                        {
-                            Text = "Enemy Multiplier"
-                        },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletMultiplier, 1, 4)
-                        {
-                            Text = "Bullet Multiplier"
                         }
                     }
                 },

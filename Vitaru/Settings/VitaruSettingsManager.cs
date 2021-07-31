@@ -23,7 +23,7 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.LaserVisuals, GraphicsOptions.Pretty);
 
             SetValue(VitaruSetting.Particles, true);
-            SetValue(VitaruSetting.ParticleCap, 32786);
+            SetValue(VitaruSetting.ParticleCap, 8192);
             SetValue(VitaruSetting.ParticleMultiplier, 1f);
 
             SetValue(VitaruSetting.ComboFire, true);
@@ -32,8 +32,6 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.BulletCap, 512);
 
             SetValue(VitaruSetting.DebugHacks, false);
-            SetValue(VitaruSetting.EnemyMultiplier, 1);
-            SetValue(VitaruSetting.BulletMultiplier, 1);
         }
     }
 
@@ -58,9 +56,7 @@ namespace Vitaru.Settings
         BulletCap,
 
         //Debug
-        DebugHacks,
-        EnemyMultiplier,
-        BulletMultiplier
+        DebugHacks
     }
 
     public enum GraphicsOptions
