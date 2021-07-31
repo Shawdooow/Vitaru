@@ -1,22 +1,25 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using Prion.Golgi.Audio.Tracks;
-using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Levels;
+using Vitaru.Gamemodes;
 using Vitaru.Mods;
+using Vitaru.Wiki.Included;
 
 namespace Vitaru.Wiki
 {
     public class Index : HoverableLayer<IDrawable2D>
     {
+        public event Action<WikiPanel> OnSetPanel;
+
         public Index()
         {
             Alpha = 0.75f;
@@ -85,9 +88,30 @@ namespace Vitaru.Wiki
                 Add(list);
             }
 
+            List<WikiPanel> panels = new()
+            {
+                new VitaruWiki()
+            };
+
+            foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
+            {
+                WikiPanel p = gamemode.Gamemode.GetWikiPanel();
+
+                if (p != null)
+                    panels.Add(p);
+            }
+
             foreach (Mod mod in Modloader.LoadedMods)
             {
-                list.Add(new Button(p.Title.Length, true)
+                WikiPanel p = mod.GetWikiPanel();
+
+                if (p != null)
+                    panels.Add(p);
+            }
+
+            foreach (WikiPanel p in panels)
+            {
+                list.Add(new Button(p.Name.Length, true)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
@@ -96,7 +120,7 @@ namespace Vitaru.Wiki
                     Width = 160,
                     Height = 18,
 
-                    Text = p.Title,
+                    Text = p.Name,
 
                     Text2D =
                     {
@@ -106,21 +130,11 @@ namespace Vitaru.Wiki
                         FontScale = 0.24f
                     },
 
-                    OnClick = () =>
-                    {
-                        if (!TrackManager.Switching)
-                        {
-                            TrackManager.Switching = true;
-                            Game.ScheduleLoad(() =>
-                            {
-                                TrackManager.PreviousTracks.Push(LevelStore.CurrentLevel.Metadata);
-                                LevelStore.SetLevelPack(p);
-                                TrackManager.SetTrack(p.Levels[0].Metadata);
-                            });
-                        }
-                    }
+                    OnClick = () => OnSetPanel?.Invoke(p)
                 });
             }
+
+            OnSetPanel?.Invoke(panels[0]);
         }
 
         public override void OnHovered()

@@ -1,9 +1,17 @@
-﻿using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers._2D;
+﻿using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Wiki
 {
-    public abstract class WikiPanel : InputLayer<IDrawable2D>
+    public abstract class WikiPanel : IHasName, IHasDescription, IHasIcon
     {
+        public abstract string Name { get; }
+
+        public virtual string Description => $"The {Name} Wiki.";
+
+        public virtual Texture Icon { get; }
+
+        public abstract WikiSection[] GetSections();
     }
 }

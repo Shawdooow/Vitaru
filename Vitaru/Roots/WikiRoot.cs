@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers._2D;
 using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 using Vitaru.Wiki;
@@ -14,12 +15,21 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
+        private Layer2D<IDrawable2D> panel;
+
         private VitaruTrackController controller;
 
         public WikiRoot()
         {
-            Add(new Index());
+            Index index = new();
+            Add(index);
+            Add(panel = new Layer2D<IDrawable2D>());
             Add(new Version());
+
+            index.OnSetPanel += p =>
+            {
+
+            };
         }
 
         public override void LoadingComplete()

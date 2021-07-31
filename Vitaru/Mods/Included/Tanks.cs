@@ -42,6 +42,8 @@ namespace Vitaru.Mods.Included
 {
     public class Tanks : Mod
     {
+        public override string Name => nameof(Tanks);
+
         public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>

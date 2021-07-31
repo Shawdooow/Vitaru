@@ -23,6 +23,8 @@ namespace Vitaru.Mods.Included
 {
     public class Mixer : Mod
     {
+        public override string Name => nameof(Mixer);
+
         public override Button GetMenuButton() =>
             new()
             {

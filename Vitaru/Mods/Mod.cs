@@ -15,7 +15,7 @@ namespace Vitaru.Mods
 
         public virtual string Description => $"The {Name} Mod.";
 
-        public abstract Texture Icon { get; }
+        public virtual Texture Icon { get; }
 
         public virtual bool Disabled => false;
 

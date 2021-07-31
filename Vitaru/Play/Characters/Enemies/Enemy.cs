@@ -21,7 +21,6 @@ using Vitaru.Editor.KeyFrames;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
-using Vitaru.Settings;
 
 namespace Vitaru.Play.Characters.Enemies
 {
@@ -32,9 +31,6 @@ namespace Vitaru.Play.Characters.Enemies
         public override string Name { get; set; } = nameof(Enemy);
 
         public const int ENEMY_TEAM = 0;
-
-        private readonly int bullet_multiplier =
-            global::Vitaru.Vitaru.VitaruSettings.GetInt(VitaruSetting.BulletMultiplier);
 
         public new DrawableEnemy Drawable;
 
@@ -246,32 +242,32 @@ namespace Vitaru.Play.Characters.Enemies
             switch (PatternID)
             {
                 default:
-                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier, angle);
+                    projectiles = Patterns.Wave(0.25f, 28, 12, Position, Clock.Current, Team, 1, angle);
                     break;
                 case 1:
-                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                    projectiles = Patterns.Line(0.5f, 0.25f, 28, 12, Position, Clock.Current, Team, 1,
                         angle);
                     break;
                 case 2:
-                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                    projectiles = Patterns.Triangle(0.25f, 28, 12, Position, Clock.Current, Team, 1,
                         angle);
                     break;
                 case 3:
-                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier,
+                    projectiles = Patterns.Wedge(0.25f, 28, 12, Position, Clock.Current, Team, 1,
                         angle);
                     break;
                 case 4:
-                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team, bullet_multiplier);
+                    projectiles = Patterns.Circle(0.25f, 28, 12, Position, Clock.Current, Team);
                     break;
                 case 5:
                     projectiles = Patterns.Spiral(0.5f, 28, 6, Position, Clock.Current, Duration, Team,
-                        TrackManager.CurrentTrack.Metadata.GetBeatLength(), bullet_multiplier);
+                        TrackManager.CurrentTrack.Metadata.GetBeatLength());
                     break;
                 case 6:
-                    projectiles = Patterns.Cross(0.5f, 28, 4, Clock.Current, Team, bullet_multiplier);
+                    projectiles = Patterns.Cross(0.5f, 28, 4, Clock.Current, Team);
                     break;
                 case 7:
-                    projectiles = Patterns.Swipe(0.5f, 28, 4, Clock.Current, Team, bullet_multiplier);
+                    projectiles = Patterns.Swipe(0.5f, 28, 4, Clock.Current, Team);
                     break;
             }
 
