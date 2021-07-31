@@ -115,10 +115,8 @@ namespace Vitaru
             }
 
             //OK Now buckle your fuckle, we are ready to go!
-            using (Vitaru vitaru = new(v))
-            {
-                vitaru.Start(new MainMenu(vitaru));
-            }
+            Vitaru vitaru = new(v);
+            vitaru.Start(new MainMenu(vitaru));
         }
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
