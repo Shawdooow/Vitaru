@@ -1,5 +1,7 @@
-﻿using Prion.Mitochondria.Graphics.Drawables;
+﻿using System.Numerics;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
+using Vitaru.Roots;
 
 namespace Vitaru.Wiki.Content
 {
@@ -7,7 +9,11 @@ namespace Vitaru.Wiki.Content
     {
         public WikiListLayer()
         {
+            ParentOrigin = Mounts.Center;
+            Origin = Mounts.Center;
 
+            Size = new Vector2(WikiRoot.WIDTH - 40, WikiRoot.HEIGHT - 80);
+            Spacing = 6;
         }
     }
 }
