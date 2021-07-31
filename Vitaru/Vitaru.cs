@@ -117,8 +117,6 @@ namespace Vitaru
             //OK Now buckle your fuckle, we are ready to go!
             Vitaru vitaru = new(v);
             vitaru.Start(new MainMenu(vitaru));
-
-            if (FEATURES < Features.Radioactive) vitaru.Dispose();
         }
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
