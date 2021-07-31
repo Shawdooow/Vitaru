@@ -60,6 +60,7 @@ namespace Vitaru.Roots
                         Origin = Mounts.TopCenter,
 
                         Size = new Vector2(WIDTH, 40),
+                        Direction = Direction.Horizontal
                     },
                     content = new Layer2D<IDrawable2D>
                     {
@@ -107,14 +108,15 @@ namespace Vitaru.Roots
                 title.Text = panel.Name;
 
                 sections.ClearChildren();
-                foreach (WikiSection section in panel.GetSections())
+                WikiSection[] s = panel.GetSections();
+                foreach (WikiSection section in s)
                     sections.Add(new SectionButton(section)
                     {
                         OnClick = () => content.Child = section.GetSection()
                     });
 
                 sections.Children[0].Select();
-                content.Child = panel.GetSections()[0].GetSection();
+                content.Child = s[0].GetSection();
 
                 panel = null;
             }
@@ -127,7 +129,7 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.CenterLeft;
                 Origin = Mounts.CenterLeft;
 
-                Size = new Vector2(120, 40);
+                Size = new Vector2(WIDTH / 6f, 40);
 
                 Text = section.Name;
                 Text2D.FontScale = 0.48f;

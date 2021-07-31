@@ -1,5 +1,7 @@
 ﻿using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Nucleus;
+using Prion.Nucleus.Utilities;
 using Vitaru.Wiki.Content;
 
 namespace Vitaru.Wiki.Included
@@ -8,14 +10,15 @@ namespace Vitaru.Wiki.Included
     {
         public override string Name => "Vitaru";
 
-        public override WikiSection[] GetSections() => new[]
+        public override WikiSection[] GetSections() => new WikiSection[]
         {
-            new About()
+            new About(),
+            new Experimental()
         };
 
         private class About : WikiSection
         {
-            public override string Name => "About";
+            public override string Name => nameof(About);
 
             public override InputLayer<IDrawable2D> GetSection() => new WikiListLayer
             {
@@ -25,6 +28,30 @@ namespace Vitaru.Wiki.Included
                     new Description("Vitaru is a rhythm-based bullet hell."),
                     new Header("So what do I do?"),
                     new Description("Avoid the bullets flying at you. Although this is usually easier said than done.")
+                }
+            };
+        }
+
+        private class Experimental : WikiSection
+        {
+            public override string Name => nameof(Experimental);
+
+            public override InputLayer<IDrawable2D> GetSection() => new WikiListLayer
+            {
+                Children = new IDrawable2D[]
+                {
+                    new Description("In order to change the feature sets Vitaru (and Prion) use you must pass in the launch argument [Features=Standard] without the []s. " +
+                                    "Swap the word \"Standard\" for any of the below options to enable other feature sets."),
+                    new Header(Features.Safe.ToString()),
+                    new Description(Features.Safe.GetDescription()),
+                    new Header(Features.Standard.ToString()),
+                    new Description(Features.Standard.GetDescription()),
+                    new Header(Features.Upcoming.ToString()),
+                    new Description(Features.Upcoming.GetDescription()),
+                    new Header(Features.Experimental.ToString()),
+                    new Description(Features.Experimental.GetDescription()),
+                    new Header(Features.Radioactive.ToString()),
+                    new Description(Features.Radioactive.GetDescription())
                 }
             };
         }
