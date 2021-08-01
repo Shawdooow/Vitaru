@@ -17,7 +17,7 @@ namespace Vitaru.Server
 #if true
             "VitaruServerDebug";
 #else
-            "Vitaru";
+            "VitaruServer";
 #endif
 
         public static void Main(string[] args)
