@@ -52,29 +52,19 @@ namespace Vitaru.Tracks
                 Spacing = 2
             };
 
-#if !PUBLISH
-            if (Game.FEATURES >= Features.Radioactive)
+            Add(new MaskingLayer<IDrawable2D>
             {
-                Add(new MaskingLayer<IDrawable2D>
+                Child = list,
+
+                Masks = new Sprite[]
                 {
-                    Child = list,
-
-                    Masks = new Sprite[]
+                    new Box
                     {
-                        new Box
-                        {
-                            Alpha = 0f,
-                            Size = Size
-                        }
+                        Alpha = 0f,
+                        Size = Size
                     }
-                });
-            }
-            else
-#endif
-            {
-                Add(list);
-            }
-
+                }
+            });
 
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {

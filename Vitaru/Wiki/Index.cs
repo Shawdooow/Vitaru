@@ -56,28 +56,19 @@ namespace Vitaru.Wiki
                 Spacing = 2
             };
 
-#if !PUBLISH
-            if (Game.FEATURES >= Features.Radioactive)
+            Add(new MaskingLayer<IDrawable2D>
             {
-                Add(new MaskingLayer<IDrawable2D>
-                {
-                    Child = list,
+                Child = list,
 
-                    Masks = new Sprite[]
+                Masks = new Sprite[]
+                {
+                    new Box
                     {
-                        new Box
-                        {
-                            Alpha = 0f,
-                            Size = Size
-                        }
+                        Alpha = 0f,
+                        Size = Size
                     }
-                });
-            }
-            else
-#endif
-            {
-                Add(list);
-            }
+                }
+            });
 
             List<WikiPanel> panels = new()
             {
