@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus;
 using Vitaru.Gamemodes;
 using Vitaru.Mods;
 using Vitaru.Wiki.Included;
@@ -55,7 +57,7 @@ namespace Vitaru.Wiki
             };
 
 #if !PUBLISH
-            if (false)//Game.FEATURES >= Features.Radioactive)
+            if (Game.FEATURES >= Features.Radioactive)
             {
                 Add(new MaskingLayer<IDrawable2D>
                 {
@@ -63,21 +65,10 @@ namespace Vitaru.Wiki
 
                     Masks = new Sprite[]
                     {
-                        //new Box
-                        //{
-                        //    Origin = Mounts.BottomCenter,
-                        //    ParentOrigin = Mounts.TopCenter,
-                        //    Alpha = 0f,
-                        //    Size = Size,
-                        //    Y = -Height / 2f + 0.5f,
-                        //},
                         new Box
                         {
-                            //Origin = Mounts.TopCenter,
-                            //ParentOrigin = Mounts.BottomCenter,
-                            Alpha = 1f,
+                            Alpha = 0f,
                             Size = Size
-                            //Y = Height / 2f - 0.5f,
                         }
                     }
                 });
