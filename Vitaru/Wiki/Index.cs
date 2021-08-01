@@ -90,7 +90,9 @@ namespace Vitaru.Wiki
 
             List<WikiPanel> panels = new()
             {
-                new VitaruWiki()
+                new VitaruWiki(),
+                new MultiplayerWiki(),
+                new EditorWiki(),
             };
 
             foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)

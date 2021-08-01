@@ -14,7 +14,6 @@ namespace Vitaru.Wiki.Included
         {
             new About(),
             new Modes(),
-            new Editor()
         };
 
         private class About : WikiSection
@@ -53,19 +52,6 @@ namespace Vitaru.Wiki.Included
                     new Description(Features.Experimental.GetDescription()),
                     new Header(Features.Radioactive.ToString()),
                     new Description(Features.Radioactive.GetDescription())
-                }
-            };
-        }
-
-        private class Editor : WikiSection
-        {
-            public override string Name => nameof(Editor);
-
-            public override InputLayer<IDrawable2D> GetSection() => new WikiListLayer
-            {
-                Children = new IDrawable2D[]
-                {
-
                 }
             };
         }
