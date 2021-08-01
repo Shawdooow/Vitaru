@@ -13,7 +13,7 @@ namespace Vitaru.Wiki.Included
         public override WikiSection[] GetSections() => new WikiSection[]
         {
             new About(),
-            new Mode()
+            new Modes()
         };
 
         private class About : WikiSection
@@ -32,9 +32,9 @@ namespace Vitaru.Wiki.Included
             };
         }
 
-        private class Mode : WikiSection
+        private class Modes : WikiSection
         {
-            public override string Name => nameof(Mode);
+            public override string Name => nameof(Modes);
 
             public override InputLayer<IDrawable2D> GetSection() => new WikiListLayer
             {
