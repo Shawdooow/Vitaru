@@ -37,7 +37,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Color ComplementaryColor => "#8e70db".HexToColor();
 
-        public override string Ability => "Shadow Skipper";
+        public override string Ability => "Shadow Blinker";
 
         public override Role Role => Role.Offense;
 

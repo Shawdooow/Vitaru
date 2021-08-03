@@ -33,7 +33,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Color ComplementaryColor => "#3d2a69".HexToColor();
 
-        public override string Ability => "Time Traveler";
+        public override string Ability => "Time Dilator";
 
         public override Role Role => Role.Defense;
 
