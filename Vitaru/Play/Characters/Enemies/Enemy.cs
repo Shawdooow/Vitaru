@@ -28,9 +28,13 @@ namespace Vitaru.Play.Characters.Enemies
     {
         public static int COUNT;
 
+        public const int ENEMY_TEAM = 0;
+
         public override string Name { get; set; } = nameof(Enemy);
 
-        public const int ENEMY_TEAM = 0;
+        public override float HealthCapacity => MaxHealth;
+
+        public float MaxHealth { get; set; } = 60;
 
         public new DrawableEnemy Drawable;
 
@@ -167,6 +171,8 @@ namespace Vitaru.Play.Characters.Enemies
         protected virtual void PreLoad()
         {
             PreLoaded = true;
+
+            Health = HealthCapacity;
 
             if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {

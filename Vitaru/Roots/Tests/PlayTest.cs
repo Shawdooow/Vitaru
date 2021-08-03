@@ -195,6 +195,7 @@ namespace Vitaru.Roots.Tests
                                 StartTime = start,
                                 EndTime = spiral,
                                 StartPosition = Vector2.Zero,
+                                MaxHealth = 120,
                                 PatternID = 5,
                                 Color = c
                             };
