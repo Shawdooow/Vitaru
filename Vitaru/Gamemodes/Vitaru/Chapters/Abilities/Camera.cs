@@ -27,7 +27,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                 Size = Size
             };
 
-            Origin = Mounts.Center;
             Size = new Vector2(200, 120);
 
             Children = new IDrawable2D[]
@@ -110,14 +109,14 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             {
                 Children = new Box[]
                 {
-                    new Box
+                    new()
                     {
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
                         Size = new Vector2(width, height),
                         Color = Color.White
                     },
-                    new Box
+                    new()
                     {
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
