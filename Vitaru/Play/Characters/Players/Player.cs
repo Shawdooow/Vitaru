@@ -255,9 +255,8 @@ namespace Vitaru.Play.Characters.Players
 
             if (Binds[VitaruActions.Sneak])
             {
-                cursorAngle = ((float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
-                        InputManager.Mouse.Position.X - Position.X))
-                    .ToDegrees() + 90;
+                cursorAngle = (float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
+                    InputManager.Mouse.Position.X - Position.X);
                 directionModifier = -0.1f;
             }
 
@@ -281,7 +280,7 @@ namespace Vitaru.Play.Characters.Players
                 }
 
                 //-90 = up
-                BulletAddRad(1, (cursorAngle - 90).ToRadians() + directionModifier, color, size, damage, 800);
+                BulletAddRad(1, cursorAngle + directionModifier, color, size, damage, 800);
 
                 if (Binds[VitaruActions.Sneak])
                     directionModifier += 0.1f;
