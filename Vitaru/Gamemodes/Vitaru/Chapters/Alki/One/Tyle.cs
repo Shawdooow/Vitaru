@@ -88,9 +88,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             base.SpellDeactivate(action);
 
-            double cursorAngle = Math.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X).ToDegrees() + Drawable.Rotation;
-            double x = Position.X + charge * BLINK_DISTANCE * Math.Cos(cursorAngle.ToRadians());
-            double y = Position.Y + charge * BLINK_DISTANCE * Math.Sin(cursorAngle.ToRadians());
+            double cursorAngle = Math.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
+            double x = Position.X + charge * BLINK_DISTANCE * Math.Cos(cursorAngle);
+            double y = Position.Y + charge * BLINK_DISTANCE * Math.Sin(cursorAngle);
 
             HitDetection = false;
             spellEndTime = Gamefield.Current + 200 * charge;
