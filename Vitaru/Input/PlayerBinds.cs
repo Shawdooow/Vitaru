@@ -22,7 +22,7 @@ namespace Vitaru.Input
             BindSettings.SetValue(VitaruActions.Spell, MouseButtons.Right);
             BindSettings.SetValue(VitaruActions.ModifierOne, Keys.E);
             BindSettings.SetValue(VitaruActions.ModifierTwo, Keys.Q);
-            BindSettings.SetValue(VitaruActions.Pull, Keys.F);
+            BindSettings.SetValue(VitaruActions.ModifierThree, Keys.F);
         }
     }
 
@@ -39,7 +39,6 @@ namespace Vitaru.Input
 
         ModifierOne,
         ModifierTwo,
-
-        Pull
+        ModifierThree,
     }
 }
