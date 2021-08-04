@@ -14,6 +14,7 @@ namespace Vitaru.Wiki.Included
         {
             new About(),
             new Modes(),
+            //new Credits(),
         };
 
         private class About : WikiSection
@@ -52,6 +53,19 @@ namespace Vitaru.Wiki.Included
                     new Description(Features.Experimental.GetDescription()),
                     new Header(Features.Radioactive.ToString()),
                     new Description(Features.Radioactive.GetDescription())
+                }
+            };
+        }
+
+        private class Credits : WikiSection
+        {
+            public override string Name => nameof(Credits);
+
+            public override InputLayer<IDrawable2D> GetSection() => new WikiListLayer
+            {
+                Children = new IDrawable2D[]
+                {
+                    new Description(""),
                 }
             };
         }
