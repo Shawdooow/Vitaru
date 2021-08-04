@@ -251,7 +251,7 @@ namespace Vitaru.Play.Characters.Players
             const int numberbullets = 3;
             float directionModifier = -0.2f;
 
-            float cursorAngle = 0;
+            float cursorAngle = MathF.PI / -2;
 
             if (Binds[VitaruActions.Sneak])
             {
