@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
@@ -82,6 +83,14 @@ namespace Vitaru.Play
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
+        /// <summary>
+        /// A layer for custom players to add stuff to
+        /// </summary>
+        public readonly Layer2D<IDrawable2D> OverlaysLayer = new()
+        {
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
+        };
+
         public readonly GamefieldBorder Border;
 
         private readonly ProjectilePack enemys;
@@ -119,6 +128,7 @@ namespace Vitaru.Play
                 //TODO: Multiplayer
             }
 
+            OverlaysLayer.Clock = TrackManager.CurrentTrack.DrawClock;
             ParticleLayer.Clock = TrackManager.CurrentTrack.DrawClock;
             CharacterLayer.Clock = TrackManager.CurrentTrack.DrawClock;
             BulletLayer.Clock = TrackManager.CurrentTrack.DrawClock;

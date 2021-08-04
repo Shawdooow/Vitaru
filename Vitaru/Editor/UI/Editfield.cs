@@ -50,6 +50,7 @@ namespace Vitaru.Editor.UI
                 LevelStore.SaveCurrentLevel();
             };
 
+            OverlaysLayer.Scale = new Vector2(0.5f);
             ParticleLayer.Scale = new Vector2(0.5f);
             CharacterLayer.Scale = new Vector2(0.5f);
             BulletLayer.Scale = new Vector2(0.5f);

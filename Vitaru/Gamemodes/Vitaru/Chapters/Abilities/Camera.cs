@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -33,30 +34,34 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             {
                 CameraBox = new Box
                 {
-                    Size = Size
+                    Size = Size,
+                    Alpha = 0
                 },
-                new Corner(),
+                new Corner
+                {
+                    ParentOrigin = Mounts.TopLeft
+                },
                 new Corner
                 {
                     ParentOrigin = Mounts.TopRight,
-                    Rotation = 90
+                    Rotation = MathF.PI / 2
                 },
                 new Corner
                 {
                     ParentOrigin = Mounts.BottomRight,
-                    Rotation = 180
+                    Rotation = MathF.PI
                 },
                 new Corner
                 {
                     ParentOrigin = Mounts.BottomLeft,
-                    Rotation = 270
+                    Rotation = MathF.PI / -2
                 },
                 xPos = new Text2D
                 {
                     Position = new Vector2(-8, 8),
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.TopRight,
-                    FontScale = 0.36f,
+                    FontScale = 0.24f,
                     Alpha = 0.75f
                 },
                 yPos = new Text2D
@@ -64,7 +69,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Position = new Vector2(-8),
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
-                    FontScale = 0.36f,
+                    FontScale = 0.24f,
                     Alpha = 0.75f
                 },
                 xSize = new Text2D
@@ -72,7 +77,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Position = new Vector2(8),
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
-                    FontScale = 0.36f,
+                    FontScale = 0.24f,
                     Alpha = 0.75f
                 },
                 ySize = new Text2D
@@ -80,7 +85,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Position = new Vector2(8, -8),
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
-                    FontScale = 0.36f,
+                    FontScale = 0.24f,
                     Alpha = 0.75f
                 },
             };
@@ -90,10 +95,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         {
             base.PreRender();
 
-            xPos.Text = "x: " + (int)CameraBox.DrawTransform.M14;
-            yPos.Text = "y: " + (int)CameraBox.DrawTransform.M24;
-            xSize.Text = "w: " + (int)CameraBox.DrawTransform.M11;
-            ySize.Text = "h: " + (int)CameraBox.DrawTransform.M22;
+            xPos.Text = "x: " + (int)X;
+            yPos.Text = "y: " + (int)Y;
+            xSize.Text = "w: " + (int)Width;
+            ySize.Text = "h: " + (int)Height;
         }
 
         private class Corner : Layer2D<Box>
@@ -107,11 +112,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                 {
                     new Box
                     {
+                        ParentOrigin = Mounts.TopLeft,
+                        Origin = Mounts.TopLeft,
                         Size = new Vector2(width, height),
                         Color = Color.White
                     },
                     new Box
                     {
+                        ParentOrigin = Mounts.TopLeft,
+                        Origin = Mounts.TopLeft,
                         Size = new Vector2(height, width),
                         Color = Color.White
                     }

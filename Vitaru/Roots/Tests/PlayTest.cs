@@ -69,6 +69,7 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.CharacterLayer);
             Add(gamefield.BulletLayer);
             Add(gamefield.Border);
+            Add(gamefield.OverlaysLayer);
 
             Add(enemies = new Text2D
             {

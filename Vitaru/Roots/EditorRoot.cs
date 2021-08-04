@@ -105,6 +105,7 @@ namespace Vitaru.Roots
             Add(editfield.ParticleLayer);
             Add(editfield.CharacterLayer);
             Add(editfield.BulletLayer);
+            Add(editfield.OverlaysLayer);
             Add(editfield.SelectionLayer);
 
             Add(new Toolbar(manager));
