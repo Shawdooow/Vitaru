@@ -134,9 +134,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Ptr = ptr
                 });
 
-                for (int i = 3; i < pixels.Length; i += 4)
-                    pixels[i] = 255;
-
                 Texture texture = Renderer.Context.BufferPixels(pixels, (int)Width, (int)Height, "Screenshot", true);
 
                 if (screenshot == null)
@@ -151,6 +148,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     //Flip Y like a retard!
                     screenshot.Height = -screenshot.Height;
 
+                    overlays.Add(new Box
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterLeft,
+
+                        X = screenshot.X,
+                        Size = screenshot.Size,
+                        Color = Color.Black
+                    });
                     overlays.Add(screenshot);
                 }
                 else
