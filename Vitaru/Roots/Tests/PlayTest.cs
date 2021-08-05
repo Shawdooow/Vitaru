@@ -173,9 +173,9 @@ namespace Vitaru.Roots.Tests
 
                     for (int i = 0; i < count; i++)
                     {
-                        Color c = Background.Texture.Bitmap.GetPixel(
-                            PrionMath.RandomNumber(0, Background.Texture.Bitmap.Width),
-                            PrionMath.RandomNumber(0, Background.Texture.Bitmap.Height));
+                        Color c = Background.Texture.GetPixel(
+                            PrionMath.RandomNumber(0, (int)Background.Texture.Size.X),
+                            PrionMath.RandomNumber(0, (int)Background.Texture.Size.Y));
 
                         bool s = count == 1 && PrionMath.RandomNumber(0, 5) == 2;
 

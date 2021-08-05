@@ -5,6 +5,7 @@ using System.Drawing;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes.Vitaru.Chapters.Abilities;
+using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -45,13 +46,23 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Camera = new Camera());
+            Gamefield.OverlaysLayer.Add(Camera = new Camera(Gamefield.OverlaysLayer));
         }
 
         public override void Update()
         {
             base.Update();
             Camera.Position = InputManager.Mouse.Position;
+        }
+
+        protected override void SpellActivate(VitaruActions action)
+        {
+            base.SpellActivate(action);
+
+            if (action == VitaruActions.Spell)
+            {
+                Camera.QueueScreenshot();
+            }
         }
     }
 }
