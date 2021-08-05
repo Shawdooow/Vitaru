@@ -134,6 +134,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Ptr = ptr
                 });
 
+                for (int i = 3; i < pixels.Length; i += 4)
+                    pixels[i] = 255;
+
                 Texture texture = Renderer.Context.BufferPixels(pixels, (int)Width, (int)Height, "Screenshot", true);
 
                 if (screenshot == null)
