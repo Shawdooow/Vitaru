@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using Prion.Mitochondria.Graphics;
@@ -9,7 +8,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Screenshots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Nucleus.Debug;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
@@ -19,6 +17,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         public Box CameraBox;
         public RectangularHitbox Hitbox;
 
+        public Action<Sprite> OnScreenshot;
+
         private readonly Text2D xPos;
         private readonly Text2D yPos;
 
@@ -27,6 +27,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
         private readonly Layer2D<IDrawable2D> overlays;
 
+        private Sprite screenshot;
+
         private byte[] pixels;
         private bool queued;
 
@@ -34,12 +36,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         {
             this.overlays = overlays;
 
+            Size = new Vector2(200, 120);
+
             Hitbox = new RectangularHitbox
             {
                 Size = Size
             };
-
-            Size = new Vector2(200, 120);
 
             Children = new IDrawable2D[]
             {
@@ -106,6 +108,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         {
             base.PreRender();
 
+            Hitbox.Position = Position;
+
             xPos.Text = "x: " + (int)X;
             yPos.Text = "y: " + (int)Y;
             xSize.Text = "w: " + (int)Width;
@@ -121,8 +125,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
                 Renderer.Screenshot(new ScreenshotParamaters
                 {
-                    X = (int)X,
-                    Y = (int)Y,
+                    X = (int)CameraBox.DrawTransform.M14,
+                    Y = (int)CameraBox.DrawTransform.M24,
 
                     Width = (int)Width,
                     Height = (int)Height,
@@ -132,8 +136,26 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
                 Texture texture = Renderer.Context.BufferPixels(pixels, (int)Width, (int)Height, "Screenshot", true);
 
-                overlays.Add(new Sprite(texture));
+                if (screenshot == null)
+                {
+                    screenshot = new Sprite(texture)
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterLeft,
+                        X = 10f
+                    };
 
+                    //Flip Y like a retard!
+                    screenshot.Height = -screenshot.Height;
+
+                    overlays.Add(screenshot);
+                }
+                else
+                    screenshot.Texture = texture;
+
+                OnScreenshot.Invoke(screenshot);
+
+                pixels = new byte[1];
                 queued = false;
             }
 
