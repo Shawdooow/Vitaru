@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Numerics;
+using System.Runtime.InteropServices;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Mitochondria.Graphics.Screenshots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Nucleus.Debug;
 using Vitaru.Play;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
@@ -20,8 +25,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         private readonly Text2D xSize;
         private readonly Text2D ySize;
 
-        public Camera()
+        private readonly Layer2D<IDrawable2D> overlays;
+
+        private byte[] pixels;
+        private bool queued;
+
+        public Camera(Layer2D<IDrawable2D> overlays)
         {
+            this.overlays = overlays;
+
             Hitbox = new RectangularHitbox
             {
                 Size = Size
@@ -100,6 +112,34 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             ySize.Text = "h: " + (int)Height;
         }
 
+        public override void Render()
+        {
+            if (queued)
+            {
+                GCHandle h = GCHandle.Alloc(pixels, GCHandleType.Pinned);
+                IntPtr ptr = h.AddrOfPinnedObject();
+
+                Renderer.Screenshot(new ScreenshotParamaters
+                {
+                    X = (int)X,
+                    Y = (int)Y,
+
+                    Width = (int)Width,
+                    Height = (int)Height,
+
+                    Ptr = ptr
+                });
+
+                Texture texture = Renderer.Context.BufferPixels(pixels, (int)Width, (int)Height, "Screenshot", true);
+
+                overlays.Add(new Sprite(texture));
+
+                queued = false;
+            }
+
+            base.Render();
+        }
+
         private class Corner : Layer2D<Box>
         {
             private const int height = 5;
@@ -125,6 +165,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     }
                 };
             }
+        }
+
+        public void QueueScreenshot()
+        {
+            if (queued) return;
+
+            pixels = new byte[(int)Width * (int)Height * 4];
+
+            queued = true;
         }
     }
 }
