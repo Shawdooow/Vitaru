@@ -125,8 +125,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
                 Renderer.Screenshot(new ScreenshotParamaters
                 {
-                    X = (int)CameraBox.DrawTransform.M14,
-                    Y = (int)CameraBox.DrawTransform.M24,
+                    X = Renderer.Width / 2 + (int)(Position.X - Size.X / 2),
+                    Y = Renderer.Height / 2 - (int)(Position.Y + Size.Y / 2),
 
                     Width = (int)Width,
                     Height = (int)Height,
