@@ -97,7 +97,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                                     bullet.CircularHitbox.Position.Y >= Camera.Hitbox.Position.Y - border.Y &&
                                     bullet.CircularHitbox.Position.Y <= Camera.Hitbox.Position.Y + border.Y)
                                 {
-                                    Buffs += 0.20f;
+                                    Buffs += 0.2f;
                                     Gamefield.Remove(projectile);
                                     projectile.Collision();
                                     break;
@@ -108,6 +108,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                     }
                 }
 
+                Buffs = MathF.Round(Buffs, 2);
                 Screenshot.ClearTransforms();
                 Screenshot.FadeTo(0, TrackManager.CurrentTrack.Metadata.GetBeatLength() * 16, Easings.InCirc)
                     .OnComplete(() => Buffs = 0);
