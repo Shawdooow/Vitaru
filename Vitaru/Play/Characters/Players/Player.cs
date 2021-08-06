@@ -61,7 +61,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected List<HealingProjectile> HealingProjectiles { get; private set; } = new();
 
-        protected const float HEALING_FALL_OFF = 0.85f;
+        protected const float HEALING_FALL_OFF = 0.5f;
 
         private const float healing_range = 64f;
         private const float healing_min = 0.5f;
