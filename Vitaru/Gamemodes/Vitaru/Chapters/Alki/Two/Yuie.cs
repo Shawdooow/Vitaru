@@ -85,6 +85,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
                 intensity();
+                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -95,6 +96,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
                 intensity();
+                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -114,7 +116,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                 spellEndTime = Clock.LastCurrent - 2000;
 
             intensity();
-            Gamefield.Shade = Shades.Blue;
+            Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
             DrawablePlayer.Sprite.Color = ComplementaryColor;
             DrawablePlayer.HitboxOutline.Color = ComplementaryColor;
             DrawablePlayer.Seal.Reticle.Color = SecondaryColor;
