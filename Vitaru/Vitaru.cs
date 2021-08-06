@@ -110,7 +110,7 @@ namespace Vitaru
             else
             {
                 bool somber = PrionMath.RandomNumber(0, 20) == 2;
-                if (somber)
+                if (false)//somber)
                     ThemeManager.Theme = new Somber();
             }
 
