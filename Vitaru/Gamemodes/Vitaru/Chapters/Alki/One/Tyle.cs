@@ -4,6 +4,9 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Utilities;
 using Prion.Nucleus.Utilities;
@@ -19,7 +22,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public const double CHARGE_TIME = 1000;
 
-        public const double BLINK_DISTANCE = 320;
+        public const float BLINK_DISTANCE = 420;
 
         public override string Name => "Tyle";
 
@@ -45,6 +48,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override bool Implemented => true;
 
+        protected Sprite Landing;
+
         /// <summary>
         /// scale from 0 - 1 on how charged our blink is
         /// </summary>
@@ -61,10 +66,24 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
         }
 
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Gamefield.OverlaysLayer.Add(Landing = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            {
+                Size = new Vector2(100),
+                Alpha = 0,
+                Color = ComplementaryColor
+            });
+        }
+
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
             spellStartTime = Gamefield.Current;
+
+            Landing.ClearTransforms();
+            Landing.FadeTo(1f, 200f, Easings.InCubic);
         }
 
         protected override void SpellUpdate()
@@ -74,6 +93,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (SpellActive)
             {
                 charge = (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1);
+
+                float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
+
+                float dist = Math.Min(charge * BLINK_DISTANCE, Vector2.Distance(Position, InputManager.Mouse.Position));
+                Vector2 blink = Position + PrionMath.Offset(dist, cursorAngle);
+
+                Landing.Position = blink;
 
                 DrainEnergy((float)Clock.LastElapsedTime / 1000 * EnergyDrainRate * charge);
             }
@@ -88,15 +114,14 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             base.SpellDeactivate(action);
 
-            double cursorAngle = Math.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
-            double x = Position.X + charge * BLINK_DISTANCE * Math.Cos(cursorAngle);
-            double y = Position.Y + charge * BLINK_DISTANCE * Math.Sin(cursorAngle);
+            Landing.ClearTransforms();
+            Landing.FadeTo(0, 200f, Easings.InCubic);
 
             HitDetection = false;
             spellEndTime = Gamefield.Current + 200 * charge;
             Drawable.Alpha = 0.25f;
 
-            new Vector2Transform(value => Position = value, Position, new Vector2((float)x, (float)y), this, Gamefield.Current, 200 * charge, Easings.OutSine);
+            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current, 200 * charge, Easings.OutSine);
             new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current, 200 * charge, Easings.InCubic);
 
             charge = 0;
