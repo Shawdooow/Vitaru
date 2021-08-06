@@ -244,15 +244,14 @@ namespace Vitaru.Play.Characters.Players
                 projectile.MinDistance = edgeDistance;
         }
 
-        protected virtual void PatternWave()
+        protected virtual void PatternWave(int count = 3)
         {
             double half = TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
             shootTime = Clock.LastCurrent + half;
 
             DrawablePlayer?.Seal.Shoot(half);
 
-            const int numberbullets = 3;
-            float directionModifier = -0.2f;
+            float directionModifier = -0.2f * MathF.Round(count / 2f, MidpointRounding.ToZero);
 
             float cursorAngle = MathF.PI / -2;
 
@@ -260,10 +259,10 @@ namespace Vitaru.Play.Characters.Players
             {
                 cursorAngle = (float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
                     InputManager.Mouse.Position.X - Position.X);
-                directionModifier = -0.1f;
+                directionModifier = -0.1f * MathF.Round(count / 2f, MidpointRounding.ToZero);
             }
 
-            for (int i = 1; i <= numberbullets; i++)
+            for (int i = 1; i <= count; i++)
             {
                 float size;
                 float damage;

@@ -29,7 +29,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         private readonly Player player;
         private readonly Layer2D<IDrawable2D> overlays;
 
+        private Box box;
         private Sprite screenshot;
+        private Gamefield.GamefieldBorder border;
 
         private byte[] pixels;
         private bool queued;
@@ -117,6 +119,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             yPos.Text = "y: " + (int)Y;
             xSize.Text = "w: " + (int)Width;
             ySize.Text = "h: " + (int)Height;
+
+            if (screenshot != null)
+            {
+                box.Alpha = screenshot.Alpha;
+                border.Alpha = screenshot.Alpha;
+            }
         }
 
         public override void Render()
@@ -151,7 +159,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     //Flip Y like a retard!
                     screenshot.Height = -screenshot.Height;
 
-                    overlays.Add(new Box
+                    overlays.Add(box = new Box
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
@@ -161,7 +169,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         Color = Color.Black
                     });
                     overlays.Add(screenshot);
-                    overlays.Add(new Gamefield.GamefieldBorder(screenshot.Size)
+                    overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
@@ -173,6 +181,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                 else
                     screenshot.Texture = texture;
 
+                screenshot.Alpha = 1;
                 OnScreenshot.Invoke(screenshot);
 
                 pixels = new byte[1];
