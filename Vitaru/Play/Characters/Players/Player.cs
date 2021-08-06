@@ -48,11 +48,11 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual string[] AbilityStats => null;
 
-        public virtual Role Role { get; } = Role.Offense;
+        public virtual Role Role => Role.Offense;
 
-        public virtual Difficulty Difficulty { get; } = Difficulty.Easy;
+        public virtual Difficulty Difficulty => Difficulty.Easy;
 
-        public virtual bool Implemented { get; } = false;
+        public virtual bool Implemented => false;
 
         public virtual string Background => "Default Background Text   C:<";
 
@@ -97,7 +97,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected Player(Gamefield gamefield) : base(gamefield)
         {
-            GOD_KING = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
+            GOD_KING = Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
 
             Position = new Vector2(0, 200);
             Team = PLAYER_TEAM;
