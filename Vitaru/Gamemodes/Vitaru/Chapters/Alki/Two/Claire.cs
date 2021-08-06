@@ -52,7 +52,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Camera = new Camera(Gamefield.OverlaysLayer)
+            Gamefield.OverlaysLayer.Add(Camera = new Camera(this, Gamefield.OverlaysLayer)
             {
                 OnScreenshot = screenshot => Screenshot = screenshot
             });

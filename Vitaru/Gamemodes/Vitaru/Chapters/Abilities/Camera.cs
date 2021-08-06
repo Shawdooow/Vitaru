@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Screenshots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 {
@@ -25,6 +26,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         private readonly Text2D xSize;
         private readonly Text2D ySize;
 
+        private readonly Player player;
         private readonly Layer2D<IDrawable2D> overlays;
 
         private Sprite screenshot;
@@ -32,8 +34,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
         private byte[] pixels;
         private bool queued;
 
-        public Camera(Layer2D<IDrawable2D> overlays)
+        public Camera(Player player, Layer2D<IDrawable2D> overlays)
         {
+            this.player = player;
             this.overlays = overlays;
 
             Size = new Vector2(200, 120);
@@ -158,6 +161,14 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         Color = Color.Black
                     });
                     overlays.Add(screenshot);
+                    overlays.Add(new Gamefield.GamefieldBorder(screenshot.Size)
+                    {
+                        ParentOrigin = Mounts.CenterRight,
+                        Origin = Mounts.CenterLeft,
+
+                        X = screenshot.X,
+                        Color = player.SecondaryColor
+                    });
                 }
                 else
                     screenshot.Texture = texture;

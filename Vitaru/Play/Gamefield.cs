@@ -451,6 +451,8 @@ namespace Vitaru.Play
         {
             public GamefieldBorder(Vector2 size)
             {
+                Size = size;
+
                 const int w = 2;
                 Children = new[]
                 {
