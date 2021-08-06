@@ -26,7 +26,7 @@ namespace Vitaru.Roots
 
         private Text2D title;
         private ListLayer<SectionButton> sections;
-        private Layer2D<IDrawable2D> content;
+        private CachedLayer<IDrawable2D> content;
 
         private VitaruTrackController controller;
 
@@ -62,7 +62,7 @@ namespace Vitaru.Roots
                         Size = new Vector2(WIDTH, 40),
                         Direction = Direction.Horizontal
                     },
-                    content = new Layer2D<IDrawable2D>
+                    content = new CachedLayer<IDrawable2D>
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
