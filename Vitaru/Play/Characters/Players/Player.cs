@@ -297,6 +297,18 @@ namespace Vitaru.Play.Characters.Players
             LastDamageTime = Gamefield.Current;
         }
 
+        protected override void Die()
+        {
+            base.Die();
+            DrawablePlayer.Hitbox.Color = Color.Red;
+        }
+
+        protected override void Rezzurect()
+        {
+            base.Rezzurect();
+            DrawablePlayer.Hitbox.Color = Color.White;
+        }
+
         protected virtual void Charge(float amount) => Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
 
         protected virtual void DrainEnergy(float amount) => Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
