@@ -30,6 +30,8 @@ namespace Vitaru.Play.Characters.Players
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
+        public double LastDamageTime { get; protected set; }
+
         public virtual float EnergyCapacity => 20f;
 
         public virtual float Energy { get; private set; }
@@ -130,21 +132,22 @@ namespace Vitaru.Play.Characters.Players
 
         protected virtual void OnQuarterBeat()
         {
+            double beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
             lastQuarterBeat = nextQuarterBeat;
-            nextQuarterBeat += TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
+            nextQuarterBeat += beat / 4;
 
             if (HealingProjectiles.Count > 0)
             {
-                float fallOff = 1;
-
-                for (int i = 0; i < HealingProjectiles.Count - 1; i++)
-                    fallOff *= HEALING_FALL_OFF;
-
-                foreach (HealingProjectile healingBullet in HealingProjectiles)
+                if (Gamefield.Current > LastDamageTime + beat * 4)
                 {
-                    Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
-                }
+                    float fallOff = 1;
 
+                    for (int i = 0; i < HealingProjectiles.Count - 1; i++)
+                        fallOff *= HEALING_FALL_OFF;
+
+                    foreach (HealingProjectile healingBullet in HealingProjectiles)
+                        Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
+                }
                 HealingProjectiles = new List<HealingProjectile>();
                 HealingMultiplier = 1;
             }
@@ -289,7 +292,11 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
-        protected override void TakeDamage(float amount) => base.TakeDamage(GOD_KING ? 0 : amount);
+        protected override void TakeDamage(float amount) 
+        {
+            base.TakeDamage(GOD_KING ? 0 : amount);
+            LastDamageTime = Gamefield.Current;
+        }
 
         protected virtual void Charge(float amount) => Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
 
