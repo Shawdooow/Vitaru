@@ -52,12 +52,7 @@ namespace Vitaru
 
         private static readonly Benchmark startup = new("Startup");
 
-        private const string host =
-#if true
-            "VitaruDebug";
-#else
-            "Vitaru";
-#endif
+        private const string host = "Vitaru";
 
         /// <summary>
         ///     StartupObject EntryPoint
