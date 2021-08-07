@@ -62,7 +62,6 @@ namespace Vitaru
         {
             startup.Start();
 
-
             #region Startup
 
             //Do Launch args stuff first incase someone wants STATIC READONLYS!!!!
