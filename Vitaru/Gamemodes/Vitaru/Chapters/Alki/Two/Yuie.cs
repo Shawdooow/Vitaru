@@ -81,7 +81,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (action == VitaruActions.ModifierOne)
             {
                 SetRate = Math.Min(
-                    Binds[VitaruActions.Sneak]
+                    GetBind(VitaruActions.Sneak)
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
                 intensity();
@@ -92,7 +92,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (action == VitaruActions.ModifierTwo)
             {
                 SetRate = Math.Max(
-                    Binds[VitaruActions.Sneak]
+                    GetBind(VitaruActions.Sneak)
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
                 intensity();

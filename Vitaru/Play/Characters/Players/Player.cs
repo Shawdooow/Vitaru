@@ -3,12 +3,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
@@ -56,7 +59,19 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual string Background => "Default Background Text   C:<";
 
-        public PlayerBinds Binds { get; set; }
+        public bool GetBind(VitaruActions action) => AI ? AIBinds[action] : PlayerBinds[action];
+
+        public bool GetLastBind(VitaruActions action) => AI ? AILastBinds[action] : PlayerBinds.Last(action);
+
+        protected PlayerBinds PlayerBinds { get; set; }
+
+        protected Dictionary<VitaruActions, bool> AIBinds;
+
+        protected Dictionary<VitaruActions, bool> AILastBinds;
+
+        public virtual bool AI => false;
+
+        protected Sprite Safe;
 
         //Is reset after healing applied
         public float HealingMultiplier = 1;
@@ -103,13 +118,30 @@ namespace Vitaru.Play.Characters.Players
             Team = PLAYER_TEAM;
             CircularHitbox.Diameter = 6;
 
-            if (gamefield != null) Binds = new PlayerBinds();
+            if (AI)
+            {
+                AIBinds = new Dictionary<VitaruActions, bool>();
+                AILastBinds = new Dictionary<VitaruActions, bool>();
+                foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
+                {
+                    AIBinds[v] = false;
+                    AILastBinds[v] = false;
+                }
+            }
+            else if (gamefield != null) PlayerBinds = new PlayerBinds();
         }
 
         public override void LoadingComplete()
         {
             base.LoadingComplete();
             Energy = EnergyCapacity / 2f;
+
+            if (AI)
+                Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+                {
+                    Size = new Vector2(100),
+                    Color = ComplementaryColor
+                });
         }
 
 
@@ -160,11 +192,13 @@ namespace Vitaru.Play.Characters.Players
         {
             base.Update();
 
-            foreach (VitaruActions v in (VitaruActions[]) Enum.GetValues(typeof(VitaruActions)))
+            if (AI) Bot();
+
+            foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
             {
-                if (Binds[v] && !Binds.Last(v))
+                if (GetBind(v) && !GetLastBind(v))
                     Pressed(v);
-                else if (!Binds[v] && Binds.Last(v))
+                else if (!GetBind(v) && GetLastBind(v))
                     Released(v);
             }
 
@@ -177,7 +211,7 @@ namespace Vitaru.Play.Characters.Players
             if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
                 OnQuarterBeat();
 
-            if (Binds[VitaruActions.Shoot] && Clock.LastCurrent >= shootTime)
+            if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
             if (HealingProjectiles.Count > 0)
@@ -255,7 +289,7 @@ namespace Vitaru.Play.Characters.Players
 
             float cursorAngle = MathF.PI / -2;
 
-            if (Binds[VitaruActions.Sneak])
+            if (GetBind(VitaruActions.Sneak))
             {
                 cursorAngle = (float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
                     InputManager.Mouse.Position.X - Position.X);
@@ -284,7 +318,7 @@ namespace Vitaru.Play.Characters.Players
                 //-90 = up
                 BulletAddRad(1, cursorAngle + directionModifier, color, size, damage, 800);
 
-                if (Binds[VitaruActions.Sneak])
+                if (GetBind(VitaruActions.Sneak))
                     directionModifier += 0.1f;
                 else
                     directionModifier += 0.2f;
@@ -317,6 +351,7 @@ namespace Vitaru.Play.Characters.Players
 
         public void Pressed(VitaruActions t)
         {
+
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
@@ -357,25 +392,189 @@ namespace Vitaru.Play.Characters.Players
             double yTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
             double xTranslationDistance = playerSpeed * Clock.LastElapsedTime * MovementSpeedMultiplier;
 
-            if (Binds[VitaruActions.Sneak])
+            if (GetBind(VitaruActions.Sneak))
             {
                 xTranslationDistance /= 2d;
                 yTranslationDistance /= 2d;
             }
 
-            if (Binds[VitaruActions.Up])
+            if (GetBind(VitaruActions.Up))
                 playerPosition.Y -= (float) yTranslationDistance;
-            if (Binds[VitaruActions.Down])
+            if (GetBind(VitaruActions.Down))
                 playerPosition.Y += (float) yTranslationDistance;
 
-            if (Binds[VitaruActions.Left])
+            if (GetBind(VitaruActions.Left))
                 playerPosition.X -= (float) xTranslationDistance;
-            if (Binds[VitaruActions.Right])
+            if (GetBind(VitaruActions.Right))
                 playerPosition.X += (float) xTranslationDistance;
 
             playerPosition = Vector2.Clamp(playerPosition, -border, border);
 
             return playerPosition;
+        }
+
+        protected virtual void Bot()
+        {
+            foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
+                AILastBinds[v] = AIBinds[v];
+
+
+                //Reset movement binds before we pick a new direction
+            AIBinds[VitaruActions.Up] = false;
+            AIBinds[VitaruActions.Down] = false;
+            AIBinds[VitaruActions.Left] = false;
+            AIBinds[VitaruActions.Right] = false;
+
+            switch (safestDirection())
+            {
+                case Mounts.TopLeft:
+                    AIBinds[VitaruActions.Up] = true;
+                    AIBinds[VitaruActions.Left] = true;
+                    Safe.Position = new Vector2(-minimums) + Position;
+                    break;
+                case Mounts.TopCenter:
+                    AIBinds[VitaruActions.Up] = true;
+                    Safe.Position = new Vector2(0, -minimums) + Position;
+                    break;
+                case Mounts.TopRight:
+                    AIBinds[VitaruActions.Up] = true;
+                    AIBinds[VitaruActions.Right] = true;
+                    Safe.Position = new Vector2(minimums, -minimums) + Position;
+                    break;
+                case Mounts.CenterLeft:
+                    AIBinds[VitaruActions.Left] = true;
+                    Safe.Position = new Vector2(-minimums, 0) + Position;
+                    break;
+                case Mounts.Center:
+                    //do nothing
+                    Safe.Position = Position;
+                    break;
+                case Mounts.CenterRight:
+                    AIBinds[VitaruActions.Right] = true;
+                    Safe.Position = new Vector2(minimums, 0) + Position;
+                    break;
+                case Mounts.BottomLeft:
+                    AIBinds[VitaruActions.Down] = true;
+                    AIBinds[VitaruActions.Left] = true;
+                    Safe.Position = new Vector2(-minimums, minimums) + Position;
+                    break;
+                case Mounts.BottomCenter:
+                    AIBinds[VitaruActions.Down] = true;
+                    Safe.Position = new Vector2(0, minimums) + Position;
+                    break;
+                case Mounts.BottomRight:
+                    AIBinds[VitaruActions.Down] = true;
+                    AIBinds[VitaruActions.Right] = true;
+                    Safe.Position = new Vector2(minimums, minimums) + Position;
+                    break;
+            }
+        }
+
+        //dist
+        private const int minimums = 240;
+        //ms
+        private const double foresight = 10;
+
+        //Degrees so I don't kill myself
+        private const float fov = 45;
+        private const float steps = 45;
+
+        private Mounts safestDirection()
+        {
+            List<KeyValuePair<Projectile, HitResults>> nearby = new();
+
+            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+            {
+                if (pack.Team == Team) continue;
+
+                IReadOnlyList<Projectile> projectiles = pack.Children;
+                for (int i = 0; i < projectiles.Count; i++)
+                {
+                    Projectile projectile = projectiles[i];
+
+                    if (!projectile.Active)
+                        continue;
+
+                    HitResults results;
+
+                    switch (projectile)
+                    {
+                        default:
+                            continue;
+                        case Bullet b:
+                            CircularHitbox hitbox = b.CircularHitbox;
+
+                            //We don't actually give a shit where the bullets are now, we want to know where they will be
+                            Vector2 f = b.GetPosition(Gamefield.Current + foresight);
+                            hitbox.Position = f;
+
+                            results = Hitbox.HitDetectionResults(hitbox);
+                            results.Position = f;
+
+                            //if they will be "close" then lets take them into account
+                            if (results.EdgeDistance <= minimums)
+                                nearby.Add(new KeyValuePair<Projectile, HitResults>(projectile, results));
+                            break;
+                    }
+                }
+            }
+
+            //If nothing will be nearby then we are safe, don't move!
+            if (!nearby.Any()) return Mounts.Center;
+
+            //Next lets find somewhere we can go safely
+            float[] angles = new float[nearby.Count];
+            for (int i = 0; i < nearby.Count; i++)
+            {
+                Vector2 pos = nearby[i].Value.Position;
+                float angle = MathF.Atan2(pos.Y - Position.Y, pos.X - Position.X) + Drawable.Rotation;
+                angles[i] = angle.ToDegrees();
+            }
+
+            int[] density = new int[(int)(360 / steps)];
+
+            //Calculate approximate density around us
+            for (float i = 0; i < 360; i += steps)
+            {
+                for (int j = 0; j < angles.Length; j++)
+                {
+                    if (angles[j] >= i - fov / 2 && angles[j] <= i + fov / 2)
+                        density[(int)(i / steps)]++;
+                }
+            }
+
+            KeyValuePair<int, int> lowest = new(int.MaxValue, int.MaxValue);
+
+            //Finally pick the least dense direction
+            for (int i = 0; i < density.Length; i++)
+            {
+                if (density[i] < lowest.Value)
+                    lowest = new KeyValuePair<int, int>(i, density[i]);
+            }
+
+            switch (lowest.Key * steps)
+            {
+                default:
+                    return Mounts.Center;
+                case 0:
+                    return Mounts.TopCenter;
+                case 1:
+                    return Mounts.TopRight;
+                case 2:
+                    return Mounts.CenterRight;
+                case 3:
+                    return Mounts.BottomRight;
+                case 4:
+                    return Mounts.BottomCenter;
+                case 5:
+                    return Mounts.BottomLeft;
+                case 6:
+                    return Mounts.CenterLeft;
+                case 7:
+                    return Mounts.TopLeft;
+                case 8:
+                    return Mounts.TopCenter;
+            }
         }
 
         #endregion
@@ -438,7 +637,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected override void Dispose(bool finalize)
         {
-            Binds?.Dispose();
+            PlayerBinds?.Dispose();
             base.Dispose(finalize);
         }
 
@@ -473,15 +672,7 @@ namespace Vitaru.Play.Characters.Players
         Normal,
         Hard,
         Insane,
-        Another,
-        Extra,
-
-        //Crazy Town
-        [Description("Time Freeze")] TimeFreeze,
-        [Description("Arcanum Barrier")] ArcanumBarrier,
-
-        //No
-        [Description("Centipede")] Centipede,
-        [Description("Serious")] SeriousShit
+        Extreme,
+        Impossible,
     }
 }

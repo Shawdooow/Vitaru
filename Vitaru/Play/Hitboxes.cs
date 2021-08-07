@@ -47,6 +47,8 @@ namespace Vitaru.Play
 
     public struct HitResults
     {
+        public Vector2 Position;
+
         public float Distance;
 
         public float EdgeDistance;
@@ -63,7 +65,7 @@ namespace Vitaru.Play
             return false;
         }
 
-        public static HitResults? HitDetectionResults(this CircularHitbox a, CircularHitbox b)
+        public static HitResults HitDetectionResults(this CircularHitbox a, CircularHitbox b)
         {
             float distance = Vector2.Distance(b.Position, a.Position);
             return new HitResults

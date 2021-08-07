@@ -96,7 +96,7 @@ namespace Vitaru.Play.Characters.Players
 
         public void Update()
         {
-            float speed = player.Binds[VitaruActions.Sneak] ? 1500 : 1000;
+            float speed = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
 
             if (!player.SpellActive)
                 Sign.Rotation += (float) (player.Clock.LastElapsedTime / speed);
@@ -116,7 +116,7 @@ namespace Vitaru.Play.Characters.Players
 
         public void Shoot(double flash)
         {
-            if (player.Binds[VitaruActions.Sneak])
+            if (player.GetBind(VitaruActions.Sneak))
             {
                 Reticle.Alpha = 1f;
                 Reticle.FadeTo(Sign.Alpha, flash, Easings.OutCubic);

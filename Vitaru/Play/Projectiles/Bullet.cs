@@ -128,7 +128,7 @@ namespace Vitaru.Play.Projectiles
             BulletLayer.bSize[Drawable] = new Vector2(CircularHitbox.Diameter);
         }
 
-        protected virtual Vector2 GetPosition(double time)
+        public virtual Vector2 GetPosition(double time)
         {
             double scale = Math.Clamp(PrionMath.Remap(time, StartTime, EndTime), 0, 1);
             float t = (float)Easing.ApplyEasing(SpeedEasing, scale);

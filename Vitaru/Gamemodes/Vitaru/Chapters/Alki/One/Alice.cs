@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
+using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
@@ -15,11 +16,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Name => "Alice";
 
-        public override float HealthCapacity => 20;
+        public override float HealthCapacity => 420;
 
-        //public override float EnergyCapacity => 24;
+        public override float EnergyCapacity => 69;
 
-        //public override float EnergyCost => 16;
+        public override float EnergyCost => 1;
 
         public override Color PrimaryColor => "#fc0330".HexToColor();
 
@@ -31,7 +32,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Role Role => Role.Specialized;
 
-        public override Difficulty Difficulty => Difficulty.SeriousShit;
+        public override Difficulty Difficulty => Difficulty.Impossible;
+
+        public override bool AI => global::Vitaru.Vitaru.FEATURES >= Features.Radioactive;
 
         #endregion
 
@@ -39,16 +42,18 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
         }
 
-        protected override void SpellUpdate()
-        {
-            base.SpellUpdate();
-        }
-
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
 
             Gamefield.Shade = Shades.Gray;
+        }
+
+        protected override void SpellDeactivate(VitaruActions action)
+        {
+            base.SpellDeactivate(action);
+
+            Gamefield.Shade = Shades.None;
         }
     }
 }
