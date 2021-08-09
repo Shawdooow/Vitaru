@@ -423,8 +423,7 @@ namespace Vitaru.Play.Characters.Players
             foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
                 AILastBinds[v] = AIBinds[v];
 
-
-                //Reset movement binds before we pick a new direction
+            //Reset movement binds before we pick a new direction
             AIBinds[VitaruActions.Sneak] = false;
             AIBinds[VitaruActions.Up] = false;
             AIBinds[VitaruActions.Down] = false;
