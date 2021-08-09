@@ -592,7 +592,7 @@ namespace Vitaru.Play.Characters.Players
             Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
 
             int y = h();
-            switch (h())
+            switch (w())
             {
                 default:
                     return Mounts.Center;
@@ -622,18 +622,18 @@ namespace Vitaru.Play.Characters.Players
             int w()
             {
                 if (Position.X < size.X / -2 + margin)
-                    return 1;
+                    return 1; //right
                 if (Position.X > size.X / 2 - margin)
-                    return -1;
+                    return -1; //left
                 return 0;
             }
 
             int h()
             {
-                if (Position.Y < size.Y / -2 + margin)
-                    return 1;
+                if (Position.Y < 0 + margin)
+                    return 1; //down
                 if (Position.Y > size.Y / 2 - margin)
-                    return -1;
+                    return -1; //up
                 return 0;
             }
         }
