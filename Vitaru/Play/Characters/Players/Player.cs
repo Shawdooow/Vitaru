@@ -425,7 +425,12 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
-            switch (safestDirection())
+            Mounts direction = safestDirection();
+
+            if (direction == Mounts.Center)
+                direction = idleDirection();
+
+            switch (direction)
             {
                 case Mounts.TopLeft:
                     AIBinds[VitaruActions.Up] = true;
@@ -577,6 +582,59 @@ namespace Vitaru.Play.Characters.Players
                     return Mounts.CenterLeft;
                 case 7:
                     return Mounts.TopLeft;
+            }
+        }
+
+        private const float margin = 100;
+
+        private Mounts idleDirection()
+        {
+            Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+
+            int y = h();
+            switch (h())
+            {
+                default:
+                    return Mounts.Center;
+
+                case -1 when y == -1:
+                    return Mounts.TopLeft;
+                case -1 when y == 0:
+                    return Mounts.CenterLeft;
+                case -1 when y == 1:
+                    return Mounts.BottomLeft;
+
+                case 0 when y == -1:
+                    return Mounts.TopCenter;
+                case 0 when y == 0:
+                    return Mounts.Center;
+                case 0 when y == 1:
+                    return Mounts.BottomCenter;
+
+                case 1 when y == -1:
+                    return Mounts.TopRight;
+                case 1 when y == 0:
+                    return Mounts.CenterRight;
+                case 1 when y == 1:
+                    return Mounts.BottomRight;
+            }
+
+            int w()
+            {
+                if (Position.X < size.X / 2 + margin)
+                    return 1;
+                if (Position.X > size.X / 2 - margin)
+                    return -1;
+                return 0;
+            }
+
+            int h()
+            {
+                if (Position.Y < size.Y / 2 + margin)
+                    return 1;
+                if (Position.Y > size.Y / 2 - margin)
+                    return -1;
+                return 0;
             }
         }
 
