@@ -413,6 +413,11 @@ namespace Vitaru.Play.Characters.Players
             return playerPosition;
         }
 
+        //dist
+        private const int minimums = 120;
+        //ms
+        private const double foresight = 10;
+
         protected virtual void Bot()
         {
             foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
@@ -420,12 +425,58 @@ namespace Vitaru.Play.Characters.Players
 
 
                 //Reset movement binds before we pick a new direction
+            AIBinds[VitaruActions.Sneak] = false;
             AIBinds[VitaruActions.Up] = false;
             AIBinds[VitaruActions.Down] = false;
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
-            Mounts direction = safestDirection();
+            List<KeyValuePair<Projectile, HitResults>> n = new();
+
+            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+            {
+                if (pack.Team == Team) continue;
+
+                IReadOnlyList<Projectile> projectiles = pack.Children;
+                for (int i = 0; i < projectiles.Count; i++)
+                {
+                    Projectile projectile = projectiles[i];
+
+                    if (!projectile.Active)
+                        continue;
+
+                    HitResults results;
+
+                    switch (projectile)
+                    {
+                        default:
+                            continue;
+                        case Bullet b:
+                            CircularHitbox hitbox = b.CircularHitbox;
+
+                            //We don't actually give a shit where the bullets are now, we want to know where they will be
+                            Vector2 f = b.GetPosition(Gamefield.Current + foresight);
+                            hitbox.Position = f;
+
+                            results = Hitbox.HitDetectionResults(hitbox);
+                            results.Position = f;
+
+                            //if they will be "close" then lets take them into account
+                            if (results.EdgeDistance <= minimums)
+                                n.Add(new KeyValuePair<Projectile, HitResults>(projectile, results));
+                            break;
+                    }
+                }
+            }
+
+            //If nothing is nearby or things are very close SNEAK!
+            if (!n.Any()) AIBinds[VitaruActions.Sneak] = true;
+
+            foreach (KeyValuePair<Projectile, HitResults> p in n)
+                if (p.Value.EdgeDistance <= minimums / 2f)
+                    AIBinds[VitaruActions.Sneak] = true;
+
+            Mounts direction = safestDirection(n);
 
             if (direction == Mounts.Center)
                 direction = idleDirection();
@@ -475,55 +526,12 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
-        //dist
-        private const int minimums = 60;
-        //ms
-        private const double foresight = 10;
-
         //Degrees so I don't kill myself
         private const float fov = 45;
         private const float steps = 45;
 
-        private Mounts safestDirection()
+        private Mounts safestDirection(List<KeyValuePair<Projectile, HitResults>> nearby)
         {
-            List<KeyValuePair<Projectile, HitResults>> nearby = new();
-
-            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
-            {
-                if (pack.Team == Team) continue;
-
-                IReadOnlyList<Projectile> projectiles = pack.Children;
-                for (int i = 0; i < projectiles.Count; i++)
-                {
-                    Projectile projectile = projectiles[i];
-
-                    if (!projectile.Active)
-                        continue;
-
-                    HitResults results;
-
-                    switch (projectile)
-                    {
-                        default:
-                            continue;
-                        case Bullet b:
-                            CircularHitbox hitbox = b.CircularHitbox;
-
-                            //We don't actually give a shit where the bullets are now, we want to know where they will be
-                            Vector2 f = b.GetPosition(Gamefield.Current + foresight);
-                            hitbox.Position = f;
-
-                            results = Hitbox.HitDetectionResults(hitbox);
-                            results.Position = f;
-
-                            //if they will be "close" then lets take them into account
-                            if (results.EdgeDistance <= minimums)
-                                nearby.Add(new KeyValuePair<Projectile, HitResults>(projectile, results));
-                            break;
-                    }
-                }
-            }
-
             //If nothing will be nearby then we are safe, don't move!
             if (!nearby.Any()) return Mounts.Center;
 
@@ -533,7 +541,7 @@ namespace Vitaru.Play.Characters.Players
             {
                 Vector2 pos = nearby[i].Value.Position;
                 float radian = MathF.Atan2(pos.Y - Position.Y, pos.X - Position.X) + Drawable.Rotation;
-                float degree = radian.ToDegrees();
+                float degree = radian.ToDegrees() + 90;
 
                 degree = degree % 360;
                 if (degree < 0) degree += 360;
@@ -548,7 +556,12 @@ namespace Vitaru.Play.Characters.Players
             {
                 for (int j = 0; j < angles.Length; j++)
                 {
-                    if (angles[j] >= i - fov / 2 && angles[j] <= i + fov / 2)
+                    float low = i - fov / 2;
+                    float high = i + fov / 2;
+
+                    if (low < 0) low += 360;
+
+                    if (angles[j] >= low && angles[j] <= high)
                         density[(int)(i / steps)]++;
                 }
             }
@@ -558,7 +571,7 @@ namespace Vitaru.Play.Characters.Players
             //Finally pick the least dense direction
             for (int i = 0; i < density.Length; i++)
             {
-                if (density[i] < lowest.Value)
+                if (density[i] <= lowest.Value)
                     lowest = new KeyValuePair<int, int>(i, density[i]);
             }
 
