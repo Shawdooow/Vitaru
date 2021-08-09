@@ -527,14 +527,19 @@ namespace Vitaru.Play.Characters.Players
             for (int i = 0; i < nearby.Count; i++)
             {
                 Vector2 pos = nearby[i].Value.Position;
-                float angle = MathF.Atan2(pos.Y - Position.Y, pos.X - Position.X) + Drawable.Rotation;
-                angles[i] = angle.ToDegrees();
+                float radian = MathF.Atan2(pos.Y - Position.Y, pos.X - Position.X) + Drawable.Rotation;
+                float degree = radian.ToDegrees();
+
+                degree = degree % 360;
+                if (degree < 0) degree += 360;
+
+                angles[i] = degree;
             }
 
-            int[] density = new int[(int)(360 / steps)];
+            int[] density = new int[(int)((360 - steps) / steps)];
 
             //Calculate approximate density around us
-            for (float i = 0; i < 360; i += steps)
+            for (float i = 0; i < 360 - steps; i += steps)
             {
                 for (int j = 0; j < angles.Length; j++)
                 {
@@ -552,7 +557,7 @@ namespace Vitaru.Play.Characters.Players
                     lowest = new KeyValuePair<int, int>(i, density[i]);
             }
 
-            switch (lowest.Key * steps)
+            switch (lowest.Key)
             {
                 default:
                     return Mounts.Center;
@@ -572,8 +577,6 @@ namespace Vitaru.Play.Characters.Players
                     return Mounts.CenterLeft;
                 case 7:
                     return Mounts.TopLeft;
-                case 8:
-                    return Mounts.TopCenter;
             }
         }
 
