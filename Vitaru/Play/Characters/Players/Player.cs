@@ -621,7 +621,7 @@ namespace Vitaru.Play.Characters.Players
 
             int w()
             {
-                if (Position.X < size.X / 2 + margin)
+                if (Position.X < size.X / -2 + margin)
                     return 1;
                 if (Position.X > size.X / 2 - margin)
                     return -1;
@@ -630,7 +630,7 @@ namespace Vitaru.Play.Characters.Players
 
             int h()
             {
-                if (Position.Y < size.Y / 2 + margin)
+                if (Position.Y < size.Y / -2 + margin)
                     return 1;
                 if (Position.Y > size.Y / 2 - margin)
                     return -1;
