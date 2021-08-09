@@ -34,7 +34,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Difficulty Difficulty => Difficulty.Impossible;
 
-        public override bool AI => global::Vitaru.Vitaru.FEATURES >= Features.Radioactive;
+        public override bool AI => true;
 
         #endregion
 
