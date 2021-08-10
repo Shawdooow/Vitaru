@@ -15,7 +15,7 @@ using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Roots.Menu
 {
-    public class CharacterSelect : InputLayer<IDrawable2D>
+    public class CharacterSelect : HoverableLayer<IDrawable2D>
     {
         private const float width = 320;
         private const float height = 640;
@@ -51,6 +51,22 @@ namespace Vitaru.Roots.Menu
             }
 
             select(items.Children[0]);
+        }
+
+        public override void OnHovered()
+        {
+            base.OnHovered();
+
+            if (Renderer.CurrentRoot.Cursor != null)
+                Renderer.CurrentRoot.Cursor.Hover(Color.GreenYellow);
+        }
+
+        public override void OnHoverLost()
+        {
+            base.OnHoverLost();
+
+            if (Renderer.CurrentRoot.Cursor != null)
+                Renderer.CurrentRoot.Cursor.HoverLost();
         }
 
         private void select(SelectableCharacter item)
