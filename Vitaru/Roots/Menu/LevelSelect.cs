@@ -170,12 +170,18 @@ namespace Vitaru.Roots.Menu
             {
                 base.OnHovered();
                 background.FadeTo(1, 200);
+
+                if (Renderer.CurrentRoot.Cursor != null)
+                    Renderer.CurrentRoot.Cursor.Hover(Color.GreenYellow);
             }
 
             public override void OnHoverLost()
             {
                 base.OnHoverLost();
                 background.FadeTo(0.4f, 200);
+
+                if (Renderer.CurrentRoot.Cursor != null)
+                    Renderer.CurrentRoot.Cursor.HoverLost();
             }
 
             public void Select()

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Themes;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
@@ -19,7 +20,7 @@ using Vitaru.Editor.Editables.Properties.Time;
 
 namespace Vitaru.Editor.UI
 {
-    public class EditableProperties : InputLayer<IDrawable2D>
+    public class EditableProperties : HoverableLayer<IDrawable2D>
     {
         private const float width = 160;
         private const float height = 400;
@@ -291,6 +292,22 @@ namespace Vitaru.Editor.UI
             };
 
             base.LoadingComplete();
+        }
+
+        public override void OnHovered()
+        {
+            base.OnHovered();
+
+            if (Renderer.CurrentRoot.Cursor != null)
+                Renderer.CurrentRoot.Cursor.Hover(Color.GreenYellow);
+        }
+
+        public override void OnHoverLost()
+        {
+            base.OnHoverLost();
+
+            if (Renderer.CurrentRoot.Cursor != null)
+                Renderer.CurrentRoot.Cursor.HoverLost();
         }
 
         public void Selected(IEditable editable)
