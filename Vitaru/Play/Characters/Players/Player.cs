@@ -414,7 +414,7 @@ namespace Vitaru.Play.Characters.Players
         }
 
         //dist
-        private const int minimums = 120;
+        private const int minimums = 32;
         //ms
         private const double foresight = 10;
 
