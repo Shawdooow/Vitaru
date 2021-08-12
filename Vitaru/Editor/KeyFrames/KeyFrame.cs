@@ -1,4 +1,5 @@
-﻿using Prion.Nucleus.Utilities;
+﻿using System.Collections.Generic;
+using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Editor.KeyFrames
