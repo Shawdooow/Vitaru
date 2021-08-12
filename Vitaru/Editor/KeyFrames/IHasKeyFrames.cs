@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Vitaru.Editor.Editables.Properties.Time;
+﻿using Vitaru.Editor.Editables.Properties.Time;
 
 namespace Vitaru.Editor.KeyFrames
 {
