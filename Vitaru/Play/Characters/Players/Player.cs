@@ -202,7 +202,7 @@ namespace Vitaru.Play.Characters.Players
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
-            if (HealingProjectiles.Count > 0)
+            if (HealingProjectiles.Count > 0 && Gamefield.Current > LastDamageTime + beat * 2)
             {
                 float fallOff = 1;
 
@@ -215,12 +215,11 @@ namespace Vitaru.Play.Characters.Players
 
                 fallOff = 1;
 
-                if (Gamefield.Current > LastDamageTime + beat * 2)
-                    foreach (HealingProjectile healingBullet in HealingProjectiles)
-                    {
-                        Charge((float)Clock.LastElapsedTime / 1000 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
-                        fallOff *= HEALING_FALL_OFF;
-                    }
+                foreach (HealingProjectile healingBullet in HealingProjectiles)
+                {
+                    Charge((float)Clock.LastElapsedTime / 1000 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                    fallOff *= HEALING_FALL_OFF;
+                }
             }
 
             DrawablePlayer?.Seal.Update();
