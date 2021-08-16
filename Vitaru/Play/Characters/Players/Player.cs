@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
+using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
@@ -67,6 +68,11 @@ namespace Vitaru.Play.Characters.Players
         protected Dictionary<VitaruActions, bool> AILastBinds;
 
         public virtual bool AI => false;
+
+        private const int gridDivisorWidth = 160;
+        private const int gridDivisorHeight = 90;
+
+        private const float gridPositioningMargin = 2;
 
         protected Sprite Safe;
 
@@ -137,7 +143,7 @@ namespace Vitaru.Play.Characters.Players
             if (AI)
                 Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
-                    Size = new Vector2(100),
+                    Size = new Vector2(25),
                     Color = ComplementaryColor
                 });
         }
@@ -231,6 +237,10 @@ namespace Vitaru.Play.Characters.Players
             SpellUpdate();
         }
 
+
+        #region Shooting
+
+
         protected override void ParseProjectile(Projectile projectile)
         {
             base.ParseProjectile(projectile);
@@ -321,6 +331,10 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
+
+        #endregion
+
+
         protected override void TakeDamage(float amount) 
         {
             base.TakeDamage(GOD_KING ? 0 : amount);
@@ -409,10 +423,9 @@ namespace Vitaru.Play.Characters.Players
             return playerPosition;
         }
 
-        //dist
-        private const int minimums = 32;
-        //ms
-        private const double foresight = 10;
+
+        #endregion
+
 
         protected virtual void Bot()
         {
@@ -426,6 +439,23 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
+            if (Vitaru.FEATURES >= Features.Experimental)
+                gridBot();
+            else
+                circleViewBot();
+        }
+
+
+        #region Circle View Bot
+
+
+        //dist
+        private const int minimums = 32;
+        //ms
+        private const double foresight = 10;
+
+        private void circleViewBot()
+        {
             List<KeyValuePair<Projectile, HitResults>> n = new();
 
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -645,6 +675,23 @@ namespace Vitaru.Play.Characters.Players
                 return 0;
             }
         }
+
+
+
+        #endregion
+
+
+        #region Grid Bot
+
+
+        private void gridBot()
+        {
+            Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+
+            float gridWidth = playfield.X / gridDivisorWidth;
+            float gridHeight = playfield.Y / gridDivisorHeight;
+        }
+
 
         #endregion
 
