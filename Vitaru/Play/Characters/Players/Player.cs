@@ -79,7 +79,7 @@ namespace Vitaru.Play.Characters.Players
 
         private const float healing_range = 64f;
         private const float healing_min = 0.5f;
-        private const float healing_max = 2f;
+        private const float healing_max = 4f;
 
         private double beat = 1000 / 60d;
         private double lastQuarterBeat = double.MinValue;
