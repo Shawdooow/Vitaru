@@ -5,7 +5,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 using Vitaru.Wiki;
 
