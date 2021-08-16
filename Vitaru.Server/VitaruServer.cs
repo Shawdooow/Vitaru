@@ -10,7 +10,7 @@ namespace Vitaru.Server
 {
     public class VitaruServer : Application
     {
-        public const string VERSION = "0.12.0-preview4.0";
+        public const string VERSION = "0.12.0-preview4.0 (2022)";
 
         private const string host =
 #if true
