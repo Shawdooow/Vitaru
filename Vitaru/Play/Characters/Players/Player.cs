@@ -696,6 +696,23 @@ namespace Vitaru.Play.Characters.Players
 
             float gridWidth = playfield.X / gridDivisorWidth;
             float gridHeight = playfield.Y / gridDivisorHeight;
+
+            // use grid center points for sanity
+            for (float x = playfield.X / -2 + gridWidth / 2; x < playfield.X / 2; x += gridWidth)
+            {
+                for (float y = playfield.Y / -2 + gridHeight / 2; y < playfield.Y / 2; y += gridHeight)
+                {
+                    foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+                    {
+                        if (pack.Team == Team) continue;
+
+                        foreach (Projectile projectile in pack.Children)
+                        {
+                            
+                        }
+                    }
+                }
+            }
         }
 
 
