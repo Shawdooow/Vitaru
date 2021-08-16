@@ -40,7 +40,7 @@ namespace Vitaru.Roots
             Add(new NucleusSettingsOverlay(vitaru));
             Add(new MitochondriaSettingsOverlay(vitaru));
             Add(new VitaruSettingsOverlay());
-            Add(new Version());
+            Add(new Menu.Version());
             Remove(Cursor, false);
             Add(Cursor);
         }

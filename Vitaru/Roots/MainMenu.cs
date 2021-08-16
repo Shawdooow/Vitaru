@@ -160,7 +160,7 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.BottomRight
             });
 
-            Add(new Version());
+            Add(new Menu.Version());
 
             Add(new Text2D(10, true)
             {

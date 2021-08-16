@@ -32,7 +32,7 @@ namespace Vitaru.Roots
 
         public WikiRoot()
         {
-            Index index = new();
+            Wiki.Index index = new();
             Add(index);
             Add(new Layer2D<IDrawable2D>
             {
@@ -71,7 +71,7 @@ namespace Vitaru.Roots
                     }
                 }
             });
-            Add(new Version());
+            Add(new Menu.Version());
 
             index.OnSetPanel += p => panel = p;
         }
