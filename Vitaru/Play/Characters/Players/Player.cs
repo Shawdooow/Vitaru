@@ -75,15 +75,16 @@ namespace Vitaru.Play.Characters.Players
 
         protected List<HealingProjectile> HealingProjectiles { get; private set; } = new();
 
-        protected const float HEALING_FALL_OFF = 0.6f;
+        protected const float HEALING_FALL_OFF = 0.5f;
 
         private const float healing_range = 64f;
         private const float healing_min = 0.5f;
         private const float healing_max = 2f;
 
-        private double lastQuarterBeat = -1;
-        private double nextHalfBeat = -1;
-        private double nextQuarterBeat = -1;
+        private double beat = 1000 / 60d;
+        private double lastQuarterBeat = double.MinValue;
+        private double nextHalfBeat = double.MinValue;
+        private double nextQuarterBeat = double.MinValue;
 
         private double shootTime;
 
@@ -161,22 +162,12 @@ namespace Vitaru.Play.Characters.Players
 
         protected virtual void OnQuarterBeat()
         {
-            double beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
+            beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
             lastQuarterBeat = nextQuarterBeat;
             nextQuarterBeat += beat / 4;
 
             if (HealingProjectiles.Count > 0)
             {
-                if (Gamefield.Current > LastDamageTime + beat * 4)
-                {
-                    float fallOff = 1;
-
-                    for (int i = 0; i < HealingProjectiles.Count - 1; i++)
-                        fallOff *= HEALING_FALL_OFF;
-
-                    foreach (HealingProjectile healingBullet in HealingProjectiles)
-                        Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
-                }
                 HealingProjectiles = new List<HealingProjectile>();
                 HealingMultiplier = 1;
             }
@@ -215,12 +206,21 @@ namespace Vitaru.Play.Characters.Players
             {
                 float fallOff = 1;
 
-                for (int i = 0; i < HealingProjectiles.Count - 1; i++)
-                    fallOff *= HEALING_FALL_OFF;
+                if (Gamefield.Current > LastDamageTime + beat * 4)
+                    foreach (HealingProjectile healingBullet in HealingProjectiles)
+                    {
+                        Heal((float)Clock.LastElapsedTime / 1000 * GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
+                        fallOff *= HEALING_FALL_OFF;
+                    }
 
-                foreach (HealingProjectile healingBullet in HealingProjectiles)
-                    Charge((float) Clock.LastElapsedTime / 500 *
-                           (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                fallOff = 1;
+
+                if (Gamefield.Current > LastDamageTime + beat * 2)
+                    foreach (HealingProjectile healingBullet in HealingProjectiles)
+                    {
+                        Charge((float)Clock.LastElapsedTime / 1000 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                        fallOff *= HEALING_FALL_OFF;
+                    }
             }
 
             DrawablePlayer?.Seal.Update();
