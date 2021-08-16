@@ -454,6 +454,9 @@ namespace Vitaru.Play.Characters.Players
         //ms
         private const double foresight = 10;
 
+        /// <summary>
+        /// Look around us and determine the direction with the least amount of bullets in it
+        /// </summary>
         private void circleViewBot()
         {
             List<KeyValuePair<Projectile, HitResults>> n = new();
@@ -684,6 +687,9 @@ namespace Vitaru.Play.Characters.Players
         #region Grid Bot
 
 
+        /// <summary>
+        /// Use a grid system to determine a safe spot for us to travel to using pathing AI
+        /// </summary>
         private void gridBot()
         {
             Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
