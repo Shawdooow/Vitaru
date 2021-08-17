@@ -92,6 +92,9 @@ namespace Vitaru.Levels
                                     case "Image":
                                         track.Image = line[1];
                                         continue;
+                                    case "Filtering":
+                                        track.Filtering = line[1] == "true" || line[1] == "1";
+                                        continue;
                                     case "Autoplay":
                                         track.Autoplay = line[1] == "true" || line[1] == "1";
                                         continue;
@@ -331,6 +334,8 @@ namespace Vitaru.Levels
             string header = $"Format={CurrentLevel.Format}{Environment.NewLine}" +
                             $"Audio={CurrentLevel.Metadata.Filename}{Environment.NewLine}" +
                             $"Image={CurrentLevel.Metadata.Image}{Environment.NewLine}" +
+                            $"Filtering={CurrentLevel.Metadata.Filtering}{Environment.NewLine}" +
+                            $"Autoplay={CurrentLevel.Metadata.Autoplay}{Environment.NewLine}" +
                             $"BPM={CurrentLevel.Metadata.BPM}{Environment.NewLine}" +
                             $"AudioOffset={CurrentLevel.Metadata.Offset}{Environment.NewLine}" +
                             $"PreviewTime={CurrentLevel.Metadata.PreviewTime}{Environment.NewLine}" +

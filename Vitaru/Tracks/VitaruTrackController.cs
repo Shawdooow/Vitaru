@@ -105,7 +105,7 @@ namespace Vitaru.Tracks
 
         protected override Texture GetBackground(string bg)
         {
-            return bg == "default" ? base.GetBackground(bg) : Vitaru.LevelTextureStore.GetTexture(bg);
+            return bg == "default" ? base.GetBackground(bg) : Vitaru.LevelTextureStore.GetTexture(bg, BackgroundFiltered);
         }
 
         public override bool OnKeyDown(KeyboardKeyEvent e)
