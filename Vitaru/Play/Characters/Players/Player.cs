@@ -739,6 +739,12 @@ namespace Vitaru.Play.Characters.Players
             //ok now that we have densities of the grid tiles,
             //lets choose a location to travel to thats close and safe
 
+
+
+            //ok now that we have picked a location lets find a safe path to get there
+
+
+
         }
 
 
