@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Collections.Generic;
 using Prion.Nucleus;
 using Vitaru.Server.Levels;
 using Vitaru.Server.Match;
@@ -11,7 +10,7 @@ namespace Vitaru.Server
 {
     public class VitaruServer : Application
     {
-        public const string VERSION = "0.12.0-preview4.0";
+        public const string VERSION = "0.12.0-preview4.0 (2022)";
 
         private const string host =
 #if true

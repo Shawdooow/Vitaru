@@ -1,10 +1,7 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
@@ -13,6 +10,7 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
+using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
@@ -71,6 +69,11 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual bool AI => false;
 
+        private const int gridDivisorWidth = 160;
+        private const int gridDivisorHeight = 90;
+
+        private const float gridPositioningMargin = 2;
+
         protected Sprite Safe;
 
         //Is reset after healing applied
@@ -78,15 +81,16 @@ namespace Vitaru.Play.Characters.Players
 
         protected List<HealingProjectile> HealingProjectiles { get; private set; } = new();
 
-        protected const float HEALING_FALL_OFF = 0.6f;
+        protected const float HEALING_FALL_OFF = 0.5f;
 
         private const float healing_range = 64f;
         private const float healing_min = 0.5f;
-        private const float healing_max = 2f;
+        private const float healing_max = 4f;
 
-        private double lastQuarterBeat = -1;
-        private double nextHalfBeat = -1;
-        private double nextQuarterBeat = -1;
+        private double beat = 1000 / 60d;
+        private double lastQuarterBeat = double.MinValue;
+        private double nextHalfBeat = double.MinValue;
+        private double nextQuarterBeat = double.MinValue;
 
         private double shootTime;
 
@@ -139,7 +143,7 @@ namespace Vitaru.Play.Characters.Players
             if (AI)
                 Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
-                    Size = new Vector2(100),
+                    Size = new Vector2(25),
                     Color = ComplementaryColor
                 });
         }
@@ -164,22 +168,12 @@ namespace Vitaru.Play.Characters.Players
 
         protected virtual void OnQuarterBeat()
         {
-            double beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
+            beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
             lastQuarterBeat = nextQuarterBeat;
             nextQuarterBeat += beat / 4;
 
             if (HealingProjectiles.Count > 0)
             {
-                if (Gamefield.Current > LastDamageTime + beat * 4)
-                {
-                    float fallOff = 1;
-
-                    for (int i = 0; i < HealingProjectiles.Count - 1; i++)
-                        fallOff *= HEALING_FALL_OFF;
-
-                    foreach (HealingProjectile healingBullet in HealingProjectiles)
-                        Heal(GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
-                }
                 HealingProjectiles = new List<HealingProjectile>();
                 HealingMultiplier = 1;
             }
@@ -214,16 +208,24 @@ namespace Vitaru.Play.Characters.Players
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
-            if (HealingProjectiles.Count > 0)
+            if (HealingProjectiles.Count > 0 && Gamefield.Current > LastDamageTime + beat * 2)
             {
                 float fallOff = 1;
 
-                for (int i = 0; i < HealingProjectiles.Count - 1; i++)
-                    fallOff *= HEALING_FALL_OFF;
+                if (Gamefield.Current > LastDamageTime + beat * 4)
+                    foreach (HealingProjectile healingBullet in HealingProjectiles)
+                    {
+                        Heal((float)Clock.LastElapsedTime / 1000 * GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
+                        fallOff *= HEALING_FALL_OFF;
+                    }
+
+                fallOff = 1;
 
                 foreach (HealingProjectile healingBullet in HealingProjectiles)
-                    Charge((float) Clock.LastElapsedTime / 500 *
-                           (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                {
+                    Charge((float)Clock.LastElapsedTime / 1000 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                    fallOff *= HEALING_FALL_OFF;
+                }
             }
 
             DrawablePlayer?.Seal.Update();
@@ -234,6 +236,10 @@ namespace Vitaru.Play.Characters.Players
 
             SpellUpdate();
         }
+
+
+        #region Shooting
+
 
         protected override void ParseProjectile(Projectile projectile)
         {
@@ -325,6 +331,10 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
+
+        #endregion
+
+
         protected override void TakeDamage(float amount) 
         {
             base.TakeDamage(GOD_KING ? 0 : amount);
@@ -413,10 +423,9 @@ namespace Vitaru.Play.Characters.Players
             return playerPosition;
         }
 
-        //dist
-        private const int minimums = 32;
-        //ms
-        private const double foresight = 10;
+
+        #endregion
+
 
         protected virtual void Bot()
         {
@@ -430,6 +439,26 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
+            if (Vitaru.FEATURES >= Features.Experimental)
+                gridBot();
+            else
+                circleViewBot();
+        }
+
+
+        #region Circle View Bot
+
+
+        //dist
+        private const int minimums = 32;
+        //ms
+        private const double foresight = 10;
+
+        /// <summary>
+        /// Look around us and determine the direction with the least amount of bullets in it
+        /// </summary>
+        private void circleViewBot()
+        {
             List<KeyValuePair<Projectile, HitResults>> n = new();
 
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -649,6 +678,43 @@ namespace Vitaru.Play.Characters.Players
                 return 0;
             }
         }
+
+
+
+        #endregion
+
+
+        #region Grid Bot
+
+
+        /// <summary>
+        /// Use a grid system to determine a safe spot for us to travel to using pathing AI
+        /// </summary>
+        private void gridBot()
+        {
+            Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+
+            float gridWidth = playfield.X / gridDivisorWidth;
+            float gridHeight = playfield.Y / gridDivisorHeight;
+
+            // use grid center points for sanity
+            for (float x = playfield.X / -2 + gridWidth / 2; x < playfield.X / 2; x += gridWidth)
+            {
+                for (float y = playfield.Y / -2 + gridHeight / 2; y < playfield.Y / 2; y += gridHeight)
+                {
+                    foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+                    {
+                        if (pack.Team == Team) continue;
+
+                        foreach (Projectile projectile in pack.Children)
+                        {
+                            
+                        }
+                    }
+                }
+            }
+        }
+
 
         #endregion
 

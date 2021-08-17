@@ -1,31 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Label="Project">
+	<PropertyGroup Label="Project">
 	  <TargetFramework>net6.0</TargetFramework>
 	  <AnalysisLevel>preview</AnalysisLevel>
 	  <LangVersion>preview</LangVersion>
-    <AssemblyTitle>Vitaru.Server</AssemblyTitle>
-    <Version>0.12.0</Version>
-    <Authors>Shawdooow</Authors>
-    <Company>Sym</Company>
-    <Description>Vitaru's Dedicated Server</Description>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputType>Exe</OutputType>
-    <StartupObject />
-    <Configurations>Debug;Release;Public;Personal</Configurations>
-    <Platform>AnyCPU</Platform>
-    <ApplicationIcon>server.ico</ApplicationIcon>
+	  <AssemblyTitle>Vitaru.Server</AssemblyTitle>
+	  <Version>0.12.0</Version>
+	  <Authors>Shawdooow</Authors>
+	  <Company>Sym</Company>
+	  <Description>Vitaru's Dedicated Server</Description>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <OutputType>Exe</OutputType>
+	  <StartupObject />
+	  <Configurations>Debug;Release;Public;Personal</Configurations>
+	  <Platform>AnyCPU</Platform>
+	  <ApplicationIcon>server.ico</ApplicationIcon>
+	  <RepositoryUrl>https://github.com/Shawdooow/Vitaru</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
+	  <DefineConstants>PUBLISH</DefineConstants>
+	  <Optimize>true</Optimize>
+	  <SignAssembly>true</SignAssembly>
+	  <DelaySign>false</DelaySign>
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
-    <DefineConstants>PUBLISH</DefineConstants>
-    <Optimize>true</Optimize>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-    <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
-    <ProjectReference Include="..\..\Prion\Prion.Ribosome\Prion.Ribosome.csproj" />
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
+	  <ProjectReference Include="..\..\Prion\Prion.Ribosome\Prion.Ribosome.csproj" />
   </ItemGroup>
 </Project>

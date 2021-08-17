@@ -1,10 +1,6 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Utilities;
@@ -95,6 +91,9 @@ namespace Vitaru.Levels
                                         continue;
                                     case "Image":
                                         track.Image = line[1];
+                                        continue;
+                                    case "Filtering":
+                                        track.Filtering = line[1] == "true" || line[1] == "1";
                                         continue;
                                     case "Autoplay":
                                         track.Autoplay = line[1] == "true" || line[1] == "1";
@@ -335,6 +334,8 @@ namespace Vitaru.Levels
             string header = $"Format={CurrentLevel.Format}{Environment.NewLine}" +
                             $"Audio={CurrentLevel.Metadata.Filename}{Environment.NewLine}" +
                             $"Image={CurrentLevel.Metadata.Image}{Environment.NewLine}" +
+                            $"Filtering={CurrentLevel.Metadata.Filtering}{Environment.NewLine}" +
+                            $"Autoplay={CurrentLevel.Metadata.Autoplay}{Environment.NewLine}" +
                             $"BPM={CurrentLevel.Metadata.BPM}{Environment.NewLine}" +
                             $"AudioOffset={CurrentLevel.Metadata.Offset}{Environment.NewLine}" +
                             $"PreviewTime={CurrentLevel.Metadata.PreviewTime}{Environment.NewLine}" +

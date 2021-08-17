@@ -5,7 +5,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 using Vitaru.Wiki;
 
@@ -32,7 +31,7 @@ namespace Vitaru.Roots
 
         public WikiRoot()
         {
-            Index index = new();
+            Wiki.Index index = new();
             Add(index);
             Add(new Layer2D<IDrawable2D>
             {
@@ -71,7 +70,7 @@ namespace Vitaru.Roots
                     }
                 }
             });
-            Add(new Version());
+            Add(new Menu.Version());
 
             index.OnSetPanel += p => panel = p;
         }

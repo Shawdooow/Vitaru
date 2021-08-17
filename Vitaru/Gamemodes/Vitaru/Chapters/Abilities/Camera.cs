@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using Prion.Mitochondria.Graphics;
@@ -43,10 +42,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
             Size = new Vector2(200, 120);
 
-            Hitbox = new RectangularHitbox
-            {
-                Size = Size
-            };
+            Hitbox = new RectangularHitbox();
+            Hitbox.Size = Size;
 
             Children = new IDrawable2D[]
             {

@@ -36,6 +36,7 @@ namespace Vitaru.Roots
         protected Button Back;
 
         private string bg = string.Empty;
+        private bool ft = true;
 
         protected MenuRoot()
         {
@@ -69,7 +70,7 @@ namespace Vitaru.Roots
             if (UseLevelBackground && TrackManager.CurrentTrack.Metadata.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
-                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}");
+                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}", TrackManager.CurrentTrack.Metadata.Filtering);
         }
 
         public override void LoadingComplete()
@@ -139,15 +140,19 @@ namespace Vitaru.Roots
             if (bg != string.Empty && UseLevelBackground)
             {
                 Background.Texture =
-                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg);
+                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg, ft);
                 bg = string.Empty;
+                ft = true;
             }
         }
 
         protected virtual void TrackChange(Track t)
         {
             if (t.Metadata.Image != string.Empty)
+            {
                 bg = $"{t.Metadata.Title}\\{t.Metadata.Image}";
+                ft = t.Metadata.Filtering;
+            }
             else
                 bg = "default";
         }
