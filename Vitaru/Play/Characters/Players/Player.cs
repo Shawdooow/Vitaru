@@ -69,8 +69,8 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual bool AI => false;
 
-        private const int gridDivisorWidth = 160;
-        private const int gridDivisorHeight = 90;
+        private const int gridDivisorWidth = 16 * 4;
+        private const int gridDivisorHeight = 9 * 4;
 
         private const float gridPositioningMargin = 2;
 
@@ -694,25 +694,51 @@ namespace Vitaru.Play.Characters.Players
         {
             Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
 
-            float gridWidth = playfield.X / gridDivisorWidth;
-            float gridHeight = playfield.Y / gridDivisorHeight;
+            float tileWidth = playfield.X / gridDivisorWidth;
+            float tileHeight = playfield.Y / gridDivisorHeight;
 
-            // use grid center points for sanity
-            for (float x = playfield.X / -2 + gridWidth / 2; x < playfield.X / 2; x += gridWidth)
+            int[,] gridDensity = new int[gridDivisorWidth, gridDivisorHeight];
+
+            // iterate through grid tiles
+            //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
+            for (int x = 0; x < gridDivisorWidth; x++)
             {
-                for (float y = playfield.Y / -2 + gridHeight / 2; y < playfield.Y / 2; y += gridHeight)
+                for (int y = 0; y < gridDivisorHeight; y++)
                 {
+                    //Tile hitbox
+                    RectangularHitbox tile = new()
+                    {
+                        Size = new Vector2(tileWidth, tileHeight),
+                        Position = new Vector2(tileWidth * x, tileHeight * y)
+                    };
+
+                    //now check if any projectiles are intersecting this grid tile
                     foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
                     {
                         if (pack.Team == Team) continue;
 
                         foreach (Projectile projectile in pack.Children)
                         {
-                            
+                            switch(projectile)
+                            {
+                                case Bullet bullet:
+                                    if (tile.HitDetectionResults(new RectangularHitbox
+                                    {
+                                        Size = new Vector2(bullet.CircularHitbox.Diameter),
+                                        Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
+                                                                bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
+                                    }))
+                                        gridDensity[x, y]++;
+                                    break;
+                            }
                         }
                     }
                 }
             }
+
+            //ok now that we have densities of the grid tiles,
+            //lets choose a location to travel to thats close and safe
+
         }
 
 
