@@ -89,5 +89,13 @@ namespace Vitaru.Play
                 EdgeDistance = float.MaxValue
             };
         }
+
+        public static bool HitDetectionResults(this RectangularHitbox a, RectangularHitbox b)
+        {
+            return a.Position.X < b.Position.X + b.Size.X &&
+               a.Position.X + a.Size.X > b.Position.X &&
+               a.Position.Y < b.Position.Y + b.Size.Y &&
+               a.Position.Y + a.Size.Y > b.Position.Y;
+        }
     }
 }
