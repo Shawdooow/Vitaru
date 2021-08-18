@@ -706,10 +706,6 @@ namespace Vitaru.Play.Characters.Players
 
             int[,] gridDensity = new int[gridDivisorWidth, gridDivisorHeight];
 
-            //The tile the player is in
-            int playerX;
-            int playerY;
-
             // iterate through grid tiles
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
             for (int x = 0; x < gridDivisorWidth; x++)
@@ -722,14 +718,6 @@ namespace Vitaru.Play.Characters.Players
                         Size = new Vector2(tileWidth, tileHeight),
                         Position = new Vector2(tileWidth * x, tileHeight * y)
                     };
-
-                    //check if the player is here
-                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
-                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
-                    {
-                        playerX = x;
-                        playerY = y;
-                    }
 
                     //now check if any projectiles are intersecting this grid tile
                     foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -760,9 +748,37 @@ namespace Vitaru.Play.Characters.Players
 
             //just use TargetLocation for now
 
+            //The tile the player is in
+            int playerX;
+            int playerY;
+
+            //The tile the target is in
+            int targetX;
+            int targetY;
+
+            for (int x = 0; x < gridDivisorWidth; x++)
+            {
+                for (int y = 0; y < gridDivisorHeight; y++)
+                {
+                    //check if the player is here
+                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
+                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
+                    {
+                        playerX = x;
+                        playerY = y;
+                    }
+
+                    //check if the TargetPosition is here
+                    if (TargetPosition.X >= x * tileWidth && TargetPosition.X <= (x + 1) * tileWidth &&
+                        TargetPosition.Y >= y * tileHeight && TargetPosition.Y <= (y + 1) * tileHeight)
+                    {
+                        targetX = x;
+                        targetY = y;
+                    }
+                }
+            }
+
             //ok now that we have picked a location lets find a safe path to get there
-
-
 
         }
 
