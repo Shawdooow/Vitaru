@@ -77,6 +77,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected virtual Vector2 TargetPosition { get; set; }
 
+        protected Sprite Target;
         protected Sprite Safe;
 
         //Is reset after healing applied
@@ -145,6 +146,12 @@ namespace Vitaru.Play.Characters.Players
 
             if (AI)
             {
+                Gamefield.OverlaysLayer.Add(Target = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+                {
+                    Size = new Vector2(50),
+                    Color = PrimaryColor
+                });
+
                 Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
                     Size = new Vector2(25),
@@ -467,6 +474,8 @@ namespace Vitaru.Play.Characters.Players
         /// </summary>
         private void circleViewBot()
         {
+            Target.Alpha = 0;
+
             List<KeyValuePair<Projectile, HitResults>> n = new();
 
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -710,7 +719,7 @@ namespace Vitaru.Play.Characters.Players
             //The tile the player is in
             Vector2Int playerTile = new Vector2Int(-1);
 
-            //first we want to locate the tile the player is in
+            //first we want to locate the tile the player is in so we can just check for projectiles near it
             for (int x = 0; x < gridDivisorWidth; x++)
             {
                 int tileX = x - gridDivisorWidth / 2;
@@ -731,23 +740,12 @@ namespace Vitaru.Play.Characters.Players
                 if (playerTile.X != -1) break;
             }
 
-            /*
-            
-
-                for (int x = current.X - 1; x <= current.X + 1; x++)
-                {
-                    if (x < 0 || x >= gridDivisorWidth) continue;
-
-                    for (int y = current.Y - 1; y <= current.Y + 1; y++)
-                    {
-                        if (y < 0 || y >= gridDivisorHeight) continue;
-
-
-             */
-
             const int view = 8;
 
-            // iterate through grid tiles
+            //TODO: further optimize the below by checking for projectiles that intersect total view area first
+            //and then only sub-check those against the tiles
+
+            // iterate through grid tiles near the player
             for (int x = playerTile.X - view; x < playerTile.X + view; x++)
             {
                 if (x < 0 || x >= gridDivisorWidth) continue;
@@ -812,7 +810,8 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth - playfield.X / 2, targetTile.Y * tileHeight - playfield.Y / 2);
+            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2), targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
+            Target.Position = targetTilePos;
 
             //ok now that we have picked a location lets find a safe path to get there
 
@@ -821,19 +820,20 @@ namespace Vitaru.Play.Characters.Players
 
             //now lets go there!
 
-            Vector2 nextTilePos = new Vector2(next.Value.X * tileWidth - playfield.X / 2, next.Value.Y * tileHeight - playfield.Y / 2);
+            Vector2 nextTilePos = new Vector2(next.Value.X * tileWidth + (tileWidth / 2) - playfield.X / 2, next.Value.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+            Safe.Position = nextTilePos;
 
-            //X
+            //move X?
             if (Position.X < nextTilePos.X - tilePositioningMargin)
                 AIBinds[VitaruActions.Right] = true;
             if (Position.X > nextTilePos.X + tilePositioningMargin)
                 AIBinds[VitaruActions.Left] = true;
 
-            //Y
+            //move Y?
             if (Position.Y < nextTilePos.Y - tilePositioningMargin)
-                AIBinds[VitaruActions.Up] = true;
-            if (Position.Y > nextTilePos.Y + tilePositioningMargin)
                 AIBinds[VitaruActions.Down] = true;
+            if (Position.Y > nextTilePos.Y + tilePositioningMargin)
+                AIBinds[VitaruActions.Up] = true;
 
             Vector3Int nextTile(Vector2Int current, Vector2Int final)
             {
@@ -854,7 +854,7 @@ namespace Vitaru.Play.Characters.Players
                 return new Vector3Int(-1);
             }
 
-            //get adjacent tiles ordered by least "cost"
+            //get adjacent tiles ordered by least total travel distance to it then the target
             List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current, Vector2Int final)
             {
                 List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>();
