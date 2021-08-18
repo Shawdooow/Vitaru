@@ -116,11 +116,11 @@ namespace Vitaru.Graphics.ComboFire
                 program.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = program;
                 Renderer.ShaderManager.UpdateMatrix4("projection",
-                    Matrix4x4.CreateOrthographicOffCenter(Renderer.Width / -2f, Renderer.Width / 2f,
-                        Renderer.Height / 2f, Renderer.Height / -2f, 1, -1));
+                    Matrix4x4.CreateOrthographicOffCenter(Renderer.Size.X / -2f, Renderer.Size.X / 2f,
+                        Renderer.Size.Y / 2f, Renderer.Size.Y / -2f, 1, -1));
             };
 
-            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
+            Renderer.OnResize.Invoke(Renderer.RenderSize);
         }
 
         public void UpdateFlames(int start, int end, float last)

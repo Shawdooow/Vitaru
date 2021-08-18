@@ -191,7 +191,7 @@ namespace Vitaru
                 Renderer.ShaderManager.UpdateVector2("scale", Vector2.One);
             }
 
-            Renderer.OnResize.Invoke(new Vector2(Renderer.RenderWidth, Renderer.RenderHeight));
+            Renderer.OnResize.Invoke(Renderer.RenderSize);
 
             #endregion
         }

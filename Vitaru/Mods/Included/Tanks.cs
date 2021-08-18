@@ -170,13 +170,13 @@ namespace Vitaru.Mods.Included
                     vNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
 
                 v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.vert")).ReadToEnd();
                 g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.geom")).ReadToEnd();
@@ -204,13 +204,13 @@ namespace Vitaru.Mods.Included
                     fNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 fNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderWidth / (float) Renderer.RenderHeight, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
 #endif
 
                 Add(controller = new VitaruTrackController

@@ -47,7 +47,7 @@ namespace Vitaru.Roots
                     Background = new Sprite(ThemeManager.GetBackground())
                     {
                         Name = "Background",
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        Size = new Vector2(Renderer.Size.X, Renderer.Size.Y),
                         AutoScaleDirection = Direction.Both
                     },
                     Dim = new Box
@@ -55,7 +55,7 @@ namespace Vitaru.Roots
                         Name = "Dim",
                         Color = Color.Black,
                         Alpha = 0.5f,
-                        Size = new Vector2(Renderer.Width, Renderer.Height),
+                        Size = new Vector2(Renderer.Size.X, Renderer.Size.Y),
                         AutoScaleDirection = Direction.Both
                     }
                 }
@@ -123,8 +123,8 @@ namespace Vitaru.Roots
                 Vector2 max = new(ParallaxAmount / 2);
 
                 Vector2 parallax = PrionMath.Remap(InputManager.Mouse.Position,
-                    new Vector2(Renderer.Width / -2f, Renderer.Height / -2f),
-                    new Vector2(Renderer.Width / 2f, Renderer.Height / 2f), min, max);
+                    new Vector2(Renderer.Size.X / -2f, Renderer.Size.Y / -2f),
+                    new Vector2(Renderer.Size.X / 2f, Renderer.Size.Y / 2f), min, max);
 
                 if (InvertParallax)
                     parallax *= -1;

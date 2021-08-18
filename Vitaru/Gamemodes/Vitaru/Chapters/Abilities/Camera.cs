@@ -133,8 +133,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
                 Renderer.Screenshot(new ScreenshotParamaters
                 {
-                    X = Math.Clamp(Renderer.Width / 2 + (int)(Position.X - Size.X / 2), 0, Renderer.Width),
-                    Y = Math.Clamp(Renderer.Height / 2 - (int)(Position.Y + Size.Y / 2), 0, Renderer.Height),
+                    X = Math.Clamp(Renderer.Size.X / 2 + (int)(Position.X - Size.X / 2), 0, Renderer.Size.X),
+                    Y = Math.Clamp(Renderer.Size.Y / 2 - (int)(Position.Y + Size.Y / 2), 0, Renderer.Size.Y),
 
                     Width = (int)Width,
                     Height = (int)Height,
