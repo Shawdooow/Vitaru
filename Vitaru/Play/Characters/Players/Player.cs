@@ -706,12 +706,24 @@ namespace Vitaru.Play.Characters.Players
 
             int[,] gridDensity = new int[gridDivisorWidth, gridDivisorHeight];
 
+            //The tile the player is in
+            int playerX;
+            int playerY;
+
             // iterate through grid tiles
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
             for (int x = 0; x < gridDivisorWidth; x++)
             {
                 for (int y = 0; y < gridDivisorHeight; y++)
                 {
+                    //check if the player is here
+                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
+                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
+                    {
+                        playerX = x;
+                        playerY = y;
+                    }
+
                     //Tile hitbox
                     RectangularHitbox tile = new()
                     {
@@ -726,7 +738,8 @@ namespace Vitaru.Play.Characters.Players
 
                         foreach (Projectile projectile in pack.Children)
                         {
-                            switch(projectile)
+                            //if the projectile is here increase the tile's "density" so we know to avoid it
+                            switch (projectile)
                             {
                                 case Bullet bullet:
                                     if (tile.HitDetectionResults(new RectangularHitbox
@@ -746,28 +759,15 @@ namespace Vitaru.Play.Characters.Players
             //ok now that we have densities of the grid tiles,
             //lets choose a location to travel to thats close and safe
 
-            //just use TargetLocation for now
-
-            //The tile the player is in
-            int playerX;
-            int playerY;
-
-            //The tile the target is in
+            //The targeted tile
             int targetX;
             int targetY;
 
+            //just use TargetLocation for now
             for (int x = 0; x < gridDivisorWidth; x++)
             {
                 for (int y = 0; y < gridDivisorHeight; y++)
                 {
-                    //check if the player is here
-                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
-                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
-                    {
-                        playerX = x;
-                        playerY = y;
-                    }
-
                     //check if the TargetPosition is here
                     if (TargetPosition.X >= x * tileWidth && TargetPosition.X <= (x + 1) * tileWidth &&
                         TargetPosition.Y >= y * tileHeight && TargetPosition.Y <= (y + 1) * tileHeight)
