@@ -708,10 +708,9 @@ namespace Vitaru.Play.Characters.Players
             int[,] tiles = new int[gridDivisorWidth, gridDivisorHeight];
 
             //The tile the player is in
-            Vector2Int playerTile = Vector2Int.Zero;
+            Vector2Int playerTile = new Vector2Int(-1);
 
-            // iterate through grid tiles
-            //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
+            //first we want to locate the tile the player is in
             for (int x = 0; x < gridDivisorWidth; x++)
             {
                 int tileX = x - gridDivisorWidth / 2;
@@ -725,7 +724,39 @@ namespace Vitaru.Play.Characters.Players
                         Position.Y >= tileY * tileHeight && Position.Y <= (tileY + 1) * tileHeight)
                     {
                         playerTile = new Vector2Int(x, y);
+                        break;
                     }
+                }
+
+                if (playerTile.X != -1) break;
+            }
+
+            /*
+            
+
+                for (int x = current.X - 1; x <= current.X + 1; x++)
+                {
+                    if (x < 0 || x >= gridDivisorWidth) continue;
+
+                    for (int y = current.Y - 1; y <= current.Y + 1; y++)
+                    {
+                        if (y < 0 || y >= gridDivisorHeight) continue;
+
+
+             */
+
+            const int view = 8;
+
+            // iterate through grid tiles
+            for (int x = playerTile.X - view; x < playerTile.X + view; x++)
+            {
+                if (x < 0 || x >= gridDivisorWidth) continue;
+                int tileX = x - gridDivisorWidth / 2;
+
+                for (int y = playerTile.Y - view; y < playerTile.Y + view; y++)
+                {
+                    if (y < 0 || y >= gridDivisorHeight) continue;
+                    int tileY = y - gridDivisorHeight / 2;
 
                     //Tile hitbox
                     RectangularHitbox tile = new()
