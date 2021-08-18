@@ -70,13 +70,14 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual bool AI => false;
 
-        private const int gridDivisorWidth = 16 * 4;
-        private const int gridDivisorHeight = 9 * 4;
+        private const int gridDivisorWidth = 1024 / 16;
+        private const int gridDivisorHeight = 820 / 16;
 
         private const float tilePositioningMargin = 2;
 
         protected virtual Vector2 TargetPosition { get; set; }
 
+        protected Box Grid;
         protected Sprite Target;
         protected Sprite Safe;
 
@@ -146,6 +147,13 @@ namespace Vitaru.Play.Characters.Players
 
             if (AI)
             {
+                Gamefield.OverlaysLayer.Add(Grid = new Box()
+                {
+                    Origin = Mounts.TopLeft,
+                    Alpha = 0.25f,
+                    Color = PrimaryColor
+                });
+
                 Gamefield.OverlaysLayer.Add(Target = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
                     Size = new Vector2(50),
@@ -474,6 +482,7 @@ namespace Vitaru.Play.Characters.Players
         /// </summary>
         private void circleViewBot()
         {
+            Grid.Alpha = 0;
             Target.Alpha = 0;
 
             List<KeyValuePair<Projectile, HitResults>> n = new();
@@ -742,10 +751,44 @@ namespace Vitaru.Play.Characters.Players
 
             const int view = 8;
 
-            //TODO: further optimize the below by checking for projectiles that intersect total view area first
-            //and then only sub-check those against the tiles
+            //check for projectiles that intersect total view area first and then sub-check those against the tiles
 
-            // iterate through grid tiles near the player
+            //Grid hitbox
+            RectangularHitbox grid = new()
+            {
+                Size = new Vector2(tileWidth, tileHeight) * view * 2,
+                Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2), (playerTile.Y - view) * tileHeight - (playfield.Y / 2))
+            };
+
+            Grid.Size = grid.Size;
+            Grid.Position = grid.Position;
+
+            List<Projectile> nearby = new List<Projectile>();
+
+            //now check if any projectiles are intersecting this grid tile
+            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+            {
+                if (pack.Team == Team) continue;
+
+                foreach (Projectile projectile in pack.Children)
+                {
+                    //if the projectile is here increase the tile's "density" so we know to avoid it
+                    switch (projectile)
+                    {
+                        case Bullet bullet:
+                            if (grid.HitDetectionResults(new RectangularHitbox
+                            {
+                                Size = new Vector2(bullet.CircularHitbox.Diameter),
+                                Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
+                                                        bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
+                            }))
+                                nearby.Add(bullet);
+                            break;
+                    }
+                }
+            }
+
+            // iterate through grid tiles near the player and search projectiles for collisions
             for (int x = playerTile.X - view; x < playerTile.X + view; x++)
             {
                 if (x < 0 || x >= gridDivisorWidth) continue;
@@ -763,26 +806,21 @@ namespace Vitaru.Play.Characters.Players
                         Position = new Vector2(tileWidth * tileX, tileHeight * tileY)
                     };
 
-                    //now check if any projectiles are intersecting this grid tile
-                    foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+                    //now check if any projectiles are intersecting this tile
+                    foreach (Projectile projectile in nearby)
                     {
-                        if (pack.Team == Team) continue;
-
-                        foreach (Projectile projectile in pack.Children)
+                        //if the projectile is here increase the tile's "density" so we know to avoid it
+                        switch (projectile)
                         {
-                            //if the projectile is here increase the tile's "density" so we know to avoid it
-                            switch (projectile)
-                            {
-                                case Bullet bullet:
-                                    if (tile.HitDetectionResults(new RectangularHitbox
-                                    {
-                                        Size = new Vector2(bullet.CircularHitbox.Diameter),
-                                        Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
-                                                                bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
-                                    }))
-                                        tiles[x, y]++;
-                                    break;
-                            }
+                            case Bullet bullet:
+                                if (tile.HitDetectionResults(new RectangularHitbox
+                                {
+                                    Size = new Vector2(bullet.CircularHitbox.Diameter),
+                                    Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
+                                                            bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
+                                }))
+                                    tiles[x, y]++;
+                                break;
                         }
                     }
                 }
