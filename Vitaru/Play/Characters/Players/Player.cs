@@ -150,7 +150,7 @@ namespace Vitaru.Play.Characters.Players
                 Gamefield.OverlaysLayer.Add(Grid = new Box()
                 {
                     Origin = Mounts.TopLeft,
-                    Alpha = 0.25f,
+                    Alpha = 0.2f,
                     Color = PrimaryColor
                 });
 
