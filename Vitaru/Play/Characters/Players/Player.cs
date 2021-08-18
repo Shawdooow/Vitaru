@@ -708,7 +708,7 @@ namespace Vitaru.Play.Characters.Players
             int[,] tiles = new int[gridDivisorWidth, gridDivisorHeight];
 
             //The tile the player is in
-            Vector2Int player = Vector2Int.Zero;
+            Vector2Int playerTile = Vector2Int.Zero;
 
             // iterate through grid tiles
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
@@ -724,7 +724,7 @@ namespace Vitaru.Play.Characters.Players
                     if (Position.X >= tileX * tileWidth && Position.X <= (tileX + 1) * tileWidth &&
                         Position.Y >= tileY * tileHeight && Position.Y <= (tileY + 1) * tileHeight)
                     {
-                        player = new Vector2Int(x, y);
+                        playerTile = new Vector2Int(x, y);
                     }
 
                     //Tile hitbox
@@ -763,7 +763,7 @@ namespace Vitaru.Play.Characters.Players
             //lets choose a location to travel to thats close and safe
 
             //The targeted tile
-            Vector2Int target = Vector2Int.Zero;
+            Vector2Int targetTile = Vector2Int.Zero;
 
             //just use TargetLocation for now
             for (int x = 0; x < gridDivisorWidth; x++)
@@ -777,29 +777,31 @@ namespace Vitaru.Play.Characters.Players
                     //check if the TargetPosition is here
                     if (TargetPosition.X >= tileX * tileWidth && TargetPosition.X <= (tileX + 1) * tileWidth && 
                         TargetPosition.Y >= tileY * tileHeight && TargetPosition.Y <= (tileY + 1) * tileHeight)
-                        target = new Vector2Int(x, y);
+                        targetTile = new Vector2Int(x, y);
                 }
             }
 
-            Vector2 targetPos = new Vector2(target.X * tileWidth, target.Y * tileHeight);
+            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth, targetTile.Y * tileHeight);
 
             //ok now that we have picked a location lets find a safe path to get there
 
             //for now lets just pick a safe direction and assume the "path" is safe
-            Vector3Int? next = nextTile(player, target);
+            Vector3Int? next = nextTile(playerTile, targetTile);
 
             //now lets go there!
 
+            Vector2 nextTilePos = new Vector2(next.Value.X * tileWidth - playfield.X / 2, next.Value.Y * tileHeight - playfield.Y / 2);
+
             //X
-            if (Position.X < next.Value.X - tilePositioningMargin)
+            if (Position.X < nextTilePos.X - tilePositioningMargin)
                 AIBinds[VitaruActions.Right] = true;
-            if (Position.X > next.Value.X + tilePositioningMargin)
+            if (Position.X > nextTilePos.X + tilePositioningMargin)
                 AIBinds[VitaruActions.Left] = true;
 
             //Y
-            if (Position.Y < next.Value.Y - tilePositioningMargin)
+            if (Position.Y < nextTilePos.Y - tilePositioningMargin)
                 AIBinds[VitaruActions.Up] = true;
-            if (Position.Y > next.Value.Y + tilePositioningMargin)
+            if (Position.Y > nextTilePos.Y + tilePositioningMargin)
                 AIBinds[VitaruActions.Down] = true;
 
             Vector3Int nextTile(Vector2Int current, Vector2Int final)
@@ -810,8 +812,11 @@ namespace Vitaru.Play.Characters.Players
                 while (density <= 128)
                 {
                     for (int i = 0; i < adjacent.Count; i++)
-                        if (tiles[adjacent[i].Key.X, adjacent[i].Key.Y] <= density)
-                            return new Vector3Int(adjacent[i].Key, density);
+                    {
+                        Vector2Int ad = adjacent[i].Key;
+                        if (tiles[ad.X, ad.Y] <= density)
+                            return new Vector3Int(ad, density);
+                    }
                     density++;
                 }
 
