@@ -73,7 +73,7 @@ namespace Vitaru.Play.Characters.Players
         private const int gridDivisorWidth = 16 * 4;
         private const int gridDivisorHeight = 9 * 4;
 
-        private const float gridPositioningMargin = 2;
+        private const float tilePositioningMargin = 2;
 
         protected virtual Vector2 TargetPosition { get; set; }
 
@@ -785,27 +785,43 @@ namespace Vitaru.Play.Characters.Players
 
             //ok now that we have picked a location lets find a safe path to get there
 
+            //for now lets just pick a safe direction and assume the "path" is safe
+            Vector3Int? next = nextTile(player, target);
 
+            //now lets go there!
 
-            Vector3Int? nextTile(Vector2Int current)
+            //X
+            if (Position.X < next.Value.X - tilePositioningMargin)
+                AIBinds[VitaruActions.Right] = true;
+            if (Position.X > next.Value.X + tilePositioningMargin)
+                AIBinds[VitaruActions.Left] = true;
+
+            //Y
+            if (Position.Y < next.Value.Y - tilePositioningMargin)
+                AIBinds[VitaruActions.Up] = true;
+            if (Position.Y > next.Value.Y + tilePositioningMargin)
+                AIBinds[VitaruActions.Down] = true;
+
+            Vector3Int nextTile(Vector2Int current, Vector2Int final)
             {
-                List<KeyValuePair<Vector2Int, float>> shortest = adjacentTiles(current);
+                List<KeyValuePair<Vector2Int, float>> adjacent = adjacentTiles(current, final);
 
                 int density = 0;
-                while (density <= int.MaxValue)
+                while (density <= 128)
                 {
-                    for (int i = 0; i < shortest.Count; i++)
-                        if (tiles[shortest[i].Key.X, shortest[i].Key.Y] <= density)
-                            return new Vector3Int(shortest[i].Key, density);
+                    for (int i = 0; i < adjacent.Count; i++)
+                        if (tiles[adjacent[i].Key.X, adjacent[i].Key.Y] <= density)
+                            return new Vector3Int(adjacent[i].Key, density);
                     density++;
                 }
 
-                return null;
+                return new Vector3Int(-1);
             }
 
-            List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current)
+            //get adjacent tiles ordered by least "cost"
+            List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current, Vector2Int final)
             {
-                List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>(8);
+                List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>();
 
                 for (int x = current.X - 1; x <= current.X + 1; x++)
                 {
@@ -817,7 +833,7 @@ namespace Vitaru.Play.Characters.Players
 
                         Vector2 tile = new Vector2(x * tileWidth, y * tileHeight);
                         float travel = Vector2.Distance(Position, tile);
-                        float remaining = Vector2.Distance(tile, targetPos);
+                        float remaining = Vector2.Distance(tile, final);
 
                         adjacent.Add(new KeyValuePair<Vector2Int, float>(new Vector2Int(x, y), travel + remaining));
                     }
