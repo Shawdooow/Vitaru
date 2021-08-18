@@ -22,6 +22,11 @@ namespace Vitaru.Play.Characters.Players
 {
     public abstract class Player : Character
     {
+
+
+        #region Fields
+
+
         public override string Name { get; set; } = nameof(Player);
 
         public const int PLAYER_TEAM = 1;
@@ -105,6 +110,10 @@ namespace Vitaru.Play.Characters.Players
 
         protected DrawablePlayer DrawablePlayer { get; set; }
 
+
+        #endregion
+
+
         public override void SetDrawable(DrawableGameEntity drawable)
         {
             DrawablePlayer = drawable as DrawablePlayer;
@@ -140,6 +149,10 @@ namespace Vitaru.Play.Characters.Players
             else if (gamefield != null) PlayerBinds = new PlayerBinds();
         }
 
+
+        #region Overrides
+
+
         public override void LoadingComplete()
         {
             base.LoadingComplete();
@@ -170,40 +183,6 @@ namespace Vitaru.Play.Characters.Players
                                         GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100);
             }
         }
-
-
-        #region Beat
-
-        public override void OnNewBeat()
-        {
-            base.OnNewBeat();
-
-            OnHalfBeat();
-            lastQuarterBeat = Clock.LastCurrent;
-            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
-            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
-        }
-
-        protected virtual void OnHalfBeat()
-        {
-            nextHalfBeat = -1;
-        }
-
-        protected virtual void OnQuarterBeat()
-        {
-            beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
-            lastQuarterBeat = nextQuarterBeat;
-            nextQuarterBeat += beat / 4;
-
-            if (HealingProjectiles.Count > 0)
-            {
-                HealingProjectiles = new List<HealingProjectile>();
-                HealingMultiplier = 1;
-            }
-        }
-
-        #endregion
-
 
         public override void Update()
         {
@@ -259,6 +238,42 @@ namespace Vitaru.Play.Characters.Players
 
             SpellUpdate();
         }
+
+
+        #endregion
+
+
+        #region Beat
+
+        public override void OnNewBeat()
+        {
+            base.OnNewBeat();
+
+            OnHalfBeat();
+            lastQuarterBeat = Clock.LastCurrent;
+            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
+            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
+        }
+
+        protected virtual void OnHalfBeat()
+        {
+            nextHalfBeat = -1;
+        }
+
+        protected virtual void OnQuarterBeat()
+        {
+            beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
+            lastQuarterBeat = nextQuarterBeat;
+            nextQuarterBeat += beat / 4;
+
+            if (HealingProjectiles.Count > 0)
+            {
+                HealingProjectiles = new List<HealingProjectile>();
+                HealingMultiplier = 1;
+            }
+        }
+
+        #endregion
 
 
         #region Shooting
@@ -358,6 +373,9 @@ namespace Vitaru.Play.Characters.Players
         #endregion
 
 
+        #region Stats
+
+
         protected override void TakeDamage(float amount) 
         {
             base.TakeDamage(GOD_KING ? 0 : amount);
@@ -379,6 +397,10 @@ namespace Vitaru.Play.Characters.Players
         protected virtual void Charge(float amount) => Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
 
         protected virtual void DrainEnergy(float amount) => Energy = Math.Clamp(Energy - amount, 0, EnergyCapacity);
+
+
+        #endregion
+
 
         #region Input
 
@@ -850,7 +872,6 @@ namespace Vitaru.Play.Characters.Players
             Vector3Int? next = nextTile(playerTile, targetTile);
 
             //now lets go there!
-
             Vector2 nextTilePos = new Vector2(next.Value.X * tileWidth + (tileWidth / 2) - playfield.X / 2, next.Value.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
             Safe.Position = nextTilePos;
 
