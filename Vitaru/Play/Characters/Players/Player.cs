@@ -781,7 +781,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth, targetTile.Y * tileHeight);
+            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth - playfield.X / 2, targetTile.Y * tileHeight - playfield.Y / 2);
 
             //ok now that we have picked a location lets find a safe path to get there
 
@@ -830,13 +830,13 @@ namespace Vitaru.Play.Characters.Players
 
                 for (int x = current.X - 1; x <= current.X + 1; x++)
                 {
-                    if (x < 0 || x > gridDivisorWidth) continue;
+                    if (x < 0 || x >= gridDivisorWidth) continue;
 
                     for (int y = current.Y - 1; y <= current.Y + 1; y++)
                     {
-                        if (y < 0 || y > gridDivisorHeight) continue;
+                        if (y < 0 || y >= gridDivisorHeight) continue;
 
-                        Vector2 tile = new Vector2(x * tileWidth, y * tileHeight);
+                        Vector2 tile = new Vector2(x * tileWidth - playfield.X / 2, y * tileHeight - playfield.Y / 2);
                         float travel = Vector2.Distance(Position, tile);
                         float remaining = Vector2.Distance(tile, final);
 
