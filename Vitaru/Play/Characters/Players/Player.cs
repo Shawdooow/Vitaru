@@ -12,6 +12,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
+using Prion.Nucleus.Utilities.Vectors;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Play.Projectiles;
@@ -707,8 +708,7 @@ namespace Vitaru.Play.Characters.Players
             int[,] gridDensity = new int[gridDivisorWidth, gridDivisorHeight];
 
             //The tile the player is in
-            int playerX;
-            int playerY;
+            Vector2Int player;
 
             // iterate through grid tiles
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
@@ -720,8 +720,7 @@ namespace Vitaru.Play.Characters.Players
                     if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
                         Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
                     {
-                        playerX = x;
-                        playerY = y;
+                        player = new Vector2Int(x, y);
                     }
 
                     //Tile hitbox
@@ -760,8 +759,7 @@ namespace Vitaru.Play.Characters.Players
             //lets choose a location to travel to thats close and safe
 
             //The targeted tile
-            int targetX;
-            int targetY;
+            Vector2Int target;
 
             //just use TargetLocation for now
             for (int x = 0; x < gridDivisorWidth; x++)
@@ -772,8 +770,7 @@ namespace Vitaru.Play.Characters.Players
                     if (TargetPosition.X >= x * tileWidth && TargetPosition.X <= (x + 1) * tileWidth &&
                         TargetPosition.Y >= y * tileHeight && TargetPosition.Y <= (y + 1) * tileHeight)
                     {
-                        targetX = x;
-                        targetY = y;
+                        target = new Vector2Int(x, y);
                     }
                 }
             }
