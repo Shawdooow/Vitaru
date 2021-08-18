@@ -763,7 +763,7 @@ namespace Vitaru.Play.Characters.Players
             Grid.Size = grid.Size;
             Grid.Position = grid.Position;
 
-            List<Projectile> nearby = new List<Projectile>();
+            List<RectangularHitbox> nearby = new();
 
             //now check if any projectiles are intersecting this grid tile
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -776,13 +776,16 @@ namespace Vitaru.Play.Characters.Players
                     switch (projectile)
                     {
                         case Bullet bullet:
-                            if (grid.HitDetectionResults(new RectangularHitbox
+
+                            RectangularHitbox box = new RectangularHitbox
                             {
                                 Size = new Vector2(bullet.CircularHitbox.Diameter),
                                 Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
                                                         bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
-                            }))
-                                nearby.Add(bullet);
+                            };
+
+                            if (grid.HitDetectionResults(box))
+                                nearby.Add(box);
                             break;
                     }
                 }
@@ -807,21 +810,11 @@ namespace Vitaru.Play.Characters.Players
                     };
 
                     //now check if any projectiles are intersecting this tile
-                    foreach (Projectile projectile in nearby)
+                    foreach (RectangularHitbox projectile in nearby)
                     {
                         //if the projectile is here increase the tile's "density" so we know to avoid it
-                        switch (projectile)
-                        {
-                            case Bullet bullet:
-                                if (tile.HitDetectionResults(new RectangularHitbox
-                                {
-                                    Size = new Vector2(bullet.CircularHitbox.Diameter),
-                                    Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
-                                                            bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
-                                }))
-                                    tiles[x, y]++;
-                                break;
-                        }
+                        if (tile.HitDetectionResults(projectile))
+                            tiles[x, y]++;
                     }
                 }
             }
