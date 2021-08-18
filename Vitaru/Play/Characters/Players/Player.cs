@@ -723,6 +723,14 @@ namespace Vitaru.Play.Characters.Players
                         Position = new Vector2(tileWidth * x, tileHeight * y)
                     };
 
+                    //check if the player is here
+                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
+                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
+                    {
+                        playerX = x;
+                        playerY = y;
+                    }
+
                     //now check if any projectiles are intersecting this grid tile
                     foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
                     {
