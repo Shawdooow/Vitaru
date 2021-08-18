@@ -74,6 +74,8 @@ namespace Vitaru.Play.Characters.Players
 
         private const float gridPositioningMargin = 2;
 
+        protected virtual Vector2 TargetPosition { get; set; }
+
         protected Sprite Safe;
 
         //Is reset after healing applied
@@ -141,11 +143,16 @@ namespace Vitaru.Play.Characters.Players
             Energy = EnergyCapacity / 2f;
 
             if (AI)
+            {
                 Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
                     Size = new Vector2(25),
                     Color = ComplementaryColor
                 });
+
+                TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
+                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 + 100);
+            }
         }
 
 
@@ -699,6 +706,10 @@ namespace Vitaru.Play.Characters.Players
 
             int[,] gridDensity = new int[gridDivisorWidth, gridDivisorHeight];
 
+            //The tile the player is in
+            int playerX;
+            int playerY;
+
             // iterate through grid tiles
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
             for (int x = 0; x < gridDivisorWidth; x++)
@@ -739,7 +750,7 @@ namespace Vitaru.Play.Characters.Players
             //ok now that we have densities of the grid tiles,
             //lets choose a location to travel to thats close and safe
 
-
+            //just use TargetLocation for now
 
             //ok now that we have picked a location lets find a safe path to get there
 
