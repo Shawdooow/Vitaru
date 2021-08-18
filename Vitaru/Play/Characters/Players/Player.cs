@@ -840,6 +840,7 @@ namespace Vitaru.Play.Characters.Players
                 List<KeyValuePair<Vector2Int, float>> adjacent = adjacentTiles(current, final);
 
                 int density = 0;
+                //if there are ever more than 128 projectiles on one tile then may god have no mercy for the level designer's soul...
                 while (density <= 128)
                 {
                     for (int i = 0; i < adjacent.Count; i++)
@@ -859,17 +860,19 @@ namespace Vitaru.Play.Characters.Players
             {
                 List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>();
 
+                Vector2 finalTile = new Vector2(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2, final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+
                 for (int x = current.X - 1; x <= current.X + 1; x++)
                 {
-                    if (x < 0 || x >= gridDivisorWidth) continue;
+                    if (x < 0 || x >= gridDivisorWidth || x == current.X) continue;
 
                     for (int y = current.Y - 1; y <= current.Y + 1; y++)
                     {
-                        if (y < 0 || y >= gridDivisorHeight) continue;
+                        if (y < 0 || y >= gridDivisorHeight || y == current.Y) continue;
 
-                        Vector2 tile = new Vector2(x * tileWidth - playfield.X / 2, y * tileHeight - playfield.Y / 2);
-                        float travel = Vector2.Distance(Position, tile);
-                        float remaining = Vector2.Distance(tile, final);
+                        Vector2 adjacentTile = new Vector2(x * tileWidth + (tileWidth / 2) - playfield.X / 2, y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                        float travel = Vector2.Distance(Position, adjacentTile);
+                        float remaining = Vector2.Distance(adjacentTile, finalTile);
 
                         adjacent.Add(new KeyValuePair<Vector2Int, float>(new Vector2Int(x, y), travel + remaining));
                     }
