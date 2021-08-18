@@ -152,7 +152,7 @@ namespace Vitaru.Play.Characters.Players
                 });
 
                 TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
-                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 + 100);
+                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100);
             }
         }
 
@@ -714,11 +714,15 @@ namespace Vitaru.Play.Characters.Players
             //TODO: only check tiles near player, we don't give a fuck about tiles on the opposite side of the field!
             for (int x = 0; x < gridDivisorWidth; x++)
             {
+                int tileX = x - gridDivisorWidth / 2;
+
                 for (int y = 0; y < gridDivisorHeight; y++)
                 {
+                    int tileY = y - gridDivisorHeight / 2;
+
                     //check if the player is here
-                    if (Position.X >= x * tileWidth && Position.X <= (x + 1) * tileWidth &&
-                        Position.Y >= y * tileHeight && Position.Y <= (y + 1) * tileHeight)
+                    if (Position.X >= tileX * tileWidth && Position.X <= (tileX + 1) * tileWidth &&
+                        Position.Y >= tileY * tileHeight && Position.Y <= (tileY + 1) * tileHeight)
                     {
                         player = new Vector2Int(x, y);
                     }
@@ -727,7 +731,7 @@ namespace Vitaru.Play.Characters.Players
                     RectangularHitbox tile = new()
                     {
                         Size = new Vector2(tileWidth, tileHeight),
-                        Position = new Vector2(tileWidth * x, tileHeight * y)
+                        Position = new Vector2(tileWidth * tileX, tileHeight * tileY)
                     };
 
                     //now check if any projectiles are intersecting this grid tile
@@ -764,14 +768,16 @@ namespace Vitaru.Play.Characters.Players
             //just use TargetLocation for now
             for (int x = 0; x < gridDivisorWidth; x++)
             {
+                int tileX = x - gridDivisorWidth / 2;
+
                 for (int y = 0; y < gridDivisorHeight; y++)
                 {
+                    int tileY = y - gridDivisorHeight / 2;
+
                     //check if the TargetPosition is here
-                    if (TargetPosition.X >= x * tileWidth && TargetPosition.X <= (x + 1) * tileWidth &&
-                        TargetPosition.Y >= y * tileHeight && TargetPosition.Y <= (y + 1) * tileHeight)
-                    {
+                    if (TargetPosition.X >= tileX * tileWidth && TargetPosition.X <= (tileX + 1) * tileWidth && 
+                        TargetPosition.Y >= tileY * tileHeight && TargetPosition.Y <= (tileY + 1) * tileHeight)
                         target = new Vector2Int(x, y);
-                    }
                 }
             }
 
