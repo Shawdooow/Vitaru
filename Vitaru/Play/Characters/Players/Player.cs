@@ -73,7 +73,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected Dictionary<VitaruActions, bool> AILastBinds;
 
-        public virtual bool AI => false;
+        public virtual bool AI { get; set; }
 
         private const int gridDivisorWidth = 1024 / 8;
         private const int gridDivisorHeight = 820 / 8;
@@ -82,10 +82,10 @@ namespace Vitaru.Play.Characters.Players
 
         protected virtual Vector2 TargetPosition { get; set; }
 
-        protected Box Grid;
-        protected List<Sprite> Path = new List<Sprite>();
-        protected Sprite Target;
-        protected Sprite Safe;
+        //protected Box Grid;
+        //protected List<Sprite> Path = new List<Sprite>();
+        //protected Sprite Target;
+        //protected Sprite Safe;
 
         //Is reset after healing applied
         public float HealingMultiplier = 1;
@@ -137,17 +137,15 @@ namespace Vitaru.Play.Characters.Players
             Team = PLAYER_TEAM;
             CircularHitbox.Diameter = 6;
 
-            if (AI)
+            PlayerBinds = new PlayerBinds();
+            AIBinds = new Dictionary<VitaruActions, bool>();
+            AILastBinds = new Dictionary<VitaruActions, bool>();
+
+            foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
             {
-                AIBinds = new Dictionary<VitaruActions, bool>();
-                AILastBinds = new Dictionary<VitaruActions, bool>();
-                foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
-                {
-                    AIBinds[v] = false;
-                    AILastBinds[v] = false;
-                }
+                AIBinds[v] = false;
+                AILastBinds[v] = false;
             }
-            else if (gamefield != null) PlayerBinds = new PlayerBinds();
         }
 
 
@@ -159,44 +157,44 @@ namespace Vitaru.Play.Characters.Players
             base.LoadingComplete();
             Energy = EnergyCapacity / 2f;
 
-            if (AI)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    Sprite node = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
-                    {
-                        Size = new Vector2(20),
-                        Color = ComplementaryColor,
-                        Alpha = 0
-                    };
-
-                    Path.Add(node);
-                    Gamefield.OverlaysLayer.Add(node);
-                }
-                    
-
-                Gamefield.OverlaysLayer.Add(Grid = new Box()
-                {
-                    Origin = Mounts.TopLeft,
-                    Alpha = 0.2f,
-                    Color = PrimaryColor
-                });
-
-                Gamefield.OverlaysLayer.Add(Target = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
-                {
-                    Size = new Vector2(36),
-                    Color = PrimaryColor
-                });
-
-                Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
-                {
-                    Size = new Vector2(20),
-                    Color = ComplementaryColor
-                });
-
-                TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
-                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160);
-            }
+            //if (AI)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        Sprite node = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            //        {
+            //            Size = new Vector2(20),
+            //            Color = ComplementaryColor,
+            //            Alpha = 0
+            //        };
+            //
+            //        Path.Add(node);
+            //        Gamefield.OverlaysLayer.Add(node);
+            //    }
+            //        
+            //
+            //    Gamefield.OverlaysLayer.Add(Grid = new Box()
+            //    {
+            //        Origin = Mounts.TopLeft,
+            //        Alpha = 0.2f,
+            //        Color = PrimaryColor
+            //    });
+            //
+            //    Gamefield.OverlaysLayer.Add(Target = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            //    {
+            //        Size = new Vector2(36),
+            //        Color = PrimaryColor
+            //    });
+            //
+            //    Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            //    {
+            //        Size = new Vector2(20),
+            //        Color = ComplementaryColor
+            //    });
+            //
+            //    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
+            //                            GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160);
+            //}
         }
 
         public override void Update()
@@ -519,8 +517,8 @@ namespace Vitaru.Play.Characters.Players
         /// </summary>
         private void circleViewBot()
         {
-            Grid.Alpha = 0;
-            Target.Alpha = 0;
+            //Grid.Alpha = 0;
+            //Target.Alpha = 0;
 
             List<KeyValuePair<Projectile, HitResults>> n = new();
 
@@ -577,42 +575,42 @@ namespace Vitaru.Play.Characters.Players
                 case Mounts.TopLeft:
                     AIBinds[VitaruActions.Up] = true;
                     AIBinds[VitaruActions.Left] = true;
-                    Safe.Position = new Vector2(-minimums) + Position;
+                    //Safe.Position = new Vector2(-minimums) + Position;
                     break;
                 case Mounts.TopCenter:
                     AIBinds[VitaruActions.Up] = true;
-                    Safe.Position = new Vector2(0, -minimums) + Position;
+                    //Safe.Position = new Vector2(0, -minimums) + Position;
                     break;
                 case Mounts.TopRight:
                     AIBinds[VitaruActions.Up] = true;
                     AIBinds[VitaruActions.Right] = true;
-                    Safe.Position = new Vector2(minimums, -minimums) + Position;
+                    //Safe.Position = new Vector2(minimums, -minimums) + Position;
                     break;
                 case Mounts.CenterLeft:
                     AIBinds[VitaruActions.Left] = true;
-                    Safe.Position = new Vector2(-minimums, 0) + Position;
+                    //Safe.Position = new Vector2(-minimums, 0) + Position;
                     break;
                 case Mounts.Center:
                     //do nothing
-                    Safe.Position = Position;
+                    //Safe.Position = Position;
                     break;
                 case Mounts.CenterRight:
                     AIBinds[VitaruActions.Right] = true;
-                    Safe.Position = new Vector2(minimums, 0) + Position;
+                    //Safe.Position = new Vector2(minimums, 0) + Position;
                     break;
                 case Mounts.BottomLeft:
                     AIBinds[VitaruActions.Down] = true;
                     AIBinds[VitaruActions.Left] = true;
-                    Safe.Position = new Vector2(-minimums, minimums) + Position;
+                    //Safe.Position = new Vector2(-minimums, minimums) + Position;
                     break;
                 case Mounts.BottomCenter:
                     AIBinds[VitaruActions.Down] = true;
-                    Safe.Position = new Vector2(0, minimums) + Position;
+                    //Safe.Position = new Vector2(0, minimums) + Position;
                     break;
                 case Mounts.BottomRight:
                     AIBinds[VitaruActions.Down] = true;
                     AIBinds[VitaruActions.Right] = true;
-                    Safe.Position = new Vector2(minimums, minimums) + Position;
+                    //Safe.Position = new Vector2(minimums, minimums) + Position;
                     break;
             }
         }
@@ -810,8 +808,8 @@ namespace Vitaru.Play.Characters.Players
                 Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2), (playerTile.Y - view) * tileHeight - (playfield.Y / 2))
             };
 
-            Grid.Size = grid.Size;
-            Grid.Position = grid.Position;
+            //Grid.Size = grid.Size;
+            //Grid.Position = grid.Position;
 
             List<RectangularHitbox> nearby = new();
             double futureTime = Gamefield.Current + 1000 / 60;
@@ -908,7 +906,7 @@ namespace Vitaru.Play.Characters.Players
             }
 
             Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2), targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
-            Target.Position = targetTilePos;
+            //Target.Position = targetTilePos;
 
             //ok now that we have picked a location lets find a safe path to get there
 
@@ -926,22 +924,22 @@ namespace Vitaru.Play.Characters.Players
             }
 
             //visualize path a bit
-            for (int i = 0; i < Path.Count; i++)
-                Path[i].Alpha = 0;
-
-            for (int i = 1; i < path.Count && i < Path.Count; i++)
-            {
-                Sprite node = Path[i - 1];
-
-                node.Position = new Vector2(path[i].X * tileWidth + (tileWidth / 2) - playfield.X / 2, path[i].Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-                node.Alpha = 0.75f;
-            }
+            //for (int i = 0; i < Path.Count; i++)
+            //    Path[i].Alpha = 0;
+            
+            //for (int i = 1; i < path.Count && i < Path.Count; i++)
+            //{
+            //    Sprite node = Path[i - 1];
+            //
+            //    node.Position = new Vector2(path[i].X * tileWidth + (tileWidth / 2) - playfield.X / 2, path[i].Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+            //    node.Alpha = 0.75f;
+            //}
 
             //now lets go there!
             Vector3Int first = path.First();
 
             Vector2 nextTilePos = new Vector2(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2, first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-            Safe.Position = nextTilePos;
+            //Safe.Position = nextTilePos;
 
             //move X?
             if (Position.X < nextTilePos.X - tilePositioningMargin)
