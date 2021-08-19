@@ -83,6 +83,7 @@ namespace Vitaru.Play.Characters.Players
         protected virtual Vector2 TargetPosition { get; set; }
 
         protected Box Grid;
+        protected List<Sprite> Path = new List<Sprite>();
         protected Sprite Target;
         protected Sprite Safe;
 
@@ -160,6 +161,20 @@ namespace Vitaru.Play.Characters.Players
 
             if (AI)
             {
+                for (int i = 0; i < 5; i++)
+                {
+                    Sprite node = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+                    {
+                        Size = new Vector2(20),
+                        Color = ComplementaryColor,
+                        Alpha = 0
+                    };
+
+                    Path.Add(node);
+                    Gamefield.OverlaysLayer.Add(node);
+                }
+                    
+
                 Gamefield.OverlaysLayer.Add(Grid = new Box()
                 {
                     Origin = Mounts.TopLeft,
@@ -169,13 +184,13 @@ namespace Vitaru.Play.Characters.Players
 
                 Gamefield.OverlaysLayer.Add(Target = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
-                    Size = new Vector2(50),
+                    Size = new Vector2(36),
                     Color = PrimaryColor
                 });
 
                 Gamefield.OverlaysLayer.Add(Safe = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
                 {
-                    Size = new Vector2(25),
+                    Size = new Vector2(20),
                     Color = ComplementaryColor
                 });
 
@@ -888,12 +903,24 @@ namespace Vitaru.Play.Characters.Players
             List<Vector3Int> path = new List<Vector3Int>();
             Vector3Int next = nextTile(playerTile, targetTile);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 path.Add(next);
 
                 if (next.XY == targetTile) break;
                 next = nextTile(next.XY, targetTile);
+            }
+
+            //visualize path a bit
+            for (int i = 0; i < Path.Count; i++)
+                Path[i].Alpha = 0;
+
+            for (int i = 1; i < path.Count && i < Path.Count; i++)
+            {
+                Sprite node = Path[i - 1];
+
+                node.Position = new Vector2(path[i].X * tileWidth + (tileWidth / 2) - playfield.X / 2, path[i].Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                node.Alpha = 0.75f;
             }
 
             //now lets go there!
