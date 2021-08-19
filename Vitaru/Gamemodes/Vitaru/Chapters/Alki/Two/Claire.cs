@@ -24,9 +24,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override float HealthCapacity => 40;
 
-        public override float EnergyCapacity => 32;
+        public override float EnergyCapacity => 24;
 
-        public override float EnergyCost => 16;
+        public override float EnergyCost => 12;
 
         public override Color PrimaryColor => "#d9c630".HexToColor();
 
