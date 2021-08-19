@@ -43,7 +43,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Role Role => Role.Offense;
 
-        public override Difficulty Difficulty => Difficulty.Hard;
+        public override Difficulty Difficulty => Difficulty.Extreme;
 
         public override bool Implemented => true;
 
