@@ -42,8 +42,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
             Size = new Vector2(200, 120);
 
-            Hitbox = new RectangularHitbox();
-            Hitbox.Size = Size;
+            Hitbox = new RectangularHitbox()
+            {
+                Size = Size
+            };
 
             Children = new IDrawable2D[]
             {
