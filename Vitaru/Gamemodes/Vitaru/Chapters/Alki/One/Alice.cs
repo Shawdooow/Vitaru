@@ -15,11 +15,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Name => "Alice";
 
-        public override float HealthCapacity => 420;
+        public override float HealthCapacity => 80;
 
-        public override float EnergyCapacity => 69;
+        public override float EnergyCapacity => 24;
 
-        public override float EnergyCost => 1;
+        public override float EnergyCost => 4;
 
         public override Color PrimaryColor => "#fc0330".HexToColor();
 
