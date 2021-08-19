@@ -191,6 +191,12 @@ namespace Vitaru.Play
                 UnloadedEnemies.Add(e);
             }
 
+            while (deadPlayerQue.TryDequeue(out Player p))
+            {
+                Debugger.Assert(!p.Disposed, $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
+                PlayerPack.Remove(p);
+            }
+
             double current = Clock.Current;
             //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
             for (int i = 0; i < UnloadedEnemies.Count; i++)
@@ -232,12 +238,24 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Player> playerQue = new();
 
+        private readonly ConcurrentQueue<Player> deadPlayerQue = new();
+
         public void Add(Player player)
         {
             PlayerPack.Add(player);
             player.OnAddParticle = ParticleLayer.Add;
             //Que adding the drawable
             playerQue.Enqueue(player);
+        }
+
+        public void Remove(Player player)
+        {
+            Debugger.Assert(!player.Disposed,
+                $"Disposed {nameof(Player)}s shouldn't be getting added to {nameof(deadPlayerQue)}!");
+            Debugger.Assert(!deadPlayerQue.Contains(player),
+                $"{nameof(Player)} shouldn't be getting added to {nameof(deadPlayerQue)} again!");
+            //que them since we may be calling this from their update loop
+            deadPlayerQue.Enqueue(player);
         }
 
         private readonly ConcurrentQueue<Projectile> deadprojectileQue = new();
