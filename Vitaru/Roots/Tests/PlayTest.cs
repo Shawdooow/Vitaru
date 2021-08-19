@@ -11,7 +11,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
-using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two;
 using Vitaru.Graphics;
 using Vitaru.Levels;
 using Vitaru.Play;
@@ -56,7 +56,7 @@ namespace Vitaru.Roots.Tests
 
             Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty
                 ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield)
-                : new Frost(gamefield);
+                : new Yuie(gamefield);
 
             gamefield.Add(player);
 
