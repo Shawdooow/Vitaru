@@ -38,7 +38,7 @@ namespace Vitaru.Play
 
     public struct RectangularHitbox : Hitbox
     {
-        public Vector2 Size;
+        public Vector2 Size { get; set; }
 
         public Vector2 Position { get; set; }
     }
