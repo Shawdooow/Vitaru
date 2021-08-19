@@ -15,11 +15,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Name => "Alice";
 
-        public override float HealthCapacity => 120;
+        public override float HealthCapacity => 40;
 
         public override float EnergyCapacity => 24;
 
-        public override float EnergyCost => 4;
+        public override float EnergyCost => 12;
+
+        public override float EnergyDrainRate => 6;
 
         public override Color PrimaryColor => "#fc0330".HexToColor();
 
@@ -31,9 +33,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Role Role => Role.Specialized;
 
-        public override Difficulty Difficulty => Difficulty.Impossible;
+        public override Difficulty Difficulty => Difficulty.Hard;
 
-        public override bool AI => true;
+        public override bool Implemented => false;
+
+        /// <summary>
+        /// This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
+        /// -Eugene Krabs
+        /// </summary>
+        protected Alice Homunculus;
 
         #endregion
 
@@ -41,11 +49,25 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
         }
 
+        protected override bool CheckSpellActivate(VitaruActions action)
+        {
+            if (Health > HealthCapacity / 2)
+                return base.CheckSpellActivate(action);
+            return false;
+        }
+
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
 
+            TakeDamage(HealthCapacity / 2);
             Gamefield.Shade = Shades.Gray;
+
+            Gamefield.Add(Homunculus = new Alice(Gamefield)
+            {
+                Health = HealthCapacity / 2,
+                AI = true
+            });
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -53,6 +75,28 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             base.SpellDeactivate(action);
 
             Gamefield.Shade = Shades.None;
+
+            Heal(Homunculus.Health);
+            Gamefield.Remove(Homunculus);
+        }
+
+        protected override void SpellUpdate()
+        {
+            base.SpellUpdate();
+
+            if (Homunculus.Dead)
+                SpellDeactivate(VitaruActions.Spell);
+        }
+
+        protected override void Die()
+        {
+            base.Die();
+            if (SpellActive && !Homunculus.Dead)
+            {
+                Gamefield.Remove(this);
+                //"Transfer our soul back to our body"
+                Homunculus.AI = false;
+            }
         }
     }
 }
