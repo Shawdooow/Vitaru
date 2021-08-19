@@ -75,8 +75,8 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual bool AI => false;
 
-        private const int gridDivisorWidth = 1024 / 16;
-        private const int gridDivisorHeight = 820 / 16;
+        private const int gridDivisorWidth = 1024 / 8;
+        private const int gridDivisorHeight = 820 / 8;
 
         private const float tilePositioningMargin = 2;
 
@@ -771,7 +771,10 @@ namespace Vitaru.Play.Characters.Players
                 if (playerTile.X != -1) break;
             }
 
-            const int view = 8;
+            //how many tiles (x2) across is the grid
+            const int view = 12;
+            //how much extra space around projectiles should we treat as part of the projectile and avoid?
+            const float pMargin = 4;
 
             //check for projectiles that intersect total view area first and then sub-check those against the tiles
 
@@ -801,7 +804,7 @@ namespace Vitaru.Play.Characters.Players
 
                             RectangularHitbox box = new RectangularHitbox
                             {
-                                Size = new Vector2(bullet.CircularHitbox.Diameter),
+                                Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
                                 Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
                                                         bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
                             };
@@ -869,10 +872,22 @@ namespace Vitaru.Play.Characters.Players
             //ok now that we have picked a location lets find a safe path to get there
 
             //for now lets just pick a safe direction and assume the "path" is safe
-            Vector3Int? next = nextTile(playerTile, targetTile);
+
+            List<Vector3Int> path = new List<Vector3Int>();
+            Vector3Int next = nextTile(playerTile, targetTile);
+
+            for (int i = 0; i < 3; i++)
+            {
+                path.Add(next);
+
+                if (next.XY == targetTile) break;
+                next = nextTile(next.XY, targetTile);
+            }
 
             //now lets go there!
-            Vector2 nextTilePos = new Vector2(next.Value.X * tileWidth + (tileWidth / 2) - playfield.X / 2, next.Value.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+            Vector3Int first = path.First();
+
+            Vector2 nextTilePos = new Vector2(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2, first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
             Safe.Position = nextTilePos;
 
             //move X?
