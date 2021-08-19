@@ -179,8 +179,8 @@ namespace Vitaru.Play.Characters.Players
                     Color = ComplementaryColor
                 });
 
-                TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
-                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100);
+                TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
+                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160);
             }
         }
 
@@ -740,6 +740,16 @@ namespace Vitaru.Play.Characters.Players
         /// </summary>
         private void gridBot()
         {
+            if (Vector2.Distance(Position, TargetPosition) <= 8)
+            {
+                if (TargetPosition.X <= -400)
+                    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
+                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100);
+                else
+                    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
+                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200);
+            }
+
             Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
 
             float tileWidth = playfield.X / gridDivisorWidth;
@@ -774,7 +784,7 @@ namespace Vitaru.Play.Characters.Players
             //how many tiles (x2) across is the grid
             const int view = 12;
             //how much extra space around projectiles should we treat as part of the projectile and avoid?
-            const float pMargin = 4;
+            const float pMargin = 8;
 
             //check for projectiles that intersect total view area first and then sub-check those against the tiles
 
@@ -815,6 +825,8 @@ namespace Vitaru.Play.Characters.Players
                     }
                 }
             }
+
+            if (Vector2.Distance(Position, TargetPosition) <= 32 && !nearby.Any()) return;
 
             // iterate through grid tiles near the player and search projectiles for collisions
             for (int x = playerTile.X - view; x < playerTile.X + view; x++)
