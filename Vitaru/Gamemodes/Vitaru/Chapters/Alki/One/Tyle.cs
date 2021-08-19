@@ -31,7 +31,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override float EnergyCost => 4;
 
-        public override float EnergyDrainRate => 8;
+        public override float EnergyDrainRate => 6;
 
         public override Color PrimaryColor => "#4903fc".HexToColor();
 
