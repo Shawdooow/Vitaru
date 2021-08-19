@@ -799,7 +799,7 @@ namespace Vitaru.Play.Characters.Players
             //how many tiles (x2) across is the grid
             const int view = 12;
             //how much extra space around projectiles should we treat as part of the projectile and avoid?
-            const float pMargin = 8;
+            const float pMargin = 4;
 
             //check for projectiles that intersect total view area first and then sub-check those against the tiles
 
@@ -814,6 +814,7 @@ namespace Vitaru.Play.Characters.Players
             Grid.Position = grid.Position;
 
             List<RectangularHitbox> nearby = new();
+            double futureTime = Gamefield.Current + 1000 / 60;
 
             //now check if any projectiles are intersecting this grid tile
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -827,15 +828,28 @@ namespace Vitaru.Play.Characters.Players
                     {
                         case Bullet bullet:
 
+                            if (!bullet.Active) continue;
+
+                            float radius = bullet.CircularHitbox.Radius + pMargin / 2;
+
                             RectangularHitbox box = new RectangularHitbox
                             {
                                 Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
-                                Position = new Vector2(bullet.CircularHitbox.Position.X - bullet.CircularHitbox.Radius,
-                                                        bullet.CircularHitbox.Position.Y - bullet.CircularHitbox.Radius)
+                                Position = new Vector2(bullet.CircularHitbox.Position.X - radius, 
+                                                        bullet.CircularHitbox.Position.Y - radius)
                             };
 
                             if (grid.HitDetectionResults(box))
                                 nearby.Add(box);
+
+                            //fast-forwared 1/60 a frame and check again
+                            Vector2 futurePos = bullet.GetPosition(futureTime);
+
+                            box.Position = new Vector2(futurePos.X - radius, futurePos.Y - radius);
+
+                            if (grid.HitDetectionResults(box))
+                                nearby.Add(box);
+
                             break;
                     }
                 }
