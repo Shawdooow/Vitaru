@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
@@ -492,7 +493,7 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
-            if (Vitaru.FEATURES >= Features.Experimental)
+            if (Vitaru.FEATURES >= Features.Upcoming)
                 gridBot();
             else
                 circleViewBot();
@@ -510,6 +511,7 @@ namespace Vitaru.Play.Characters.Players
         /// <summary>
         /// Look around us and determine the direction with the least amount of bullets in it
         /// </summary>
+        [Obsolete($"Use {nameof(gridBot)}")]
         private void circleViewBot()
         {
             //Grid.Alpha = 0;
