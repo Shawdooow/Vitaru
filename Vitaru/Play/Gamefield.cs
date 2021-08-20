@@ -216,7 +216,7 @@ namespace Vitaru.Play
 
         private readonly ConcurrentQueue<Enemy> deadEnemyQue = new();
 
-        private readonly ConcurrentQueue<DrawableGameEntity> drawableEnemyQue =
+        private readonly ConcurrentQueue<DrawableGameEntity> drawableCharacterQue =
             new();
 
         public void Add(Enemy enemy)
@@ -256,6 +256,7 @@ namespace Vitaru.Play
                 $"{nameof(Player)} shouldn't be getting added to {nameof(deadPlayerQue)} again!");
             //que them since we may be calling this from their update loop
             deadPlayerQue.Enqueue(player);
+            drawableCharacterQue.Enqueue(player.DrawablePlayer);
         }
 
         private readonly ConcurrentQueue<Projectile> deadprojectileQue = new();
@@ -280,10 +281,14 @@ namespace Vitaru.Play
         public void PreRender()
         {
             //Add Players
-            while (playerQue.TryDequeue(out Player player))
+            while (playerQue.TryDequeue(out Player p))
             {
-                DrawableGameEntity draw = player.GenerateDrawable();
-                player.SetDrawable(draw);
+                Debugger.Assert(!p.Disposed, "This player is disposed and should not be in this list anymore");
+                DrawableGameEntity draw = p.GenerateDrawable();
+                p.SetDrawable(draw);
+
+                draw.OnDelete += () => drawableCharacterQue.Enqueue(draw);
+
                 CharacterLayer.Add(draw);
             }
 
@@ -294,13 +299,13 @@ namespace Vitaru.Play
                 DrawableGameEntity draw = e.GenerateDrawable();
                 e.SetDrawable(draw);
 
-                draw.OnDelete += () => drawableEnemyQue.Enqueue(draw);
+                draw.OnDelete += () => drawableCharacterQue.Enqueue(draw);
 
                 CharacterLayer.Add(draw);
             }
 
-            //Remove Enemies
-            while (drawableEnemyQue.TryDequeue(out DrawableGameEntity draw))
+            //Remove Characters
+            while (drawableCharacterQue.TryDequeue(out DrawableGameEntity draw))
             {
                 CharacterLayer.Remove(draw);
             }

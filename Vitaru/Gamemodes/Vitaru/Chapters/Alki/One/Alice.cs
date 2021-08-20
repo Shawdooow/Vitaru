@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Drawing;
+using System.Numerics;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
@@ -35,7 +36,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Difficulty Difficulty => Difficulty.Hard;
 
-        public override bool Implemented => false;
+        public override bool Implemented => true;
 
         /// <summary>
         /// This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
@@ -61,12 +62,17 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             base.SpellActivate(action);
 
             TakeDamage(HealthCapacity / 2);
+
             Gamefield.Shade = Shades.Gray;
+            Gamefield.Intensity = 0.2f;
 
             Gamefield.Add(Homunculus = new Alice(Gamefield)
             {
+                Position = Position,
                 Health = HealthCapacity / 2,
-                AI = true
+                AI = true,
+                TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
+                                            GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160)
             });
         }
 
@@ -75,16 +81,21 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             base.SpellDeactivate(action);
 
             Gamefield.Shade = Shades.None;
+            Gamefield.Intensity = 1f;
 
-            Heal(Homunculus.Health);
-            Gamefield.Remove(Homunculus);
+            if (!Homunculus?.Dead ?? false)
+            {
+                Heal(Homunculus.Health);
+                Gamefield.Remove(Homunculus);
+                Homunculus = null;
+            }
         }
 
         protected override void SpellUpdate()
         {
             base.SpellUpdate();
 
-            if (Homunculus.Dead)
+            if (Homunculus?.Dead ?? false)
                 SpellDeactivate(VitaruActions.Spell);
         }
 

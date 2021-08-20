@@ -107,7 +107,7 @@ namespace Vitaru.Play.Characters.Players
 
         private bool GOD_KING;
 
-        protected DrawablePlayer DrawablePlayer { get; set; }
+        public DrawablePlayer DrawablePlayer { get; protected set; }
 
 
         #endregion
@@ -189,9 +189,6 @@ namespace Vitaru.Play.Characters.Players
             //        Size = new Vector2(20),
             //        Color = ComplementaryColor
             //    });
-            //
-            //    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
-            //                            GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160);
             //}
         }
 

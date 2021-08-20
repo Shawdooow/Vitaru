@@ -62,7 +62,7 @@ namespace Vitaru.Play.Characters
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Health = HealthCapacity;
+            if (Health == 0) Health = HealthCapacity;
         }
 
         public virtual void OnNewBeat()
