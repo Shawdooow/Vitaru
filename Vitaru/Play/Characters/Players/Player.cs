@@ -34,6 +34,14 @@ namespace Vitaru.Play.Characters.Players
 
         public override Color ComplementaryColor => "#d6d6d6".HexToColor();
 
+        public virtual string Seal => "Gameplay\\seal.png";
+
+        public virtual string Reticle => "Gameplay\\reticle.png";
+
+        public virtual string HealthRing => "Gameplay\\inner.png";
+
+        public virtual string EnergyRing => "Gameplay\\outer.png";
+
         public double LastDamageTime { get; protected set; }
 
         public virtual float EnergyCapacity => 20f;

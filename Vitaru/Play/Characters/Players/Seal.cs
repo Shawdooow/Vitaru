@@ -36,7 +36,7 @@ namespace Vitaru.Play.Characters.Players
         public Seal(Player player)
         {
             this.player = player;
-            Texture reticle = Game.TextureStore.GetTexture("Gameplay\\reticle.png");
+            Texture reticle = Game.TextureStore.GetTexture(player.Reticle);
             Size = reticle.Size / 4;
 
             Children = new IDrawable2D[]
@@ -48,7 +48,7 @@ namespace Vitaru.Play.Characters.Players
                     Alpha = 0f,
                     Color = player.PrimaryColor
                 },
-                Sign = new Sprite(Game.TextureStore.GetTexture("Gameplay\\seal.png"))
+                Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0.5f,
@@ -189,11 +189,11 @@ namespace Vitaru.Play.Characters.Players
 
                 Children = new[]
                 {
-                    outer = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\outer.png"))
+                    outer = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
                     {
                         Color = player.SecondaryColor
                     },
-                    inner = new MaskSprite(Game.TextureStore.GetTexture("Gameplay\\inner.png"))
+                    inner = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
                     {
                         Color = player.ComplementaryColor
                     }
