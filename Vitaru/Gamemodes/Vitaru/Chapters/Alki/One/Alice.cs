@@ -50,6 +50,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected Sprite TargetA;
         protected Sprite TargetB;
 
+        protected bool Soul = true;
+
         #endregion
 
         public Alice(Gamefield gamefield) : base(gamefield)
@@ -64,7 +66,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100),
                 Size = new Vector2(50),
-                Alpha = 0.5f,
+                Alpha = Soul ? 0.5f : 0f,
                 Color = PrimaryColor
             });
 
@@ -73,7 +75,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200),
                 Size = new Vector2(50),
-                Alpha = 0.5f,
+                Alpha = Soul ? 0.5f : 0f,
                 Color = SecondaryColor
             });
         }
@@ -96,15 +98,16 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             switch (action)
             {
-                case VitaruActions.ModifierOne when Homunculus != null:
+                case VitaruActions.ModifierOne:
                     TargetA.Position = InputManager.Mouse.Position;
-                    Homunculus.TargetPositions[0] = TargetA.Position;
+                    if (Homunculus != null) Homunculus.TargetPositions[0] = TargetA.Position;
                     break;
-                case VitaruActions.ModifierTwo when Homunculus != null:
+                case VitaruActions.ModifierTwo:
                     TargetB.Position = InputManager.Mouse.Position;
-                    Homunculus.TargetPositions[1] = TargetB.Position;
+                    if (Homunculus != null) Homunculus.TargetPositions[1] = TargetB.Position;
                     break;
                 case VitaruActions.Spell:
+                    Soul = true;
                     TakeDamage(HealthCapacity / 2);
 
                     TargetA.Alpha = 1;
@@ -119,6 +122,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                         Position = Position,
                         Health = HealthCapacity / 2,
                         AI = true,
+                        Soul = false,
                         TargetPositions = new List<Vector2>
                         {
                             TargetA.Position,
@@ -137,6 +141,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             switch (action)
             {
                 case VitaruActions.Spell:
+                    Soul = false;
                     TargetA.Alpha = 0.5f;
                     TargetB.Alpha = 0.5f;
 
@@ -154,18 +159,32 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             }
         }
 
+        protected void TransferSoul()
+        {
+            TargetA.Alpha = 0.5f;
+            TargetB.Alpha = 0.5f;
+        }
+
         protected override void Die()
         {
             base.Die();
             if (SpellActive && !Homunculus.Dead)
             {
                 Gamefield.Remove(this);
+
                 //"Transfer our soul back to our body"
                 Homunculus.AI = false;
+                Homunculus.TargetA.Position = TargetA.Position;
+                Homunculus.TargetB.Position = TargetB.Position;
+
+                Homunculus.TransferSoul();
             }
 
             if (Homunculus != null)
                 Homunculus.OnDie = null;
+
+            Gamefield.OverlaysLayer.Remove(TargetA);
+            Gamefield.OverlaysLayer.Remove(TargetB);
         }
     }
 }
