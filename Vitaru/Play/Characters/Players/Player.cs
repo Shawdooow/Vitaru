@@ -75,11 +75,7 @@ namespace Vitaru.Play.Characters.Players
 
         private const float tilePositioningMargin = 2;
 
-        protected List<Vector2> TargetPositions { get; set; } = new List<Vector2>
-        {
-            new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
-                GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160)
-        };
+        protected List<Vector2> TargetPositions { get; set; } = new List<Vector2>();
         protected int Target { get; set; }
 
         //protected Box Grid;
@@ -757,7 +753,7 @@ namespace Vitaru.Play.Characters.Players
             if (Vector2.Distance(Position, target) <= 8)
             {
                 Target++;
-                if (Target >= TargetPositions.Capacity) Target = 0;
+                if (Target >= TargetPositions.Count) Target = 0;
             }
 
             Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
