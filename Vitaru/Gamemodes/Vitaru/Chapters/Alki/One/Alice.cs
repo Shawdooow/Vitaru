@@ -61,8 +61,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             base.SpellActivate(action);
 
+            if (action != VitaruActions.Spell) return;
+
             TakeDamage(HealthCapacity / 2);
 
+            Drawable.Alpha = 0.5f;
             Gamefield.Shade = Shades.Gray;
             Gamefield.Intensity = 0.2f;
 
@@ -72,7 +75,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Health = HealthCapacity / 2,
                 AI = true,
                 TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
-                                            GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160)
+                                            GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160),
+                OnDie = () => SpellDeactivate(VitaruActions.Spell)
             });
         }
 
@@ -80,23 +84,18 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             base.SpellDeactivate(action);
 
+            if (action != VitaruActions.Spell) return;
+
+            Drawable.Alpha = 1f;
             Gamefield.Shade = Shades.None;
             Gamefield.Intensity = 1f;
 
-            if (!Homunculus?.Dead ?? false)
+            if (Homunculus != null)
             {
                 Heal(Homunculus.Health);
                 Gamefield.Remove(Homunculus);
                 Homunculus = null;
             }
-        }
-
-        protected override void SpellUpdate()
-        {
-            base.SpellUpdate();
-
-            if (Homunculus?.Dead ?? false)
-                SpellDeactivate(VitaruActions.Spell);
         }
 
         protected override void Die()
@@ -108,6 +107,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 //"Transfer our soul back to our body"
                 Homunculus.AI = false;
             }
+
+            if (Homunculus != null)
+                Homunculus.OnDie = null;
         }
     }
 }
