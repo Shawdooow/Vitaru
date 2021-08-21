@@ -484,7 +484,7 @@ namespace Vitaru.Play.Characters.Players
                 AILastBinds[v] = AIBinds[v];
 
             //Reset movement binds before we pick a new direction
-            AIBinds[VitaruActions.Sneak] = false;
+            AIBinds[VitaruActions.Shoot] = false;
             AIBinds[VitaruActions.Up] = false;
             AIBinds[VitaruActions.Down] = false;
             AIBinds[VitaruActions.Left] = false;
@@ -511,6 +511,7 @@ namespace Vitaru.Play.Characters.Players
         [Obsolete($"Use {nameof(gridBot)}")]
         private void circleViewBot()
         {
+            AIBinds[VitaruActions.Sneak] = false;
             //Grid.Alpha = 0;
             //Target.Alpha = 0;
 
@@ -747,6 +748,10 @@ namespace Vitaru.Play.Characters.Players
         /// </summary>
         private void gridBot()
         {
+            AIBinds[VitaruActions.Sneak] = false;
+
+            AIBinds[VitaruActions.Shoot] = true;
+
             if (Vector2.Distance(Position, TargetPosition) <= 8)
             {
                 if (TargetPosition.X <= -400)
