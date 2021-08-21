@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
@@ -9,7 +8,6 @@ using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Input;
-using Prion.Nucleus;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Vectors;
 using Vitaru.Gamemodes;
@@ -77,7 +75,12 @@ namespace Vitaru.Play.Characters.Players
 
         private const float tilePositioningMargin = 2;
 
-        protected virtual Vector2 TargetPosition { get; set; }
+        protected List<Vector2> TargetPositions { get; set; } = new List<Vector2>
+        {
+            new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 160,
+                GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 160)
+        };
+        protected int Target { get; set; }
 
         //protected Box Grid;
         //protected List<Sprite> Path = new List<Sprite>();
@@ -490,14 +493,11 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
-            if (Vitaru.FEATURES >= Features.Upcoming)
-                gridBot();
-            else
-                circleViewBot();
+            gridBot();
         }
 
 
-        #region Circle View Bot
+        #region Circle View Bot DEPRECATED
 
 
         //dist
@@ -752,14 +752,12 @@ namespace Vitaru.Play.Characters.Players
 
             AIBinds[VitaruActions.Shoot] = true;
 
-            if (Vector2.Distance(Position, TargetPosition) <= 8)
+            Vector2 target = TargetPositions[Target];
+
+            if (Vector2.Distance(Position, target) <= 8)
             {
-                if (TargetPosition.X <= -400)
-                    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
-                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100);
-                else
-                    TargetPosition = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
-                                        GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200);
+                Target++;
+                if (Target >= TargetPositions.Capacity) Target = 0;
             }
 
             Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
@@ -852,7 +850,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            if (Vector2.Distance(Position, TargetPosition) <= 32 && !nearby.Any()) return;
+            if (Vector2.Distance(Position, target) <= 32 && !nearby.Any()) return;
 
             // iterate through grid tiles near the player and search projectiles for collisions
             for (int x = playerTile.X - view; x < playerTile.X + view; x++)
@@ -898,8 +896,8 @@ namespace Vitaru.Play.Characters.Players
                     int tileY = y - gridDivisorHeight / 2;
 
                     //check if the TargetPosition is here
-                    if (TargetPosition.X >= tileX * tileWidth && TargetPosition.X <= (tileX + 1) * tileWidth && 
-                        TargetPosition.Y >= tileY * tileHeight && TargetPosition.Y <= (tileY + 1) * tileHeight)
+                    if (target.X >= tileX * tileWidth && target.X <= (tileX + 1) * tileWidth &&
+                        target.Y >= tileY * tileHeight && target.Y <= (tileY + 1) * tileHeight)
                         targetTile = new Vector2Int(x, y);
                 }
             }
