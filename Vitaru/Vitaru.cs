@@ -18,6 +18,7 @@ using Prion.Nucleus.Platform;
 using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
+using Vitaru.Input;
 using Vitaru.Levels;
 using Vitaru.Mods;
 using Vitaru.Roots;
@@ -111,6 +112,8 @@ namespace Vitaru
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
 
+        public static PlayerBinds PlayerBinds { get; private set; }
+
         public static Storage LevelStorage { get; protected set; }
 
         public static TextureStore LevelTextureStore { get; protected set; }
@@ -120,6 +123,7 @@ namespace Vitaru
         protected Vitaru(VitaruLaunchArgs args) : base(args)
         {
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
+            PlayerBinds = new PlayerBinds();
             bool levels = ApplicationDataStorage.Exists("Levels");
             LevelStorage = ApplicationDataStorage.GetStorage("Levels");
             LevelTextureStore = new TextureStore(LevelStorage);
@@ -226,6 +230,7 @@ namespace Vitaru
         public override void Dispose()
         {
             VitaruSettings.Dispose();
+            PlayerBinds.Dispose();
             base.Dispose();
         }
     }

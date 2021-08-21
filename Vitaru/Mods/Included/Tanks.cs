@@ -70,7 +70,6 @@ namespace Vitaru.Mods.Included
             private VitaruTrackController controller;
 
             private Camera camera;
-            private PlayerBinds input;
             private Model turret;
             private BillboardSprite bill;
 
@@ -222,7 +221,6 @@ namespace Vitaru.Mods.Included
                     PassDownInput = false
                 });
 
-                input = new PlayerBinds();
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
 
                 camera = new Camera();
@@ -549,19 +547,19 @@ namespace Vitaru.Mods.Included
                     float t = (float) Clock.LastElapsedTime / 1000f;
                     t *= walking_speed;
 
-                    if (input[VitaruActions.Up])
+                    if (Vitaru.PlayerBinds[VitaruActions.Up])
                         camera.Position += camera.Front * t;
-                    else if (input[VitaruActions.Down])
+                    else if (Vitaru.PlayerBinds[VitaruActions.Down])
                         camera.Position -= camera.Front * t;
 
-                    if (input[VitaruActions.Right])
+                    if (Vitaru.PlayerBinds[VitaruActions.Right])
                         camera.Position += camera.Right * t;
-                    else if (input[VitaruActions.Left])
+                    else if (Vitaru.PlayerBinds[VitaruActions.Left])
                         camera.Position -= camera.Right * t;
 
-                    if (input[VitaruActions.Jump])
+                    if (Vitaru.PlayerBinds[VitaruActions.Jump])
                         camera.Position += camera.Up * t;
-                    else if (input[VitaruActions.Sneak])
+                    else if (Vitaru.PlayerBinds[VitaruActions.Sneak])
                         camera.Position -= camera.Up * t;
 
                     torch.Position = camera.Position;

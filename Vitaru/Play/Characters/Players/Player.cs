@@ -62,11 +62,9 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual string Background => "Default Background Text   C:<";
 
-        public bool GetBind(VitaruActions action) => AI ? AIBinds[action] : PlayerBinds[action];
+        public bool GetBind(VitaruActions action) => AI ? AIBinds[action] : Vitaru.PlayerBinds[action];
 
-        public bool GetLastBind(VitaruActions action) => AI ? AILastBinds[action] : PlayerBinds.Last(action);
-
-        protected PlayerBinds PlayerBinds { get; set; }
+        public bool GetLastBind(VitaruActions action) => AI ? AILastBinds[action] : Vitaru.PlayerBinds.Last(action);
 
         protected Dictionary<VitaruActions, bool> AIBinds;
 
@@ -136,7 +134,6 @@ namespace Vitaru.Play.Characters.Players
             Team = PLAYER_TEAM;
             CircularHitbox.Diameter = 6;
 
-            PlayerBinds = new PlayerBinds();
             AIBinds = new Dictionary<VitaruActions, bool>();
             AILastBinds = new Dictionary<VitaruActions, bool>();
 
@@ -1055,12 +1052,6 @@ namespace Vitaru.Play.Characters.Players
 
         #endregion
 
-
-        protected override void Dispose(bool finalize)
-        {
-            PlayerBinds?.Dispose();
-            base.Dispose(finalize);
-        }
 
         protected virtual float GetBulletHealingMultiplier(float value) =>
             PrionMath.Remap(value, 0, healing_range, healing_min, healing_max);
