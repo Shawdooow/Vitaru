@@ -62,8 +62,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (Clock is AdjustableClock a)
                 adjustable = a;
             else
-                Debugger.InvalidOperation(
-                    $"{nameof(Yuie)} requires an {nameof(AdjustableClock)} as it's {nameof(Clock)}!");
+                Debugger.InvalidOperation($"{nameof(Yuie)} requires an {nameof(AdjustableClock)} as it's {nameof(Clock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)

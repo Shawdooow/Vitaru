@@ -146,8 +146,8 @@ namespace Vitaru.Roots.Tests
 
             TrackManager.CurrentTrack.Clock.Update();
 
-            float current = (float)TrackManager.CurrentTrack.Clock.Current;
-            float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
+            float current = (float) TrackManager.CurrentTrack.Clock.Current;
+            float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!slider.Dragging)
                 slider.Progress = PrionMath.Remap(current, 0, length);
@@ -184,7 +184,7 @@ namespace Vitaru.Roots.Tests
                                 StartTime = start,
                                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
                                     PrionMath.RandomNumber(-300, 0)),
-                                PatternID = (short)PrionMath.RandomNumber(0, 5),
+                                PatternID = (short) PrionMath.RandomNumber(0, 5),
                                 Color = c
                             });
                         else
@@ -231,13 +231,13 @@ namespace Vitaru.Roots.Tests
         public override void PostProcessing()
         {
             base.PostProcessing();
-            Renderer.ShaderManager.UpdateInt("shade", (int)gamefield.Shade);
+            Renderer.ShaderManager.UpdateInt("shade", (int) gamefield.Shade);
             Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
         }
 
         protected override void Dispose(bool finalize)
         {
-            Renderer.ShaderManager.UpdateInt("shade", (int)Shades.Color);
+            Renderer.ShaderManager.UpdateInt("shade", (int) Shades.Color);
             Renderer.ShaderManager.UpdateFloat("intensity", 1);
             base.Dispose(finalize);
         }

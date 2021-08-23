@@ -56,10 +56,10 @@ namespace Vitaru.Settings.Overlays
                         new SliderOption<NucleusSetting>(Application.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
-                            OnValueChange = value => application.UpdateFrequency = (int)value
-                        }
+                            OnValueChange = value => application.UpdateFrequency = (int) value
+                        },
                     }
-                }
+                },
             };
         }
     }

@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
-// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
-
-using System.Drawing;
+﻿using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
@@ -81,8 +78,7 @@ namespace Vitaru.Roots.Menu
                             TrackMetadata meta = TrackManager.CurrentTrack.Metadata;
                             double time = TrackManager.CurrentTrack.SeekableClock.Current;
                             TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata);
-                            if (TrackManager.CurrentTrack.Metadata.Filename == meta.Filename)
-                                TrackManager.CurrentTrack.Seek(time / 1000);
+                            if (TrackManager.CurrentTrack.Metadata.Filename == meta.Filename) TrackManager.CurrentTrack.Seek(time / 1000);
                         });
                     };
                     items.Add(item);
@@ -154,7 +150,7 @@ namespace Vitaru.Roots.Menu
                         Position = new Vector2(-2, 0),
                         Text = name,
                         FontScale = 0.2f
-                    }
+                    },
                 };
             }
 

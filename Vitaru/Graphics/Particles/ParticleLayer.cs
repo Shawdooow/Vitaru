@@ -83,7 +83,7 @@ namespace Vitaru.Graphics.Particles
             program = Renderer.ShaderManager.GetShaderProgram(vert, frag);
             program.SetActive();
 
-            GLShaderProgram gl = (GLShaderProgram)program;
+            GLShaderProgram gl = (GLShaderProgram) program;
 
             gl.Locations["projection"] = GLShaderManager.GetLocation(program, "projection");
             gl.Locations["size"] = GLShaderManager.GetLocation(program, "size");

@@ -21,7 +21,7 @@ namespace Vitaru.Server.Server
 
             byte[] name = Name.ToLengthAndBytes();
             byte[] value = Value.ToLengthAndBytes();
-            byte[] sync = BitConverter.GetBytes((ushort)Sync);
+            byte[] sync = BitConverter.GetBytes((ushort) Sync);
 
             data.AddRange(name);
             data.AddRange(value);
@@ -36,7 +36,7 @@ namespace Vitaru.Server.Server
         }
 
         /// <summary>
-        ///     Does NOT includes the 4 bytes of (int)size of this <see cref="Setting" />
+        /// Does NOT includes the 4 bytes of (int)size of this <see cref="Setting"/>
         /// </summary>
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
@@ -74,21 +74,20 @@ namespace Vitaru.Server.Server
     public enum Sync
     {
         /// <summary>
-        ///     This <see cref="Setting" /> does not need to be synced with the server or other clients.
-        ///     EXAMPLE: Graphics quality
+        /// This <see cref="Setting"/> does not need to be synced with the server or other clients.
+        /// EXAMPLE: Graphics quality
         /// </summary>
         None,
 
         /// <summary>
-        ///     This <see cref="Setting" /> needs to be synced with the server but not necessarily with other clients until we load
-        ///     in.
-        ///     EXAMPLE: The character we want to play as
+        /// This <see cref="Setting"/> needs to be synced with the server but not necessarily with other clients until we load in.
+        /// EXAMPLE: The character we want to play as
         /// </summary>
         Client,
 
         /// <summary>
-        ///     This <see cref="Setting" /> needs to be the exact same across the server and all clients.
-        ///     EXAMPLE: Increased enemy difficulty
+        /// This <see cref="Setting"/> needs to be the exact same across the server and all clients.
+        /// EXAMPLE: Increased enemy difficulty
         /// </summary>
         All
     }

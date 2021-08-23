@@ -11,13 +11,13 @@ namespace Vitaru.Play.Projectiles
         private const float max_dist = 600;
 
         public static List<Projectile> Wave(float speed, float diameter, float damage, Vector2 position,
-            double startTime, int team, float complexity = 1, float angle = (float)Math.PI / 2)
+            double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
             List<Projectile> projectiles = new();
 
-            int bulletCount = (int)(complexity * 5);
-            float directionModifier = (float)Math.PI / 2 / (bulletCount - 1);
-            float direction = angle - (float)Math.PI / 4;
+            int bulletCount = (int) (complexity * 5);
+            float directionModifier = (float) Math.PI / 2 / (bulletCount - 1);
+            float direction = angle - (float) Math.PI / 4;
 
             for (int i = 1; i <= bulletCount; i++)
             {
@@ -44,11 +44,11 @@ namespace Vitaru.Play.Projectiles
         }
 
         public static List<Projectile> Line(float startSpeed, float endSpeed, float diameter, float damage,
-            Vector2 position, double startTime, int team, float complexity = 1, float angle = (float)Math.PI / 2)
+            Vector2 position, double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
             List<Projectile> projectiles = new();
 
-            int bulletCount = (int)(complexity * 3);
+            int bulletCount = (int) (complexity * 3);
             float speedModifier = (endSpeed - startSpeed) / bulletCount;
             float speed = startSpeed;
 
@@ -77,18 +77,18 @@ namespace Vitaru.Play.Projectiles
         }
 
         public static List<Projectile> Triangle(float speed, float diameter, float damage, Vector2 position,
-            double startTime, int team, float complexity = 1, float angle = (float)Math.PI / 2)
+            double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
             List<Projectile> projectiles = new();
 
-            int bulletCount = (int)(complexity * 3);
+            int bulletCount = (int) (complexity * 3);
 
             if (bulletCount % 3 != 0)
                 bulletCount++;
             if (bulletCount % 3 != 0)
                 bulletCount++;
 
-            float directionModifier = (float)Math.PI / 4 / (bulletCount - 1);
+            float directionModifier = (float) Math.PI / 4 / (bulletCount - 1);
             float direction = angle;
 
             for (int i = 1; i <= bulletCount; i++)
@@ -128,17 +128,17 @@ namespace Vitaru.Play.Projectiles
         }
 
         public static List<Projectile> Wedge(float speed, float diameter, float damage, Vector2 position,
-            double startTime, int team, float complexity = 1, float angle = (float)Math.PI / 2)
+            double startTime, int team, float complexity = 1, float angle = (float) Math.PI / 2)
         {
             List<Projectile> projectiles = new();
 
-            int bulletCount = (int)(complexity * 7);
+            int bulletCount = (int) (complexity * 7);
 
             if (bulletCount % 2 == 0)
                 bulletCount++;
 
-            float directionModifier = (float)Math.PI / 2 / (bulletCount - 1);
-            float direction = angle - (float)Math.PI / 4;
+            float directionModifier = (float) Math.PI / 2 / (bulletCount - 1);
+            float direction = angle - (float) Math.PI / 4;
 
             float speedModifier = (speed * 1.5f - speed * 0.75f) / bulletCount;
 
@@ -176,9 +176,9 @@ namespace Vitaru.Play.Projectiles
         {
             List<Projectile> projectiles = new();
 
-            int bulletCount = (int)(complexity * 12);
-            float directionModifier = (float)Math.PI * 2 / bulletCount;
-            float direction = (float)Math.PI / 2;
+            int bulletCount = (int) (complexity * 12);
+            float directionModifier = (float) Math.PI * 2 / bulletCount;
+            float direction = (float) Math.PI / 2;
 
             for (int i = 1; i <= bulletCount; i++)
             {
@@ -210,14 +210,14 @@ namespace Vitaru.Play.Projectiles
             List<Projectile> projectiles = new();
 
             const float dist = 800;
-            int bulletCount = (int)(complexity * 4);
-            float directionModifier = (float)Math.PI / bulletCount;
-            float direction = (float)Math.PI / 8f;
+            int bulletCount = (int) (complexity * 4);
+            float directionModifier = (float) Math.PI / bulletCount;
+            float direction = (float) Math.PI / 8f;
 
             for (int i = 1; i <= bulletCount; i++)
             {
-                Vector2 offset = new((float)Math.Cos(direction) * (-dist / 2),
-                    (float)Math.Sin(direction) * (-dist / 2));
+                Vector2 offset = new((float) Math.Cos(direction) * (-dist / 2),
+                    (float) Math.Sin(direction) * (-dist / 2));
 
                 projectiles.Add(new Bullet
                 {
@@ -250,14 +250,14 @@ namespace Vitaru.Play.Projectiles
             List<Projectile> projectiles = new();
 
             const float dist = max_dist;
-            int bulletCount = (int)(complexity * 4);
-            float directionModifier = (float)Math.PI * 2 / bulletCount;
-            float direction = (float)Math.PI / 4;
+            int bulletCount = (int) (complexity * 4);
+            float directionModifier = (float) Math.PI * 2 / bulletCount;
+            float direction = (float) Math.PI / 4;
 
             for (int i = 1; i <= bulletCount; i++)
             {
-                Vector2 offset = new((float)Math.Cos(direction) * (-dist / 2),
-                    (float)Math.Sin(direction) * (-dist / 2));
+                Vector2 offset = new((float) Math.Cos(direction) * (-dist / 2),
+                    (float) Math.Sin(direction) * (-dist / 2));
 
                 projectiles.Add(new Bullet
                 {

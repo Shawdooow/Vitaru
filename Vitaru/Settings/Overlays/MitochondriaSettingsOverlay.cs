@@ -70,17 +70,17 @@ namespace Vitaru.Settings.Overlays
                             1000)
                         {
                             Text = "Draw Frequency",
-                            OnValueChange = value => Renderer.DrawFrequency = (int)value
+                            OnValueChange = value => Renderer.DrawFrequency = (int) value
                         },
                         new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleUpdate, 10, 60)
                         {
                             Text = "Idle Update Frequency",
-                            OnValueChange = value => game.IdleUpdate = (int)value
+                            OnValueChange = value => game.IdleUpdate = (int) value
                         },
                         new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleDraw, 10, 60)
                         {
                             Text = "Idle Draw Frequency",
-                            OnValueChange = value => Renderer.IdleDraw = (int)value
+                            OnValueChange = value => Renderer.IdleDraw = (int) value
                         },
                         new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.LimitDrawToUpdate)
                         {
@@ -96,21 +96,21 @@ namespace Vitaru.Settings.Overlays
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Master, 0, 100)
                         {
-                            Text = "Master"
+                            Text = "Master",
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Sounds, 0, 100)
                         {
-                            Text = "Sounds"
+                            Text = "Sounds",
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Music, 0, 100)
                         {
                             Text = "Music",
                             OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
-                        }
+                        },
                     }
-                }
+                },
             };
         }
     }

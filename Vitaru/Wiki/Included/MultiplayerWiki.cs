@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
-// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
-
-using Prion.Mitochondria.Graphics.Drawables;
+﻿using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Vitaru.Wiki.Content;
 
@@ -13,7 +10,7 @@ namespace Vitaru.Wiki.Included
 
         public override WikiSection[] GetSections() => new WikiSection[]
         {
-            new Online()
+            new Online(),
         };
 
         private class Online : WikiSection
@@ -24,7 +21,7 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("Online multiplayer doesn't work at all yet.")
+                    new Description("Online multiplayer doesn't work at all yet."),
                 }
             };
         }

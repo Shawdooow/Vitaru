@@ -439,8 +439,8 @@ namespace Vitaru.Mods.Included
                 controller.Update();
                 controller.TryNextLevel();
 
-                float current = (float)TrackManager.CurrentTrack.Clock.Current;
-                float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
+                float current = (float) TrackManager.CurrentTrack.Clock.Current;
+                float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
 
                 if (!seek.Dragging)
                     seek.Progress = PrionMath.Remap(current, 0, length);

@@ -94,7 +94,7 @@ namespace Vitaru.Settings.Overlays
                             Text = "Toggle \"GOD-KING\" Hacks"
                         }
                     }
-                }
+                },
             };
         }
     }

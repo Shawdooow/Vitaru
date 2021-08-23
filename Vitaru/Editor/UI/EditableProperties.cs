@@ -256,7 +256,7 @@ namespace Vitaru.Editor.UI
                                             try
                                             {
                                                 n = short.Parse(t);
-                                                n = Math.Clamp(n, (short)0, (short)4);
+                                                n = Math.Clamp(n, (short) 0, (short) 4);
                                             }
                                             catch
                                             {

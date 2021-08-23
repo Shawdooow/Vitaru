@@ -49,7 +49,7 @@ namespace Vitaru.Gamemodes
             }
 
             List<Gamemode> instances =
-                loadedAssemblies.Values.Select(g => (Gamemode)Activator.CreateInstance(g)).ToList();
+                loadedAssemblies.Values.Select(g => (Gamemode) Activator.CreateInstance(g)).ToList();
 
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
@@ -113,7 +113,7 @@ namespace Vitaru.Gamemodes
             public string SelectedCharacter
             {
                 get => selected;
-                set
+                set 
                 {
                     selected = $"{Gamemode.Name}:{value}";
                     OnSelectedCharacterChange?.Invoke(selected);
