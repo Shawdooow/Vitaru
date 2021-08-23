@@ -57,9 +57,9 @@ namespace Vitaru.Settings.Overlays
                         {
                             Text = "Update Frequency",
                             OnValueChange = value => application.UpdateFrequency = (int) value
-                        },
+                        }
                     }
-                },
+                }
             };
         }
     }

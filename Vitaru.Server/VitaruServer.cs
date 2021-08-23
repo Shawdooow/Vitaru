@@ -77,14 +77,14 @@ namespace Vitaru.Server
                             {
                                 Name = "Character",
                                 Value = "Arysa",
-                                Sync = Sync.Client,
+                                Sync = Sync.Client
                             },
                             new Setting
                             {
                                 Name = "Hard?",
                                 Value = "Bab",
-                                Sync = Sync.All,
-                            },
+                                Sync = Sync.All
+                            }
                         },
                         Status = PlayerStatus.SearchingForLevel
                     },
@@ -99,17 +99,17 @@ namespace Vitaru.Server
                             {
                                 Name = "Character",
                                 Value = "Nobody",
-                                Sync = Sync.Client,
+                                Sync = Sync.Client
                             },
                             new Setting
                             {
                                 Name = "Easy",
                                 Value = "yet",
-                                Sync = Sync.All,
-                            },
+                                Sync = Sync.All
+                            }
                         },
                         Status = PlayerStatus.DownloadingLevel
-                    },
+                    }
                 },
             
                 Settings = new List<Setting>
@@ -139,6 +139,6 @@ namespace Vitaru.Server
         CreateMatch,
         MatchCreated,
         JoinMatch,
-        JoinedMatch,
+        JoinedMatch
     }
 }

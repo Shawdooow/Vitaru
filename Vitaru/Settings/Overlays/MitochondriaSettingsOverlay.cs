@@ -96,21 +96,21 @@ namespace Vitaru.Settings.Overlays
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Master, 0, 100)
                         {
-                            Text = "Master",
+                            Text = "Master"
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Sounds, 0, 100)
                         {
-                            Text = "Sounds",
+                            Text = "Sounds"
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Music, 0, 100)
                         {
                             Text = "Music",
                             OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
-                        },
+                        }
                     }
-                },
+                }
             };
         }
     }

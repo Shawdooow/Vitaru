@@ -772,7 +772,7 @@ namespace Vitaru.Play.Characters.Players
             int[,] tiles = new int[gridDivisorWidth, gridDivisorHeight];
 
             //The tile the player is in
-            Vector2Int playerTile = new Vector2Int(-1);
+            Vector2Int playerTile = new(-1);
 
             //first we want to locate the tile the player is in so we can just check for projectiles near it
             for (int x = 0; x < gridDivisorWidth; x++)
@@ -831,7 +831,7 @@ namespace Vitaru.Play.Characters.Players
 
                             float radius = bullet.CircularHitbox.Radius + pMargin / 2;
 
-                            RectangularHitbox box = new RectangularHitbox
+                            RectangularHitbox box = new()
                             {
                                 Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
                                 Position = new Vector2(bullet.CircularHitbox.Position.X - radius, 
@@ -906,7 +906,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            Vector2 targetTilePos = new Vector2(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2), targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
+            Vector2 targetTilePos = new(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2), targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
             //Target.Position = targetTilePos;
 
             //ok now that we have picked a location lets find a safe path to get there
@@ -939,7 +939,7 @@ namespace Vitaru.Play.Characters.Players
             //now lets go there!
             Vector3Int first = path.First();
 
-            Vector2 nextTilePos = new Vector2(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2, first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+            Vector2 nextTilePos = new(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2, first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
             //Safe.Position = nextTilePos;
 
             //move X?
@@ -979,7 +979,7 @@ namespace Vitaru.Play.Characters.Players
             {
                 List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>();
 
-                Vector2 finalTile = new Vector2(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2, final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                Vector2 finalTile = new(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2, final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
 
                 for (int x = current.X - 1; x <= current.X + 1; x++)
                 {
@@ -989,7 +989,7 @@ namespace Vitaru.Play.Characters.Players
                     {
                         if (y < 0 || y >= gridDivisorHeight || y == current.Y) continue;
 
-                        Vector2 adjacentTile = new Vector2(x * tileWidth + (tileWidth / 2) - playfield.X / 2, y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                        Vector2 adjacentTile = new(x * tileWidth + (tileWidth / 2) - playfield.X / 2, y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
                         float travel = Vector2.Distance(Position, adjacentTile);
                         float remaining = Vector2.Distance(adjacentTile, finalTile);
 
@@ -1092,6 +1092,6 @@ namespace Vitaru.Play.Characters.Players
         Hard,
         Insane,
         Extreme,
-        Impossible,
+        Impossible
     }
 }

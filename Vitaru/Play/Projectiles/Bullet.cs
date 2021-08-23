@@ -197,7 +197,7 @@ namespace Vitaru.Play.Projectiles
         Straight,
         Target,
 
-        Bezier,
+        Bezier
     }
 
     public enum Shape

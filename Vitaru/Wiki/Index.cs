@@ -70,7 +70,7 @@ namespace Vitaru.Wiki
             {
                 new VitaruWiki(),
                 new MultiplayerWiki(),
-                new EditorWiki(),
+                new EditorWiki()
             };
 
             foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)

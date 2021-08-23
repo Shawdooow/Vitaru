@@ -68,7 +68,7 @@ namespace Vitaru.Server.Server
                     VitaruMatch match = new()
                     {
                         MatchInfo = create.MatchInfo,
-                        MatchLastUpdateTime = Clock.Current,
+                        MatchLastUpdateTime = Clock.Current
                     };
                     match.MatchInfo.ID = VitaruMatches.Any() ? VitaruMatches.Last().MatchInfo.ID + 1 : 1;
                     VitaruMatches.Add(match);

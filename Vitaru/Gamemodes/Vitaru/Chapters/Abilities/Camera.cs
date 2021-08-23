@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using Prion.Mitochondria.Graphics;
@@ -104,7 +107,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Origin = Mounts.BottomLeft,
                     FontScale = 0.24f,
                     Alpha = 0.75f
-                },
+                }
             };
         }
 

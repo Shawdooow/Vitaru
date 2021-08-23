@@ -147,7 +147,7 @@ namespace Vitaru.Play
             }
         }
 
-        private Benchmark waiting = new Benchmark("Waiting");
+        private Benchmark waiting = new("Waiting");
 
         public override void Update()
         {
