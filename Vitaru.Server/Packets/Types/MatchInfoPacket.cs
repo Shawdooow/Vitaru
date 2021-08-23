@@ -18,7 +18,7 @@ namespace Vitaru.Server.Packets.Types
         {
             byte[] data = MatchInfo.Serialize();
 
-            Length = (uint) data.Length;
+            Length = (uint)data.Length;
             return data;
         }
 

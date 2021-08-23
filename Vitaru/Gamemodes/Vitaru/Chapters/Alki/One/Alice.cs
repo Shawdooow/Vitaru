@@ -44,8 +44,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override bool Implemented => true;
 
         /// <summary>
-        /// This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
-        /// -Eugene Krabs
+        ///     This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
+        ///     -Eugene Krabs
         /// </summary>
         protected Alice Homunculus;
 
@@ -157,6 +157,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                         Gamefield.Remove(Homunculus);
                         Homunculus = null;
                     }
+
                     break;
             }
         }

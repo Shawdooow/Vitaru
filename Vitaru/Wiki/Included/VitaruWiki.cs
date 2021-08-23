@@ -1,7 +1,9 @@
-﻿using Prion.Mitochondria.Graphics.Drawables;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Nucleus;
-using Prion.Nucleus.Utilities;
 using Vitaru.Wiki.Content;
 
 namespace Vitaru.Wiki.Included
@@ -13,7 +15,7 @@ namespace Vitaru.Wiki.Included
         public override WikiSection[] GetSections() => new WikiSection[]
         {
             new About(),
-            new Modes(),
+            new Modes()
             //new Credits(),
         };
 
@@ -41,8 +43,9 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("In order to change the feature sets Vitaru (and Prion) use you must pass in the launch argument [Features=Standard] without the []s. " +
-                                    "Swap the word \"Standard\" for any of the below options to enable other feature sets."),
+                    new Description(
+                        "In order to change the feature sets Vitaru (and Prion) use you must pass in the launch argument [Features=Standard] without the []s. " +
+                        "Swap the word \"Standard\" for any of the below options to enable other feature sets."),
                     new Header(Features.Safe.ToString()),
                     new Description(Features.Safe.GetDescription()),
                     new Header(Features.Standard.ToString()),
@@ -65,7 +68,7 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description(""),
+                    new Description("")
                 }
             };
         }

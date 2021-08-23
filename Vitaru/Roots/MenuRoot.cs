@@ -70,7 +70,8 @@ namespace Vitaru.Roots
             if (UseLevelBackground && TrackManager.CurrentTrack.Metadata.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
-                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}", TrackManager.CurrentTrack.Metadata.Filtering);
+                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}",
+                        TrackManager.CurrentTrack.Metadata.Filtering);
         }
 
         public override void LoadingComplete()

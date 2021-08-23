@@ -158,7 +158,7 @@ namespace Vitaru.Play.Characters
                 Speed = speed,
                 Angle = angle,
                 Color = color,
-                CircularHitbox = new()
+                CircularHitbox = new CircularHitbox
                 {
                     Diameter = size
                 },

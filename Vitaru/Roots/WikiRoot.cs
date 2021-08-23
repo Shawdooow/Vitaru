@@ -1,10 +1,14 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 using Vitaru.Wiki;
 
@@ -31,7 +35,7 @@ namespace Vitaru.Roots
 
         public WikiRoot()
         {
-            Wiki.Index index = new();
+            Index index = new();
             Add(index);
             Add(new Layer2D<IDrawable2D>
             {
@@ -66,11 +70,11 @@ namespace Vitaru.Roots
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
 
-                        Size = new Vector2(WIDTH, HEIGHT - 40),
+                        Size = new Vector2(WIDTH, HEIGHT - 40)
                     }
                 }
             });
-            Add(new Menu.Version());
+            Add(new Version());
 
             index.OnSetPanel += p => panel = p;
         }

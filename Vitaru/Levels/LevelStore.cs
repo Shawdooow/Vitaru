@@ -19,7 +19,7 @@ namespace Vitaru.Levels
 
         public static LevelPack CurrentPack { get; private set; }
 
-        public static event Action<LevelPack> OnPackChange; 
+        public static event Action<LevelPack> OnPackChange;
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new();
 
@@ -72,7 +72,7 @@ namespace Vitaru.Levels
                             new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                         {
                             string contents = reader.ReadToEnd();
-                            string[] lines = contents.Split(new[] {Environment.NewLine},
+                            string[] lines = contents.Split(new[] { Environment.NewLine },
                                 StringSplitOptions.RemoveEmptyEntries);
 
                             for (int k = 0; k < lines.Length; k++)
@@ -227,9 +227,9 @@ namespace Vitaru.Levels
 
         public static void SetLevel(int index)
         {
-            if (index >= 0) 
+            if (index >= 0)
                 SetLevel(CurrentPack.Levels[index]);
-            else 
+            else
                 UseRandom = true;
         }
 

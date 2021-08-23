@@ -50,7 +50,7 @@ namespace Vitaru.Play.Projectiles
         /// <summary>
         ///     Radians
         /// </summary>
-        public float Angle { get; set; } = (float) Math.PI / -2f;
+        public float Angle { get; set; } = (float)Math.PI / -2f;
 
         public Vector2 StartPosition { get; set; }
 

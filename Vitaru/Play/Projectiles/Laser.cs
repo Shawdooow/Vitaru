@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Vitaru.Settings;
 
 namespace Vitaru.Play.Projectiles
@@ -7,10 +10,10 @@ namespace Vitaru.Play.Projectiles
     {
         public static int COUNT;
 
-        private readonly bool particles = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
+        private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
         private readonly float particles_multiplier =
-            global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
+            Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
         public override string Name { get; set; } = nameof(Laser);
 

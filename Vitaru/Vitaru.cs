@@ -78,7 +78,6 @@ namespace Vitaru
             };
             VitaruLaunchArgs.ProccessArgs(launch.ToArray());
 
-
             #endregion
 
             //Easter Egg Time...
@@ -101,7 +100,7 @@ namespace Vitaru
             else
             {
                 bool somber = PrionMath.RandomNumber(0, 20) == 2;
-                if (false)//somber)
+                if (false) //somber)
                     ThemeManager.Theme = new Somber();
             }
 
@@ -164,7 +163,7 @@ namespace Vitaru
                 Renderer.PostProgram.Dispose();
                 Renderer.PostProgram = Renderer.ShaderManager.GetShaderProgram(pv, pf);
 
-                GLShaderProgram post = (GLShaderProgram) Renderer.PostProgram;
+                GLShaderProgram post = (GLShaderProgram)Renderer.PostProgram;
                 post.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = post;
 
@@ -182,7 +181,7 @@ namespace Vitaru
 
                 BulletProgram = Renderer.ShaderManager.GetShaderProgram(bv, bf);
 
-                GLShaderProgram bp = (GLShaderProgram) BulletProgram;
+                GLShaderProgram bp = (GLShaderProgram)BulletProgram;
                 bp.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = bp;
 

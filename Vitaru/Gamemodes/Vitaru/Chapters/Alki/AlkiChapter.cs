@@ -22,7 +22,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
             new Alice(gamefield),
             //new Sarah(gamefield),
             new Claire(gamefield),
-            new Yuie(gamefield),
+            new Yuie(gamefield)
             //new Frost(gamefield)
         };
     }

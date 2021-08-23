@@ -1,5 +1,9 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Vitaru.Roots.Menu;
 using Vitaru.Settings.Overlays;
 using Vitaru.Tracks;
 
@@ -39,7 +43,7 @@ namespace Vitaru.Roots
             Add(new NucleusSettingsOverlay(vitaru));
             Add(new MitochondriaSettingsOverlay(vitaru));
             Add(new VitaruSettingsOverlay());
-            Add(new Menu.Version());
+            Add(new Version());
             Remove(Cursor, false);
             Add(Cursor);
         }

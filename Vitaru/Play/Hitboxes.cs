@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 
 namespace Vitaru.Play
 {
@@ -91,9 +94,9 @@ namespace Vitaru.Play
         public static bool HitDetectionResults(this RectangularHitbox a, RectangularHitbox b)
         {
             return a.Position.X < b.Position.X + b.Size.X &&
-               a.Position.X + a.Size.X > b.Position.X &&
-               a.Position.Y < b.Position.Y + b.Size.Y &&
-               a.Position.Y + a.Size.Y > b.Position.Y;
+                   a.Position.X + a.Size.X > b.Position.X &&
+                   a.Position.Y < b.Position.Y + b.Size.Y &&
+                   a.Position.Y + a.Size.Y > b.Position.Y;
         }
     }
 }

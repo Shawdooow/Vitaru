@@ -169,13 +169,13 @@ namespace Vitaru.Mods.Included
                     vNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
 
                 v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.vert")).ReadToEnd();
                 g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.geom")).ReadToEnd();
@@ -203,13 +203,13 @@ namespace Vitaru.Mods.Included
                     fNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 fNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
 #endif
 
                 Add(controller = new VitaruTrackController
@@ -544,7 +544,7 @@ namespace Vitaru.Mods.Included
 
                     mouseInput();
 
-                    float t = (float) Clock.LastElapsedTime / 1000f;
+                    float t = (float)Clock.LastElapsedTime / 1000f;
                     t *= walking_speed;
 
                     if (Vitaru.PlayerBinds[VitaruActions.Up])
@@ -618,21 +618,21 @@ namespace Vitaru.Mods.Included
                     case >= 0 and < rise_to_1km:
                         y = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, 0, rise_to_1km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 0, 1000);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 0, 1000);
                         break;
                     case >= rise_to_1km and < rise_to_4km:
                         z = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
-                        position.Z = PrionMath.Remap((float) z, 0, 1, 0, -100);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 1000, 4000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, 0, -100);
                         break;
                     case >= rise_to_4km and < rise_to_10km:
                         z = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 4000, 10000);
-                        position.Z = PrionMath.Remap((float) z, 0, 1, -100, -500);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 4000, 10000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, -100, -500);
                         break;
                 }
 
@@ -651,11 +651,11 @@ namespace Vitaru.Mods.Included
                 LightManager.UpdateShaderStorageBuffer();
 
                 Matrix4x4 m = Matrix4x4.CreateScale(new Vector3(
-                    (float) Math.Sin(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f,
-                    (float) Math.Cos(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f, 1));
+                    (float)Math.Sin(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f,
+                    (float)Math.Cos(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f, 1));
 
                 m *= Matrix4x4.CreateFromAxisAngle(new Vector3(0, 1, 0),
-                    (float) (DrawClock.Current / 1000d) * walking_speed);
+                    (float)(DrawClock.Current / 1000d) * walking_speed);
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);

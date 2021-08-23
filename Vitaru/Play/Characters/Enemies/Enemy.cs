@@ -68,8 +68,8 @@ namespace Vitaru.Play.Characters.Enemies
         public IDrawable2D GetOverlay(DrawableGameEntity draw) =>
             new Sprite(Game.TextureStore.GetTexture("Edit\\enemyOutline.png"))
             {
-                Size = ((DrawableEnemy) draw).Sprite.Size,
-                Scale = ((DrawableEnemy) draw).Sprite.Scale,
+                Size = ((DrawableEnemy)draw).Sprite.Size,
+                Scale = ((DrawableEnemy)draw).Sprite.Scale,
                 Color = Color.Yellow
             };
 
@@ -85,12 +85,12 @@ namespace Vitaru.Play.Characters.Enemies
 
         public Color Color { get; set; } = ColorExtentions.RandomColor();
 
-        public override Color PrimaryColor => global::Vitaru.Vitaru.ALKI > 0
-            ? global::Vitaru.Vitaru.ALKI == 2 ? Color.Red : Color.Magenta
+        public override Color PrimaryColor => Vitaru.ALKI > 0
+            ? Vitaru.ALKI == 2 ? Color.Red : Color.Magenta
             : Color;
 
-        public override Color SecondaryColor => global::Vitaru.Vitaru.ALKI > 0
-            ? global::Vitaru.Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue
+        public override Color SecondaryColor => Vitaru.ALKI > 0
+            ? Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue
             : Color.Yellow;
 
         public Vector2 StartPosition { get; set; }
@@ -215,7 +215,7 @@ namespace Vitaru.Play.Characters.Enemies
 
             for (int i = 0; i < 100; i++)
             {
-                float angle = ((float) PrionMath.RandomNumber(0, 360)).ToRadians();
+                float angle = ((float)PrionMath.RandomNumber(0, 360)).ToRadians();
                 int distance = PrionMath.RandomNumber(80, 160);
 
                 OnAddParticle?.Invoke(new Particle
@@ -237,8 +237,8 @@ namespace Vitaru.Play.Characters.Enemies
 
             if (ShootPlayer)
             {
-                Player player = (Player) Gamefield.PlayerPack.Children[0];
-                angle = (float) Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
+                Player player = (Player)Gamefield.PlayerPack.Children[0];
+                angle = (float)Math.Atan2(player.Position.Y - Position.Y, player.Position.X - Position.X);
             }
 
             List<Projectile> projectiles;

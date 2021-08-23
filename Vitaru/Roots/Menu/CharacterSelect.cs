@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -91,7 +94,8 @@ namespace Vitaru.Roots.Menu
                 Origin = Mounts.TopLeft;
 
                 Size = new Vector2(width / 2);
-                Position = new Vector2(width / 2 * (index % 2), width / 2 * MathF.Round(index / 2f, MidpointRounding.ToZero));
+                Position = new Vector2(width / 2 * (index % 2),
+                    width / 2 * MathF.Round(index / 2f, MidpointRounding.ToZero));
 
                 Children = new IDrawable2D[]
                 {

@@ -81,7 +81,7 @@ namespace Vitaru.Play
         };
 
         /// <summary>
-        /// A layer for custom players to add stuff to
+        ///     A layer for custom players to add stuff to
         /// </summary>
         public readonly Layer2D<IDrawable2D> OverlaysLayer = new()
         {
@@ -147,16 +147,17 @@ namespace Vitaru.Play
             }
         }
 
-        private Benchmark waiting = new Benchmark("Waiting");
+        private Benchmark waiting = new("Waiting");
 
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
-            
+
             waiting.Start();
             while (Vitaru.ThreadsRunning())
             {
             }
+
             waiting.Record();
 
             base.Update();
@@ -181,7 +182,7 @@ namespace Vitaru.Play
                 Vitaru.RunThreads();
             }
             else
-                ParticleLayer.UpdateParticles(0, particle_cap, (float) Clock.LastElapsedTime);
+                ParticleLayer.UpdateParticles(0, particle_cap, (float)Clock.LastElapsedTime);
 
             //should be safe to kill them from here
             while (deadEnemyQue.TryDequeue(out Enemy e))
@@ -193,7 +194,8 @@ namespace Vitaru.Play
 
             while (deadPlayerQue.TryDequeue(out Player p))
             {
-                Debugger.Assert(!p.Disposed, $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
+                Debugger.Assert(!p.Disposed,
+                    $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
                 PlayerPack.Remove(p);
             }
 
@@ -386,7 +388,7 @@ namespace Vitaru.Play
             int start = Indexes[s];
             int end = Indexes[e];
 
-            ParticleLayer.UpdateParticles(start, end, (float) Clock.LastElapsedTime);
+            ParticleLayer.UpdateParticles(start, end, (float)Clock.LastElapsedTime);
         }
 
         protected override void Dispose(bool finalize)

@@ -58,7 +58,7 @@ namespace Vitaru.Editor.UI
         {
             if (editable != null)
             {
-                Enemy enemy = (Enemy) editable;
+                Enemy enemy = (Enemy)editable;
                 if (enemy.Drawable == null)
                 {
                     DrawableGameEntity draw = editable.GenerateDrawable();

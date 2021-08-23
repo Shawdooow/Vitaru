@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿// Copyright (c) 2018-2021 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Numerics;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Play.Characters.Enemies;
@@ -49,7 +52,8 @@ namespace Vitaru.Editor.KeyFrames
 
         public virtual Easings Easing { get; set; } = Easings.None;
 
-        public virtual void Apply(float current) => ApplyEffect(Prion.Nucleus.Utilities.Easing.ApplyEasing(Easing, current));
+        public virtual void Apply(float current) =>
+            ApplyEffect(Prion.Nucleus.Utilities.Easing.ApplyEasing(Easing, current));
 
         protected abstract void ApplyEffect(float current);
     }

@@ -69,8 +69,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             textures = new[]
             {
-                ((GLTexture) Game.TextureStore.GetTexture("circle 128.png")).Handle,
-                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).Handle
+                ((GLTexture)Game.TextureStore.GetTexture("circle 128.png")).Handle,
+                ((GLTexture)Game.TextureStore.GetTexture("Gameplay\\glow.png")).Handle
             };
 
             program = Vitaru.BulletProgram;

@@ -98,14 +98,14 @@ namespace Vitaru.Play.Characters.Players
             float speed = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
 
             if (!player.SpellActive)
-                Sign.Rotation += (float) (player.Clock.LastElapsedTime / speed);
+                Sign.Rotation += (float)(player.Clock.LastElapsedTime / speed);
             else
-                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / speed);
+                Sign.Rotation -= (float)(player.Clock.LastElapsedTime / speed);
 
             Reticle.Rotation =
-                (float) Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
+                (float)Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
                     InputManager.Mouse.Position.X - player.Position.X) +
-                (float) Math.PI / 2f;
+                (float)Math.PI / 2f;
 
             EnergyValue.Text = $"{Math.Round(player.Energy, 0)}/{player.EnergyCapacity}J";
             HealthValue.Text = $"{Math.Round(player.Health, 0)}/{player.HealthCapacity}HP";

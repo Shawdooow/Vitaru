@@ -40,7 +40,7 @@ namespace Vitaru.Server.Server
             //Length of setting bytes
             byte[] settingslength = BitConverter.GetBytes(settings.Count);
 
-            byte[] status = BitConverter.GetBytes((ushort) Status);
+            byte[] status = BitConverter.GetBytes((ushort)Status);
 
             data.AddRange(username);
             data.AddRange(userid);
@@ -58,7 +58,7 @@ namespace Vitaru.Server.Server
         }
 
         /// <summary>
-        /// Does NOT includes the 4 bytes of (int)size of this <see cref="VitaruUser"/>
+        ///     Does NOT includes the 4 bytes of (int)size of this <see cref="VitaruUser" />
         /// </summary>
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)

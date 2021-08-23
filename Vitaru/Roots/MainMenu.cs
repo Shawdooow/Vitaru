@@ -12,6 +12,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Vitaru.Levels;
+using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Roots.Tests;
 using Vitaru.Tracks;
@@ -159,7 +160,7 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.BottomRight
             });
 
-            Add(new Menu.Version());
+            Add(new Version());
 
             Add(new Text2D(10, true)
             {

@@ -247,8 +247,8 @@ namespace Vitaru.Editor.UI
             if (TrackManager.CurrentTrack.Playing)
                 start?.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
 
-            float current = (float) TrackManager.CurrentTrack.Clock.Current;
-            float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
+            float current = (float)TrackManager.CurrentTrack.Clock.Current;
+            float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!scrubber.Dragging)
                 scrubber.Progress = PrionMath.Remap(current, 0, length);

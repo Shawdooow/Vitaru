@@ -64,7 +64,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             if (Gamefield.Current >= nextCharge && charges < maxCharges)
             {
-
             }
 
             if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{charges}x";

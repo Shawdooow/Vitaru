@@ -50,14 +50,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected Sprite Landing;
 
         /// <summary>
-        /// scale from 0 - 1 on how charged our blink is
+        ///     scale from 0 - 1 on how charged our blink is
         /// </summary>
         private float charge;
 
         private double spellStartTime = double.MaxValue;
 
         private double spellEndTime { get; set; } = double.MinValue;
-
 
         #endregion
 
@@ -91,9 +90,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             if (SpellActive)
             {
-                charge = (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1);
+                charge = (float)Math.Min(
+                    PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1);
 
-                float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
+                float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y,
+                    InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
 
                 float dist = Math.Min(charge * BLINK_DISTANCE, Vector2.Distance(Position, InputManager.Mouse.Position));
                 Vector2 blink = Position + PrionMath.Offset(dist, cursorAngle);
@@ -106,7 +107,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (Gamefield.Current >= spellEndTime)
                 HitDetection = true;
 
-            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{Math.Round(BLINK_DISTANCE * charge, 0)}p";
+            if (DrawablePlayer != null)
+                DrawablePlayer.Seal.LeftValue.Text = $"{Math.Round(BLINK_DISTANCE * charge, 0)}p";
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -120,8 +122,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             spellEndTime = Gamefield.Current + 200 * charge;
             Drawable.Alpha = 0.25f;
 
-            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current, 200 * charge, Easings.OutSine);
-            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current, 200 * charge, Easings.InCubic);
+            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current,
+                200 * charge, Easings.OutSine);
+            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current,
+                200 * charge, Easings.InCubic);
 
             charge = 0;
         }
