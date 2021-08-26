@@ -19,15 +19,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
     {
         #region Fields
 
-        public const double CHARGE_TIME = 1000;
+        public const double CHARGE_TIME = 800;
 
-        public const float BLINK_DISTANCE = 420;
+        public const float BLINK_DISTANCE = 480;
 
         public override string Name => "Tyle";
 
         public override float HealthCapacity => 60;
 
-        public override float EnergyCapacity => 12;
+        public override float EnergyCapacity => 16;
 
         public override float EnergyCost => 4;
 
@@ -91,7 +91,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             if (SpellActive)
             {
-                charge = (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1);
+                charge = (float)Easing.ApplyEasing(Easings.OutSine, Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1));
 
                 float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
 
