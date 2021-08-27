@@ -33,7 +33,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Color ComplementaryColor => "#7da1a8".HexToColor();
 
-        public override string Seal => "Gameplay\\rhize seal.png";
+        public override string Seal => "Gameplay\\seal alki rhize.png";
 
         public override string Ability => "Unbound";
 

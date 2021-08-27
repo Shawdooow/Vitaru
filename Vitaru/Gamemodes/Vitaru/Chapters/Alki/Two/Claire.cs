@@ -34,6 +34,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Color ComplementaryColor => "#757670".HexToColor();
 
+        public override string Seal => "Gameplay\\seal alki 2.png";
+
         public override string Ability => "Snap Shot";
 
         public override Role Role => Role.Support;
