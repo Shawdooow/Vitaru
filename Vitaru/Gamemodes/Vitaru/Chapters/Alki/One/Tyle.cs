@@ -91,7 +91,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             if (SpellActive)
             {
-                charge = (float)Easing.ApplyEasing(Easings.OutSine, Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1));
+                charge = Easing.ApplyEasing(Easings.OutSine, (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1));
 
                 float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
 
