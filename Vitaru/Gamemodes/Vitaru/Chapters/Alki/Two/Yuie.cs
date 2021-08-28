@@ -20,7 +20,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override float HealthCapacity => 60;
 
-        public override float EnergyCapacity => 24;
+        public override float EnergyCapacity => 16;
 
         public override float EnergyCost => 4;
 
