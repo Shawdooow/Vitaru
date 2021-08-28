@@ -2,12 +2,15 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Concurrent;
+using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
+using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups.Packs;
@@ -18,11 +21,11 @@ using Vitaru.Graphics.Particles;
 using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Levels;
 using Vitaru.Networking.Client;
-using Vitaru.Play.Characters;
 using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
 using Vitaru.Settings;
+using Character = Vitaru.Play.Characters.Character;
 
 namespace Vitaru.Play
 {
@@ -88,12 +91,28 @@ namespace Vitaru.Play
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
         };
 
+        protected readonly float MaxBarSize;
+
+        public readonly Box HealthBar;
+        public readonly Box HealthChange;
+        public readonly Text2D HealthText;
+        protected float LastHealth;
+
+        public readonly Box EnergyBar;
+        public readonly Box EnergyChange;
+        public readonly Text2D EnergyText;
+        protected float LastEnergy;
+
         public readonly GamefieldBorder Border;
+
+        public Player ActivePlayer { get; protected set; }
 
         private readonly ProjectilePack enemys;
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
+            Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+
             Add(PlayerPack);
             Add(LoadedEnemies);
 
@@ -118,7 +137,7 @@ namespace Vitaru.Play
             Add(enemys);
             Add(players);
 
-            Border = new GamefieldBorder(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize());
+            Border = new GamefieldBorder(size);
 
             if (vitaruNet != null)
             {
@@ -145,6 +164,51 @@ namespace Vitaru.Play
                 UnloadedEnemies.Clear();
                 LevelStore.CurrentLevel.EnemyData = String.Empty;
             }
+
+            MaxBarSize = size.Y - 32;
+
+            OverlaysLayer.Children = new IDrawable2D[]
+            {
+                HealthChange = new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Red,
+                },
+                HealthBar = new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+                },
+
+
+
+                EnergyChange = new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Red,
+                },
+                EnergyBar = new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+                },
+            };
         }
 
         private Benchmark waiting = new("Waiting");
@@ -159,10 +223,60 @@ namespace Vitaru.Play
             }
             waiting.Record();
 
-            base.Update();
-
             Current = Clock.Current;
             LastElapsedTime = Clock.LastElapsedTime;
+
+            base.Update();
+
+            if (ActivePlayer.Health != LastHealth)
+            {
+                HealthChange.ClearTransforms();
+                HealthBar.ClearTransforms();
+
+                float y = PrionMath.Remap(ActivePlayer.Health, 0, ActivePlayer.HealthCapacity, 0, MaxBarSize);
+
+                if (ActivePlayer.Health < LastHealth)
+                {
+                    HealthChange.Color = Color.Red;
+
+                    HealthChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                    HealthBar.Height = y;
+                }
+                if (ActivePlayer.Health > LastHealth)
+                {
+                    HealthChange.Color = Color.LimeGreen;
+
+                    HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                    HealthChange.Height = y;
+                }
+
+                LastHealth = ActivePlayer.Health;
+            }
+
+            if (ActivePlayer.Energy != LastEnergy)
+            {
+                EnergyChange.ClearTransforms();
+                EnergyBar.ClearTransforms();
+
+                float y = PrionMath.Remap(ActivePlayer.Energy, 0, ActivePlayer.EnergyCapacity, 0, MaxBarSize);
+
+                if (ActivePlayer.Energy < LastEnergy)
+                {
+                    EnergyChange.Color = Color.BlueViolet;
+
+                    EnergyChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                    EnergyBar.Height = y;
+                }
+                if (ActivePlayer.Energy > LastEnergy)
+                {
+                    EnergyChange.Color = Color.Blue;
+
+                    EnergyBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                    EnergyChange.Height = y;
+                }
+
+                LastEnergy = ActivePlayer.Energy;
+            }
 
             while (deadprojectileQue.TryDequeue(out Projectile p))
             {
@@ -257,6 +371,17 @@ namespace Vitaru.Play
             //que them since we may be calling this from their update loop
             deadPlayerQue.Enqueue(player);
             drawableCharacterQue.Enqueue(player.DrawablePlayer);
+        }
+
+        public void SetPlayer(Player player)
+        {
+            ActivePlayer = player;
+
+            LastHealth = ActivePlayer.Health;
+            LastEnergy = ActivePlayer.Energy;
+
+            //HealthBar.Color = player.PrimaryColor;
+            //EnergyBar.Color = player.PrimaryColor;
         }
 
         private readonly ConcurrentQueue<Projectile> deadprojectileQue = new();

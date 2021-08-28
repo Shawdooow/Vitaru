@@ -59,6 +59,7 @@ namespace Vitaru.Roots.Tests
                 : new Yuie(gamefield);
 
             gamefield.Add(player);
+            gamefield.SetPlayer(player);
 
             //Packs
             Add(gamefield);
