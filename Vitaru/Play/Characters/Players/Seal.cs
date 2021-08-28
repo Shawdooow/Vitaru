@@ -107,8 +107,8 @@ namespace Vitaru.Play.Characters.Players
                     InputManager.Mouse.Position.X - player.Position.X) +
                 (float) Math.PI / 2f;
 
-            EnergyValue.Text = $"{Math.Round(player.Energy, 0)}/{player.EnergyCapacity}J";
-            HealthValue.Text = $"{Math.Round(player.Health, 0)}/{player.HealthCapacity}HP";
+            EnergyValue.Text = $"{Math.Round(player.Energy, 0)}SP";
+            HealthValue.Text = $"{Math.Round(player.Health, 0)}HP";
 
             Sign.Alpha = PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, 0.1f);
         }

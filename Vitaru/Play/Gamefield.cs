@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2021 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Collections.Concurrent;
 using System.Drawing;
 using System.Numerics;
@@ -187,6 +188,14 @@ namespace Vitaru.Play
                     Position = new Vector2(32, -16),
                     Size = new Vector2(8, MaxBarSize),
                 },
+                HealthText = new Text2D(16)
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterLeft,
+
+                    X = 64,
+                    FontScale = 0.64f
+                },
 
 
 
@@ -207,6 +216,14 @@ namespace Vitaru.Play
 
                     Position = new Vector2(-32, -16),
                     Size = new Vector2(8, MaxBarSize),
+                },
+                EnergyText = new Text2D(16)
+                {
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.CenterRight,
+
+                    X = -64,
+                    FontScale = 0.64f
                 },
             };
         }
@@ -251,6 +268,7 @@ namespace Vitaru.Play
                 }
 
                 LastHealth = ActivePlayer.Health;
+                HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)}/{ActivePlayer.HealthCapacity}HP";
             }
 
             if (ActivePlayer.Energy != LastEnergy)
@@ -276,6 +294,7 @@ namespace Vitaru.Play
                 }
 
                 LastEnergy = ActivePlayer.Energy;
+                EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)}/{ActivePlayer.EnergyCapacity}SP";
             }
 
             while (deadprojectileQue.TryDequeue(out Projectile p))
