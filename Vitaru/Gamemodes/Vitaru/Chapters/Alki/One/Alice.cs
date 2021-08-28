@@ -161,6 +161,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             }
         }
 
+        protected override void SpellUpdate()
+        {
+            if (SpellActive) DrainEnergy((float)Clock.LastElapsedTime / 1000f * EnergyDrainRate);
+            base.SpellUpdate();
+        }
+
         protected void TransferSoul()
         {
             TargetA.Alpha = 0.5f;
