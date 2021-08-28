@@ -34,6 +34,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override string Seal => "Gameplay\\seal alki 2.png";
 
+        public override float SealRotationSpeed => -0.5f;
+
         public override string Ability => "Time Dilator";
 
         public override Role Role => Role.Defense;

@@ -35,6 +35,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Seal => "Gameplay\\seal alki rhize.png";
 
+        public override float SealRotationSpeed => -1;
+
         public override string Ability => "Unbound";
 
         public override Role Role => Role.Specialized;

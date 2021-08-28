@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
+using Prion.Nucleus.Utilities;
 using Vitaru.Chapters;
 using Vitaru.Gamemodes;
 using Vitaru.Play;
@@ -145,7 +146,7 @@ namespace Vitaru.Roots.Menu
             public override void PreRender()
             {
                 base.PreRender();
-                sign.Rotation += (float)(Clock.LastElapsedTime / 1000);
+                sign.Rotation += (float)(Clock.LastElapsedTime / 1000 * pair.Value.SealRotationSpeed);
             }
 
             public override bool OnMouseDown(MouseButtonEvent e)

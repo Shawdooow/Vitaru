@@ -95,12 +95,12 @@ namespace Vitaru.Play.Characters.Players
 
         public void Update()
         {
-            float speed = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
+            float amount = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
 
             if (!player.SpellActive)
-                Sign.Rotation += (float) (player.Clock.LastElapsedTime / speed);
+                Sign.Rotation += (float) (player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
             else
-                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / speed);
+                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
 
             Reticle.Rotation =
                 (float) Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
