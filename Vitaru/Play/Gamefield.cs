@@ -34,9 +34,9 @@ namespace Vitaru.Play
     {
         public override string Name { get; set; } = nameof(Gamefield);
 
-        public static double Current { get; private set; }
+        public static double Current { get; private set; } = double.MinValue;
 
-        public static double LastElapsedTime { get; private set; }
+        public static double LastElapsedTime { get; private set; } = 0;
 
         private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading);
 
@@ -112,6 +112,10 @@ namespace Vitaru.Play
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
+            Benchmark benchmark = new Benchmark($"{nameof(Gamefield)}.ctor", true);
+            Current = double.MinValue;
+            LastElapsedTime = 0;
+
             Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
 
             Add(PlayerPack);
@@ -226,19 +230,17 @@ namespace Vitaru.Play
                     FontScale = 0.64f
                 },
             };
-        }
 
-        private Benchmark waiting = new("Waiting");
+            benchmark.Finish();
+        }
 
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
             
-            waiting.Start();
             while (Vitaru.ThreadsRunning())
             {
             }
-            waiting.Record();
 
             Current = Clock.Current;
             LastElapsedTime = Clock.LastElapsedTime;
@@ -542,7 +544,9 @@ namespace Vitaru.Play
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
-            Logger.Benchmark(waiting);
+
+            foreach (Enemy e in UnloadedEnemies)
+                e.Dispose();
         }
 
         public class ProjectilePack : Pack<Projectile>, IHasTeam

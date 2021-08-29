@@ -15,6 +15,7 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Verticies;
 using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 
@@ -52,6 +53,8 @@ namespace Vitaru.Graphics.Particles
 
         public ParticleLayer()
         {
+            Benchmark benchmark = new Benchmark($"{nameof(ParticleLayer)}.ctor", true);
+
             pLifetime = new float[particle_cap];
             pPositions = new Vector4[particle_cap];
             pColor = new Vector4[particle_cap];
@@ -67,10 +70,13 @@ namespace Vitaru.Graphics.Particles
                 pDead[i] = true;
                 dead.Push(i);
             }
+
+            benchmark.Finish();
         }
 
         public override void LoadingComplete()
         {
+            Benchmark benchmark = new Benchmark($"{nameof(ParticleLayer)}.LoadingComplete", true);
             Debugger.Assert(Game.DrawThreaded);
 
             texture = Game.TextureStore.GetTexture("star.png");
@@ -122,6 +128,7 @@ namespace Vitaru.Graphics.Particles
             };
 
             Renderer.OnResize.Invoke(Renderer.RenderSize);
+            benchmark.Finish();
         }
 
         public void UpdateParticles(int start, int end, float last)
@@ -165,6 +172,7 @@ namespace Vitaru.Graphics.Particles
 
         public override void Render()
         {
+            //Benchmark benchmark = new Benchmark($"{nameof(ParticleLayer)}.Render", true);
             if (!particles) return;
 
             program.SetActive();
@@ -192,6 +200,8 @@ namespace Vitaru.Graphics.Particles
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
+
+            //benchmark.Finish();
         }
 
         public void Add(Particle particle)

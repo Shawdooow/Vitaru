@@ -160,7 +160,10 @@ namespace Vitaru.Roots.Menu
                 Remove(implemented, false);
 
             if (player.Notes != string.Empty) Add(notes);
+
+#if !PUBLIC
             if (player.Background != string.Empty) Add(background);
+#endif
         }
     }
 }

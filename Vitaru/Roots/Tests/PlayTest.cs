@@ -231,7 +231,6 @@ namespace Vitaru.Roots.Tests
 
         public override void PostProcessing()
         {
-            base.PostProcessing();
             Renderer.ShaderManager.UpdateInt("shade", (int) gamefield.Shade);
             Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
         }

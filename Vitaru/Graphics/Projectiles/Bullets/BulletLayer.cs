@@ -15,6 +15,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Verticies;
 using Prion.Nucleus.Debug;
+using Prion.Nucleus.Debug.Benchmarking;
 using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Projectiles.Bullets
@@ -47,6 +48,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public BulletLayer()
         {
+            Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.ctor", true);
+
             bPosition = new Vector2[bullet_cap];
             bSize = new Vector2[bullet_cap];
             bColor = new Vector4[bullet_cap];
@@ -61,10 +64,14 @@ namespace Vitaru.Graphics.Projectiles.Bullets
                 bDead[i] = true;
                 dead.Push(i);
             }
+
+            benchmark.Finish();
         }
 
         public override void LoadingComplete()
         {
+            Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.LoadingComplete", true);
+
             Debugger.Assert(Game.DrawThreaded);
 
             textures = new[]
@@ -107,6 +114,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             };
 
             Renderer.OnResize.Invoke(Renderer.RenderSize);
+
+            benchmark.Finish();
         }
 
         public override void PreRender()
@@ -128,6 +137,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public override void Render()
         {
+            //Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.Render", true);
             program.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = program;
 
@@ -159,6 +169,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.ActiveTexture(TextureUnit.Texture0);
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
+
+            //benchmark.Finish();
         }
 
         public int RequestIndex()
