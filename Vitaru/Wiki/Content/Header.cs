@@ -9,7 +9,7 @@ namespace Vitaru.Wiki.Content
 {
     public class Header : Text2D
     {
-        public Header(string header) : base(header.Length)
+        public Header(string header)
         {
             ParentOrigin = Mounts.TopLeft;
             Origin = Mounts.TopLeft;

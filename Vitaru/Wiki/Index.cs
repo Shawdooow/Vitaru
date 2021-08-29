@@ -91,7 +91,7 @@ namespace Vitaru.Wiki
 
             foreach (WikiPanel p in panels)
             {
-                list.Add(new Button(p.Name.Length, true)
+                list.Add(new Button(false)
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,

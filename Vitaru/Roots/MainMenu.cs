@@ -161,7 +161,7 @@ namespace Vitaru.Roots
 
             Add(new Menu.Version());
 
-            Add(new Text2D(10, true)
+            Add(new Text2D
             {
                 Y = -300,
                 Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"

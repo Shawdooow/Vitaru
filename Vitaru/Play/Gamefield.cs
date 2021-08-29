@@ -188,7 +188,7 @@ namespace Vitaru.Play
                     Position = new Vector2(32, -16),
                     Size = new Vector2(8, MaxBarSize),
                 },
-                HealthText = new Text2D(16)
+                HealthText = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
@@ -217,7 +217,7 @@ namespace Vitaru.Play
                     Position = new Vector2(-32, -16),
                     Size = new Vector2(8, MaxBarSize),
                 },
-                EnergyText = new Text2D(16)
+                EnergyText = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
@@ -245,56 +245,62 @@ namespace Vitaru.Play
 
             base.Update();
 
-            if (ActivePlayer.Health != LastHealth)
+            //this check is for the editor for now
+            if (ActivePlayer != null)
             {
-                HealthChange.ClearTransforms();
-                HealthBar.ClearTransforms();
-
-                float y = PrionMath.Remap(ActivePlayer.Health, 0, ActivePlayer.HealthCapacity, 0, MaxBarSize);
-
-                if (ActivePlayer.Health < LastHealth)
+                if (ActivePlayer.Health != LastHealth)
                 {
-                    HealthChange.Color = Color.Red;
+                    HealthChange.ClearTransforms();
+                    HealthBar.ClearTransforms();
 
-                    HealthChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                    HealthBar.Height = y;
-                }
-                if (ActivePlayer.Health > LastHealth)
-                {
-                    HealthChange.Color = Color.LimeGreen;
+                    float y = PrionMath.Remap(ActivePlayer.Health, 0, ActivePlayer.HealthCapacity, 0, MaxBarSize);
 
-                    HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                    HealthChange.Height = y;
-                }
+                    if (ActivePlayer.Health < LastHealth)
+                    {
+                        HealthChange.Color = Color.Red;
 
-                LastHealth = ActivePlayer.Health;
-                HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)} / {ActivePlayer.HealthCapacity} HP";
-            }
+                        HealthChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                        HealthBar.Height = y;
+                    }
 
-            if (ActivePlayer.Energy != LastEnergy)
-            {
-                EnergyChange.ClearTransforms();
-                EnergyBar.ClearTransforms();
+                    if (ActivePlayer.Health > LastHealth)
+                    {
+                        HealthChange.Color = Color.LimeGreen;
 
-                float y = PrionMath.Remap(ActivePlayer.Energy, 0, ActivePlayer.EnergyCapacity, 0, MaxBarSize);
+                        HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                        HealthChange.Height = y;
+                    }
 
-                if (ActivePlayer.Energy < LastEnergy)
-                {
-                    EnergyChange.Color = Color.BlueViolet;
-
-                    EnergyChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                    EnergyBar.Height = y;
-                }
-                if (ActivePlayer.Energy > LastEnergy)
-                {
-                    EnergyChange.Color = Color.Blue;
-
-                    EnergyBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                    EnergyChange.Height = y;
+                    LastHealth = ActivePlayer.Health;
+                    HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)} / {ActivePlayer.HealthCapacity} HP";
                 }
 
-                LastEnergy = ActivePlayer.Energy;
-                EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)} / {ActivePlayer.EnergyCapacity} SP";
+                if (ActivePlayer.Energy != LastEnergy)
+                {
+                    EnergyChange.ClearTransforms();
+                    EnergyBar.ClearTransforms();
+
+                    float y = PrionMath.Remap(ActivePlayer.Energy, 0, ActivePlayer.EnergyCapacity, 0, MaxBarSize);
+
+                    if (ActivePlayer.Energy < LastEnergy)
+                    {
+                        EnergyChange.Color = Color.BlueViolet;
+
+                        EnergyChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                        EnergyBar.Height = y;
+                    }
+
+                    if (ActivePlayer.Energy > LastEnergy)
+                    {
+                        EnergyChange.Color = Color.Blue;
+
+                        EnergyBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                        EnergyChange.Height = y;
+                    }
+
+                    LastEnergy = ActivePlayer.Energy;
+                    EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)} / {ActivePlayer.EnergyCapacity} SP";
+                }
             }
 
             while (deadprojectileQue.TryDequeue(out Projectile p))
