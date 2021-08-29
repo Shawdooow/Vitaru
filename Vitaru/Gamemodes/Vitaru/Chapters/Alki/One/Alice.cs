@@ -39,6 +39,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Ability => "Unbound";
 
+        public override string[] AbilityStats => new string[]
+        {
+            $"Health Required: {HealthCapacity / 2}HP"
+        };
+
         public override Role Role => Role.Specialized;
 
         public override Difficulty Difficulty => Difficulty.Hard;

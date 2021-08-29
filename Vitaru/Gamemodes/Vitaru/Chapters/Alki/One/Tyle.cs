@@ -41,6 +41,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Ability => "Shadow Blinker";
 
+        public override string[] AbilityStats => new string[]
+        {
+            $"Charge Time: {CHARGE_TIME}ms",
+            $"Blink Distance: {BLINK_DISTANCE}p"
+        };
+
         public override Role Role => Role.Offense;
 
         public override Difficulty Difficulty => Difficulty.Extreme;

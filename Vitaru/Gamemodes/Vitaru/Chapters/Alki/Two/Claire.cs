@@ -20,6 +20,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
     {
         #region Fields
 
+        public const float BUFFS_DIVISOR = 5;
+
         public override string Name => "Claire";
 
         public override float HealthCapacity => 40;
@@ -39,6 +41,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         public override float SealRotationSpeed => 0.5f;
 
         public override string Ability => "Snap Shot";
+
+        public override string[] AbilityStats => new string[]
+        {
+            $"Buffs Divisor: {BUFFS_DIVISOR}"
+        };
 
         public override Role Role => Role.Support;
 
@@ -99,7 +106,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                                     bullet.CircularHitbox.Position.Y >= Camera.Hitbox.Position.Y - border.Y &&
                                     bullet.CircularHitbox.Position.Y <= Camera.Hitbox.Position.Y + border.Y)
                                 {
-                                    Buffs += 0.2f;
+                                    Buffs += (1 / BUFFS_DIVISOR);
                                     Gamefield.Remove(projectile);
                                     projectile.Collision();
                                     break;

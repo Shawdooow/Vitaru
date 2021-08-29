@@ -42,6 +42,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
+        public override string Notes => $"Energy Drain Rate scales with absolute difference between Speed Multiplier ({nameof(SetRate)})x and 1 + Energy Cost ({EnergyCost}SP)";
+
         public override bool Implemented => true;
 
         public double SetRate { get; private set; } = 0.75d;

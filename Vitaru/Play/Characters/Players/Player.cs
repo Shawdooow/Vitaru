@@ -66,9 +66,11 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual Difficulty Difficulty => Difficulty.Easy;
 
+        public virtual string Notes => string.Empty;
+
         public virtual bool Implemented => false;
 
-        public virtual string Background => "Default Background Text   C:<";
+        public virtual string Background => string.Empty;
 
         public bool GetBind(VitaruActions action) => AI ? AIBinds[action] : Vitaru.PlayerBinds[action];
 
