@@ -268,7 +268,7 @@ namespace Vitaru.Play
                 }
 
                 LastHealth = ActivePlayer.Health;
-                HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)}/{ActivePlayer.HealthCapacity}HP";
+                HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)} / {ActivePlayer.HealthCapacity} HP";
             }
 
             if (ActivePlayer.Energy != LastEnergy)
@@ -294,7 +294,7 @@ namespace Vitaru.Play
                 }
 
                 LastEnergy = ActivePlayer.Energy;
-                EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)}/{ActivePlayer.EnergyCapacity}SP";
+                EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)} / {ActivePlayer.EnergyCapacity} SP";
             }
 
             while (deadprojectileQue.TryDequeue(out Projectile p))
