@@ -71,21 +71,21 @@ namespace Vitaru.Roots.Tests
             Add(gamefield.Border);
             Add(gamefield.OverlaysLayer);
 
-            Add(enemies = new Text2D
+            Add(enemies = new Text2D(false)
             {
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 FontScale = 0.25f
             });
-            Add(bullets = new Text2D
+            Add(bullets = new Text2D(false)
             {
                 Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
                 FontScale = 0.25f
             });
-            Add(particles = new Text2D
+            Add(particles = new Text2D(false)
             {
                 Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
@@ -115,14 +115,14 @@ namespace Vitaru.Roots.Tests
 
             slider.AddArray(new IDrawable2D[]
             {
-                timeIn = new Text2D
+                timeIn = new Text2D(false)
                 {
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
                     FontScale = 0.25f
                 },
-                timeLeft = new Text2D
+                timeLeft = new Text2D(false)
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,

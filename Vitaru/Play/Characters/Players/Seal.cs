@@ -55,7 +55,7 @@ namespace Vitaru.Play.Characters.Players
                     Color = player.PrimaryColor
                 },
 
-                EnergyValue = new Text2D
+                EnergyValue = new Text2D(false)
                 {
                     Position = new Vector2(-60, 10),
                     ParentOrigin = Mounts.TopCenter,
@@ -64,7 +64,7 @@ namespace Vitaru.Play.Characters.Players
                     Alpha = 0
                     //Color = player.SecondaryColor,
                 },
-                HealthValue = new Text2D
+                HealthValue = new Text2D(false)
                 {
                     Position = new Vector2(60, 10),
                     ParentOrigin = Mounts.TopCenter,
@@ -74,7 +74,7 @@ namespace Vitaru.Play.Characters.Players
                     //Color = player.SecondaryColor,
                 },
 
-                LeftValue = new Text2D
+                LeftValue = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
@@ -82,7 +82,7 @@ namespace Vitaru.Play.Characters.Players
                     Alpha = 0.8f
                     //Color = player.SecondaryColor,
                 },
-                RightValue = new Text2D
+                RightValue = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
