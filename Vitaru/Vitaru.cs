@@ -49,7 +49,7 @@ namespace Vitaru
 
         private static readonly Benchmark startup = new("Startup");
 
-        private const string host = "Vitaru";
+        private const string name = "Vitaru";
 
         /// <summary>
         ///     StartupObject EntryPoint
@@ -74,7 +74,7 @@ namespace Vitaru
 
             VitaruLaunchArgs v = new()
             {
-                Name = host
+                Name = name
             };
             VitaruLaunchArgs.ProccessArgs(launch.ToArray());
 
