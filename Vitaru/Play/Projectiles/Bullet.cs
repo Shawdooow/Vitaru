@@ -132,7 +132,7 @@ namespace Vitaru.Play.Projectiles
         public override void UpdateDrawable()
         {
             base.UpdateDrawable();
-            BulletLayer.bSize[Drawable] = new Vector2(CircularHitbox.Diameter);
+            BulletLayer.bSize[Drawable] = Size;
         }
 
         public virtual Vector2 GetPosition(double time)
