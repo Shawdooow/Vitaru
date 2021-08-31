@@ -35,12 +35,14 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         private static BufferHandle verts;
 
         public readonly Vector2[] bPosition;
-        public readonly Vector2[] bSize;
-        public readonly Vector4[] bColor;
+        public readonly float[] bSize;
+        public readonly Vector4[] bCircleColor;
+        public readonly Vector4[] bGlowColor;
 
         private readonly VertexArrayBuffer<Vector2> posBuffer;
-        private readonly VertexArrayBuffer<Vector2> sizeBuffer;
-        private readonly VertexArrayBuffer<Vector4> colorBuffer;
+        private readonly VertexArrayBuffer<float> sizeBuffer;
+        private readonly VertexArrayBuffer<Vector4> circleColorBuffer;
+        private readonly VertexArrayBuffer<Vector4> glowColorBuffer;
 
         public readonly bool[] bDead;
 
@@ -51,13 +53,15 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.ctor", true);
 
             bPosition = new Vector2[bullet_cap];
-            bSize = new Vector2[bullet_cap];
-            bColor = new Vector4[bullet_cap];
+            bSize = new float[bullet_cap];
+            bCircleColor = new Vector4[bullet_cap];
+            bGlowColor = new Vector4[bullet_cap];
             bDead = new bool[bullet_cap];
 
             posBuffer = new VertexArrayBuffer<Vector2>(ref bPosition, 2, 11);
-            sizeBuffer = new VertexArrayBuffer<Vector2>(ref bSize, 2, 12);
-            colorBuffer = new VertexArrayBuffer<Vector4>(ref bColor, 4, 13);
+            sizeBuffer = new VertexArrayBuffer<float>(ref bSize, 1, 12);
+            circleColorBuffer = new VertexArrayBuffer<Vector4>(ref bCircleColor, 4, 13);
+            glowColorBuffer = new VertexArrayBuffer<Vector4>(ref bGlowColor, 4, 14);
 
             for (int i = bullet_cap - 1; i >= 0; i--)
             {
@@ -102,7 +106,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             posBuffer.InitBuffer();
             sizeBuffer.InitBuffer();
-            colorBuffer.InitBuffer();
+            circleColorBuffer.InitBuffer();
+            glowColorBuffer.InitBuffer();
 
             Renderer.OnResize += value =>
             {
@@ -129,7 +134,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             posBuffer.Buffer();
             sizeBuffer.Buffer();
-            colorBuffer.Buffer();
+            circleColorBuffer.Buffer();
+            glowColorBuffer.Buffer();
 
             Renderer.SpriteProgram.SetActive();
             Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
@@ -148,7 +154,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
             posBuffer.Bind(2);
             sizeBuffer.Bind(2);
-            colorBuffer.Bind(2);
+            circleColorBuffer.Bind(2);
+            glowColorBuffer.Bind(2);
 
             GL.VertexAttribDivisor(vertLocation, 0);
 
@@ -164,7 +171,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.DisableVertexAttribArray(vertLocation);
             posBuffer.UnBind();
             sizeBuffer.UnBind();
-            colorBuffer.UnBind();
+            circleColorBuffer.UnBind();
+            glowColorBuffer.UnBind();
 
             GL.ActiveTexture(TextureUnit.Texture0);
             Renderer.SpriteProgram.SetActive();
@@ -185,7 +193,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         {
             dead.Push(i);
             bDead[i] = true;
-            bColor[i].W = 0;
+            bCircleColor[i].W = 0;
+            bGlowColor[i].W = 0;
         }
 
         public override void Add(IDrawable2D child, AddPosition position = AddPosition.Last)
@@ -203,7 +212,8 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             GL.DeleteBuffer(verts);
             posBuffer.Dispose();
             sizeBuffer.Dispose();
-            colorBuffer.Dispose();
+            circleColorBuffer.Dispose();
+            glowColorBuffer.Dispose();
             base.Dispose(finalize);
         }
     }

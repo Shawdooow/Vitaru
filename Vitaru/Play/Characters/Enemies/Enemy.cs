@@ -277,7 +277,7 @@ namespace Vitaru.Play.Characters.Enemies
 
             foreach (Projectile projectile in projectiles)
             {
-                projectile.Color = PrimaryColor;
+                projectile.GlowColor = PrimaryColor;
                 Gamefield.Add(projectile);
             }
         }

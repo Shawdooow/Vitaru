@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Prion.Mitochondria.Utilities;
 using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
@@ -30,6 +31,14 @@ namespace Vitaru.Play.Projectiles
         {
             Diameter = 10
         };
+
+        public float Size 
+        { 
+            get => CircularHitbox.Diameter;
+            set => CircularHitbox.Diameter = value; 
+        }
+
+        public float Scale { get; set; }
 
         public override Vector2 Position
         {
@@ -111,7 +120,7 @@ namespace Vitaru.Play.Projectiles
                 {
                     StartPosition = start,
                     EndPosition = start + PrionMath.Offset(distance, angle),
-                    Color = Color.Vector(),
+                    Color = GlowColor.Vector(),
                     Scale = 1f / Random.Next(1, 5)
                 });
             }

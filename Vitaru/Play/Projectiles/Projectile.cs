@@ -45,7 +45,9 @@ namespace Vitaru.Play.Projectiles
 
         public float Alpha = 0;
 
-        public Color Color = Color.White;
+        public Color CircleColor = Color.White;
+
+        public Color GlowColor = Color.Cyan;
 
         /// <summary>
         ///     Radians
@@ -113,10 +115,14 @@ namespace Vitaru.Play.Projectiles
             if (Drawable != -1) UpdateDrawable();
         }
 
+        /// <summary>
+        ///     Called by Update Thread
+        /// </summary>
         public virtual void UpdateDrawable()
         {
             BulletLayer.bPosition[Drawable] = Position;
-            BulletLayer.bColor[Drawable] = Color.Vector(Alpha);
+            BulletLayer.bCircleColor[Drawable] = CircleColor.Vector(Alpha);
+            BulletLayer.bGlowColor[Drawable] = GlowColor.Vector(Alpha);
         }
 
         public virtual void Collision()

@@ -4,8 +4,9 @@ uniform sampler2D circleTexture;
 uniform sampler2D glowTexture;
 
 in vec2 texCoords;
+in vec4 cColor;
+in vec4 gColor;
 flat in int white;
-in vec4 bColor;
 
 out vec4 final;
 
@@ -15,12 +16,11 @@ void main()
 
 	if (white == 0)
 	{
-		color = texture(glowTexture, texCoords) * bColor;
+		color = texture(glowTexture, texCoords) * gColor;
 	}
 	else
 	{
-		color = texture(circleTexture, texCoords);
-		color.w *= bColor.w;
+		color = texture(circleTexture, texCoords) * cColor;
 	}
 
 	final = color;

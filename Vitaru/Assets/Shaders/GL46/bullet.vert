@@ -2,15 +2,17 @@
 
 layout(location = 10) in vec2 vertex;
 layout(location = 11) in vec2 pos;
-layout(location = 12) in vec2 size;
-layout(location = 13) in vec4 color;
+layout(location = 12) in float size;
+layout(location = 13) in vec4 circleColor;
+layout(location = 14) in vec4 glowColor;
 
 uniform mat4 projection;
 uniform vec2 scale;
 
 out vec2 texCoords;
+out vec4 cColor;
+out vec4 gColor;
 flat out int white;
-out vec4 bColor;
 
 mat4 identity()
 {
@@ -52,7 +54,8 @@ void main()
 	model *= translateRow(pos * scale);
 	model *= sca(s * min(scale.x, scale.y));
 
-	gl_Position = projection * model * (vec4(size, 0, 1.0) * vec4(vertex, 0, 1.0));
+	gl_Position = projection * model * (vec4(size, size, 0, 1.0) * vec4(vertex, 0, 1.0));
 
-	bColor = color;
+	cColor = circleColor;
+	gColor = glowColor;
 }
