@@ -24,7 +24,11 @@ namespace Vitaru.Settings.Options
             set
             {
                 base.Value = value;
-                if (!Slider.Dragging) manager.SetValue(setting, Value);
+                if (!Slider.Dragging) 
+                { 
+                    manager.SetValue(setting, Value);
+                    manager.Save();
+                }
             }
         }
 
@@ -46,7 +50,10 @@ namespace Vitaru.Settings.Options
         public void PollInput()
         {
             if (dragging && !Slider.Dragging)
+            {
                 manager.SetValue(setting, Value);
+                manager.Save();
+            }
             dragging = Slider.Dragging;
         }
     }

@@ -36,6 +36,7 @@ namespace Vitaru.Settings.Options
         {
             base.Toggle();
             manager.SetValue(setting, Value);
+            manager.Save();
             Circle.Color = Value ? ThemeManager.PrimaryColor : ThemeManager.SecondaryColor;
         }
     }
