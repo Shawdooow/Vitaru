@@ -97,7 +97,7 @@ namespace Vitaru.Graphics.ComboFire
                 new(new Vector2(-1f)),
                 new(new Vector2(-1f, 1f)),
                 new(new Vector2(1f, -1f)),
-                new(new Vector2(1f))
+                new(new Vector2(1f)),
             };
 
             GCHandle h = GCHandle.Alloc(array, GCHandleType.Pinned);

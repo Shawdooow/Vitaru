@@ -23,7 +23,7 @@ namespace Vitaru.Gamemodes
         {
             List<Gamemode> loadedGamemodes = new()
             {
-                new Vitaru.Vitaru()
+                new Vitaru.Vitaru(),
                 //new Tanks.Tanks(),
                 //new Tau.Tau(),
             };

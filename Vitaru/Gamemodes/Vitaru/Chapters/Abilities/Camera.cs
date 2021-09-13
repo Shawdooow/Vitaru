@@ -47,7 +47,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
             Hitbox = new RectangularHitbox()
             {
-                Size = Size
+                Size = Size,
             };
 
             Children = new IDrawable2D[]
@@ -55,26 +55,26 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                 CameraBox = new Box
                 {
                     Size = Size,
-                    Alpha = 0
+                    Alpha = 0,
                 },
                 new Corner
                 {
-                    ParentOrigin = Mounts.TopLeft
+                    ParentOrigin = Mounts.TopLeft,
                 },
                 new Corner
                 {
                     ParentOrigin = Mounts.TopRight,
-                    Rotation = MathF.PI / 2
+                    Rotation = MathF.PI / 2,
                 },
                 new Corner
                 {
                     ParentOrigin = Mounts.BottomRight,
-                    Rotation = MathF.PI
+                    Rotation = MathF.PI,
                 },
                 new Corner
                 {
                     ParentOrigin = Mounts.BottomLeft,
-                    Rotation = MathF.PI / -2
+                    Rotation = MathF.PI / -2,
                 },
                 xPos = new Text2D
                 {
@@ -82,7 +82,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.TopRight,
                     FontScale = 0.24f,
-                    Alpha = 0.75f
+                    Alpha = 0.75f,
                 },
                 yPos = new Text2D
                 {
@@ -90,7 +90,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
                     FontScale = 0.24f,
-                    Alpha = 0.75f
+                    Alpha = 0.75f,
                 },
                 xSize = new Text2D
                 {
@@ -98,7 +98,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.24f,
-                    Alpha = 0.75f
+                    Alpha = 0.75f,
                 },
                 ySize = new Text2D
                 {
@@ -106,8 +106,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
                     FontScale = 0.24f,
-                    Alpha = 0.75f
-                }
+                    Alpha = 0.75f,
+                },
             };
         }
 
@@ -144,7 +144,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     Width = (int)Width,
                     Height = (int)Height,
 
-                    Ptr = ptr
+                    Ptr = ptr,
                 });
 
                 Texture texture = Renderer.Context.BufferPixels(pixels, (int)Width, (int)Height, "Screenshot", true);
@@ -155,7 +155,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
-                        X = 10f
+                        X = 10f,
                     };
 
                     //Flip Y like a retard!
@@ -168,7 +168,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
                         X = screenshot.X,
                         Size = screenshot.Size,
-                        Color = Color.Black
+                        Color = Color.Black,
                     });
                     overlays.Add(screenshot);
                     overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
@@ -177,7 +177,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         Origin = Mounts.CenterLeft,
 
                         X = screenshot.X,
-                        Color = player.SecondaryColor
+                        Color = player.SecondaryColor,
                     });
                 }
                 else
@@ -207,15 +207,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
                         Size = new Vector2(width, height),
-                        Color = Color.White
+                        Color = Color.White,
                     },
                     new()
                     {
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
                         Size = new Vector2(height, width),
-                        Color = Color.White
-                    }
+                        Color = Color.White,
+                    },
                 };
             }
         }

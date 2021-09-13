@@ -12,7 +12,7 @@ namespace Vitaru.Gamemodes.Vitaru.Edit
     {
         public override IEditable GetEditable(Gamefield field) => new Bullet
         {
-            GlowColor = Color.GreenYellow
+            GlowColor = Color.GreenYellow,
         };
     }
 }

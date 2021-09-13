@@ -41,7 +41,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string[] AbilityStats => new string[]
         {
-            $"Health Required: {HealthCapacity / 2}HP"
+            $"Health Required: {HealthCapacity / 2}HP",
         };
 
         public override Role Role => Role.Specialized;
@@ -76,7 +76,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100),
                 Size = new Vector2(50),
                 Alpha = Soul ? 0.5f : 0f,
-                Color = PrimaryColor
+                Color = PrimaryColor,
             });
 
             Gamefield.OverlaysLayer.Add(TargetB = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
@@ -85,7 +85,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200),
                 Size = new Vector2(50),
                 Alpha = Soul ? 0.5f : 0f,
-                Color = SecondaryColor
+                Color = SecondaryColor,
             });
         }
 
@@ -135,9 +135,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                         TargetPositions = new List<Vector2>
                         {
                             TargetA.Position,
-                            TargetB.Position
+                            TargetB.Position,
                         },
-                        OnDie = () => SpellDeactivate(VitaruActions.Spell)
+                        OnDie = () => SpellDeactivate(VitaruActions.Spell),
                     });
                     break;
             }

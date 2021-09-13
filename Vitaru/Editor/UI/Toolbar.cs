@@ -31,7 +31,7 @@ namespace Vitaru.Editor.UI
                     Name = "Background",
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 new Button
                 {
@@ -45,11 +45,11 @@ namespace Vitaru.Editor.UI
 
                     Text2D =
                     {
-                        FontScale = 0.35f
+                        FontScale = 0.35f,
                     },
 
-                    OnClick = manager.SerializeToLevel
-                }
+                    OnClick = manager.SerializeToLevel,
+                },
             };
         }
     }

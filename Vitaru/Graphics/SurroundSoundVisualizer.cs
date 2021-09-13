@@ -28,17 +28,17 @@ namespace Vitaru.Graphics
                     Position = TrackManager.CurrentTrack.Source.LeftPosition.XZ(),
                     Circle =
                     {
-                        Color = Color.Blue
-                    }
+                        Color = Color.Blue,
+                    },
                 },
                 right = new Bumper
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition.XZ(),
                     Circle =
                     {
-                        Color = Color.Red
-                    }
-                }
+                        Color = Color.Red,
+                    },
+                },
             };
         }
 
@@ -64,7 +64,7 @@ namespace Vitaru.Graphics
                         Size = new Vector2(128),
                         Scale = new Vector2(0.5f),
                         Alpha = 0.5f,
-                        Color = ThemeManager.SecondaryColor
+                        Color = ThemeManager.SecondaryColor,
                     },
                     glow2 = new Sprite
                     {
@@ -72,14 +72,14 @@ namespace Vitaru.Graphics
                         Size = new Vector2(128),
                         Scale = new Vector2(0.5f),
                         Alpha = 0,
-                        Color = ThemeManager.SecondaryColor
+                        Color = ThemeManager.SecondaryColor,
                     },
                     Circle = new Sprite
                     {
                         Texture = Game.TextureStore.GetTexture("Cursor\\ring.png"),
                         Size = new Vector2(128),
-                        Scale = new Vector2(0.5f)
-                    }
+                        Scale = new Vector2(0.5f),
+                    },
                 };
             }
 

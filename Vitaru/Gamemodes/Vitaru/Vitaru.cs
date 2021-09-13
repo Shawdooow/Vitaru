@@ -23,12 +23,12 @@ namespace Vitaru.Gamemodes.Vitaru
 
         public override Chapter[] GetChapters() => new Chapter[]
         {
-            new AlkiChapter()
+            new AlkiChapter(),
         };
 
         public override EditableGenerator[] GetGenerators() => new EditableGenerator[]
         {
-            new EditableEnemy()
+            new EditableEnemy(),
             //new EditableBullet()
         };
     }

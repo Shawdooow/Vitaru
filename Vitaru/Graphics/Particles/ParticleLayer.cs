@@ -53,7 +53,7 @@ namespace Vitaru.Graphics.Particles
 
         public ParticleLayer()
         {
-            Benchmark benchmark = new Benchmark($"{nameof(ParticleLayer)}.ctor", true);
+            Benchmark benchmark = new($"{nameof(ParticleLayer)}.ctor", true);
 
             pLifetime = new float[particle_cap];
             pPositions = new Vector4[particle_cap];
@@ -76,7 +76,7 @@ namespace Vitaru.Graphics.Particles
 
         public override void LoadingComplete()
         {
-            Benchmark benchmark = new Benchmark($"{nameof(ParticleLayer)}.LoadingComplete", true);
+            Benchmark benchmark = new($"{nameof(ParticleLayer)}.LoadingComplete", true);
             Debugger.Assert(Game.DrawThreaded);
 
             texture = Game.TextureStore.GetTexture("star.png");
@@ -104,7 +104,7 @@ namespace Vitaru.Graphics.Particles
                 new(new Vector2(-1f)),
                 new(new Vector2(-1f, 1f)),
                 new(new Vector2(1f, -1f)),
-                new(new Vector2(1f))
+                new(new Vector2(1f)),
             };
 
             GCHandle h = GCHandle.Alloc(array, GCHandleType.Pinned);

@@ -38,7 +38,7 @@ namespace Vitaru
         public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS =
         {
             VERSION,
-            VitaruServer.VERSION
+            VitaruServer.VERSION,
         };
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Vitaru
 
             VitaruLaunchArgs v = new()
             {
-                Name = name
+                Name = name,
             };
             VitaruLaunchArgs.ProccessArgs(launch.ToArray());
 
@@ -242,6 +242,6 @@ namespace Vitaru
         Gray,
         Red,
         Green,
-        Blue
+        Blue,
     }
 }

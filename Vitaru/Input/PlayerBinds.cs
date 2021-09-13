@@ -39,6 +39,6 @@ namespace Vitaru.Input
 
         ModifierOne,
         ModifierTwo,
-        ModifierThree
+        ModifierThree,
     }
 }

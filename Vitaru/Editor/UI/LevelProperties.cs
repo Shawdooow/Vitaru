@@ -47,7 +47,7 @@ namespace Vitaru.Editor.UI
                     Name = "Background",
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 list = new ListLayer<IDrawable2D>
                 {
@@ -63,14 +63,14 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Format",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         new Text2D
                         {
                             FontScale = 0.3f,
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Format
+                            Text = LevelStore.CurrentLevel.Format,
                         },
                         new Box
                         {
@@ -78,7 +78,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -86,19 +86,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Title",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         title = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Metadata.Title
+                            Text = LevelStore.CurrentLevel.Metadata.Title,
                         },
                         new Box
                         {
@@ -106,7 +106,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -114,19 +114,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Artist",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         artist = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Metadata.Artist
+                            Text = LevelStore.CurrentLevel.Metadata.Artist,
                         },
                         new Box
                         {
@@ -134,7 +134,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -142,19 +142,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Filename",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         filename = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Metadata.Filename
+                            Text = LevelStore.CurrentLevel.Metadata.Filename,
                         },
                         new Box
                         {
@@ -162,7 +162,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -170,19 +170,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "BPM",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         bpm = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Metadata.BPM.ToString()
+                            Text = LevelStore.CurrentLevel.Metadata.BPM.ToString(),
                         },
                         new Box
                         {
@@ -190,7 +190,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -198,19 +198,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Image Filename",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         image = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Metadata.Image
+                            Text = LevelStore.CurrentLevel.Metadata.Image,
                         },
                         new Box
                         {
@@ -218,7 +218,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -226,19 +226,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Creator (You)",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         creator = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Creator
+                            Text = LevelStore.CurrentLevel.Creator,
                         },
                         new Box
                         {
@@ -246,7 +246,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         new Text2D
                         {
@@ -254,19 +254,19 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Level Name",
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         level = new TextBox
                         {
                             InstancedText =
                             {
-                                FontScale = 0.3f
+                                FontScale = 0.3f,
                             },
 
                             Size = new Vector2(width - 60, 16),
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
-                            Text = LevelStore.CurrentLevel.Name
+                            Text = LevelStore.CurrentLevel.Name,
                         },
                         new Box
                         {
@@ -274,7 +274,7 @@ namespace Vitaru.Editor.UI
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Size = new Vector2(width - 20, 2),
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
 
                         new Button
@@ -286,14 +286,14 @@ namespace Vitaru.Editor.UI
 
                             BackgroundSprite =
                             {
-                                Color = ThemeManager.PrimaryColor
+                                Color = ThemeManager.PrimaryColor,
                             },
 
                             Text = "Create",
-                            OnClick = create
-                        }
-                    }
-                }
+                            OnClick = create,
+                        },
+                    },
+                },
             };
         }
 

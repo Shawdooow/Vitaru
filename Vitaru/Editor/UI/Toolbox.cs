@@ -43,13 +43,13 @@ namespace Vitaru.Editor.UI
                     Name = "Background",
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 items = new InputLayer<ToolboxItem>
                 {
                     ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter
-                }
+                    Origin = Mounts.TopCenter,
+                },
             };
 
             EditableGenerator[] generators = GamemodeStore.SelectedGamemode.Gamemode.GetGenerators();
@@ -102,14 +102,14 @@ namespace Vitaru.Editor.UI
                         Name = "Background",
                         Alpha = 0.4f,
                         Size = Size,
-                        Color = Color.DarkCyan
+                        Color = Color.DarkCyan,
                     },
                     flash = new Box
                     {
                         Name = "Flash",
                         Alpha = 0,
                         Size = Size,
-                        Color = Color.White
+                        Color = Color.White,
                     },
                     new Text2D
                     {
@@ -117,9 +117,9 @@ namespace Vitaru.Editor.UI
                         Origin = Mounts.CenterRight,
                         Position = new Vector2(-2, 0),
                         Text = edit.Name,
-                        FontScale = 0.2f
+                        FontScale = 0.2f,
                     },
-                    draw
+                    draw,
                 };
             }
 

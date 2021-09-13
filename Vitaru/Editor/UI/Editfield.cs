@@ -25,7 +25,7 @@ namespace Vitaru.Editor.UI
         {
             Size = new Vector2(1024, 820),
             Scale = new Vector2(0.5f),
-            Clock = TrackManager.CurrentTrack.DrawClock
+            Clock = TrackManager.CurrentTrack.DrawClock,
         };
 
         private bool clicked;

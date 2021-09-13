@@ -50,7 +50,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public BulletLayer()
         {
-            Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.ctor", true);
+            Benchmark benchmark = new($"{nameof(BulletLayer)}.ctor", true);
 
             bPosition = new Vector2[bullet_cap];
             bSize = new float[bullet_cap];
@@ -74,14 +74,14 @@ namespace Vitaru.Graphics.Projectiles.Bullets
 
         public override void LoadingComplete()
         {
-            Benchmark benchmark = new Benchmark($"{nameof(BulletLayer)}.LoadingComplete", true);
+            Benchmark benchmark = new($"{nameof(BulletLayer)}.LoadingComplete", true);
 
             Debugger.Assert(Game.DrawThreaded);
 
             textures = new[]
             {
                 ((GLTexture) Game.TextureStore.GetTexture("circle 128.png")).Handle,
-                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).Handle
+                ((GLTexture) Game.TextureStore.GetTexture("Gameplay\\glow.png")).Handle,
             };
 
             program = Vitaru.BulletProgram;
@@ -94,7 +94,7 @@ namespace Vitaru.Graphics.Projectiles.Bullets
                 new(new Vector2(-1f)),
                 new(new Vector2(-1f, 1f)),
                 new(new Vector2(1f, -1f)),
-                new(new Vector2(1f))
+                new(new Vector2(1f)),
             };
 
             GCHandle h = GCHandle.Alloc(array, GCHandleType.Pinned);

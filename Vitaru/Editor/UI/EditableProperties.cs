@@ -49,14 +49,14 @@ namespace Vitaru.Editor.UI
                     Name = "Background",
                     Alpha = 0.8f,
                     ParentSizing = Axes.Both,
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 name = new Text2D
                 {
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopCenter,
 
-                    FontScale = 0.4f
+                    FontScale = 0.4f,
                 },
                 properties = new ListLayer<IDrawable2D>
                 {
@@ -64,8 +64,8 @@ namespace Vitaru.Editor.UI
                     ParentSizing = Axes.Both,
                     Spacing = 4,
                     ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter
-                }
+                    Origin = Mounts.TopCenter,
+                },
             };
 
             manager.PropertiesSet += ps =>
@@ -93,13 +93,13 @@ namespace Vitaru.Editor.UI
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
-                                        Text = "Position (x, y)"
+                                        Text = "Position (x, y)",
                                     },
                                     x = new TextBox
                                     {
                                         InstancedText =
                                         {
-                                            FontScale = 0.25f
+                                            FontScale = 0.25f,
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -119,13 +119,13 @@ namespace Vitaru.Editor.UI
                                             }
 
                                             startPos.SetValue(new Vector2(n, startPos.Value.Y));
-                                        }
+                                        },
                                     },
                                     y = new TextBox
                                     {
                                         InstancedText =
                                         {
-                                            FontScale = 0.25f
+                                            FontScale = 0.25f,
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -145,7 +145,7 @@ namespace Vitaru.Editor.UI
                                             }
 
                                             startPos.SetValue(new Vector2(startPos.Value.X, n));
-                                        }
+                                        },
                                     },
                                     new Box
                                     {
@@ -153,8 +153,8 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor
-                                    }
+                                        Color = ThemeManager.SecondaryColor,
+                                    },
                                 });
 
                                 startPos.OnValueUpdated += pos => x.Text = pos.X.ToString();
@@ -168,13 +168,13 @@ namespace Vitaru.Editor.UI
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
-                                        Text = "Start Time"
+                                        Text = "Start Time",
                                     },
                                     s = new TextBox
                                     {
                                         InstancedText =
                                         {
-                                            FontScale = 0.25f
+                                            FontScale = 0.25f,
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -194,7 +194,7 @@ namespace Vitaru.Editor.UI
                                             }
 
                                             startTime.SetValue(n);
-                                        }
+                                        },
                                     },
                                     new Box
                                     {
@@ -202,8 +202,8 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor
-                                    }
+                                        Color = ThemeManager.SecondaryColor,
+                                    },
                                 });
 
                                 startTime.OnValueUpdated += time => s.Text = time.ToString();
@@ -216,7 +216,7 @@ namespace Vitaru.Editor.UI
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
-                                        Text = "Color (WIP)"
+                                        Text = "Color (WIP)",
                                     },
                                     new Box
                                     {
@@ -224,8 +224,8 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor
-                                    }
+                                        Color = ThemeManager.SecondaryColor,
+                                    },
                                 });
                                 continue;
                             case EditablePatternID id:
@@ -237,13 +237,13 @@ namespace Vitaru.Editor.UI
                                         FontScale = 0.3f,
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
-                                        Text = "Pattern ID"
+                                        Text = "Pattern ID",
                                     },
                                     s = new TextBox
                                     {
                                         InstancedText =
                                         {
-                                            FontScale = 0.25f
+                                            FontScale = 0.25f,
                                         },
 
                                         Size = new Vector2(width - 10, 16),
@@ -264,7 +264,7 @@ namespace Vitaru.Editor.UI
                                             }
 
                                             id.SetValue(n);
-                                        }
+                                        },
                                     },
                                     new Box
                                     {
@@ -272,8 +272,8 @@ namespace Vitaru.Editor.UI
                                         ParentOrigin = Mounts.TopCenter,
                                         Origin = Mounts.TopCenter,
                                         Size = new Vector2(width - 4, 2),
-                                        Color = ThemeManager.SecondaryColor
-                                    }
+                                        Color = ThemeManager.SecondaryColor,
+                                    },
                                 });
 
                                 id.OnValueUpdated += time => s.Text = time.ToString();

@@ -57,8 +57,8 @@ namespace Vitaru.Editor.UI
                     {
                         Alpha = 0.8f,
                         Size = new Vector2(width, height),
-                        Color = Color.Black
-                    }
+                        Color = Color.Black,
+                    },
                 },
                 scrubber = new Slider
                 {
@@ -70,7 +70,7 @@ namespace Vitaru.Editor.UI
 
                     OnProgressInput = p =>
                         TrackManager.CurrentTrack.Seek(PrionMath.Remap(p, 0, 1, 0,
-                            TrackManager.CurrentTrack.Sample.Length))
+                            TrackManager.CurrentTrack.Sample.Length)),
                 },
                 play = new Button
                 {
@@ -80,7 +80,7 @@ namespace Vitaru.Editor.UI
                     Size = new Vector2(48),
                     Background = Vitaru.TextureStore.GetTexture("pause.png"),
 
-                    OnClick = TogglePlay
+                    OnClick = TogglePlay,
                 },
                 pitch = new Slider
                 {
@@ -89,7 +89,7 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.BottomLeft,
 
-                    OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Remap(p, 0, 1, 0.5f, 1.5f)
+                    OnProgressInput = p => TrackManager.CurrentTrack.Pitch = PrionMath.Remap(p, 0, 1, 0.5f, 1.5f),
                 },
 
                 gain = new Slider
@@ -99,8 +99,8 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.BottomRight,
 
-                    OnProgressInput = p => TrackManager.CurrentTrack.Gain = p
-                }
+                    OnProgressInput = p => TrackManager.CurrentTrack.Gain = p,
+                },
             };
 
             scrubber.AddArray(new IDrawable2D[]
@@ -110,29 +110,29 @@ namespace Vitaru.Editor.UI
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.BottomRight,
                     Position = new Vector2(-12, -2),
-                    FontScale = 0.25f
+                    FontScale = 0.25f,
                 },
                 msIn = new Text2D
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-12, 2),
-                    FontScale = 0.25f
+                    FontScale = 0.25f,
                 },
                 timeLeft = new Text2D
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.BottomLeft,
                     Position = new Vector2(12, -2),
-                    FontScale = 0.25f
+                    FontScale = 0.25f,
                 },
                 msLeft = new Text2D
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(12, 2),
-                    FontScale = 0.25f
-                }
+                    FontScale = 0.25f,
+                },
             });
 
             pitch.AddArray(new IDrawable2D[]
@@ -146,14 +146,14 @@ namespace Vitaru.Editor.UI
                     Text2D =
                     {
                         FontScale = 0.25f,
-                        Text = "0.5x"
+                        Text = "0.5x",
                     },
 
                     OnClick = () =>
                     {
                         pitch.Progress = 0f;
                         TrackManager.CurrentTrack.Pitch = 0.5f;
-                    }
+                    },
                 },
                 new Button
                 {
@@ -164,14 +164,14 @@ namespace Vitaru.Editor.UI
                     Text2D =
                     {
                         FontScale = 0.25f,
-                        Text = "1x"
+                        Text = "1x",
                     },
 
                     OnClick = () =>
                     {
                         pitch.Progress = 0.5f;
                         TrackManager.CurrentTrack.Pitch = 1f;
-                    }
+                    },
                 },
                 new Button
                 {
@@ -182,15 +182,15 @@ namespace Vitaru.Editor.UI
                     Text2D =
                     {
                         FontScale = 0.25f,
-                        Text = "1.5x"
+                        Text = "1.5x",
                     },
 
                     OnClick = () =>
                     {
                         pitch.Progress = 1f;
                         TrackManager.CurrentTrack.Pitch = 1.5f;
-                    }
-                }
+                    },
+                },
             });
 
             gain.Add(percentGain = new Text2D
@@ -200,7 +200,7 @@ namespace Vitaru.Editor.UI
                 Y = -12,
 
                 FontScale = 0.25f,
-                Text = "1x"
+                Text = "1x",
             });
 
             pitch.Progress = 0.5f;

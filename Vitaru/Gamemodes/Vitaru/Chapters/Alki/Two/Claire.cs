@@ -44,7 +44,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override string[] AbilityStats => new string[]
         {
-            $"Buffs Divisor: {BUFFS_DIVISOR}"
+            $"Buffs Divisor: {BUFFS_DIVISOR}",
         };
 
         public override Role Role => Role.Support;
@@ -70,7 +70,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             base.LoadingComplete();
             Gamefield.OverlaysLayer.Add(Camera = new Camera(this, Gamefield.OverlaysLayer)
             {
-                OnScreenshot = screenshot => Screenshot = screenshot
+                OnScreenshot = screenshot => Screenshot = screenshot,
             });
         }
 

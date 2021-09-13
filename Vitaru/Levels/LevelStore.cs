@@ -55,7 +55,7 @@ namespace Vitaru.Levels
 
                 LevelPack pack = new()
                 {
-                    Title = directories[i]
+                    Title = directories[i],
                 };
                 List<Level> levels = new();
 
@@ -72,7 +72,7 @@ namespace Vitaru.Levels
                             new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                         {
                             string contents = reader.ReadToEnd();
-                            string[] lines = contents.Split(new[] {Environment.NewLine},
+                            string[] lines = contents.Split(new[] {Environment.NewLine, },
                                 StringSplitOptions.RemoveEmptyEntries);
 
                             for (int k = 0; k < lines.Length; k++)
@@ -155,8 +155,8 @@ namespace Vitaru.Levels
                                 Title = pack.Title,
                                 Filename = audio,
                                 Image = bg,
-                                BPM = 120
-                            }
+                                BPM = 120,
+                            },
                         });
                 }
 
@@ -186,7 +186,7 @@ namespace Vitaru.Levels
 
                     LevelPack pack = new()
                     {
-                        Title = data[0]
+                        Title = data[0],
                     };
                 }
             }
