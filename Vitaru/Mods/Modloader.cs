@@ -26,7 +26,7 @@ namespace Vitaru.Mods
             {
                 new Included.Prion(),
                 new Mixer(),
-                new Tanks()
+                new Tanks(),
             };
 
             loadedAssemblies = new Dictionary<Assembly, Type>();
@@ -68,7 +68,7 @@ namespace Vitaru.Mods
                 }
             }
 
-            List<Mod> instances = loadedAssemblies.Values.Select(g => (Mod) Activator.CreateInstance(g)).ToList();
+            List<Mod> instances = loadedAssemblies.Values.Select(g => (Mod)Activator.CreateInstance(g)).ToList();
 
             //add any other mods
             foreach (Mod s in instances)

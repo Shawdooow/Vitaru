@@ -53,7 +53,7 @@ namespace Vitaru.Gamemodes
             }
 
             List<Gamemode> instances =
-                loadedAssemblies.Values.Select(g => (Gamemode) Activator.CreateInstance(g)).ToList();
+                loadedAssemblies.Values.Select(g => (Gamemode)Activator.CreateInstance(g)).ToList();
 
             foreach (Gamemode g in instances)
                 loadedGamemodes.Add(g);
@@ -86,9 +86,9 @@ namespace Vitaru.Gamemodes
         public static Chapter GetChapter(string title)
         {
             foreach (LoadedGamemode set in LoadedGamemodes)
-            foreach (Chapter chapter in set.Chapters)
-                if (chapter.Title == title)
-                    return chapter;
+                foreach (Chapter chapter in set.Chapters)
+                    if (chapter.Title == title)
+                        return chapter;
             return null;
         }
 
@@ -117,7 +117,7 @@ namespace Vitaru.Gamemodes
             public string SelectedCharacter
             {
                 get => selected;
-                set 
+                set
                 {
                     selected = $"{Gamemode.Name}:{value}";
                     OnSelectedCharacterChange?.Invoke(selected);
@@ -140,19 +140,19 @@ namespace Vitaru.Gamemodes
                     Chapters.Add(v);
 
                 foreach (Chapter c in Chapters)
-                foreach (Player v in c.GetPlayers())
-                {
-                    bool add = true;
-                    foreach (KeyValuePair<Chapter, Player> p in Players)
-                        if (p.Value.Name == v.Name)
-                        {
-                            add = false;
-                            break;
-                        }
+                    foreach (Player v in c.GetPlayers())
+                    {
+                        bool add = true;
+                        foreach (KeyValuePair<Chapter, Player> p in Players)
+                            if (p.Value.Name == v.Name)
+                            {
+                                add = false;
+                                break;
+                            }
 
-                    if (add)
-                        Players.Add(new KeyValuePair<Chapter, Player>(c, v));
-                }
+                        if (add)
+                            Players.Add(new KeyValuePair<Chapter, Player>(c, v));
+                    }
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Vitaru.Roots.Multi
                     Origin = Mounts.TopLeft,
 
                     Position = new Vector2(10),
-                    Text = "Rooms:"
+                    Text = "Rooms:",
                 },
                 rooms = new Rooms(value => selected = value),
                 new Button
@@ -49,7 +49,7 @@ namespace Vitaru.Roots.Multi
 
                     Size = new Vector2(240, 40),
                     Text = "Create Room",
-                    OnClick = create
+                    OnClick = create,
                 },
                 new Button
                 {
@@ -58,7 +58,7 @@ namespace Vitaru.Roots.Multi
 
                     Size = new Vector2(240, 40),
                     Text = "Join Room",
-                    OnClick = join
+                    OnClick = join,
                 },
                 new Button
                 {
@@ -67,14 +67,14 @@ namespace Vitaru.Roots.Multi
 
                     Size = new Vector2(240, 40),
                     Text = "Refresh",
-                    OnClick = refresh
-                }
+                    OnClick = refresh,
+                },
             });
 
             Add(controller = new TrackController
             {
                 Alpha = 0,
-                PassDownInput = false
+                PassDownInput = false,
             });
         }
 
@@ -110,8 +110,8 @@ namespace Vitaru.Roots.Multi
                 {
                     Host = VitaruNet.VitaruUser.ID,
 
-                    Level = LevelStore.CurrentLevel
-                }
+                    Level = LevelStore.CurrentLevel,
+                },
             });
         }
 
@@ -120,7 +120,7 @@ namespace Vitaru.Roots.Multi
             VitaruNet.SendPacketTcp(new JoinMatchPacket
             {
                 Match = selected,
-                User = VitaruNet.VitaruUser
+                User = VitaruNet.VitaruUser,
             });
         }
 
@@ -157,14 +157,14 @@ namespace Vitaru.Roots.Multi
                         ParentOrigin = Mounts.Center,
                         Origin = Mounts.Center,
 
-                        Size = new Vector2(width, height)
-                    }
+                        Size = new Vector2(width, height),
+                    },
                 };
 
                 for (int i = 0; i < list.MatchInfos.Count; i++)
                     rooms.Add(new Room(list.MatchInfos[i], select)
                     {
-                        Size = new Vector2(width, height / 8)
+                        Size = new Vector2(width, height / 8),
                     });
             }
 

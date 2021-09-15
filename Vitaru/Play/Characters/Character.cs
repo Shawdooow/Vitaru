@@ -31,7 +31,7 @@ namespace Vitaru.Play.Characters
 
         protected CircularHitbox CircularHitbox = new()
         {
-            Diameter = 10
+            Diameter = 10,
         };
 
         public virtual bool HitDetection { get; protected set; } = true;
@@ -67,9 +67,7 @@ namespace Vitaru.Play.Characters
             if (Health == 0) Health = HealthCapacity;
         }
 
-        public virtual void OnNewBeat()
-        {
-        }
+        public virtual void OnNewBeat() { }
 
         public override void Update()
         {
@@ -126,9 +124,7 @@ namespace Vitaru.Play.Characters
         /// <summary>
         ///     Gets called just before hit detection
         /// </summary>
-        protected virtual void ParseProjectile(Projectile projectile)
-        {
-        }
+        protected virtual void ParseProjectile(Projectile projectile) { }
 
         protected virtual void Collision(Projectile projectile)
         {
@@ -162,10 +158,10 @@ namespace Vitaru.Play.Characters
                 GlowColor = color,
                 CircularHitbox = new CircularHitbox
                 {
-                    Diameter = size
+                    Diameter = size,
                 },
                 Damage = damage,
-                Distance = distance
+                Distance = distance,
             };
 
             Gamefield.Add(bullet);
@@ -177,9 +173,7 @@ namespace Vitaru.Play.Characters
             OnDie?.Invoke();
         }
 
-        protected virtual void Rezzurect()
-        {
-        }
+        protected virtual void Rezzurect() { }
 
         protected override void Dispose(bool finalize)
         {

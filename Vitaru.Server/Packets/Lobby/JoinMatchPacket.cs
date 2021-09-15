@@ -15,9 +15,7 @@ namespace Vitaru.Server.Packets.Lobby
 
         public VitaruUser User;
 
-        public JoinMatchPacket() : base((ushort)VitaruPackets.JoinMatch)
-        {
-        }
+        public JoinMatchPacket() : base((ushort)VitaruPackets.JoinMatch) { }
 
         public override IPacket Copy() => new JoinMatchPacket();
 

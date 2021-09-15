@@ -13,7 +13,7 @@ namespace Vitaru.Wiki.Included
 
         public override WikiSection[] GetSections() => new WikiSection[]
         {
-            new Features()
+            new Features(),
         };
 
         private class Features : WikiSection
@@ -24,8 +24,8 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("Sure, it has some.")
-                }
+                    new Description("Sure, it has some."),
+                },
             };
         }
     }

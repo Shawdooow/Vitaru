@@ -47,13 +47,13 @@ namespace Vitaru.Play.Characters.Players
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0f,
-                    Color = player.PrimaryColor
+                    Color = player.PrimaryColor,
                 },
                 Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0.5f,
-                    Color = player.PrimaryColor
+                    Color = player.PrimaryColor,
                 },
 
                 EnergyValue = new Text2D(false)
@@ -62,7 +62,7 @@ namespace Vitaru.Play.Characters.Players
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f,
-                    Alpha = 0
+                    Alpha = 0,
                     //Color = player.SecondaryColor,
                 },
                 HealthValue = new Text2D(false)
@@ -71,7 +71,7 @@ namespace Vitaru.Play.Characters.Players
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.25f,
-                    Alpha = 0
+                    Alpha = 0,
                     //Color = player.SecondaryColor,
                 },
 
@@ -80,7 +80,7 @@ namespace Vitaru.Play.Characters.Players
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
                     FontScale = 0.25f,
-                    Alpha = 0.8f
+                    Alpha = 0.8f,
                     //Color = player.SecondaryColor,
                 },
                 RightValue = new Text2D(false)
@@ -88,9 +88,9 @@ namespace Vitaru.Play.Characters.Players
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
                     FontScale = 0.25f,
-                    Alpha = 0.8f
+                    Alpha = 0.8f,
                     //Color = player.SecondaryColor,
-                }
+                },
             };
         }
 
@@ -99,14 +99,14 @@ namespace Vitaru.Play.Characters.Players
             float amount = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
 
             if (!player.SpellActive)
-                Sign.Rotation += (float) (player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
+                Sign.Rotation += (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
             else
-                Sign.Rotation -= (float) (player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
+                Sign.Rotation -= (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
 
             Reticle.Rotation =
-                (float) Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
+                (float)Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
                     InputManager.Mouse.Position.X - player.Position.X) +
-                (float) Math.PI / 2f;
+                (float)Math.PI / 2f;
 
             EnergyValue.Text = $"{Math.Round(player.Energy, 0)}SP";
             HealthValue.Text = $"{Math.Round(player.Health, 0)}HP";
@@ -192,12 +192,12 @@ namespace Vitaru.Play.Characters.Players
                 {
                     outer = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
                     {
-                        Color = player.SecondaryColor
+                        Color = player.SecondaryColor,
                     },
                     inner = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
                     {
-                        Color = player.ComplementaryColor
-                    }
+                        Color = player.ComplementaryColor,
+                    },
                 };
             }
 
@@ -226,13 +226,9 @@ namespace Vitaru.Play.Characters.Players
 
         private class MaskSprite : Sprite
         {
-            public MaskSprite()
-            {
-            }
+            public MaskSprite() { }
 
-            public MaskSprite(Texture t) : base(t)
-            {
-            }
+            public MaskSprite(Texture t) : base(t) { }
 
             public override void Render() => Renderer.Context.Render(this, Renderer.CircularProgram);
         }

@@ -22,8 +22,6 @@ namespace Vitaru.Play.Characters.Players
 {
     public abstract class Player : Character
     {
-
-
         #region Fields
 
 
@@ -90,7 +88,7 @@ namespace Vitaru.Play.Characters.Players
 
         private const float tilePositioningMargin = 2;
 
-        protected List<Vector2> TargetPositions { get; set; } = new List<Vector2>();
+        protected List<Vector2> TargetPositions { get; set; } = new();
         protected int Target { get; set; }
 
         //protected Box Grid;
@@ -116,7 +114,8 @@ namespace Vitaru.Play.Characters.Players
 
         private double shootTime;
 
-        private readonly Vector2 border = GamemodeStore.SelectedGamemode?.Gamemode.GetGamefieldSize() / 2 ?? Vector2.One;
+        private readonly Vector2
+            border = GamemodeStore.SelectedGamemode?.Gamemode.GetGamefieldSize() / 2 ?? Vector2.One;
 
         private bool GOD_KING;
 
@@ -132,13 +131,11 @@ namespace Vitaru.Play.Characters.Players
             base.SetDrawable(drawable);
         }
 
-        public override DrawableGameEntity GenerateDrawable()
-        {
-            return new DrawablePlayer(this)
+        public override DrawableGameEntity GenerateDrawable() =>
+            new DrawablePlayer(this)
             {
-                Position = Position
+                Position = Position,
             };
-        }
 
         protected Player(Gamefield gamefield) : base(gamefield)
         {
@@ -237,7 +234,8 @@ namespace Vitaru.Play.Characters.Players
                 if (Gamefield.Current > LastDamageTime + beat * 4)
                     foreach (HealingProjectile healingBullet in HealingProjectiles)
                     {
-                        Heal((float)Clock.LastElapsedTime / 1000 * GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
+                        Heal((float)Clock.LastElapsedTime / 1000 *
+                             GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff * HealingMultiplier);
                         fallOff *= HEALING_FALL_OFF;
                     }
 
@@ -245,7 +243,8 @@ namespace Vitaru.Play.Characters.Players
 
                 foreach (HealingProjectile healingBullet in HealingProjectiles)
                 {
-                    Charge((float)Clock.LastElapsedTime / 1000 * (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
+                    Charge((float)Clock.LastElapsedTime / 1000 *
+                           (GetBulletHealingMultiplier(healingBullet.EdgeDistance) * fallOff));
                     fallOff *= HEALING_FALL_OFF;
                 }
             }
@@ -264,6 +263,7 @@ namespace Vitaru.Play.Characters.Players
 
 
         #region Beat
+
 
         public override void OnNewBeat()
         {
@@ -292,6 +292,7 @@ namespace Vitaru.Play.Characters.Players
                 HealingMultiplier = 1;
             }
         }
+
 
         #endregion
 
@@ -355,7 +356,7 @@ namespace Vitaru.Play.Characters.Players
 
             if (GetBind(VitaruActions.Sneak))
             {
-                cursorAngle = (float) Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
+                cursorAngle = (float)Math.Atan2(InputManager.Mouse.Position.Y - Position.Y,
                     InputManager.Mouse.Position.X - Position.X);
                 directionModifier = -0.1f * MathF.Round(count / 2f, MidpointRounding.ToZero);
             }
@@ -396,7 +397,7 @@ namespace Vitaru.Play.Characters.Players
         #region Stats
 
 
-        protected override void TakeDamage(float amount) 
+        protected override void TakeDamage(float amount)
         {
             base.TakeDamage(GOD_KING ? 0 : amount);
             LastDamageTime = Gamefield.Current;
@@ -424,9 +425,9 @@ namespace Vitaru.Play.Characters.Players
 
         #region Input
 
+
         public void Pressed(VitaruActions t)
         {
-
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
@@ -474,14 +475,14 @@ namespace Vitaru.Play.Characters.Players
             }
 
             if (GetBind(VitaruActions.Up))
-                playerPosition.Y -= (float) yTranslationDistance;
+                playerPosition.Y -= (float)yTranslationDistance;
             if (GetBind(VitaruActions.Down))
-                playerPosition.Y += (float) yTranslationDistance;
+                playerPosition.Y += (float)yTranslationDistance;
 
             if (GetBind(VitaruActions.Left))
-                playerPosition.X -= (float) xTranslationDistance;
+                playerPosition.X -= (float)xTranslationDistance;
             if (GetBind(VitaruActions.Right))
-                playerPosition.X += (float) xTranslationDistance;
+                playerPosition.X += (float)xTranslationDistance;
 
             playerPosition = Vector2.Clamp(playerPosition, -border, border);
 
@@ -513,11 +514,12 @@ namespace Vitaru.Play.Characters.Players
 
         //dist
         private const int minimums = 32;
+
         //ms
         private const double foresight = 10;
 
         /// <summary>
-        /// Look around us and determine the direction with the least amount of bullets in it
+        ///     Look around us and determine the direction with the least amount of bullets in it
         /// </summary>
         [Obsolete($"Use {nameof(gridBot)}")]
         private void circleViewBot()
@@ -747,7 +749,6 @@ namespace Vitaru.Play.Characters.Players
         }
 
 
-
         #endregion
 
 
@@ -755,7 +756,7 @@ namespace Vitaru.Play.Characters.Players
 
 
         /// <summary>
-        /// Use a grid system to determine a safe spot for us to travel to using pathing AI
+        ///     Use a grid system to determine a safe spot for us to travel to using pathing AI
         /// </summary>
         private void gridBot()
         {
@@ -813,7 +814,8 @@ namespace Vitaru.Play.Characters.Players
             RectangularHitbox grid = new()
             {
                 Size = new Vector2(tileWidth, tileHeight) * view * 2,
-                Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2), (playerTile.Y - view) * tileHeight - (playfield.Y / 2))
+                Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2),
+                    (playerTile.Y - view) * tileHeight - (playfield.Y / 2)),
             };
 
             //Grid.Size = grid.Size;
@@ -841,8 +843,8 @@ namespace Vitaru.Play.Characters.Players
                             RectangularHitbox box = new()
                             {
                                 Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
-                                Position = new Vector2(bullet.CircularHitbox.Position.X - radius, 
-                                                        bullet.CircularHitbox.Position.Y - radius)
+                                Position = new Vector2(bullet.CircularHitbox.Position.X - radius,
+                                    bullet.CircularHitbox.Position.Y - radius),
                             };
 
                             if (grid.HitDetectionResults(box))
@@ -878,7 +880,7 @@ namespace Vitaru.Play.Characters.Players
                     RectangularHitbox tile = new()
                     {
                         Size = new Vector2(tileWidth, tileHeight),
-                        Position = new Vector2(tileWidth * tileX, tileHeight * tileY)
+                        Position = new Vector2(tileWidth * tileX, tileHeight * tileY),
                     };
 
                     //now check if any projectiles are intersecting this tile
@@ -913,14 +915,15 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            Vector2 targetTilePos = new(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2), targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
+            Vector2 targetTilePos = new(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2),
+                targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
             //Target.Position = targetTilePos;
 
             //ok now that we have picked a location lets find a safe path to get there
 
             //for now lets just pick a safe direction and assume the "path" is safe
 
-            List<Vector3Int> path = new List<Vector3Int>();
+            List<Vector3Int> path = new();
             Vector3Int next = nextTile(playerTile, targetTile);
 
             for (int i = 0; i < 4; i++)
@@ -934,7 +937,7 @@ namespace Vitaru.Play.Characters.Players
             //visualize path a bit
             //for (int i = 0; i < Path.Count; i++)
             //    Path[i].Alpha = 0;
-            
+
             //for (int i = 1; i < path.Count && i < Path.Count; i++)
             //{
             //    Sprite node = Path[i - 1];
@@ -946,7 +949,8 @@ namespace Vitaru.Play.Characters.Players
             //now lets go there!
             Vector3Int first = path.First();
 
-            Vector2 nextTilePos = new(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2, first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+            Vector2 nextTilePos = new(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
+                first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
             //Safe.Position = nextTilePos;
 
             //move X?
@@ -975,6 +979,7 @@ namespace Vitaru.Play.Characters.Players
                         if (tiles[ad.X, ad.Y] <= density)
                             return new Vector3Int(ad, density);
                     }
+
                     density++;
                 }
 
@@ -984,9 +989,10 @@ namespace Vitaru.Play.Characters.Players
             //get adjacent tiles ordered by least total travel distance to it then the target
             List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current, Vector2Int final)
             {
-                List<KeyValuePair<Vector2Int, float>> adjacent = new List<KeyValuePair<Vector2Int, float>>();
+                List<KeyValuePair<Vector2Int, float>> adjacent = new();
 
-                Vector2 finalTile = new(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2, final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                Vector2 finalTile = new(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
+                    final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
 
                 for (int x = current.X - 1; x <= current.X + 1; x++)
                 {
@@ -996,7 +1002,8 @@ namespace Vitaru.Play.Characters.Players
                     {
                         if (y < 0 || y >= gridDivisorHeight || y == current.Y) continue;
 
-                        Vector2 adjacentTile = new(x * tileWidth + (tileWidth / 2) - playfield.X / 2, y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+                        Vector2 adjacentTile = new(x * tileWidth + (tileWidth / 2) - playfield.X / 2,
+                            y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
                         float travel = Vector2.Distance(Position, adjacentTile);
                         float remaining = Vector2.Distance(adjacentTile, finalTile);
 
@@ -1013,6 +1020,7 @@ namespace Vitaru.Play.Characters.Players
 
 
         #region Spell Handling
+
 
         /// <summary>
         ///     Called to see if a spell should go active
@@ -1064,6 +1072,7 @@ namespace Vitaru.Play.Characters.Players
             SpellActive = false;
         }
 
+
         #endregion
 
 
@@ -1089,7 +1098,7 @@ namespace Vitaru.Play.Characters.Players
         Offense,
         Defense,
         Support,
-        Specialized
+        Specialized,
     }
 
     public enum Difficulty
@@ -1099,6 +1108,6 @@ namespace Vitaru.Play.Characters.Players
         Hard,
         Insane,
         Extreme,
-        Impossible
+        Impossible,
     }
 }

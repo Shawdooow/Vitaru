@@ -40,15 +40,15 @@ namespace Vitaru.Tracks
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    ParentSizing = Axes.Both
-                }
+                    ParentSizing = Axes.Both,
+                },
             };
 
             list = new ListLayer<Button>
             {
                 //ParentSizing = Axes.Both,
                 Size = Size,
-                Spacing = 2
+                Spacing = 2,
             };
 
             Add(new MaskingLayer<IDrawable2D>
@@ -60,9 +60,9 @@ namespace Vitaru.Tracks
                     new Box
                     {
                         Alpha = 0f,
-                        Size = Size
-                    }
-                }
+                        Size = Size,
+                    },
+                },
             });
 
             foreach (LevelPack p in LevelStore.LoadedLevels)
@@ -83,7 +83,7 @@ namespace Vitaru.Tracks
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,
 
-                        FontScale = 0.24f
+                        FontScale = 0.24f,
                     },
 
                     OnClick = () =>
@@ -98,7 +98,7 @@ namespace Vitaru.Tracks
                                 TrackManager.SetTrack(p.Levels[0].Metadata);
                             });
                         }
-                    }
+                    },
                 });
             }
         }

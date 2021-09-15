@@ -17,6 +17,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
     {
         #region Fields
 
+
         public override string Name => "Yuie";
 
         public override float HealthCapacity => 60;
@@ -43,7 +44,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
-        public override string Notes => $"Energy Drain Rate scales with absolute difference between Speed Multiplier ({nameof(SetRate)})x and 1 + Energy Cost ({EnergyCost}SP)";
+        public override string Notes =>
+            $"Energy Drain Rate scales with absolute difference between Speed Multiplier ({nameof(SetRate)})x and 1 + Energy Cost ({EnergyCost}SP)";
 
         public override bool Implemented => true;
 
@@ -57,11 +59,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         private AdjustableClock adjustable;
 
+
         #endregion
 
-        public Yuie(Gamefield gamefield) : base(gamefield)
-        {
-        }
+
+        public Yuie(Gamefield gamefield) : base(gamefield) { }
 
         public override void LoadingComplete()
         {
@@ -69,7 +71,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (Clock is AdjustableClock a)
                 adjustable = a;
             else
-                Debugger.InvalidOperation($"{nameof(Yuie)} requires an {nameof(AdjustableClock)} as it's {nameof(Clock)}!");
+                Debugger.InvalidOperation(
+                    $"{nameof(Yuie)} requires an {nameof(AdjustableClock)} as it's {nameof(Clock)}!");
         }
 
         protected override bool CheckSpellActivate(VitaruActions action)

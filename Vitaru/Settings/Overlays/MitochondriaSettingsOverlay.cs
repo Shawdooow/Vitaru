@@ -32,7 +32,7 @@ namespace Vitaru.Settings.Overlays
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    Size = Size
+                    Size = Size,
                 },
 
                 new ListLayer<IDrawable2D>
@@ -47,70 +47,70 @@ namespace Vitaru.Settings.Overlays
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Mitochondria",
-                            FontScale = 0.36f
+                            FontScale = 0.36f,
                         },
                         new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Graphics",
-                            FontScale = 0.24f
+                            FontScale = 0.24f,
                         },
                         new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.Fullscreen)
                         {
                             Text = "Toggle Fullscreen",
                             OnValueChange = value =>
-                                Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed
+                                Renderer.Window.WindowState = value ? WindowState.Fullscreen : WindowState.Windowed,
                         },
                         new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.VSync)
                         {
-                            Text = "Toggle VSync"
+                            Text = "Toggle VSync",
                         },
                         new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.DrawFrequency, 30,
                             1000)
                         {
                             Text = "Draw Frequency",
-                            OnValueChange = value => Renderer.DrawFrequency = (int) value
+                            OnValueChange = value => Renderer.DrawFrequency = (int)value,
                         },
                         new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleUpdate, 10, 60)
                         {
                             Text = "Idle Update Frequency",
-                            OnValueChange = value => game.IdleUpdate = (int) value
+                            OnValueChange = value => game.IdleUpdate = (int)value,
                         },
                         new SliderOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.IdleDraw, 10, 60)
                         {
                             Text = "Idle Draw Frequency",
-                            OnValueChange = value => Renderer.IdleDraw = (int) value
+                            OnValueChange = value => Renderer.IdleDraw = (int)value,
                         },
                         new ToggleOption<GraphicsSetting>(Game.GraphicsSettings, GraphicsSetting.LimitDrawToUpdate)
                         {
                             Text = "Limit Draw to Update",
-                            OnValueChange = value => Renderer.LimitDrawToUpdate = value
+                            OnValueChange = value => Renderer.LimitDrawToUpdate = value,
                         },
                         new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Audio",
-                            FontScale = 0.24f
+                            FontScale = 0.24f,
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Master, 0, 100)
                         {
-                            Text = "Master"
+                            Text = "Master",
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Sounds, 0, 100)
                         {
-                            Text = "Sounds"
+                            Text = "Sounds",
                             //OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
                         },
                         new SliderOption<AudioSetting>(Game.AudioSettings, AudioSetting.Music, 0, 100)
                         {
                             Text = "Music",
-                            OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100
-                        }
-                    }
-                }
+                            OnValueChange = value => TrackManager.CurrentTrack.Gain = value / 100,
+                        },
+                    },
+                },
             };
         }
     }

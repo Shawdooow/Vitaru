@@ -78,7 +78,7 @@ namespace Vitaru.Server.Levels
         }
 
         /// <summary>
-        /// Does NOT includes the 4 bytes of (int)size of this <see cref="Level"/>
+        ///     Does NOT includes the 4 bytes of (int)size of this <see cref="Level" />
         /// </summary>
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)

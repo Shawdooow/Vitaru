@@ -9,9 +9,7 @@ namespace Vitaru.Settings
     {
         protected override string Filename => "vitaru.ini";
 
-        public VitaruSettingsManager(Storage storage) : base(storage)
-        {
-        }
+        public VitaruSettingsManager(Storage storage) : base(storage) { }
 
         protected override void InitDefaults()
         {
@@ -56,7 +54,7 @@ namespace Vitaru.Settings
         BulletCap,
 
         //Debug
-        DebugHacks
+        DebugHacks,
     }
 
     public enum GraphicsOptions
@@ -64,6 +62,6 @@ namespace Vitaru.Settings
         Classic,
         Pretty,
         Performance,
-        Experimental
+        Experimental,
     }
 }

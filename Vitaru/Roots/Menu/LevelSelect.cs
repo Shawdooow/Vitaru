@@ -38,13 +38,13 @@ namespace Vitaru.Roots.Menu
                     Name = "Background",
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 items = new InputLayer<LevelItem>
                 {
                     ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter
-                }
+                    Origin = Mounts.TopCenter,
+                },
             };
 
             LevelStore.OnPackChange += setButtons;
@@ -81,7 +81,8 @@ namespace Vitaru.Roots.Menu
                             TrackMetadata meta = TrackManager.CurrentTrack.Metadata;
                             double time = TrackManager.CurrentTrack.SeekableClock.Current;
                             TrackManager.SetTrack(LevelStore.CurrentLevel.Metadata);
-                            if (TrackManager.CurrentTrack.Metadata.Filename == meta.Filename) TrackManager.CurrentTrack.Seek(time / 1000);
+                            if (TrackManager.CurrentTrack.Metadata.Filename == meta.Filename)
+                                TrackManager.CurrentTrack.Seek(time / 1000);
                         });
                     };
                     items.Add(item);
@@ -137,14 +138,14 @@ namespace Vitaru.Roots.Menu
                         Name = "Background",
                         Alpha = 0.4f,
                         Size = Size,
-                        Color = Color.DarkCyan
+                        Color = Color.DarkCyan,
                     },
                     flash = new Box
                     {
                         Name = "Flash",
                         Alpha = 0,
                         Size = Size,
-                        Color = Color.White
+                        Color = Color.White,
                     },
                     new Text2D
                     {
@@ -152,8 +153,8 @@ namespace Vitaru.Roots.Menu
                         Origin = Mounts.CenterRight,
                         Position = new Vector2(-2, 0),
                         Text = name,
-                        FontScale = 0.2f
-                    }
+                        FontScale = 0.2f,
+                    },
                 };
             }
 

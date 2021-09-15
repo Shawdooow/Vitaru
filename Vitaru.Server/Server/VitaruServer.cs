@@ -3,7 +3,5 @@
 
 namespace Vitaru.Server.Server
 {
-    public sealed class VitaruServer : Prion.Centrosome.NetworkingHandlers.Server.Server
-    {
-    }
+    public sealed class VitaruServer : Prion.Centrosome.NetworkingHandlers.Server.Server { }
 }

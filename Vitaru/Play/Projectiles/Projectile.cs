@@ -29,16 +29,13 @@ namespace Vitaru.Play.Projectiles
             Drawable = i;
         }
 
-        public virtual IDrawable2D GetOverlay(DrawableGameEntity draw)
-        {
-            throw Debugger.NotImplemented("");
-        }
+        public virtual IDrawable2D GetOverlay(DrawableGameEntity draw) => throw Debugger.NotImplemented("");
 
         public bool Selected { get; set; }
 
         public EditableProperty[] GetProperties() => new EditableProperty[]
         {
-            new EditableStartPosition(this)
+            new EditableStartPosition(this),
         };
 
         public List<KeyFrame> KeyFrames { get; set; } = new();
@@ -54,7 +51,7 @@ namespace Vitaru.Play.Projectiles
         /// <summary>
         ///     Radians
         /// </summary>
-        public float Angle { get; set; } = (float) Math.PI / -2f;
+        public float Angle { get; set; } = (float)Math.PI / -2f;
 
         public Vector2 StartPosition { get; set; }
 
@@ -141,10 +138,7 @@ namespace Vitaru.Play.Projectiles
 
         public virtual void UnLoad() => PreLoaded = false;
 
-        protected virtual double Weight(double distance)
-        {
-            return distance > 128 ? 0 : 500 / Math.Max(distance, 1);
-        }
+        protected virtual double Weight(double distance) => distance > 128 ? 0 : 500 / Math.Max(distance, 1);
 
         public virtual void ParseString(string[] data, int offset)
         {
@@ -161,7 +155,7 @@ namespace Vitaru.Play.Projectiles
                 StartTime.ToString(),
                 EndTime.ToString(),
                 StartPosition.ToString(),
-                Damage.ToString()
+                Damage.ToString(),
             };
         }
 

@@ -29,7 +29,7 @@ namespace Vitaru.Settings.Overlays
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    Size = Size
+                    Size = Size,
                 },
 
                 new ListLayer<IDrawable2D>
@@ -44,7 +44,7 @@ namespace Vitaru.Settings.Overlays
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Nucleus",
-                            FontScale = 0.36f
+                            FontScale = 0.36f,
                         },
                         //new Text2D
                         //{
@@ -56,10 +56,10 @@ namespace Vitaru.Settings.Overlays
                         new SliderOption<NucleusSetting>(Application.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
-                            OnValueChange = value => application.UpdateFrequency = (int) value
-                        }
-                    }
-                }
+                            OnValueChange = value => application.UpdateFrequency = (int)value,
+                        },
+                    },
+                },
             };
         }
     }

@@ -43,15 +43,15 @@ namespace Vitaru.Wiki
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    ParentSizing = Axes.Both
-                }
+                    ParentSizing = Axes.Both,
+                },
             };
 
             list = new ListLayer<Button>
             {
                 //ParentSizing = Axes.Both,
                 Size = Size,
-                Spacing = 2
+                Spacing = 2,
             };
 
             Add(new MaskingLayer<IDrawable2D>
@@ -63,16 +63,16 @@ namespace Vitaru.Wiki
                     new Box
                     {
                         Alpha = 0f,
-                        Size = Size
-                    }
-                }
+                        Size = Size,
+                    },
+                },
             });
 
             List<WikiPanel> panels = new()
             {
                 new VitaruWiki(),
                 new MultiplayerWiki(),
-                new EditorWiki()
+                new EditorWiki(),
             };
 
             foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
@@ -109,10 +109,10 @@ namespace Vitaru.Wiki
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterLeft,
 
-                        FontScale = 0.28f
+                        FontScale = 0.28f,
                     },
 
-                    OnClick = () => OnSetPanel?.Invoke(p)
+                    OnClick = () => OnSetPanel?.Invoke(p),
                 });
             }
 

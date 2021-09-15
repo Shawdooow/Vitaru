@@ -40,56 +40,56 @@ namespace Vitaru.Roots.Menu
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Name"
+                    Text = "Name",
                 },
                 health = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Health"
+                    Text = "Health",
                 },
                 energy = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Energy"
+                    Text = "Energy",
                 },
                 energyCost = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Energy Cost"
+                    Text = "Energy Cost",
                 },
                 energyDrain = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Energy Drain Rate"
+                    Text = "Energy Drain Rate",
                 },
                 ability = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Ability"
+                    Text = "Ability",
                 },
                 role = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Role"
+                    Text = "Role",
                 },
                 difficulty = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
-                    Text = "Difficulty"
+                    Text = "Difficulty",
                 },
 
 
@@ -99,7 +99,7 @@ namespace Vitaru.Roots.Menu
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
                     Text = "Background",
-                    FixedWidth = 240
+                    FixedWidth = 240,
                 },
                 background = new Text2D
                 {
@@ -107,8 +107,8 @@ namespace Vitaru.Roots.Menu
                     Origin = Mounts.TopLeft,
                     FontScale = 0.3f,
                     Text = "Background",
-                    FixedWidth = 240
-                }
+                    FixedWidth = 240,
+                },
             };
 
             implemented = new Text2D
@@ -117,7 +117,7 @@ namespace Vitaru.Roots.Menu
                 Origin = Mounts.TopLeft,
                 FontScale = 0.3f,
                 Text = "Un-finished!",
-                Color = Color.Red
+                Color = Color.Red,
             };
 
             GamemodeStore.SelectedGamemode.OnSelectedCharacterChange += value => change(GamemodeStore.GetPlayer(value));
@@ -149,7 +149,7 @@ namespace Vitaru.Roots.Menu
                         ParentOrigin = Mounts.TopLeft,
                         Origin = Mounts.TopLeft,
                         FontScale = 0.3f,
-                        Text = stat
+                        Text = stat,
                     });
 
             Add(role);

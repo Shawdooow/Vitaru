@@ -63,7 +63,9 @@ namespace Vitaru
         {
             startup.Start();
 
+
             #region Startup
+
 
             //Do Launch args stuff first incase someone wants STATIC READONLYS!!!!
             List<string> launch = new(args);
@@ -85,6 +87,7 @@ namespace Vitaru
 
             #endregion
 
+
             //Easter Egg Time...
             ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
 
@@ -105,7 +108,7 @@ namespace Vitaru
             else
             {
                 bool somber = PrionMath.RandomNumber(0, 20) == 2;
-                if (false)//somber)
+                if (false) //somber)
                     ThemeManager.Theme = new Somber();
             }
 
@@ -155,7 +158,9 @@ namespace Vitaru
                     CreateDynamicTask();
             }
 
+
             #region Shaders
+
 
             if (Renderer.Context is OpenGL46)
             {
@@ -168,7 +173,7 @@ namespace Vitaru
                 Renderer.PostProgram.Dispose();
                 Renderer.PostProgram = Renderer.ShaderManager.GetShaderProgram(pv, pf);
 
-                GLShaderProgram post = (GLShaderProgram) Renderer.PostProgram;
+                GLShaderProgram post = (GLShaderProgram)Renderer.PostProgram;
                 post.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = post;
 
@@ -186,7 +191,7 @@ namespace Vitaru
 
                 BulletProgram = Renderer.ShaderManager.GetShaderProgram(bv, bf);
 
-                GLShaderProgram bp = (GLShaderProgram) BulletProgram;
+                GLShaderProgram bp = (GLShaderProgram)BulletProgram;
                 bp.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = bp;
 
@@ -200,6 +205,7 @@ namespace Vitaru
             }
 
             Renderer.OnResize.Invoke(Renderer.RenderSize);
+
 
             #endregion
         }

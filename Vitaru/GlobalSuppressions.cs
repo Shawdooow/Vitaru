@@ -3,4 +3,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:Vitaru.Vitaru.Main(System.String[])")]
+[assembly:
+    SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member",
+        Target = "~M:Vitaru.Vitaru.Main(System.String[])")]

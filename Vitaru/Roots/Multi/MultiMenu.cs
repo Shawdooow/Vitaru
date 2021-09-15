@@ -45,7 +45,7 @@ namespace Vitaru.Roots.Multi
                 {
                     Size = new Vector2(600, 60),
                     Position = new Vector2(0, -200),
-                    Text = "127.0.0.1:36840"
+                    Text = "127.0.0.1:36840",
                 },
                 host = new Button
                 {
@@ -55,7 +55,7 @@ namespace Vitaru.Roots.Multi
                     Background = Game.TextureStore.GetTexture("square.png"),
                     Text = "Host",
 
-                    OnClick = HostServer
+                    OnClick = HostServer,
                 },
                 connect = new Button
                 {
@@ -65,8 +65,8 @@ namespace Vitaru.Roots.Multi
                     Background = Game.TextureStore.GetTexture("square.png"),
                     Text = "Connect",
 
-                    OnClick = JoinServer
-                }
+                    OnClick = JoinServer,
+                },
             });
 
             host.BackgroundSprite.Color = ThemeManager.SecondaryColor;
@@ -77,7 +77,7 @@ namespace Vitaru.Roots.Multi
             Add(controller = new TrackController
             {
                 Alpha = 0,
-                PassDownInput = false
+                PassDownInput = false,
             });
         }
 
@@ -98,7 +98,7 @@ namespace Vitaru.Roots.Multi
             {
                 networking.Add(vitaruNet = new VitaruNetHandler
                 {
-                    Address = ip.Text
+                    Address = ip.Text,
                 });
 
                 vitaruNet.OnConnectedToHost += host =>
@@ -126,12 +126,12 @@ namespace Vitaru.Roots.Multi
             {
                 networking.Add(vitaruNet = new VitaruNetHandler
                 {
-                    Address = ip.Text
+                    Address = ip.Text,
                 });
 
                 networking.Add(vitaruServer = new VitaruServerNetHandler
                 {
-                    Address = ip.Text
+                    Address = ip.Text,
                 });
 
                 vitaruNet.OnConnectedToHost += host =>
@@ -161,8 +161,6 @@ namespace Vitaru.Roots.Multi
 
         protected virtual void SendPacket(IPacket packet) => vitaruNet.SendPacketTcp(packet);
 
-        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
-        {
-        }
+        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info) { }
     }
 }

@@ -11,10 +11,7 @@ namespace Vitaru.Play.Chapters
     {
         public override string Title => "Tau";
 
-        public override Player[] GetPlayers(Gamefield gamefield = null)
-        {
-            throw Debugger.NotImplemented("");
-        }
+        public override Player[] GetPlayers(Gamefield gamefield = null) => throw Debugger.NotImplemented("");
 
         //public sealed override VitaruPlayer[] GetPlayers() => GetTouhosuPlayers();
         //

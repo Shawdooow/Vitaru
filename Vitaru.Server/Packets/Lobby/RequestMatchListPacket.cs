@@ -9,9 +9,6 @@ namespace Vitaru.Server.Packets.Lobby
     {
         public override IPacket Copy() => new RequestMatchListPacket();
 
-        public RequestMatchListPacket() : base((ushort)VitaruPackets.RequestMatchList)
-        {
-
-        }
+        public RequestMatchListPacket() : base((ushort)VitaruPackets.RequestMatchList) { }
     }
 }

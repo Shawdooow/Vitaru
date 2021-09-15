@@ -25,8 +25,8 @@ namespace Vitaru.Settings.Options
             set
             {
                 base.Value = value;
-                if (!Slider.Dragging) 
-                { 
+                if (!Slider.Dragging)
+                {
                     manager.SetValue(setting, Value);
                     manager.Save();
                 }
@@ -55,6 +55,7 @@ namespace Vitaru.Settings.Options
                 manager.SetValue(setting, Value);
                 manager.Save();
             }
+
             dragging = Slider.Dragging;
         }
     }
@@ -109,7 +110,7 @@ namespace Vitaru.Settings.Options
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterLeft,
                     FontScale = 0.2f,
-                    Y = -10
+                    Y = -10,
                 },
                 TextBox = new TextBox
                 {
@@ -120,7 +121,7 @@ namespace Vitaru.Settings.Options
 
                     InstancedText =
                     {
-                        FontScale = 0.2f
+                        FontScale = 0.2f,
                     },
 
                     OnEnter = text =>
@@ -135,15 +136,15 @@ namespace Vitaru.Settings.Options
                         {
                             TextBox.Text = Value.ToString();
                         }
-                    }
+                    },
                 },
                 Slider = new Slider
                 {
                     Y = 10,
                     Size = new Vector2(VitaruSettingsOverlay.WIDTH - 24, 20),
 
-                    OnProgressInput = p => Value = PrionMath.Remap(p, 0, 1, Min, Max)
-                }
+                    OnProgressInput = p => Value = PrionMath.Remap(p, 0, 1, Min, Max),
+                },
             };
         }
     }

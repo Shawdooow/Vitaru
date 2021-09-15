@@ -10,10 +10,10 @@ namespace Vitaru.Play.Projectiles
     {
         public static int COUNT;
 
-        private readonly bool particles = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
+        private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
         private readonly float particles_multiplier =
-            global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
+            Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
         public override string Name { get; set; } = nameof(Laser);
 
@@ -23,7 +23,7 @@ namespace Vitaru.Play.Projectiles
 
         public RectangularHitbox RectangularHitbox = new()
         {
-            Size = new Vector2(4, 10)
+            Size = new Vector2(4, 10),
         };
 
         public Vector2 Size { get; set; }

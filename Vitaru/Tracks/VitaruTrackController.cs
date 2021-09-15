@@ -31,7 +31,7 @@ namespace Vitaru.Tracks
                     Size = new Vector2(32),
                     Background = Game.TextureStore.GetTexture("skip.png"),
 
-                    OnClick = NextLevel
+                    OnClick = NextLevel,
                 },
                 new Button
                 {
@@ -41,8 +41,8 @@ namespace Vitaru.Tracks
                     Size = new Vector2(-32, 32),
                     Background = Game.TextureStore.GetTexture("skip.png"),
 
-                    OnClick = PreviousLevel
-                }
+                    OnClick = PreviousLevel,
+                },
             });
         }
 
@@ -104,10 +104,9 @@ namespace Vitaru.Tracks
             base.PrimeTrackManager();
         }
 
-        protected override Texture GetBackground(string bg)
-        {
-            return bg == "default" ? base.GetBackground(bg) : Vitaru.LevelTextureStore.GetTexture(bg, BackgroundFiltered);
-        }
+        protected override Texture GetBackground(string bg) => bg == "default"
+            ? base.GetBackground(bg)
+            : Vitaru.LevelTextureStore.GetTexture(bg, BackgroundFiltered);
 
         public override bool OnKeyDown(KeyboardKeyEvent e)
         {

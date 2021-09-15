@@ -5,7 +5,5 @@ using Prion.Centrosome.NetworkingHandlers.Client;
 
 namespace Vitaru.Networking.Client
 {
-    public sealed class VitaruHost : Host
-    {
-    }
+    public sealed class VitaruHost : Host { }
 }

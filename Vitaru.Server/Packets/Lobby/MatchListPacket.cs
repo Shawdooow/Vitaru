@@ -13,9 +13,7 @@ namespace Vitaru.Server.Packets.Lobby
     {
         public List<MatchInfo> MatchInfos = new();
 
-        public MatchListPacket() : base((ushort)VitaruPackets.MatchList)
-        {
-        }
+        public MatchListPacket() : base((ushort)VitaruPackets.MatchList) { }
 
         public override IPacket Copy() => new MatchListPacket();
 

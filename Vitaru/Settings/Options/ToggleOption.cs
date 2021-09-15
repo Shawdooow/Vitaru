@@ -74,7 +74,7 @@ namespace Vitaru.Settings.Options
             Add(Circle = new Circle
             {
                 ParentOrigin = Mounts.CenterRight,
-                Origin = Mounts.CenterRight
+                Origin = Mounts.CenterRight,
             });
         }
 

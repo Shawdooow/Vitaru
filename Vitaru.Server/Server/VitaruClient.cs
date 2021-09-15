@@ -12,8 +12,6 @@ namespace Vitaru.Server.Server
         public VitaruUser User;
 
         public VitaruClient(Prion.Centrosome.NetworkingHandlers.Server.Server server, TcpClient client,
-            IPEndPoint end) : base(server, client, end)
-        {
-        }
+            IPEndPoint end) : base(server, client, end) { }
     }
 }

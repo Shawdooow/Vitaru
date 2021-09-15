@@ -13,7 +13,7 @@ namespace Vitaru.Wiki.Included
 
         public override WikiSection[] GetSections() => new WikiSection[]
         {
-            new Online()
+            new Online(),
         };
 
         private class Online : WikiSection
@@ -24,8 +24,8 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("Online multiplayer doesn't work at all yet.")
-                }
+                    new Description("Online multiplayer doesn't work at all yet."),
+                },
             };
         }
     }

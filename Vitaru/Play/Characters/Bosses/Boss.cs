@@ -7,8 +7,6 @@ namespace Vitaru.Play.Characters.Bosses
     {
         public override DrawableGameEntity GenerateDrawable() => new DrawableBoss(this);
 
-        public Boss(Gamefield gamefield) : base(gamefield)
-        {
-        }
+        public Boss(Gamefield gamefield) : base(gamefield) { }
     }
 }

@@ -55,10 +55,10 @@ namespace Vitaru.Mods.Included
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.MediumSlateBlue
+                    Color = Color.MediumSlateBlue,
                 },
 
-                Text = "Tanks"
+                Text = "Tanks",
             };
 
         public override Root GetRoot() => new TanksRoot();
@@ -142,7 +142,7 @@ namespace Vitaru.Mods.Included
                 flight = new Sound(new SeekableClock(), Game.SampleStore.GetSample("SN10 Flight.wav"))
                 {
                     Gain = 100,
-                    Rolloff = 0
+                    Rolloff = 0,
                 };
 
                 string v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\vNormal.vert")).ReadToEnd();
@@ -155,7 +155,7 @@ namespace Vitaru.Mods.Included
 
                 vNormal = new GLShaderProgram(vert, geom, frag)
                 {
-                    Name = "VertexNormal"
+                    Name = "VertexNormal",
                 };
 
                 //Vertex
@@ -171,13 +171,13 @@ namespace Vitaru.Mods.Included
                     vNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 vNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = vNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
 
                 v = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.vert")).ReadToEnd();
                 g = new StreamReader(Game.ShaderStorage.GetStream("Debug\\fNormal.geom")).ReadToEnd();
@@ -189,7 +189,7 @@ namespace Vitaru.Mods.Included
 
                 fNormal = new GLShaderProgram(vert, geom, frag)
                 {
-                    Name = "FaceNormal"
+                    Name = "FaceNormal",
                 };
 
                 //Vertex
@@ -205,13 +205,13 @@ namespace Vitaru.Mods.Included
                     fNormal.SetActive();
                     Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                     Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                        Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                        Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
                 };
 
                 fNormal.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = fNormal;
                 Renderer.ShaderManager.UpdateMatrix4("projection", Matrix4x4.CreatePerspectiveFieldOfView(0.9f,
-                    Renderer.RenderSize.X / (float) Renderer.RenderSize.Y, 0.1f, 100f));
+                    Renderer.RenderSize.X / (float)Renderer.RenderSize.Y, 0.1f, 100f));
 #endif
 
                 Add(controller = new VitaruTrackController
@@ -220,7 +220,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(20),
                     Alpha = 0.8f,
-                    PassDownInput = false
+                    PassDownInput = false,
                 });
 
                 TrackManager.CurrentTrack.Position = new Vector3(0, 2, -2);
@@ -254,7 +254,7 @@ namespace Vitaru.Mods.Included
                 {
                     Position = new Vector3(0, 10, 0),
                     Scale = new Vector3(0.01f),
-                    Yaw = MathF.PI
+                    Yaw = MathF.PI,
                 };
                 world.Add(new Mesh(Game.MeshStore.GetVertecies("Alki Demo World 4 SD.obj")));
                 Renderer.Context.BufferMeshes(world);
@@ -263,7 +263,7 @@ namespace Vitaru.Mods.Included
                 starship = new Model
                 {
                     Position = new Vector3(0, -2, -20),
-                    Yaw = MathF.PI
+                    Yaw = MathF.PI,
                 };
                 starship.Add(new Mesh(Game.MeshStore.GetVertecies("SN10.obj")));
                 Renderer.Context.BufferMeshes(starship);
@@ -272,7 +272,7 @@ namespace Vitaru.Mods.Included
                 Model body = new()
                 {
                     Scale = new Vector3(scale),
-                    Yaw = MathF.PI
+                    Yaw = MathF.PI,
                 };
                 body.Add(new Mesh(Game.MeshStore.GetVertecies("tank body.obj")));
                 Renderer.Context.BufferMeshes(body);
@@ -280,7 +280,7 @@ namespace Vitaru.Mods.Included
                 turret = new Model
                 {
                     Scale = new Vector3(scale),
-                    Yaw = MathF.PI
+                    Yaw = MathF.PI,
                 };
                 turret.Add(new Mesh(Game.MeshStore.GetVertecies("tank turret.obj")));
                 Renderer.Context.BufferMeshes(turret);
@@ -289,7 +289,7 @@ namespace Vitaru.Mods.Included
                 {
                     Position = TrackManager.CurrentTrack.Source.LeftPosition,
                     Scale = new Vector3(scale * 4),
-                    Color = Color.Blue
+                    Color = Color.Blue,
                 };
                 left.Add(new Mesh(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(left);
@@ -298,14 +298,14 @@ namespace Vitaru.Mods.Included
                 {
                     Position = TrackManager.CurrentTrack.Source.RightPosition,
                     Scale = new Vector3(scale * 4),
-                    Color = Color.Red
+                    Color = Color.Red,
                 };
                 right.Add(new Mesh(Game.MeshStore.GetVertecies("sphere.obj")));
                 Renderer.Context.BufferMeshes(right);
 
                 bill = new BillboardSprite(camera)
                 {
-                    Position = new Vector3(0, 4, 0)
+                    Position = new Vector3(0, 4, 0),
                 };
                 Renderer.Context.BufferMeshes(bill);
 
@@ -323,8 +323,8 @@ namespace Vitaru.Mods.Included
                         turret,
                         left,
                         right,
-                        bill
-                    }
+                        bill,
+                    },
                 });
 
                 //Add(snow = new SnowLayer());
@@ -337,7 +337,7 @@ namespace Vitaru.Mods.Included
                 {
                     ParentOrigin = Mounts.TopRight,
                     Origin = Mounts.TopRight,
-                    FontScale = 0.25f
+                    FontScale = 0.25f,
                 });
 #if !PUBLISH || PERSONAL
                 Add(mission = new Text2D
@@ -346,7 +346,7 @@ namespace Vitaru.Mods.Included
                     ParentOrigin = Mounts.TopCenter,
                     Origin = Mounts.TopLeft,
                     Alpha = 0,
-                    Text = "T-10.6"
+                    Text = "T-10.6",
                 });
                 Add(altitude = new Text2D
                 {
@@ -355,7 +355,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.5f,
                     Alpha = 0,
-                    Text = "0 Meters"
+                    Text = "0 Meters",
                 });
                 Add(velocity = new Text2D
                 {
@@ -364,7 +364,7 @@ namespace Vitaru.Mods.Included
                     Origin = Mounts.TopRight,
                     FontScale = 0.5f,
                     Alpha = 0,
-                    Text = "0 m/s"
+                    Text = "0 m/s",
                 });
 #endif
 
@@ -372,8 +372,8 @@ namespace Vitaru.Mods.Included
                 {
                     Child = new Circle
                     {
-                        Size = new Vector2(6)
-                    }
+                        Size = new Vector2(6),
+                    },
                 });
 
 #if !PUBLISH || PERSONAL
@@ -443,17 +443,17 @@ namespace Vitaru.Mods.Included
                         new Vector3Transform(value => raptor1.Diffuse = value, raptor1.Diffuse,
                             Color.LightSalmon.Vector(), this, Clock.Current, 170, Easings.None)
                         {
-                            Name = "Raptor 1"
+                            Name = "Raptor 1",
                         };
                         new Vector3Transform(value => raptor2.Diffuse = value, raptor2.Diffuse,
                             Color.LightSalmon.Vector(), this, Clock.Current, 180, Easings.None)
                         {
-                            Name = "Raptor 2"
+                            Name = "Raptor 2",
                         };
                         new Vector3Transform(value => raptor3.Diffuse = value, raptor3.Diffuse,
                             Color.LightSalmon.Vector(), this, Clock.Current, 190, Easings.None)
                         {
-                            Name = "Raptor 3"
+                            Name = "Raptor 3",
                         };
                     }
 
@@ -483,7 +483,7 @@ namespace Vitaru.Mods.Included
                             new Vector3Transform(value => raptor1.Falloffs = value, raptor1.Falloffs,
                                 new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
-                                Name = "Raptor 1"
+                                Name = "Raptor 1",
                             };
                         }
 
@@ -496,7 +496,7 @@ namespace Vitaru.Mods.Included
                             new Vector3Transform(value => raptor2.Falloffs = value, raptor2.Falloffs,
                                 new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
-                                Name = "Raptor 2"
+                                Name = "Raptor 2",
                             };
                         }
 
@@ -509,7 +509,7 @@ namespace Vitaru.Mods.Included
                             new Vector3Transform(value => raptor3.Falloffs = value, raptor3.Falloffs,
                                 new Vector3(0.01f), this, Clock.Current, length * 0.8f, Easings.None)
                             {
-                                Name = "Raptor 3"
+                                Name = "Raptor 3",
                             };
                         }
                     }
@@ -546,7 +546,7 @@ namespace Vitaru.Mods.Included
 
                     mouseInput();
 
-                    float t = (float) Clock.LastElapsedTime / 1000f;
+                    float t = (float)Clock.LastElapsedTime / 1000f;
                     t *= walking_speed;
 
                     if (Vitaru.PlayerBinds[VitaruActions.Up])
@@ -592,7 +592,7 @@ namespace Vitaru.Mods.Included
                 new Vector3Transform(value => blue.Falloffs = value, blue.Falloffs,
                     dim, this, Clock.Current, TrackManager.CurrentTrack.Metadata.GetBeatLength() * 0.8f, Easings.None)
                 {
-                    Name = "Blue"
+                    Name = "Blue",
                 };
             }
 
@@ -603,7 +603,7 @@ namespace Vitaru.Mods.Included
                 new Vector3Transform(value => red.Falloffs = value, red.Falloffs,
                     dim, this, Clock.Current, TrackManager.CurrentTrack.Metadata.GetBeatLength() * 0.8f, Easings.None)
                 {
-                    Name = "Red"
+                    Name = "Red",
                 };
             }
 
@@ -620,21 +620,21 @@ namespace Vitaru.Mods.Included
                     case >= 0 and < rise_to_1km:
                         y = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, 0, rise_to_1km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 0, 1000);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 0, 1000);
                         break;
                     case >= rise_to_1km and < rise_to_4km:
                         z = Easing.ApplyEasing(Easings.InSine, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_1km, rise_to_4km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 1000, 4000);
-                        position.Z = PrionMath.Remap((float) z, 0, 1, 0, -100);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 1000, 4000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, 0, -100);
                         break;
                     case >= rise_to_4km and < rise_to_10km:
                         z = Easing.ApplyEasing(Easings.OutSine, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
                         y = Easing.ApplyEasing(Easings.None, PrionMath.Remap(time, rise_to_4km, rise_to_10km));
 
-                        position.Y = PrionMath.Remap((float) y, 0, 1, 4000, 10000);
-                        position.Z = PrionMath.Remap((float) z, 0, 1, -100, -500);
+                        position.Y = PrionMath.Remap((float)y, 0, 1, 4000, 10000);
+                        position.Z = PrionMath.Remap((float)z, 0, 1, -100, -500);
                         break;
                 }
 
@@ -653,11 +653,11 @@ namespace Vitaru.Mods.Included
                 LightManager.UpdateShaderStorageBuffer();
 
                 Matrix4x4 m = Matrix4x4.CreateScale(new Vector3(
-                    (float) Math.Sin(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f,
-                    (float) Math.Cos(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f, 1));
+                    (float)Math.Sin(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f,
+                    (float)Math.Cos(DrawClock.Current / 1000f * walking_speed) * 0.5f + 1f, 1));
 
                 m *= Matrix4x4.CreateFromAxisAngle(new Vector3(0, 1, 0),
-                    (float) (DrawClock.Current / 1000d) * walking_speed);
+                    (float)(DrawClock.Current / 1000d) * walking_speed);
 
                 Renderer.ShaderManager.UpdateMatrix4("view", camera.View);
                 Renderer.ShaderManager.UpdateMatrix4("model", m);

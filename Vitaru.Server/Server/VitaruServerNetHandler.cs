@@ -35,7 +35,7 @@ namespace Vitaru.Server.Server
             new(PrionClient, client, end)
             {
                 LastConnection = Clock.Current,
-                Status = ConnectionStatus.Connecting
+                Status = ConnectionStatus.Connecting,
             };
 
         public override void Update()
@@ -70,14 +70,14 @@ namespace Vitaru.Server.Server
                     VitaruMatch match = new()
                     {
                         MatchInfo = create.MatchInfo,
-                        MatchLastUpdateTime = Clock.Current
+                        MatchLastUpdateTime = Clock.Current,
                     };
                     match.MatchInfo.ID = VitaruMatches.Any() ? VitaruMatches.Last().MatchInfo.ID + 1 : 1;
                     VitaruMatches.Add(match);
 
                     SendToClient(new MatchCreatedPacket
                     {
-                        MatchInfo = match.MatchInfo
+                        MatchInfo = match.MatchInfo,
                     }, info.Client);
                     break;
                 case JoinMatchPacket join:
@@ -113,9 +113,9 @@ namespace Vitaru.Server.Server
         protected VitaruMatch FindMatch(VitaruUser player)
         {
             foreach (VitaruMatch m in VitaruMatches)
-            foreach (VitaruUser p in m.MatchInfo.Users)
-                if (p.ID == player.ID)
-                    return m;
+                foreach (VitaruUser p in m.MatchInfo.Users)
+                    if (p.ID == player.ID)
+                        return m;
             return null;
         }
 

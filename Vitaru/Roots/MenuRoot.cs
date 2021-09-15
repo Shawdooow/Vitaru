@@ -48,7 +48,7 @@ namespace Vitaru.Roots
                     {
                         Name = "Background",
                         Size = new Vector2(Renderer.Size.X, Renderer.Size.Y),
-                        AutoScaleDirection = Direction.Both
+                        AutoScaleDirection = Direction.Both,
                     },
                     Dim = new Box
                     {
@@ -56,9 +56,9 @@ namespace Vitaru.Roots
                         Color = Color.Black,
                         Alpha = 0.5f,
                         Size = new Vector2(Renderer.Size.X, Renderer.Size.Y),
-                        AutoScaleDirection = Direction.Both
-                    }
-                }
+                        AutoScaleDirection = Direction.Both,
+                    },
+                },
             });
 
             if (Parallax)
@@ -70,7 +70,8 @@ namespace Vitaru.Roots
             if (UseLevelBackground && TrackManager.CurrentTrack.Metadata.Image != string.Empty)
                 Background.Texture =
                     Vitaru.LevelTextureStore.GetTexture(
-                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}", TrackManager.CurrentTrack.Metadata.Filtering);
+                        $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}",
+                        TrackManager.CurrentTrack.Metadata.Filtering);
         }
 
         public override void LoadingComplete()
@@ -90,16 +91,16 @@ namespace Vitaru.Roots
                     Background = Game.TextureStore.GetTexture("square.png"),
                     BackgroundSprite =
                     {
-                        Color = Color.Red
+                        Color = Color.Red,
                     },
 
                     Text = "Back",
                     Text2D =
                     {
-                        FontScale = 0.35f
+                        FontScale = 0.35f,
                     },
 
-                    OnClick = DropRoot
+                    OnClick = DropRoot,
                 });
             Add(new PerformanceDisplay(DisplayType.FPS));
             Add(Cursor = new Cursor());

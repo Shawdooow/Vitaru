@@ -72,14 +72,11 @@ namespace Vitaru.Play
             return new HitResults
             {
                 Distance = distance,
-                EdgeDistance = distance - (a.Radius + b.Radius)
+                EdgeDistance = distance - (a.Radius + b.Radius),
             };
         }
 
-        public static bool HitDetectionPossible(this RectangularHitbox a, CircularHitbox b)
-        {
-            return false;
-        }
+        public static bool HitDetectionPossible(this RectangularHitbox a, CircularHitbox b) => false;
 
         public static HitResults? HitDetectionResults(this RectangularHitbox a, CircularHitbox b)
         {
@@ -87,16 +84,14 @@ namespace Vitaru.Play
             return new HitResults
             {
                 Distance = distance,
-                EdgeDistance = float.MaxValue
+                EdgeDistance = float.MaxValue,
             };
         }
 
-        public static bool HitDetectionResults(this RectangularHitbox a, RectangularHitbox b)
-        {
-            return a.Position.X < b.Position.X + b.Size.X &&
-               a.Position.X + a.Size.X > b.Position.X &&
-               a.Position.Y < b.Position.Y + b.Size.Y &&
-               a.Position.Y + a.Size.Y > b.Position.Y;
-        }
+        public static bool HitDetectionResults(this RectangularHitbox a, RectangularHitbox b) =>
+            a.Position.X < b.Position.X + b.Size.X &&
+            a.Position.X + a.Size.X > b.Position.X &&
+            a.Position.Y < b.Position.Y + b.Size.Y &&
+            a.Position.Y + a.Size.Y > b.Position.Y;
     }
 }

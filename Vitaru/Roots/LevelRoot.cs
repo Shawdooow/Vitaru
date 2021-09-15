@@ -33,12 +33,12 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.PrimaryColor
+                    Color = ThemeManager.PrimaryColor,
                 },
 
                 Text = "Play",
 
-                OnClick = () => AddRoot(new PlayTest())
+                OnClick = () => AddRoot(new PlayTest()),
             });
             Add(new TrackSelect());
             Add(new LevelSelect());

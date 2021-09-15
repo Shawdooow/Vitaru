@@ -15,11 +15,7 @@ namespace Vitaru
 
         private static void parse(KeyValuePair<string, string> pair)
         {
-            switch (pair.Key)
-            {
-                default:
-                    break;
-            }
+            switch (pair.Key) { }
         }
     }
 }

@@ -51,8 +51,6 @@ namespace Vitaru.Roots.Multi
 
         protected virtual void SendPacketTcp(Packet packet) => VitaruNet.SendPacketTcp(packet);
 
-        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info)
-        {
-        }
+        protected virtual void OnPacketRecieve(PacketInfo<VitaruHost> info) { }
     }
 }

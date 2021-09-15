@@ -3,6 +3,7 @@
 
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
+using Vitaru.Roots.Menu;
 using Vitaru.Settings.Overlays;
 using Vitaru.Tracks;
 
@@ -36,13 +37,13 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.BottomRight,
 
                 PassDownInput = false,
-                Alpha = 0
+                Alpha = 0,
             });
 
             Add(new NucleusSettingsOverlay(vitaru));
             Add(new MitochondriaSettingsOverlay(vitaru));
             Add(new VitaruSettingsOverlay());
-            Add(new Menu.Version());
+            Add(new Version());
             Remove(Cursor, false);
             Add(Cursor);
         }

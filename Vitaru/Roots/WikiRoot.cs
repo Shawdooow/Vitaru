@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
 using Vitaru.Wiki;
 
@@ -34,7 +35,7 @@ namespace Vitaru.Roots
 
         public WikiRoot()
         {
-            Wiki.Index index = new();
+            Index index = new();
             Add(index);
             Add(new Layer2D<IDrawable2D>
             {
@@ -48,13 +49,13 @@ namespace Vitaru.Roots
                         Origin = Mounts.BottomCenter,
                         Y = -8,
                         FontScale = 0.64f,
-                        Text = "Wiki"
+                        Text = "Wiki",
                     },
                     new Box
                     {
                         Alpha = 0.8f,
                         Size = new Vector2(WIDTH, HEIGHT),
-                        Color = Color.Black
+                        Color = Color.Black,
                     },
                     sections = new ListLayer<SectionButton>
                     {
@@ -62,18 +63,18 @@ namespace Vitaru.Roots
                         Origin = Mounts.TopCenter,
 
                         Size = new Vector2(WIDTH, 40),
-                        Direction = Direction.Horizontal
+                        Direction = Direction.Horizontal,
                     },
                     content = new InputLayer<IDrawable2D>
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
 
-                        Size = new Vector2(WIDTH, HEIGHT - 40)
-                    }
-                }
+                        Size = new Vector2(WIDTH, HEIGHT - 40),
+                    },
+                },
             });
-            Add(new Menu.Version());
+            Add(new Version());
 
             index.OnSetPanel += p => panel = p;
         }
@@ -89,7 +90,7 @@ namespace Vitaru.Roots
                 ParentOrigin = Mounts.BottomRight,
 
                 PassDownInput = false,
-                Alpha = 0
+                Alpha = 0,
             });
         }
 

@@ -49,7 +49,7 @@ namespace Vitaru.Roots.Tests
         {
             gamefield = new Gamefield
             {
-                Clock = TrackManager.CurrentTrack.Clock
+                Clock = TrackManager.CurrentTrack.Clock,
             };
 
             if (gamefield.UnloadedEnemies.Count <= 0 || LevelStore.UseRandom)
@@ -77,21 +77,21 @@ namespace Vitaru.Roots.Tests
                 Position = new Vector2(-2, 2),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                FontScale = 0.25f
+                FontScale = 0.25f,
             });
             Add(bullets = new Text2D(false)
             {
                 Position = new Vector2(-2, 20),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                FontScale = 0.25f
+                FontScale = 0.25f,
             });
             Add(particles = new Text2D(false)
             {
                 Position = new Vector2(-2, 40),
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                FontScale = 0.25f
+                FontScale = 0.25f,
             });
 
             //Intentional, as we dont want the slider to receive input...
@@ -110,8 +110,8 @@ namespace Vitaru.Roots.Tests
                     Width = 800,
                     OnProgressInput = p =>
                         TrackManager.CurrentTrack.Seek(PrionMath.Remap(p, 0, 1, 0,
-                            TrackManager.CurrentTrack.Sample.Length))
-                }
+                            TrackManager.CurrentTrack.Sample.Length)),
+                },
             });
 
             slider.AddArray(new IDrawable2D[]
@@ -121,15 +121,15 @@ namespace Vitaru.Roots.Tests
                     ParentOrigin = Mounts.BottomLeft,
                     Origin = Mounts.TopLeft,
                     Position = new Vector2(8),
-                    FontScale = 0.25f
+                    FontScale = 0.25f,
                 },
                 timeLeft = new Text2D(false)
                 {
                     ParentOrigin = Mounts.BottomRight,
                     Origin = Mounts.TopRight,
                     Position = new Vector2(-8, 8),
-                    FontScale = 0.25f
-                }
+                    FontScale = 0.25f,
+                },
             });
 
             TrackManager.CurrentTrack.Gain *= 2f;
@@ -148,8 +148,8 @@ namespace Vitaru.Roots.Tests
 
             TrackManager.CurrentTrack.Clock.Update();
 
-            float current = (float) TrackManager.CurrentTrack.Clock.Current;
-            float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
+            float current = (float)TrackManager.CurrentTrack.Clock.Current;
+            float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!slider.Dragging)
                 slider.Progress = PrionMath.Remap(current, 0, length);
@@ -186,8 +186,8 @@ namespace Vitaru.Roots.Tests
                                 StartTime = start,
                                 StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
                                     PrionMath.RandomNumber(-300, 0)),
-                                PatternID = (short) PrionMath.RandomNumber(0, 5),
-                                Color = c
+                                PatternID = (short)PrionMath.RandomNumber(0, 5),
+                                Color = c,
                             });
                         else
                         {
@@ -199,7 +199,7 @@ namespace Vitaru.Roots.Tests
                                 StartPosition = Vector2.Zero,
                                 MaxHealth = 120,
                                 PatternID = 5,
-                                Color = c
+                                Color = c,
                             };
                             gamefield.Add(e);
                         }
@@ -232,13 +232,13 @@ namespace Vitaru.Roots.Tests
 
         public override void PostProcessing()
         {
-            Renderer.ShaderManager.UpdateInt("shade", (int) gamefield.Shade);
+            Renderer.ShaderManager.UpdateInt("shade", (int)gamefield.Shade);
             Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
         }
 
         protected override void Dispose(bool finalize)
         {
-            Renderer.ShaderManager.UpdateInt("shade", (int) Shades.Color);
+            Renderer.ShaderManager.UpdateInt("shade", (int)Shades.Color);
             Renderer.ShaderManager.UpdateFloat("intensity", 1);
             base.Dispose(finalize);
         }

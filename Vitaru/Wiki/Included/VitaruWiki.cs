@@ -16,7 +16,7 @@ namespace Vitaru.Wiki.Included
         public override WikiSection[] GetSections() => new WikiSection[]
         {
             new About(),
-            new Modes()
+            new Modes(),
             //new Credits(),
         };
 
@@ -31,8 +31,8 @@ namespace Vitaru.Wiki.Included
                     new Header("What is Vitaru?"),
                     new Description("Vitaru is a rhythm-based bullet hell."),
                     new Header("So what do I do?"),
-                    new Description("Avoid the bullets flying at you. Although this is usually easier said than done.")
-                }
+                    new Description("Avoid the bullets flying at you. Although this is usually easier said than done."),
+                },
             };
         }
 
@@ -44,8 +44,9 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("In order to change the feature sets Vitaru (and Prion) use you must pass in the launch argument [Features=Standard] without the []s. " +
-                                    "Swap the word \"Standard\" for any of the below options to enable other feature sets."),
+                    new Description(
+                        "In order to change the feature sets Vitaru (and Prion) use you must pass in the launch argument [Features=Standard] without the []s. " +
+                        "Swap the word \"Standard\" for any of the below options to enable other feature sets."),
                     new Header(Features.Safe.ToString()),
                     new Description(Features.Safe.GetDescription()),
                     new Header(Features.Standard.ToString()),
@@ -55,8 +56,8 @@ namespace Vitaru.Wiki.Included
                     new Header(Features.Experimental.ToString()),
                     new Description(Features.Experimental.GetDescription()),
                     new Header(Features.Radioactive.ToString()),
-                    new Description(Features.Radioactive.GetDescription())
-                }
+                    new Description(Features.Radioactive.GetDescription()),
+                },
             };
         }
 
@@ -68,8 +69,8 @@ namespace Vitaru.Wiki.Included
             {
                 Children = new IDrawable2D[]
                 {
-                    new Description("")
-                }
+                    new Description(""),
+                },
             };
         }
     }

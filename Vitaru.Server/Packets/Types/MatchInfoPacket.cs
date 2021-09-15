@@ -10,15 +10,13 @@ namespace Vitaru.Server.Packets.Types
     {
         public MatchInfo MatchInfo;
 
-        protected MatchInfoPacket(ushort header) : base(header)
-        {
-        }
+        protected MatchInfoPacket(ushort header) : base(header) { }
 
         public override byte[] Serialize()
         {
             byte[] data = MatchInfo.Serialize();
 
-            Length = (uint) data.Length;
+            Length = (uint)data.Length;
             return data;
         }
 

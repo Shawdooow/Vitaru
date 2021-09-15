@@ -28,14 +28,14 @@ namespace Vitaru.Mods.Included
                 Background = Game.TextureStore.GetTexture("Prion B 512.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.DarkGray
+                    Color = Color.DarkGray,
                 },
 
                 Text = "Prion",
                 Text2D =
                 {
-                    FontScale = 0.35f
-                }
+                    FontScale = 0.35f,
+                },
             };
 
         public override Root GetRoot() => new PrionRoot();
@@ -60,12 +60,12 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         BackgroundSprite =
                         {
-                            Color = Color.Gold
+                            Color = Color.Gold,
                         },
 
                         Text = "Run Objects",
 
-                        OnClick = () => Benchmarks.Objects()
+                        OnClick = () => Benchmarks.Objects(),
                     },
                     new Button
                     {
@@ -75,13 +75,13 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         BackgroundSprite =
                         {
-                            Color = Color.LightSkyBlue
+                            Color = Color.LightSkyBlue,
                         },
 
                         Text = "Run Dynamic",
 
-                        OnClick = () => Benchmarks.DynamicThreader()
-                    }
+                        OnClick = () => Benchmarks.DynamicThreader(),
+                    },
                 });
             }
         }

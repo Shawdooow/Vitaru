@@ -30,7 +30,7 @@ namespace Vitaru.Settings.Overlays
                     Name = "Background",
                     Color = Color.Black,
                     Alpha = 0.8f,
-                    Size = Size
+                    Size = Size,
                 },
 
                 new ListLayer<IDrawable2D>
@@ -45,41 +45,41 @@ namespace Vitaru.Settings.Overlays
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Vitaru",
-                            FontScale = 0.36f
+                            FontScale = 0.36f,
                         },
                         new Text2D
                         {
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Graphics",
-                            FontScale = 0.24f
+                            FontScale = 0.24f,
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Particles)
                         {
-                            Text = "Toggle Particles"
+                            Text = "Toggle Particles",
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleCap, 4096, 65536)
                         {
-                            Text = "Max Particles"
+                            Text = "Max Particles",
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ParticleMultiplier, 0.5f,
                             4)
                         {
-                            Text = "Particle Multiplier"
+                            Text = "Particle Multiplier",
                         },
 
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.ComboFire)
                         {
-                            Text = "Toggle Combo Fire"
+                            Text = "Toggle Combo Fire",
                         },
 
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Multithreading)
                         {
-                            Text = "Additional Multi-threading"
+                            Text = "Additional Multi-threading",
                         },
                         new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BulletCap, 512, 2048)
                         {
-                            Text = "Max Bullets"
+                            Text = "Max Bullets",
                         },
 
                         new Text2D
@@ -87,14 +87,14 @@ namespace Vitaru.Settings.Overlays
                             ParentOrigin = Mounts.TopCenter,
                             Origin = Mounts.TopCenter,
                             Text = "Debug",
-                            FontScale = 0.24f
+                            FontScale = 0.24f,
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
-                            Text = "Toggle \"GOD-KING\" Hacks"
-                        }
-                    }
-                }
+                            Text = "Toggle \"GOD-KING\" Hacks",
+                        },
+                    },
+                },
             };
         }
     }

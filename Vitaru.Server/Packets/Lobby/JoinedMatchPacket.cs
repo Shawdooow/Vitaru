@@ -8,19 +8,11 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class JoinedMatchPacket : VariableLengthPacket
     {
-        public JoinedMatchPacket() : base((ushort)VitaruPackets.JoinedMatch)
-        {
-        }
+        public JoinedMatchPacket() : base((ushort)VitaruPackets.JoinedMatch) { }
 
-        public override IPacket Copy()
-        {
-            throw Debugger.NotImplemented("");
-        }
+        public override IPacket Copy() => throw Debugger.NotImplemented("");
 
-        public override byte[] Serialize()
-        {
-            throw Debugger.NotImplemented("");
-        }
+        public override byte[] Serialize() => throw Debugger.NotImplemented("");
 
         public override void DeSerialize(byte[] data)
         {

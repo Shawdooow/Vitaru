@@ -31,12 +31,12 @@ namespace Vitaru.Play.Characters
             {
                 Color = character.PrimaryColor,
                 Size = new Vector2(character.Hitbox.Diameter * 1.75f),
-                Alpha = 0
+                Alpha = 0,
             });
             Add(Hitbox = new Circle
             {
                 Size = new Vector2(character.Hitbox.Diameter),
-                Alpha = 0
+                Alpha = 0,
             });
         }
     }

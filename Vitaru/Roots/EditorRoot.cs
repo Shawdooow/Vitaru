@@ -41,7 +41,7 @@ namespace Vitaru.Roots
 
             levelProperties = new LevelProperties
             {
-                OnCreate = create
+                OnCreate = create,
             };
         }
 
@@ -79,7 +79,7 @@ namespace Vitaru.Roots
 
             editfield = new Editfield(manager)
             {
-                Clock = TrackManager.CurrentTrack.Clock
+                Clock = TrackManager.CurrentTrack.Clock,
             };
             editableProperties = new EditableProperties(manager);
 
@@ -93,9 +93,9 @@ namespace Vitaru.Roots
                         Color = Color.Black,
                         Alpha = 0.8f,
                         Size = new Vector2(1024, 820),
-                        Scale = new Vector2(0.5f)
-                    }
-                }
+                        Scale = new Vector2(0.5f),
+                    },
+                },
             });
 
             //Packs

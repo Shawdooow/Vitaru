@@ -23,11 +23,13 @@ namespace Vitaru.Levels
 
         public static LevelPack CurrentPack { get; private set; }
 
-        public static event Action<LevelPack> OnPackChange; 
+        public static event Action<LevelPack> OnPackChange;
 
         public static List<LevelPack> LoadedLevels { get; private set; } = new();
 
+
         #region Versions
+
 
         public const string EXPERIMENTAL = VERSION_01;
         public const string STABLE = VERSION_01;
@@ -42,7 +44,9 @@ namespace Vitaru.Levels
         //Migrate to a binary format for ultimate speed!
         public const string VERSION_03 = "before 1.0.0?";
 
+
         #endregion
+
 
         //TODO: Try Catch the shit out of this, we don't want to crash if a level is fucked
         public static void ReloadLevelsFromFolders()
@@ -76,7 +80,7 @@ namespace Vitaru.Levels
                             new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                         {
                             string contents = reader.ReadToEnd();
-                            string[] lines = contents.Split(new[] {Environment.NewLine, },
+                            string[] lines = contents.Split(new[] { Environment.NewLine, },
                                 StringSplitOptions.RemoveEmptyEntries);
 
                             for (int k = 0; k < lines.Length; k++)
@@ -208,17 +212,13 @@ namespace Vitaru.Levels
             string[] directories = Vitaru.LevelStorage.GetDirectories();
 
             string data = string.Empty;
-            for (int i = 0; i < directories.Length; i++)
-            {
-            }
+            for (int i = 0; i < directories.Length; i++) { }
 
             b.Record();
             Logger.Benchmark(b);
         }
 
-        public static void PopulateDefaults()
-        {
-        }
+        public static void PopulateDefaults() { }
 
         public static void SetLevelPack(LevelPack p, int index = 0) => SetLevelPack(p, p.Levels[index]);
 
@@ -231,9 +231,9 @@ namespace Vitaru.Levels
 
         public static void SetLevel(int index)
         {
-            if (index >= 0) 
+            if (index >= 0)
                 SetLevel(CurrentPack.Levels[index]);
-            else 
+            else
                 UseRandom = true;
         }
 
@@ -312,9 +312,9 @@ namespace Vitaru.Levels
         public static Level GetLevel(TrackMetadata data)
         {
             foreach (LevelPack pack in LoadedLevels)
-            foreach (Level level in pack.Levels)
-                if (level.Metadata == data)
-                    return level;
+                foreach (Level level in pack.Levels)
+                    if (level.Metadata == data)
+                        return level;
 
             return null;
         }

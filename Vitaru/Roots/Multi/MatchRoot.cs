@@ -9,8 +9,6 @@ namespace Vitaru.Roots.Multi
 {
     public class MatchRoot : MultiRoot
     {
-        public MatchRoot(MatchInfo match, Pack<Updatable> networking) : base(networking)
-        {
-        }
+        public MatchRoot(MatchInfo match, Pack<Updatable> networking) : base(networking) { }
     }
 }

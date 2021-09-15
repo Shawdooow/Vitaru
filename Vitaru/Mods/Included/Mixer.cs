@@ -34,10 +34,10 @@ namespace Vitaru.Mods.Included
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = Color.DarkMagenta
+                    Color = Color.DarkMagenta,
                 },
 
-                Text = "Mixer"
+                Text = "Mixer",
             };
 
         public override Root GetRoot() => new MixerRoot();
@@ -88,7 +88,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.TopCenter,
                         Origin = Mounts.TopCenter,
                         FontScale = 0.6f,
-                        Text = TrackManager.CurrentTrack.Metadata.Title
+                        Text = TrackManager.CurrentTrack.Metadata.Title,
                     },
 
                     new Button
@@ -99,19 +99,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "++",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f)
+                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f),
                     },
                     new Button
                     {
@@ -121,19 +121,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "1.5x",
-                        OnClick = () => setRate(1.5f)
+                        OnClick = () => setRate(1.5f),
                     },
                     new Button
                     {
@@ -143,19 +143,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "+",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.05f)
+                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.05f),
                     },
                     new Button
                     {
@@ -164,19 +164,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "1x",
-                        OnClick = () => setRate(1f)
+                        OnClick = () => setRate(1f),
                     },
                     new Button
                     {
@@ -186,19 +186,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "-",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.05f)
+                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.05f),
                     },
                     new Button
                     {
@@ -208,19 +208,19 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.PrimaryColor
+                            Color = ThemeManager.PrimaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
 
                         Text = "0.75x",
-                        OnClick = () => setRate(0.75f)
+                        OnClick = () => setRate(0.75f),
                     },
                     new Button
                     {
@@ -230,18 +230,18 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.5f
+                            FontScale = 0.5f,
                         },
                         Text = "--",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f)
+                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f),
                     },
 
                     new Button
@@ -252,44 +252,44 @@ namespace Vitaru.Mods.Included
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
                         {
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         },
                         BackgroundSprite =
                         {
-                            Color = ThemeManager.SecondaryColor
+                            Color = ThemeManager.SecondaryColor,
                         },
                         Text2D =
                         {
-                            FontScale = 0.25f
+                            FontScale = 0.25f,
                         },
 
                         Text = "Accel",
-                        OnClick = () => accel = !accel
+                        OnClick = () => accel = !accel,
                     },
 
                     pitch = new Text2D
                     {
                         Position = new Vector2(0, -160),
-                        Text = TrackManager.CurrentTrack.Pitch.ToString()
+                        Text = TrackManager.CurrentTrack.Pitch.ToString(),
                     },
                     slider = new Slider
                     {
                         Width = 1000,
                         Position = new Vector2(0, -100),
-                        OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max))
+                        OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max)),
                     },
 
                     volume = new Text2D
                     {
                         Position = new Vector2(0, -280),
                         FontScale = 0.5f,
-                        Text = (TrackManager.CurrentTrack.Gain * 100).ToString()
+                        Text = (TrackManager.CurrentTrack.Gain * 100).ToString(),
                     },
                     control = new Slider
                     {
                         Width = 200,
                         Position = new Vector2(0, -240),
-                        OnProgressInput = setVolume
+                        OnProgressInput = setVolume,
                     },
 
                     seek = new Slider
@@ -300,7 +300,7 @@ namespace Vitaru.Mods.Included
                         Width = 800,
                         OnProgressInput = p =>
                             TrackManager.CurrentTrack.Seek(
-                                PrionMath.Remap(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length))
+                                PrionMath.Remap(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length)),
                     },
                     accelMin = new Slider
                     {
@@ -308,7 +308,7 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
                         Width = 800,
-                        OnProgressInput = aMin
+                        OnProgressInput = aMin,
                     },
                     accelMax = new Slider
                     {
@@ -317,7 +317,7 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.BottomCenter,
                         Width = 800,
                         Progress = 1,
-                        OnProgressInput = aMax
+                        OnProgressInput = aMax,
                     },
 
                     play = new Button
@@ -331,7 +331,7 @@ namespace Vitaru.Mods.Included
                                 ? "pause.png"
                                 : "play.png"),
 
-                        OnClick = toggle
+                        OnClick = toggle,
                     },
                     new Button
                     {
@@ -341,7 +341,7 @@ namespace Vitaru.Mods.Included
                         Size = new Vector2(64),
                         Background = Vitaru.TextureStore.GetTexture("skip.png"),
 
-                        OnClick = next
+                        OnClick = next,
                     },
                     new Button
                     {
@@ -351,14 +351,14 @@ namespace Vitaru.Mods.Included
                         Size = new Vector2(-64, 64),
                         Background = Vitaru.TextureStore.GetTexture("skip.png"),
 
-                        OnClick = previous
+                        OnClick = previous,
                     },
 
                     controller = new VitaruTrackController
                     {
                         Alpha = 0,
-                        PassDownInput = false
-                    }
+                        PassDownInput = false,
+                    },
                 });
 
                 slider.AddArray(new IDrawable2D[]
@@ -369,7 +369,7 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.CenterRight,
                         X = -12,
                         FontScale = 0.25f,
-                        Text = "0.05x"
+                        Text = "0.05x",
                     },
                     new Text2D
                     {
@@ -377,8 +377,8 @@ namespace Vitaru.Mods.Included
                         Origin = Mounts.CenterLeft,
                         X = 12,
                         FontScale = 0.25f,
-                        Text = "2x"
-                    }
+                        Text = "2x",
+                    },
                 });
 
                 seek.AddArray(new IDrawable2D[]
@@ -388,15 +388,15 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        FontScale = 0.25f
+                        FontScale = 0.25f,
                     },
                     timeLeft = new Text2D
                     {
                         ParentOrigin = Mounts.CenterRight,
                         Origin = Mounts.CenterLeft,
                         X = 12,
-                        FontScale = 0.25f
-                    }
+                        FontScale = 0.25f,
+                    },
                 });
                 accelMin.AddArray(new IDrawable2D[]
                 {
@@ -405,8 +405,8 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        FontScale = 0.25f
-                    }
+                        FontScale = 0.25f,
+                    },
                 });
                 accelMax.AddArray(new IDrawable2D[]
                 {
@@ -415,8 +415,8 @@ namespace Vitaru.Mods.Included
                         ParentOrigin = Mounts.CenterLeft,
                         Origin = Mounts.CenterRight,
                         X = -12,
-                        FontScale = 0.25f
-                    }
+                        FontScale = 0.25f,
+                    },
                 });
 
                 setRate(TrackManager.CurrentTrack.Pitch);
@@ -440,8 +440,8 @@ namespace Vitaru.Mods.Included
                 controller.Update();
                 controller.TryNextLevel();
 
-                float current = (float) TrackManager.CurrentTrack.Clock.Current;
-                float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
+                float current = (float)TrackManager.CurrentTrack.Clock.Current;
+                float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
 
                 if (!seek.Dragging)
                     seek.Progress = PrionMath.Remap(current, 0, length);

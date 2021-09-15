@@ -27,8 +27,6 @@ namespace Vitaru.Mods
 
         public virtual WikiPanel GetWikiPanel() => null;
 
-        public virtual void LoadingComplete()
-        {
-        }
+        public virtual void LoadingComplete() { }
     }
 }

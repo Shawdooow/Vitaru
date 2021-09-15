@@ -15,10 +15,10 @@ namespace Vitaru.Play.Projectiles
     {
         public static int COUNT;
 
-        private readonly bool particles = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
+        private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
 
         private readonly float particles_multiplier =
-            global::Vitaru.Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
+            Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
 
         private readonly Vector2 border = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize() / 2;
 
@@ -30,13 +30,13 @@ namespace Vitaru.Play.Projectiles
 
         public CircularHitbox CircularHitbox = new()
         {
-            Diameter = 10
+            Diameter = 10,
         };
 
-        public float Size 
-        { 
+        public float Size
+        {
             get => CircularHitbox.Diameter;
-            set => CircularHitbox.Diameter = value; 
+            set => CircularHitbox.Diameter = value;
         }
 
         public float Scale { get; set; }
@@ -86,7 +86,7 @@ namespace Vitaru.Play.Projectiles
                     break;
                 case CurveType.Bezier:
                     //Half way to the EndPoint
-                    CurvePoint = StartPosition + PrionMath.Offset(Distance / 2, Angle) + 
+                    CurvePoint = StartPosition + PrionMath.Offset(Distance / 2, Angle) +
                                  //Then add the "CurveAmount" to slide it to one side or the other
                                  PrionMath.Offset(CurveAmount, Angle - MathF.PI / 2f);
                     break;
@@ -99,7 +99,8 @@ namespace Vitaru.Play.Projectiles
         {
             Position = GetPosition(Gamefield.Current);
 
-            if (ObeyBoundries && (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y || Position.Y > border.Y))
+            if (ObeyBoundries && (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y ||
+                                  Position.Y > border.Y))
                 End();
 
             s += Gamefield.LastElapsedTime;
@@ -109,7 +110,7 @@ namespace Vitaru.Play.Projectiles
             {
                 s = 0;
 
-                float angle = ((float) Random.Next(0, 360)).ToRadians();
+                float angle = ((float)Random.Next(0, 360)).ToRadians();
                 int distance = Random.Next(20, 32);
 
                 int radius = (int)CircularHitbox.Radius - 8;
@@ -122,7 +123,7 @@ namespace Vitaru.Play.Projectiles
                     StartPosition = start,
                     EndPosition = start + PrionMath.Offset(distance, angle),
                     Color = GlowColor.Vector(),
-                    Scale = 1f / Random.Next(1, 5)
+                    Scale = 1f / Random.Next(1, 5),
                 });
             }
 
@@ -144,7 +145,7 @@ namespace Vitaru.Play.Projectiles
             switch (CurveType)
             {
                 default:
-                    return new Vector2( PrionMath.Remap(t, 0, 1, StartPosition.X, EndPosition.X),
+                    return new Vector2(PrionMath.Remap(t, 0, 1, StartPosition.X, EndPosition.X),
                         PrionMath.Remap(t, 0, 1, StartPosition.Y, EndPosition.Y));
                 case CurveType.Bezier:
                     return PrionMath.Bezier(t, StartPosition, CurvePoint, EndPosition);
@@ -187,7 +188,7 @@ namespace Vitaru.Play.Projectiles
             {
                 "b",
                 CircularHitbox.Diameter.ToString(),
-                Speed.ToString()
+                Speed.ToString(),
             };
 
             data.AddRange(base.SerializeToStrings());
@@ -207,13 +208,13 @@ namespace Vitaru.Play.Projectiles
         Straight,
         Target,
 
-        Bezier
+        Bezier,
     }
 
     public enum Shape
     {
         Circle,
         Triangle,
-        Square
+        Square,
     }
 }

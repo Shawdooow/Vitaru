@@ -19,7 +19,7 @@ namespace Vitaru.Server
         {
             NucleusLaunchArgs n = new()
             {
-                Name = host
+                Name = host,
             };
             NucleusLaunchArgs.ProccessArgs(args);
 
@@ -33,7 +33,7 @@ namespace Vitaru.Server
         {
             server = new VitaruServerNetHandler
             {
-                Address = "127.0.0.1:36840"
+                Address = "127.0.0.1:36840",
             };
         }
 
@@ -67,68 +67,62 @@ namespace Vitaru.Server
                 Host = 15,
                 Users = new List<VitaruUser>
                 {
-                    new VitaruUser
+                    new()
                     {
                         Username = "Carl",
                         ID = 1,
                         Color = "#white",
                         UserSettings = new List<Setting>
                         {
-                            new Setting
+                            new()
                             {
                                 Name = "Character",
                                 Value = "Arysa",
-                                Sync = Sync.Client
+                                Sync = Sync.Client,
                             },
-                            new Setting
+                            new()
                             {
                                 Name = "Hard?",
                                 Value = "Bab",
-                                Sync = Sync.All
-                            }
+                                Sync = Sync.All,
+                            },
                         },
-                        Status = PlayerStatus.SearchingForLevel
+                        Status = PlayerStatus.SearchingForLevel,
                     },
-                    new VitaruUser
+                    new()
                     {
                         Username = "Weeb",
                         ID = 2,
                         Color = "#green",
                         UserSettings = new List<Setting>
                         {
-                            new Setting
+                            new()
                             {
                                 Name = "Character",
                                 Value = "Nobody",
-                                Sync = Sync.Client
+                                Sync = Sync.Client,
                             },
-                            new Setting
+                            new()
                             {
                                 Name = "Easy",
                                 Value = "yet",
-                                Sync = Sync.All
-                            }
+                                Sync = Sync.All,
+                            },
                         },
-                        Status = PlayerStatus.DownloadingLevel
-                    }
+                        Status = PlayerStatus.DownloadingLevel,
+                    },
                 },
-            
+
                 Settings = new List<Setting>
                 {
-                    new Setting
-                    {
-            
-                    }
+                    new(),
                 },
-            
-                Level = new Level
-                {
-            
-                }
+
+                Level = new Level(),
             };
-            
+
             byte[] data = m.Serialize();
-            
+
             m.DeSerialize(data);
         }
     }
@@ -140,6 +134,6 @@ namespace Vitaru.Server
         CreateMatch,
         MatchCreated,
         JoinMatch,
-        JoinedMatch
+        JoinedMatch,
     }
 }

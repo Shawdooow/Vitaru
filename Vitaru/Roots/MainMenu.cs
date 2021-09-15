@@ -12,6 +12,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus;
 using Vitaru.Levels;
+using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
 using Vitaru.Roots.Tests;
 using Vitaru.Tracks;
@@ -41,7 +42,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.PrimaryColor
+                    Color = ThemeManager.PrimaryColor,
                 },
 
                 Text = "Levels",
@@ -50,7 +51,7 @@ namespace Vitaru.Roots
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new LevelRoot());
-                }
+                },
             });
             Add(new Button
             {
@@ -60,7 +61,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.SecondaryColor
+                    Color = ThemeManager.SecondaryColor,
                 },
 
                 Text = "Multi",
@@ -71,7 +72,7 @@ namespace Vitaru.Roots
                 {
                     if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
-                }
+                },
             });
             Add(new Button
             {
@@ -81,7 +82,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.TrinaryColor
+                    Color = ThemeManager.TrinaryColor,
                 },
 
                 Text = "Edit",
@@ -90,7 +91,7 @@ namespace Vitaru.Roots
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new EditorRoot());
-                }
+                },
             });
             Add(new Button
             {
@@ -100,7 +101,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.QuadnaryColor
+                    Color = ThemeManager.QuadnaryColor,
                 },
 
                 Text = "Mods",
@@ -109,7 +110,7 @@ namespace Vitaru.Roots
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new ModsTest());
-                }
+                },
             });
             Add(new Button
             {
@@ -119,7 +120,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.SecondaryColor
+                    Color = ThemeManager.SecondaryColor,
                 },
 
                 Text = "Wiki",
@@ -128,7 +129,7 @@ namespace Vitaru.Roots
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new WikiRoot());
-                }
+                },
             });
             Add(new Button
             {
@@ -138,7 +139,7 @@ namespace Vitaru.Roots
                 Background = Game.TextureStore.GetTexture("square.png"),
                 BackgroundSprite =
                 {
-                    Color = ThemeManager.PrimaryColor
+                    Color = ThemeManager.PrimaryColor,
                 },
 
                 Text = "Settings",
@@ -147,7 +148,7 @@ namespace Vitaru.Roots
                 {
                     if (TrackManager.CurrentTrack != null)
                         AddRoot(new SettingsRoot(vitaru));
-                }
+                },
             });
 
             Add(Back = new Exit(vitaru));
@@ -156,15 +157,15 @@ namespace Vitaru.Roots
             {
                 Position = new Vector2(-40),
                 Origin = Mounts.BottomRight,
-                ParentOrigin = Mounts.BottomRight
+                ParentOrigin = Mounts.BottomRight,
             });
 
-            Add(new Menu.Version());
+            Add(new Version());
 
             Add(new Text2D
             {
                 Y = -300,
-                Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru"
+                Text = Vitaru.ALKI > 0 ? Vitaru.ALKI == 2 ? "Rhize" : "Alki" : "Vitaru",
             });
 
             Renderer.Window.CursorHidden = true;

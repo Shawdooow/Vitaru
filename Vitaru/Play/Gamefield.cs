@@ -38,7 +38,7 @@ namespace Vitaru.Play
 
         public static double Current { get; private set; } = double.MinValue;
 
-        public static double LastElapsedTime { get; private set; } = 0;
+        public static double LastElapsedTime { get; private set; }
 
         private readonly bool multithread = Vitaru.VitaruSettings.GetBool(VitaruSetting.Multithreading);
 
@@ -51,47 +51,47 @@ namespace Vitaru.Play
         public int[] Indexes =
         {
             0,
-            0
+            0,
         };
 
         protected readonly FormatConverter FormatConverter;
 
         public readonly Pack<Character> PlayerPack = new()
         {
-            Name = "Player Pack"
+            Name = "Player Pack",
         };
 
         public readonly Layer2D<DrawableGameEntity> CharacterLayer = new()
         {
             Name = "Drawable Character Layer2D",
-            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
         public readonly List<Enemy> UnloadedEnemies = new();
 
         public readonly Pack<Enemy> LoadedEnemies = new()
         {
-            Name = "Loaded Enemies Pack"
+            Name = "Loaded Enemies Pack",
         };
 
         public readonly List<ProjectilePack> ProjectilePacks = new();
 
         public readonly BulletLayer BulletLayer = new()
         {
-            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
         public readonly ParticleLayer ParticleLayer = new()
         {
-            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
         /// <summary>
-        /// A layer for custom players to add stuff to
+        ///     A layer for custom players to add stuff to
         /// </summary>
         public readonly Layer2D<IDrawable2D> OverlaysLayer = new()
         {
-            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize()
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
         protected readonly float MaxBarSize;
@@ -114,7 +114,7 @@ namespace Vitaru.Play
 
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
-            Benchmark benchmark = new Benchmark($"{nameof(Gamefield)}.ctor", true);
+            Benchmark benchmark = new($"{nameof(Gamefield)}.ctor", true);
             Current = double.MinValue;
             LastElapsedTime = 0;
 
@@ -127,7 +127,7 @@ namespace Vitaru.Play
             {
                 Name = "Enemy's Projectile Pack",
                 Team = Enemy.ENEMY_TEAM,
-                MultiThreading = multithread
+                MultiThreading = multithread,
             };
 
             if (multithread) AssignTasks(enemys);
@@ -135,7 +135,7 @@ namespace Vitaru.Play
             ProjectilePack players = new(this)
             {
                 Name = "Player's Projectile Pack",
-                Team = Player.PLAYER_TEAM
+                Team = Player.PLAYER_TEAM,
             };
 
             ProjectilePacks.Add(enemys);
@@ -169,7 +169,7 @@ namespace Vitaru.Play
             {
                 Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
                 UnloadedEnemies.Clear();
-                LevelStore.CurrentLevel.EnemyData = String.Empty;
+                LevelStore.CurrentLevel.EnemyData = string.Empty;
             }
 
             MaxBarSize = size.Y - 32;
@@ -200,9 +200,8 @@ namespace Vitaru.Play
                     Origin = Mounts.CenterLeft,
 
                     X = 64,
-                    FontScale = 0.64f
+                    FontScale = 0.64f,
                 },
-
 
 
                 EnergyChange = new Box
@@ -229,7 +228,7 @@ namespace Vitaru.Play
                     Origin = Mounts.CenterRight,
 
                     X = -64,
-                    FontScale = 0.64f
+                    FontScale = 0.64f,
                 },
             };
 
@@ -239,10 +238,8 @@ namespace Vitaru.Play
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
-            
-            while (Vitaru.ThreadsRunning())
-            {
-            }
+
+            while (Vitaru.ThreadsRunning()) { }
 
             Current = Clock.Current;
             LastElapsedTime = Clock.LastElapsedTime;
@@ -324,7 +321,7 @@ namespace Vitaru.Play
                 Vitaru.RunThreads();
             }
             else
-                ParticleLayer.UpdateParticles(0, particle_cap, (float) Clock.LastElapsedTime);
+                ParticleLayer.UpdateParticles(0, particle_cap, (float)Clock.LastElapsedTime);
 
             //should be safe to kill them from here
             while (deadEnemyQue.TryDequeue(out Enemy e))
@@ -336,7 +333,8 @@ namespace Vitaru.Play
 
             while (deadPlayerQue.TryDequeue(out Player p))
             {
-                Debugger.Assert(!p.Disposed, $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
+                Debugger.Assert(!p.Disposed,
+                    $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
                 PlayerPack.Remove(p);
             }
 
@@ -540,7 +538,7 @@ namespace Vitaru.Play
             int start = Indexes[s];
             int end = Indexes[e];
 
-            ParticleLayer.UpdateParticles(start, end, (float) Clock.LastElapsedTime);
+            ParticleLayer.UpdateParticles(start, end, (float)Clock.LastElapsedTime);
         }
 
         protected override void Dispose(bool finalize)
@@ -558,7 +556,7 @@ namespace Vitaru.Play
             public int[] Indexes =
             {
                 0,
-                0
+                0,
             };
 
             public bool MultiThreading { get; set; }
@@ -636,26 +634,26 @@ namespace Vitaru.Play
                     {
                         Height = w,
                         Width = size.X,
-                        Y = -size.Y / 2
+                        Y = -size.Y / 2,
                     },
                     new Box
                     {
                         Height = w,
                         Width = size.X,
-                        Y = size.Y / 2
+                        Y = size.Y / 2,
                     },
                     new Box
                     {
                         Width = w,
                         Height = size.Y,
-                        X = -size.X / 2
+                        X = -size.X / 2,
                     },
                     new Box
                     {
                         Width = w,
                         Height = size.Y,
-                        X = size.X / 2
-                    }
+                        X = size.X / 2,
+                    },
                 };
             }
         }

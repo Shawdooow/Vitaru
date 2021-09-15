@@ -41,7 +41,7 @@ namespace Vitaru.Roots.Tests
                             Size = b.Size,
                             Scale = b.Scale,
                             Color = Color.Black,
-                            Alpha = 0.5f
+                            Alpha = 0.5f,
                         });
                     }
                     else
@@ -53,7 +53,7 @@ namespace Vitaru.Roots.Tests
             {
                 Position = new Vector2(-40),
                 Origin = Mounts.BottomRight,
-                ParentOrigin = Mounts.BottomRight
+                ParentOrigin = Mounts.BottomRight,
             });
 
             base.LoadingComplete();

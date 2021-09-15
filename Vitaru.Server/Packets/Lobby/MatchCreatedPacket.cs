@@ -8,9 +8,7 @@ namespace Vitaru.Server.Packets.Lobby
 {
     public class MatchCreatedPacket : MatchInfoPacket
     {
-        public MatchCreatedPacket() : base((ushort)VitaruPackets.MatchCreated)
-        {
-        }
+        public MatchCreatedPacket() : base((ushort)VitaruPackets.MatchCreated) { }
 
         public override IPacket Copy() => new MatchCreatedPacket();
     }

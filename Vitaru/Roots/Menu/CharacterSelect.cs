@@ -37,13 +37,13 @@ namespace Vitaru.Roots.Menu
                     Name = "Background",
                     Alpha = 0.8f,
                     Size = new Vector2(width, height),
-                    Color = Color.Black
+                    Color = Color.Black,
                 },
                 items = new InputLayer<SelectableCharacter>
                 {
                     ParentOrigin = Mounts.TopLeft,
-                    Origin = Mounts.TopLeft
-                }
+                    Origin = Mounts.TopLeft,
+                },
             };
 
             for (int i = 0; i < GamemodeStore.SelectedGamemode.Players.Count; i++)
@@ -96,7 +96,8 @@ namespace Vitaru.Roots.Menu
                 Origin = Mounts.TopLeft;
 
                 Size = new Vector2(width / 2);
-                Position = new Vector2(width / 2 * (index % 2), width / 2 * MathF.Round(index / 2f, MidpointRounding.ToZero));
+                Position = new Vector2(width / 2 * (index % 2),
+                    width / 2 * MathF.Round(index / 2f, MidpointRounding.ToZero));
 
                 Children = new IDrawable2D[]
                 {
@@ -105,15 +106,15 @@ namespace Vitaru.Roots.Menu
                         Name = "Background",
                         Alpha = 0.4f,
                         Size = Size,
-                        Color = Color.DarkCyan
+                        Color = Color.DarkCyan,
                     },
                     flash = new Box
                     {
                         Name = "Flash",
                         Alpha = 0,
                         Size = Size,
-                        Color = Color.White
-                    }
+                        Color = Color.White,
+                    },
                 };
             }
 
@@ -132,8 +133,8 @@ namespace Vitaru.Roots.Menu
                         Origin = Mounts.TopCenter,
                         Y = 2,
                         Text = pair.Value.Name,
-                        FontScale = 0.3f
-                    }
+                        FontScale = 0.3f,
+                    },
                 });
 
                 if (drawable is DrawablePlayer p)

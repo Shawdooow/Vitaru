@@ -80,7 +80,7 @@ namespace Vitaru.Server.Match
 
 
         /// <summary>
-        /// Includes the 4 bytes of (int)size of this <see cref="MatchInfo"/>
+        ///     Includes the 4 bytes of (int)size of this <see cref="MatchInfo" />
         /// </summary>
         /// <param name="data"></param>
         public void DeSerialize(byte[] data)
@@ -168,10 +168,10 @@ namespace Vitaru.Server.Match
             length = data.SubArray(offset, 4);
             offset += length.Length;
             size = BitConverter.ToInt32(length);
-            
+
             byte[] level = data.SubArray(offset, size);
             offset += level.Length;
-            
+
             Level l = new();
             l.DeSerialize(level);
             Level = l;
