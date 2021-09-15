@@ -233,6 +233,13 @@ namespace Vitaru
         protected override void StartupComplete()
         {
             //base.StartupComplete();
+
+            if (FEATURES >= Features.Upcoming)
+            {
+                Game.TextureStore.GetTexture("Cursor\\glow.png");
+                Game.TextureStore.GetTexture("Cursor\\ring.png");
+            }
+
             startup.Record();
             Logger.Benchmark(startup);
         }
