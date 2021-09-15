@@ -39,7 +39,7 @@ namespace Vitaru
         ///     For Online Connections.
         ///     Often contains the same value more than once
         /// </summary>
-        public static readonly string[] BACKWARDS_COMPATABLE_VERSIONS =
+        public static readonly string[] BACKWARDS_COMPATIBLE_VERSIONS =
         {
             VERSION,
             VitaruServer.VERSION,
