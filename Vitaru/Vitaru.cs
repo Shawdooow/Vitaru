@@ -117,8 +117,8 @@ namespace Vitaru
             vitaru.Start(new MainMenu(vitaru));
         }
 
-        public static bool EnableTanks => Application.FEATURES >= Features.Experimental;
-        public static bool EnableMulti => Application.FEATURES >= Features.Radioactive;
+        public static bool EnableTanks => FEATURES >= Features.Experimental;
+        public static bool EnableMulti => FEATURES >= Features.Radioactive;
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
 
