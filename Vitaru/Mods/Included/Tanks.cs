@@ -44,7 +44,7 @@ namespace Vitaru.Mods.Included
     {
         public override string Name => nameof(Tanks);
 
-        public override bool Disabled => !Renderer._3D_AVAILABLE || Vitaru.FEATURES < Features.Experimental;
+        public override bool Disabled => !Renderer._3D_AVAILABLE || !Vitaru.EnableTanks;
 
         public override Button GetMenuButton() =>
             new()

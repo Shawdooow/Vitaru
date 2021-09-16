@@ -66,11 +66,11 @@ namespace Vitaru.Roots
 
                 Text = "Multi",
 
-                Disabled = Vitaru.FEATURES < Features.Radioactive,
+                Disabled = !Vitaru.EnableMulti,
 
                 OnClick = () =>
                 {
-                    if (Vitaru.FEATURES >= Features.Radioactive && TrackManager.CurrentTrack != null)
+                    if (Vitaru.EnableMulti && TrackManager.CurrentTrack != null)
                         AddRoot(new MultiMenu());
                 },
             });

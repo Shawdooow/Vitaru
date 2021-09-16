@@ -117,6 +117,9 @@ namespace Vitaru
             vitaru.Start(new MainMenu(vitaru));
         }
 
+        public static bool EnableTanks => Application.FEATURES >= Features.Experimental;
+        public static bool EnableMulti => Application.FEATURES >= Features.Radioactive;
+
         public static VitaruSettingsManager VitaruSettings { get; private set; }
 
         public static PlayerBinds PlayerBinds { get; private set; }
@@ -234,10 +237,10 @@ namespace Vitaru
         {
             //base.StartupComplete();
 
-            if (FEATURES >= Features.Upcoming)
+            if (NewCursor)
             {
-                Game.TextureStore.GetTexture("Cursor\\glow.png");
-                Game.TextureStore.GetTexture("Cursor\\ring.png");
+                TextureStore.GetTexture("Cursor\\glow.png");
+                TextureStore.GetTexture("Cursor\\ring.png");
             }
 
             startup.Record();
