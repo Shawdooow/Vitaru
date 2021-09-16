@@ -440,6 +440,7 @@ namespace Vitaru.Play.Characters.Players
                     Drawable.Hitbox.FadeTo(1f, 200);
                     break;
                 case VitaruActions.Shoot:
+                    Renderer.CurrentRoot.Cursor.Hover(PrimaryColor);
                     shootTime = Clock.LastCurrent;
                     break;
             }
@@ -457,6 +458,9 @@ namespace Vitaru.Play.Characters.Players
                 case VitaruActions.Sneak:
                     Drawable.HitboxOutline.FadeTo(0f, 200);
                     Drawable.Hitbox.FadeTo(0f, 200);
+                    break;
+                case VitaruActions.Shoot:
+                    Renderer.CurrentRoot.Cursor.HoverLost();
                     break;
             }
         }
