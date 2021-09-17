@@ -28,7 +28,6 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Utilities;
-using Prion.Nucleus;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
