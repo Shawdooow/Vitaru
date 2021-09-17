@@ -7,6 +7,18 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
     {
         public override string Name => "Murice";
 
+        public override float HealthCapacity => 80;
+
+        public override string Seal => "Gameplay\\seal alki hell.png";
+
+        public override string Ability => "Rhythm God";
+
+        public override Role Role => Role.Offense;
+
+        public override Difficulty Difficulty => Difficulty.Hard;
+
+        public override bool Implemented => false;
+
         public Murice(Gamefield gamefield) : base(gamefield) { }
     }
 }
