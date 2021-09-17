@@ -27,7 +27,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
                 new Claire(gamefield),
                 new Yuie(gamefield),
                 new Frost(gamefield),
-                new Murice(gamefield),
+                new Muris(gamefield),
             } :
             new Player[]
             {
