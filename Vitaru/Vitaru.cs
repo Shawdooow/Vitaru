@@ -238,12 +238,6 @@ namespace Vitaru
         {
             //base.StartupComplete();
 
-            if (NewCursor)
-            {
-                TextureStore.GetTexture("Cursor\\glow.png");
-                TextureStore.GetTexture("Cursor\\ring.png");
-            }
-
             startup.Record();
             Logger.Benchmark(startup);
         }
