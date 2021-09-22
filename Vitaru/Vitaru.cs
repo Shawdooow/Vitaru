@@ -117,7 +117,7 @@ namespace Vitaru
             vitaru.Start(new MainMenu(vitaru));
         }
 
-        public static bool EnableCharacters => FEATURES >= Features.Radioactive;
+        public static bool EnableCharacters => FEATURES >= Features.Experimental;
         public static bool EnableTanks => FEATURES >= Features.Upcoming;
         public static bool EnableMulti => FEATURES >= Features.Radioactive;
 
