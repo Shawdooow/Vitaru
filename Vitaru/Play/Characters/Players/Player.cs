@@ -1107,10 +1107,11 @@ namespace Vitaru.Play.Characters.Players
 
     public enum Difficulty
     {
+        VeryEasy,
         Easy,
         Normal,
         Hard,
-        Insane,
+        VeryHard,
         Extreme,
         Impossible,
     }

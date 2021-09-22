@@ -3,22 +3,22 @@ using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 {
-    public class Muris : Player
+    public class Vuira : Player
     {
-        public override string Name => "Muris";
+        public override string Name => "Vuira";
 
         public override float HealthCapacity => 80;
 
         public override string Seal => "Gameplay\\seal alki hell.png";
 
-        public override string Ability => "God of Rhythm";
+        public override string Ability => "Goddess of Vocals";
 
-        public override Role Role => Role.Offense;
+        public override Role Role => Role.Support;
 
         public override Difficulty Difficulty => Difficulty.Hard;
 
         public override bool Implemented => false;
 
-        public Muris(Gamefield gamefield) : base(gamefield) { }
+        public Vuira(Gamefield gamefield) : base(gamefield) { }
     }
 }
