@@ -81,18 +81,6 @@ namespace Vitaru.Settings.Overlays
                         {
                             Text = "Max Bullets",
                         },
-
-                        new Text2D
-                        {
-                            ParentOrigin = Mounts.TopCenter,
-                            Origin = Mounts.TopCenter,
-                            Text = "Debug",
-                            FontScale = 0.24f,
-                        },
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
-                        {
-                            Text = "Toggle \"GOD-KING\" Hacks",
-                        },
                     },
                 },
             };

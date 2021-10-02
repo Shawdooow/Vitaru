@@ -19,6 +19,7 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
+        private readonly HacksSelect hacks;
         private readonly VitaruTrackController controller;
 
         public LevelRoot()
@@ -42,6 +43,7 @@ namespace Vitaru.Roots
             });
             Add(new TrackSelect());
             Add(new LevelSelect());
+            Add(hacks = new HacksSelect());
             Add(new CharacterSelect());
             Add(new CharacterStats());
             Add(controller = new VitaruTrackController

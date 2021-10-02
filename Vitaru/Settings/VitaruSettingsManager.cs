@@ -29,6 +29,8 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.Multithreading, false);
             SetValue(VitaruSetting.BulletCap, 512);
 
+            SetValue(VitaruSetting.Speed, 1f);
+
             SetValue(VitaruSetting.DebugHacks, false);
         }
     }
@@ -52,6 +54,9 @@ namespace Vitaru.Settings
 
         Multithreading,
         BulletCap,
+
+        //Game Hacks
+        Speed,
 
         //Debug
         DebugHacks,
