@@ -176,6 +176,17 @@ namespace Vitaru.Play
 
             OverlaysLayer.Children = new IDrawable2D[]
             {
+                new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Black,
+                    Alpha = 0.5f,
+                },
                 HealthChange = new Box
                 {
                     ParentOrigin = Mounts.BottomRight,
@@ -204,6 +215,17 @@ namespace Vitaru.Play
                 },
 
 
+                new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Black,
+                    Alpha = 0.5f,
+                },
                 EnergyChange = new Box
                 {
                     ParentOrigin = Mounts.BottomLeft,
