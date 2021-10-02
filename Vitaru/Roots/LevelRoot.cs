@@ -25,9 +25,9 @@ namespace Vitaru.Roots
         {
             Add(new Button
             {
-                ParentOrigin = Mounts.BottomRight,
-                Origin = Mounts.BottomRight,
-                Position = new Vector2(-10, -60),
+                ParentOrigin = Mounts.TopRight,
+                Origin = Mounts.TopRight,
+                Position = new Vector2(-10, 60),
                 Size = new Vector2(100, 50),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -44,7 +44,12 @@ namespace Vitaru.Roots
             Add(new LevelSelect());
             Add(new CharacterSelect());
             Add(new CharacterStats());
-            Add(controller = new VitaruTrackController());
+            Add(controller = new VitaruTrackController
+            {
+                Position = new Vector2(-40),
+                Origin = Mounts.BottomRight,
+                ParentOrigin = Mounts.BottomRight,
+            });
         }
 
         protected override void OnResume()
