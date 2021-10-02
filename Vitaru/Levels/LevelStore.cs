@@ -76,66 +76,73 @@ namespace Vitaru.Levels
 
                     if (ext.Last() == "vitaru")
                     {
-                        using (StreamReader reader =
-                            new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
+                        try
                         {
-                            string contents = reader.ReadToEnd();
-                            string[] lines = contents.Split(new[] { Environment.NewLine, },
-                                StringSplitOptions.RemoveEmptyEntries);
-
-                            for (int k = 0; k < lines.Length; k++)
+                            using (StreamReader reader =
+                                new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                             {
-                                string[] line = lines[k].Split('=');
+                                string contents = reader.ReadToEnd();
+                                string[] lines = contents.Split(new[] { Environment.NewLine, },
+                                    StringSplitOptions.RemoveEmptyEntries);
 
-                                switch (line[0])
+                                for (int k = 0; k < lines.Length; k++)
                                 {
-                                    default:
-                                        continue;
-                                    case "Format":
-                                        level.Format = line[1];
-                                        continue;
-                                    case "Audio":
-                                        track.Filename = line[1];
-                                        continue;
-                                    case "Image":
-                                        track.Image = line[1];
-                                        continue;
-                                    case "Filtering":
-                                        track.Filtering = line[1] == "true" || line[1] == "1";
-                                        continue;
-                                    case "Autoplay":
-                                        track.Autoplay = line[1] == "true" || line[1] == "1";
-                                        continue;
-                                    case "BPM":
-                                        track.BPM = double.Parse(line[1]);
-                                        continue;
-                                    case "AudioOffset":
-                                        track.Offset = double.Parse(line[1]);
-                                        continue;
-                                    case "PreviewTime":
-                                        track.PreviewTime = double.Parse(line[1]);
-                                        continue;
-                                    case "Title":
-                                        track.Title = line[1];
-                                        continue;
-                                    case "Artist":
-                                        track.Artist = line[1];
-                                        continue;
-                                    case "Creator":
-                                        level.Creator = line[1];
-                                        continue;
-                                    case "Name":
-                                        level.Name = line[1];
-                                        continue;
-                                    case "EnemyData":
-                                        level.EnemyData = line[1];
-                                        continue;
+                                    string[] line = lines[k].Split('=');
+
+                                    switch (line[0])
+                                    {
+                                        default:
+                                            continue;
+                                        case "Format":
+                                            level.Format = line[1];
+                                            continue;
+                                        case "Audio":
+                                            track.Filename = line[1];
+                                            continue;
+                                        case "Image":
+                                            track.Image = line[1];
+                                            continue;
+                                        case "Filtering":
+                                            track.Filtering = line[1] == "true" || line[1] == "1";
+                                            continue;
+                                        case "Autoplay":
+                                            track.Autoplay = line[1] == "true" || line[1] == "1";
+                                            continue;
+                                        case "BPM":
+                                            track.BPM = double.Parse(line[1]);
+                                            continue;
+                                        case "AudioOffset":
+                                            track.Offset = double.Parse(line[1]);
+                                            continue;
+                                        case "PreviewTime":
+                                            track.PreviewTime = double.Parse(line[1]);
+                                            continue;
+                                        case "Title":
+                                            track.Title = line[1];
+                                            continue;
+                                        case "Artist":
+                                            track.Artist = line[1];
+                                            continue;
+                                        case "Creator":
+                                            level.Creator = line[1];
+                                            continue;
+                                        case "Name":
+                                            level.Name = line[1];
+                                            continue;
+                                        case "EnemyData":
+                                            level.EnemyData = line[1];
+                                            continue;
+                                    }
                                 }
                             }
-                        }
 
-                        level.Metadata = track;
-                        levels.Add(level);
+                            level.Metadata = track;
+                            levels.Add(level);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Warning($"Level File ({files[j]}) is fucked, abort!", LogType.IO);
+                        }
                     }
                 }
 
