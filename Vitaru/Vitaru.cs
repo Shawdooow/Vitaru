@@ -28,6 +28,7 @@ using Vitaru.Mods;
 using Vitaru.Roots;
 using Vitaru.Server;
 using Vitaru.Settings;
+using Vitaru.Themes;
 
 namespace Vitaru
 {
@@ -87,6 +88,18 @@ namespace Vitaru
 
             #endregion
 
+            switch (DateTime.Now.Month)
+            {
+                default:
+                    ThemeManager.Theme = new Ecstatic();
+                    break;
+                case 10:
+                    ThemeManager.Theme = new Spooky();
+                    break;
+                case 12:
+                    ThemeManager.Theme = new Jolly();
+                    break;
+            }
 
             //Easter Egg Time...
             ALKI = PrionMath.RandomNumber(0, 100) == 4 ? (byte)1 : (byte)0;
