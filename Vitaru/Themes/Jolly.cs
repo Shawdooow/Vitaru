@@ -17,6 +17,6 @@ namespace Vitaru.Themes
         public override Color TrinaryColor => new Vector3(0, 0, 255).Color255();
         public override Color QuadnaryColor => new Vector3(200, 200, 200).Color255();
 
-        //public override string Background => "Backgrounds\\jolly.png";
+        public override string Background => "Backgrounds\\jolly.png";
     }
 }
