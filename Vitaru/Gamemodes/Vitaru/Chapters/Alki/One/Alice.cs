@@ -51,6 +51,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override bool Implemented => true;
 
+        public override string Description => "Has a strong sense of family.";
+
         /// <summary>
         /// This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
         /// -Eugene Krabs

@@ -30,6 +30,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
                 new Muris(gamefield),
                 new Vuira(gamefield),
                 //new Satan(gamefield),
+                //new God(gamefield),
             } :
             new Player[]
             {

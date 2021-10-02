@@ -54,6 +54,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override bool Implemented => true;
 
+        public override string Description => "Usually doesn't take things seriously.";
+
         protected Sprite Landing;
 
         /// <summary>

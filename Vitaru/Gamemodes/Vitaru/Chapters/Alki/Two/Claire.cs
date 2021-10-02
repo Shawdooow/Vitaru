@@ -55,6 +55,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override bool Implemented => true;
 
+        public override string Description => "Has always tried her hardest to keep things working.";
+
         protected Camera Camera;
 
         protected Sprite Screenshot;

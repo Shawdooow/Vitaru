@@ -15,9 +15,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Role Role => Role.Support;
 
-        public override Difficulty Difficulty => Difficulty.Hard;
+        public override Difficulty Difficulty => Difficulty.VeryHard;
 
         public override bool Implemented => false;
+
+        public override string Description => "She is a little on the wild side when Muris is around.";
 
         public Vuira(Gamefield gamefield) : base(gamefield) { }
     }

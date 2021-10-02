@@ -49,6 +49,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override bool Implemented => true;
 
+        public override string Description => "Sometimes has difficulty telling right from wrong.";
+
         public double SetRate { get; private set; } = 0.75d;
 
         private double originalRate;
