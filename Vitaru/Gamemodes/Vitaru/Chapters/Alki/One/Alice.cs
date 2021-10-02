@@ -51,6 +51,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override bool Implemented => true;
 
+        public override string OriginMedia => "Alki.One";
+
         public override string Description => "Has a strong sense of family.";
 
         /// <summary>

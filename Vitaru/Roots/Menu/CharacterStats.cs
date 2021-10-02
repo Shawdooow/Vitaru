@@ -23,6 +23,7 @@ namespace Vitaru.Roots.Menu
         private readonly Text2D role;
         private readonly Text2D difficulty;
         private readonly Text2D notes;
+        private readonly Text2D origin;
         private readonly Text2D description;
 
         private readonly Text2D implemented;
@@ -101,6 +102,14 @@ namespace Vitaru.Roots.Menu
                     Text = "Background",
                     FixedWidth = 240,
                 },
+                origin = new Text2D
+                {
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
+                    FontScale = 0.3f,
+                    Text = "Origin",
+                    FixedWidth = 240,
+                },
                 description = new Text2D
                 {
                     ParentOrigin = Mounts.TopLeft,
@@ -137,6 +146,7 @@ namespace Vitaru.Roots.Menu
             difficulty.Text = $"Difficulty: {player.Difficulty}";
             //implemented gets put here down below
             notes.Text = $"Notes: {player.Notes}";
+            origin.Text = $"Origin: {player.OriginMedia}";
             description.Text = $"{player.Description}";
 
             while (ProtectedChildren.Count > 6)
@@ -161,6 +171,7 @@ namespace Vitaru.Roots.Menu
                 Remove(implemented, false);
 
             if (player.Notes != string.Empty) Add(notes);
+            if (player.OriginMedia != string.Empty) Add(origin);
 
 #if !PUBLIC
             if (player.Description != string.Empty) Add(description);

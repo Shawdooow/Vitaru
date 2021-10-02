@@ -71,6 +71,8 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual bool Implemented => false;
 
+        public virtual string OriginMedia => string.Empty;
+
         public virtual string Description => string.Empty;
 
         public bool GetBind(VitaruActions action) => AI ? AIBinds[action] : Vitaru.PlayerBinds[action];

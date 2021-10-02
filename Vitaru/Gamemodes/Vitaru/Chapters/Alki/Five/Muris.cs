@@ -19,6 +19,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override bool Implemented => false;
 
+        public override string OriginMedia => "Alki.Five";
+
         public override string Description => "";
 
         public Muris(Gamefield gamefield) : base(gamefield) { }

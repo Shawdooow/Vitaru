@@ -19,6 +19,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override bool Implemented => false;
 
+        public override string OriginMedia => "Alki.Five";
+
         public override string Description => "She is a little on the wild side when Muris is around.";
 
         public Vuira(Gamefield gamefield) : base(gamefield) { }
