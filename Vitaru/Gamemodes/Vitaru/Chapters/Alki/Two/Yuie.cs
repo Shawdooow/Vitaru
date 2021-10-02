@@ -119,7 +119,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                 originalRate = (float)adjustable.Rate;
 
             currentRate = originalRate * SetRate;
-            applyToClock(adjustable, currentRate);
+            applyToTrack(currentRate);
 
             if (currentRate > 0)
                 spellEndTime = Clock.LastCurrent + 2000;
@@ -167,13 +167,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                     if (currentRate > originalRate || currentRate <= 0)
                         currentRate = originalRate;
 
-                    applyToClock(adjustable, currentRate);
+                    applyToTrack(currentRate);
 
                     if (currentRate > 0 && spellEndTime - 1000 <= Clock.LastCurrent ||
                         currentRate < 0 && spellEndTime + 1000 >= Clock.LastCurrent)
                     {
                         currentRate = originalRate;
-                        applyToClock(adjustable, currentRate);
+                        applyToTrack(currentRate);
 
                         Gamefield.Shade = Shades.None;
                     }
@@ -201,18 +201,17 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         spellEndTime = Clock.LastCurrent - 2000;
 
                     currentRate = originalRate * SetRate;
-                    applyToClock(adjustable, currentRate);
+                    applyToTrack(currentRate);
                     intensity();
                 }
 
             if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
         }
 
-        private void applyToClock(AdjustableClock clock, double speed)
+        private void applyToTrack(double speed)
         {
             if (TrackManager.CurrentTrack != null)
                 TrackManager.CurrentTrack.Pitch = (float)speed;
-            clock.Rate = speed;
 
             MovementSpeedMultiplier = 1 / speed;
         }

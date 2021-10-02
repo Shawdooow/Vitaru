@@ -9,6 +9,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Tests;
+using Vitaru.Settings;
 using Vitaru.Tracks;
 
 namespace Vitaru.Roots
@@ -19,7 +20,6 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
-        private readonly HacksSelect hacks;
         private readonly VitaruTrackController controller;
 
         public LevelRoot()
@@ -28,7 +28,7 @@ namespace Vitaru.Roots
             {
                 ParentOrigin = Mounts.TopRight,
                 Origin = Mounts.TopRight,
-                Position = new Vector2(-10, 60),
+                Position = new Vector2(-10, 10),
                 Size = new Vector2(100, 50),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
@@ -43,7 +43,6 @@ namespace Vitaru.Roots
             });
             Add(new TrackSelect());
             Add(new LevelSelect());
-            Add(hacks = new HacksSelect());
             Add(new CharacterSelect());
             Add(new CharacterStats());
             Add(controller = new VitaruTrackController
@@ -52,6 +51,12 @@ namespace Vitaru.Roots
                 Origin = Mounts.BottomRight,
                 ParentOrigin = Mounts.BottomRight,
             });
+        }
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Add(new HacksSelect());
         }
 
         protected override void OnResume()
@@ -66,6 +71,8 @@ namespace Vitaru.Roots
 
             controller.Update();
             controller.TryRepeat();
+
+            TrackManager.CurrentTrack.Pitch = Vitaru.VitaruSettings.GetFloat(VitaruSetting.Speed);
         }
     }
 }

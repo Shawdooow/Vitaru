@@ -4,6 +4,7 @@
 using System.Runtime;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Nucleus.Timing;
+using Vitaru.Settings;
 
 namespace Vitaru.Roots
 {
@@ -18,7 +19,7 @@ namespace Vitaru.Roots
         public PlayRoot()
         {
             //TrackManager.SetTrackDefaults();
-            TrackManager.CurrentTrack.Pitch = 1f;
+            TrackManager.CurrentTrack.Pitch = Vitaru.VitaruSettings.GetFloat(VitaruSetting.Speed);
             TrackManager.SetPositionalDefaults();
 
             TrackManager.CurrentTrack.DrawClock = new SeekableClock();
@@ -28,22 +29,10 @@ namespace Vitaru.Roots
             TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
         }
 
-        public override void LoadingComplete()
-        {
-            base.LoadingComplete();
-            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
-        }
-
         public override void PreRender()
         {
             TrackManager.CurrentTrack.DrawClock.Update();
             base.PreRender();
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            base.Dispose(finalize);
-            GCSettings.LatencyMode = GCLatencyMode.Interactive;
         }
     }
 }

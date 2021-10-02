@@ -52,7 +52,7 @@ namespace Vitaru.Roots.Menu
                             Text = "Gameplay",
                             FontScale = 0.24f,
                         },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f)
+                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f, WIDTH - 10)
                         {
                             Text = "Speed Hacks",
                         },
@@ -67,6 +67,7 @@ namespace Vitaru.Roots.Menu
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
                         {
                             Text = "Toggle \"GOD-KING\" Hacks",
+                            Width = WIDTH - 10,
                         },
                     },
                 },

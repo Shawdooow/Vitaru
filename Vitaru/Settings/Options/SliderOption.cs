@@ -36,14 +36,14 @@ namespace Vitaru.Settings.Options
         private readonly SettingsManager<T> manager;
         private readonly T setting;
 
-        public SliderOption(SettingsManager<T> manager, T setting, float min, float max) : base(min, max)
+        public SliderOption(SettingsManager<T> manager, T setting, float min, float max, float width = VitaruSettingsOverlay.WIDTH) : base(min, max, width)
         {
             this.manager = manager;
             this.setting = setting;
 
             Value = manager.GetFloat(setting);
 
-            Size = new Vector2(VitaruSettingsOverlay.WIDTH - 8, 40);
+            Size = new Vector2(width - 8, 40);
         }
 
         private bool dragging;
@@ -95,7 +95,7 @@ namespace Vitaru.Settings.Options
         protected readonly TextBox TextBox;
         protected readonly Slider Slider;
 
-        protected SliderOption(float min, float max)
+        protected SliderOption(float min, float max, float width)
         {
             Min = min;
             Max = max;
@@ -117,7 +117,7 @@ namespace Vitaru.Settings.Options
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterRight,
                     Y = -10,
-                    Size = new Vector2((VitaruSettingsOverlay.WIDTH - 8) / 2, 20),
+                    Size = new Vector2((width - 8) / 2, 20),
 
                     InstancedText =
                     {
@@ -141,7 +141,7 @@ namespace Vitaru.Settings.Options
                 Slider = new Slider
                 {
                     Y = 10,
-                    Size = new Vector2(VitaruSettingsOverlay.WIDTH - 24, 20),
+                    Size = new Vector2(width - 24, 20),
 
                     OnProgressInput = p => Value = PrionMath.Remap(p, 0, 1, Min, Max),
                 },
