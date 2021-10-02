@@ -11,6 +11,7 @@ namespace Vitaru.Roots.Menu
 {
     public class HacksSelect : InputLayer<IDrawable2D>
     {
+        private readonly SliderOption<VitaruSetting> speed;
         public override string Name { get; set; } = nameof(HacksSelect);
 
         public const float WIDTH = 240;
@@ -52,7 +53,7 @@ namespace Vitaru.Roots.Menu
                             Text = "Gameplay",
                             FontScale = 0.24f,
                         },
-                        new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f, WIDTH - 10)
+                        speed = new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f, WIDTH - 10)
                         {
                             Text = "Speed Hacks",
                         },
@@ -72,6 +73,12 @@ namespace Vitaru.Roots.Menu
                     },
                 },
             };
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            speed.Value = Vitaru.VitaruSettings.GetFloat(VitaruSetting.Speed);
         }
     }
 }

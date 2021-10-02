@@ -24,6 +24,7 @@ namespace Vitaru.Roots
 
         public LevelRoot()
         {
+            Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, TrackManager.CurrentTrack.Pitch);
             Add(new Button
             {
                 ParentOrigin = Mounts.TopRight,
@@ -63,6 +64,7 @@ namespace Vitaru.Roots
         {
             base.OnResume();
             TrackManager.SetPositionalDefaults();
+            Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, TrackManager.CurrentTrack.Pitch);
         }
 
         public override void Update()
