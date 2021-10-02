@@ -318,7 +318,7 @@ namespace Vitaru.Play.Projectiles
                     direction += MathF.PI / (arms / 2f);
                 }
 
-                direction += MathF.PI / 0.95f;
+                direction += MathF.PI / 0.94f;
             }
 
             return projectiles;
