@@ -10,7 +10,7 @@ namespace Vitaru.Play.Projectiles
 {
     public static class Patterns
     {
-        private const float max_dist = 600;
+        private const float max_dist = 800;
 
         public static List<Projectile> Wave(float speed, float diameter, float damage, Vector2 position,
             double startTime, int team, float complexity = 1, float angle = (float)Math.PI / 2)
@@ -308,7 +308,7 @@ namespace Vitaru.Play.Projectiles
                             Diameter = diameter,
                         },
                         Damage = damage,
-                        Distance = 750,
+                        Distance = max_dist,
                         SpeedEasing = Easings.OutQuad,
                         CurveType = CurveType.Bezier,
                         CurveAmount = -240,
