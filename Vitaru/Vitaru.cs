@@ -108,7 +108,7 @@ namespace Vitaru
             else
             {
                 bool somber = PrionMath.RandomNumber(0, 20) == 2;
-                if (false) //somber)
+                if (false) //somber && ThemeManager.Theme.Name == Ecstatic.NAME)
                     ThemeManager.Theme = new Somber();
             }
 
