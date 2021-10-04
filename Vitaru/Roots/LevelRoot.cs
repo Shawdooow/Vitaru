@@ -57,6 +57,7 @@ namespace Vitaru.Roots
         public override void LoadingComplete()
         {
             base.LoadingComplete();
+            Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, 1f);
             Add(new HacksSelect());
         }
 
@@ -64,7 +65,6 @@ namespace Vitaru.Roots
         {
             base.OnResume();
             TrackManager.SetPositionalDefaults();
-            Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, TrackManager.CurrentTrack.Pitch);
         }
 
         public override void Update()

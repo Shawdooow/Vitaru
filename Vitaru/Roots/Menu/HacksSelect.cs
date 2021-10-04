@@ -74,11 +74,5 @@ namespace Vitaru.Roots.Menu
                 },
             };
         }
-
-        public override void OnResume()
-        {
-            base.OnResume();
-            speed.Value = Vitaru.VitaruSettings.GetFloat(VitaruSetting.Speed);
-        }
     }
 }
