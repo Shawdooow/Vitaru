@@ -7,6 +7,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Nucleus.Utilities;
 using Vitaru.Gamemodes;
 using Vitaru.Play.Characters.Players;
 
@@ -142,8 +143,8 @@ namespace Vitaru.Roots.Menu
             energyDrain.Text = $"Energy Drain Rate: {player.EnergyDrainRate}SP/s";
             ability.Text = $"Ability: {player.Ability}";
             //AbilityStats get put here down below
-            role.Text = $"Role: {player.Role}";
-            difficulty.Text = $"Difficulty: {player.Difficulty}";
+            role.Text = $"Role: {player.Role.GetDescription()}";
+            difficulty.Text = $"Difficulty: {player.Difficulty.GetDescription()}";
             //implemented gets put here down below
             notes.Text = $"Notes: {player.Notes}";
             origin.Text = $"Origin: {player.OriginMedia}";

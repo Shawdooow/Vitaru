@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
@@ -1101,20 +1102,31 @@ namespace Vitaru.Play.Characters.Players
 
     public enum Role
     {
+        [Description("Offense")]
         Offense,
+        [Description("Defense")]
         Defense,
+        [Description("Support")]
         Support,
+        [Description("Specialized")]
         Specialized,
     }
 
     public enum Difficulty
     {
+        [Description("Very Easy")]
         VeryEasy,
+        [Description("Easy")]
         Easy,
+        [Description("Normal")]
         Normal,
+        [Description("Hard")]
         Hard,
+        [Description("Very Hard")]
         VeryHard,
+        [Description("Extreme")]
         Extreme,
+        [Description("Impossible")]
         Impossible,
     }
 }
