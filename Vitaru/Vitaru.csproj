@@ -13,7 +13,7 @@
 		<StartupObject />
 		<Configurations>Debug;Release;Public;Personal</Configurations>
 		<Platform>AnyCPU</Platform>
-		<ApplicationIcon>Assets\Textures\vitaru.ico</ApplicationIcon>
+		<ApplicationIcon>Assets\Textures\Icons\64\vitaru.ico</ApplicationIcon>
 		<RepositoryUrl>https://github.com/Shawdooow/Vitaru</RepositoryUrl>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">

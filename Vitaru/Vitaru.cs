@@ -227,8 +227,8 @@ namespace Vitaru
             Renderer.Window.Title = ALKI > 0 ? ALKI == 2 ? "Rhize" : "Alki" : "Vitaru";
             Renderer.Window.Icon =
                 new Icon(AssetStorage.GetStream(ALKI > 0
-                    ? ALKI == 2 ? "Textures\\rhize.ico" : "Textures\\alki.ico"
-                    : "Textures\\vitaru.ico"));
+                    ? ALKI == 2 ? "Textures\\Icons\\64\\rhize.ico" : "Textures\\Icons\\64\\alki.ico"
+                    : "Textures\\Icons\\64\\vitaru.ico"));
 
             GamemodeStore.ReloadGamemodes();
 
