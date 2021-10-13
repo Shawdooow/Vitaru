@@ -1,4 +1,6 @@
-﻿using Vitaru.Play;
+﻿using System.Drawing;
+using Prion.Nucleus.Utilities;
+using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
@@ -9,9 +11,17 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override float HealthCapacity => 80;
 
+        public override Color PrimaryColor => "#ff0000".HexToColor();
+
+        public override Color SecondaryColor => "#ffffff".HexToColor();
+
+        public override Color ComplementaryColor => "#666666".HexToColor();
+
         public override string Seal => "Gameplay\\seal alki hell.png";
 
-        public override string Ability => "Goddess of Vocals";
+        public override float SealRotationSpeed => 0.5f;
+
+        public override string Ability => "Goddess of Singing";
 
         public override Role Role => Role.Support;
 
