@@ -44,7 +44,7 @@ namespace Vitaru.Roots
                     Color = ThemeManager.PrimaryColor,
                 },
 
-                Text = "Levels",
+                Text = "Solo",
 
                 OnClick = () =>
                 {
