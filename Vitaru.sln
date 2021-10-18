@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prion", "Prion", "{E0619336-A94F-4280-838B-484A35261D76}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prion.Ribosome", "..\Prion\Prion.Ribosome\Prion.Ribosome.csproj", "{4C16CC3D-046A-4219-ADA7-9A69F54E8116}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breeder", "..\Prion\Breeder\Breeder.csproj", "{DE5580C8-FE61-43C9-AAC6-FDE7F830928D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contagion", "..\Prion\Contagion\Contagion.csproj", "{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,14 @@ Global
 		{DE5580C8-FE61-43C9-AAC6-FDE7F830928D}.Public|Any CPU.Build.0 = Public|Any CPU
 		{DE5580C8-FE61-43C9-AAC6-FDE7F830928D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE5580C8-FE61-43C9-AAC6-FDE7F830928D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Personal|Any CPU.ActiveCfg = Personal|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Personal|Any CPU.Build.0 = Personal|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Public|Any CPU.Build.0 = Public|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +120,7 @@ Global
 		{5CC90A8B-C254-4609-8161-9F3D9B2CF467} = {E0619336-A94F-4280-838B-484A35261D76}
 		{4C16CC3D-046A-4219-ADA7-9A69F54E8116} = {E0619336-A94F-4280-838B-484A35261D76}
 		{DE5580C8-FE61-43C9-AAC6-FDE7F830928D} = {E0619336-A94F-4280-838B-484A35261D76}
+		{EFF16F24-0C28-44BF-BDC4-B0DBB1D87BF4} = {E0619336-A94F-4280-838B-484A35261D76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FF9E9E5-F170-4859-B102-80968AAE1D5A}
