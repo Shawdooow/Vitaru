@@ -22,9 +22,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override float HealthCapacity => 40;
 
-        public override float EnergyCapacity => 24;
+        public override float EnergyCapacity => 32;
 
-        public override float EnergyCost => 12;
+        public override float EnergyCost => EnergyCapacity / 2;
 
         public override float EnergyDrainRate => 6;
 
@@ -34,7 +34,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Color ComplementaryColor => "#7da1a8".HexToColor();
 
-        public override string Seal => "Gameplay\\seal alki hell.png";
+        //public override string Seal => "Gameplay\\seal alki rhize.png";
 
         public override float SealRotationSpeed => -1;
 

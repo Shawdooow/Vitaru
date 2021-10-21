@@ -26,7 +26,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override string Name => "Claire";
 
-        public override float HealthCapacity => 40;
+        public override float HealthCapacity => 50;
 
         public override float EnergyCapacity => 24;
 
