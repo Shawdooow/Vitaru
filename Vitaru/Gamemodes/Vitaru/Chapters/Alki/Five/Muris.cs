@@ -9,7 +9,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
     {
         public override string Name => "Muris";
 
-        public override float HealthCapacity => 80;
+        public override float HealthCapacity => 40;
+
+        public override float EnergyCapacity => 36;
+
+        public override float EnergyCost => 12;
+
+        public override float EnergyDrainRate => 6;
 
         public override Color PrimaryColor => "#ff0000".HexToColor();
 
@@ -25,7 +31,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Role Role => Role.Offense;
 
-        public override Difficulty Difficulty => Difficulty.Hard;
+        public override Difficulty Difficulty => Difficulty.VeryHard;
 
         public override bool Implemented => false;
 
