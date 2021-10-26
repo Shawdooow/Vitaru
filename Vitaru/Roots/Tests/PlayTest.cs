@@ -191,16 +191,17 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 4;
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * PrionMath.RandomNumber(2, 5);
                             Enemy e = new(gamefield)
                             {
-                                StartTime = start,
+                                StartTime = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2,
                                 EndTime = spiral,
                                 StartPosition = Vector2.Zero,
                                 MaxHealth = 120,
                                 PatternID = 5,
                                 Color = c,
                             };
+                            spiral -= TrackManager.CurrentTrack.Metadata.GetBeatLength();
                             gamefield.Add(e);
                         }
                     }
