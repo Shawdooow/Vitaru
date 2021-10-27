@@ -25,6 +25,8 @@ namespace Vitaru.Levels
 
         public static event Action<LevelPack> OnPackChange;
 
+        public static LevelPack NextLevelPack { get; set; }
+
         public static List<LevelPack> LoadedLevels { get; private set; } = new();
 
 

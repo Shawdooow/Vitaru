@@ -99,6 +99,10 @@ namespace Vitaru.Tracks
                             });
                         }
                     },
+                    OnRightClick = () =>
+                    {
+                        LevelStore.NextLevelPack = p;
+                    }
                 });
             }
         }

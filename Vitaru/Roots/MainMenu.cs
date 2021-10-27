@@ -10,6 +10,7 @@ using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Mitochondria.Input;
 using Vitaru.Levels;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
@@ -235,10 +236,10 @@ namespace Vitaru.Roots
                 OnClick = vitaru.Exit;
             }
 
-            protected override void Flash()
+            protected override void Flash(MouseButtons button)
             {
                 //Don't do it because it crashes
-                //base.Flash();
+                //base.Flash(button);
             }
         }
     }

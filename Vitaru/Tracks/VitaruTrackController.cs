@@ -58,7 +58,14 @@ namespace Vitaru.Tracks
 
                 TrackManager.PreviousTracks.Push(LevelStore.CurrentLevel.Metadata);
 
-                LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
+                if (LevelStore.NextLevelPack == null)
+                    LevelStore.SetRandomLevelPack(LevelStore.CurrentPack);
+                else
+                {
+                    LevelStore.SetLevelPack(LevelStore.NextLevelPack);
+                    LevelStore.NextLevelPack = null;
+                }
+
                 TrackMetadata n = LevelStore.CurrentLevel.Metadata;
                 Song.Text = $"Loading: {n.Title}";
 
