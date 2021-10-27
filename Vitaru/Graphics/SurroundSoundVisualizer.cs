@@ -19,13 +19,17 @@ namespace Vitaru.Graphics
         private readonly Bumper left;
         private readonly Bumper right;
 
-        public SurroundSoundVisualizer()
+        private readonly float distanceMultiplier;
+
+        public SurroundSoundVisualizer(float distanceMultiplier = 1)
         {
+            this.distanceMultiplier = distanceMultiplier;
+
             Children = new[]
             {
                 left = new Bumper
                 {
-                    Position = TrackManager.CurrentTrack.Source.LeftPosition.XZ(),
+                    Position = TrackManager.CurrentTrack.Source.LeftPosition.XZ() * distanceMultiplier,
                     Circle =
                     {
                         Color = Color.Blue,
@@ -33,7 +37,7 @@ namespace Vitaru.Graphics
                 },
                 right = new Bumper
                 {
-                    Position = TrackManager.CurrentTrack.Source.RightPosition.XZ(),
+                    Position = TrackManager.CurrentTrack.Source.RightPosition.XZ() * distanceMultiplier,
                     Circle =
                     {
                         Color = Color.Red,

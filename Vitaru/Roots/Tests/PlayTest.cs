@@ -134,10 +134,10 @@ namespace Vitaru.Roots.Tests
 
             TrackManager.CurrentTrack.Gain *= 2f;
             TrackManager.CurrentTrack.Rolloff = 0.002f;
-            TrackManager.CurrentTrack.StereoDistance = new Vector3(1600, 0, 0);
-            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -400);
+            TrackManager.CurrentTrack.StereoDistance = new Vector3(800, 0, 0);
+            TrackManager.CurrentTrack.Position = new Vector3(0, 0, -200);
 
-            Add(surround = new SurroundSoundVisualizer());
+            Add(surround = new SurroundSoundVisualizer(2));
         }
 
         public override void Update()

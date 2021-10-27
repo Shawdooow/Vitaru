@@ -256,8 +256,6 @@ namespace Vitaru.Play.Characters.Players
 
             Position = GetPositionOffset(0.3f);
 
-            AudioManager.Context.Listener.Position = new Vector3(Position.X, 0, Position.Y);
-
             SpellUpdate();
         }
 

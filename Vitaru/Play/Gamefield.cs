@@ -9,6 +9,7 @@ using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Utilities;
+using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -267,6 +268,8 @@ namespace Vitaru.Play
             LastElapsedTime = Clock.LastElapsedTime;
 
             base.Update();
+
+            AudioManager.Context.Listener.Position = new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
 
             //this check is for the editor for now
             if (ActivePlayer != null)
