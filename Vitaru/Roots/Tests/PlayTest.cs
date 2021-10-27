@@ -191,7 +191,7 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * PrionMath.RandomNumber(2, 5);
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * PrionMath.RandomNumber(3, 7);
                             Enemy e = new(gamefield)
                             {
                                 StartTime = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2,
