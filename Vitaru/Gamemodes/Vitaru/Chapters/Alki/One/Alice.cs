@@ -38,7 +38,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override float SealRotationSpeed => -1;
 
-        public override string Ability => "Unbound";
+        public override string Ability => "Free Spirit";
 
         public override string[] AbilityStats => new string[]
         {

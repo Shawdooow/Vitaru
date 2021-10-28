@@ -40,7 +40,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Color ComplementaryColor => "#baafd5".HexToColor();
 
-        public override string Ability => "Shadow Blinker";
+        public override string Ability => "Blink";
 
         public override string[] AbilityStats => new string[]
         {
