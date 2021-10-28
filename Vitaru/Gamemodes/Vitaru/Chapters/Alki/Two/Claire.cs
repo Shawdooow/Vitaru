@@ -36,7 +36,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Color SecondaryColor => "#c9120f".HexToColor();
 
-        public override Color ComplementaryColor => "#757670".HexToColor();
+        public override Color ComplementaryColor => "#c8c8c8".HexToColor();
 
         public override string Seal => "Gameplay\\seal alki 2.png";
 

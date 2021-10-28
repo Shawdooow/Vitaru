@@ -179,8 +179,8 @@ namespace Vitaru.Play.Characters.Players
 
             private readonly Player player;
 
-            private readonly MaskSprite outer;
-            private readonly MaskSprite inner;
+            private readonly MaskSprite energy;
+            private readonly MaskSprite health;
 
             public CircularMask(Player player)
             {
@@ -190,11 +190,11 @@ namespace Vitaru.Play.Characters.Players
 
                 Children = new[]
                 {
-                    outer = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
+                    energy = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
                     {
                         Color = player.SecondaryColor,
                     },
-                    inner = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
+                    health = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
                     {
                         Color = player.PrimaryColor,
                     },
@@ -212,12 +212,12 @@ namespace Vitaru.Play.Characters.Players
                 Renderer.ShaderManager.UpdateFloat("startAngle", start);
                 Renderer.ShaderManager.UpdateFloat("endAngle",
                     PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, start, end));
-                outer.Render();
+                energy.Render();
 
                 Renderer.ShaderManager.UpdateFloat("startAngle",
                     PrionMath.Remap(player.Health, 0, player.HealthCapacity, end, start));
                 Renderer.ShaderManager.UpdateFloat("endAngle", end);
-                inner.Render();
+                health.Render();
 
                 Renderer.SpriteProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;

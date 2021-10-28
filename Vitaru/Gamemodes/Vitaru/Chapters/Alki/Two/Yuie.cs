@@ -30,9 +30,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Color PrimaryColor => "#00ffbb".HexToColor();
 
-        public override Color SecondaryColor => "#b0b0b0".HexToColor();
+        public override Color SecondaryColor => "#4a1fad".HexToColor();
 
-        public override Color ComplementaryColor => "#3d2a69".HexToColor();
+        public override Color ComplementaryColor => "#9d9d9d".HexToColor();
 
         public override string Seal => "Gameplay\\seal alki 2.png";
 
@@ -132,8 +132,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
             DrawablePlayer.Sprite.Color = ComplementaryColor;
             DrawablePlayer.HitboxOutline.Color = ComplementaryColor;
-            DrawablePlayer.Seal.Reticle.Color = SecondaryColor;
-            DrawablePlayer.Seal.Sign.Color = SecondaryColor;
+            DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
+            DrawablePlayer.Seal.Sign.Color = PrimaryColor;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -141,9 +141,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             base.SpellDeactivate(action);
 
             DrawablePlayer.Sprite.Color = PrimaryColor;
-            DrawablePlayer.HitboxOutline.Color = PrimaryColor;
-            DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
-            DrawablePlayer.Seal.Sign.Color = PrimaryColor;
+            DrawablePlayer.HitboxOutline.Color = SecondaryColor;
+            DrawablePlayer.Seal.Reticle.Color = SecondaryColor;
+            DrawablePlayer.Seal.Sign.Color = SecondaryColor;
         }
 
         private void intensity()

@@ -36,9 +36,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Color PrimaryColor => "#4903fc".HexToColor();
 
-        public override Color SecondaryColor => "#262626".HexToColor();
+        public override Color SecondaryColor => "#009bff".HexToColor();
 
-        public override Color ComplementaryColor => "#8e70db".HexToColor();
+        public override Color ComplementaryColor => "#baafd5".HexToColor();
 
         public override string Ability => "Shadow Blinker";
 

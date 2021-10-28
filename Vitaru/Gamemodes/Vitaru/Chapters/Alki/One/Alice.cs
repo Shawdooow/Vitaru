@@ -28,11 +28,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override float EnergyDrainRate => 6;
 
-        public override Color PrimaryColor => "#fc0330".HexToColor();
+        public override Color PrimaryColor => "#fc032f".HexToColor();
 
-        public override Color SecondaryColor => "#363636".HexToColor();
+        public override Color SecondaryColor => "#82bbc6".HexToColor();
 
-        public override Color ComplementaryColor => "#7da1a8".HexToColor();
+        public override Color ComplementaryColor => "#ffffff".HexToColor();
 
         //public override string Seal => "Gameplay\\seal alki rhize.png";
 
