@@ -137,6 +137,16 @@ namespace Vitaru.Roots.Menu
                     },
                 });
 
+                if (pair.Value.WIP)
+                    Add(new Text2D
+                    {
+                        Position = new Vector2(-4, -12),
+                        Text = "WIP",
+                        Alpha = 0.8f,
+                        Color = Color.Red,
+                        FontScale = 1f,
+                    });
+
                 if (drawable is DrawablePlayer p)
                 {
                     sign = p.Seal.Sign;
