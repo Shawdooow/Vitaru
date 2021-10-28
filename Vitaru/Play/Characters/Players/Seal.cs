@@ -47,13 +47,13 @@ namespace Vitaru.Play.Characters.Players
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0f,
-                    Color = player.PrimaryColor,
+                    Color = player.SecondaryColor,
                 },
                 Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0.5f,
-                    Color = player.PrimaryColor,
+                    Color = player.SecondaryColor,
                 },
 
                 EnergyValue = new Text2D(false)
@@ -63,7 +63,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f,
                     Alpha = 0,
-                    //Color = player.SecondaryColor,
+                    Color = player.ComplementaryColor,
                 },
                 HealthValue = new Text2D(false)
                 {
@@ -72,7 +72,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopLeft,
                     FontScale = 0.25f,
                     Alpha = 0,
-                    //Color = player.SecondaryColor,
+                    Color = player.ComplementaryColor,
                 },
 
                 LeftValue = new Text2D(false)
@@ -81,7 +81,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterRight,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
-                    //Color = player.SecondaryColor,
+                    Color = player.ComplementaryColor,
                 },
                 RightValue = new Text2D(false)
                 {
@@ -89,7 +89,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterLeft,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
-                    //Color = player.SecondaryColor,
+                    Color = player.ComplementaryColor,
                 },
             };
         }
@@ -196,7 +196,7 @@ namespace Vitaru.Play.Characters.Players
                     },
                     inner = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
                     {
-                        Color = player.ComplementaryColor,
+                        Color = player.PrimaryColor,
                     },
                 };
             }

@@ -3,7 +3,7 @@ using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 {
-    public class God : Player
+    public class Cuirutis : Player
     {
         public override string Name => "God";
 
@@ -13,7 +13,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override float SealRotationSpeed => -base.SealRotationSpeed;
 
-        public override string Ability => "Spirit Breaker";
+        public override string Ability => "Goddess of Creation";
 
         public override Role Role => Role.Specialized;
 
@@ -23,6 +23,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string Description => "Is a complete bitch and we all hate her.";
 
-        public God(Gamefield gamefield) : base(gamefield) { }
+        public Cuirutis(Gamefield gamefield) : base(gamefield) { }
     }
 }

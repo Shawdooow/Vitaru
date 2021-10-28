@@ -17,9 +17,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override float EnergyDrainRate => 6;
 
-        public override Color PrimaryColor => "#ff0000".HexToColor();
+        public override Color PrimaryColor => "#c3ad00".HexToColor();
 
-        public override Color SecondaryColor => "#ffffff".HexToColor();
+        public override Color SecondaryColor => "#00cd00".HexToColor();
 
         public override Color ComplementaryColor => "#666666".HexToColor();
 

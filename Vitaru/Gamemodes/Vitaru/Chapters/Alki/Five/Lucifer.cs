@@ -3,7 +3,7 @@ using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 {
-    public class Satan : Player
+    public class Lucifer : Player
     {
         public override string Name => "Satan";
 
@@ -19,6 +19,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override bool Implemented => false;
 
-        public Satan(Gamefield gamefield) : base(gamefield) { }
+        public Lucifer(Gamefield gamefield) : base(gamefield) { }
     }
 }

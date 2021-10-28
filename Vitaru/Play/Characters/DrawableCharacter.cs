@@ -29,7 +29,7 @@ namespace Vitaru.Play.Characters
 
             Add(HitboxOutline = new Circle
             {
-                Color = character.PrimaryColor,
+                Color = character.SecondaryColor,
                 Size = new Vector2(character.Hitbox.Diameter * 1.75f),
                 Alpha = 0,
             });
