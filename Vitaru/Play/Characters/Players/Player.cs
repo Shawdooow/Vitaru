@@ -70,7 +70,7 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual string Notes => string.Empty;
 
-        public virtual bool Implemented => false;
+        public virtual bool WIP => true;
 
         public virtual string OriginMedia => string.Empty;
 

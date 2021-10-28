@@ -17,8 +17,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
-        public override bool Implemented => false;
-
         public Lucifer(Gamefield gamefield) : base(gamefield) { }
     }
 }

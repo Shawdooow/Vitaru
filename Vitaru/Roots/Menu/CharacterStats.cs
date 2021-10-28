@@ -27,8 +27,6 @@ namespace Vitaru.Roots.Menu
         private readonly Text2D origin;
         private readonly Text2D description;
 
-        private readonly Text2D implemented;
-
         public CharacterStats()
         {
             Position = new Vector2(240, -20);
@@ -121,15 +119,6 @@ namespace Vitaru.Roots.Menu
                 },
             };
 
-            implemented = new Text2D
-            {
-                ParentOrigin = Mounts.TopLeft,
-                Origin = Mounts.TopLeft,
-                FontScale = 0.3f,
-                Text = "Un-finished!",
-                Color = Color.Red,
-            };
-
             GamemodeStore.SelectedGamemode.OnSelectedCharacterChange += value => change(GamemodeStore.GetPlayer(value));
             change(GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter));
         }
@@ -150,6 +139,7 @@ namespace Vitaru.Roots.Menu
             origin.Text = $"Origin: {player.OriginMedia}";
             description.Text = $"{player.Description}";
 
+            //Don't remove the first 6
             while (ProtectedChildren.Count > 6)
                 Remove(ProtectedChildren.Last(), false);
 
@@ -165,11 +155,6 @@ namespace Vitaru.Roots.Menu
 
             Add(role);
             Add(difficulty);
-
-            if (!player.Implemented && !Children.Contains(implemented))
-                Add(implemented);
-            else if (player.Implemented && Children.Contains(implemented))
-                Remove(implemented, false);
 
             if (player.Notes != string.Empty) Add(notes);
             if (player.OriginMedia != string.Empty) Add(origin);

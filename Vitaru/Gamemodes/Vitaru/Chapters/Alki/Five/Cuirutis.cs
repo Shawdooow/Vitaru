@@ -19,8 +19,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Difficulty Difficulty => Difficulty.Hard;
 
-        public override bool Implemented => false;
-
         public override string Description => "Is a complete bitch and we all hate her.";
 
         public Cuirutis(Gamefield gamefield) : base(gamefield) { }
