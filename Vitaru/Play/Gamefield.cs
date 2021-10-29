@@ -99,12 +99,14 @@ namespace Vitaru.Play
 
         public readonly Box HealthBar;
         public readonly Box HealthChange;
-        public readonly Text2D HealthText;
+        public readonly Text2D MaxHealthText;
+        public readonly Text2D CurrentHealthText;
         protected float LastHealth;
 
         public readonly Box EnergyBar;
         public readonly Box EnergyChange;
-        public readonly Text2D EnergyText;
+        public readonly Text2D MaxEnergyText;
+        public readonly Text2D CurrentEnergyText;
         protected float LastEnergy;
 
         public readonly GamefieldBorder Border;
@@ -173,7 +175,7 @@ namespace Vitaru.Play
                 LevelStore.CurrentLevel.EnemyData = string.Empty;
             }
 
-            MaxBarSize = size.Y - 32;
+            MaxBarSize = size.Y - 64;
 
             OverlaysLayer.Children = new IDrawable2D[]
             {
@@ -206,13 +208,21 @@ namespace Vitaru.Play
                     Position = new Vector2(32, -16),
                     Size = new Vector2(8, MaxBarSize),
                 },
-                HealthText = new Text2D(false)
+                MaxHealthText = new Text2D
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterLeft,
+
+                    Position = new Vector2(32, -MaxBarSize / 2 - 32),
+                    FontScale = 0.48f,
+                },
+                CurrentHealthText = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterRight,
                     Origin = Mounts.CenterLeft,
 
                     X = 64,
-                    FontScale = 0.64f,
+                    FontScale = 0.32f,
                 },
 
 
@@ -245,13 +255,21 @@ namespace Vitaru.Play
                     Position = new Vector2(-32, -16),
                     Size = new Vector2(8, MaxBarSize),
                 },
-                EnergyText = new Text2D(false)
+                MaxEnergyText = new Text2D
+                {
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.CenterRight,
+
+                    Position = new Vector2(-32, -MaxBarSize / 2 - 32),
+                    FontScale = 0.48f,
+                },
+                CurrentEnergyText = new Text2D(false)
                 {
                     ParentOrigin = Mounts.CenterLeft,
                     Origin = Mounts.CenterRight,
 
                     X = -64,
-                    FontScale = 0.64f,
+                    FontScale = 0.32f,
                 },
             };
 
@@ -298,7 +316,8 @@ namespace Vitaru.Play
                     }
 
                     LastHealth = ActivePlayer.Health;
-                    HealthText.Text = $"{Math.Round(ActivePlayer.Health, 1)} / {ActivePlayer.HealthCapacity} HP";
+                    CurrentHealthText.Text = $"{Math.Round(ActivePlayer.Health, 0)} HP";
+                    CurrentHealthText.Y = MaxBarSize / 2 - y + 16;
                 }
 
                 if (ActivePlayer.Energy != LastEnergy)
@@ -325,7 +344,8 @@ namespace Vitaru.Play
                     }
 
                     LastEnergy = ActivePlayer.Energy;
-                    EnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 1)} / {ActivePlayer.EnergyCapacity} SP";
+                    CurrentEnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 0)} SP";
+                    CurrentEnergyText.Y = MaxBarSize / 2 - y + 16;
                 }
             }
 
@@ -431,6 +451,9 @@ namespace Vitaru.Play
 
             LastHealth = ActivePlayer.Health;
             LastEnergy = ActivePlayer.Energy;
+
+            MaxHealthText.Text = $"{ActivePlayer.HealthCapacity} HP";
+            MaxEnergyText.Text = $"{ActivePlayer.EnergyCapacity} SP";
 
             //HealthBar.Color = player.PrimaryColor;
             //EnergyBar.Color = player.PrimaryColor;
