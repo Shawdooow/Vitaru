@@ -3,7 +3,7 @@ using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 {
-    public class Cuirutis : Player
+    public class Cuiria : Player
     {
         public override string Name => "God";
 
@@ -21,6 +21,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string Description => "Is a complete bitch and we all hate her.";
 
-        public Cuirutis(Gamefield gamefield) : base(gamefield) { }
+        public Cuiria(Gamefield gamefield) : base(gamefield) { }
     }
 }
