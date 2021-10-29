@@ -89,7 +89,7 @@ namespace Vitaru.Play.Characters.Players
 
         private const float tilePositioningMargin = 2;
 
-        protected List<Vector2> TargetPositions { get; set; } = new();
+        public List<Vector2> TargetPositions { get; set; } = new();
         protected int Target { get; set; }
 
         //protected Box Grid;

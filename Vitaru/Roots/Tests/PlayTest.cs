@@ -59,7 +59,15 @@ namespace Vitaru.Roots.Tests
                 ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield)
                 : new Yuie(gamefield);
 
-            player.AI = Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks);
+            if (Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks))
+            {
+                player.TargetPositions.Add(new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
+                    GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100));
+                player.TargetPositions.Add(new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
+                    GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200));
+
+                player.AI = true;
+            }
 
             gamefield.Add(player);
             gamefield.SetPlayer(player);
