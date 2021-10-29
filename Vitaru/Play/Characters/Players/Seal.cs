@@ -20,7 +20,6 @@ namespace Vitaru.Play.Characters.Players
         public override string Name { get; set; } = nameof(Seal);
 
         public readonly Sprite Sign;
-        public readonly Sprite Reticle;
 
         public readonly Text2D EnergyValue;
         public readonly Text2D HealthValue;
@@ -37,18 +36,11 @@ namespace Vitaru.Play.Characters.Players
         public Seal(Player player)
         {
             this.player = player;
-            Texture reticle = Game.TextureStore.GetTexture(player.Reticle);
-            Size = reticle.Size / 4;
+            Size = new Vector2(256);
 
             Children = new IDrawable2D[]
             {
                 circular = new CircularMask(player),
-                Reticle = new Sprite(reticle)
-                {
-                    Scale = new Vector2(0.3f),
-                    Alpha = 0f,
-                    Color = player.SecondaryColor,
-                },
                 Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
                 {
                     Scale = new Vector2(0.3f),
@@ -103,11 +95,6 @@ namespace Vitaru.Play.Characters.Players
             else
                 Sign.Rotation -= (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
 
-            Reticle.Rotation =
-                (float)Math.Atan2(InputManager.Mouse.Position.Y - player.Position.Y,
-                    InputManager.Mouse.Position.X - player.Position.X) +
-                (float)Math.PI / 2f;
-
             EnergyValue.Text = $"{Math.Round(player.Energy, 0)}SP";
             HealthValue.Text = $"{Math.Round(player.Health, 0)}HP";
 
@@ -116,20 +103,12 @@ namespace Vitaru.Play.Characters.Players
 
         public void Shoot(double flash)
         {
-            if (player.GetBind(VitaruActions.Sneak))
-            {
-                Reticle.Alpha = 1f;
-                Reticle.FadeTo(Sign.Alpha, flash, Easings.OutCubic);
-            }
         }
 
         public void Pressed(VitaruActions action)
         {
             if (action == VitaruActions.Sneak)
             {
-                Reticle.FadeTo(Sign.Alpha, duration);
-                Reticle.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
-
                 Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
 
                 circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
@@ -149,9 +128,6 @@ namespace Vitaru.Play.Characters.Players
         {
             if (action == VitaruActions.Sneak)
             {
-                Reticle.FadeTo(0f, duration);
-                Reticle.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
-
                 Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
 
                 circular.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);

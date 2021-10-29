@@ -40,8 +40,6 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual float SealRotationSpeed => 1f;
 
-        public virtual string Reticle => "Gameplay\\reticle.png";
-
         public virtual string HealthRing => "Gameplay\\inner.png";
 
         public virtual string EnergyRing => "Gameplay\\outer.png";

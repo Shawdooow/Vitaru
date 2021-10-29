@@ -9,7 +9,7 @@ namespace Vitaru.Themes
 {
     public class Jolly : Ecstatic
     {
-        public const string NAME = nameof(Jolly);
+        public new const string NAME = nameof(Jolly);
         public override string Name => NAME;
 
         public override Color PrimaryColor => new Vector3(0, 255, 0).Color255();

@@ -141,7 +141,7 @@ namespace Vitaru.Levels
                             level.Metadata = track;
                             levels.Add(level);
                         }
-                        catch (Exception e)
+                        catch
                         {
                             Logger.Warning($"Level File ({files[j]}) is fucked, abort!", LogType.IO);
                         }

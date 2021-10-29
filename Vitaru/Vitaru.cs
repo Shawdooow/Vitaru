@@ -90,9 +90,9 @@ namespace Vitaru
                 default:
                     ThemeManager.Theme = new Ecstatic();
 
-                    bool somber = PrionMath.RandomNumber(0, 20) == 2;
-                    if (false) //somber && ThemeManager.Theme.Name == Ecstatic.NAME)
-                        ThemeManager.Theme = new Somber();
+                    //bool somber = PrionMath.RandomNumber(0, 20) == 2;
+                    //if (somber && ThemeManager.Theme.Name == Ecstatic.NAME)
+                    //    ThemeManager.Theme = new Somber();
                     break;
                 case 10:
                     ThemeManager.Theme = new Spooky();
