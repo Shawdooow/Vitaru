@@ -10,8 +10,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {
     public class Arysa : Player
     {
-        #region Fields
-
         public override string Name => "Arysa";
 
         public override float HealthCapacity => 80;
@@ -33,8 +31,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override Role Role => Role.Offense;
 
         public override Difficulty Difficulty => Difficulty.Normal;
-
-        #endregion
 
         public Arysa(Gamefield gamefield) : base(gamefield)
         {

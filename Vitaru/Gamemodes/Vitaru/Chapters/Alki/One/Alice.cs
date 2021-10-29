@@ -11,13 +11,12 @@ using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
+using Vitaru.Settings;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {
     public class Alice : Player
     {
-        #region Fields
-
         public override string Name => "Alice";
 
         public override float HealthCapacity => 40;
@@ -65,8 +64,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected Sprite TargetB;
 
         protected bool Soul = true;
-
-        #endregion
 
         public Alice(Gamefield gamefield) : base(gamefield)
         {
@@ -193,7 +190,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Gamefield.Remove(this);
 
                 //"Transfer our soul back to our body"
-                Homunculus.AI = false;
+                Homunculus.AI = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks);
                 Homunculus.TargetA.Position = TargetA.Position;
                 Homunculus.TargetB.Position = TargetB.Position;
 

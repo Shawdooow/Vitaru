@@ -59,6 +59,8 @@ namespace Vitaru.Roots.Tests
                 ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, gamefield)
                 : new Yuie(gamefield);
 
+            player.AI = Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks);
+
             gamefield.Add(player);
             gamefield.SetPlayer(player);
 

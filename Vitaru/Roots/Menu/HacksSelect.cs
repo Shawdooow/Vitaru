@@ -70,6 +70,11 @@ namespace Vitaru.Roots.Menu
                             Text = "Toggle \"GOD-KING\" Hacks",
                             Width = WIDTH - 10,
                         },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BotHacks)
+                        {
+                            Text = "Toggle Bot Hacks",
+                            Width = WIDTH - 10,
+                        },
                     },
                 },
             };

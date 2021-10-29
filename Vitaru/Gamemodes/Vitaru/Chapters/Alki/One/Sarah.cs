@@ -12,8 +12,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {
     public class Sarah : Player
     {
-        #region Fields
-
         public override string Name => "Sarah";
 
         public override float HealthCapacity => 80;
@@ -45,8 +43,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         private double nextCharge;
 
         private double lastMovement;
-
-        #endregion
 
         public Sarah(Gamefield gamefield) : base(gamefield)
         {

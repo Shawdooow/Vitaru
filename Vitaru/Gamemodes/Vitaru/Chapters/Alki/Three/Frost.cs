@@ -10,8 +10,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 {
     public class Frost : Player
     {
-        #region Fields
-
         public override string Name => "Frost Pine";
 
         //public override float HealthCapacity => 60;
@@ -28,13 +26,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override Color ComplementaryColor => "#c2c2c2".HexToColor();
 
-        //public override string Ability => "Time Traveler";
+        //public override string Ability => "Absolute Zero";
 
         //public override Role Role => Role.Defense;
 
         //public override Difficulty Difficulty => Difficulty.Normal;
-
-        #endregion
 
         public Frost(Gamefield gamefield) : base(gamefield)
         {

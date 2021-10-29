@@ -32,6 +32,7 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.Speed, 1f);
 
             SetValue(VitaruSetting.DebugHacks, false);
+            SetValue(VitaruSetting.BotHacks, false);
         }
     }
 
@@ -60,6 +61,7 @@ namespace Vitaru.Settings
 
         //Debug
         DebugHacks,
+        BotHacks,
     }
 
     public enum GraphicsOptions

@@ -18,8 +18,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 {
     public class Tyle : Player
     {
-        #region Fields
-
         public const double CHARGE_TIME = 800;
 
         public const float BLINK_DISTANCE = 480;
@@ -68,9 +66,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         private double spellStartTime = double.MaxValue;
 
         private double spellEndTime { get; set; } = double.MinValue;
-
-
-        #endregion
 
         public Tyle(Gamefield gamefield) : base(gamefield)
         {
