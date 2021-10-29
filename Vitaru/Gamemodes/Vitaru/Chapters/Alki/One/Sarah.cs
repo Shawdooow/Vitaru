@@ -38,7 +38,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         private const int maxCharges = 4;
 
-        private int charges;
+        //private int charges;
 
         private const double chargeTime = 400;
 
@@ -62,12 +62,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             base.SpellUpdate();
 
-            if (Gamefield.Current >= nextCharge && charges < maxCharges)
+            //if (Gamefield.Current >= nextCharge && charges < maxCharges)
             {
 
             }
 
-            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{charges}x";
+            //if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{charges}x";
         }
 
         protected override Vector2 GetPositionOffset(double playerSpeed)

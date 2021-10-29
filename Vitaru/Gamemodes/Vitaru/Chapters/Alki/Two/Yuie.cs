@@ -132,7 +132,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
             DrawablePlayer.Sprite.Color = ComplementaryColor;
             DrawablePlayer.HitboxOutline.Color = ComplementaryColor;
-            DrawablePlayer.Seal.Reticle.Color = PrimaryColor;
             DrawablePlayer.Seal.Sign.Color = PrimaryColor;
         }
 
@@ -142,7 +141,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
             DrawablePlayer.Sprite.Color = PrimaryColor;
             DrawablePlayer.HitboxOutline.Color = SecondaryColor;
-            DrawablePlayer.Seal.Reticle.Color = SecondaryColor;
             DrawablePlayer.Seal.Sign.Color = SecondaryColor;
         }
 
