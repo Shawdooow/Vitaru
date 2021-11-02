@@ -1,4 +1,6 @@
-﻿using Vitaru.Play;
+﻿using Prion.Nucleus.Utilities;
+using System.Drawing;
+using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
@@ -7,11 +9,17 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
     {
         public override string Name => "Santa";
 
+        public override Color PrimaryColor => "#ff0000".HexToColor();
+
+        public override Color SecondaryColor => "#00ff00".HexToColor();
+
+        public override Color ComplementaryColor => "#005eff".HexToColor();
+
         public override float SealRotationSpeed => -base.SealRotationSpeed;
 
         public override string Ability => "Cookies and Milk!";
 
-        public override Role Role => Role.Specialized;
+        public override Role Role => Role.Offense;
 
         public Nick(Gamefield gamefield) : base(gamefield)
         {

@@ -1,4 +1,6 @@
-﻿using Vitaru.Play;
+﻿using Prion.Nucleus.Utilities;
+using System.Drawing;
+using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
@@ -8,6 +10,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
         public override string Name => "Satan";
 
         public override float HealthCapacity => 80;
+
+        public override Color PrimaryColor => "#d80000".HexToColor();
+
+        public override Color SecondaryColor => "#6f0606".HexToColor();
+
+        public override Color ComplementaryColor => "#bb8562".HexToColor();
 
         public override string Seal => "Gameplay\\seal alki hell.png";
 

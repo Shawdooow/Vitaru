@@ -26,11 +26,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override Color ComplementaryColor => "#c2c2c2".HexToColor();
 
-        //public override string Ability => "Absolute Zero";
+        public override float SealRotationSpeed => -base.SealRotationSpeed;
 
-        //public override Role Role => Role.Defense;
+        public override string Ability => "Absolute Zero";
 
-        //public override Difficulty Difficulty => Difficulty.Normal;
+        public override Role Role => Role.Support;
+
+        public override Difficulty Difficulty => Difficulty.Normal;
 
         public Frost(Gamefield gamefield) : base(gamefield)
         {

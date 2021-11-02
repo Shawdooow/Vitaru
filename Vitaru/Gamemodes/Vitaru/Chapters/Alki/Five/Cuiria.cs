@@ -1,4 +1,6 @@
-﻿using Vitaru.Play;
+﻿using Prion.Nucleus.Utilities;
+using System.Drawing;
+using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
@@ -8,6 +10,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
         public override string Name => "God";
 
         public override float HealthCapacity => 80;
+
+        public override Color PrimaryColor => "#e7e7e7".HexToColor();
+
+        public override Color SecondaryColor => "#ffff87".HexToColor();
+
+        public override Color ComplementaryColor => "#9797dc".HexToColor();
 
         //public override string Seal => "Gameplay\\seal alki holy.png";
 
