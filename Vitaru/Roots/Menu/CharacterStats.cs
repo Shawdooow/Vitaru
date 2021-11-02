@@ -29,7 +29,7 @@ namespace Vitaru.Roots.Menu
 
         public CharacterStats()
         {
-            Position = new Vector2(240, -20);
+            Position = new Vector2(380, -20);
             Size = new Vector2(100, 400);
             Spacing = 2f;
 

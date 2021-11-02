@@ -4,7 +4,7 @@
 using Vitaru.Chapters;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.One;
-//using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
@@ -20,17 +20,19 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
         public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableCharacters ?
             new Player[]
             {
-                //new Arysa(gamefield),
+                new Arysa(gamefield),
                 new Tyle(gamefield),
                 new Alice(gamefield),
-                //new Sarah(gamefield),
+                new Sarah(gamefield),
                 new Claire(gamefield),
                 new Yuie(gamefield),
-                //new Frost(gamefield),
+                new Frost(gamefield),
+                new Jack(gamefield),
+                new Nick(gamefield),
                 new Muris(gamefield),
                 new Vuira(gamefield),
-                //new Satan(gamefield),
-                //new God(gamefield),
+                new Lucifer(gamefield),
+                new Cuiria(gamefield),            
             } :
             new Player[]
             {

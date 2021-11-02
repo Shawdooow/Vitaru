@@ -5,11 +5,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 {
     public class Jack : Player
     {
-        public override string Name => "Headless Horseman";
+        public override string Name => "The Horseman";
 
-        //public override string Ability => "Pumpkin Chunkin'";
+        public override string Ability => "Pumpkin Chunkin'";
 
-        //public override Role Role => Role.Offense;
+        public override Role Role => Role.Offense;
 
         public Jack(Gamefield gamefield) : base(gamefield)
         {

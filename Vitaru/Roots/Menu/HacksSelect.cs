@@ -20,7 +20,7 @@ namespace Vitaru.Roots.Menu
         public HacksSelect()
         {
             Size = new Vector2(WIDTH, HEIGHT);
-            Position = new Vector2(-WIDTH - 160, 0);
+            Position = new Vector2(-WIDTH - 240, 0);
 
             Children = new IDrawable2D[]
             {

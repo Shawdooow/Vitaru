@@ -20,14 +20,14 @@ namespace Vitaru.Roots.Menu
 {
     public class CharacterSelect : HoverableLayer<IDrawable2D>
     {
-        private const float width = 320;
-        private const float height = 640;
+        private const float width = 160 * 4;
+        private const float height = 160 * 5;
 
         private readonly InputLayer<SelectableCharacter> items;
 
         public CharacterSelect()
         {
-            Position = new Vector2(10, -50);
+            Y = -16;
             Size = new Vector2(width, height);
 
             Children = new IDrawable2D[]
@@ -95,9 +95,9 @@ namespace Vitaru.Roots.Menu
                 ParentOrigin = Mounts.TopLeft;
                 Origin = Mounts.TopLeft;
 
-                Size = new Vector2(width / 2);
-                Position = new Vector2(width / 2 * (index % 2),
-                    width / 2 * MathF.Round(index / 2f, MidpointRounding.ToZero));
+                Size = new Vector2(width / 4);
+                Position = new Vector2(width / 4 * (index % 4),
+                    width / 4 * MathF.Round(index / 4f, MidpointRounding.ToZero));
 
                 Children = new IDrawable2D[]
                 {

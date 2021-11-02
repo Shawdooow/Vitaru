@@ -7,9 +7,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
     {
         public override string Name => "Santa";
 
-        //public override string Ability => "Cookies and Milk!";
+        public override float SealRotationSpeed => -base.SealRotationSpeed;
 
-        //public override Role Role => Role.Specialized;
+        public override string Ability => "Cookies and Milk!";
+
+        public override Role Role => Role.Specialized;
 
         public Nick(Gamefield gamefield) : base(gamefield)
         {
