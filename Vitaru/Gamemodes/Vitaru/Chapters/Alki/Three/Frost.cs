@@ -34,6 +34,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
+        public override string OriginMedia => "Alki.Three";
+
         public Frost(Gamefield gamefield) : base(gamefield)
         {
         }

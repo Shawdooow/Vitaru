@@ -19,6 +19,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override Role Role => Role.Offense;
 
+        public override string OriginMedia => "Alki.Three";
+
         public Jack(Gamefield gamefield) : base(gamefield)
         {
         }

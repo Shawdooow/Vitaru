@@ -27,6 +27,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Difficulty Difficulty => Difficulty.Hard;
 
+        public override string OriginMedia => "Alki.Five";
+
         public override string Description => "Is a complete bitch and we all hate her.";
 
         public Cuiria(Gamefield gamefield) : base(gamefield) { }

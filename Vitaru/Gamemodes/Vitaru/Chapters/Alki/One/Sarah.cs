@@ -34,6 +34,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override Difficulty Difficulty => Difficulty.Normal;
 
+        public override string OriginMedia => "Alki.One";
+
         private const int maxCharges = 4;
 
         //private int charges;

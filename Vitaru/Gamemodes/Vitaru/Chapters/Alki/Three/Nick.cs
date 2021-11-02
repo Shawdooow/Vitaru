@@ -17,9 +17,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override float SealRotationSpeed => -base.SealRotationSpeed;
 
-        public override string Ability => "Cookies and Milk!";
+        public override string Ability => "Jolly Good Show!";
 
         public override Role Role => Role.Offense;
+
+        public override string OriginMedia => "Alki.Three";
 
         public Nick(Gamefield gamefield) : base(gamefield)
         {
