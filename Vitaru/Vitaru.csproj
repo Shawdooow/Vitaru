@@ -27,7 +27,7 @@
 		<AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
-		<Exec Command="msbuild.exe $(ProjectPath) -p:PublishSingleFile=true" />
+		<Exec Command="dotnet build $(ProjectPath) -p:PublishSingleFile=true" />
 	</Target>
 	<PropertyGroup Condition="'$(Configuration)'=='Personal'">
 		<DefineConstants>PUBLISH;PERSONAL</DefineConstants>
