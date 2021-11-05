@@ -23,7 +23,7 @@
 	  <DelaySign>false</DelaySign>
 	  <DebugType>none</DebugType>
 	  <DebugSymbols>false</DebugSymbols>
-	  <AssemblyOriginatorKeyFile>..\..\Sym.pfx</AssemblyOriginatorKeyFile>
+	  <AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
