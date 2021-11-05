@@ -32,8 +32,6 @@ namespace Vitaru.Roots
         private const int width = 180;
         private const int height = 80;
 
-        private bool primed;
-
         public MainMenu(Vitaru vitaru)
         {
             Add(new Button
@@ -198,6 +196,8 @@ namespace Vitaru.Roots
 
                 return LevelStore.CurrentLevel.Metadata;
             };
+
+            controller.PrimeTrackManager();
         }
 
         protected override void OnResume()
@@ -209,12 +209,6 @@ namespace Vitaru.Roots
         public override void Update()
         {
             base.Update();
-
-            if (!primed) 
-            { 
-                controller.PrimeTrackManager();
-                primed = true;
-            }
 
             controller.Update();
             controller.TryNextLevel();
