@@ -25,9 +25,6 @@
 	  <DebugSymbols>false</DebugSymbols>
 	  <AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
-		<Exec Command="if not exist &quot;$(ProjectDir)obj\$(ConfigurationName)\$(TargetFramework)\singlefilehost.exe&quot; rename &quot;$(ProjectDir)obj\$(ConfigurationName)\$(TargetFramework)\apphost.exe&quot; &quot;singlefilehost.exe&quot;" />
-	</Target>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
 	  <ProjectReference Include="..\..\Prion\Prion.Ribosome\Prion.Ribosome.csproj" />
