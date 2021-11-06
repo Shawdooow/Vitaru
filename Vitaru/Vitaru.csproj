@@ -26,6 +26,9 @@
 		<DebugSymbols>false</DebugSymbols>
 		<AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
+		<Exec Command="if exist &quot;$(ProjectDir)obj\$(ConfigurationName)\$(TargetFramework)\apphost.exe&quot; rename &quot;$(ProjectDir)obj\$(ConfigurationName)\$(TargetFramework)\apphost.exe&quot; &quot;singlefilehost.exe&quot;" />
+	</Target>
 	<PropertyGroup Condition="'$(Configuration)'=='Personal'">
 		<DefineConstants>PUBLISH;PERSONAL</DefineConstants>
 	</PropertyGroup>
