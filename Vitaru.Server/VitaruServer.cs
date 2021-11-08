@@ -11,7 +11,7 @@ namespace Vitaru.Server
 {
     public class VitaruServer : Application
     {
-        public const string VERSION = "0.12.0-preview4.2";
+        public const string VERSION = "0.12.0-preview5.0";
 
         private const string host = "VitaruServer";
 
