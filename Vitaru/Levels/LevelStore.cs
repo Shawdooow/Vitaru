@@ -71,6 +71,9 @@ namespace Vitaru.Levels
 
                 for (int j = 0; j < files.Length; j++)
                 {
+                    //Disabled levels
+                    if (files[j][0] == '.') continue;
+
                     string[] ext = files[j].Split('.');
 
                     Level level = new();
