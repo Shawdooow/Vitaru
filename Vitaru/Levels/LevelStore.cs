@@ -61,6 +61,10 @@ namespace Vitaru.Levels
 
             for (int i = 0; i < directories.Length; i++)
             {
+                //Disabled levels
+                if (directories[i][0] == '.')
+                    continue;
+
                 string[] files = Vitaru.LevelStorage.GetFiles(directories[i]);
 
                 LevelPack pack = new()
@@ -71,9 +75,6 @@ namespace Vitaru.Levels
 
                 for (int j = 0; j < files.Length; j++)
                 {
-                    //Disabled levels
-                    if (files[j][0] == '.') continue;
-
                     string[] ext = files[j].Split('.');
 
                     Level level = new();
