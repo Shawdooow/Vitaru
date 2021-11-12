@@ -115,6 +115,11 @@ namespace Vitaru.Play
 
         private readonly ProjectilePack enemys;
 
+        private double beat = 1000 / 60d;
+        private double lastQuarterBeat = double.MinValue;
+        private double nextHalfBeat = double.MinValue;
+        private double nextQuarterBeat = double.MinValue;
+
         public Gamefield(VitaruNetHandler vitaruNet = null)
         {
             Benchmark benchmark = new($"{nameof(Gamefield)}.ctor", true);
@@ -276,6 +281,40 @@ namespace Vitaru.Play
             benchmark.Finish();
         }
 
+        public virtual void OnNewBeat()
+        {
+            OnHalfBeat();
+
+            beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
+
+            lastQuarterBeat = Clock.LastCurrent;
+            nextHalfBeat = Clock.LastCurrent + beat / 2;
+            nextQuarterBeat = Clock.LastCurrent + beat / 4;
+
+            foreach (Player p in PlayerPack)
+                p.OnNewBeat();
+
+            foreach (Enemy e in LoadedEnemies)
+                e.OnNewBeat();
+        }
+
+        protected virtual void OnHalfBeat()
+        {
+            OnQuarterBeat();
+            nextHalfBeat = -1;
+            foreach (Player p in PlayerPack)
+                p.OnHalfBeat();
+        }
+
+        protected virtual void OnQuarterBeat()
+        {
+            lastQuarterBeat = nextQuarterBeat;
+            nextQuarterBeat += beat / 4;
+
+            foreach (Player p in PlayerPack)
+                p.OnQuarterBeat();
+        }
+
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
@@ -286,6 +325,12 @@ namespace Vitaru.Play
             LastElapsedTime = Clock.LastElapsedTime;
 
             base.Update();
+
+            if (nextHalfBeat <= Clock.LastCurrent && nextHalfBeat != -1)
+                OnHalfBeat();
+
+            if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
+                OnQuarterBeat();
 
             AudioManager.Context.Listener.Position = new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
 
@@ -310,9 +355,11 @@ namespace Vitaru.Play
                     if (ActivePlayer.Health > LastHealth)
                     {
                         HealthChange.Color = Color.LimeGreen;
-
                         HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                        HealthChange.Height = y;
+
+                        HealthBar.Color = Color.Yellow;
+                        HealthBar.ColorTo(Color.White, beat * 4, Easings.InCirc);
+                        HealthBar.Height = y;
                     }
 
                     LastHealth = ActivePlayer.Health;
@@ -330,8 +377,10 @@ namespace Vitaru.Play
                     if (ActivePlayer.Energy < LastEnergy)
                     {
                         EnergyChange.Color = Color.BlueViolet;
-
                         EnergyChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+
+                        EnergyBar.Color = Color.Cyan;
+                        EnergyBar.ColorTo(Color.White, beat * 2, Easings.InCirc);
                         EnergyBar.Height = y;
                     }
 
@@ -681,25 +730,25 @@ namespace Vitaru.Play
                     new Box
                     {
                         Height = w,
-                        Width = size.X,
+                        Width = size.X + w,
                         Y = -size.Y / 2,
                     },
                     new Box
                     {
                         Height = w,
-                        Width = size.X,
+                        Width = size.X + w,
                         Y = size.Y / 2,
                     },
                     new Box
                     {
                         Width = w,
-                        Height = size.Y,
+                        Height = size.Y + w,
                         X = -size.X / 2,
                     },
                     new Box
                     {
                         Width = w,
-                        Height = size.Y,
+                        Height = size.Y + w,
                         X = size.X / 2,
                     },
                 };

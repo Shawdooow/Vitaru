@@ -109,9 +109,6 @@ namespace Vitaru.Play.Characters.Players
         private const float healing_max = 4f;
 
         private double beat = 1000 / 60d;
-        private double lastQuarterBeat = double.MinValue;
-        private double nextHalfBeat = double.MinValue;
-        private double nextQuarterBeat = double.MinValue;
 
         private double shootTime;
 
@@ -219,12 +216,6 @@ namespace Vitaru.Play.Characters.Players
             if (GOD_KING)
                 Charge(999);
 
-            if (nextHalfBeat <= Clock.LastCurrent && nextHalfBeat != -1)
-                OnHalfBeat();
-
-            if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
-                OnQuarterBeat();
-
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
@@ -267,24 +258,15 @@ namespace Vitaru.Play.Characters.Players
         public override void OnNewBeat()
         {
             base.OnNewBeat();
-
-            OnHalfBeat();
-            lastQuarterBeat = Clock.LastCurrent;
-            nextHalfBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
-            nextQuarterBeat = Clock.LastCurrent + TrackManager.CurrentTrack.Metadata.GetBeatLength() / 4;
-        }
-
-        protected virtual void OnHalfBeat()
-        {
-            nextHalfBeat = -1;
-        }
-
-        protected virtual void OnQuarterBeat()
-        {
             beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
-            lastQuarterBeat = nextQuarterBeat;
-            nextQuarterBeat += beat / 4;
+        }
 
+        public virtual void OnHalfBeat()
+        {
+        }
+
+        public virtual void OnQuarterBeat()
+        {
             if (HealingProjectiles.Count > 0)
             {
                 HealingProjectiles = new List<HealingProjectile>();

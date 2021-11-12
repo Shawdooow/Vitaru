@@ -219,11 +219,7 @@ namespace Vitaru.Roots.Tests
 
                 surround.OnNewBeat();
 
-                for (int i = 0; i < gamefield.PlayerPack.Children.Count; i++)
-                    gamefield.PlayerPack.Children[i].OnNewBeat();
-
-                for (int i = 0; i < gamefield.LoadedEnemies.Children.Count; i++)
-                    gamefield.LoadedEnemies.Children[i].OnNewBeat();
+                gamefield.OnNewBeat();
             }
 
             base.Update();
