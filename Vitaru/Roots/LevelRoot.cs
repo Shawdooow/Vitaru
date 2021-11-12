@@ -59,6 +59,9 @@ namespace Vitaru.Roots
             base.LoadingComplete();
             Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, 1f);
             Add(new HacksSelect());
+
+            Remove(Cursor, false);
+            Add(Cursor);
         }
 
         protected override void OnResume()
