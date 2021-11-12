@@ -347,19 +347,22 @@ namespace Vitaru.Play
                     if (ActivePlayer.Health < LastHealth)
                     {
                         HealthChange.Color = Color.Red;
-
                         HealthChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+
+                        HealthBar.Color = Color.Yellow;
+                        HealthBar.ColorTo(Color.White, beat * 4, Easings.InCirc);
                         HealthBar.Height = y;
+
+                        EnergyBar.Color = Color.Cyan;
+                        EnergyBar.ColorTo(Color.White, beat * 2, Easings.InCirc);
                     }
 
                     if (ActivePlayer.Health > LastHealth)
                     {
                         HealthChange.Color = Color.LimeGreen;
-                        HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
+                        HealthChange.Height = y;
 
-                        HealthBar.Color = Color.Yellow;
-                        HealthBar.ColorTo(Color.White, beat * 4, Easings.InCirc);
-                        HealthBar.Height = y;
+                        HealthBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
                     }
 
                     LastHealth = ActivePlayer.Health;
@@ -379,17 +382,15 @@ namespace Vitaru.Play
                         EnergyChange.Color = Color.BlueViolet;
                         EnergyChange.ReSize(new Vector2(8, y), 200, Easings.InQuad);
 
-                        EnergyBar.Color = Color.Cyan;
-                        EnergyBar.ColorTo(Color.White, beat * 2, Easings.InCirc);
                         EnergyBar.Height = y;
                     }
 
                     if (ActivePlayer.Energy > LastEnergy)
                     {
                         EnergyChange.Color = Color.Blue;
+                        EnergyChange.Height = y;
 
                         EnergyBar.ReSize(new Vector2(8, y), 200, Easings.InQuad);
-                        EnergyChange.Height = y;
                     }
 
                     LastEnergy = ActivePlayer.Energy;
