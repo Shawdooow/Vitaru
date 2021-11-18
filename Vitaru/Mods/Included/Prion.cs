@@ -82,6 +82,21 @@ namespace Vitaru.Mods.Included
 
                         OnClick = () => Benchmarks.DynamicThreader(),
                     },
+                    new Button
+                    {
+                        Y = 60,
+                        Size = new Vector2(200, 100),
+
+                        Background = Game.TextureStore.GetTexture("square.png"),
+                        BackgroundSprite =
+                        {
+                            Color = Color.LightSkyBlue,
+                        },
+
+                        Text = "Run Memory Casts",
+
+                        OnClick = () => Benchmarks.MemoryCasting(),
+                    },
                 });
             }
         }
