@@ -82,7 +82,7 @@ namespace Vitaru.Play.Characters.Enemies
 
         public List<KeyFrame> KeyFrames { get; set; } = new();
 
-        public Color Color { get; set; } = ColorExtentions.RandomColor();
+        public Color Color { get; set; } = ColorExtensions.RandomColor();
 
         public override Color PrimaryColor => Vitaru.ALKI > 0
             ? Vitaru.ALKI == 2 ? Color.Red : Color.Magenta

@@ -7,7 +7,7 @@ using Vitaru.Levels;
 
 namespace Vitaru.Tracks
 {
-    public static class TrackManagerExtentions
+    public static class TrackManagerExtensions
     {
         public static void NextTrack()
         {
