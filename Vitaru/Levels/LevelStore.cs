@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -85,7 +85,7 @@ namespace Vitaru.Levels
                         try
                         {
                             using (StreamReader reader =
-                                new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
+                                   new(Vitaru.LevelStorage.GetStream($"{directories[i]}\\{files[j]}")))
                             {
                                 string contents = reader.ReadToEnd();
                                 string[] lines = contents.Split(new[] { Environment.NewLine, },
@@ -363,7 +363,7 @@ namespace Vitaru.Levels
                             $"EnemyData={CurrentLevel.EnemyData}";
 
             using (StreamWriter writer =
-                new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
+                   new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
             {
                 Logger.Log($"Saving Current Level: {path}...", LogType.IO);
                 writer.Write(header);

@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using System.Drawing;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -53,7 +56,8 @@ namespace Vitaru.Roots.Menu
                             Text = "Gameplay",
                             FontScale = 0.24f,
                         },
-                        speed = new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f, WIDTH - 10)
+                        speed = new SliderOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.Speed, 0.5f, 2f,
+                            WIDTH - 10)
                         {
                             Text = "Speed Hacks",
                         },

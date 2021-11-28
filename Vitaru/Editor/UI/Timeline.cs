@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -248,8 +248,8 @@ namespace Vitaru.Editor.UI
             if (TrackManager.CurrentTrack.Playing)
                 start?.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
 
-            float current = (float) TrackManager.CurrentTrack.Clock.Current;
-            float length = (float) TrackManager.CurrentTrack.Sample.Length * 1000;
+            float current = (float)TrackManager.CurrentTrack.Clock.Current;
+            float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;
 
             if (!scrubber.Dragging)
                 scrubber.Progress = PrionMath.Remap(current, 0, length);
@@ -279,9 +279,6 @@ namespace Vitaru.Editor.UI
             return false;
         }
 
-        public bool OnKeyUp(KeyboardKeyEvent e)
-        {
-            return true;
-        }
+        public bool OnKeyUp(KeyboardKeyEvent e) => true;
     }
 }

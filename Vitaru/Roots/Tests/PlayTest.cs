@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -61,9 +61,11 @@ namespace Vitaru.Roots.Tests
 
             if (Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks))
             {
-                player.TargetPositions.Add(new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
+                player.TargetPositions.Add(new Vector2(
+                    GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100));
-                player.TargetPositions.Add(new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
+                player.TargetPositions.Add(new Vector2(
+                    GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200));
 
                 player.AI = true;
@@ -201,7 +203,8 @@ namespace Vitaru.Roots.Tests
                             });
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * PrionMath.RandomNumber(3, 7);
+                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() *
+                                PrionMath.RandomNumber(3, 7);
                             Enemy e = new(gamefield)
                             {
                                 StartTime = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2,

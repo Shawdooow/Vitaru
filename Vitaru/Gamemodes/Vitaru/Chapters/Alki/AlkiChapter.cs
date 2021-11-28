@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Vitaru.Chapters;
@@ -17,8 +17,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
 
         public override string Description => null;
 
-        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableCharacters ?
-            new Player[]
+        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableCharacters
+            ? new Player[]
             {
                 new Arysa(gamefield),
                 new Tyle(gamefield),
@@ -32,9 +32,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
                 new Muris(gamefield),
                 new Vuira(gamefield),
                 new Lucifer(gamefield),
-                new Cuiria(gamefield),            
-            } :
-            new Player[]
+                new Cuiria(gamefield),
+            }
+            : new Player[]
             {
                 new Tyle(gamefield),
                 new Alice(gamefield),

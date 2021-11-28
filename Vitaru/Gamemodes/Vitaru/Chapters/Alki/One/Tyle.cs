@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -40,10 +40,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Ability => "Blink";
 
-        public override string[] AbilityStats => new string[]
+        public override string[] AbilityStats => new[]
         {
             $"Charge Time: {CHARGE_TIME}ms",
-            $"Blink Distance: {BLINK_DISTANCE}p"
+            $"Blink Distance: {BLINK_DISTANCE}p",
         };
 
         public override Role Role => Role.Offense;
@@ -59,7 +59,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected Sprite Landing;
 
         /// <summary>
-        /// scale from 0 - 1 on how charged our blink is
+        ///     scale from 0 - 1 on how charged our blink is
         /// </summary>
         private float charge;
 
@@ -67,9 +67,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         private double spellEndTime { get; set; } = double.MinValue;
 
-        public Tyle(Gamefield gamefield) : base(gamefield)
-        {
-        }
+        public Tyle(Gamefield gamefield) : base(gamefield) { }
 
         public override void LoadingComplete()
         {
@@ -78,7 +76,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             {
                 Size = new Vector2(100),
                 Alpha = 0,
-                Color = ComplementaryColor
+                Color = ComplementaryColor,
             });
         }
 
@@ -97,9 +95,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
             if (SpellActive)
             {
-                charge = Easing.ApplyEasing(Easings.OutSine, (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME), 1));
+                charge = Easing.ApplyEasing(Easings.OutSine,
+                    (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME),
+                        1));
 
-                float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y, InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
+                float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y,
+                    InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
 
                 float dist = Math.Min(charge * BLINK_DISTANCE, Vector2.Distance(Position, InputManager.Mouse.Position));
                 Vector2 blink = Position + PrionMath.Offset(dist, cursorAngle);
@@ -112,7 +113,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (Gamefield.Current >= spellEndTime)
                 HitDetection = true;
 
-            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{Math.Round(BLINK_DISTANCE * charge, 0)}p";
+            if (DrawablePlayer != null)
+                DrawablePlayer.Seal.LeftValue.Text = $"{Math.Round(BLINK_DISTANCE * charge, 0)}p";
         }
 
         protected override void SpellDeactivate(VitaruActions action)
@@ -126,8 +128,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             spellEndTime = Gamefield.Current + 200 * charge;
             Drawable.Alpha = 0.25f;
 
-            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current, 200 * charge, Easings.OutSine);
-            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current, 200 * charge, Easings.InCubic);
+            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current,
+                200 * charge, Easings.OutSine);
+            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current,
+                200 * charge, Easings.InCubic);
 
             charge = 0;
         }

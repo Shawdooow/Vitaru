@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -9,7 +9,6 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 
@@ -101,9 +100,7 @@ namespace Vitaru.Play.Characters.Players
             Sign.Alpha = PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, 0.1f);
         }
 
-        public void Shoot(double flash)
-        {
-        }
+        public void Shoot(double flash) { }
 
         public void Pressed(VitaruActions action)
         {

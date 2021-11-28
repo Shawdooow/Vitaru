@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         public override string Ability => "Free Spirit";
 
-        public override string[] AbilityStats => new string[]
+        public override string[] AbilityStats => new[]
         {
             $"Health Required: {HealthCapacity / 2}HP",
         };
@@ -55,8 +55,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override string Description => "Has a strong sense of family.";
 
         /// <summary>
-        /// This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
-        /// -Eugene Krabs
+        ///     This here is me homunculus flesh puppet that me soul will transfer to, in the event of me death!
+        ///     -Eugene Krabs
         /// </summary>
         protected Alice Homunculus;
 
@@ -65,9 +65,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         protected bool Soul = true;
 
-        public Alice(Gamefield gamefield) : base(gamefield)
-        {
-        }
+        public Alice(Gamefield gamefield) : base(gamefield) { }
 
         public override void LoadingComplete()
         {
@@ -166,6 +164,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                         Gamefield.Remove(Homunculus);
                         Homunculus = null;
                     }
+
                     break;
             }
         }

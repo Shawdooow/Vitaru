@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Collections.Generic;
@@ -12,19 +12,18 @@ namespace Vitaru.Editor.KeyFrames
         public virtual string Name { get; set; } = nameof(KeyFrame);
 
         /// <summary>
-        /// Time this KeyFrame's <see cref="Effects"/> start.
+        ///     Time this KeyFrame's <see cref="Effects" /> start.
         /// </summary>
         public double StartTime;
 
         /// <summary>
-        /// Time this KeyFrame's <see cref="Effects"/> end.
+        ///     Time this KeyFrame's <see cref="Effects" /> end.
         /// </summary>
         public double EndTime;
 
         public List<KeyFrameEffect> Effects = new();
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="current"></param>
         public virtual void ApplyKeyFrame(double current)

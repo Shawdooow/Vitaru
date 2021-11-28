@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
-using Prion.Mitochondria.Audio;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Input;
@@ -261,9 +260,7 @@ namespace Vitaru.Play.Characters.Players
             beat = TrackManager.CurrentTrack.Metadata.GetBeatLength();
         }
 
-        public virtual void OnHalfBeat()
-        {
-        }
+        public virtual void OnHalfBeat() { }
 
         public virtual void OnQuarterBeat()
         {
@@ -1080,31 +1077,20 @@ namespace Vitaru.Play.Characters.Players
 
     public enum Role
     {
-        [Description("Offense")]
-        Offense,
-        [Description("Defense")]
-        Defense,
-        [Description("Support")]
-        Support,
-        [Description("Specialized")]
-        Specialized,
+        [Description("Offense")] Offense,
+        [Description("Defense")] Defense,
+        [Description("Support")] Support,
+        [Description("Specialized")] Specialized,
     }
 
     public enum Difficulty
     {
-        [Description("Very Easy")]
-        VeryEasy,
-        [Description("Easy")]
-        Easy,
-        [Description("Normal")]
-        Normal,
-        [Description("Hard")]
-        Hard,
-        [Description("Very Hard")]
-        VeryHard,
-        [Description("Extreme")]
-        Extreme,
-        [Description("Impossible")]
-        Impossible,
+        [Description("Very Easy")] VeryEasy,
+        [Description("Easy")] Easy,
+        [Description("Normal")] Normal,
+        [Description("Hard")] Hard,
+        [Description("Very Hard")] VeryHard,
+        [Description("Extreme")] Extreme,
+        [Description("Impossible")] Impossible,
     }
 }

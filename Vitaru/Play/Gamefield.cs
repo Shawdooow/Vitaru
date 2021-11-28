@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -332,7 +332,8 @@ namespace Vitaru.Play
             if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
                 OnQuarterBeat();
 
-            AudioManager.Context.Listener.Position = new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
+            AudioManager.Context.Listener.Position =
+                new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
 
             //this check is for the editor for now
             if (ActivePlayer != null)

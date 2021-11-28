@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2021 Shawn Bozek.
+﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -22,6 +22,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
     {
         #region Fields
 
+
         public const float BUFFS_DIVISOR = 5;
 
         public override string Name => "Claire";
@@ -44,7 +45,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override string Ability => "Snap Shot";
 
-        public override string[] AbilityStats => new string[]
+        public override string[] AbilityStats => new[]
         {
             $"Buffs Divisor: {BUFFS_DIVISOR}",
         };
@@ -63,13 +64,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         protected Sprite Screenshot;
 
-        private float Buffs = 0;
+        private float Buffs;
+
 
         #endregion
 
-        public Claire(Gamefield gamefield) : base(gamefield)
-        {
-        }
+
+        public Claire(Gamefield gamefield) : base(gamefield) { }
 
         public override void LoadingComplete()
         {
@@ -107,7 +108,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                             case Bullet bullet:
                                 Vector2 border = Camera.Hitbox.Size / 2;
 
-                                if (bullet.CircularHitbox.Position.X >= Camera.Hitbox.Position.X - border.X && 
+                                if (bullet.CircularHitbox.Position.X >= Camera.Hitbox.Position.X - border.X &&
                                     bullet.CircularHitbox.Position.X <= Camera.Hitbox.Position.X + border.X &&
                                     bullet.CircularHitbox.Position.Y >= Camera.Hitbox.Position.Y - border.Y &&
                                     bullet.CircularHitbox.Position.Y <= Camera.Hitbox.Position.Y + border.Y)
@@ -133,7 +134,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             Camera.Position = InputManager.Mouse.Position;
         }
 
-        protected override void PatternWave(int count = 3) => 
+        protected override void PatternWave(int count = 3) =>
             base.PatternWave(count + 2 * (int)MathF.Round(Buffs, MidpointRounding.ToZero));
 
         protected override void SpellActivate(VitaruActions action)
