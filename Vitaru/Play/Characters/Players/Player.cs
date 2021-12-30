@@ -804,7 +804,8 @@ namespace Vitaru.Play.Characters.Players
             //Grid.Position = grid.Position;
 
             List<RectangularHitbox> nearby = new();
-            double futureTime = Gamefield.Current + 1000 / 60;
+            //look ahead 1/60 a second
+            double futureTime = Gamefield.Current + 1000 / 60d;
 
             //now check if any projectiles are intersecting this grid tile
             foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
@@ -832,7 +833,7 @@ namespace Vitaru.Play.Characters.Players
                             if (grid.HitDetectionResults(box))
                                 nearby.Add(box);
 
-                            //fast-forwared 1/60 a frame and check again
+                            //fast-forward and check again
                             Vector2 futurePos = bullet.GetPosition(futureTime);
 
                             box.Position = new Vector2(futurePos.X - radius, futurePos.Y - radius);
