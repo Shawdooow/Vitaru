@@ -34,7 +34,6 @@ using Vitaru.Input;
 using Vitaru.Tracks;
 #if !PUBLISH || PERSONAL
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
-
 #endif
 
 namespace Vitaru.Mods.Included
