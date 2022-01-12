@@ -46,13 +46,13 @@ namespace Vitaru.Settings.Overlays
                             Text = "Nucleus",
                             FontScale = 0.36f,
                         },
-                        //new Text2D
-                        //{
-                        //    ParentOrigin = Mounts.TopCenter,
-                        //    Origin = Mounts.TopCenter,
-                        //    Text = "Graphics",
-                        //    FontScale = 0.24f
-                        //},
+                        new Text2D
+                        {
+                            ParentOrigin = Mounts.TopCenter,
+                            Origin = Mounts.TopCenter,
+                            Text = "Simulation / Physics",
+                            FontScale = 0.24f,
+                        },
                         new SliderOption<NucleusSetting>(Application.Settings, NucleusSetting.UpdateFrequency, 30, 1000)
                         {
                             Text = "Update Frequency",
