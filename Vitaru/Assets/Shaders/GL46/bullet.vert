@@ -39,7 +39,6 @@ mat4 translateRow(vec2 p)
 	            p.x, p.y, 0, 1);
 }
 
-in int gl_InstanceID;
 void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);

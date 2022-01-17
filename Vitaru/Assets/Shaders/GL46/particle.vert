@@ -50,7 +50,6 @@ float scale(float value, float inputMin, float inputMax, float outputMin, float 
     return outputMin + (value - inputMin) * s;
 }
 
-in int gl_InstanceID;
 void main()
 {
 	texCoords = vec2(vertex.x + 0.5, vertex.y + 0.5);
