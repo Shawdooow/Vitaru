@@ -84,13 +84,11 @@ namespace Vitaru.Server.Server
                     match = FindMatch(join.Match);
                     if (match.Add(FindClient(join.User.ID)))
                     {
-                        SendToClient(new JoinedMatchPacket
-                        {
-
-                        }, info.Client);
+                        SendToClient(new JoinedMatchPacket(), info.Client);
                     }
                     else
                         Logger.Warning("Player failed to join a match!", LogType.Network);
+
                     break;
             }
         }
