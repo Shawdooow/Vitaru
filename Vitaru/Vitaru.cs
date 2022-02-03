@@ -95,6 +95,9 @@ namespace Vitaru
                     //if (somber && ThemeManager.Theme.Name == Ecstatic.NAME)
                     //    ThemeManager.Theme = new Somber();
                     break;
+                //case 4 when DateTime.Now.Day == 4:
+                    //ThemeManager.Theme = new Murica();
+                    //break;
                 case 10:
                     ThemeManager.Theme = new Spooky();
                     break;
