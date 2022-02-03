@@ -135,5 +135,7 @@ namespace Vitaru.Server
         MatchCreated,
         JoinMatch,
         JoinedMatch,
+        LeaveMatch,
+        LeftMatch,
     }
 }
