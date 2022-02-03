@@ -2,21 +2,14 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using Prion.Centrosome.Packets.Types;
-using Prion.Nucleus.Debug;
+using Vitaru.Server.Packets.Types;
 
 namespace Vitaru.Server.Packets.Lobby
 {
-    public class JoinedMatchPacket : VariableLengthPacket
+    public class JoinedMatchPacket : MatchInfoPacket
     {
         public JoinedMatchPacket() : base((ushort)VitaruPackets.JoinedMatch) { }
 
-        public override IPacket Copy() => throw Debugger.NotImplemented("");
-
-        public override byte[] Serialize() => throw Debugger.NotImplemented("");
-
-        public override void DeSerialize(byte[] data)
-        {
-            throw Debugger.NotImplemented("");
-        }
+        public override IPacket Copy() => new JoinedMatchPacket();
     }
 }

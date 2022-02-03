@@ -99,6 +99,9 @@ namespace Vitaru.Roots.Multi
                     selected = created.MatchInfo.ID;
                     join();
                     break;
+                case JoinedMatchPacket joined:
+                    AddRoot(new MatchRoot(joined.MatchInfo, Networking));
+                    break;
             }
         }
 
