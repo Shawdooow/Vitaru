@@ -32,9 +32,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string Ability => "God of Rhythm";
 
-        public override Role Role => Role.Offense;
+        public override Role Role => Role.Specialized;
 
-        public override Difficulty Difficulty => Difficulty.VeryHard;
+        public override Difficulty Difficulty => Difficulty.Extreme;
 
         public override string OriginMedia => "Alki.Five";
 
