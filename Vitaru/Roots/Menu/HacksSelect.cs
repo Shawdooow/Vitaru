@@ -69,9 +69,14 @@ namespace Vitaru.Roots.Menu
                             Text = "Debug",
                             FontScale = 0.24f,
                         },
-                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.DebugHacks)
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.GodHacks)
                         {
-                            Text = "Toggle \"GOD-KING\" Hacks",
+                            Text = "Toggle \"GOD\" Hacks",
+                            Width = WIDTH - 10,
+                        },
+                        new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.KingHacks)
+                        {
+                            Text = "Toggle \"KING\" Hacks",
                             Width = WIDTH - 10,
                         },
                         new ToggleOption<VitaruSetting>(Vitaru.VitaruSettings, VitaruSetting.BotHacks)

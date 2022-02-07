@@ -31,7 +31,8 @@ namespace Vitaru.Settings
 
             SetValue(VitaruSetting.Speed, 1f);
 
-            SetValue(VitaruSetting.DebugHacks, false);
+            SetValue(VitaruSetting.GodHacks, false);
+            SetValue(VitaruSetting.KingHacks, false);
             SetValue(VitaruSetting.BotHacks, false);
         }
     }
@@ -60,7 +61,8 @@ namespace Vitaru.Settings
         Speed,
 
         //Debug
-        DebugHacks,
+        GodHacks,
+        KingHacks,
         BotHacks,
     }
 

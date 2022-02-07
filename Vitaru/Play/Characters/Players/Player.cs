@@ -114,7 +114,8 @@ namespace Vitaru.Play.Characters.Players
         private readonly Vector2
             border = GamemodeStore.SelectedGamemode?.Gamemode.GetGamefieldSize() / 2 ?? Vector2.One;
 
-        private bool GOD_KING;
+        private bool GOD;
+        private bool KING;
 
         public DrawablePlayer DrawablePlayer { get; protected set; }
 
@@ -136,7 +137,8 @@ namespace Vitaru.Play.Characters.Players
 
         protected Player(Gamefield gamefield) : base(gamefield)
         {
-            GOD_KING = Vitaru.VitaruSettings.GetBool(VitaruSetting.DebugHacks);
+            GOD = Vitaru.VitaruSettings.GetBool(VitaruSetting.GodHacks);
+            KING = Vitaru.VitaruSettings.GetBool(VitaruSetting.KingHacks);
 
             Position = new Vector2(0, 200);
             Team = PLAYER_TEAM;
@@ -212,7 +214,7 @@ namespace Vitaru.Play.Characters.Players
                     Released(v);
             }
 
-            if (GOD_KING)
+            if (KING)
                 Charge(999);
 
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
@@ -377,7 +379,7 @@ namespace Vitaru.Play.Characters.Players
 
         protected override void TakeDamage(float amount)
         {
-            base.TakeDamage(GOD_KING ? 0 : amount);
+            base.TakeDamage(GOD ? 0 : amount);
             LastDamageTime = Gamefield.Current;
         }
 
