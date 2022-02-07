@@ -24,7 +24,7 @@ namespace Vitaru.Tracks
             Origin = Mounts.TopLeft;
 
             Position = new Vector2(8);
-            Size = new Vector2(160, 600);
+            Size = new Vector2(160, 800);
         }
 
         public override void LoadingComplete()
