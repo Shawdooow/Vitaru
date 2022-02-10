@@ -121,7 +121,9 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             xPos.Text = "x: " + (int)X;
             yPos.Text = "y: " + (int)Y;
             xSize.Text = "w: " + (int)Width;
+            xSize.UpdateText();
             ySize.Text = "h: " + (int)Height;
+            ySize.UpdateText();
 
             if (screenshot != null)
             {
