@@ -3,6 +3,7 @@
 
 using System.Drawing;
 using Prion.Nucleus.Utilities;
+using Vitaru.Gamemodes.Vitaru.Chapters.Abilities;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -41,5 +42,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
         public override string Description => "";
 
         public Muris(Gamefield gamefield) : base(gamefield) { }
+
+        protected Metronome Metronome;
+
+        public override void LoadingComplete()
+        {
+            base.LoadingComplete();
+            Gamefield.OverlaysLayer.Add(Metronome = new Metronome(this, Gamefield.OverlaysLayer));
+        }
     }
 }
