@@ -14,6 +14,7 @@ using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Ribosome.Audio;
 using Vitaru.Levels;
 using Vitaru.Server.Levels;
+using Vitaru.Settings;
 
 namespace Vitaru.Tracks
 {
@@ -68,6 +69,9 @@ namespace Vitaru.Tracks
 
                 TrackMetadata n = LevelStore.CurrentLevel.Metadata;
                 Song.Text = $"Loading: {n.Title}";
+
+                if (Vitaru.VitaruSettings.GetBool(VitaruSetting.RAM))
+                    Game.SampleStore.ClearLoadedObjects();
 
                 TrackManager.SetTrack(n);
 

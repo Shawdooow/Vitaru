@@ -34,6 +34,7 @@ namespace Vitaru.Settings
             SetValue(VitaruSetting.GodHacks, false);
             SetValue(VitaruSetting.KingHacks, false);
             SetValue(VitaruSetting.BotHacks, false);
+            SetValue(VitaruSetting.RAM, false);
         }
     }
 
@@ -64,6 +65,7 @@ namespace Vitaru.Settings
         GodHacks,
         KingHacks,
         BotHacks,
+        RAM,
     }
 
     public enum GraphicsOptions
