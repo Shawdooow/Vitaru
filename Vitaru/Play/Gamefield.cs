@@ -332,12 +332,12 @@ namespace Vitaru.Play
             if (nextQuarterBeat <= Clock.LastCurrent && nextQuarterBeat != -1)
                 OnQuarterBeat();
 
-            AudioManager.Context.Listener.Position =
-                new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
-
             //this check is for the editor for now
             if (ActivePlayer != null)
             {
+                AudioManager.Context.Listener.Position =
+                    new Vector3(ActivePlayer.Position.X / 2, 0, ActivePlayer.Position.Y / 2);
+
                 if (ActivePlayer.Health != LastHealth)
                 {
                     HealthChange.ClearTransforms();
