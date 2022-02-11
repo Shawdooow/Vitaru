@@ -47,7 +47,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         public override string Notes =>
             $"Energy Drain Rate scales with absolute difference between Speed Multiplier ({nameof(SetRate)})x and 1 + Energy Cost ({EnergyCost}SP)";
 
-        public override bool WIP => false;
+        public override ImplementationState ImplementationState => ImplementationState.Complete;
 
         public override string OriginMedia => "Alki.Two";
 

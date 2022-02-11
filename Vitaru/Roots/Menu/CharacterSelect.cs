@@ -137,13 +137,15 @@ namespace Vitaru.Roots.Menu
                     },
                 });
 
-                if (pair.Value.WIP)
+                if (pair.Value.ImplementationState < ImplementationState.Complete)
                     Add(new Text2D
                     {
                         Position = new Vector2(-4, -12),
                         Text = "WIP",
                         Alpha = 0.8f,
-                        Color = Color.Red,
+                        Color = pair.Value.ImplementationState < ImplementationState.MostlyComplete ? 
+                            pair.Value.ImplementationState < ImplementationState.PartiallyComplete ? 
+                            Color.Black : Color.Red : Color.Yellow,
                         FontScale = 1f,
                     });
 

@@ -67,7 +67,7 @@ namespace Vitaru.Play.Characters.Players
 
         public virtual string Notes => string.Empty;
 
-        public virtual bool WIP => true;
+        public virtual ImplementationState ImplementationState => ImplementationState.NotFunctioning;
 
         public virtual string OriginMedia => string.Empty;
 
@@ -1095,5 +1095,13 @@ namespace Vitaru.Play.Characters.Players
         [Description("Very Hard")] VeryHard,
         [Description("Extreme")] Extreme,
         [Description("Impossible")] Impossible,
+    }
+
+    public enum ImplementationState
+    {
+        [Description("Not Functioning at All")] NotFunctioning,
+        [Description("Partially Complete")] PartiallyComplete,
+        [Description("Mostly Complete")] MostlyComplete,
+        [Description("Complete")] Complete,
     }
 }

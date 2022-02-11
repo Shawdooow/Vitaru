@@ -54,7 +54,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
         public override Difficulty Difficulty => Difficulty.Hard;
 
-        public override bool WIP => false;
+        public override ImplementationState ImplementationState => ImplementationState.MostlyComplete;
 
         public override string OriginMedia => "Alki.Two";
 

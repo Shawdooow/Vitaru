@@ -37,6 +37,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override Difficulty Difficulty => Difficulty.Extreme;
 
+        public override ImplementationState ImplementationState => ImplementationState.PartiallyComplete;
+
         public override string OriginMedia => "Alki.Five";
 
         public override string Description => "";
