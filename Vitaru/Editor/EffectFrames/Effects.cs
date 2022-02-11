@@ -7,12 +7,12 @@ using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Projectiles;
 
-namespace Vitaru.Editor.KeyFrames
+namespace Vitaru.Editor.EffectFrames
 {
     #region Enemy
 
 
-    public abstract class EnemyEffect : KeyFrameEffect
+    public abstract class EnemyEffect : Effect
     {
         protected readonly Enemy Enemy;
 
@@ -44,7 +44,7 @@ namespace Vitaru.Editor.KeyFrames
     #region Projectile
 
 
-    public abstract class ProjectileEffect : KeyFrameEffect
+    public abstract class ProjectileEffect : Effect
     {
         protected readonly Projectile Projectile;
 
@@ -58,9 +58,9 @@ namespace Vitaru.Editor.KeyFrames
     #endregion
 
 
-    public abstract class KeyFrameEffect : IHasName
+    public abstract class Effect : IHasName
     {
-        public virtual string Name { get; set; } = nameof(KeyFrameEffect);
+        public virtual string Name { get; set; } = nameof(Effect);
 
         public virtual Easings Easing { get; set; } = Easings.None;
 

@@ -5,23 +5,23 @@ using System.Collections.Generic;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
-namespace Vitaru.Editor.KeyFrames
+namespace Vitaru.Editor.EffectFrames
 {
-    public class KeyFrame : IHasName
+    public class EffectFrame : IHasName
     {
-        public virtual string Name { get; set; } = nameof(KeyFrame);
+        public virtual string Name { get; set; } = nameof(EffectFrame);
 
         /// <summary>
-        ///     Time this KeyFrame's <see cref="Effects" /> start.
+        ///     Time this EffectFrame's <see cref="Effects" /> start.
         /// </summary>
         public double StartTime;
 
         /// <summary>
-        ///     Time this KeyFrame's <see cref="Effects" /> end.
+        ///     Time this EffectFrame's <see cref="Effects" /> end.
         /// </summary>
         public double EndTime;
 
-        public List<KeyFrameEffect> Effects = new();
+        public List<Effect> Effects = new();
 
         /// <summary>
         /// </summary>

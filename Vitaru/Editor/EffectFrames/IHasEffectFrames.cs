@@ -4,17 +4,17 @@
 using System.Collections.Generic;
 using Vitaru.Editor.Editables.Properties.Time;
 
-namespace Vitaru.Editor.KeyFrames
+namespace Vitaru.Editor.EffectFrames
 {
-    public interface IHasKeyFrames : IHasStartTime, IHasEndTime
+    public interface IHasEffectFrames : IHasStartTime, IHasEndTime
     {
-        List<KeyFrame> KeyFrames { get; set; }
+        List<EffectFrame> EffectFrames { get; set; }
 
-        protected void ApplyKeyFrames()
+        protected void ApplyEffectFrames()
         {
             double current = Clock.Current;
-            for (int i = 0; i < KeyFrames.Count; i++)
-                KeyFrames[i].ApplyKeyFrame(current);
+            for (int i = 0; i < EffectFrames.Count; i++)
+                EffectFrames[i].ApplyKeyFrame(current);
         }
     }
 }
