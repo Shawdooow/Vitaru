@@ -17,7 +17,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
 
         public override string Description => null;
 
-        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableCharacters
+        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableIncompleteCharacters
             ? new Player[]
             {
                 new Arysa(gamefield),
