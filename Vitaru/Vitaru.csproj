@@ -20,10 +20,12 @@
 		<DefineConstants>PUBLISH</DefineConstants>
 		<OutputType>WinExe</OutputType>
 		<Optimize>true</Optimize>
-		<SignAssembly>true</SignAssembly>
-		<DelaySign>false</DelaySign>
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Public'">
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Personal'">

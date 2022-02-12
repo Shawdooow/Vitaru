@@ -17,15 +17,17 @@
 	  <RepositoryUrl>https://github.com/Shawdooow/Vitaru</RepositoryUrl>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
-	  <DefineConstants>PUBLISH</DefineConstants>
-	  <OutputType>Exe</OutputType>
-	  <Optimize>true</Optimize>
-	  <SignAssembly>true</SignAssembly>
-	  <DelaySign>false</DelaySign>
-	  <DebugType>none</DebugType>
-	  <DebugSymbols>false</DebugSymbols>
-	  <AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+		<DefineConstants>PUBLISH</DefineConstants>
+		<OutputType>Exe</OutputType>
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Public'">
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Prion\Prion.Centrosome\Prion.Centrosome.csproj" />
 	  <ProjectReference Include="..\..\Prion\Prion.Ribosome\Prion.Ribosome.csproj" />
