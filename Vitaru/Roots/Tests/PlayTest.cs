@@ -317,13 +317,13 @@ namespace Vitaru.Roots.Tests
             Vector2 center = new(0, -size.Y / 4);
 
             if (start.X <= center.X / 2 && start.Y <= center.Y / 2)
-                return start - new Vector2(size.X / 2, size.Y / 2);
+                return start - new Vector2(size.X / 4, size.Y / 4);
             if (start.X > center.X / 2 && start.Y <= center.Y / 2)
-                return new Vector2(start.X + size.X / 2, start.Y - size.Y / 2);
+                return new Vector2(start.X + size.X / 4, start.Y - size.Y / 4);
             if (start.X > center.X / 2 && start.Y > center.Y / 2)
-                return start + new Vector2(size.X / 2, size.Y / 2);
+                return start + new Vector2(size.X / 4, size.Y / 4);
 
-            return new Vector2(start.X - size.X / 2, start.Y + size.Y / 2);
+            return new Vector2(start.X - size.X / 4, start.Y + size.Y / 4);
         }
 
         protected override void Dispose(bool finalize)
