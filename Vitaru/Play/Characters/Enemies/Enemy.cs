@@ -142,23 +142,20 @@ namespace Vitaru.Play.Characters.Enemies
         {
             base.Update();
 
-            if (!Vitaru.EnableKeyFrames)
+            double current = Clock.Current;
+
+            if (!Selected)
             {
-                double current = Clock.Current;
+                if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
+                    PreLoad();
+                else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
+                         PreLoaded)
+                    UnLoad();
 
-                if (!Selected)
-                {
-                    if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
-                        PreLoad();
-                    else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
-                             PreLoaded)
-                        UnLoad();
-
-                    if (current >= StartTime && current < EndTime && !Started)
-                        Start();
-                    else if ((current < StartTime || current >= EndTime) && Started)
-                        End();
-                }
+                if (current >= StartTime && current < EndTime && !Started)
+                    Start();
+                else if ((current < StartTime || current >= EndTime) && Started)
+                    End();
             }
         }
 
@@ -173,6 +170,8 @@ namespace Vitaru.Play.Characters.Enemies
             PreLoaded = true;
 
             Health = HealthCapacity;
+
+            if (Vitaru.EnableKeyFrames) return;
 
             if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
