@@ -107,11 +107,6 @@ namespace Vitaru.Play.Projectiles
 
         public override void Update()
         {
-            double current = Clock.Current;
-
-            for (int i = 0; i < KeyFrames.Count; i++)
-                KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
-
             if (Drawable != -1) UpdateDrawable();
         }
 

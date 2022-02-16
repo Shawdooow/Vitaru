@@ -143,9 +143,6 @@ namespace Vitaru.Play.Characters.Enemies
 
             if (!Selected)
             {
-                for (int i = 0; i < KeyFrames.Count; i++)
-                    KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
-
                 if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
                     PreLoad();
                 else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
