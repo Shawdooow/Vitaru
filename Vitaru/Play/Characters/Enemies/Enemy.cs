@@ -93,7 +93,20 @@ namespace Vitaru.Play.Characters.Enemies
             ? Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue
             : Color.Yellow;
 
-        public float Alpha { get; set; }
+        public override Vector2 Position { get; set; }
+
+        public float Alpha
+        {
+            get => alpha;
+            set
+            {
+                alpha = value;
+                if (Drawable != null)
+                    Drawable.Alpha = alpha;
+            }
+        }
+
+        private float alpha;
 
         public Vector2 StartPosition { get; set; }
 

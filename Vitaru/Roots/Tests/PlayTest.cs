@@ -207,6 +207,11 @@ namespace Vitaru.Roots.Tests
                                 {
                                     new PositionFrame(e)
                                     {
+                                        Time = start - 500,
+                                        Value = new Vector2(position.X + 200, position.Y - 200),
+                                    },
+                                    new PositionFrame(e)
+                                    {
                                         Time = start,
                                         Value = position,
                                     },
@@ -218,6 +223,11 @@ namespace Vitaru.Roots.Tests
                                 }),
                                 new((int)KeyFrameTypes.Alpha, new List<KeyFrame>
                                 {
+                                    new AlphaFrame(e)
+                                    {
+                                        Time = start - 500,
+                                        Value = 0,
+                                    },
                                     new AlphaFrame(e)
                                     {
                                         Time = start,
