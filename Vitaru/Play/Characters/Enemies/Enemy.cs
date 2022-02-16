@@ -306,18 +306,6 @@ namespace Vitaru.Play.Characters.Enemies
             }
         }
 
-        private Vector2 getClusterStartPosition()
-        {
-            if (StartPosition.X <= 384f / 2 && StartPosition.Y <= 512f / 2)
-                return StartPosition - new Vector2(384f / 2, 512f / 2);
-            if (StartPosition.X > 384f / 2 && StartPosition.Y <= 512f / 2)
-                return new Vector2(StartPosition.X + 384f / 2, StartPosition.Y - 512f / 2);
-            if (StartPosition.X > 384f / 2 && StartPosition.Y > 512f / 2)
-                return StartPosition + new Vector2(384f / 2, 512f / 2);
-
-            return new Vector2(StartPosition.X - 384f / 2, StartPosition.Y + 512f / 2);
-        }
-
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);

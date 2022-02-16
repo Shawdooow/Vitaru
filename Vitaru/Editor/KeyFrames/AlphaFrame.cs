@@ -21,7 +21,10 @@ namespace Vitaru.Editor.KeyFrames
             }
 
             AlphaFrame n = (AlphaFrame)next;
-            i.Alpha = (float)PrionMath.Remap(current, Time, next.Time, Value, n.Value);
+
+            double adjusted = PrionMath.Remap(current, StartTime, next.StartTime);
+            double ease = Prion.Nucleus.Utilities.Easing.ApplyEasing(Easing, adjusted);
+            i.Alpha = (float)PrionMath.Remap(ease, 0, 1, Value, n.Value);
         }
     }
 }

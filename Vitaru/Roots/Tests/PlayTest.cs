@@ -206,41 +206,47 @@ namespace Vitaru.Roots.Tests
                             Vector2 position = new(PrionMath.RandomNumber(-200, 200),
                                 PrionMath.RandomNumber(-300, 0));
 
+                            Vector2 spawn = getClusterStartPosition(position);
+
                             e.KeyFrames = new List<KeyValuePair<int, List<KeyFrame>>>
                             {
                                 new((int)KeyFrameTypes.Position, new List<KeyFrame>
                                 {
                                     new PositionFrame(e)
                                     {
-                                        Time = start - 500,
-                                        Value = new Vector2(position.X + 200, position.Y - 200),
+                                        StartTime = start - 1000,
+                                        Easing = Easings.OutCubic,
+                                        Value = spawn,
                                     },
                                     new PositionFrame(e)
                                     {
-                                        Time = start,
+                                        StartTime = start,
+                                        Easing = Easings.InCubic,
                                         Value = position,
                                     },
                                     new PositionFrame(e)
                                     {
-                                        Time = start + 500,
-                                        Value = new Vector2(position.X + 200, position.Y - 200),
+                                        StartTime = start + 1000,
+                                        Value = spawn,
                                     },
                                 }),
                                 new((int)KeyFrameTypes.Alpha, new List<KeyFrame>
                                 {
                                     new AlphaFrame(e)
                                     {
-                                        Time = start - 500,
+                                        StartTime = start - 1000,
+                                        Easing = Easings.OutCubic,
                                         Value = 0,
                                     },
                                     new AlphaFrame(e)
                                     {
-                                        Time = start,
+                                        StartTime = start,
+                                        Easing = Easings.InCubic,
                                         Value = 1,
                                     },
                                     new AlphaFrame(e)
                                     {
-                                        Time = start + 500,
+                                        StartTime = start + 1000,
                                         Value = 0,
                                     },
                                 }),
@@ -303,6 +309,21 @@ namespace Vitaru.Roots.Tests
         {
             Renderer.ShaderManager.UpdateInt("shade", (int)gamefield.Shade);
             Renderer.ShaderManager.UpdateFloat("intensity", gamefield.Intensity);
+        }
+
+        private Vector2 getClusterStartPosition(Vector2 start)
+        {
+            Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+            Vector2 center = new(0, -size.Y / 4);
+
+            if (start.X <= center.X / 2 && start.Y <= center.Y / 2)
+                return start - new Vector2(size.X / 2, size.Y / 2);
+            if (start.X > center.X / 2 && start.Y <= center.Y / 2)
+                return new Vector2(start.X + size.X / 2, start.Y - size.Y / 2);
+            if (start.X > center.X / 2 && start.Y > center.Y / 2)
+                return start + new Vector2(size.X / 2, size.Y / 2);
+
+            return new Vector2(start.X - size.X / 2, start.Y + size.Y / 2);
         }
 
         protected override void Dispose(bool finalize)

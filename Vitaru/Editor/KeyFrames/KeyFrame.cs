@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Editor.KeyFrames
@@ -12,9 +13,11 @@ namespace Vitaru.Editor.KeyFrames
         public virtual string Name { get; set; } = nameof(KeyFrame);
 
         /// <summary>
-        ///     Time this KeyFrame fully takes effect.
+        ///     Time this KeyFrame starts.
         /// </summary>
-        public double Time;
+        public double StartTime;
+
+        public Easings Easing = Easings.None;
 
         /// <summary>
         /// Apply this frame's effect
@@ -34,10 +37,10 @@ namespace Vitaru.Editor.KeyFrames
             {
                 KeyFrame f = frames[i];
 
-                if (current <= f.Time && f == frames.First())
+                if (current <= f.StartTime && f == frames.First())
                     f.ApplyFrame(current, null);
 
-                if (current >= f.Time)
+                if (current >= f.StartTime)
                 {
                     if (f == frames.Last())
                         f.ApplyFrame(current, null);
