@@ -52,6 +52,11 @@ namespace Vitaru.Editor.KeyFrames
     public enum KeyFrameTypes
     {
         Position,
-        Alpha
+        Alpha,
+        Color,
+        Size,
+        Damage,
+        Health,
+        Active,
     }
 }
