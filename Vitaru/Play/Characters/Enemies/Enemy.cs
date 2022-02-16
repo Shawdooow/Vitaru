@@ -156,6 +156,10 @@ namespace Vitaru.Play.Characters.Enemies
                     Start();
                 else if ((current < StartTime || current >= EndTime) && Started)
                     End();
+
+                if (Vitaru.EnableKeyFrames)
+                    for (int i = 0; i < KeyFrames.Count; i++)
+                        KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
             }
         }
 
@@ -191,6 +195,8 @@ namespace Vitaru.Play.Characters.Enemies
         {
             Started = false;
 
+            if (Vitaru.EnableKeyFrames) return;
+
             if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
                 Drawable.ClearTransforms();
@@ -202,6 +208,9 @@ namespace Vitaru.Play.Characters.Enemies
         protected virtual void UnLoad()
         {
             PreLoaded = false;
+
+            if (Vitaru.EnableKeyFrames) return;
+
             if (Drawable != null && Drawable.LoadState == LoadState.Loaded)
             {
                 Drawable.ClearTransforms();
