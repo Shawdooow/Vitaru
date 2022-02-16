@@ -93,8 +93,6 @@ namespace Vitaru.Play.Characters.Enemies
             ? Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue
             : Color.Yellow;
 
-        public override Vector2 Position { get; set; }
-
         public float Alpha
         {
             get => alpha;
@@ -147,7 +145,7 @@ namespace Vitaru.Play.Characters.Enemies
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Position = StartPosition;
+            if (!Vitaru.EnableKeyFrames) Position = StartPosition;
             COUNT++;
         }
 
@@ -156,6 +154,10 @@ namespace Vitaru.Play.Characters.Enemies
             base.Update();
 
             double current = Clock.Current;
+
+            if (Vitaru.EnableKeyFrames)
+                for (int i = 0; i < KeyFrames.Count; i++)
+                    KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
 
             if (!Selected)
             {
@@ -169,10 +171,6 @@ namespace Vitaru.Play.Characters.Enemies
                     Start();
                 else if ((current < StartTime || current >= EndTime) && Started)
                     End();
-
-                if (Vitaru.EnableKeyFrames)
-                    for (int i = 0; i < KeyFrames.Count; i++)
-                        KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
             }
         }
 
@@ -200,8 +198,11 @@ namespace Vitaru.Play.Characters.Enemies
 
         protected virtual void Start()
         {
-            Shoot();
             Started = true;
+
+            //if (Vitaru.EnableKeyFrames) return;
+
+            Shoot();
         }
 
         protected virtual void End()

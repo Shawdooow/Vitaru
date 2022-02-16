@@ -196,7 +196,12 @@ namespace Vitaru.Roots.Tests
 
                         if (Vitaru.EnableKeyFrames)
                         {
-                            Enemy e = new Enemy(gamefield);
+                            Enemy e = new Enemy(gamefield)
+                            {
+                                StartTime = start,
+                                Color = c,
+                                PatternID = (short)PrionMath.RandomNumber(0, 5),
+                            };
 
                             Vector2 position = new(PrionMath.RandomNumber(-200, 200),
                                 PrionMath.RandomNumber(-300, 0));
