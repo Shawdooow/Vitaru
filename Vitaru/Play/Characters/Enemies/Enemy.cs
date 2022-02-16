@@ -80,7 +80,7 @@ namespace Vitaru.Play.Characters.Enemies
             new EditablePatternID(this),
         };
 
-        public List<KeyFrame> KeyFrames { get; set; } = new();
+        public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; } = new();
 
         public Color Color { get; set; } = ColorExtensions.RandomColor();
 
@@ -143,7 +143,8 @@ namespace Vitaru.Play.Characters.Enemies
 
             if (!Selected)
             {
-                KeyFrame.ApplyFrames(current, KeyFrames);
+                for (int i = 0; i < KeyFrames.Count; i++)
+                    KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
 
                 if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
                     PreLoad();

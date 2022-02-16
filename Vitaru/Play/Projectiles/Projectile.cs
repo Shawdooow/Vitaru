@@ -38,7 +38,7 @@ namespace Vitaru.Play.Projectiles
             new EditableStartPosition(this),
         };
 
-        public List<KeyFrame> KeyFrames { get; set; } = new();
+        public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; } = new();
 
         public abstract Hitbox GetHitbox();
 
@@ -108,7 +108,9 @@ namespace Vitaru.Play.Projectiles
         public override void Update()
         {
             double current = Clock.Current;
-            KeyFrame.ApplyFrames(current, KeyFrames);
+
+            for (int i = 0; i < KeyFrames.Count; i++)
+                KeyFrame.ApplyFrames(current, KeyFrames[i].Value);
 
             if (Drawable != -1) UpdateDrawable();
         }

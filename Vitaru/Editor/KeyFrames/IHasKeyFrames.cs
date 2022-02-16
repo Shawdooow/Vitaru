@@ -8,6 +8,6 @@ namespace Vitaru.Editor.KeyFrames
 {
     public interface IHasKeyFrames : IHasStartTime, IHasEndTime
     {
-        List<KeyFrame> KeyFrames { get; set; }
+        List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; }
     }
 }
