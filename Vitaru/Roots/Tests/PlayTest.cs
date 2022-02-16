@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
@@ -11,6 +12,7 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
+using Vitaru.Editor.KeyFrames;
 using Vitaru.Gamemodes;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two;
 using Vitaru.Graphics;
@@ -192,30 +194,72 @@ namespace Vitaru.Roots.Tests
 
                         bool s = count == 1 && PrionMath.RandomNumber(0, 5) == 2;
 
-                        if (!s)
-                            gamefield.Add(new Enemy(gamefield)
+                        if (Vitaru.EnableKeyFrames)
+                        {
+                            Enemy e = new Enemy(gamefield);
+
+                            Vector2 position = new(PrionMath.RandomNumber(-200, 200),
+                                PrionMath.RandomNumber(-300, 0));
+
+                            e.KeyFrames = new List<KeyValuePair<int, List<KeyFrame>>>
                             {
-                                StartTime = start,
-                                StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
-                                    PrionMath.RandomNumber(-300, 0)),
-                                PatternID = (short)PrionMath.RandomNumber(0, 5),
-                                Color = c,
-                            });
+                                new((int)KeyFrameTypes.Position, new List<KeyFrame>
+                                {
+                                    new PositionFrame(e)
+                                    {
+                                        Time = start,
+                                        Value = position,
+                                    },
+                                    new PositionFrame(e)
+                                    {
+                                        Time = start + 500,
+                                        Value = new Vector2(position.X + 200, position.Y - 200),
+                                    },
+                                }),
+                                new((int)KeyFrameTypes.Alpha, new List<KeyFrame>
+                                {
+                                    new AlphaFrame(e)
+                                    {
+                                        Time = start,
+                                        Value = 1,
+                                    },
+                                    new AlphaFrame(e)
+                                    {
+                                        Time = start + 500,
+                                        Value = 0,
+                                    },
+                                }),
+                            };
+
+                            gamefield.Add(e);
+                        }
                         else
                         {
-                            spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() *
-                                PrionMath.RandomNumber(3, 7);
-                            Enemy e = new(gamefield)
+                            if (!s)
+                                gamefield.Add(new Enemy(gamefield)
+                                {
+                                    StartTime = start,
+                                    StartPosition = new Vector2(PrionMath.RandomNumber(-200, 200),
+                                        PrionMath.RandomNumber(-300, 0)),
+                                    PatternID = (short)PrionMath.RandomNumber(0, 5),
+                                    Color = c,
+                                });
+                            else
                             {
-                                StartTime = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2,
-                                EndTime = spiral,
-                                StartPosition = Vector2.Zero,
-                                MaxHealth = 120,
-                                PatternID = 5,
-                                Color = c,
-                            };
-                            spiral -= TrackManager.CurrentTrack.Metadata.GetBeatLength();
-                            gamefield.Add(e);
+                                spiral = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() *
+                                    PrionMath.RandomNumber(3, 7);
+                                Enemy e = new(gamefield)
+                                {
+                                    StartTime = start + TrackManager.CurrentTrack.Metadata.GetBeatLength() * 2,
+                                    EndTime = spiral,
+                                    StartPosition = Vector2.Zero,
+                                    MaxHealth = 120,
+                                    PatternID = 5,
+                                    Color = c,
+                                };
+                                spiral -= TrackManager.CurrentTrack.Metadata.GetBeatLength();
+                                gamefield.Add(e);
+                            }
                         }
                     }
                 }

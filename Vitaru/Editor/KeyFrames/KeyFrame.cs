@@ -48,4 +48,10 @@ namespace Vitaru.Editor.KeyFrames
             }
         }
     }
+
+    public enum KeyFrameTypes
+    {
+        Position,
+        Alpha
+    }
 }

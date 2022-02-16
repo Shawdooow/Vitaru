@@ -18,13 +18,14 @@ using Vitaru.Editor.Editables.Properties.Pattern;
 using Vitaru.Editor.Editables.Properties.Position;
 using Vitaru.Editor.Editables.Properties.Time;
 using Vitaru.Editor.KeyFrames;
+using Vitaru.Editor.KeyFrames.Interfaces;
 using Vitaru.Graphics.Particles;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
 
 namespace Vitaru.Play.Characters.Enemies
 {
-    public class Enemy : Character, IHasKeyFrames, IHasStartPosition, IHasColor, IHasPatternID
+    public class Enemy : Character, IHasKeyFrames, IHasStartPosition, IHasColor, IHasPatternID, IHasPosition, IHasAlpha
     {
         public static int COUNT;
 
@@ -92,6 +93,8 @@ namespace Vitaru.Play.Characters.Enemies
             ? Vitaru.ALKI == 2 ? Color.MidnightBlue : Color.CornflowerBlue
             : Color.Yellow;
 
+        public float Alpha { get; set; }
+
         public Vector2 StartPosition { get; set; }
 
         public virtual double StartTime
@@ -139,20 +142,23 @@ namespace Vitaru.Play.Characters.Enemies
         {
             base.Update();
 
-            double current = Clock.Current;
-
-            if (!Selected)
+            if (!Vitaru.EnableKeyFrames)
             {
-                if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
-                    PreLoad();
-                else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
-                         PreLoaded)
-                    UnLoad();
+                double current = Clock.Current;
 
-                if (current >= StartTime && current < EndTime && !Started)
-                    Start();
-                else if ((current < StartTime || current >= EndTime) && Started)
-                    End();
+                if (!Selected)
+                {
+                    if (current + TimePreLoad >= StartTime && current < EndTime + TimeUnLoad && !PreLoaded)
+                        PreLoad();
+                    else if ((current + TimePreLoad < StartTime || current >= EndTime + TimeUnLoad) &&
+                             PreLoaded)
+                        UnLoad();
+
+                    if (current >= StartTime && current < EndTime && !Started)
+                        Start();
+                    else if ((current < StartTime || current >= EndTime) && Started)
+                        End();
+                }
             }
         }
 
