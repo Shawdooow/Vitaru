@@ -10,12 +10,12 @@ using Prion.Nucleus.Debug;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.Editables.Properties;
 using Vitaru.Editor.Editables.Properties.Position;
-using Vitaru.Editor.EffectFrames;
+using Vitaru.Editor.KeyFrames;
 using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Play.Projectiles
 {
-    public abstract class Projectile : GameEntity, IHasStartPosition, IHasEffectFrames
+    public abstract class Projectile : GameEntity, IHasStartPosition, IHasKeyFrames
     {
         public override string Name { get; set; } = nameof(Projectile);
 
@@ -38,7 +38,7 @@ namespace Vitaru.Play.Projectiles
             new EditableStartPosition(this),
         };
 
-        public List<EffectFrame> EffectFrames { get; set; } = new();
+        public List<KeyFrame> KeyFrames { get; set; } = new();
 
         public abstract Hitbox GetHitbox();
 
@@ -108,8 +108,7 @@ namespace Vitaru.Play.Projectiles
         public override void Update()
         {
             double current = Clock.Current;
-            for (int i = 0; i < EffectFrames.Count; i++)
-                EffectFrames[i].ApplyKeyFrame(current);
+            KeyFrame.ApplyFrames(current, KeyFrames);
 
             if (Drawable != -1) UpdateDrawable();
         }
