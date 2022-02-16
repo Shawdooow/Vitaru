@@ -132,7 +132,7 @@ namespace Vitaru
         public static bool EnableIncompleteCharacters => FEATURES >= Features.Experimental;
         public static bool EnableTanks => FEATURES >= Features.Upcoming;
         public static bool EnableMulti => FEATURES >= Features.Radioactive;
-        public static bool EnableKeyFrames => FEATURES >= Features.Radioactive;
+        public static bool EnableKeyFrames => FEATURES >= Features.Experimental;
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
 
