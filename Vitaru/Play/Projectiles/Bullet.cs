@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
+using Vitaru.Editor.KeyFrames.Interfaces;
 using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
 
 namespace Vitaru.Play.Projectiles
 {
-    public class Bullet : Projectile
+    public class Bullet : Projectile, IHasAlpha, IHasPath
     {
         public static int COUNT;
 
@@ -40,6 +41,19 @@ namespace Vitaru.Play.Projectiles
         }
 
         public float Scale { get; set; }
+
+        public override float Alpha
+        {
+            get => alpha;
+            set
+            {
+                alpha = value;
+                if (Drawable != -1)
+                    BulletLayer.bCircleColor[Drawable].W = alpha;
+            }
+        }
+
+        private float alpha;
 
         public override Vector2 Position
         {
@@ -201,14 +215,6 @@ namespace Vitaru.Play.Projectiles
             base.Dispose(finalize);
             COUNT--;
         }
-    }
-
-    public enum CurveType
-    {
-        Straight,
-        Target,
-
-        Bezier,
     }
 
     public enum Shape

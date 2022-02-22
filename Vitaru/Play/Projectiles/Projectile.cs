@@ -42,7 +42,7 @@ namespace Vitaru.Play.Projectiles
 
         public abstract Hitbox GetHitbox();
 
-        public float Alpha = 0;
+        public virtual float Alpha { get; set; }
 
         public Color CircleColor = Color.White;
 
