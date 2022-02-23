@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Prion.Nucleus.Utilities;
-using Vitaru.Editor.KeyFrames.Interfaces;
+using Vitaru.Editor.KeyFrames;
 
 namespace Vitaru.Play.Projectiles
 {
