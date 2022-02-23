@@ -9,10 +9,11 @@ using Vitaru.Editor.KeyFrames.Interfaces;
 using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
+using Vitaru.Editor.KeyFrames;
 
 namespace Vitaru.Play.Projectiles
 {
-    public class Bullet : Projectile, IHasAlpha, IHasScale, IHasPath
+    public class Bullet : Projectile, IHasAlpha, IHasScale
     {
         public static int COUNT;
 
@@ -36,7 +37,7 @@ namespace Vitaru.Play.Projectiles
 
         public Vector2 Size
         {
-            get => new Vector2(CircularHitbox.Diameter);
+            get => new(CircularHitbox.Diameter);
             set => CircularHitbox.Diameter = value.X;
         }
 
@@ -121,7 +122,8 @@ namespace Vitaru.Play.Projectiles
 
         public override void Update()
         {
-            Position = GetPosition(Gamefield.Current);
+            if (!Vitaru.EnableKeyFrames)
+                Position = GetPosition(Gamefield.Current);
 
             if (ObeyBoundries && (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y ||
                                   Position.Y > border.Y))
@@ -180,7 +182,8 @@ namespace Vitaru.Play.Projectiles
         {
             base.Start();
 
-            Alpha = 1;
+            if (!Vitaru.EnableKeyFrames)
+                Alpha = 1;
             //Drawable.FadeTo(1, 200f, Easings.InSine);
             //Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
@@ -195,7 +198,8 @@ namespace Vitaru.Play.Projectiles
 
             //Drawable.FadeTo(0, 250, Easings.InSine);
             //Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
-            Alpha = 0;
+            if (!Vitaru.EnableKeyFrames)
+                Alpha = 0;
         }
 
         public override void ParseString(string[] data, int offset)

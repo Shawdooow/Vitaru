@@ -107,7 +107,7 @@ namespace Vitaru.Play.Projectiles
 
         public override void Update()
         {
-            if (Drawable != -1) UpdateDrawable();
+            if (Drawable != -1 && !Vitaru.EnableKeyFrames) UpdateDrawable();
         }
 
         /// <summary>
