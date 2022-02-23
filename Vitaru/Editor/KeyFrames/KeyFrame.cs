@@ -58,6 +58,7 @@ namespace Vitaru.Editor.KeyFrames
         Alpha,
         Color,
         Size,
+        Scale,
         Damage,
         Health,
         Active,

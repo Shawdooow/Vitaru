@@ -13,7 +13,7 @@ using Vitaru.Editor.KeyFrames;
 
 namespace Vitaru.Play.Projectiles
 {
-    public class Bullet : Projectile, IHasAlpha, IHasScale
+    public class Bullet : Projectile, IHasAlpha, IHasScale, IHasPosition
     {
         public static int COUNT;
 
@@ -47,7 +47,8 @@ namespace Vitaru.Play.Projectiles
             set
             {
                 scale = value;
-                BulletLayer.bSize[Drawable] = Size.X * Scale.X;
+                if (Drawable != -1)
+                    BulletLayer.bSize[Drawable] = Size.X * Scale.X;
             }
         }
 
@@ -125,6 +126,10 @@ namespace Vitaru.Play.Projectiles
             if (!Vitaru.EnableKeyFrames)
                 Position = GetPosition(Gamefield.Current);
 
+            if (Vitaru.EnableKeyFrames)
+                for (int i = 0; i < KeyFrames.Count; i++)
+                    KeyFrame.ApplyFrames(Gamefield.Current, KeyFrames[i].Value);
+
             if (ObeyBoundries && (Position.X < -border.X || Position.X > border.X || Position.Y < -border.Y ||
                                   Position.Y > border.Y))
                 End();
@@ -184,8 +189,6 @@ namespace Vitaru.Play.Projectiles
 
             if (!Vitaru.EnableKeyFrames)
                 Alpha = 1;
-            //Drawable.FadeTo(1, 200f, Easings.InSine);
-            //Drawable.ScaleTo(Vector2.One, 100f, Easings.InSine);
         }
 
         public override void End()
@@ -196,10 +199,13 @@ namespace Vitaru.Play.Projectiles
             ReturnGreat = false;
             ForceScore = true;
 
-            //Drawable.FadeTo(0, 250, Easings.InSine);
-            //Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
             if (!Vitaru.EnableKeyFrames)
                 Alpha = 0;
+            else
+            {
+                //Drawable.FadeTo(0, 250, Easings.InSine);
+                //Drawable.ScaleTo(new Vector2(1.5f), 250, Easings.OutCubic).OnComplete(UnLoad);
+            }
         }
 
         public override void ParseString(string[] data, int offset)

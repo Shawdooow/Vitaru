@@ -26,14 +26,54 @@ namespace Vitaru.Play.Projectiles
             {
                 if (Vitaru.EnableKeyFrames)
                 {
-                    Bullet b = new Bullet();
+                    Bullet b = new();
 
                     b.KeyFrames = new List<KeyValuePair<int, List<KeyFrame>>>
                     {
-                        new KeyValuePair<int, List<KeyFrame>>((int)KeyFrameTypes.Alpha, new List<KeyFrame>
+                        new((int)KeyFrameTypes.Alpha, new List<KeyFrame>
                         {
-
-                        })
+                            new AlphaFrame(b)
+                            {
+                                StartTime = startTime,
+                                Easing = Easings.InSine,
+                                Value = 0,
+                            },
+                            new AlphaFrame(b)
+                            {
+                                StartTime = startTime + 200,
+                                Value = 1,
+                            },
+                        }),
+                        new((int)KeyFrameTypes.Scale, new List<KeyFrame>
+                        {
+                            new ScaleFrame(b)
+                            {
+                                StartTime = startTime,
+                                Easing = Easings.InSine,
+                                Value = new Vector2(1.5f),
+                            },
+                            new ScaleFrame(b)
+                            {
+                                StartTime = startTime + 100,
+                                Value = Vector2.One,
+                            },
+                        }),
+                        new((int)KeyFrameTypes.Path, new List<KeyFrame>
+                        {
+                            new PathFrame(b)
+                            {
+                                StartTime = startTime,
+                                Easing = Easings.OutSine,
+                                Value = position,
+                                CurveType = CurveType.Straight,
+                                CurveAmount = 0,
+                            },
+                            new PathFrame(b)
+                            {
+                                StartTime = startTime + 1000,
+                                Value = PrionMath.Offset(max_dist, direction) + position,
+                            },
+                        }),
                     };
 
                     projectiles.Add(b);
