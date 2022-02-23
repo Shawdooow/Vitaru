@@ -34,6 +34,7 @@ namespace Vitaru.Editor.KeyFrames
             switch (CurveType)
             {
                 default:
+                case CurveType.Straight:
                     i.Position = new Vector2(PrionMath.Remap(t, 0, 1, Value.X, n.Value.X),
                         PrionMath.Remap(t, 0, 1, Value.Y, n.Value.Y));
                     break;

@@ -26,7 +26,17 @@ namespace Vitaru.Play.Projectiles
             {
                 if (Vitaru.EnableKeyFrames)
                 {
-                    Bullet b = new();
+                    Bullet b = new()
+                    {
+                        StartTime = startTime,
+                        EndTime = startTime + 1000,
+                        CircularHitbox = new CircularHitbox
+                        {
+                            Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
+                        },
+                        Damage = i % 2 == 1 ? damage : damage * 0.8f,
+                        Team = team
+                    };
 
                     b.KeyFrames = new List<KeyValuePair<int, List<KeyFrame>>>
                     {

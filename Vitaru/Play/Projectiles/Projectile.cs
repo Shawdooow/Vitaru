@@ -23,10 +23,13 @@ namespace Vitaru.Play.Projectiles
 
         public new int Drawable { get; private set; } = -1;
 
-        public void SetDrawable(int i, BulletLayer layer)
+        public virtual void SetDrawable(int i, BulletLayer layer)
         {
             BulletLayer = layer;
             Drawable = i;
+
+            if (Drawable != -1)
+                UpdateDrawable();
         }
 
         public virtual IDrawable2D GetOverlay(DrawableGameEntity draw) => throw Debugger.NotImplemented("");

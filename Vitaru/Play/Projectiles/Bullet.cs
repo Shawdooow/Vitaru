@@ -10,6 +10,7 @@ using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
 using Vitaru.Editor.KeyFrames;
+using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Play.Projectiles
 {
@@ -59,7 +60,7 @@ namespace Vitaru.Play.Projectiles
             get => alpha;
             set
             {
-                alpha = value;
+                alpha = Math.Clamp(value, 0, 1);
                 if (Drawable != -1)
                     BulletLayer.bCircleColor[Drawable].W = alpha;
             }
