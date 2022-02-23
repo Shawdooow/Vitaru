@@ -61,5 +61,6 @@ namespace Vitaru.Editor.KeyFrames
         Damage,
         Health,
         Active,
+        Path,
     }
 }
