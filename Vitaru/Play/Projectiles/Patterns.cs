@@ -24,22 +24,39 @@ namespace Vitaru.Play.Projectiles
 
             for (int i = 1; i <= bulletCount; i++)
             {
-                projectiles.Add(new Bullet
+                if (Vitaru.EnableKeyFrames)
                 {
-                    StartTime = startTime,
-                    StartPosition = position,
-                    Speed = speed,
-                    Angle = direction,
-                    Distance = max_dist,
-                    CurveType = CurveType.Straight,
-                    SpeedEasing = Easings.OutSine,
-                    CircularHitbox = new CircularHitbox
+                    Bullet b = new Bullet();
+
+                    b.KeyFrames = new List<KeyValuePair<int, List<KeyFrame>>>
                     {
-                        Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
-                    },
-                    Damage = i % 2 == 1 ? damage : damage * 0.8f,
-                    Team = team,
-                });
+                        new KeyValuePair<int, List<KeyFrame>>((int)KeyFrameTypes.Alpha, new List<KeyFrame>
+                        {
+
+                        })
+                    };
+
+                    projectiles.Add(b);
+                }
+                else
+                {
+                    projectiles.Add(new Bullet
+                    {
+                        StartTime = startTime,
+                        StartPosition = position,
+                        Speed = speed,
+                        Angle = direction,
+                        Distance = max_dist,
+                        CurveType = CurveType.Straight,
+                        SpeedEasing = Easings.OutSine,
+                        CircularHitbox = new CircularHitbox
+                        {
+                            Diameter = i % 2 == 1 ? diameter : diameter * 1.5f,
+                        },
+                        Damage = i % 2 == 1 ? damage : damage * 0.8f,
+                        Team = team,
+                    });
+                }
                 direction += directionModifier;
             }
 
