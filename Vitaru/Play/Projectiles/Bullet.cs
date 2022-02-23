@@ -12,7 +12,7 @@ using Vitaru.Settings;
 
 namespace Vitaru.Play.Projectiles
 {
-    public class Bullet : Projectile, IHasAlpha, IHasPath
+    public class Bullet : Projectile, IHasAlpha, IHasScale, IHasPath
     {
         public static int COUNT;
 
@@ -34,13 +34,23 @@ namespace Vitaru.Play.Projectiles
             Diameter = 10,
         };
 
-        public float Size
+        public Vector2 Size
         {
-            get => CircularHitbox.Diameter;
-            set => CircularHitbox.Diameter = value;
+            get => new Vector2(CircularHitbox.Diameter);
+            set => CircularHitbox.Diameter = value.X;
         }
 
-        public float Scale { get; set; }
+        public Vector2 Scale 
+        { 
+            get => scale;
+            set
+            {
+                scale = value;
+                BulletLayer.bSize[Drawable] = Size.X * Scale.X;
+            }
+        }
+
+        private Vector2 scale = Vector2.One;
 
         public override float Alpha
         {
@@ -148,7 +158,7 @@ namespace Vitaru.Play.Projectiles
         public override void UpdateDrawable()
         {
             base.UpdateDrawable();
-            BulletLayer.bSize[Drawable] = Size;
+            BulletLayer.bSize[Drawable] = Size.X * Scale.X;
         }
 
         public virtual Vector2 GetPosition(double time)
