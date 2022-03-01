@@ -10,7 +10,6 @@ using Vitaru.Gamemodes;
 using Vitaru.Graphics.Particles;
 using Vitaru.Settings;
 using Vitaru.Editor.KeyFrames;
-using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Play.Projectiles
 {
