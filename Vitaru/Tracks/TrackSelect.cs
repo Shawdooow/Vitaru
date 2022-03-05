@@ -31,8 +31,6 @@ namespace Vitaru.Tracks
         {
             base.LoadingComplete();
 
-            ListLayer<Button> list;
-
             Children = new IDrawable2D[]
             {
                 new Box
@@ -44,26 +42,14 @@ namespace Vitaru.Tracks
                 },
             };
 
-            list = new ListLayer<Button>
+            ScrollLayer list = new()
             {
                 //ParentSizing = Axes.Both,
                 Size = Size,
                 Spacing = 2,
             };
 
-            Add(new MaskingLayer<IDrawable2D>
-            {
-                Child = list,
-
-                Masks = new Sprite[]
-                {
-                    new Box
-                    {
-                        Alpha = 0f,
-                        Size = Size,
-                    },
-                },
-            });
+            Add(list);
 
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
