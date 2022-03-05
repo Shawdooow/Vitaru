@@ -24,7 +24,7 @@ namespace Vitaru.Tracks
             Origin = Mounts.TopLeft;
 
             Position = new Vector2(8);
-            Size = new Vector2(160, 800);
+            Size = new Vector2(160, 420);
         }
 
         public override void LoadingComplete()
@@ -53,13 +53,13 @@ namespace Vitaru.Tracks
 
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
-                list.Add(new Button(false)
+                list.List.Add(new Button(false)
                 {
-                    ParentOrigin = Mounts.TopCenter,
-                    Origin = Mounts.TopCenter,
+                    ParentOrigin = Mounts.TopLeft,
+                    Origin = Mounts.TopLeft,
 
                     //ParentSizing = Axes.Horizontal,
-                    Width = 160,
+                    Width = 160 - 16,
                     Height = 18,
 
                     Text = p.Title,
