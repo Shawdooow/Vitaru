@@ -55,6 +55,8 @@ namespace Vitaru.Play.Characters
 
         public Action OnDie;
 
+        public Action OnRezzurect;
+
         protected Character(Gamefield gamefield)
         {
             Gamefield = gamefield;
@@ -68,22 +70,17 @@ namespace Vitaru.Play.Characters
 
         public virtual void OnNewBeat() { }
 
-        public override void Update()
-        {
-        }
-
         /// <summary>
         ///     Gets called just before hit detection
         /// </summary>
         protected virtual void ParseProjectile(Projectile projectile) { }
 
-        protected virtual void Collision(Projectile projectile)
-        {
-        }
+        protected virtual void Collision(Projectile projectile) => TakeDamage(projectile.Damage);
 
         protected virtual void Heal(float amount)
         {
             Health = Math.Clamp(Health + amount, 0, HealthCapacity);
+            if (Health >= HealthCapacity) Rezzurect();
         }
 
         protected virtual void TakeDamage(float amount)
@@ -98,7 +95,11 @@ namespace Vitaru.Play.Characters
             OnDie?.Invoke();
         }
 
-        protected virtual void Rezzurect() { }
+        protected virtual void Rezzurect()
+        {
+            Dead = false;
+            OnRezzurect?.Invoke();
+        }
 
         protected override void Dispose(bool finalize)
         {

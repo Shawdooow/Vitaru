@@ -13,6 +13,8 @@ namespace Vitaru.Play.Projectiles
 
         public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; } = new();
 
+        public virtual float Damage { get; set; } = 20;
+
         protected Random Random;
 
         public virtual void ConcurrentUpdate(Random random)
