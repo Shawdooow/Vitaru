@@ -17,7 +17,7 @@ namespace Vitaru.Editor.UI
         private const float width = 1280;
         private const float height = 120;
 
-        public Toolbar(LevelManager manager)
+        public Toolbar()
         {
             ParentOrigin = Mounts.BottomCenter;
             Origin = Mounts.BottomCenter;
@@ -42,13 +42,12 @@ namespace Vitaru.Editor.UI
                     Height = 32,
 
                     Text = "Save",
+                    Disabled = true,
 
                     Text2D =
                     {
                         FontScale = 0.35f,
                     },
-
-                    OnClick = manager.SerializeToLevel,
                 },
             };
         }

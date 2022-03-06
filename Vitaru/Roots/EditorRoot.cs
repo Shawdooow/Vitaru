@@ -10,7 +10,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Timing;
-using Vitaru.Editor;
 using Vitaru.Editor.UI;
 using Vitaru.Levels;
 using Vitaru.Server.Levels;
@@ -25,8 +24,6 @@ namespace Vitaru.Roots
 
         private Timeline timeline;
         private readonly LevelProperties levelProperties;
-
-        private LevelManager manager;
 
         //state to manage loading the editor on draw thread, gets set by a button (the update thread)
         private LoadState state;
@@ -66,8 +63,6 @@ namespace Vitaru.Roots
 
         private void loadLevelEditor(Level level)
         {
-            manager = new LevelManager(level);
-
             TrackManager.CurrentTrack.DrawClock = new SeekableClock();
 
             TrackManager.CurrentTrack.DrawClock.Start();
@@ -89,8 +84,8 @@ namespace Vitaru.Roots
                 },
             });
 
-            Add(new Toolbar(manager));
-            Add(timeline = new Timeline(manager));
+            Add(new Toolbar());
+            Add(timeline = new Timeline());
 
             state = LoadState.Loaded;
 
@@ -124,12 +119,6 @@ namespace Vitaru.Roots
                 loadLevelEditor(LevelStore.CurrentLevel);
 
             base.PreRender();
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            manager?.SerializeToLevel();
-            base.Dispose(finalize);
         }
     }
 }

@@ -129,12 +129,6 @@ namespace Vitaru.Play.Characters.Players
             base.SetDrawable(drawable);
         }
 
-        public override DrawableGameEntity GenerateDrawable() =>
-            new DrawablePlayer(this)
-            {
-                Position = Position,
-            };
-
         protected Player(Gamefield gamefield) : base(gamefield)
         {
             GOD = Vitaru.VitaruSettings.GetBool(VitaruSetting.GodHacks);

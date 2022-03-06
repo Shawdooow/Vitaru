@@ -6,7 +6,6 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Chapters;
-using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 using Vitaru.Wiki;
@@ -28,8 +27,6 @@ namespace Vitaru.Gamemodes
         public abstract Gamefield GetGamefield();
 
         public abstract Chapter[] GetChapters();
-
-        public abstract EditableGenerator[] GetGenerators();
 
         public virtual Vector2 GetGamefieldSize() => new(1024, 820);
     }

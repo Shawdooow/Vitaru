@@ -8,7 +8,6 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.UI;
 using Vitaru.Roots.Menu;
-using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 using Vitaru.Tracks;
 
@@ -40,7 +39,7 @@ namespace Vitaru.Roots
 
                 Text = "Play",
 
-                OnClick = () => AddRoot(new PlayTest()),
+                OnClick = () => AddRoot(new PlayRoot()),
             });
             Add(new TrackSelect());
             Add(new LevelSelect());

@@ -36,7 +36,7 @@ namespace Vitaru.Editor.UI
         private readonly Slider pitch;
         private readonly Slider gain;
 
-        public Timeline(LevelManager manager)
+        public Timeline()
         {
             ParentOrigin = Mounts.TopCenter;
             Origin = Mounts.TopCenter;

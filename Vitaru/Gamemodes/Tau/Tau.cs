@@ -4,7 +4,6 @@
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
 using Vitaru.Chapters;
-using Vitaru.Editor.Editables;
 using Vitaru.Editor.IO;
 using Vitaru.Play;
 
@@ -21,7 +20,5 @@ namespace Vitaru.Gamemodes.Tau
         public override Gamefield GetGamefield() => throw Debugger.NotImplemented("");
 
         public override Chapter[] GetChapters() => throw Debugger.NotImplemented("");
-
-        public override EditableGenerator[] GetGenerators() => throw Debugger.NotImplemented("");
     }
 }

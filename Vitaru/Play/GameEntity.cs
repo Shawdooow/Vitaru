@@ -98,8 +98,6 @@ namespace Vitaru.Play
             Drawable = drawable;
         }
 
-        public abstract DrawableGameEntity GenerateDrawable();
-
         /// <summary>
         ///     Called by Update Thread
         /// </summary>

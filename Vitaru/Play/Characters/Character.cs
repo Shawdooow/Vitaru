@@ -2,7 +2,6 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Vitaru.Play.Projectiles;
@@ -27,7 +26,7 @@ namespace Vitaru.Play.Characters
 
         public virtual float Health { get; protected set; }
 
-        public virtual CircularHitbox Hitbox => CircularHitbox;
+        public override Hitbox GetHitbox() => CircularHitbox;
 
         protected CircularHitbox CircularHitbox = new()
         {
@@ -71,54 +70,6 @@ namespace Vitaru.Play.Characters
 
         public override void Update()
         {
-            if (!Dead && HitDetection)
-            {
-                foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
-                {
-                    if (pack.Team == Team) continue;
-
-                    IReadOnlyList<Projectile> projectiles = pack.Children;
-                    for (int i = 0; i < projectiles.Count; i++)
-                    {
-                        Projectile projectile = projectiles[i];
-
-                        //Hack to disable bullets we shouldn't interact with
-                        if (!projectile.Active)
-                            continue;
-
-                        ParseProjectile(projectile);
-
-                        HitResults? results;
-
-                        switch (projectile)
-                        {
-                            default:
-                                continue;
-                            case Bullet bullet:
-                                if (Hitbox.HitDetectionPossible(bullet.CircularHitbox))
-                                {
-                                    results = Hitbox.HitDetectionResults(bullet.CircularHitbox);
-                                    break;
-                                }
-                                else
-                                    continue;
-                            case Laser laser:
-                                //if (laser.Hitbox.HitDetectionPossible(Hitbox))
-                                //{
-                                //    results = laser.Hitbox.HitDetectionResults(Hitbox);
-                                //    break;
-                                //}
-                                continue;
-                        }
-
-                        if (results?.EdgeDistance <= 0)
-                        {
-                            Collision(projectile);
-                            if (Dead) return;
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -128,9 +79,6 @@ namespace Vitaru.Play.Characters
 
         protected virtual void Collision(Projectile projectile)
         {
-            TakeDamage(projectile.Damage);
-            Gamefield.Remove(projectile);
-            projectile.Collision();
         }
 
         protected virtual void Heal(float amount)
@@ -142,29 +90,6 @@ namespace Vitaru.Play.Characters
         {
             Health = Math.Clamp(Health - amount, 0, HealthCapacity);
             if (Health <= 0) Die();
-        }
-
-        protected virtual void BulletAddRad(float speed, float angle, Color color, float size, float damage,
-            float distance)
-        {
-            Bullet bullet = new()
-            {
-                Team = Team,
-                StartPosition = Position,
-                StartTime = Clock.Current,
-
-                Speed = speed,
-                Angle = angle,
-                GlowColor = color,
-                CircularHitbox = new CircularHitbox
-                {
-                    Diameter = size,
-                },
-                Damage = damage,
-                Distance = distance,
-            };
-
-            Gamefield.Add(bullet);
         }
 
         protected virtual void Die()
