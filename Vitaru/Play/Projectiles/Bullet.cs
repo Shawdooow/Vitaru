@@ -4,22 +4,11 @@
 using System;
 using System.Numerics;
 using Vitaru.Editor.KeyFrames.Interfaces;
-using Vitaru.Gamemodes;
-using Vitaru.Settings;
 
 namespace Vitaru.Play.Projectiles
 {
     public class Bullet : Projectile, IHasAlpha, IHasScale, IHasPosition
     {
-        public static int COUNT;
-
-        private readonly bool particles = Vitaru.VitaruSettings.GetBool(VitaruSetting.Particles);
-
-        private readonly float particles_multiplier =
-            Vitaru.VitaruSettings.GetFloat(VitaruSetting.ParticleMultiplier);
-
-        private readonly Vector2 border = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize() / 2;
-
         public override string Name { get; set; } = nameof(Bullet);
 
         public override Hitbox GetHitbox() => CircularHitbox;
@@ -49,12 +38,6 @@ namespace Vitaru.Play.Projectiles
         {
             get => base.Alpha;
             set => base.Alpha = Math.Clamp(value, 0, 1);
-        }
-
-        protected override void Dispose(bool finalize)
-        {
-            base.Dispose(finalize);
-            COUNT--;
         }
     }
 
