@@ -15,8 +15,6 @@ using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
 using Prion.Mitochondria.Input.Receivers;
 using Prion.Nucleus.Utilities;
-using Vitaru.Editor.Editables.Properties;
-using Vitaru.Editor.Editables.Properties.Time;
 
 namespace Vitaru.Editor.UI
 {
@@ -38,12 +36,8 @@ namespace Vitaru.Editor.UI
         private readonly Slider pitch;
         private readonly Slider gain;
 
-        private EditableStartTime start;
-
         public Timeline(LevelManager manager)
         {
-            manager.PropertiesSet += Selected;
-
             ParentOrigin = Mounts.TopCenter;
             Origin = Mounts.TopCenter;
 
@@ -208,19 +202,6 @@ namespace Vitaru.Editor.UI
             gain.Progress = TrackManager.CurrentTrack.Gain;
         }
 
-        public void Selected(EditableProperty[] properties)
-        {
-            start = null;
-
-            if (properties != null)
-                for (int i = 0; i < properties.Length; i++)
-                    if (properties[i] is EditableStartTime s)
-                    {
-                        start = s;
-                        break;
-                    }
-        }
-
         public void TogglePlay()
         {
             if (TrackManager.CurrentTrack.Playing)
@@ -244,9 +225,6 @@ namespace Vitaru.Editor.UI
                 TogglePlay();
                 TrackManager.CurrentTrack.Seek(TrackManager.CurrentTrack.Sample.Length);
             }
-
-            if (TrackManager.CurrentTrack.Playing)
-                start?.SetValue(Math.Round(TrackManager.CurrentTrack.Clock.Current, 2));
 
             float current = (float)TrackManager.CurrentTrack.Clock.Current;
             float length = (float)TrackManager.CurrentTrack.Sample.Length * 1000;

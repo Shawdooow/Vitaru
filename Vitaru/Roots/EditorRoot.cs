@@ -23,11 +23,8 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
-        private Editfield editfield;
-
         private Timeline timeline;
         private readonly LevelProperties levelProperties;
-        private EditableProperties editableProperties;
 
         private LevelManager manager;
 
@@ -77,12 +74,6 @@ namespace Vitaru.Roots
             TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
             TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
 
-            editfield = new Editfield(manager)
-            {
-                Clock = TrackManager.CurrentTrack.Clock,
-            };
-            editableProperties = new EditableProperties(manager);
-
             Add(new SpriteLayer
             {
                 Children = new[]
@@ -98,20 +89,8 @@ namespace Vitaru.Roots
                 },
             });
 
-            //Packs
-            Add(editfield);
-
-            //Layers
-            Add(editfield.ParticleLayer);
-            Add(editfield.CharacterLayer);
-            Add(editfield.BulletLayer);
-            Add(editfield.OverlaysLayer);
-            Add(editfield.SelectionLayer);
-
             Add(new Toolbar(manager));
             Add(timeline = new Timeline(manager));
-            Add(new Toolbox(manager));
-            Add(editableProperties);
 
             state = LoadState.Loaded;
 
@@ -143,9 +122,6 @@ namespace Vitaru.Roots
 
             if (state == LoadState.PreLoaded)
                 loadLevelEditor(LevelStore.CurrentLevel);
-
-            if (state == LoadState.Loaded)
-                editfield.PreRender();
 
             base.PreRender();
         }
