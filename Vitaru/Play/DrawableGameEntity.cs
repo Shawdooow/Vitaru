@@ -1,27 +1,27 @@
 ﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using Prion.Mitochondria.Graphics.Drawables;
-using Prion.Mitochondria.Graphics.Layers._2D;
+using System.Drawing;
+using System.Numerics;
+using Prion.Nucleus.Utilities.Interfaces;
 
 namespace Vitaru.Play
 {
-    public class DrawableGameEntity : Layer2D<IDrawable2D>
+    /// <summary>
+    /// Wrapper for Game Drawables
+    /// </summary>
+    public abstract class DrawableGameEntity : IHasName
     {
-        public override string Name { get; set; } = nameof(DrawableGameEntity);
+        public virtual string Name { get; set; } = nameof(DrawableGameEntity);
 
-        public event Action OnDelete;
+        public abstract Vector2 Position { get; set; }
 
-        /// <summary>
-        ///     Tells this <see cref="DrawableGameEntity" /> to remove itself from our Parent and Dispose
-        /// </summary>
-        public virtual void Delete() => OnDelete?.Invoke();
+        public abstract Vector2 Size { get; set; }
 
-        public override void Removed()
-        {
-            base.Removed();
-            OnDelete = null;
-        }
+        public abstract Vector2 Scale { get; set; }
+
+        public abstract float Alpha { get; set; }
+
+        public abstract Color Color { get; set; }
     }
 }

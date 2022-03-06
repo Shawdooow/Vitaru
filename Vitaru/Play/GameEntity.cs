@@ -2,6 +2,7 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
+using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Utilities;
 using Prion.Nucleus.Debug;
@@ -17,6 +18,8 @@ namespace Vitaru.Play
         //0 = Enemies, 1 = Player, 2 = Enemy Players
         public virtual int Team { get; set; }
 
+        public virtual bool Active { get; set; }
+
         public virtual Vector2 Position
         {
             get => position;
@@ -29,6 +32,58 @@ namespace Vitaru.Play
         }
 
         private Vector2 position;
+
+        public virtual Vector2 Size
+        {
+            get => size;
+            set
+            {
+                size = value;
+                if (Drawable != null)
+                    Drawable.Size = value;
+            }
+        }
+
+        private Vector2 size;
+
+        public virtual Vector2 Scale
+        {
+            get => scale;
+            set
+            {
+                scale = value;
+                if (Drawable != null)
+                    Drawable.Scale = value;
+            }
+        }
+
+        private Vector2 scale;
+
+        public virtual float Alpha
+        {
+            get => alpha;
+            set
+            {
+                alpha = value;
+                if (Drawable != null)
+                    Drawable.Alpha = value;
+            }
+        }
+
+        private float alpha;
+
+        public virtual Color Color
+        {
+            get => color;
+            set
+            {
+                color = value;
+                if (Drawable != null)
+                    Drawable.Color = value;
+            }
+        }
+
+        private Color color;
 
         public Action<Particle> OnAddParticle;
 
