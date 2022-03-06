@@ -9,7 +9,6 @@ using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics;
-using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Utilities;
 using Prion.Nucleus.Utilities;
