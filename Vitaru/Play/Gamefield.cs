@@ -9,6 +9,12 @@ namespace Vitaru.Play
 {
     public class Gamefield
     {
+        public static double Current { get; private set; } = double.MinValue;
+
+        public virtual Shades Shade { get; set; }
+
+        public virtual float Intensity { get; set; } = 1;
+
         public class GamefieldBorder : Layer2D<Box>
         {
             public GamefieldBorder(Vector2 size)

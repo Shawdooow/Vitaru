@@ -11,6 +11,7 @@ using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Input;
+using Prion.Mitochondria.Utilities;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Vectors;
 using Vitaru.Gamemodes;
@@ -196,8 +197,6 @@ namespace Vitaru.Play.Characters.Players
 
         public override void Update()
         {
-            base.Update();
-
             if (AI) Bot();
 
             foreach (VitaruActions v in (VitaruActions[])Enum.GetValues(typeof(VitaruActions)))
@@ -236,7 +235,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            DrawablePlayer?.Seal.Update();
+            DrawablePlayer?.UpdateAnimations(this);
 
             Position = GetPositionOffset(0.3f);
 
@@ -287,7 +286,7 @@ namespace Vitaru.Play.Characters.Players
                     return;
                 case Bullet bullet:
 
-                    float min = bullet.CircularHitbox.Radius + Hitbox.Radius;
+                    float min = bullet.CircularHitbox.Radius + CircularHitbox.Radius;
 
                     if (Position.Y - bullet.Position.Y < min + maxHeal)
                         if (Position.X - bullet.Position.X < min + maxHeal)
@@ -321,8 +320,6 @@ namespace Vitaru.Play.Characters.Players
         {
             double half = TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
             shootTime = Clock.LastCurrent + half;
-
-            DrawablePlayer?.Seal.Shoot(half);
 
             float directionModifier = -0.2f * MathF.Round(count / 2f, MidpointRounding.ToZero);
 
@@ -380,13 +377,13 @@ namespace Vitaru.Play.Characters.Players
         protected override void Die()
         {
             base.Die();
-            DrawablePlayer.Hitbox.Color = Color.Red;
+            DrawablePlayer.HitboxColor = Color.Red;
         }
 
         protected override void Rezzurect()
         {
             base.Rezzurect();
-            DrawablePlayer.Hitbox.Color = Color.White;
+            DrawablePlayer.HitboxColor = Color.White;
         }
 
         protected virtual void Charge(float amount) => Energy = Math.Clamp(Energy + amount, 0, EnergyCapacity);
@@ -405,13 +402,12 @@ namespace Vitaru.Play.Characters.Players
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
-            DrawablePlayer?.Seal.Pressed(t);
+            DrawablePlayer?.Pressed(t);
 
             switch (t)
             {
                 case VitaruActions.Sneak:
-                    Drawable.HitboxOutline.FadeTo(1f, 200);
-                    Drawable.Hitbox.FadeTo(1f, 200);
+                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 1, this, Gamefield.Current, 200, Easings.None);
                     break;
                 case VitaruActions.Shoot:
                     Renderer.CurrentRoot.Cursor.Hover(PrimaryColor);
@@ -425,13 +421,12 @@ namespace Vitaru.Play.Characters.Players
             if (CheckSpellDeactivate(t))
                 SpellDeactivate(t);
 
-            DrawablePlayer?.Seal.Released(t);
+            DrawablePlayer?.Released(t);
 
             switch (t)
             {
                 case VitaruActions.Sneak:
-                    Drawable.HitboxOutline.FadeTo(0f, 200);
-                    Drawable.Hitbox.FadeTo(0f, 200);
+                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 0, this, Gamefield.Current, 200, Easings.None);
                     break;
                 case VitaruActions.Shoot:
                     Renderer.CurrentRoot.Cursor.HoverLost();
@@ -485,249 +480,6 @@ namespace Vitaru.Play.Characters.Players
 
             gridBot();
         }
-
-
-        #region Circle View Bot DEPRECATED
-
-
-        //dist
-        private const int minimums = 32;
-
-        //ms
-        private const double foresight = 10;
-
-        /// <summary>
-        ///     Look around us and determine the direction with the least amount of bullets in it
-        /// </summary>
-        [Obsolete($"Use {nameof(gridBot)}")]
-        private void circleViewBot()
-        {
-            AIBinds[VitaruActions.Sneak] = false;
-            //Grid.Alpha = 0;
-            //Target.Alpha = 0;
-
-            List<KeyValuePair<Projectile, HitResults>> n = new();
-
-            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
-            {
-                if (pack.Team == Team) continue;
-
-                IReadOnlyList<Projectile> projectiles = pack.Children;
-                for (int i = 0; i < projectiles.Count; i++)
-                {
-                    Projectile projectile = projectiles[i];
-
-                    if (!projectile.Active)
-                        continue;
-
-                    HitResults results;
-
-                    switch (projectile)
-                    {
-                        default:
-                            continue;
-                        case Bullet b:
-                            CircularHitbox hitbox = b.CircularHitbox;
-
-                            //We don't actually give a shit where the bullets are now, we want to know where they will be
-                            Vector2 f = b.GetPosition(Gamefield.Current + foresight);
-                            hitbox.Position = f;
-
-                            results = Hitbox.HitDetectionResults(hitbox);
-                            results.Position = f;
-
-                            //if they will be "close" then lets take them into account
-                            if (results.EdgeDistance <= minimums)
-                                n.Add(new KeyValuePair<Projectile, HitResults>(projectile, results));
-                            break;
-                    }
-                }
-            }
-
-            //If nothing is nearby or things are very close SNEAK!
-            if (!n.Any()) AIBinds[VitaruActions.Sneak] = true;
-
-            foreach (KeyValuePair<Projectile, HitResults> p in n)
-                if (p.Value.EdgeDistance <= minimums / 2f)
-                    AIBinds[VitaruActions.Sneak] = true;
-
-            Mounts direction = safestDirection(n);
-
-            if (direction == Mounts.Center)
-                direction = idleDirection();
-
-            switch (direction)
-            {
-                case Mounts.TopLeft:
-                    AIBinds[VitaruActions.Up] = true;
-                    AIBinds[VitaruActions.Left] = true;
-                    //Safe.Position = new Vector2(-minimums) + Position;
-                    break;
-                case Mounts.TopCenter:
-                    AIBinds[VitaruActions.Up] = true;
-                    //Safe.Position = new Vector2(0, -minimums) + Position;
-                    break;
-                case Mounts.TopRight:
-                    AIBinds[VitaruActions.Up] = true;
-                    AIBinds[VitaruActions.Right] = true;
-                    //Safe.Position = new Vector2(minimums, -minimums) + Position;
-                    break;
-                case Mounts.CenterLeft:
-                    AIBinds[VitaruActions.Left] = true;
-                    //Safe.Position = new Vector2(-minimums, 0) + Position;
-                    break;
-                case Mounts.Center:
-                    //do nothing
-                    //Safe.Position = Position;
-                    break;
-                case Mounts.CenterRight:
-                    AIBinds[VitaruActions.Right] = true;
-                    //Safe.Position = new Vector2(minimums, 0) + Position;
-                    break;
-                case Mounts.BottomLeft:
-                    AIBinds[VitaruActions.Down] = true;
-                    AIBinds[VitaruActions.Left] = true;
-                    //Safe.Position = new Vector2(-minimums, minimums) + Position;
-                    break;
-                case Mounts.BottomCenter:
-                    AIBinds[VitaruActions.Down] = true;
-                    //Safe.Position = new Vector2(0, minimums) + Position;
-                    break;
-                case Mounts.BottomRight:
-                    AIBinds[VitaruActions.Down] = true;
-                    AIBinds[VitaruActions.Right] = true;
-                    //Safe.Position = new Vector2(minimums, minimums) + Position;
-                    break;
-            }
-        }
-
-        //Degrees so I don't kill myself
-        private const float fov = 45;
-        private const float steps = 45;
-
-        private Mounts safestDirection(List<KeyValuePair<Projectile, HitResults>> nearby)
-        {
-            //If nothing will be nearby then we are safe, don't move!
-            if (!nearby.Any()) return Mounts.Center;
-
-            //Next lets find somewhere we can go safely
-            float[] angles = new float[nearby.Count];
-            for (int i = 0; i < nearby.Count; i++)
-            {
-                Vector2 pos = nearby[i].Value.Position;
-                float radian = MathF.Atan2(pos.Y - Position.Y, pos.X - Position.X) + Drawable.Rotation;
-                float degree = radian.ToDegrees() + 90;
-
-                degree = degree % 360;
-                if (degree < 0) degree += 360;
-
-                angles[i] = degree;
-            }
-
-            int[] density = new int[(int)((360 - steps) / steps)];
-
-            //Calculate approximate density around us
-            for (float i = 0; i < 360 - steps; i += steps)
-            {
-                for (int j = 0; j < angles.Length; j++)
-                {
-                    float low = i - fov / 2;
-                    float high = i + fov / 2;
-
-                    if (low < 0) low += 360;
-
-                    if (angles[j] >= low && angles[j] <= high)
-                        density[(int)(i / steps)]++;
-                }
-            }
-
-            KeyValuePair<int, int> lowest = new(int.MaxValue, int.MaxValue);
-
-            //Finally pick the least dense direction
-            for (int i = 0; i < density.Length; i++)
-            {
-                if (density[i] <= lowest.Value)
-                    lowest = new KeyValuePair<int, int>(i, density[i]);
-            }
-
-            switch (lowest.Key)
-            {
-                default:
-                    return Mounts.Center;
-                case 0:
-                    return Mounts.TopCenter;
-                case 1:
-                    return Mounts.TopRight;
-                case 2:
-                    return Mounts.CenterRight;
-                case 3:
-                    return Mounts.BottomRight;
-                case 4:
-                    return Mounts.BottomCenter;
-                case 5:
-                    return Mounts.BottomLeft;
-                case 6:
-                    return Mounts.CenterLeft;
-                case 7:
-                    return Mounts.TopLeft;
-            }
-        }
-
-        private const float margin = 100;
-
-        private Mounts idleDirection()
-        {
-            Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
-
-            int y = h();
-            switch (w())
-            {
-                default:
-                    return Mounts.Center;
-
-                case -1 when y == -1:
-                    return Mounts.TopLeft;
-                case -1 when y == 0:
-                    return Mounts.CenterLeft;
-                case -1 when y == 1:
-                    return Mounts.BottomLeft;
-
-                case 0 when y == -1:
-                    return Mounts.TopCenter;
-                case 0 when y == 0:
-                    return Mounts.Center;
-                case 0 when y == 1:
-                    return Mounts.BottomCenter;
-
-                case 1 when y == -1:
-                    return Mounts.TopRight;
-                case 1 when y == 0:
-                    return Mounts.CenterRight;
-                case 1 when y == 1:
-                    return Mounts.BottomRight;
-            }
-
-            int w()
-            {
-                if (Position.X < size.X / -2 + margin)
-                    return 1; //right
-                if (Position.X > size.X / 2 - margin)
-                    return -1; //left
-                return 0;
-            }
-
-            int h()
-            {
-                if (Position.Y < 0 + margin)
-                    return 1; //down
-                if (Position.Y > size.Y / 2 - margin)
-                    return -1; //up
-                return 0;
-            }
-        }
-
-
-        #endregion
 
 
         #region Grid Bot

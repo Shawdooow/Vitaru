@@ -10,7 +10,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus.Utilities;
-using Vitaru.Input;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -26,20 +25,15 @@ namespace Vitaru.Play.Characters.Players
         public readonly Text2D RightValue;
         public readonly Text2D LeftValue;
 
-        private readonly CircularMask circular;
+        public readonly CircularMask Circular;
 
-        private Player player;
-
-        private const double duration = 200;
-
-        public Seal(Player player)
+        public Seal()
         {
-            this.player = player;
             Size = new Vector2(256);
 
             Children = new IDrawable2D[]
             {
-                circular = new CircularMask(player),
+                Circular = new CircularMask(player),
                 Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
                 {
                     Scale = new Vector2(0.3f),
@@ -85,80 +79,15 @@ namespace Vitaru.Play.Characters.Players
             };
         }
 
-        public void Update()
-        {
-            float amount = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
-
-            if (!player.SpellActive)
-                Sign.Rotation += (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
-            else
-                Sign.Rotation -= (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
-
-            EnergyValue.Text = $"{Math.Round(player.Energy, 0)}SP";
-            HealthValue.Text = $"{Math.Round(player.Health, 0)}HP";
-
-            Sign.Alpha = PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, 0.1f);
-        }
-
-        public void Shoot(double flash) { }
-
-        public void Pressed(VitaruActions action)
-        {
-            if (action == VitaruActions.Sneak)
-            {
-                Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
-
-                circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
-
-                EnergyValue.FadeTo(0.8f, duration);
-                EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
-
-                HealthValue.FadeTo(0.8f, duration);
-                HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
-
-                LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);
-                RightValue.MoveTo(new Vector2(-40, 0), duration, Easings.OutCubic);
-            }
-        }
-
-        public void Released(VitaruActions action)
-        {
-            if (action == VitaruActions.Sneak)
-            {
-                Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
-
-                circular.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
-
-                EnergyValue.FadeTo(0, duration);
-                EnergyValue.MoveTo(new Vector2(-60, 10), duration, Easings.OutCubic);
-
-                HealthValue.FadeTo(0, duration);
-                HealthValue.MoveTo(new Vector2(60, 10), duration, Easings.OutCubic);
-
-                LeftValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
-                RightValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
-            }
-        }
-
-        protected override void Dispose(bool isDisposing)
-        {
-            player = null;
-            base.Dispose(isDisposing);
-        }
-
-        private class CircularMask : CircularLayer<MaskSprite>
+        public class CircularMask : CircularLayer<MaskSprite>
         {
             public override string Name { get; set; } = nameof(CircularMask);
-
-            private readonly Player player;
 
             private readonly MaskSprite energy;
             private readonly MaskSprite health;
 
-            public CircularMask(Player player)
+            public CircularMask()
             {
-                this.player = player;
-
                 Scale = new Vector2(0.3f);
 
                 Children = new[]
@@ -197,7 +126,7 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
-        private class MaskSprite : Sprite
+        public class MaskSprite : Sprite
         {
             public MaskSprite() { }
 
