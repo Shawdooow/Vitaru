@@ -3,16 +3,16 @@
 
 using System.Drawing;
 using System.Numerics;
-using Prion.Nucleus.Utilities.Interfaces;
+using Prion.Nucleus.Entitys;
 
 namespace Vitaru.Play
 {
     /// <summary>
     /// Wrapper for Game Drawables
     /// </summary>
-    public abstract class DrawableGameEntity : IHasName
+    public abstract class DrawableGameEntity : Disposable
     {
-        public virtual string Name { get; set; } = nameof(DrawableGameEntity);
+        public override string Name { get; set; } = nameof(DrawableGameEntity);
 
         public abstract Vector2 Position { get; set; }
 

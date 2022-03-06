@@ -36,12 +36,12 @@ namespace Vitaru.Graphics.Projectiles.Bullets
         private static BufferHandle verts;
 
         public readonly Vector2[] bPosition;
-        public readonly float[] bSize;
+        public readonly Vector2[] bSize;
         public readonly Vector4[] bCircleColor;
         public readonly Vector4[] bGlowColor;
 
         private readonly VertexArrayBuffer<Vector2> posBuffer;
-        private readonly VertexArrayBuffer<float> sizeBuffer;
+        private readonly VertexArrayBuffer<Vector2> sizeBuffer;
         private readonly VertexArrayBuffer<Vector4> circleColorBuffer;
         private readonly VertexArrayBuffer<Vector4> glowColorBuffer;
 
@@ -54,13 +54,13 @@ namespace Vitaru.Graphics.Projectiles.Bullets
             Benchmark benchmark = new($"{nameof(BulletLayer)}.ctor", true);
 
             bPosition = new Vector2[bullet_cap];
-            bSize = new float[bullet_cap];
+            bSize = new Vector2[bullet_cap];
             bCircleColor = new Vector4[bullet_cap];
             bGlowColor = new Vector4[bullet_cap];
             bDead = new bool[bullet_cap];
 
             posBuffer = new VertexArrayBuffer<Vector2>(ref bPosition, 2, 11);
-            sizeBuffer = new VertexArrayBuffer<float>(ref bSize, 1, 12);
+            sizeBuffer = new VertexArrayBuffer<Vector2>(ref bSize, 2, 12);
             circleColorBuffer = new VertexArrayBuffer<Vector4>(ref bCircleColor, 4, 13);
             glowColorBuffer = new VertexArrayBuffer<Vector4>(ref bGlowColor, 4, 14);
 

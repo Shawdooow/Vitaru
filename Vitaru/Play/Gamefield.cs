@@ -62,7 +62,7 @@ namespace Vitaru.Play
             Name = "Player Pack",
         };
 
-        public readonly Layer2D<DrawableGameEntity> CharacterLayer = new()
+        public readonly Layer2D<IDrawable2D> CharacterLayer = new()
         {
             Name = "Drawable Character Layer2D",
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
@@ -562,7 +562,7 @@ namespace Vitaru.Play
             }
         }
 
-        //Assign the multithreads their tasks
+        //Assign the multi-threads their tasks
         public void AssignTasks(ProjectilePack pack)
         {
             for (int i = 0; i < Vitaru.DynamicThreads.Count; i++)

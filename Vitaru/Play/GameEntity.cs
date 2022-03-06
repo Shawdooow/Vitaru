@@ -85,6 +85,8 @@ namespace Vitaru.Play
 
         private Color color;
 
+        public abstract Hitbox GetHitbox();
+
         public Action<Particle> OnAddParticle;
 
         protected DrawableGameEntity Drawable;
@@ -98,9 +100,22 @@ namespace Vitaru.Play
 
         public abstract DrawableGameEntity GenerateDrawable();
 
+        /// <summary>
+        ///     Called by Update Thread
+        /// </summary>
+        public virtual void UpdateDrawable()
+        {
+            Drawable.Position = Position;
+            Drawable.Size = Size;
+            Drawable.Scale = Scale;
+            Drawable.Alpha = Alpha;
+            Drawable.Color = Color;
+        }
+
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
+            Drawable?.Dispose();
             Drawable = null;
         }
     }
