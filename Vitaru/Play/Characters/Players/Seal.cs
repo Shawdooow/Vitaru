@@ -1,15 +1,12 @@
 ﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
 using System.Numerics;
-using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -33,12 +30,11 @@ namespace Vitaru.Play.Characters.Players
 
             Children = new IDrawable2D[]
             {
-                Circular = new CircularMask(player),
-                Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
+                Circular = new CircularMask(),
+                Sign = new Sprite
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0.5f,
-                    Color = player.SecondaryColor,
                 },
 
                 EnergyValue = new Text2D(false)
@@ -48,7 +44,6 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f,
                     Alpha = 0,
-                    Color = player.ComplementaryColor,
                 },
                 HealthValue = new Text2D(false)
                 {
@@ -57,7 +52,6 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopLeft,
                     FontScale = 0.25f,
                     Alpha = 0,
-                    Color = player.ComplementaryColor,
                 },
 
                 LeftValue = new Text2D(false)
@@ -66,7 +60,6 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterRight,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
-                    Color = player.ComplementaryColor,
                 },
                 RightValue = new Text2D(false)
                 {
@@ -74,7 +67,6 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterLeft,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
-                    Color = player.ComplementaryColor,
                 },
             };
         }
@@ -83,8 +75,11 @@ namespace Vitaru.Play.Characters.Players
         {
             public override string Name { get; set; } = nameof(CircularMask);
 
-            private readonly MaskSprite energy;
-            private readonly MaskSprite health;
+            public readonly MaskSprite Energy;
+            public readonly MaskSprite Health;
+
+            public float EnergyProgress;
+            public float HealthProgress;
 
             public CircularMask()
             {
@@ -92,34 +87,23 @@ namespace Vitaru.Play.Characters.Players
 
                 Children = new[]
                 {
-                    energy = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
-                    {
-                        Color = player.SecondaryColor,
-                    },
-                    health = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
-                    {
-                        Color = player.PrimaryColor,
-                    },
+                    Energy = new MaskSprite(),
+                    Health = new MaskSprite(),
                 };
             }
-
-            private const float start = 0;
-            private const float end = MathF.PI * 2;
 
             public override void Render()
             {
                 Renderer.CircularProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.CircularProgram;
 
-                Renderer.ShaderManager.UpdateFloat("startAngle", start);
-                Renderer.ShaderManager.UpdateFloat("endAngle",
-                    PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, start, end));
-                energy.Render();
+                Renderer.ShaderManager.UpdateFloat("startAngle", DrawablePlayer.START);
+                Renderer.ShaderManager.UpdateFloat("endAngle", EnergyProgress);
+                Energy.Render();
 
-                Renderer.ShaderManager.UpdateFloat("startAngle",
-                    PrionMath.Remap(player.Health, 0, player.HealthCapacity, end, start));
-                Renderer.ShaderManager.UpdateFloat("endAngle", end);
-                health.Render();
+                Renderer.ShaderManager.UpdateFloat("startAngle", HealthProgress);
+                Renderer.ShaderManager.UpdateFloat("endAngle", DrawablePlayer.END);
+                Health.Render();
 
                 Renderer.SpriteProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;

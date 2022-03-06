@@ -122,11 +122,9 @@ namespace Vitaru.Roots.Menu
             {
                 base.LoadingComplete();
 
-                DrawableGameEntity drawable = pair.Value.GenerateDrawable();
-                drawable.Position = Vector2.Zero;
+                //Load the Drawable here
                 AddArray(new IDrawable2D[]
                 {
-                    drawable,
                     new Text2D
                     {
                         ParentOrigin = Mounts.TopCenter,
@@ -148,19 +146,6 @@ namespace Vitaru.Roots.Menu
                             Color.Black : Color.Red : Color.Yellow,
                         FontScale = 1f,
                     });
-
-                if (drawable is DrawablePlayer p)
-                {
-                    sign = p.Seal.Sign;
-                    p.Hitbox.Alpha = 1;
-                    p.HitboxOutline.Alpha = 1;
-                }
-            }
-
-            public override void PreRender()
-            {
-                base.PreRender();
-                sign.Rotation += (float)(Clock.LastElapsedTime / 1000 * pair.Value.SealRotationSpeed);
             }
 
             public override bool OnMouseDown(MouseButtonEvent e)

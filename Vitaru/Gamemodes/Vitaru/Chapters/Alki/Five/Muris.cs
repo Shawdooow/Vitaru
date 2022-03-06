@@ -50,7 +50,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Metronome = new Metronome(this, Gamefield.OverlaysLayer));
+            //Gamefield.OverlaysLayer.Add(Metronome = new Metronome(this, Gamefield.OverlaysLayer));
         }
     }
 }

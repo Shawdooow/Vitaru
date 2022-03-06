@@ -272,49 +272,6 @@ namespace Vitaru.Play.Characters.Players
         #region Shooting
 
 
-        protected override void ParseProjectile(Projectile projectile)
-        {
-            base.ParseProjectile(projectile);
-
-            const int maxHeal = 64;
-            float edgeDistance = float.MaxValue;
-
-            switch (projectile)
-            {
-                default:
-                    return;
-                case Bullet bullet:
-
-                    float min = bullet.CircularHitbox.Radius + CircularHitbox.Radius;
-
-                    if (Position.Y - bullet.Position.Y < min + maxHeal)
-                        if (Position.X - bullet.Position.X < min + maxHeal)
-                        {
-                            float distance = Vector2.Distance(projectile.Position, Position);
-                            edgeDistance = distance - min;
-                        }
-
-                    break;
-            }
-
-            if (edgeDistance < maxHeal)
-            {
-                bool add = true;
-                foreach (HealingProjectile healingProjectile in HealingProjectiles)
-                    if (healingProjectile.Projectile == projectile)
-                    {
-                        healingProjectile.EdgeDistance = edgeDistance;
-                        add = false;
-                    }
-
-                if (add)
-                    HealingProjectiles.Add(new HealingProjectile(projectile, edgeDistance));
-            }
-
-            if (edgeDistance < projectile.MinDistance)
-                projectile.MinDistance = edgeDistance;
-        }
-
         protected virtual void PatternWave(int count = 3)
         {
             double half = TrackManager.CurrentTrack.Metadata.GetBeatLength() / 2;
@@ -351,7 +308,7 @@ namespace Vitaru.Play.Characters.Players
                 }
 
                 //-90 = up
-                BulletAddRad(1, cursorAngle + directionModifier, color, size, damage, 800);
+                //BulletAddRad(1, cursorAngle + directionModifier, color, size, damage, 800);
 
                 if (GetBind(VitaruActions.Sneak))
                     directionModifier += 0.1f;
@@ -477,7 +434,7 @@ namespace Vitaru.Play.Characters.Players
             AIBinds[VitaruActions.Left] = false;
             AIBinds[VitaruActions.Right] = false;
 
-            gridBot();
+            //gridBot();
         }
 
 
@@ -487,263 +444,263 @@ namespace Vitaru.Play.Characters.Players
         /// <summary>
         ///     Use a grid system to determine a safe spot for us to travel to using pathing AI
         /// </summary>
-        private void gridBot()
-        {
-            AIBinds[VitaruActions.Sneak] = false;
-
-            AIBinds[VitaruActions.Shoot] = true;
-
-            Vector2 target = TargetPositions[Target];
-
-            if (Vector2.Distance(Position, target) <= 8)
-            {
-                Target++;
-                if (Target >= TargetPositions.Count) Target = 0;
-            }
-
-            Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
-
-            float tileWidth = playfield.X / gridDivisorWidth;
-            float tileHeight = playfield.Y / gridDivisorHeight;
-
-            int[,] tiles = new int[gridDivisorWidth, gridDivisorHeight];
-
-            //The tile the player is in
-            Vector2Int playerTile = new(-1);
-
-            //first we want to locate the tile the player is in so we can just check for projectiles near it
-            for (int x = 0; x < gridDivisorWidth; x++)
-            {
-                int tileX = x - gridDivisorWidth / 2;
-
-                for (int y = 0; y < gridDivisorHeight; y++)
-                {
-                    int tileY = y - gridDivisorHeight / 2;
-
-                    //check if the player is here
-                    if (Position.X >= tileX * tileWidth && Position.X <= (tileX + 1) * tileWidth &&
-                        Position.Y >= tileY * tileHeight && Position.Y <= (tileY + 1) * tileHeight)
-                    {
-                        playerTile = new Vector2Int(x, y);
-                        break;
-                    }
-                }
-
-                if (playerTile.X != -1) break;
-            }
-
-            //how many tiles (x2) across is the grid
-            const int view = 12;
-            //how much extra space around projectiles should we treat as part of the projectile and avoid?
-            const float pMargin = 4;
-
-            //check for projectiles that intersect total view area first and then sub-check those against the tiles
-
-            //Grid hitbox
-            RectangularHitbox grid = new()
-            {
-                Size = new Vector2(tileWidth, tileHeight) * view * 2,
-                Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2),
-                    (playerTile.Y - view) * tileHeight - (playfield.Y / 2)),
-            };
-
-            //Grid.Size = grid.Size;
-            //Grid.Position = grid.Position;
-
-            List<RectangularHitbox> nearby = new();
-            //look ahead 1/60 a second
-            double futureTime = Gamefield.Current + 1000 / 60d;
-
-            //now check if any projectiles are intersecting this grid tile
-            foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
-            {
-                if (pack.Team == Team) continue;
-
-                foreach (Projectile projectile in pack.Children)
-                {
-                    //if the projectile is here increase the tile's "density" so we know to avoid it
-                    switch (projectile)
-                    {
-                        case Bullet bullet:
-
-                            if (!bullet.Active) continue;
-
-                            float radius = bullet.CircularHitbox.Radius + pMargin / 2;
-
-                            RectangularHitbox box = new()
-                            {
-                                Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
-                                Position = new Vector2(bullet.CircularHitbox.Position.X - radius,
-                                    bullet.CircularHitbox.Position.Y - radius),
-                            };
-
-                            if (grid.HitDetectionResults(box))
-                                nearby.Add(box);
-
-                            //fast-forward and check again
-                            Vector2 futurePos = bullet.GetPosition(futureTime);
-
-                            box.Position = new Vector2(futurePos.X - radius, futurePos.Y - radius);
-
-                            if (grid.HitDetectionResults(box))
-                                nearby.Add(box);
-
-                            break;
-                    }
-                }
-            }
-
-            if (Vector2.Distance(Position, target) <= 32 && !nearby.Any()) return;
-
-            // iterate through grid tiles near the player and search projectiles for collisions
-            for (int x = playerTile.X - view; x < playerTile.X + view; x++)
-            {
-                if (x < 0 || x >= gridDivisorWidth) continue;
-                int tileX = x - gridDivisorWidth / 2;
-
-                for (int y = playerTile.Y - view; y < playerTile.Y + view; y++)
-                {
-                    if (y < 0 || y >= gridDivisorHeight) continue;
-                    int tileY = y - gridDivisorHeight / 2;
-
-                    //Tile hitbox
-                    RectangularHitbox tile = new()
-                    {
-                        Size = new Vector2(tileWidth, tileHeight),
-                        Position = new Vector2(tileWidth * tileX, tileHeight * tileY),
-                    };
-
-                    //now check if any projectiles are intersecting this tile
-                    foreach (RectangularHitbox projectile in nearby)
-                    {
-                        //if the projectile is here increase the tile's "density" so we know to avoid it
-                        if (tile.HitDetectionResults(projectile))
-                            tiles[x, y]++;
-                    }
-                }
-            }
-
-            //ok now that we have densities of the grid tiles,
-            //lets choose a location to travel to thats close and safe
-
-            //The targeted tile
-            Vector2Int targetTile = Vector2Int.Zero;
-
-            //just use TargetLocation for now
-            for (int x = 0; x < gridDivisorWidth; x++)
-            {
-                int tileX = x - gridDivisorWidth / 2;
-
-                for (int y = 0; y < gridDivisorHeight; y++)
-                {
-                    int tileY = y - gridDivisorHeight / 2;
-
-                    //check if the TargetPosition is here
-                    if (target.X >= tileX * tileWidth && target.X <= (tileX + 1) * tileWidth &&
-                        target.Y >= tileY * tileHeight && target.Y <= (tileY + 1) * tileHeight)
-                        targetTile = new Vector2Int(x, y);
-                }
-            }
-
-            Vector2 targetTilePos = new(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2),
-                targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
-            //Target.Position = targetTilePos;
-
-            //ok now that we have picked a location lets find a safe path to get there
-
-            //for now lets just pick a safe direction and assume the "path" is safe
-
-            List<Vector3Int> path = new();
-            Vector3Int next = nextTile(playerTile, targetTile);
-
-            for (int i = 0; i < 4; i++)
-            {
-                path.Add(next);
-
-                if (next.XY == targetTile) break;
-                next = nextTile(next.XY, targetTile);
-            }
-
-            //visualize path a bit
-            //for (int i = 0; i < Path.Count; i++)
-            //    Path[i].Alpha = 0;
-
-            //for (int i = 1; i < path.Count && i < Path.Count; i++)
-            //{
-            //    Sprite node = Path[i - 1];
-            //
-            //    node.Position = new Vector2(path[i].X * tileWidth + (tileWidth / 2) - playfield.X / 2, path[i].Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-            //    node.Alpha = 0.75f;
-            //}
-
-            //now lets go there!
-            Vector3Int first = path.First();
-
-            Vector2 nextTilePos = new(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
-                first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-            //Safe.Position = nextTilePos;
-
-            //move X?
-            if (Position.X < nextTilePos.X - tilePositioningMargin)
-                AIBinds[VitaruActions.Right] = true;
-            if (Position.X > nextTilePos.X + tilePositioningMargin)
-                AIBinds[VitaruActions.Left] = true;
-
-            //move Y?
-            if (Position.Y < nextTilePos.Y - tilePositioningMargin)
-                AIBinds[VitaruActions.Down] = true;
-            if (Position.Y > nextTilePos.Y + tilePositioningMargin)
-                AIBinds[VitaruActions.Up] = true;
-
-            Vector3Int nextTile(Vector2Int current, Vector2Int final)
-            {
-                List<KeyValuePair<Vector2Int, float>> adjacent = adjacentTiles(current, final);
-
-                int density = 0;
-                //if there are ever more than 128 projectiles on one tile then may god have no mercy for the level designer's soul...
-                while (density <= 128)
-                {
-                    for (int i = 0; i < adjacent.Count; i++)
-                    {
-                        Vector2Int ad = adjacent[i].Key;
-                        if (tiles[ad.X, ad.Y] <= density)
-                            return new Vector3Int(ad, density);
-                    }
-
-                    density++;
-                }
-
-                return new Vector3Int(-1);
-            }
-
-            //get adjacent tiles ordered by least total travel distance to it then the target
-            List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current, Vector2Int final)
-            {
-                List<KeyValuePair<Vector2Int, float>> adjacent = new();
-
-                Vector2 finalTile = new(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
-                    final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-
-                for (int x = current.X - 1; x <= current.X + 1; x++)
-                {
-                    if (x < 0 || x >= gridDivisorWidth || x == current.X) continue;
-
-                    for (int y = current.Y - 1; y <= current.Y + 1; y++)
-                    {
-                        if (y < 0 || y >= gridDivisorHeight || y == current.Y) continue;
-
-                        Vector2 adjacentTile = new(x * tileWidth + (tileWidth / 2) - playfield.X / 2,
-                            y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
-                        float travel = Vector2.Distance(Position, adjacentTile);
-                        float remaining = Vector2.Distance(adjacentTile, finalTile);
-
-                        adjacent.Add(new KeyValuePair<Vector2Int, float>(new Vector2Int(x, y), travel + remaining));
-                    }
-                }
-
-                return adjacent.OrderBy(pair => pair.Value).ToList();
-            }
-        }
+        //private void gridBot()
+        //{
+        //    AIBinds[VitaruActions.Sneak] = false;
+        //
+        //    AIBinds[VitaruActions.Shoot] = true;
+        //
+        //    Vector2 target = TargetPositions[Target];
+        //
+        //    if (Vector2.Distance(Position, target) <= 8)
+        //    {
+        //        Target++;
+        //        if (Target >= TargetPositions.Count) Target = 0;
+        //    }
+        //
+        //    Vector2 playfield = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+        //
+        //    float tileWidth = playfield.X / gridDivisorWidth;
+        //    float tileHeight = playfield.Y / gridDivisorHeight;
+        //
+        //    int[,] tiles = new int[gridDivisorWidth, gridDivisorHeight];
+        //
+        //    //The tile the player is in
+        //    Vector2Int playerTile = new(-1);
+        //
+        //    //first we want to locate the tile the player is in so we can just check for projectiles near it
+        //    for (int x = 0; x < gridDivisorWidth; x++)
+        //    {
+        //        int tileX = x - gridDivisorWidth / 2;
+        //
+        //        for (int y = 0; y < gridDivisorHeight; y++)
+        //        {
+        //            int tileY = y - gridDivisorHeight / 2;
+        //
+        //            //check if the player is here
+        //            if (Position.X >= tileX * tileWidth && Position.X <= (tileX + 1) * tileWidth &&
+        //                Position.Y >= tileY * tileHeight && Position.Y <= (tileY + 1) * tileHeight)
+        //            {
+        //                playerTile = new Vector2Int(x, y);
+        //                break;
+        //            }
+        //        }
+        //
+        //        if (playerTile.X != -1) break;
+        //    }
+        //
+        //    //how many tiles (x2) across is the grid
+        //    const int view = 12;
+        //    //how much extra space around projectiles should we treat as part of the projectile and avoid?
+        //    const float pMargin = 4;
+        //
+        //    //check for projectiles that intersect total view area first and then sub-check those against the tiles
+        //
+        //    //Grid hitbox
+        //    RectangularHitbox grid = new()
+        //    {
+        //        Size = new Vector2(tileWidth, tileHeight) * view * 2,
+        //        Position = new Vector2((playerTile.X - view) * tileWidth - (playfield.X / 2),
+        //            (playerTile.Y - view) * tileHeight - (playfield.Y / 2)),
+        //    };
+        //
+        //    //Grid.Size = grid.Size;
+        //    //Grid.Position = grid.Position;
+        //
+        //    List<RectangularHitbox> nearby = new();
+        //    //look ahead 1/60 a second
+        //    double futureTime = Gamefield.Current + 1000 / 60d;
+        //
+        //    //now check if any projectiles are intersecting this grid tile
+        //    foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+        //    {
+        //        if (pack.Team == Team) continue;
+        //
+        //        foreach (Projectile projectile in pack.Children)
+        //        {
+        //            //if the projectile is here increase the tile's "density" so we know to avoid it
+        //            switch (projectile)
+        //            {
+        //                case Bullet bullet:
+        //
+        //                    if (!bullet.Active) continue;
+        //
+        //                    float radius = bullet.CircularHitbox.Radius + pMargin / 2;
+        //
+        //                    RectangularHitbox box = new()
+        //                    {
+        //                        Size = new Vector2(bullet.CircularHitbox.Diameter + pMargin),
+        //                        Position = new Vector2(bullet.CircularHitbox.Position.X - radius,
+        //                            bullet.CircularHitbox.Position.Y - radius),
+        //                    };
+        //
+        //                    if (grid.HitDetectionResults(box))
+        //                        nearby.Add(box);
+        //
+        //                    //fast-forward and check again
+        //                    Vector2 futurePos = bullet.GetPosition(futureTime);
+        //
+        //                    box.Position = new Vector2(futurePos.X - radius, futurePos.Y - radius);
+        //
+        //                    if (grid.HitDetectionResults(box))
+        //                        nearby.Add(box);
+        //
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //
+        //    if (Vector2.Distance(Position, target) <= 32 && !nearby.Any()) return;
+        //
+        //    // iterate through grid tiles near the player and search projectiles for collisions
+        //    for (int x = playerTile.X - view; x < playerTile.X + view; x++)
+        //    {
+        //        if (x < 0 || x >= gridDivisorWidth) continue;
+        //        int tileX = x - gridDivisorWidth / 2;
+        //
+        //        for (int y = playerTile.Y - view; y < playerTile.Y + view; y++)
+        //        {
+        //            if (y < 0 || y >= gridDivisorHeight) continue;
+        //            int tileY = y - gridDivisorHeight / 2;
+        //
+        //            //Tile hitbox
+        //            RectangularHitbox tile = new()
+        //            {
+        //                Size = new Vector2(tileWidth, tileHeight),
+        //                Position = new Vector2(tileWidth * tileX, tileHeight * tileY),
+        //            };
+        //
+        //            //now check if any projectiles are intersecting this tile
+        //            foreach (RectangularHitbox projectile in nearby)
+        //            {
+        //                //if the projectile is here increase the tile's "density" so we know to avoid it
+        //                if (tile.HitDetectionResults(projectile))
+        //                    tiles[x, y]++;
+        //            }
+        //        }
+        //    }
+        //
+        //    //ok now that we have densities of the grid tiles,
+        //    //lets choose a location to travel to thats close and safe
+        //
+        //    //The targeted tile
+        //    Vector2Int targetTile = Vector2Int.Zero;
+        //
+        //    //just use TargetLocation for now
+        //    for (int x = 0; x < gridDivisorWidth; x++)
+        //    {
+        //        int tileX = x - gridDivisorWidth / 2;
+        //
+        //        for (int y = 0; y < gridDivisorHeight; y++)
+        //        {
+        //            int tileY = y - gridDivisorHeight / 2;
+        //
+        //            //check if the TargetPosition is here
+        //            if (target.X >= tileX * tileWidth && target.X <= (tileX + 1) * tileWidth &&
+        //                target.Y >= tileY * tileHeight && target.Y <= (tileY + 1) * tileHeight)
+        //                targetTile = new Vector2Int(x, y);
+        //        }
+        //    }
+        //
+        //    Vector2 targetTilePos = new(targetTile.X * tileWidth + (tileWidth / 2) - (playfield.X / 2),
+        //        targetTile.Y * tileHeight + (tileHeight / 2) - (playfield.Y / 2));
+        //    //Target.Position = targetTilePos;
+        //
+        //    //ok now that we have picked a location lets find a safe path to get there
+        //
+        //    //for now lets just pick a safe direction and assume the "path" is safe
+        //
+        //    List<Vector3Int> path = new();
+        //    Vector3Int next = nextTile(playerTile, targetTile);
+        //
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        path.Add(next);
+        //
+        //        if (next.XY == targetTile) break;
+        //        next = nextTile(next.XY, targetTile);
+        //    }
+        //
+        //    //visualize path a bit
+        //    //for (int i = 0; i < Path.Count; i++)
+        //    //    Path[i].Alpha = 0;
+        //
+        //    //for (int i = 1; i < path.Count && i < Path.Count; i++)
+        //    //{
+        //    //    Sprite node = Path[i - 1];
+        //    //
+        //    //    node.Position = new Vector2(path[i].X * tileWidth + (tileWidth / 2) - playfield.X / 2, path[i].Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+        //    //    node.Alpha = 0.75f;
+        //    //}
+        //
+        //    //now lets go there!
+        //    Vector3Int first = path.First();
+        //
+        //    Vector2 nextTilePos = new(first.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
+        //        first.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+        //    //Safe.Position = nextTilePos;
+        //
+        //    //move X?
+        //    if (Position.X < nextTilePos.X - tilePositioningMargin)
+        //        AIBinds[VitaruActions.Right] = true;
+        //    if (Position.X > nextTilePos.X + tilePositioningMargin)
+        //        AIBinds[VitaruActions.Left] = true;
+        //
+        //    //move Y?
+        //    if (Position.Y < nextTilePos.Y - tilePositioningMargin)
+        //        AIBinds[VitaruActions.Down] = true;
+        //    if (Position.Y > nextTilePos.Y + tilePositioningMargin)
+        //        AIBinds[VitaruActions.Up] = true;
+        //
+        //    Vector3Int nextTile(Vector2Int current, Vector2Int final)
+        //    {
+        //        List<KeyValuePair<Vector2Int, float>> adjacent = adjacentTiles(current, final);
+        //
+        //        int density = 0;
+        //        //if there are ever more than 128 projectiles on one tile then may god have no mercy for the level designer's soul...
+        //        while (density <= 128)
+        //        {
+        //            for (int i = 0; i < adjacent.Count; i++)
+        //            {
+        //                Vector2Int ad = adjacent[i].Key;
+        //                if (tiles[ad.X, ad.Y] <= density)
+        //                    return new Vector3Int(ad, density);
+        //            }
+        //
+        //            density++;
+        //        }
+        //
+        //        return new Vector3Int(-1);
+        //    }
+        //
+        //    //get adjacent tiles ordered by least total travel distance to it then the target
+        //    List<KeyValuePair<Vector2Int, float>> adjacentTiles(Vector2Int current, Vector2Int final)
+        //    {
+        //        List<KeyValuePair<Vector2Int, float>> adjacent = new();
+        //
+        //        Vector2 finalTile = new(final.X * tileWidth + (tileWidth / 2) - playfield.X / 2,
+        //            final.Y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+        //
+        //        for (int x = current.X - 1; x <= current.X + 1; x++)
+        //        {
+        //            if (x < 0 || x >= gridDivisorWidth || x == current.X) continue;
+        //
+        //            for (int y = current.Y - 1; y <= current.Y + 1; y++)
+        //            {
+        //                if (y < 0 || y >= gridDivisorHeight || y == current.Y) continue;
+        //
+        //                Vector2 adjacentTile = new(x * tileWidth + (tileWidth / 2) - playfield.X / 2,
+        //                    y * tileHeight + (tileHeight / 2) - playfield.Y / 2);
+        //                float travel = Vector2.Distance(Position, adjacentTile);
+        //                float remaining = Vector2.Distance(adjacentTile, finalTile);
+        //
+        //                adjacent.Add(new KeyValuePair<Vector2Int, float>(new Vector2Int(x, y), travel + remaining));
+        //            }
+        //        }
+        //
+        //        return adjacent.OrderBy(pair => pair.Value).ToList();
+        //    }
+        //}
 
 
         #endregion

@@ -130,18 +130,18 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
             intensity();
             Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
-            DrawablePlayer.Sprite.Color = ComplementaryColor;
-            DrawablePlayer.HitboxOutline.Color = ComplementaryColor;
-            DrawablePlayer.Seal.Sign.Color = PrimaryColor;
+            DrawablePlayer.Color = ComplementaryColor;
+            DrawablePlayer.SecondaryColor = ComplementaryColor;
+            DrawablePlayer.ComplementaryColor = PrimaryColor;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
         {
             base.SpellDeactivate(action);
 
-            DrawablePlayer.Sprite.Color = PrimaryColor;
-            DrawablePlayer.HitboxOutline.Color = SecondaryColor;
-            DrawablePlayer.Seal.Sign.Color = SecondaryColor;
+            DrawablePlayer.Color = PrimaryColor;
+            DrawablePlayer.SecondaryColor = SecondaryColor;
+            DrawablePlayer.ComplementaryColor = ComplementaryColor;
         }
 
         private void intensity()
@@ -203,7 +203,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                     intensity();
                 }
 
-            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
+            if (DrawablePlayer != null) DrawablePlayer.LeftValue = $"{SetRate}x";
         }
 
         private void applyToTrack(double speed)
@@ -214,11 +214,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             MovementSpeedMultiplier = 1 / speed;
         }
 
-        protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
-            float distance)
-        {
-            if (SpellActive && color == PrimaryColor) color = ComplementaryColor;
-            base.BulletAddRad(speed, angle, color, size, damage, distance);
-        }
+        //protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
+        //    float distance)
+        //{
+        //    if (SpellActive && color == PrimaryColor) color = ComplementaryColor;
+        //    base.BulletAddRad(speed, angle, color, size, damage, distance);
+        //}
     }
 }

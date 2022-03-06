@@ -17,6 +17,7 @@ using Prion.Mitochondria.Graphics.Shaders;
 using Prion.Mitochondria.Graphics.Verticies;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Prion.Nucleus.Groups;
 using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Projectiles.Bullets

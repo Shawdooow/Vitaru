@@ -15,6 +15,11 @@ namespace Vitaru.Play
 
         public virtual float Intensity { get; set; } = 1;
 
+        public Gamefield()
+        {
+
+        }
+
         public class GamefieldBorder : Layer2D<Box>
         {
             public GamefieldBorder(Vector2 size)

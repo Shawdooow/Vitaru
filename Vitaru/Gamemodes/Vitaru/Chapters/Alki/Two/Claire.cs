@@ -148,7 +148,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         protected override void SpellUpdate()
         {
             base.SpellUpdate();
-            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{Buffs}x";
+            if (DrawablePlayer != null) DrawablePlayer.LeftValue = $"{Buffs}x";
         }
     }
 }

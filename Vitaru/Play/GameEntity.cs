@@ -96,6 +96,12 @@ namespace Vitaru.Play
             Debugger.Assert(!Disposed, $"Can't set {nameof(Drawable)} of a {nameof(Disposed)} {nameof(GameEntity)}");
             Debugger.Assert(Drawable == null, $"{nameof(Drawable)} should be null");
             Drawable = drawable;
+            InitDrawable();
+        }
+
+        public virtual void InitDrawable()
+        {
+            UpdateDrawable();
         }
 
         /// <summary>
