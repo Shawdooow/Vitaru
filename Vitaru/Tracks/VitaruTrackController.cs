@@ -115,9 +115,15 @@ namespace Vitaru.Tracks
             base.PrimeTrackManager();
         }
 
-        protected override Texture GetBackground(string bg) => bg == "default"
+        protected override Texture GetBackground(string bg)
+        {
+            if (bg[0] == '#')
+                return Vitaru.TextureStore.GetTexture(bg.Trim('#'), BackgroundFiltered);
+
+            return bg == "default"
             ? base.GetBackground(bg)
             : Vitaru.LevelTextureStore.GetTexture(bg, BackgroundFiltered);
+        }
 
         public override bool OnKeyDown(KeyboardKeyEvent e)
         {

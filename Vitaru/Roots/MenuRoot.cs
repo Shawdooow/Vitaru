@@ -140,8 +140,11 @@ namespace Vitaru.Roots
 
             if (bg != string.Empty && UseLevelBackground)
             {
-                Background.Texture =
-                    bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg, ft);
+                if (bg[0] == '#')
+                    Background.Texture = Vitaru.TextureStore.GetTexture(bg.Trim('#'), ft);
+                else
+                    Background.Texture =
+                        bg == "default" ? ThemeManager.GetBackground() : Vitaru.LevelTextureStore.GetTexture(bg, ft);
                 bg = string.Empty;
                 ft = true;
             }
@@ -151,7 +154,7 @@ namespace Vitaru.Roots
         {
             if (t.Metadata.Image != string.Empty)
             {
-                bg = $"{t.Metadata.Title}\\{t.Metadata.Image}";
+                bg = t.Metadata.Image[0] == '#' ? t.Metadata.Image : $"{t.Metadata.Title}\\{t.Metadata.Image}";
                 ft = t.Metadata.Filtering;
             }
             else
