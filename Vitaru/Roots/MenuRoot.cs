@@ -70,7 +70,7 @@ namespace Vitaru.Roots
             if (UseLevelBackground && TrackManager.CurrentTrack.Metadata.Image != string.Empty)
                 Background.Texture = TrackManager.CurrentTrack.Metadata.Image[0] == '#' ? 
                     Vitaru.TextureStore.GetTexture(
-                        TrackManager.CurrentTrack.Metadata.Image, TrackManager.CurrentTrack.Metadata.Filtering) : 
+                        TrackManager.CurrentTrack.Metadata.Image.Trim('#'), TrackManager.CurrentTrack.Metadata.Filtering) : 
                     Vitaru.LevelTextureStore.GetTexture(
                         $"{TrackManager.CurrentTrack.Metadata.Title}\\{TrackManager.CurrentTrack.Metadata.Image}",
                         TrackManager.CurrentTrack.Metadata.Filtering);
