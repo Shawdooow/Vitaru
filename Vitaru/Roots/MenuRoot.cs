@@ -15,6 +15,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
+using Vitaru.Graphics.UI;
 
 namespace Vitaru.Roots
 {
@@ -33,7 +34,7 @@ namespace Vitaru.Roots
         protected readonly Layer2D<IDrawable2D> BackgroundLayer;
         protected readonly Sprite Background;
         protected readonly Box Dim;
-        protected Button Back;
+        protected VitaruButton Back;
 
         private string bg = string.Empty;
         private bool ft = true;
@@ -82,7 +83,7 @@ namespace Vitaru.Roots
             TrackManager.OnTrackChange += TrackChange;
 
             if (Back == null)
-                Add(Back = new Button
+                Add(Back = new VitaruButton
                 {
                     Name = "Back",
                     ParentOrigin = Mounts.BottomLeft,
@@ -91,10 +92,7 @@ namespace Vitaru.Roots
                     Size = new Vector2(80, 40),
 
                     Background = Game.TextureStore.GetTexture("square.png"),
-                    BackgroundSprite =
-                    {
-                        Color = Color.Red,
-                    },
+                    Color = Color.Red,
 
                     Text = "Back",
                     Text2D =

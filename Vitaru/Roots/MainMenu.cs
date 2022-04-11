@@ -11,6 +11,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
+using Vitaru.Graphics.UI;
 using Vitaru.Levels;
 using Vitaru.Roots.Menu;
 using Vitaru.Roots.Multi;
@@ -34,16 +35,13 @@ namespace Vitaru.Roots
 
         public MainMenu(Vitaru vitaru)
         {
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(-x, -y - height / 2),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.PrimaryColor,
-                },
+                Color = ThemeManager.PrimaryColor,
 
                 Text = "Solo",
 
@@ -53,16 +51,13 @@ namespace Vitaru.Roots
                         AddRoot(new LevelRoot());
                 },
             });
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(x, -y - height / 2),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.SecondaryColor,
-                },
+                Color = ThemeManager.SecondaryColor,
 
                 Text = "Multi",
 
@@ -74,16 +69,13 @@ namespace Vitaru.Roots
                         AddRoot(new MultiMenu());
                 },
             });
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(-x, 0),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.TrinaryColor,
-                },
+                Color = ThemeManager.TrinaryColor,
 
                 Text = "Edit",
 
@@ -93,16 +85,13 @@ namespace Vitaru.Roots
                         AddRoot(new EditorRoot());
                 },
             });
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(x, 0),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.QuadnaryColor,
-                },
+                Color = ThemeManager.QuadnaryColor,
 
                 Text = "Mods",
 
@@ -112,16 +101,14 @@ namespace Vitaru.Roots
                         AddRoot(new ModsTest());
                 },
             });
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(-x, y + height / 2),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.SecondaryColor,
-                },
+                Color = ThemeManager.SecondaryColor,
+
 
                 Text = "Wiki",
 
@@ -131,16 +118,13 @@ namespace Vitaru.Roots
                         AddRoot(new WikiRoot());
                 },
             });
-            Add(new Button
+            Add(new VitaruButton
             {
                 Position = new Vector2(x, y + height / 2),
                 Size = new Vector2(width, height),
 
                 Background = Game.TextureStore.GetTexture("square.png"),
-                BackgroundSprite =
-                {
-                    Color = ThemeManager.PrimaryColor,
-                },
+                Color = ThemeManager.PrimaryColor,
 
                 Text = "Settings",
 
@@ -219,7 +203,7 @@ namespace Vitaru.Roots
             //base.DropRoot();
         }
 
-        private class Exit : Button
+        private class Exit : VitaruButton
         {
             public Exit(Vitaru vitaru)
             {
@@ -229,7 +213,7 @@ namespace Vitaru.Roots
                 Size = new Vector2(40);
 
                 Background = Game.TextureStore.GetTexture("square.png");
-                BackgroundSprite.Color = Color.Red;
+                Color = Color.Red;
 
                 Text = "X";
 
