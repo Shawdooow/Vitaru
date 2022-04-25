@@ -135,7 +135,10 @@ namespace Vitaru.Tracks
                     NextLevel();
                     return true;
                 case Keys.PreviousTrack:
-                    PreviousLevel();
+                    if (TrackManager.CurrentTrack.Clock.Current < 1000)
+                        PreviousLevel();
+                    else
+                        TrackManager.CurrentTrack.Seek(0);
                     return true;
             }
         }
