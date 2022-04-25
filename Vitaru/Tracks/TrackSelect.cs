@@ -88,6 +88,8 @@ namespace Vitaru.Tracks
                     OnRightClick = () => { LevelStore.NextLevelPack = p; },
                 });
             }
+
+            list.List.Height = list.List.Children[0].Height * list.List.Children.Count;
         }
 
         public override void OnHovered()
