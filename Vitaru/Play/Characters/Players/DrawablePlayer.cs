@@ -3,6 +3,7 @@
 
 using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Nucleus.Groups;
 
 namespace Vitaru.Play.Characters.Players
 {

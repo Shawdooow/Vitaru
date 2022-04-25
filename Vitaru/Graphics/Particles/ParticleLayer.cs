@@ -18,6 +18,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Verticies;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Prion.Nucleus.Groups;
 using Vitaru.Settings;
 using ShaderType = Prion.Mitochondria.Graphics.Shaders.ShaderType;
 

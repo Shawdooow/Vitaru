@@ -17,6 +17,7 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
+using Prion.Nucleus.Groups;
 using Prion.Nucleus.Groups.Packs;
 using Prion.Nucleus.Utilities;
 using Vitaru.Editor.IO;
