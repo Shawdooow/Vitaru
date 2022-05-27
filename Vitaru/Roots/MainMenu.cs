@@ -9,7 +9,6 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Vitaru.Graphics.UI;
 using Vitaru.Levels;
@@ -69,13 +68,13 @@ namespace Vitaru.Roots
 
                 Text = "Multi",
 
-                Disabled = !Vitaru.EnableMulti,
+                Disabled = true,//!Vitaru.EnableMulti,
 
-                OnClick = () =>
-                {
-                    if (Vitaru.EnableMulti && TrackManager.CurrentTrack != null)
-                        AddRoot(new MultiMenu());
-                },
+                //OnClick = () =>
+                //{
+                //    if (Vitaru.EnableMulti && TrackManager.CurrentTrack != null)
+                //        AddRoot(new MultiMenu());
+                //},
             });
             Add(new VitaruButton
             {
@@ -121,11 +120,12 @@ namespace Vitaru.Roots
 
                 Text = "Wiki",
 
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new WikiRoot());
-                },
+                Disabled = true,
+                //OnClick = () =>
+                //{
+                //    if (TrackManager.CurrentTrack != null)
+                //        AddRoot(new WikiRoot());
+                //},
             });
             Add(new VitaruButton
             {
