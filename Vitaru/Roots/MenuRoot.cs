@@ -31,16 +31,18 @@ namespace Vitaru.Roots
 
         protected virtual bool InvertParallax => false;
 
-        protected readonly Layer2D<IDrawable2D> BackgroundLayer;
-        protected readonly Sprite Background;
-        protected readonly Box Dim;
+        protected Layer2D<IDrawable2D> BackgroundLayer;
+        protected Sprite Background;
+        protected Box Dim;
         protected VitaruButton Back;
 
         private string bg = string.Empty;
         private bool ft = true;
 
-        protected MenuRoot()
+        public override void RenderingPreLoading()
         {
+            base.RenderingPreLoading();
+
             Add(BackgroundLayer = new Layer2D<IDrawable2D>
             {
                 Children = new[]

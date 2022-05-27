@@ -26,7 +26,9 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
-        private readonly VitaruTrackController controller;
+        private readonly Vitaru vitaru;
+
+        private VitaruTrackController controller;
 
         private const int x = 100;
         private const int y = 50;
@@ -35,6 +37,12 @@ namespace Vitaru.Roots
 
         public MainMenu(Vitaru vitaru)
         {
+            this.vitaru = vitaru;
+        }
+
+        public override void RenderingPreLoading()
+        {
+            base.RenderingPreLoading();
             Add(new VitaruButton
             {
                 Position = new Vector2(-x, -y - height / 2),

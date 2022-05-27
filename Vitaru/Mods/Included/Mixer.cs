@@ -78,7 +78,7 @@ namespace Vitaru.Mods.Included
 
             private bool accel;
 
-            public override void LoadingComplete()
+            public override void RenderingLoadingComplete()
             {
                 AddArray(new ILayer[]
                 {
@@ -427,7 +427,7 @@ namespace Vitaru.Mods.Included
                 Add(new TrackSelect());
                 Add(new LevelSelect());
 
-                base.LoadingComplete();
+                base.RenderingLoadingComplete();
 
                 aMax(1);
                 aMin(0);

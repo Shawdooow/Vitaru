@@ -23,7 +23,7 @@ namespace Vitaru.Roots.Tests
 
         private VitaruTrackController controller;
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
             foreach (Mod mod in Modloader.LoadedMods)
             {
@@ -56,7 +56,7 @@ namespace Vitaru.Roots.Tests
                 ParentOrigin = Mounts.BottomRight,
             });
 
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
         }
 
         protected override void OnResume()
