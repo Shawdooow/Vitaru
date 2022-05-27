@@ -77,9 +77,9 @@ namespace Vitaru.Roots
                         TrackManager.CurrentTrack.Metadata.Filtering);
         }
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
             TrackManager.OnTrackChange += TrackChange;
 
             if (Back == null)

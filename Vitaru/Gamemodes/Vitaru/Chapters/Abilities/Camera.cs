@@ -11,8 +11,6 @@ using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Screenshots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Vitaru.Play;
-using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 {
@@ -34,7 +32,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
         private Box box;
         private Sprite screenshot;
-        private Gamefield.GamefieldBorder border;
+        //private Gamefield.GamefieldBorder border;
 
         private byte[] pixels;
         private bool queued;
@@ -128,7 +126,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             if (screenshot != null)
             {
                 box.Alpha = screenshot.Alpha;
-                border.Alpha = screenshot.Alpha;
+                //border.Alpha = screenshot.Alpha;
             }
         }
 
@@ -174,14 +172,14 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         Color = Color.Black,
                     });
                     overlays.Add(screenshot);
-                    overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
-                    {
-                        ParentOrigin = Mounts.CenterRight,
-                        Origin = Mounts.CenterLeft,
-
-                        X = screenshot.X,
-                        Color = player.SecondaryColor,
-                    });
+                    //overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
+                    //{
+                    //    ParentOrigin = Mounts.CenterRight,
+                    //    Origin = Mounts.CenterLeft,
+                    //
+                    //    X = screenshot.X,
+                    //    Color = player.SecondaryColor,
+                    //});
                 }
                 else
                     screenshot.Texture = texture;

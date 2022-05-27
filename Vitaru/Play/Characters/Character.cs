@@ -51,16 +51,9 @@ namespace Vitaru.Play.Characters
 
         public virtual Color ComplementaryColor => Color.LightGreen;
 
-        protected Gamefield Gamefield { get; private set; }
-
         public Action OnDie;
 
         public Action OnRezzurect;
-
-        protected Character(Gamefield gamefield)
-        {
-            Gamefield = gamefield;
-        }
 
         public override void LoadingComplete()
         {
@@ -103,7 +96,6 @@ namespace Vitaru.Play.Characters
 
         protected override void Dispose(bool finalize)
         {
-            Gamefield = null;
             Drawable = null;
             base.Dispose(finalize);
         }

@@ -3,6 +3,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using Prion.Nucleus.Groups;
 using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Graphics.UI
@@ -34,8 +35,8 @@ namespace Vitaru.Graphics.UI
         public override void LoadingComplete()
         {
             Remove(Text2D, false);
-            Add(Border, AddPosition.Last);
-            Add(Text2D, AddPosition.Last);
+            Add(Border);
+            Add(Text2D);
             base.LoadingComplete();
         }
 

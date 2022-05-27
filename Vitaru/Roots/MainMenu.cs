@@ -79,11 +79,12 @@ namespace Vitaru.Roots
 
                 Text = "Edit",
 
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorRoot());
-                },
+                Disabled = true,
+                //OnClick = () =>
+                //{
+                //    if (TrackManager.CurrentTrack != null)
+                //        AddRoot(new EditorRoot());
+                //},
             });
             Add(new VitaruButton
             {

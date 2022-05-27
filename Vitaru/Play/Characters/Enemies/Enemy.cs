@@ -10,7 +10,5 @@ namespace Vitaru.Play.Characters.Enemies
     public class Enemy : Character, IHasKeyFrames, IHasPosition, IHasAlpha
     {
         public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; }
-
-        public Enemy(Gamefield gamefield) : base(gamefield) { }
     }
 }

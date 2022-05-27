@@ -129,7 +129,7 @@ namespace Vitaru.Play.Characters.Players
             base.SetDrawable(drawable);
         }
 
-        protected Player(Gamefield gamefield) : base(gamefield)
+        protected Player()
         {
             GOD = Vitaru.VitaruSettings.GetBool(VitaruSetting.GodHacks);
             KING = Vitaru.VitaruSettings.GetBool(VitaruSetting.KingHacks);

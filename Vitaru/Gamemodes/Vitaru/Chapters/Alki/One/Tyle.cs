@@ -67,8 +67,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         private double spellEndTime { get; set; } = double.MinValue;
 
-        public Tyle(Gamefield gamefield) : base(gamefield) { }
-
         public override void LoadingComplete()
         {
             base.LoadingComplete();

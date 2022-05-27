@@ -17,29 +17,29 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
 
         public override string Description => null;
 
-        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableIncompleteCharacters
+        public override Player[] GetPlayers() => global::Vitaru.Vitaru.EnableIncompleteCharacters
             ? new Player[]
             {
-                new Arysa(gamefield),
-                new Tyle(gamefield),
-                new Alice(gamefield),
-                new Sarah(gamefield),
-                new Claire(gamefield),
-                new Yuie(gamefield),
-                new Frost(gamefield),
-                new Jack(gamefield),
-                new Nick(gamefield),
-                new Muris(gamefield),
-                new Vuira(gamefield),
-                new Lucifer(gamefield),
-                new Cuiria(gamefield),
+                new Arysa(),
+                new Tyle(),
+                new Alice(),
+                new Sarah(),
+                new Claire(),
+                new Yuie(),
+                new Frost(),
+                new Jack(),
+                new Nick(),
+                new Muris(),
+                new Vuira(),
+                new Lucifer(),
+                new Cuiria(),
             }
             : new Player[]
             {
-                new Tyle(gamefield),
-                new Alice(gamefield),
-                new Claire(gamefield),
-                new Yuie(gamefield),
+                new Tyle(),
+                new Alice(),
+                new Claire(),
+                new Yuie(),
             };
     }
 }

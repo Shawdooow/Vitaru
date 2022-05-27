@@ -10,7 +10,6 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Gamemodes;
 using Vitaru.Mods;
 using Vitaru.Wiki.Included;
 
@@ -75,13 +74,13 @@ namespace Vitaru.Wiki
                 new EditorWiki(),
             };
 
-            foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
-            {
-                WikiPanel p = gamemode.Gamemode.GetWikiPanel();
-
-                if (p != null)
-                    panels.Add(p);
-            }
+            //foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
+            //{
+            //    WikiPanel p = gamemode.Gamemode.GetWikiPanel();
+            //
+            //    if (p != null)
+            //        panels.Add(p);
+            //}
 
             foreach (Mod mod in Modloader.LoadedMods)
             {

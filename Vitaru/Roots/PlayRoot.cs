@@ -13,9 +13,6 @@ using Prion.Nucleus.Timing;
 using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
-using Vitaru.Play;
-using Vitaru.Play.Characters;
-using Vitaru.Play.Characters.Players;
 using Vitaru.Settings;
 
 namespace Vitaru.Roots

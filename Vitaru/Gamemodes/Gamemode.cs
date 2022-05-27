@@ -7,7 +7,6 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities.Interfaces;
 using Vitaru.Chapters;
 using Vitaru.Editor.IO;
-using Vitaru.Play;
 using Vitaru.Wiki;
 
 namespace Vitaru.Gamemodes
@@ -24,7 +23,7 @@ namespace Vitaru.Gamemodes
 
         public abstract FormatConverter GetFormatConverter();
 
-        public abstract Gamefield GetGamefield();
+        //public abstract Gamefield GetGamefield();
 
         public abstract Chapter[] GetChapters();
 

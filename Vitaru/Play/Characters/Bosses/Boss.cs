@@ -5,6 +5,5 @@ namespace Vitaru.Play.Characters.Bosses
 {
     public class Boss : Character
     {
-        public Boss(Gamefield gamefield) : base(gamefield) { }
     }
 }
