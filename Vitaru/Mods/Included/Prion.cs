@@ -17,7 +17,7 @@ namespace Vitaru.Mods.Included
     {
         public override string Name => nameof(Prion);
 
-        public override bool Disabled => Vitaru.FEATURES < Features.Experimental;
+        public override bool Disabled => true;//Vitaru.FEATURES < Features.Experimental;
 
         public override Button GetMenuButton() =>
             new()
