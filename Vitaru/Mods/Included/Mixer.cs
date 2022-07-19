@@ -93,28 +93,6 @@ namespace Vitaru.Mods.Included
 
                     new Button
                     {
-                        X = 360,
-                        Size = new Vector2(80, 80),
-
-                        Background = Game.TextureStore.GetTexture("square.png"),
-                        Dim =
-                        {
-                            Alpha = 0.5f,
-                        },
-                        BackgroundSprite =
-                        {
-                            Color = ThemeManager.SecondaryColor,
-                        },
-                        Text2D =
-                        {
-                            FontScale = 0.5f,
-                        },
-
-                        Text = "++",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f),
-                    },
-                    new Button
-                    {
                         Position = new Vector2(240, 0),
                         Size = new Vector2(100, 100),
 
@@ -156,6 +134,7 @@ namespace Vitaru.Mods.Included
 
                         Text = "+",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.05f),
+                        OnRightClick = () => setRate(TrackManager.CurrentTrack.Pitch + 0.25f),
                     },
                     new Button
                     {
@@ -199,6 +178,7 @@ namespace Vitaru.Mods.Included
 
                         Text = "-",
                         OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.05f),
+                        OnRightClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f),
                     },
                     new Button
                     {
@@ -221,27 +201,6 @@ namespace Vitaru.Mods.Included
 
                         Text = "0.75x",
                         OnClick = () => setRate(0.75f),
-                    },
-                    new Button
-                    {
-                        Position = new Vector2(-360, 0),
-                        Size = new Vector2(80, 80),
-
-                        Background = Game.TextureStore.GetTexture("square.png"),
-                        Dim =
-                        {
-                            Alpha = 0.5f,
-                        },
-                        BackgroundSprite =
-                        {
-                            Color = ThemeManager.SecondaryColor,
-                        },
-                        Text2D =
-                        {
-                            FontScale = 0.5f,
-                        },
-                        Text = "--",
-                        OnClick = () => setRate(TrackManager.CurrentTrack.Pitch - 0.25f),
                     },
 
                     new Button
