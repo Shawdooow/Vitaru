@@ -41,12 +41,12 @@ namespace Vitaru.Roots
                 Text = "Play",
 
                 Disabled = true,
-                //OnClick = () => AddRoot(new PlayRoot()),
+                OnClick = () => AddRoot(new PlayRoot()),
             });
             Add(new TrackSelect());
             Add(new LevelSelect());
-            //Add(new CharacterSelect());
-            //Add(new CharacterStats());
+            Add(new CharacterSelect());
+            Add(new CharacterStats());
             Add(controller = new VitaruTrackController
             {
                 Position = new Vector2(-40),

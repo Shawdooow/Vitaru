@@ -32,23 +32,6 @@
 		<DefineConstants>PUBLISH;PERSONAL</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Editor\**" />
-	  <Compile Remove="Gamemodes\**" />
-	  <Compile Remove="Play\**" />
-	  <EmbeddedResource Remove="Editor\**" />
-	  <EmbeddedResource Remove="Gamemodes\**" />
-	  <EmbeddedResource Remove="Play\**" />
-	  <None Remove="Editor\**" />
-	  <None Remove="Gamemodes\**" />
-	  <None Remove="Play\**" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Compile Remove="Roots\EditorRoot.cs" />
-	  <Compile Remove="Roots\Menu\CharacterSelect.cs" />
-	  <Compile Remove="Roots\Menu\CharacterStats.cs" />
-	  <Compile Remove="Roots\PlayRoot.cs" />
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\..\Prion\Breeder\Breeder.csproj" />
 		<ProjectReference Include="..\..\Prion\Prion.Golgi\Prion.Golgi.csproj" />
 		<ProjectReference Include="..\Vitaru.Server\Vitaru.Server.csproj" />

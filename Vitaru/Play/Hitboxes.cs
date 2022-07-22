@@ -46,7 +46,7 @@ namespace Vitaru.Play
         public Vector2 Position { get; set; }
     }
 
-    public struct HitResults
+    public struct HitResult
     {
         public Vector2 Position;
 
@@ -57,7 +57,7 @@ namespace Vitaru.Play
 
     public static class HitDetector
     {
-        public static bool HitDetectionPossible(this CircularHitbox a, CircularHitbox b)
+        public static bool HitPossible(this CircularHitbox a, CircularHitbox b)
         {
             float min = a.Radius + b.Radius;
 
@@ -66,29 +66,29 @@ namespace Vitaru.Play
             return false;
         }
 
-        public static HitResults HitDetectionResults(this CircularHitbox a, CircularHitbox b)
+        public static HitResult HitResults(this CircularHitbox a, CircularHitbox b)
         {
             float distance = Vector2.Distance(b.Position, a.Position);
-            return new HitResults
+            return new HitResult
             {
                 Distance = distance,
                 EdgeDistance = distance - (a.Radius + b.Radius),
             };
         }
 
-        public static bool HitDetectionPossible(this RectangularHitbox a, CircularHitbox b) => false;
+        public static bool HitPossible(this RectangularHitbox a, CircularHitbox b) => false;
 
-        public static HitResults? HitDetectionResults(this RectangularHitbox a, CircularHitbox b)
+        public static HitResult? HitDetectionResults(this RectangularHitbox a, CircularHitbox b)
         {
             float distance = Vector2.Distance(b.Position, a.Position);
-            return new HitResults
+            return new HitResult
             {
                 Distance = distance,
                 EdgeDistance = float.MaxValue,
             };
         }
 
-        public static bool HitDetectionResults(this RectangularHitbox a, RectangularHitbox b) =>
+        public static bool HitResults(this RectangularHitbox a, RectangularHitbox b) =>
             a.Position.X < b.Position.X + b.Size.X &&
             a.Position.X + a.Size.X > b.Position.X &&
             a.Position.Y < b.Position.Y + b.Size.Y &&
