@@ -19,10 +19,12 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
-        private readonly VitaruTrackController controller;
+        private VitaruTrackController controller;
 
-        public LevelRoot()
+        public override void RenderingPreLoading()
         {
+            base.RenderingPreLoading();
+
             Add(new Button
             {
                 ParentOrigin = Mounts.TopRight,
@@ -53,9 +55,9 @@ namespace Vitaru.Roots
             });
         }
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
             Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, 1f);
             Add(new HacksSelect());
 

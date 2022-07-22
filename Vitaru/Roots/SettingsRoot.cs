@@ -26,9 +26,9 @@ namespace Vitaru.Roots
             this.vitaru = vitaru;
         }
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
 
             Add(controller = new VitaruTrackController
             {
