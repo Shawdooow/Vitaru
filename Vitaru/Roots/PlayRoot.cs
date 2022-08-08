@@ -30,10 +30,6 @@ namespace Vitaru.Roots
 
         public static double Current { get; private set; } = double.MinValue;
 
-        public virtual Shades Shade { get; set; }
-
-        public virtual float Intensity { get; set; } = 1;
-
         protected readonly FormatConverter FormatConverter;
 
         public readonly Pack<Character> CharacterPack = new()
