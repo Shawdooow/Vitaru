@@ -212,11 +212,11 @@ namespace Vitaru.Play.Characters.Players
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
                 PatternWave();
 
-            if (HealingProjectiles.Count > 0 && Gamefield.Current > LastDamageTime + beat * 2)
+            if (HealingProjectiles.Count > 0 && PlayManager.Current > LastDamageTime + beat * 2)
             {
                 float fallOff = 1;
 
-                if (Gamefield.Current > LastDamageTime + beat * 4)
+                if (PlayManager.Current > LastDamageTime + beat * 4)
                     foreach (HealingProjectile healingBullet in HealingProjectiles)
                     {
                         Heal((float)Clock.LastElapsedTime / 1000 *
@@ -327,7 +327,7 @@ namespace Vitaru.Play.Characters.Players
         protected override void TakeDamage(float amount)
         {
             base.TakeDamage(GOD ? 0 : amount);
-            LastDamageTime = Gamefield.Current;
+            LastDamageTime = PlayManager.Current;
         }
 
         protected override void Die()
@@ -363,7 +363,7 @@ namespace Vitaru.Play.Characters.Players
             switch (t)
             {
                 case VitaruActions.Sneak:
-                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 1, this, Gamefield.Current, 200, Easings.None);
+                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 1, this, PlayManager.Current, 200, Easings.None);
                     break;
                 case VitaruActions.Shoot:
                     Renderer.CurrentRoot.Cursor.Hover(PrimaryColor);
@@ -382,7 +382,7 @@ namespace Vitaru.Play.Characters.Players
             switch (t)
             {
                 case VitaruActions.Sneak:
-                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 0, this, Gamefield.Current, 200, Easings.None);
+                    new FloatTransform(a => Drawable.HitboxAlpha = a, Drawable.HitboxAlpha, 0, this, PlayManager.Current, 200, Easings.None);
                     break;
                 case VitaruActions.Shoot:
                     Renderer.CurrentRoot.Cursor.HoverLost();

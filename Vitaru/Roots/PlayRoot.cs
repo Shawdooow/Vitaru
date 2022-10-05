@@ -26,6 +26,7 @@ namespace Vitaru.Roots
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
+        public readonly PlayManager PlayManager;
         public readonly GamefieldBorder Border;
 
         public PlayRoot()
@@ -39,6 +40,8 @@ namespace Vitaru.Roots
             TrackManager.CurrentTrack.DrawClock.Start();
             TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
             TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
+
+            PlayManager = new PlayManager();
         }
 
         public override void PreRender()

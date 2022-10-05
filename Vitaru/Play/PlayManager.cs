@@ -10,6 +10,7 @@ using Vitaru.Levels;
 using Vitaru.Play.Characters;
 using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
+using Vitaru.Play.KeyFrames;
 using Vitaru.Play.Projectiles;
 using Vitaru.Play.Teams;
 
@@ -18,8 +19,6 @@ namespace Vitaru.Play
     public class PlayManager : Pack<IUpdatable>
     {
         public static double Current { get; private set; } = double.MinValue;
-
-        protected readonly FormatConverter FormatConverter;
 
         public Player ActivePlayer { get; protected set; }
 
@@ -44,43 +43,11 @@ namespace Vitaru.Play
             Name = "Character Pack",
         };
 
-        public readonly Pack<Projectile> ProjectilePack = new()
-        {
-            Name = "Projectile Pack",
-        };
-
-        protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
-        protected readonly List<Projectile> UnloadedProjectiles = new List<Projectile>();
+        public readonly EnemyManager EnemyManager = new EnemyManager();
+        public readonly ProjectileManager ProjectileManager = new ProjectileManager();
 
         public PlayManager()
         {
-            FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
-
-            //Enemies?
-            try
-            {
-                if (LevelStore.CurrentLevel.EnemyData != null)
-                    UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
-                UnloadedEnemies.Clear();
-                LevelStore.CurrentLevel.EnemyData = string.Empty;
-            }
-
-            //Projectiles?
-            try
-            {
-                if (LevelStore.CurrentLevel.ProjectileData != null)
-                    UnloadedProjectiles.AddRange(FormatConverter.StringToProjectiles(LevelStore.CurrentLevel.ProjectileData));
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e, "Error converting level data to Projectiles, purging bad data...", LogType.IO);
-                UnloadedProjectiles.Clear();
-                LevelStore.CurrentLevel.ProjectileData = string.Empty;
-            }
         }
 
         public override void PreLoading()
@@ -88,7 +55,8 @@ namespace Vitaru.Play
             base.PreLoading();
 
             Add(CharacterPack);
-            Add(ProjectilePack);
+            Add(EnemyManager);
+            Add(ProjectileManager);
         }
     }
 }
