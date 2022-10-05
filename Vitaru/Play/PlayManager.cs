@@ -1,17 +1,9 @@
-﻿using Prion.Nucleus.Debug;
-using Prion.Nucleus.Entitys;
+﻿using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
-using System;
 using System.Collections.Generic;
-using System.Numerics;
-using Vitaru.Editor.IO;
-using Vitaru.Gamemodes;
-using Vitaru.Levels;
 using Vitaru.Play.Characters;
-using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.KeyFrames;
-using Vitaru.Play.Projectiles;
 using Vitaru.Play.Teams;
 
 namespace Vitaru.Play
