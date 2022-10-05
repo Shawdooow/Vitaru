@@ -1,6 +1,8 @@
 ﻿using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
 using System.Collections.Generic;
+using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two;
+using Vitaru.Gamemodes;
 using Vitaru.Play.Characters;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.KeyFrames;
@@ -38,8 +40,15 @@ namespace Vitaru.Play
         public readonly EnemyManager EnemyManager = new EnemyManager();
         public readonly ProjectileManager ProjectileManager = new ProjectileManager();
 
-        public PlayManager()
+        public readonly PlayLayers Layers;
+
+        public PlayManager(PlayLayers layers)
         {
+            Layers = layers;
+
+            Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty
+                ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, this)
+                : new Yuie(this);
         }
 
         public override void PreLoading()

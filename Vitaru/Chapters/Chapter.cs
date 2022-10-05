@@ -2,6 +2,8 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System.Numerics;
+using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Chapters
 {
@@ -21,6 +23,6 @@ namespace Vitaru.Chapters
 
         public virtual Vector2 ClusterOffset => new(256, 0);
 
-        //public abstract Player[] GetPlayers();
+        public abstract Player[] GetPlayers(PlayManager manager);
     }
 }

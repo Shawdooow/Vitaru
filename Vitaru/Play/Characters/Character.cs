@@ -22,6 +22,8 @@ namespace Vitaru.Play.Characters
             }
         }
 
+        protected readonly PlayManager PlayManager;
+
         public virtual float HealthCapacity => 60f;
 
         public virtual float Health { get; protected set; }
@@ -54,6 +56,11 @@ namespace Vitaru.Play.Characters
         public Action OnDie;
 
         public Action OnRezzurect;
+
+        public Character(PlayManager manager)
+        {
+            PlayManager = manager;
+        }
 
         public override void LoadingComplete()
         {

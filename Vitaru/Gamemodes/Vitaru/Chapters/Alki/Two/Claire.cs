@@ -70,12 +70,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         #endregion
 
 
-        public Claire(Gamefield gamefield) : base(gamefield) { }
+        public Claire(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Camera = new Camera(this, Gamefield.OverlaysLayer)
+            PlayManager.Layers.OverlaysLayer.Add(Camera = new Camera(this, PlayManager.Layers.OverlaysLayer)
             {
                 OnScreenshot = screenshot => Screenshot = screenshot,
             });
@@ -88,7 +88,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (Screenshot != null)
             {
                 Buffs = 0;
-                foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+                foreach (Gamefield.ProjectilePack pack in PlayManager.ProjectileManager.Packs)
                 {
                     if (pack.Team == Team) continue;
 
@@ -114,7 +114,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                                     bullet.CircularHitbox.Position.Y <= Camera.Hitbox.Position.Y + border.Y)
                                 {
                                     Buffs += (1 / BUFFS_DIVISOR);
-                                    Gamefield.Remove(projectile);
+                                    PlayManager.ProjectileManager.Remove(projectile);
                                     projectile.Collision();
                                     break;
                                 }

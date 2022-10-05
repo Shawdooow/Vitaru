@@ -8,6 +8,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Four
 {
     public class BlackBeard : Player
     {
-        public BlackBeard(Gamefield gamefield) : base(gamefield) { }
+        public BlackBeard(PlayManager manager) : base(manager) { }
     }
 }

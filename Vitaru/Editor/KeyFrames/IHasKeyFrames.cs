@@ -7,6 +7,20 @@ namespace Vitaru.Editor.KeyFrames
 {
     public interface IHasKeyFrames
     {
+        bool PreLoaded { get; set; }
+
+        bool Started { get; set; }
+
+        double StartTime { get; set; }
+
+        double EndTime { get; set; }
+
+        double Duration => EndTime - StartTime;
+
+        virtual double TimePreLoad => 600;
+
+        virtual double TimeUnLoad => TimePreLoad;
+
         List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; }
     }
 }

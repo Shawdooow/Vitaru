@@ -30,6 +30,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string OriginMedia => "Alki.Five";
 
-        public Lucifer(Gamefield gamefield) : base(gamefield) { }
+        public Lucifer(PlayManager manager) : base(manager) { }
     }
 }

@@ -31,5 +31,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override Role Role => Role.Offense;
 
         public override Difficulty Difficulty => Difficulty.Normal;
+
+        public Arysa(PlayManager manager) : base(manager) { }
     }
 }

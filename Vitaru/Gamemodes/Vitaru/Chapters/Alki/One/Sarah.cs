@@ -46,7 +46,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         private double lastMovement;
 
-        public Sarah(Gamefield gamefield) : base(gamefield) { }
+        public Sarah(PlayManager manager) : base(manager) { }
 
         protected override void SpellActivate(VitaruActions action)
         {

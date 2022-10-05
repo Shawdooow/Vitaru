@@ -13,5 +13,11 @@ namespace Vitaru.Play.Projectiles
         public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; } = new();
 
         public virtual float Damage { get; set; } = 20;
+
+        public bool PreLoaded { get; set; }
+        public bool Started { get; set; }
+
+        public double StartTime { get; set; }
+        public double EndTime { get; set; }
     }
 }

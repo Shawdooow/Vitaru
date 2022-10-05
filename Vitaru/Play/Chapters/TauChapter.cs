@@ -11,7 +11,7 @@ namespace Vitaru.Play.Chapters
     {
         public override string Title => "Tau";
 
-        public override Player[] GetPlayers() => throw new System.NotImplementedException();
+        public override Player[] GetPlayers(PlayManager manager) => throw new System.NotImplementedException();
 
         //public sealed override VitaruPlayer[] GetPlayers() => GetTouhosuPlayers();
         //

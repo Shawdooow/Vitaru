@@ -43,7 +43,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string Description => "";
 
-        public Muris(Gamefield gamefield) : base(gamefield) { }
+        public Muris(PlayManager manager) : base(manager) { }
 
         protected Metronome Metronome;
 

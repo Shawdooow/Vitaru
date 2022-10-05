@@ -65,7 +65,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         protected bool Soul = true;
 
-        public Alice(Gamefield gamefield) : base(gamefield) { }
+        public Alice(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {

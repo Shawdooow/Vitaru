@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
 using Vitaru.Chapters;
+using Vitaru.Play;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Gamemodes
 {
@@ -95,18 +97,18 @@ namespace Vitaru.Gamemodes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        //public static Player GetPlayer(string name)
-        //{
-        //    string[] split = name.Split(':');
-        //    foreach (LoadedGamemode set in LoadedGamemodes)
-        //        if (set.Gamemode.Name == split[0])
-        //            foreach (Chapter c in set.Chapters)
-        //                if (c.Title == split[1])
-        //                    foreach (Player p in c.GetPlayers())
-        //                        if (p.Name == split[2])
-        //                            return p;
-        //    return null;
-        //}
+        public static Player GetPlayer(string name, PlayManager manager)
+        {
+            string[] split = name.Split(':');
+            foreach (LoadedGamemode set in LoadedGamemodes)
+                if (set.Gamemode.Name == split[0])
+                    foreach (Chapter c in set.Chapters)
+                        if (c.Title == split[1])
+                            foreach (Player p in c.GetPlayers(manager))
+                                if (p.Name == split[2])
+                                    return p;
+            return null;
+        }
 
         public class LoadedGamemode
         {
@@ -128,7 +130,7 @@ namespace Vitaru.Gamemodes
 
             public readonly List<Chapter> Chapters = new();
 
-            //public readonly List<KeyValuePair<Chapter, Player>> Players = new();
+            public readonly List<KeyValuePair<Chapter, Player>> Players = new();
 
             public LoadedGamemode(Gamemode gamemode)
             {
@@ -137,20 +139,20 @@ namespace Vitaru.Gamemodes
                 foreach (Chapter v in gamemode.GetChapters())
                     Chapters.Add(v);
 
-                //foreach (Chapter c in Chapters)
-                //    foreach (Player v in c.GetPlayers())
-                //    {
-                //        bool add = true;
-                //        foreach (KeyValuePair<Chapter, Player> p in Players)
-                //            if (p.Value.Name == v.Name)
-                //            {
-                //                add = false;
-                //                break;
-                //            }
-                //
-                //        if (add)
-                //            Players.Add(new KeyValuePair<Chapter, Player>(c, v));
-                //    }
+                foreach (Chapter c in Chapters)
+                    foreach (Player v in c.GetPlayers(null))
+                    {
+                        bool add = true;
+                        foreach (KeyValuePair<Chapter, Player> p in Players)
+                            if (p.Value.Name == v.Name)
+                            {
+                                add = false;
+                                break;
+                            }
+                
+                        if (add)
+                            Players.Add(new KeyValuePair<Chapter, Player>(c, v));
+                    }
             }
         }
     }

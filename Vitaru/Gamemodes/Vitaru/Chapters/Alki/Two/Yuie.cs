@@ -67,7 +67,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         #endregion
 
 
-        public Yuie(Gamefield gamefield) : base(gamefield) { }
+        public Yuie(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {
@@ -98,7 +98,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
                 intensity();
-                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+                PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -109,7 +109,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
                 intensity();
-                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+                PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                 spellEndTime = Clock.LastCurrent - 2000;
 
             intensity();
-            Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+            PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
             DrawablePlayer.Color = ComplementaryColor;
             DrawablePlayer.SecondaryColor = ComplementaryColor;
             DrawablePlayer.ComplementaryColor = PrimaryColor;
@@ -148,7 +148,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         {
             float scale = (float)Easing.ApplyEasing(Easings.OutQuad,
                 Math.Min(PrionMath.Remap(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
-            Gamefield.Intensity = scale;
+            PlayManager.Layers.Intensity = scale;
         }
 
         protected override void SpellUpdate()
@@ -173,7 +173,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         currentRate = originalRate;
                         applyToTrack(currentRate);
 
-                        Gamefield.Shade = Shades.None;
+                        PlayManager.Layers.Shade = Shades.None;
                     }
 
                     intensity();

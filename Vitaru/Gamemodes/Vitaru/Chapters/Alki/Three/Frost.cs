@@ -36,6 +36,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override string OriginMedia => "Alki.Three";
 
-        public Frost(Gamefield gamefield) : base(gamefield) { }
+        public Frost(PlayManager manager) : base(manager) { }
     }
 }
