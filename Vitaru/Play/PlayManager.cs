@@ -8,6 +8,7 @@ using Vitaru.Editor.IO;
 using Vitaru.Gamemodes;
 using Vitaru.Levels;
 using Vitaru.Play.Characters;
+using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
 using Vitaru.Play.Teams;
@@ -48,24 +49,37 @@ namespace Vitaru.Play
             Name = "Projectile Pack",
         };
 
+        protected readonly List<Enemy> UnloadedEnemies = new List<Enemy>();
+        protected readonly List<Projectile> UnloadedProjectiles = new List<Projectile>();
+
         public PlayManager()
         {
-            Vector2 size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
-
-            //Add(CharacterPack);
-
             FormatConverter = GamemodeStore.SelectedGamemode.Gamemode.GetFormatConverter();
 
+            //Enemies?
             try
             {
                 if (LevelStore.CurrentLevel.EnemyData != null)
-                //UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
+                    UnloadedEnemies.AddRange(FormatConverter.StringToEnemies(LevelStore.CurrentLevel.EnemyData));
             }
             catch (Exception e)
             {
                 Logger.Error(e, "Error converting level data to Enemies, purging bad data...", LogType.IO);
-                //UnloadedEnemies.Clear();
+                UnloadedEnemies.Clear();
                 LevelStore.CurrentLevel.EnemyData = string.Empty;
+            }
+
+            //Projectiles?
+            try
+            {
+                if (LevelStore.CurrentLevel.ProjectileData != null)
+                    UnloadedProjectiles.AddRange(FormatConverter.StringToProjectiles(LevelStore.CurrentLevel.ProjectileData));
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Error converting level data to Projectiles, purging bad data...", LogType.IO);
+                UnloadedProjectiles.Clear();
+                LevelStore.CurrentLevel.ProjectileData = string.Empty;
             }
         }
 

@@ -9,11 +9,11 @@ namespace Vitaru.Editor.IO
 {
     public abstract class FormatConverter
     {
-        public abstract List<Enemy> StringToEnemies(string level);
+        public abstract List<Enemy> StringToEnemies(string enemies);
 
         public abstract string EnemiesToString(List<Enemy> enemies);
 
-        public abstract List<Projectile> StringToProjectiles(string pattern);
+        public abstract List<Projectile> StringToProjectiles(string projectiles);
 
         public abstract string ProjectilesToString(List<Projectile> projectiles);
     }

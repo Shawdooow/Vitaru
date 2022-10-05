@@ -37,7 +37,6 @@ namespace Vitaru.Levels
         public const string EXPERIMENTAL = VERSION_02;
 
         public const string VERSION_01 = "preview5.2";
-
         public const string VERSION_02 = "0.12.0";
 
         //binary rendered content files
@@ -227,8 +226,6 @@ namespace Vitaru.Levels
             b.Record();
             Logger.Benchmark(b);
         }
-
-        public static void PopulateDefaults() { }
 
         public static void SetLevelPack(LevelPack p, int index = 0) => SetLevelPack(p, p.Levels[index]);
 
