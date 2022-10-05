@@ -32,21 +32,16 @@ namespace Vitaru.Levels
 
         #region Versions
 
-
+        public const string BLANK = "BLANK";
         public const string STABLE = VERSION_01;
         public const string EXPERIMENTAL = VERSION_02;
-
-        public const string BLANK_LEVEL = "BLANK";
 
         public const string VERSION_01 = "preview5.2";
 
         public const string VERSION_02 = "0.12.0";
 
-        //Migrate to separate Header + Content files to make loading large libraries faster
+        //binary rendered content files
         public const string VERSION_03 = "before 1.0.0?";
-
-        //Migrate to a binary format for ultimate speed!
-        public const string VERSION_04 = "before 1.0.0?";
 
 
         #endregion
@@ -172,7 +167,7 @@ namespace Vitaru.Levels
                     if (audio != string.Empty)
                         levels.Add(new Level
                         {
-                            Format = BLANK_LEVEL,
+                            Format = BLANK,
                             Metadata = new TrackMetadata
                             {
                                 Title = pack.Title,
