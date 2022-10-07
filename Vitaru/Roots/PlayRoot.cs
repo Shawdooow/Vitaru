@@ -45,6 +45,21 @@ namespace Vitaru.Roots
             PlayManager = new PlayManager(PlayLayers);
         }
 
+        public override void PreLoading()
+        {
+            base.PreLoading();
+            Add(PlayManager);
+        }
+
+        public override void RenderingPreLoading()
+        {
+            base.RenderingPreLoading();
+            Add(PlayLayers.Border);
+
+            Add(PlayLayers.Layer2Ds);
+            Add(PlayLayers.Layer3Ds);
+        }
+
         public override void PreRender()
         {
             TrackManager.CurrentTrack.DrawClock.Update();
