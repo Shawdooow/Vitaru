@@ -72,7 +72,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Landing = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            PlayManager.Layers.OverlayLayer.Add(Landing = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
             {
                 Size = new Vector2(100),
                 Alpha = 0,
@@ -83,7 +83,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
-            spellStartTime = Gamefield.Current;
+            spellStartTime = PlayManager.Current;
 
             Landing.ClearTransforms();
             Landing.FadeTo(1f, 200f, Easings.InCubic);
@@ -96,11 +96,11 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (SpellActive)
             {
                 charge = Easing.ApplyEasing(Easings.OutSine,
-                    (float)Math.Min(PrionMath.Remap(Gamefield.Current, spellStartTime, spellStartTime + CHARGE_TIME),
+                    (float)Math.Min(PrionMath.Remap(PlayManager.Current, spellStartTime, spellStartTime + CHARGE_TIME),
                         1));
 
                 float cursorAngle = MathF.Atan2(InputManager.Mouse.Position.Y - Position.Y,
-                    InputManager.Mouse.Position.X - Position.X) + Drawable.Rotation;
+                    InputManager.Mouse.Position.X - Position.X);// + Drawable.Rotation;
 
                 float dist = Math.Min(charge * BLINK_DISTANCE, Vector2.Distance(Position, InputManager.Mouse.Position));
                 Vector2 blink = Position + PrionMath.Offset(dist, cursorAngle);
@@ -110,7 +110,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 DrainEnergy((float)Clock.LastElapsedTime / 1000 * EnergyDrainRate * charge);
             }
 
-            if (Gamefield.Current >= spellEndTime)
+            if (PlayManager.Current >= spellEndTime)
                 HitDetection = true;
 
             if (DrawablePlayer != null)
@@ -125,12 +125,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             Landing.FadeTo(0, 200f, Easings.InCubic);
 
             HitDetection = false;
-            spellEndTime = Gamefield.Current + 200 * charge;
+            spellEndTime = PlayManager.Current + 200 * charge;
             Drawable.Alpha = 0.25f;
 
-            new Vector2Transform(value => Position = value, Position, Landing.Position, this, Gamefield.Current,
+            new Vector2Transform(value => Position = value, Position, Landing.Position, this, PlayManager.Current,
                 200 * charge, Easings.OutSine);
-            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, Gamefield.Current,
+            new FloatTransform(value => Drawable.Alpha = value, Drawable.Alpha, 1, this, PlayManager.Current,
                 200 * charge, Easings.InCubic);
 
             charge = 0;

@@ -13,7 +13,6 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
 using Vitaru.Chapters;
 using Vitaru.Gamemodes;
-using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Roots.Menu

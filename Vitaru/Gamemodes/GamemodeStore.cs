@@ -97,7 +97,7 @@ namespace Vitaru.Gamemodes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Player GetPlayer(string name, PlayManager manager)
+        public static Player GetPlayer(string name, PlayManager manager = null)
         {
             string[] split = name.Split(':');
             foreach (LoadedGamemode set in LoadedGamemodes)

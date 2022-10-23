@@ -47,7 +47,7 @@ namespace Vitaru.Roots
 
             Add(levelProperties);
 
-            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK_LEVEL)
+            if (LevelStore.CurrentPack.Levels[0].Format == LevelStore.BLANK)
             {
                 base.LoadingComplete();
 

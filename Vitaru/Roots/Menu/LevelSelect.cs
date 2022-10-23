@@ -68,7 +68,7 @@ namespace Vitaru.Roots.Menu
 
                 for (int i = 0; i < pack.Levels.Length; i++)
                 {
-                    if (pack.Levels[i].Format == LevelStore.BLANK_LEVEL) continue;
+                    if (pack.Levels[i].Format == LevelStore.BLANK) continue;
                     LevelItem item = new(i, pack.Levels[i].Name);
                     item.OnClick = () =>
                     {

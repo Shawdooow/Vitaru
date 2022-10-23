@@ -70,7 +70,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(TargetA = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            PlayManager.Layers.OverlayLayer.Add(TargetA = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
             {
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100),
@@ -79,7 +79,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Color = PrimaryColor,
             });
 
-            Gamefield.OverlaysLayer.Add(TargetB = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            PlayManager.Layers.OverlayLayer.Add(TargetB = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
             {
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200),
@@ -123,10 +123,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     TargetB.Alpha = 1;
 
                     Drawable.Alpha = 0.5f;
-                    Gamefield.Shade = Shades.Gray;
-                    Gamefield.Intensity = 0.2f;
+                    PlayManager.Layers.Shade = Shades.Gray;
+                    PlayManager.Layers.Intensity = 0.2f;
 
-                    Gamefield.Add(Homunculus = new Alice(Gamefield)
+                    PlayManager.Add(Homunculus = new Alice(PlayManager)
                     {
                         Position = Position,
                         Health = HealthCapacity / 2,
@@ -155,13 +155,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     TargetB.Alpha = 0.5f;
 
                     Drawable.Alpha = 1f;
-                    Gamefield.Shade = Shades.None;
-                    Gamefield.Intensity = 1f;
+                    PlayManager.Layers.Shade = Shades.None;
+                    PlayManager.Layers.Intensity = 1f;
 
                     if (Homunculus != null)
                     {
                         Heal(Homunculus.Health);
-                        Gamefield.Remove(Homunculus);
+                        PlayManager.Remove(Homunculus);
                         Homunculus = null;
                     }
 
@@ -186,7 +186,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             base.Die();
             if (SpellActive && !Homunculus.Dead)
             {
-                Gamefield.Remove(this);
+                PlayManager.Remove(this);
 
                 //"Transfer our soul back to our body"
                 Homunculus.AI = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks);
@@ -199,8 +199,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (Homunculus != null)
                 Homunculus.OnDie = null;
 
-            Gamefield.OverlaysLayer.Remove(TargetA);
-            Gamefield.OverlaysLayer.Remove(TargetB);
+            PlayManager.Layers.OverlayLayer.Remove(TargetA);
+            PlayManager.Layers.OverlayLayer.Remove(TargetB);
         }
     }
 }

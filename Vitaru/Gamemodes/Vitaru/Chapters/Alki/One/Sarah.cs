@@ -51,7 +51,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
-            nextCharge = Gamefield.Current + chargeTime;
+            nextCharge = PlayManager.Current + chargeTime;
         }
 
         protected override void SpellUpdate()
@@ -68,7 +68,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             Vector2 position = base.GetPositionOffset(playerSpeed);
 
-            if (Position != position) lastMovement = Gamefield.Current;
+            if (Position != position) lastMovement = PlayManager.Current;
 
             return position;
         }

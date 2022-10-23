@@ -3,7 +3,8 @@
 
 using System.Numerics;
 using Prion.Mitochondria;
-using Prion.Nucleus.Groups;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers._2D;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -13,12 +14,13 @@ namespace Vitaru.Play.Characters.Players
 
         public Seal Seal { get; }
 
-        public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\player.png"))
+        public DrawablePlayer(Player player, Layer2D<IDrawable2D> layer) : base(layer)
         {
-            Sprite.Color = player.PrimaryColor;
-            Sprite.Scale = new Vector2(0.3f);
+            CharacterSprite.Texture = Game.TextureStore.GetTexture("Gameplay\\player.png");
+            CharacterSprite.Color = player.PrimaryColor;
+            CharacterSprite.Scale = new Vector2(0.3f);
 
-            Add(Seal = new Seal(player), AddPosition.First);
+            //Add(Seal = new Seal(player), AddPosition.First);
         }
     }
 }

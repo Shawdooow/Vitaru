@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
@@ -15,6 +16,7 @@ using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
+using Vitaru.Play.Teams;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 {
@@ -75,7 +77,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            PlayManager.Layers.OverlaysLayer.Add(Camera = new Camera(this, PlayManager.Layers.OverlaysLayer)
+            PlayManager.Layers.OverlayLayer.Add(Camera = new Camera(this, PlayManager.Layers.OverlayLayer)
             {
                 OnScreenshot = screenshot => Screenshot = screenshot,
             });
@@ -88,14 +90,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (Screenshot != null)
             {
                 Buffs = 0;
-                foreach (Gamefield.ProjectilePack pack in PlayManager.ProjectileManager.Packs)
+                foreach (TeamList team in PlayManager.Teams)
                 {
-                    if (pack.Team == Team) continue;
+                    if (team.Team == Team) continue;
 
-                    IReadOnlyList<Projectile> projectiles = pack.Children;
-                    for (int i = 0; i < projectiles.Count; i++)
+                    IReadOnlyList<IHasTeam> members = team.Members;
+                    for (int i = 0; i < members.Count; i++)
                     {
-                        Projectile projectile = projectiles[i];
+                        Projectile projectile = (Projectile)members[i];
+                        if (projectile == null) continue;
 
                         //Hack to disable bullets we shouldn't interact with
                         if (!projectile.Active)
@@ -115,7 +118,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                                 {
                                     Buffs += (1 / BUFFS_DIVISOR);
                                     PlayManager.ProjectileManager.Remove(projectile);
-                                    projectile.Collision();
+                                    //projectile.Collision();
                                     break;
                                 }
                                 else
@@ -148,7 +151,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         protected override void SpellUpdate()
         {
             base.SpellUpdate();
-            if (DrawablePlayer != null) DrawablePlayer.LeftValue = $"{Buffs}x";
+            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{Buffs}x";
         }
     }
 }

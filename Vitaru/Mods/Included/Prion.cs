@@ -8,7 +8,6 @@ using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.UI;
-using Prion.Nucleus;
 using Vitaru.Roots;
 
 namespace Vitaru.Mods.Included

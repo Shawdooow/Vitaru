@@ -203,7 +203,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                     intensity();
                 }
 
-            if (DrawablePlayer != null) DrawablePlayer.LeftValue = $"{SetRate}x";
+            if (DrawablePlayer != null) DrawablePlayer.Seal.LeftValue.Text = $"{SetRate}x";
         }
 
         private void applyToTrack(double speed)

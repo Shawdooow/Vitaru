@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Numerics;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -81,6 +82,9 @@ namespace Vitaru.Play.Characters.Players
             public float EnergyProgress;
             public float HealthProgress;
 
+            private const float start = 0;
+            private const float end = MathF.PI * 2;
+
             public CircularMask()
             {
                 Scale = new Vector2(0.3f);
@@ -97,12 +101,12 @@ namespace Vitaru.Play.Characters.Players
                 Renderer.CircularProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.CircularProgram;
 
-                Renderer.ShaderManager.UpdateFloat("startAngle", DrawablePlayer.START);
+                Renderer.ShaderManager.UpdateFloat("startAngle", start);
                 Renderer.ShaderManager.UpdateFloat("endAngle", EnergyProgress);
                 Energy.Render();
 
                 Renderer.ShaderManager.UpdateFloat("startAngle", HealthProgress);
-                Renderer.ShaderManager.UpdateFloat("endAngle", DrawablePlayer.END);
+                Renderer.ShaderManager.UpdateFloat("endAngle", end);
                 Health.Render();
 
                 Renderer.SpriteProgram.SetActive();

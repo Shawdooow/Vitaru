@@ -13,14 +13,12 @@ using Prion.Nucleus.Utilities;
 using System.Collections.Concurrent;
 using System.Drawing;
 using System;
-using Vitaru.Graphics.Particles;
-using Vitaru.Graphics.Projectiles.Bullets;
 using Vitaru.Play.Characters.Enemies;
-using Vitaru.Play.Projectiles;
 using Prion.Nucleus.Debug;
 using Vitaru.Networking.Client;
 using System.Numerics;
 using Prion.Mitochondria.Graphics;
+using System.Linq;
 
 namespace Vitaru.Play
 {
@@ -101,8 +99,8 @@ namespace Vitaru.Play
         {
             OnQuarterBeat();
             nextHalfBeat = -1;
-            foreach (Character c in CharacterPack)
-                c.OnHalfBeat();
+            //foreach (Character c in CharacterPack)
+            //    c.OnHalfBeat();
         }
 
         protected virtual void OnQuarterBeat()
@@ -110,8 +108,8 @@ namespace Vitaru.Play
             lastQuarterBeat = nextQuarterBeat;
             nextQuarterBeat += beat / 4;
 
-            foreach (Character c in CharacterPack)
-                c.OnQuarterBeat();
+            //foreach (Character c in CharacterPack)
+            //    c.OnQuarterBeat();
         }
 
         public override void Update()
@@ -142,7 +140,7 @@ namespace Vitaru.Play
                     Layers.HealthChange.ClearTransforms();
                     Layers.HealthBar.ClearTransforms();
 
-                    float y = PrionMath.Remap(ActivePlayer.Health, 0, ActivePlayer.HealthCapacity, 0, MaxBarSize);
+                    float y = PrionMath.Remap(ActivePlayer.Health, 0, ActivePlayer.HealthCapacity, 0, Layers.MaxBarSize);
 
                     if (ActivePlayer.Health < LastHealth)
                     {
@@ -167,7 +165,7 @@ namespace Vitaru.Play
 
                     LastHealth = ActivePlayer.Health;
                     Layers.CurrentHealthText.Text = $"{Math.Round(ActivePlayer.Health, 0)} HP";
-                    Layers.CurrentHealthText.Y = MaxBarSize / 2 - y + 16;
+                    Layers.CurrentHealthText.Y = Layers.MaxBarSize / 2 - y + 16;
                 }
 
                 if (ActivePlayer.Energy != LastEnergy)
@@ -175,7 +173,7 @@ namespace Vitaru.Play
                     Layers.EnergyChange.ClearTransforms();
                     Layers.EnergyBar.ClearTransforms();
 
-                    float y = PrionMath.Remap(ActivePlayer.Energy, 0, ActivePlayer.EnergyCapacity, 0, MaxBarSize);
+                    float y = PrionMath.Remap(ActivePlayer.Energy, 0, ActivePlayer.EnergyCapacity, 0, Layers.MaxBarSize);
 
                     if (ActivePlayer.Energy < LastEnergy)
                     {
@@ -195,56 +193,15 @@ namespace Vitaru.Play
 
                     LastEnergy = ActivePlayer.Energy;
                     Layers.CurrentEnergyText.Text = $"{Math.Round(ActivePlayer.Energy, 0)} SP";
-                    Layers.CurrentEnergyText.Y = MaxBarSize / 2 - y + 16;
+                    Layers.CurrentEnergyText.Y = Layers.MaxBarSize / 2 - y + 16;
                 }
-            }
-
-            while (deadprojectileQue.TryDequeue(out Projectile p))
-            {
-                Debugger.Assert(!p.Disposed,
-                    $"Disposed {nameof(Projectile)}s shouldn't be in the {nameof(deadprojectileQue)}!");
-
-                BulletLayer.ReturnIndex(p.Drawable);
-                p.SetDrawable(-1, null);
-
-                ProjectilePacks[p.Team].Remove(p);
-            }
-
-            if (multithread)
-            {
-                AssignIndexes(enemys);
-                Vitaru.RunThreads();
-            }
-            else
-                ParticleLayer.UpdateParticles(0, particle_cap, (float)Clock.LastElapsedTime);
-
-            //should be safe to kill them from here
-            while (deadEnemyQue.TryDequeue(out Enemy e))
-            {
-                Debugger.Assert(!e.Disposed, $"Disposed {nameof(Enemy)}s shouldn't be in the {nameof(deadEnemyQue)}!");
-                LoadedEnemies.Remove(e, false);
-                UnloadedEnemies.Add(e);
             }
 
             while (deadPlayerQue.TryDequeue(out Player p))
             {
                 Debugger.Assert(!p.Disposed,
                     $"Disposed {nameof(Player)}s shouldn't be in the {nameof(deadPlayerQue)}!");
-                PlayerPack.Remove(p);
-            }
-
-            double current = Clock.Current;
-            //Lets check our unloaded Enemies to see if any need to be drawn soon, if so lets load their drawables
-            for (int i = 0; i < UnloadedEnemies.Count; i++)
-            {
-                Enemy e = UnloadedEnemies[i];
-                if (current >= e.StartTime - e.TimePreLoad && current < e.EndTime) // + e.TimeUnLoad)
-                {
-                    enemyQue.Enqueue(e);
-                    UnloadedEnemies.Remove(e);
-                    LoadedEnemies.Add(e);
-                    //Boss?.Enemies.Add(e);
-                }
+                CharacterPack.Remove(p);
             }
         }
 
@@ -255,31 +212,14 @@ namespace Vitaru.Play
         private readonly ConcurrentQueue<DrawableGameEntity> drawableCharacterQue =
             new();
 
-        public void Add(Enemy enemy)
-        {
-            //We may not need to draw these yet so just store them in a list for now
-            UnloadedEnemies.Add(enemy);
-            enemy.OnAddParticle = ParticleLayer.Add;
-        }
-
-        public void Remove(Enemy enemy)
-        {
-            Debugger.Assert(!enemy.Disposed,
-                $"Disposed {nameof(Enemy)}s shouldn't be getting added to {nameof(deadEnemyQue)}!");
-            Debugger.Assert(!deadEnemyQue.Contains(enemy),
-                $"{nameof(Enemy)} shouldn't be getting added to {nameof(deadEnemyQue)} again!");
-            //que them since we may be calling this from their update loop
-            deadEnemyQue.Enqueue(enemy);
-        }
-
         private readonly ConcurrentQueue<Player> playerQue = new();
 
         private readonly ConcurrentQueue<Player> deadPlayerQue = new();
 
         public void Add(Player player)
         {
-            PlayerPack.Add(player);
-            player.OnAddParticle = ParticleLayer.Add;
+            CharacterPack.Add(player);
+            //player.OnAddParticle = ParticleLayer.Add;
             //Que adding the drawable
             playerQue.Enqueue(player);
         }
@@ -307,24 +247,6 @@ namespace Vitaru.Play
 
             //HealthBar.Color = player.PrimaryColor;
             //EnergyBar.Color = player.PrimaryColor;
-        }
-
-        private readonly ConcurrentQueue<Projectile> deadprojectileQue = new();
-
-        public void Add(Projectile projectile)
-        {
-            ProjectilePacks[projectile.Team].Add(projectile);
-            //projectile.OnUnLoad += () => Remove(projectile);
-        }
-
-        public void Remove(Projectile projectile)
-        {
-            Debugger.Assert(!projectile.Disposed,
-                $"Disposed {nameof(Projectile)}s shouldn't be getting added to {nameof(deadprojectileQue)}!");
-            Debugger.Assert(!deadprojectileQue.Contains(projectile),
-                $"{nameof(Projectile)} shouldn't be getting added to {nameof(deadprojectileQue)} again!");
-
-            deadprojectileQue.Enqueue(projectile);
         }
     }
 }

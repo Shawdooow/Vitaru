@@ -5,14 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Utilities;
 using Prion.Nucleus.Utilities;
-using Prion.Nucleus.Utilities.Vectors;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Play.Projectiles;
@@ -234,7 +232,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             }
 
-            DrawablePlayer?.UpdateAnimations(this);
+            //DrawablePlayer?.UpdateAnimations(this);
 
             Position = GetPositionOffset(0.3f);
 
@@ -358,7 +356,7 @@ namespace Vitaru.Play.Characters.Players
             if (CheckSpellActivate(t))
                 SpellActivate(t);
 
-            DrawablePlayer?.Pressed(t);
+            //DrawablePlayer?.Pressed(t);
 
             switch (t)
             {
@@ -377,7 +375,7 @@ namespace Vitaru.Play.Characters.Players
             if (CheckSpellDeactivate(t))
                 SpellDeactivate(t);
 
-            DrawablePlayer?.Released(t);
+            //DrawablePlayer?.Released(t);
 
             switch (t)
             {

@@ -3,7 +3,6 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
-using Prion.Nucleus.Groups;
 using Prion.Nucleus.Utilities;
 
 namespace Vitaru.Graphics.UI

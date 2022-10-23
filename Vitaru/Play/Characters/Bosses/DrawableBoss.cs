@@ -3,7 +3,7 @@
 
 namespace Vitaru.Play.Characters.Bosses
 {
-    public class DrawableBoss : DrawableCharacter
+    public class DrawableBoss// : DrawableCharacter
     {
     }
 }

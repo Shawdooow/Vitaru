@@ -13,7 +13,11 @@ namespace Vitaru.Play
         public readonly Layer2D<IDrawable2D> Layer2Ds;
         public readonly Layer3D<IDrawable3D> Layer3Ds;
 
-        protected readonly float MaxBarSize;
+        public readonly Layer2D<IDrawable2D> OverlayLayer;
+        public readonly Layer2D<IDrawable2D> CharacterLayer;
+        public readonly Layer2D<IDrawable2D> ProjectileLayer;
+
+        public readonly float MaxBarSize;
 
         public readonly Box HealthBar;
         public readonly Box HealthChange;
@@ -24,5 +28,13 @@ namespace Vitaru.Play
         public readonly Box EnergyChange;
         public readonly Text2D MaxEnergyText;
         public readonly Text2D CurrentEnergyText;
+
+        public Shades Shade;
+        public float Intensity;
+
+        public PlayLayers()
+        {
+
+        }
     }
 }
