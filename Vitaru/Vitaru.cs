@@ -21,6 +21,7 @@ using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
+using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Levels;
 using Vitaru.Mods;
@@ -230,7 +231,7 @@ namespace Vitaru
                     ? ALKI == 2 ? "Textures\\Icons\\64\\rhize.ico" : "Textures\\Icons\\64\\alki.ico"
                     : "Textures\\Icons\\64\\vitaru.ico"));
 
-            //GamemodeStore.ReloadGamemodes();
+            GamemodeStore.ReloadGamemodes();
 
             Modloader.ReloadMods();
 
