@@ -25,7 +25,7 @@ namespace Vitaru.Play.Characters.Players
 
         public readonly CircularMask Circular;
 
-        public Seal()
+        public Seal(Player player)
         {
             Size = new Vector2(256);
 
@@ -36,6 +36,7 @@ namespace Vitaru.Play.Characters.Players
                 {
                     Scale = new Vector2(0.3f),
                     Alpha = 0.5f,
+                    Texture = Vitaru.TextureStore.GetTexture(player.Seal)
                 },
 
                 EnergyValue = new Text2D(false)

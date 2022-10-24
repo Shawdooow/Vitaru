@@ -5,6 +5,7 @@ using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
+using Prion.Nucleus.Groups;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -20,7 +21,7 @@ namespace Vitaru.Play.Characters.Players
             CharacterSprite.Color = player.PrimaryColor;
             CharacterSprite.Scale = new Vector2(0.3f);
 
-            //Add(Seal = new Seal(player), AddPosition.First);
+            CharacterLayer.Add(Seal = new Seal(player), AddPosition.First);
         }
     }
 }

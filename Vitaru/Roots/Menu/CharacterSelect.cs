@@ -13,6 +13,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
 using Vitaru.Chapters;
 using Vitaru.Gamemodes;
+using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Roots.Menu
@@ -85,7 +86,7 @@ namespace Vitaru.Roots.Menu
             private readonly Box flash;
 
             private readonly KeyValuePair<Chapter, Player> pair;
-            private Sprite sign;
+            private DrawablePlayer drawable;
 
             public SelectableCharacter(KeyValuePair<Chapter, Player> pair, int index)
             {
@@ -122,6 +123,10 @@ namespace Vitaru.Roots.Menu
                 base.LoadingComplete();
 
                 //Load the Drawable here
+                drawable = new DrawablePlayer(pair.Value, this);
+                drawable.Position = Vector2.Zero;
+                //drawable.HitboxAlpha = 1;
+
                 AddArray(new IDrawable2D[]
                 {
                     new Text2D

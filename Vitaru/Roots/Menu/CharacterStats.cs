@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018-2022 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using System;
 using System.Linq;
 using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
@@ -25,6 +26,8 @@ namespace Vitaru.Roots.Menu
         private readonly Text2D notes;
         private readonly Text2D origin;
         private readonly Text2D description;
+
+        private readonly Action<string> changeHandle;
 
         public CharacterStats()
         {
@@ -118,7 +121,9 @@ namespace Vitaru.Roots.Menu
                 },
             };
 
-            GamemodeStore.SelectedGamemode.OnSelectedCharacterChange += value => change(GamemodeStore.GetPlayer(value));
+            changeHandle = value => change(GamemodeStore.GetPlayer(value));
+
+            GamemodeStore.SelectedGamemode.OnSelectedCharacterChange += changeHandle;
             change(GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter));
         }
 
@@ -161,6 +166,13 @@ namespace Vitaru.Roots.Menu
 #if !PUBLIC
             if (player.Description != string.Empty) Add(description);
 #endif
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+
+            GamemodeStore.SelectedGamemode.OnSelectedCharacterChange -= changeHandle;
         }
     }
 }

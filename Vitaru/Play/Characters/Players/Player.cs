@@ -146,6 +146,11 @@ namespace Vitaru.Play.Characters.Players
             }
         }
 
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+        }
+
 
         #region Overrides
 
