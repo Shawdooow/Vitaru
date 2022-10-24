@@ -24,8 +24,8 @@ namespace Vitaru.Play.KeyFrames
 
         public int[] Indexes =
         {
-                0,
-                0,
+            0,
+            0,
         };
 
         public bool MultiThreading { get; set; }

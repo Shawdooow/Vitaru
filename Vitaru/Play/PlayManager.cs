@@ -245,8 +245,8 @@ namespace Vitaru.Play
             Layers.MaxHealthText.Text = $"{ActivePlayer.HealthCapacity} HP";
             Layers.MaxEnergyText.Text = $"{ActivePlayer.EnergyCapacity} SP";
 
-            //HealthBar.Color = player.PrimaryColor;
-            //EnergyBar.Color = player.PrimaryColor;
+            Layers.HealthBar.Color = player.PrimaryColor;
+            Layers.EnergyBar.Color = player.PrimaryColor;
         }
     }
 }

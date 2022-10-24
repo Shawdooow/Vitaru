@@ -37,6 +37,7 @@ namespace Vitaru.Editor.KeyFrames
             {
                 KeyFrame f = frames[i];
 
+                //clamping
                 if (current <= f.StartTime && f == frames.First())
                     f.ApplyFrame(current, null);
 
