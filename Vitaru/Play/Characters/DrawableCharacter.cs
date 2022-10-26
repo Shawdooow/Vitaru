@@ -6,6 +6,7 @@ using System.Numerics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
+using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Play.Characters
 {
@@ -87,7 +88,7 @@ namespace Vitaru.Play.Characters
         protected Layer2D<IDrawable2D> CharacterLayer;
         protected Layer2D<IDrawable2D> ParentLayer;
 
-        protected DrawableCharacter(Layer2D<IDrawable2D> layer)
+        protected DrawableCharacter(Character character, Layer2D<IDrawable2D> layer)
         {
             ParentLayer = layer;
             ParentLayer.Add(CharacterLayer = new Layer2D<IDrawable2D>());
@@ -102,6 +103,10 @@ namespace Vitaru.Play.Characters
             {
                 Alpha = 0,
             });
+
+            Color = character.PrimaryColor;
+            SecondaryColor = character.SecondaryColor;
+            Diameter = character.CircularHitbox.Diameter;
         }
 
         protected override void Dispose(bool finalize)
