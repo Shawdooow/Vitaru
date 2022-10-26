@@ -17,9 +17,13 @@ namespace Vitaru.Play.Characters.Players
 
         public DrawablePlayer(Player player, Layer2D<IDrawable2D> layer) : base(layer)
         {
-            CharacterSprite.Texture = Game.TextureStore.GetTexture("Gameplay\\player.png");
-            CharacterSprite.Color = player.PrimaryColor;
+            Texture = Game.TextureStore.GetTexture("Gameplay\\player.png");
             CharacterSprite.Scale = new Vector2(0.3f);
+
+            Color = player.PrimaryColor;
+            SecondaryColor = player.SecondaryColor;
+
+            Diameter = player.CircularHitbox.Diameter;
 
             CharacterLayer.Add(Seal = new Seal(player), AddPosition.First);
         }

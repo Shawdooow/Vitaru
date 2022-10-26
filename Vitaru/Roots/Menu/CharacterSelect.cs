@@ -125,7 +125,7 @@ namespace Vitaru.Roots.Menu
                 //Load the Drawable here
                 drawable = new DrawablePlayer(pair.Value, this);
                 drawable.Position = Vector2.Zero;
-                //drawable.HitboxAlpha = 1;
+                drawable.HitboxAlpha = 1;
 
                 AddArray(new IDrawable2D[]
                 {

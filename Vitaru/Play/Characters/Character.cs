@@ -30,7 +30,7 @@ namespace Vitaru.Play.Characters
 
         public override Hitbox GetHitbox() => CircularHitbox;
 
-        protected CircularHitbox CircularHitbox = new()
+        public CircularHitbox CircularHitbox = new()
         {
             Diameter = 10,
         };
