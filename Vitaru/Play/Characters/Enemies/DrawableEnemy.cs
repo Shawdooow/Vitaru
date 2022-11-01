@@ -10,7 +10,7 @@ namespace Vitaru.Play.Characters.Enemies
     {
         public override string Name { get; set; } = nameof(DrawableEnemy);
 
-        public DrawableEnemy(Layer2D<IDrawable2D> layer) : base(layer)
+        public DrawableEnemy(Character character, Layer2D<IDrawable2D> layer) : base(character, layer)
         {
         }
     }
