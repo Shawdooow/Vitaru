@@ -21,6 +21,7 @@ using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
+using Vitaru.Debug;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Levels;
@@ -123,7 +124,11 @@ namespace Vitaru
 
             //OK Now buckle your fuckle, we are ready to go!
             Vitaru vitaru = new(v);
+#if !PUBLISH
+            vitaru.Start(new DebugMenu(vitaru));
+#else
             vitaru.Start(new MainMenu(vitaru));
+#endif
         }
 
         public static bool EnableIncompleteCharacters => FEATURES >= Features.Experimental;
