@@ -91,7 +91,10 @@ namespace Vitaru.Play.Characters
         protected DrawableCharacter(Character character, Layer2D<IDrawable2D> layer)
         {
             ParentLayer = layer;
-            ParentLayer.Add(CharacterLayer = new Layer2D<IDrawable2D>());
+            ParentLayer.Add(CharacterLayer = new Layer2D<IDrawable2D>()
+            {
+                Name = $"{character.Name}Layer"
+            });
 
             CharacterLayer.Add(CharacterSprite = new Sprite());
             CharacterLayer.Add(HitboxOutline = new Circle
