@@ -58,7 +58,11 @@ namespace Vitaru.Play.Characters
         public virtual Texture Texture
         {
             get => CharacterSprite.Texture;
-            set => CharacterSprite.Texture = value;
+            set
+            {
+                CharacterSprite.Texture = value;
+                CharacterSprite.Size = value.Size;
+            }
         }
 
         public override Color Color

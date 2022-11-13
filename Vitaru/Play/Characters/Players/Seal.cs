@@ -71,6 +71,8 @@ namespace Vitaru.Play.Characters.Players
                     Alpha = 0.8f,
                 },
             };
+
+            Sign.Size = Sign.Texture.Size;
         }
 
         public class CircularMask : CircularLayer<MaskSprite>
