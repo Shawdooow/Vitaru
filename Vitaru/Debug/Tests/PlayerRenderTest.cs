@@ -1,11 +1,6 @@
 ﻿using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using Vitaru.Gamemodes;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Roots;
