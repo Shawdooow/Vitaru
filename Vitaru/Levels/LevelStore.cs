@@ -255,7 +255,26 @@ namespace Vitaru.Levels
         public static LevelPack SetRandomLevelPack(LevelPack last)
         {
             SetLevelPack(GetRandomLevelPack(last));
-            SetLevel(GetRandomLevel(null));
+            var level = GetRandomLevel(null);
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (level != null)
+                        break;
+
+                    level = GetRandomLevel(null);
+                }
+
+                if (level != null)
+                    break;
+
+                SetLevelPack(GetRandomLevelPack(last));
+                level = GetRandomLevel(null);
+            }
+
+            SetLevel(level);
 
             return CurrentPack;
         }
@@ -297,23 +316,16 @@ namespace Vitaru.Levels
         {
             LevelPack p = last == null ? CurrentPack : GetLevelPack(last);
 
-            int random = PrionMath.RandomNumber(0, p.Levels.Length);
-            int j = 0;
-
             for (int i = 0; i < 2; i++)
             {
-                if (last == null || p.Levels[random].Name != last.Name)
-                    while (j < LoadedLevels[random].Levels.Length)
-                    {
-                        if (LoadedLevels[random].Levels[j].Metadata.Autoplay)
-                            break;
-                        j++;
-                    }
+                Level l = p.Levels[PrionMath.RandomNumber(0, p.Levels.Length)];
 
-                PrionMath.RandomNumber(0, p.Levels.Length);
+                if (l == last || !l.Metadata.Autoplay)
+                    continue;
+                return l;
             }
 
-            return p.Levels[j];
+            return null;
         }
 
         public static Level GetLevel(TrackMetadata data)

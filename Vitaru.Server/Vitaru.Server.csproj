@@ -18,7 +18,7 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
 		<DefineConstants>PUBLISH</DefineConstants>
-		<OutputType>Exe</OutputType>
+		<OutputType>Library</OutputType>
 		<Optimize>true</Optimize>
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
