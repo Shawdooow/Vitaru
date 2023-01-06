@@ -42,7 +42,7 @@ namespace Vitaru.Mods.Included
 
         public override Root GetRoot() => new MixerRoot();
 
-        private class MixerRoot : MenuRoot
+        public class MixerRoot : MenuRoot
         {
             public override string Name => nameof(MixerRoot);
 
