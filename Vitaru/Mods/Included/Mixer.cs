@@ -60,11 +60,11 @@ namespace Vitaru.Mods.Included
 
             private Text2D song;
 
-            private Text2D volume;
-            private Slider control;
+            protected Text2D Volume;
+            protected Slider Control;
 
-            private Text2D pitch;
-            private Slider slider;
+            protected Text2D Pitch;
+            protected Slider Slider;
 
             private Button play;
             private Text2D timeIn;
@@ -93,7 +93,7 @@ namespace Vitaru.Mods.Included
 
                     new Button
                     {
-                        Position = new Vector2(240, 0),
+                        Position = new Vector2(240, 140),
                         Size = new Vector2(100, 100),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -115,7 +115,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
-                        Position = new Vector2(120, 0),
+                        Position = new Vector2(120, 140),
                         Size = new Vector2(80, 80),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -138,6 +138,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
+                        Position = new Vector2(0, 140),
                         Size = new Vector2(100, 100),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -159,7 +160,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
-                        Position = new Vector2(-120, 0),
+                        Position = new Vector2(-120, 140),
                         Size = new Vector2(80, 80),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -182,7 +183,7 @@ namespace Vitaru.Mods.Included
                     },
                     new Button
                     {
-                        Position = new Vector2(-240, 0),
+                        Position = new Vector2(-240, 140),
                         Size = new Vector2(100, 100),
 
                         Background = Game.TextureStore.GetTexture("square.png"),
@@ -205,8 +206,8 @@ namespace Vitaru.Mods.Included
 
                     new Button
                     {
+                        Position = new Vector2(120, 220),
                         Size = new Vector2(80, 40),
-                        Y = 80,
 
                         Background = Game.TextureStore.GetTexture("square.png"),
                         Dim =
@@ -225,29 +226,61 @@ namespace Vitaru.Mods.Included
                         Text = "Accel",
                         OnClick = () => accel = !accel,
                     },
-
-                    pitch = new Text2D
+                    new Button
                     {
-                        Position = new Vector2(0, -160),
+                        Position = new Vector2(-120, 220),
+                        Size = new Vector2(80, 40),
+
+                        Background = Game.TextureStore.GetTexture("square.png"),
+                        Dim =
+                        {
+                            Alpha = 0.5f,
+                        },
+                        BackgroundSprite =
+                        {
+                            Color = ThemeManager.SecondaryColor,
+                        },
+                        Text2D =
+                        {
+                            FontScale = 0.25f,
+                        },
+
+                        Text = "Deccel",
+                        Disabled = true,
+                        //OnClick = () => accel = !accel,
+                    },
+
+                    Pitch = new Text2D
+                    {
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Position = new Vector2(300, -180),
+                        FontScale = 0.25f,
                         Text = TrackManager.CurrentTrack.Pitch.ToString(),
                     },
-                    slider = new Slider
+                    Slider = new Slider
                     {
-                        Width = 1000,
-                        Position = new Vector2(0, -100),
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Width = 200,
+                        Position = new Vector2(300, -150),
                         OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max)),
                     },
 
-                    volume = new Text2D
+                    Volume = new Text2D
                     {
-                        Position = new Vector2(0, -280),
-                        FontScale = 0.5f,
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
+                        Position = new Vector2(-300, -180),
+                        FontScale = 0.25f,
                         Text = (TrackManager.CurrentTrack.Gain * 100).ToString(),
                     },
-                    control = new Slider
+                    Control = new Slider
                     {
+                        ParentOrigin = Mounts.BottomCenter,
+                        Origin = Mounts.BottomCenter,
                         Width = 200,
-                        Position = new Vector2(0, -240),
+                        Position = new Vector2(-300, -150),
                         OnProgressInput = setVolume,
                     },
 
@@ -320,7 +353,7 @@ namespace Vitaru.Mods.Included
                     },
                 });
 
-                slider.AddArray(new IDrawable2D[]
+                Slider.AddArray(new IDrawable2D[]
                 {
                     new Text2D
                     {
@@ -390,6 +423,11 @@ namespace Vitaru.Mods.Included
 
                 aMax(1);
                 aMin(0);
+
+                if (Vitaru.AssetStorage.Exists("Sounds\\SoundboardSamples"))
+                {
+
+                }
             }
 
             public override void Update()
@@ -433,15 +471,15 @@ namespace Vitaru.Mods.Included
             private void setRate(float r)
             {
                 TrackManager.CurrentTrack.Pitch = rate = Math.Clamp(r, min, max);
-                pitch.Text = $"{MathF.Round(rate, 2)}x";
-                slider.Progress = PrionMath.Remap(rate, min, max);
+                Pitch.Text = $"{MathF.Round(rate, 2)}x";
+                Slider.Progress = PrionMath.Remap(rate, min, max);
             }
 
             private void setVolume(float v)
             {
                 TrackManager.CurrentTrack.Gain = gain = Math.Clamp(v, 0, 1);
-                volume.Text = $"{MathF.Round(gain * 100, 0)}%";
-                control.Progress = PrionMath.Remap(gain, 0, 1);
+                Volume.Text = $"{MathF.Round(gain * 100, 0)}%";
+                Control.Progress = PrionMath.Remap(gain, 0, 1);
             }
 
             private void toggle()
