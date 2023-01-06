@@ -7,6 +7,8 @@ using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Audio;
+using Prion.Mitochondria.Audio.Contexts;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers;
 using Prion.Mitochondria.Graphics.Roots;
@@ -14,6 +16,7 @@ using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Mitochondria.Input.Events;
+using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
 using Vitaru.Roots.Menu;
@@ -419,15 +422,138 @@ namespace Vitaru.Mods.Included
                 Add(new TrackSelect());
                 Add(new LevelSelect());
 
+                if (Vitaru.AssetStorage.Exists("Sounds\\SoundboardSamples"))
+                {
+                    Sound snare = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\Snare.wav"));
+                    Sound snarebell = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBell.wav"));
+                    Sound snarebass = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBass.wav"));
+                    Sound snareclap = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareClap.wav"));
+
+                    AddArray(new ILayer[]
+                    {
+                        new BindableButton
+                        {
+                            Bind = Keys.One,
+
+                            Position = new Vector2(-180, -250),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "S",
+                            OnClick = () =>
+                            {
+                                snare.Pause();
+                                snare.Seek(0);
+                                snare.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.Two,
+
+                            Position = new Vector2(-60, -250),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "Snare",
+                            OnClick = () =>
+                            {
+                                snarebell.Pause();
+                                snarebell.Seek(0);
+                                snarebell.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.Three,
+
+                            Position = new Vector2(60, -250),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "Snare",
+                            OnClick = () =>
+                            {
+                                snarebass.Pause();
+                                snarebass.Seek(0);
+                                snarebass.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.Four,
+
+                            Position = new Vector2(180, -250),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "Snare",
+                            OnClick = () =>
+                            {
+                                snareclap.Pause();
+                                snareclap.Seek(0);
+                                snareclap.Play();
+                            },
+                        },
+                    });
+                }
+
                 base.LoadingComplete();
 
                 aMax(1);
                 aMin(0);
-
-                if (Vitaru.AssetStorage.Exists("Sounds\\SoundboardSamples"))
-                {
-
-                }
             }
 
             public override void Update()
