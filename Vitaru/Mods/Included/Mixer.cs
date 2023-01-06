@@ -458,6 +458,12 @@ namespace Vitaru.Mods.Included
                                 snare.Pause();
                                 snare.Seek(0);
                                 snare.Play();
+                            },                            
+                            OnRightClick = () =>
+                            {
+                                snare.Pause();
+                                snare.Seek(0);
+                                snare.Play();
                             },
                         },
                         new BindableButton
@@ -483,6 +489,12 @@ namespace Vitaru.Mods.Included
 
                             Text = "Snare",
                             OnClick = () =>
+                            {
+                                snarebell.Pause();
+                                snarebell.Seek(0);
+                                snarebell.Play();
+                            },
+                            OnRightClick = () =>
                             {
                                 snarebell.Pause();
                                 snarebell.Seek(0);
@@ -517,6 +529,12 @@ namespace Vitaru.Mods.Included
                                 snarebass.Seek(0);
                                 snarebass.Play();
                             },
+                            OnRightClick = () =>
+                            {
+                                snarebass.Pause();
+                                snarebass.Seek(0);
+                                snarebass.Play();
+                            },
                         },
                         new BindableButton
                         {
@@ -541,6 +559,12 @@ namespace Vitaru.Mods.Included
 
                             Text = "Snare",
                             OnClick = () =>
+                            {
+                                snareclap.Pause();
+                                snareclap.Seek(0);
+                                snareclap.Play();
+                            },
+                            OnRightClick = () =>
                             {
                                 snareclap.Pause();
                                 snareclap.Seek(0);
