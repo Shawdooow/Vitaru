@@ -21,6 +21,7 @@ using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
 using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Vitaru.Mods.Included
 {
@@ -80,6 +81,22 @@ namespace Vitaru.Mods.Included
             private Text2D accelMaxTime;
 
             private bool accel;
+            private bool deccel;
+
+            Sound snare;
+            Sound snarebell;
+            Sound snarebass;
+            Sound snareclap;
+
+            Sound tom;
+            Sound tombell;
+            Sound tombass;
+            Sound tomclap;
+
+            Sound hat;
+            Sound hatbell;
+            Sound hatbass;
+            Sound hatclap;
 
             public override void LoadingComplete()
             {
@@ -424,10 +441,20 @@ namespace Vitaru.Mods.Included
 
                 if (Vitaru.AssetStorage.Exists("Sounds\\SoundboardSamples"))
                 {
-                    Sound snare = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\Snare.wav"));
-                    Sound snarebell = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBell.wav"));
-                    Sound snarebass = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBass.wav"));
-                    Sound snareclap = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareClap.wav"));
+                    snare = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\Snare.wav"));
+                    snarebell = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBell.wav"));
+                    snarebass = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareBass.wav"));
+                    snareclap = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\SnareClap.wav"));
+
+                    tom = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\Tom.wav"));
+                    tombell = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\TomBell.wav"));
+                    tombass = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\TomBass.wav"));
+                    tomclap = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\TomClap.wav"));
+
+                    hat = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\Hat.wav"));
+                    hatbell = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\HatBell.wav"));
+                    hatbass = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\HatBass.wav"));
+                    hatclap = new Sound(new SeekableClock(), Vitaru.SampleStore.GetSample("SoundboardSamples\\HatClap.wav"));
 
                     AddArray(new ILayer[]
                     {
@@ -435,7 +462,7 @@ namespace Vitaru.Mods.Included
                         {
                             Bind = Keys.One,
 
-                            Position = new Vector2(-180, -250),
+                            Position = new Vector2(-180, -240),
                             Size = new Vector2(100, 100),
 
                             Background = Game.TextureStore.GetTexture("square.png"),
@@ -470,7 +497,7 @@ namespace Vitaru.Mods.Included
                         {
                             Bind = Keys.Two,
 
-                            Position = new Vector2(-60, -250),
+                            Position = new Vector2(-60, -240),
                             Size = new Vector2(100, 100),
 
                             Background = Game.TextureStore.GetTexture("square.png"),
@@ -487,7 +514,7 @@ namespace Vitaru.Mods.Included
                                 FontScale = 0.5f,
                             },
 
-                            Text = "Snare",
+                            Text = "SB",
                             OnClick = () =>
                             {
                                 snarebell.Pause();
@@ -505,7 +532,7 @@ namespace Vitaru.Mods.Included
                         {
                             Bind = Keys.Three,
 
-                            Position = new Vector2(60, -250),
+                            Position = new Vector2(60, -240),
                             Size = new Vector2(100, 100),
 
                             Background = Game.TextureStore.GetTexture("square.png"),
@@ -522,7 +549,7 @@ namespace Vitaru.Mods.Included
                                 FontScale = 0.5f,
                             },
 
-                            Text = "Snare",
+                            Text = "SB",
                             OnClick = () =>
                             {
                                 snarebass.Pause();
@@ -540,7 +567,7 @@ namespace Vitaru.Mods.Included
                         {
                             Bind = Keys.Four,
 
-                            Position = new Vector2(180, -250),
+                            Position = new Vector2(180, -240),
                             Size = new Vector2(100, 100),
 
                             Background = Game.TextureStore.GetTexture("square.png"),
@@ -557,7 +584,7 @@ namespace Vitaru.Mods.Included
                                 FontScale = 0.5f,
                             },
 
-                            Text = "Snare",
+                            Text = "SC",
                             OnClick = () =>
                             {
                                 snareclap.Pause();
@@ -569,6 +596,290 @@ namespace Vitaru.Mods.Included
                                 snareclap.Pause();
                                 snareclap.Seek(0);
                                 snareclap.Play();
+                            },
+                        },
+
+
+                        new BindableButton
+                        {
+                            Bind = Keys.Q,
+
+                            Position = new Vector2(-180, -120),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.SecondaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "T",
+                            OnClick = () =>
+                            {
+                                tom.Pause();
+                                tom.Seek(0);
+                                tom.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                tom.Pause();
+                                tom.Seek(0);
+                                tom.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.W,
+
+                            Position = new Vector2(-60, -120),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.SecondaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "TB",
+                            OnClick = () =>
+                            {
+                                tombell.Pause();
+                                tombell.Seek(0);
+                                tombell.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                tombell.Pause();
+                                tombell.Seek(0);
+                                tombell.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.E,
+
+                            Position = new Vector2(60, -120),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.SecondaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "TB",
+                            OnClick = () =>
+                            {
+                                tombass.Pause();
+                                tombass.Seek(0);
+                                tombass.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                tombass.Pause();
+                                tombass.Seek(0);
+                                tombass.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.R,
+
+                            Position = new Vector2(180, -120),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.SecondaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "TC",
+                            OnClick = () =>
+                            {
+                                tomclap.Pause();
+                                tomclap.Seek(0);
+                                tomclap.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                tomclap.Pause();
+                                tomclap.Seek(0);
+                                tomclap.Play();
+                            },
+                        },
+
+
+                        new BindableButton
+                        {
+                            Bind = Keys.A,
+
+                            Position = new Vector2(-180, 0),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "H",
+                            OnClick = () =>
+                            {
+                                hat.Pause();
+                                hat.Seek(0);
+                                hat.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                hat.Pause();
+                                hat.Seek(0);
+                                hat.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.S,
+
+                            Position = new Vector2(-60, 0),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "HB",
+                            OnClick = () =>
+                            {
+                                hatbell.Pause();
+                                hatbell.Seek(0);
+                                hatbell.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                hatbell.Pause();
+                                hatbell.Seek(0);
+                                hatbell.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.D,
+
+                            Position = new Vector2(60, 0),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "HB",
+                            OnClick = () =>
+                            {
+                                hatbass.Pause();
+                                hatbass.Seek(0);
+                                hatbass.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                hatbass.Pause();
+                                hatbass.Seek(0);
+                                hatbass.Play();
+                            },
+                        },
+                        new BindableButton
+                        {
+                            Bind = Keys.F,
+
+                            Position = new Vector2(180, 0),
+                            Size = new Vector2(100, 100),
+
+                            Background = Game.TextureStore.GetTexture("square.png"),
+                            Dim =
+                            {
+                                Alpha = 0.5f,
+                            },
+                            BackgroundSprite =
+                            {
+                                Color = ThemeManager.PrimaryColor,
+                            },
+                            Text2D =
+                            {
+                                FontScale = 0.5f,
+                            },
+
+                            Text = "HC",
+                            OnClick = () =>
+                            {
+                                hatclap.Pause();
+                                hatclap.Seek(0);
+                                hatclap.Play();
+                            },
+                            OnRightClick = () =>
+                            {
+                                hatclap.Pause();
+                                hatclap.Seek(0);
+                                hatclap.Play();
                             },
                         },
                     });
@@ -616,6 +927,40 @@ namespace Vitaru.Mods.Included
                 base.TrackChange(t);
                 t.Pitch = rate;
                 t.Gain = gain;
+
+                string file = $"{t.Metadata.Title}\\TomBell.wav";
+                if (TrackManager.TrackStorage.Exists(file))
+                {
+                    Sample sample;
+
+                    if (!Game.SampleStore.ObjectDictionary.ContainsKey(file))
+                    {
+                        sample = AudioManager.Context.ConvertSample(
+                            TrackManager.TrackStorage.GetStream(file), file);
+                        Game.SampleStore.ObjectDictionary[file] = sample;
+                    }
+                    else
+                        sample = Game.SampleStore.ObjectDictionary[file];
+
+                    tombell = new Sound(new SeekableClock(), sample);
+                }
+
+                file = $"{t.Metadata.Title}\\TomBass.wav";
+                if (TrackManager.TrackStorage.Exists(file))
+                {
+                    Sample sample;
+
+                    if (!Game.SampleStore.ObjectDictionary.ContainsKey(file))
+                    {
+                        sample = AudioManager.Context.ConvertSample(
+                            TrackManager.TrackStorage.GetStream(file), file);
+                        Game.SampleStore.ObjectDictionary[file] = sample;
+                    }
+                    else
+                        sample = Game.SampleStore.ObjectDictionary[file];
+
+                    tombass = new Sound(new SeekableClock(), sample);
+                }
             }
 
             private void setRate(float r)
