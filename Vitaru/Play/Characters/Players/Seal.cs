@@ -8,6 +8,7 @@ using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
+using Vitaru.Input;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -25,8 +26,12 @@ namespace Vitaru.Play.Characters.Players
 
         public readonly CircularMask Circular;
 
+        protected readonly Player Player;
+
         public Seal(Player player)
         {
+            Player = player;
+
             Size = new Vector2(256);
 
             Children = new IDrawable2D[]
@@ -35,6 +40,7 @@ namespace Vitaru.Play.Characters.Players
                 Sign = new Sprite
                 {
                     Scale = new Vector2(0.3f),
+                    Color = player.SecondaryColor,
                     Alpha = 0.5f,
                     Texture = Vitaru.TextureStore.GetTexture(player.Seal)
                 },
@@ -46,6 +52,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopRight,
                     FontScale = 0.25f,
                     Alpha = 0,
+                    Color = player.ComplementaryColor,
                 },
                 HealthValue = new Text2D(false)
                 {
@@ -54,6 +61,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.TopLeft,
                     FontScale = 0.25f,
                     Alpha = 0,
+                    Color = player.ComplementaryColor,
                 },
 
                 LeftValue = new Text2D(false)
@@ -62,6 +70,7 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterRight,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
+                    Color = player.ComplementaryColor,
                 },
                 RightValue = new Text2D(false)
                 {
@@ -69,10 +78,25 @@ namespace Vitaru.Play.Characters.Players
                     Origin = Mounts.CenterLeft,
                     FontScale = 0.25f,
                     Alpha = 0.8f,
+                    Color = player.ComplementaryColor,
                 },
             };
 
             Sign.Size = Sign.Texture.Size;
+        }
+
+        public override void PreRender()
+        {
+            base.PreRender();
+            float amount = Player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
+
+            if (!Player.SpellActive)
+                Sign.Rotation += (float)(Clock.LastElapsedTime / amount * Player.SealRotationSpeed);
+            else
+                Sign.Rotation -= (float)(Clock.LastElapsedTime / amount * Player.SealRotationSpeed);
+
+            EnergyValue.Text = $"{Math.Round(Player.Energy, 0)}SP";
+            HealthValue.Text = $"{Math.Round(Player.Health, 0)}HP";
         }
 
         public class CircularMask : CircularLayer<MaskSprite>

@@ -40,8 +40,7 @@ namespace Vitaru.Roots
 
                 Text = "Play",
 
-                Disabled = true,
-                //OnClick = () => AddRoot(new PlayRoot()),
+                OnClick = () => AddRoot(new PlayRoot()),
             });
             Add(new TrackSelect());
             Add(new LevelSelect());

@@ -1,8 +1,11 @@
-﻿using Prion.Mitochondria.Graphics.Drawables;
+﻿using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics;
+using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Layers._3D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
+using Prion.Nucleus.Debug;
 
 namespace Vitaru.Play
 {
@@ -34,7 +37,7 @@ namespace Vitaru.Play
 
         public PlayLayers()
         {
-
+            Debugger.Assert(Game.DrawThreaded);
         }
     }
 }
