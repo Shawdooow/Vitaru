@@ -249,5 +249,6 @@ __pycache__/
 *.pyc
 Staging/
 Vitaru/Properties/launchSettings.json
+Vitaru/Assets/Sounds/SoundboardSamples/*
 
 *.spv

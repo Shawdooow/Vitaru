@@ -39,6 +39,7 @@
 	<ItemGroup Condition="'$(Configuration)'=='Public'">
 		<None Remove="Assets\Models\SN10.obj" />
 		<None Remove="Assets\Sounds\SN10 Flight.wav" />
+		<None Remove="Assets\Sounds\SoundboardSamples" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="Assets\**\*">
