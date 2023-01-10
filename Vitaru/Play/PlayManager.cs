@@ -115,7 +115,6 @@ namespace Vitaru.Play
         public override void Update()
         {
             //Wait before we update Characters, that will mess this up
-
             while (Vitaru.ThreadsRunning()) { }
 
             Current = Clock.Current;
@@ -247,6 +246,12 @@ namespace Vitaru.Play
 
             Layers.HealthBar.Color = player.PrimaryColor;
             Layers.EnergyBar.Color = player.PrimaryColor;
+        }
+
+        protected override void Dispose(bool finalize)
+        {
+            base.Dispose(finalize);
+            ActivePlayer = null;
         }
     }
 }

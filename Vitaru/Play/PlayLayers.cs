@@ -6,6 +6,8 @@ using Prion.Mitochondria.Graphics.Layers._3D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Nucleus.Debug;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Gamemodes;
 
 namespace Vitaru.Play
@@ -52,6 +54,102 @@ namespace Vitaru.Play
             Layer2Ds.Add(CharacterLayer);
             Layer2Ds.Add(ProjectileLayer);
             Layer2Ds.Add(OverlayLayer);
+
+            OverlayLayer.Children = new IDrawable2D[]
+            {
+                new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Black,
+                    Alpha = 0.5f,
+                },
+                HealthChange = new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Red,
+                },
+                HealthBar = new Box
+                {
+                    ParentOrigin = Mounts.BottomRight,
+                    Origin = Mounts.BottomLeft,
+
+                    Position = new Vector2(32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+                },
+                MaxHealthText = new Text2D
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterLeft,
+
+                    Position = new Vector2(32, -MaxBarSize / 2 - 32),
+                    FontScale = 0.48f,
+                },
+                CurrentHealthText = new Text2D(false)
+                {
+                    ParentOrigin = Mounts.CenterRight,
+                    Origin = Mounts.CenterLeft,
+
+                    X = 64,
+                    FontScale = 0.32f,
+                },
+
+
+                new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Black,
+                    Alpha = 0.5f,
+                },
+                EnergyChange = new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+
+                    Color = Color.Red,
+                },
+                EnergyBar = new Box
+                {
+                    ParentOrigin = Mounts.BottomLeft,
+                    Origin = Mounts.BottomRight,
+
+                    Position = new Vector2(-32, -16),
+                    Size = new Vector2(8, MaxBarSize),
+                },
+                MaxEnergyText = new Text2D
+                {
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.CenterRight,
+
+                    Position = new Vector2(-32, -MaxBarSize / 2 - 32),
+                    FontScale = 0.48f,
+                },
+                CurrentEnergyText = new Text2D(false)
+                {
+                    ParentOrigin = Mounts.CenterLeft,
+                    Origin = Mounts.CenterRight,
+
+                    X = -64,
+                    FontScale = 0.32f,
+                },
+            };
         }
     }
 }

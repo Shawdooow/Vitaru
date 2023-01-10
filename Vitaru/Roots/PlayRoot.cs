@@ -46,6 +46,7 @@ namespace Vitaru.Roots
         {
             base.LoadingComplete();
             Add(PlayManager);
+            PlayManager.SetPlayer(GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, PlayManager));
         }
 
         public override void RenderingPreLoading()
