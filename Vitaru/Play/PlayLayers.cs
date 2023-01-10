@@ -24,6 +24,7 @@ namespace Vitaru.Play
         public readonly Layer2D<IDrawable2D> OverlayLayer;
 
         public readonly float MaxBarSize;
+        public readonly Vector2 Size;
 
         public readonly Box HealthBar;
         public readonly Box HealthChange;
@@ -42,14 +43,29 @@ namespace Vitaru.Play
         {
             Debugger.Assert(Game.DrawThreaded);
 
-            Border = new GamefieldBorder(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize());
+            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
+            MaxBarSize = Size.X - 64;
+
+            Border = new GamefieldBorder(Size);
 
             Layer3Ds = new Layer3D<IDrawable3D>();
-            Layer2Ds = new Layer2D<IDrawable2D>();
+            Layer2Ds = new Layer2D<IDrawable2D>
+            {
+                Size = Size
+            };
 
-            OverlayLayer = new Layer2D<IDrawable2D>();
-            CharacterLayer = new Layer2D<IDrawable2D>();
-            ProjectileLayer = new Layer2D<IDrawable2D>();
+            OverlayLayer = new Layer2D<IDrawable2D>
+            {
+                Size = Size
+            };
+            CharacterLayer = new Layer2D<IDrawable2D>
+            {
+                Size = Size
+            };
+            ProjectileLayer = new Layer2D<IDrawable2D>
+            {
+                Size = Size
+            };
 
             Layer2Ds.Add(CharacterLayer);
             Layer2Ds.Add(ProjectileLayer);
