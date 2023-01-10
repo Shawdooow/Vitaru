@@ -26,8 +26,8 @@ namespace Vitaru.Roots
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
         };
 
-        public readonly PlayLayers PlayLayers;
-        public readonly PlayManager PlayManager;
+        public PlayLayers PlayLayers { get; private set; }
+        public PlayManager PlayManager { get; private set; }
 
         public PlayRoot()
         {
@@ -40,20 +40,21 @@ namespace Vitaru.Roots
             TrackManager.CurrentTrack.DrawClock.Start();
             TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
             TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
-
-            PlayLayers = new PlayLayers();
-            PlayManager = new PlayManager(PlayLayers);
         }
 
-        public override void PreLoading()
+        public override void LoadingComplete()
         {
-            base.PreLoading();
+            base.LoadingComplete();
             Add(PlayManager);
         }
 
         public override void RenderingPreLoading()
         {
             base.RenderingPreLoading();
+
+            PlayLayers = new PlayLayers();
+            PlayManager = new PlayManager(PlayLayers);
+
             Add(PlayLayers.Border);
 
             Add(PlayLayers.Layer2Ds);
