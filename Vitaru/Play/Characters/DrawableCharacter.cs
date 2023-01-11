@@ -13,7 +13,11 @@ namespace Vitaru.Play.Characters
     {
         public override string Name { get; set; } = nameof(DrawableCharacter);
 
-        public override Vector2 Position { get; set; }
+        public override Vector2 Position 
+        { 
+            get => CharacterLayer.Position; 
+            set => CharacterLayer.Position = value;
+        }
 
         public override Vector2 Size
         {
