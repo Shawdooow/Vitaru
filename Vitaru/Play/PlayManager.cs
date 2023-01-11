@@ -66,10 +66,6 @@ namespace Vitaru.Play
         public PlayManager(PlayLayers layers, VitaruNetHandler vitaruNet = null)
         {
             Layers = layers;
-
-            Player player = GamemodeStore.SelectedGamemode.SelectedCharacter != string.Empty
-                ? GamemodeStore.GetPlayer(GamemodeStore.SelectedGamemode.SelectedCharacter, this)
-                : new Yuie(this);
         }
 
         public override void PreLoading()
