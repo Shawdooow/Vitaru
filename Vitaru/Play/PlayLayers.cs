@@ -1,4 +1,6 @@
-﻿using Prion.Mitochondria;
+﻿using Microsoft.VisualBasic.Devices;
+using Prion.Golgi.Audio.Tracks;
+using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
@@ -48,9 +50,13 @@ namespace Vitaru.Play
 
             Border = new GamefieldBorder(Size);
 
-            Layer3Ds = new Layer3D<IDrawable3D>();
+            Layer3Ds = new Layer3D<IDrawable3D>
+            {
+                Clock = TrackManager.CurrentTrack.DrawClock,
+            };
             Layer2Ds = new Layer2D<IDrawable2D>
             {
+                Clock = TrackManager.CurrentTrack.DrawClock,
                 Size = Size
             };
 

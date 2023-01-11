@@ -66,6 +66,7 @@ namespace Vitaru.Play
         public PlayManager(PlayLayers layers, VitaruNetHandler vitaruNet = null)
         {
             Layers = layers;
+            Clock = TrackManager.CurrentTrack.Clock;
         }
 
         public override void PreLoading()
