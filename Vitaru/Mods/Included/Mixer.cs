@@ -274,7 +274,7 @@ namespace Vitaru.Mods.Included
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Position = new Vector2(300, -180),
+                        Position = new Vector2(360, -180),
                         FontScale = 0.25f,
                         Text = TrackManager.CurrentTrack.Pitch.ToString(),
                     },
@@ -282,8 +282,8 @@ namespace Vitaru.Mods.Included
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Width = 200,
-                        Position = new Vector2(300, -150),
+                        Width = 280,
+                        Position = new Vector2(360, -150),
                         OnProgressInput = p => setRate(PrionMath.Remap(p, 0, 1, min, max)),
                     },
 
@@ -291,7 +291,7 @@ namespace Vitaru.Mods.Included
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Position = new Vector2(-300, -180),
+                        Position = new Vector2(-360, -180),
                         FontScale = 0.25f,
                         Text = (TrackManager.CurrentTrack.Gain * 100).ToString(),
                     },
@@ -299,8 +299,8 @@ namespace Vitaru.Mods.Included
                     {
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Width = 200,
-                        Position = new Vector2(-300, -150),
+                        Width = 280,
+                        Position = new Vector2(-360, -150),
                         OnProgressInput = setVolume,
                     },
 
@@ -309,7 +309,7 @@ namespace Vitaru.Mods.Included
                         Y = -75,
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Width = 800,
+                        Width = 1000,
                         OnProgressInput = p =>
                             TrackManager.CurrentTrack.Seek(
                                 PrionMath.Remap(p, 0, 1, 0, TrackManager.CurrentTrack.Sample.Length)),
@@ -319,7 +319,7 @@ namespace Vitaru.Mods.Included
                         Y = -110,
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Width = 800,
+                        Width = 1000,
                         OnProgressInput = aMin,
                     },
                     accelMax = new Slider
@@ -327,7 +327,7 @@ namespace Vitaru.Mods.Included
                         Y = -40,
                         ParentOrigin = Mounts.BottomCenter,
                         Origin = Mounts.BottomCenter,
-                        Width = 800,
+                        Width = 1000,
                         Progress = 1,
                         OnProgressInput = aMax,
                     },
