@@ -44,7 +44,7 @@ namespace Vitaru.Play
             Debugger.Assert(Game.DrawThreaded);
 
             Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize();
-            MaxBarSize = Size.X - 64;
+            MaxBarSize = Size.Y - 32;
 
             Border = new GamefieldBorder(Size);
 
