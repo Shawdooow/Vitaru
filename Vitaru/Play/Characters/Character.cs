@@ -60,6 +60,8 @@ namespace Vitaru.Play.Characters
         public Character(PlayManager manager)
         {
             PlayManager = manager;
+
+            Color = PrimaryColor;
         }
 
         public override void LoadingComplete()

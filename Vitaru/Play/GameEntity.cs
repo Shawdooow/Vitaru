@@ -44,7 +44,7 @@ namespace Vitaru.Play
             }
         }
 
-        private Vector2 size;
+        private Vector2 size = new Vector2(256);
 
         public virtual Vector2 Scale
         {
@@ -57,7 +57,7 @@ namespace Vitaru.Play
             }
         }
 
-        private Vector2 scale;
+        private Vector2 scale = Vector2.One;
 
         public virtual float Alpha
         {
@@ -70,7 +70,7 @@ namespace Vitaru.Play
             }
         }
 
-        private float alpha;
+        private float alpha = 1;
 
         public virtual Color Color
         {
@@ -83,7 +83,7 @@ namespace Vitaru.Play
             }
         }
 
-        private Color color;
+        private Color color = Color.White;
 
         public abstract Hitbox GetHitbox();
 
