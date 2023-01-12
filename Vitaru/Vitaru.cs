@@ -26,7 +26,6 @@ using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Levels;
 using Vitaru.Mods;
-using Vitaru.Roots;
 using Vitaru.Server;
 using Vitaru.Settings;
 using Vitaru.Themes;

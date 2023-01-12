@@ -21,7 +21,6 @@ using Prion.Nucleus.Utilities;
 using Vitaru.Roots;
 using Vitaru.Roots.Menu;
 using Vitaru.Tracks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Vitaru.Mods.Included
 {
