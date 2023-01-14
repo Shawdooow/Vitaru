@@ -163,6 +163,7 @@ namespace Vitaru.Roots
             Renderer.Window.CursorHidden = true;
         }
 
+#if PUBLISH
         public override void LoadingComplete()
         {
             base.LoadingComplete();
@@ -191,6 +192,7 @@ namespace Vitaru.Roots
 
             controller.PrimeTrackManager();
         }
+#endif
 
         protected override void OnResume()
         {
