@@ -22,12 +22,6 @@ namespace Vitaru.Roots
 
         protected override GCLatencyMode GCLatencyMode => GCLatencyMode.SustainedLowLatency;
 
-        public readonly Layer2D<IDrawable2D> CharacterLayer = new()
-        {
-            Name = "Character Layer",
-            Size = GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize(),
-        };
-
         public PlayLayers PlayLayers { get; private set; }
         public PlayManager PlayManager { get; private set; }
 

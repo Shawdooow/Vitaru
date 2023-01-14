@@ -215,7 +215,7 @@ namespace Vitaru.Play
             CharacterPack.Add(player);
             //player.OnAddParticle = ParticleLayer.Add;
             //Que adding the drawable
-            playerQue.Enqueue(player);
+            //playerQue.Enqueue(player);
         }
 
         public void Remove(Player player)
@@ -239,8 +239,8 @@ namespace Vitaru.Play
             Layers.MaxHealthText.Text = $"{ActivePlayer.HealthCapacity} HP";
             Layers.MaxEnergyText.Text = $"{ActivePlayer.EnergyCapacity} SP";
 
-            Layers.HealthBar.Color = player.PrimaryColor;
-            Layers.EnergyBar.Color = player.PrimaryColor;
+            //Layers.HealthBar.Color = player.PrimaryColor;
+            //Layers.EnergyBar.Color = player.PrimaryColor;
         }
 
         protected override void Dispose(bool finalize)
