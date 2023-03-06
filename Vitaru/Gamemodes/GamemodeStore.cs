@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Prion.Nucleus.Debug;
-using Vitaru.Chapters;
+using Vitaru.Gamemodes.Chapters;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 

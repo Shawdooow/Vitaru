@@ -3,7 +3,7 @@
 
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Nucleus.Debug;
-using Vitaru.Chapters;
+using Vitaru.Gamemodes.Chapters;
 using Vitaru.Editor.IO;
 
 namespace Vitaru.Gamemodes.Tau

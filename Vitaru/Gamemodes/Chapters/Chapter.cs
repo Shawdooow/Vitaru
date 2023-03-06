@@ -5,7 +5,7 @@ using System.Numerics;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
-namespace Vitaru.Chapters
+namespace Vitaru.Gamemodes.Chapters
 {
     public abstract class Chapter
     {

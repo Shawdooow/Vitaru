@@ -3,7 +3,7 @@
 
 using System.Numerics;
 
-namespace Vitaru.Chapters
+namespace Vitaru.Gamemodes.Chapters
 {
     //Old gamemode class
     public abstract class Chapterset
