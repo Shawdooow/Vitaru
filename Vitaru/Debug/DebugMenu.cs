@@ -95,6 +95,8 @@ namespace Vitaru.Debug
                 //},
             });
 
+            Add(new TrackSelect());
+
             Add(Back = new Exit(vitaru));
 
             Add(controller = new VitaruTrackController
