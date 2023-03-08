@@ -1,14 +1,14 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Utilities;
 using Prion.Ribosome.Audio;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Vitaru.Server.Levels;
 
 namespace Vitaru.Levels
@@ -368,13 +368,11 @@ namespace Vitaru.Levels
                             $"Name={CurrentLevel.Name}{Environment.NewLine}" +
                             $"EnemyData={CurrentLevel.EnemyData}";
 
-            using (StreamWriter writer =
-                   new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
-            {
-                Logger.Log($"Saving Current Level: {path}...", LogType.IO);
-                writer.Write(header);
-                Logger.Log("Current Level Saved!", LogType.IO);
-            }
+            using StreamWriter writer =
+                   new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate));
+            Logger.Log($"Saving Current Level: {path}...", LogType.IO);
+            writer.Write(header);
+            Logger.Log("Current Level Saved!", LogType.IO);
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Concurrent;
-using System.Numerics;
-using System.Runtime.InteropServices;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using Prion.Mitochondria;
@@ -18,6 +14,10 @@ using Prion.Mitochondria.Graphics.Verticies;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Groups;
+using System;
+using System.Collections.Concurrent;
+using System.Numerics;
+using System.Runtime.InteropServices;
 using Vitaru.Settings;
 
 namespace Vitaru.Graphics.Projectiles.Bullets

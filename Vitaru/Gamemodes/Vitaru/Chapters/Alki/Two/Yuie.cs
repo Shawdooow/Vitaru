@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Drawing;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
+using System;
+using System.Drawing;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;

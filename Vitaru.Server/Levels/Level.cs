@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 using Prion.Ribosome.Audio;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Vitaru.Server.Levels
 {

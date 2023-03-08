@@ -1,22 +1,25 @@
-﻿using Prion.Nucleus.Entitys;
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
+using Prion.Golgi.Audio.Tracks;
+using Prion.Mitochondria.Audio;
+using Prion.Mitochondria.Graphics;
+using Prion.Nucleus.Debug;
+using Prion.Nucleus.Entitys;
 using Prion.Nucleus.Groups.Packs;
+using Prion.Nucleus.Utilities;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Numerics;
+using Vitaru.Networking.Client;
 using Vitaru.Play.Characters;
+using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.KeyFrames;
 using Vitaru.Play.Teams;
-using Prion.Golgi.Audio.Tracks;
-using Prion.Mitochondria.Audio;
-using Prion.Nucleus.Utilities;
-using System.Collections.Concurrent;
-using System.Drawing;
-using System;
-using Vitaru.Play.Characters.Enemies;
-using Prion.Nucleus.Debug;
-using Vitaru.Networking.Client;
-using System.Numerics;
-using Prion.Mitochondria.Graphics;
-using System.Linq;
 
 namespace Vitaru.Play
 {

@@ -1,12 +1,6 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Numerics;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -21,6 +15,12 @@ using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Numerics;
 using Vitaru.Debug;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
