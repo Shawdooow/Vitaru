@@ -67,6 +67,12 @@ namespace Vitaru.Roots
             Add(PlayLayers.Layer3Ds);
         }
 
+        public override void Update()
+        {
+            TrackManager.CurrentTrack.Clock.Update();
+            base.Update();
+        }
+
         public override void PreRender()
         {
             TrackManager.CurrentTrack.DrawClock.Update();
