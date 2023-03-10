@@ -36,8 +36,6 @@ namespace Vitaru.Roots
             TrackManager.CurrentTrack.DrawClock.Start();
             TrackManager.CurrentTrack.DrawClock.Seek(TrackManager.CurrentTrack.Clock.Current);
             TrackManager.CurrentTrack.DrawClock.Rate = TrackManager.CurrentTrack.SeekableClock.Rate;
-
-            
         }
 
         public override void LoadingComplete()
