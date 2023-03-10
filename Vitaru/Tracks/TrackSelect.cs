@@ -53,7 +53,7 @@ namespace Vitaru.Tracks
 
             foreach (LevelPack p in LevelStore.LoadedLevels)
             {
-                list.List.Add(new Button(false)
+                list.List.Add(new Button
                 {
                     ParentOrigin = Mounts.TopLeft,
                     Origin = Mounts.TopLeft,
@@ -70,6 +70,7 @@ namespace Vitaru.Tracks
                         Origin = Mounts.CenterLeft,
 
                         FontScale = 0.24f,
+                        PreviousBuffer = MaskingLayer<IDrawable2D>.MaskBuffer
                     },
 
                     OnClick = () =>
