@@ -10,7 +10,7 @@ namespace Vitaru.Play.Projectiles
     {
         public override string Name { get; set; } = nameof(Projectile);
 
-        public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; } = new();
+        public List<KeyValuePair<byte, List<KeyFrame>>> KeyFrames { get; set; } = new();
 
         public virtual float Damage { get; set; } = 20;
 

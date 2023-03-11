@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Numerics;
+using Vitaru.Editor.KeyFrames;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Play.Projectiles;
@@ -311,13 +312,40 @@ namespace Vitaru.Play.Characters.Players
                 }
 
                 //-90 = up
-                //BulletAddRad(1, cursorAngle + directionModifier, color, size, damage, 800);
+                BulletAddRad();
 
                 if (GetBind(VitaruActions.Sneak))
                     directionModifier += 0.1f;
                 else
                     directionModifier += 0.2f;
             }
+        }
+
+        protected virtual void BulletAddRad()
+        {
+            Bullet bullet = new()
+            {
+                Team = Team,
+                //StartPosition = Position,
+                StartTime = Clock.Current,
+
+                //Speed = speed,
+                //Angle = angle,
+                //GlowColor = color,
+                CircularHitbox = new CircularHitbox
+                {
+                    Diameter = 24,
+                },
+                Damage = 4,
+                //Distance = distance,
+
+                KeyFrames =
+                {
+                    new KeyValuePair<byte, List<KeyFrame>>(),
+                }
+            };
+
+            //Gamefield.Add(bullet);
         }
 
 

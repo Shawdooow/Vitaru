@@ -213,12 +213,5 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 
             MovementSpeedMultiplier = 1 / speed;
         }
-
-        //protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
-        //    float distance)
-        //{
-        //    if (SpellActive && color == PrimaryColor) color = ComplementaryColor;
-        //    base.BulletAddRad(speed, angle, color, size, damage, distance);
-        //}
     }
 }

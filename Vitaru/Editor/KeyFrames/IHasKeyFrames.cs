@@ -21,6 +21,9 @@ namespace Vitaru.Editor.KeyFrames
 
         virtual double TimeUnLoad => TimePreLoad;
 
-        List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; }
+        /// <summary>
+        ///     List of KeyFrames, byte is for Keyframe Type
+        /// </summary>
+        List<KeyValuePair<byte, List<KeyFrame>>> KeyFrames { get; set; }
     }
 }

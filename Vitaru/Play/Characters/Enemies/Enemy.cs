@@ -9,7 +9,7 @@ namespace Vitaru.Play.Characters.Enemies
 {
     public class Enemy : Character, IHasKeyFrames, IHasPosition, IHasAlpha
     {
-        public List<KeyValuePair<int, List<KeyFrame>>> KeyFrames { get; set; }
+        public List<KeyValuePair<byte, List<KeyFrame>>> KeyFrames { get; set; }
 
         public bool PreLoaded { get; set; }
         public bool Started { get; set; }
