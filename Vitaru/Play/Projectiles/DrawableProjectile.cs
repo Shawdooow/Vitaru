@@ -51,6 +51,7 @@ namespace Vitaru.Play.Projectiles
         protected override void Dispose(bool finalize)
         {
             base.Dispose(finalize);
+            Layer.ReturnIndex(Location);
             Layer = null;
         }
     }

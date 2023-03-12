@@ -100,7 +100,7 @@ namespace Vitaru.Play.Characters
             ParentLayer = layer;
             ParentLayer.Add(CharacterLayer = new Layer2D<IDrawable2D>()
             {
-                Name = $"{character.Name}Layer"
+                Name = $"{character.Name}'s Layer"
             });
 
             CharacterLayer.Add(CharacterSprite = new Sprite());

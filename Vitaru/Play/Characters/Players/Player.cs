@@ -214,8 +214,7 @@ namespace Vitaru.Play.Characters.Players
                 Charge(999);
 
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
-                //PatternWave();
-                BulletAddRad();
+                PatternWave();
 
             if (HealingProjectiles.Count > 0 && PlayManager.Current > LastDamageTime + beat * 2)
             {
@@ -320,6 +319,8 @@ namespace Vitaru.Play.Characters.Players
                 else
                     directionModifier += 0.2f;
             }
+
+            BulletAddRad();
         }
 
         protected virtual void BulletAddRad()

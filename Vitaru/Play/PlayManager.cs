@@ -247,7 +247,14 @@ namespace Vitaru.Play
             //Layers.EnergyBar.Color = player.PrimaryColor;
         }
 
-        public void Add(Bullet bullet) => ProjectileManager.Add(bullet);
+        public void Add(Bullet bullet)
+        {
+            int index = Layers.BulletLayer.RequestIndex();
+
+            bullet.SetDrawable(new DrawableBullet(Layers.BulletLayer, index));
+
+            ProjectileManager.Add(bullet);
+        }
 
         protected override void Dispose(bool finalize)
         {

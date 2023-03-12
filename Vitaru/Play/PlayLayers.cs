@@ -12,6 +12,7 @@ using Prion.Nucleus.Debug;
 using System.Drawing;
 using System.Numerics;
 using Vitaru.Gamemodes;
+using Vitaru.Graphics.Projectiles.Bullets;
 
 namespace Vitaru.Play
 {
@@ -23,7 +24,7 @@ namespace Vitaru.Play
         public readonly Layer2D<IDrawable2D> Layer2Ds;
 
         public readonly Layer2D<IDrawable2D> CharacterLayer;
-        public readonly Layer2D<IDrawable2D> ProjectileLayer;
+        public readonly BulletLayer BulletLayer;
         public readonly Layer2D<IDrawable2D> OverlayLayer;
 
         public readonly float MaxBarSize;
@@ -69,13 +70,13 @@ namespace Vitaru.Play
             {
                 Size = Size
             };
-            ProjectileLayer = new Layer2D<IDrawable2D>
+            BulletLayer = new BulletLayer
             {
                 Size = Size
             };
 
             Layer2Ds.Add(CharacterLayer);
-            Layer2Ds.Add(ProjectileLayer);
+            Layer2Ds.Add(BulletLayer);
             Layer2Ds.Add(OverlayLayer);
 
             OverlayLayer.Children = new IDrawable2D[]
