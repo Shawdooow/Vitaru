@@ -19,6 +19,7 @@ using Vitaru.Play.Characters;
 using Vitaru.Play.Characters.Enemies;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.KeyFrames;
+using Vitaru.Play.Projectiles;
 using Vitaru.Play.Teams;
 
 namespace Vitaru.Play
@@ -245,6 +246,8 @@ namespace Vitaru.Play
             //Layers.HealthBar.Color = player.PrimaryColor;
             //Layers.EnergyBar.Color = player.PrimaryColor;
         }
+
+        public void Add(Bullet bullet) => ProjectileManager.Add(bullet);
 
         protected override void Dispose(bool finalize)
         {

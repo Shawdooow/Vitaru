@@ -214,7 +214,8 @@ namespace Vitaru.Play.Characters.Players
                 Charge(999);
 
             if (GetBind(VitaruActions.Shoot) && Clock.LastCurrent >= shootTime)
-                PatternWave();
+                //PatternWave();
+                BulletAddRad();
 
             if (HealingProjectiles.Count > 0 && PlayManager.Current > LastDamageTime + beat * 2)
             {
@@ -312,7 +313,7 @@ namespace Vitaru.Play.Characters.Players
                 }
 
                 //-90 = up
-                BulletAddRad();
+                //BulletAddRad();
 
                 if (GetBind(VitaruActions.Sneak))
                     directionModifier += 0.1f;
@@ -328,6 +329,7 @@ namespace Vitaru.Play.Characters.Players
                 Team = Team,
                 //StartPosition = Position,
                 StartTime = Clock.Current,
+                EndTime = Clock.Current + 1000,
 
                 //Speed = speed,
                 //Angle = angle,
@@ -345,7 +347,7 @@ namespace Vitaru.Play.Characters.Players
                 }
             };
 
-            //Gamefield.Add(bullet);
+            PlayManager.Add(bullet);
         }
 
 
