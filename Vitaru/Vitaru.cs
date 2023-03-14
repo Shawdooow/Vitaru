@@ -268,28 +268,23 @@ namespace Vitaru
         #region Shrekdevor
 
 
-        private uint state;
-        private string playerName;
+        private ulong state;
+
+        private const ulong left = 1000;
+        private const ulong right = 2000;
+
+        private const ulong forward = 3000;
+        private const ulong back = 4000;
+        private const ulong up = 5000;
+        private const ulong down = 6000;
+
+        private const ulong die = 7000;
 
 
         private void shrek()
         {
             Prion.Nucleus.Debug.Console.Commands.AddRange(new[]
             {
-                new ConsoleCommand(string.Empty)
-                {
-                    OnCommand = args =>
-                    {
-                        if (state != 1) return;
-
-                        state = 2;
-
-                        playerName = args[0];
-                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>($"So your name is {playerName}!\n\n" +
-                            $"", Color.Lime));
-                    }
-                },
-
                 //Intro is second to avoid a bug
                 new ConsoleCommand("Shrekdevor", true)
                 {
@@ -297,7 +292,167 @@ namespace Vitaru
                     {
                         state = 1;
                         Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Welcome to the Great Shrekdevor REDICED Edition!\n\n" +
-                            "Please input player's name:", Color.Lime));
+                            "You are walking down a path, which direction do you travel? (left, right)", Color.Lime));
+                    }
+                },
+
+
+
+                //Left
+                new ConsoleCommand("left")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = left;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You walk down the left path.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //Right
+                new ConsoleCommand("right")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = right;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You travel down the right path.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //forward
+                new ConsoleCommand("forward")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = forward;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Not really caring to make a decision you forage straight forward into the forest.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //back
+                new ConsoleCommand("back")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = back;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You begin traveling backwards but fucked up, you are traveling backwards in time.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //up
+                new ConsoleCommand("up")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = up;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Despite usually being bound to earth by gravity you manage to start floating straight up.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //down
+                new ConsoleCommand("down")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = down;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You begin burrowing into the ground. " +
+                            "A few miles down you turn around to find shrek is behind you and is helping you dig. " +
+                            "You continue until you hit the mantle. " +
+                            "Shrek advises you turn back, what shall you do? (back, cointinue)\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+                new ConsoleCommand("back")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != down) return;
+                        state = down + 100;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You turn back and go to the surface, " +
+                            "only to find that you are no longer on earth but on a giant onion in space with many layers. " +
+                            "Lord fuckwad sent space pirates to space assasinate you, how do you retaliate? (golden ticket, golden onion, railgun, microwave gun)\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+                new ConsoleCommand("golden ticket")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != down) return;
+                        state = down + 100 + 10;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You pull a golden ticket out of seemingly nowhere and flail it around. " +
+                            "The polar express appears from behind a asteroid and runs over all the space pirates. It then stops to pick you up, then heads toward the north pole.\n\n" +
+                            "" +
+                            "Once you reach the north pole you realize that all the elfs have been enslaved by Adolf Hitler, " +
+                            "and the nazis are going to board the train and search for more elfs. " +
+                            "You and shrek hop off just outside of town and meet up with the rebels trying to kill Hitler, who are being lead by Santa. " +
+                            "His weapons storehouse is unlike anything you've ever seen; tanks, planes, nukes. " +
+                            "You name it he had it. " +
+                            "His spys inform you all that now is a good time to strike, however Santa wants to perform some ritual before you go. " +
+                            "Whats the plan? (ritual, nuke, sneaky, siege)\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+                new ConsoleCommand("golden onion")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != down) return;
+                        state = down + 100 + 10;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You eat the golden onion. " +
+                            "You feel as though you can fart the end of the world. " +
+                            "Your fart is so powerful it could be compared to a sun once it has reached the end of its life. " +
+                            "Everything is destoyed in the wake of your nuclear fart, even you.\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+                new ConsoleCommand("continue")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != down) return;
+                        state = down + 200;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You tell shrek you must continue, he understands and follows you down. " +
+                            "You continue through the mantle until you reach an opening. You have found Hell. " +
+                            "Where do you head next? (lava, center)\n\n" +
+                            "", Color.Lime));
+                    }
+                },
+
+
+
+                //die
+                new ConsoleCommand("die")
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+                        state = die;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("You drop dead instantly. " +
+                            "You awake to the sweet, stinging scent of onions a few hours later and find shrek has revived you. (kill, dream)\n\n" +
+                            "", Color.Lime));
                     }
                 },
             });
