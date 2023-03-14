@@ -29,6 +29,7 @@ using Vitaru.Mods;
 using Vitaru.Server;
 using Vitaru.Settings;
 using Vitaru.Themes;
+using static Prion.Nucleus.Debug.Console;
 
 namespace Vitaru
 {
@@ -146,6 +147,7 @@ namespace Vitaru
 
         protected Vitaru(VitaruLaunchArgs args) : base(args)
         {
+            shrek();
             VitaruSettings = new VitaruSettingsManager(ApplicationDataStorage);
             PlayerBinds = new PlayerBinds();
             bool levels = ApplicationDataStorage.Exists("Levels");
@@ -261,6 +263,48 @@ namespace Vitaru
             PlayerBinds.Dispose();
             base.Dispose();
         }
+
+
+        #region Shrekdevor
+
+
+        private uint state;
+        private string playerName;
+
+
+        private void shrek()
+        {
+            Prion.Nucleus.Debug.Console.Commands.AddRange(new[]
+            {
+                new ConsoleCommand(string.Empty)
+                {
+                    OnCommand = args =>
+                    {
+                        if (state != 1) return;
+
+                        state = 2;
+
+                        playerName = args[0];
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>($"So your name is {playerName}!\n\n" +
+                            $"", Color.Lime));
+                    }
+                },
+
+                //Intro is second to avoid a bug
+                new ConsoleCommand("Shrekdevor", true)
+                {
+                    OnCommand = args =>
+                    {
+                        state = 1;
+                        Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Welcome to the Great Shrekdevor REDICED Edition!\n\n" +
+                            "Please input player's name:", Color.Lime));
+                    }
+                },
+            });
+        }
+
+
+        #endregion
     }
 
     public enum Shades
