@@ -2,14 +2,12 @@
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 
-using Prion.Mitochondria.Graphics;
 using Prion.Nucleus.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Vitaru.Wiki.Content;
 
-namespace Vitaru.Mods.Shrekdevor
+namespace Vitaru.Mods.Shrekdeavor
 {
     public struct ShrekState
     {
@@ -82,50 +80,50 @@ namespace Vitaru.Mods.Shrekdevor
 
     public enum StartStates
     {
-        [Description("Welcome to the Great Shrekdevor REDICED Edition!\n\n" +
+        [Description("Welcome to the Great Shrekdeavor REDICED Edition!\n\n" +
                 "You are walking down a path, which direction do you travel? (left, right)"), 
             InputState(0)]
-        Shrekdevor = 1,
+        Shrekdeavor = 1,
 
 
 
         [Description("You walk down the left path.\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Left = 1000,
 
         [Description("You walk down the right path.\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Right = 2000,
 
 
 
         [Description("Not really caring to make a decision you forage straight forward into the forest.\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Forward = 3000,
         [Description("You begin traveling backwards but fucked up, you are traveling backwards in time.\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Back = 4000,
         [Description("Despite usually being bound to earth by gravity you manage to start floating straight up.\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Up = 5000,
         [Description("You begin burrowing into the ground. " +
                 "A few miles down you turn around to find shrek is behind you and is helping you dig. " +
                 "You continue until you hit the mantle. " +
                 "Shrek advises you turn back, what shall you do? (back, cointinue)\n\n" +
                 ""), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Down = 6000,
 
 
 
         [Description("You drop dead instantly. " +
             "You awake to the sweet, stinging scent of onions a few hours later and find shrek has revived you. (kill, dream)\n\n"), 
-            InputState((ulong)Shrekdevor)]
+            InputState((ulong)Shrekdeavor)]
         Die = 7000,
     }
 

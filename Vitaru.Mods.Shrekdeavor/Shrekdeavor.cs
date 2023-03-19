@@ -13,11 +13,11 @@ using System.Numerics;
 using Vitaru.Roots;
 using static Prion.Nucleus.Debug.Console;
 
-namespace Vitaru.Mods.Shrekdevor
+namespace Vitaru.Mods.Shrekdeavor
 {
-    public class Shrekdevor : Mod
+    public class Shrekdeavor : Mod
     {
-        public override string Name => "The Great Shrekdevor: REDICED!";
+        public override string Name => "The Great Shrekdeavor: REDICED!";
 
         public override Button GetMenuButton() =>
             new()
@@ -31,7 +31,7 @@ namespace Vitaru.Mods.Shrekdevor
                     Color = Color.Lime,
                 },
 
-                Text = "Shrekdevor",
+                Text = "Shrekdeavor",
             };
 
         public override Root GetRoot() => new ShrekRoot();
@@ -45,7 +45,7 @@ namespace Vitaru.Mods.Shrekdevor
                 OnCommand = args =>
                 {
                     ShrekState.State = 0;
-                    Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Shrekdevor State Reset!", Color.Lime));
+                    Renderer.Console.MessageQueue.Enqueue(new KeyValuePair<string, Color>("Shrekdeavor State Reset!", Color.Lime));
                 }
             });
 
@@ -97,13 +97,13 @@ namespace Vitaru.Mods.Shrekdevor
 
             protected void SetBackground(ulong state)
             {
-                if (!Vitaru.AssetStorage.Exists($"Textures/Shrekdevor/{state}")) return;
+                if (!Vitaru.AssetStorage.Exists($"Textures/Shrekdeavor/{state}")) return;
 
-                string[] files = Vitaru.AssetStorage.GetFiles($"Textures/Shrekdevor/{state}");
+                string[] files = Vitaru.AssetStorage.GetFiles($"Textures/Shrekdeavor/{state}");
 
                 int rand = PrionMath.RandomNumber(0, files.Length);
 
-                Background.Texture = Vitaru.TextureStore.GetTexture($"Shrekdevor/{state}/{files[rand]}");
+                Background.Texture = Vitaru.TextureStore.GetTexture($"Shrekdeavor/{state}/{files[rand]}");
             }
         }
     }
