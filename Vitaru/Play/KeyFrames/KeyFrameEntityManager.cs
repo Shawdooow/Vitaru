@@ -107,6 +107,9 @@ namespace Vitaru.Play.KeyFrames
                 else if ((PlayManager.Current < t.StartTime || PlayManager.Current >= t.EndTime) && t.Started)
                     End(t);
 
+                foreach (KeyValuePair<byte, List<KeyFrame>> pair in t.KeyFrames)
+                    KeyFrame.ApplyFrames(PlayManager.Current, pair.Value);
+
                 //t.ConcurrentUpdate(r);
             }
         }
