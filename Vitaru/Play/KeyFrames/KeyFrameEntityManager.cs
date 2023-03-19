@@ -108,9 +108,7 @@ namespace Vitaru.Play.KeyFrames
                     End(t);
 
                 foreach (KeyValuePair<byte, List<KeyFrame>> pair in t.KeyFrames)
-                {
-
-                }
+                    KeyFrame.ApplyFrames(PlayManager.Current, pair.Value);
 
                 //t.ConcurrentUpdate(r);
             }

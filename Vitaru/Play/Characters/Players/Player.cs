@@ -328,25 +328,41 @@ namespace Vitaru.Play.Characters.Players
             Bullet bullet = new()
             {
                 Team = Team,
-                //StartPosition = Position,
                 StartTime = Clock.Current,
-                EndTime = Clock.Current + 1000,
+                EndTime = Clock.Current + 2000,
 
-                //Speed = speed,
-                //Angle = angle,
-                //GlowColor = color,
-                CircularHitbox = new CircularHitbox
-                {
-                    Diameter = 24,
-                },
+                Color = SecondaryColor,
                 Damage = 4,
-                //Distance = distance,
-
-                KeyFrames =
-                {
-                    new KeyValuePair<byte, List<KeyFrame>>(),
-                }
+                Size = new Vector2(24)
             };
+
+            bullet.KeyFrames.Add(new KeyValuePair<byte, List<KeyFrame>>(1, new List<KeyFrame>
+            {
+                new PositionFrame(bullet)
+                {
+                    StartTime = Clock.Current,
+                    Value = Position
+                },
+                new PositionFrame(bullet)
+                {
+                    StartTime = Clock.Current + 2000,
+                    Value = Position - PrionMath.Offset(800, MathF.PI / 2)
+                }
+            }));
+
+            bullet.KeyFrames.Add(new KeyValuePair<byte, List<KeyFrame>>(2, new List<KeyFrame>
+            {
+                new ScaleFrame(bullet)
+                {
+                    StartTime = Clock.Current,
+                    Value = Vector2.One
+                },
+                new ScaleFrame(bullet)
+                {
+                    StartTime = Clock.Current + 2000,
+                    Value = Vector2.One / 4
+                }
+            }));
 
             PlayManager.Add(bullet);
         }
