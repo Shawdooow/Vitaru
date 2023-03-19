@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup Label="Project">
+	  <TargetFramework>net8.0-windows</TargetFramework>
+	  <AnalysisLevel>preview</AnalysisLevel>
+	  <LangVersion>preview</LangVersion>
+	  <AssemblyTitle>Vitaru.Mods.Shrekdevor</AssemblyTitle>
+	  <Version>0.12.0</Version>
+	  <Authors>Shawdooow</Authors>
+	  <Company>Sym</Company>
+	  <Description>Vitaru's Shrekdevor Mod</Description>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  <OutputType>Library</OutputType>
+	  <Configurations>Debug;Release;Public;Personal</Configurations>
+	  <Platform>AnyCPU</Platform>
+	  <RepositoryUrl>https://github.com/Shawdooow/Vitaru</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Public' Or '$(Configuration)'=='Personal'">
+		<DefineConstants>PUBLISH</DefineConstants>
+		<Optimize>true</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Public'">
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>..\..\Sym.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Vitaru\Vitaru.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Assets\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>
