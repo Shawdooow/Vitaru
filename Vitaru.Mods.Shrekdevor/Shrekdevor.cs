@@ -8,10 +8,10 @@ using Prion.Mitochondria.Graphics.UI;
 using Prion.Nucleus.Utilities;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using Vitaru.Roots;
 using static Prion.Nucleus.Debug.Console;
-using static System.Windows.Forms.AxHost;
 
 namespace Vitaru.Mods.Shrekdevor
 {
@@ -49,9 +49,11 @@ namespace Vitaru.Mods.Shrekdevor
                 }
             });
 
-            for (int i = 0; i < ShrekState.States.Length; i++)
+            List<ShrekState> states = ShrekState.GetStates();
+
+            for (int i = 0; i < states.Count(); i++)
             {
-                ShrekState state = ShrekState.States[i];
+                ShrekState state = states[i];
 
                 Commands.Add(new ConsoleCommand(state.InputText)
                 {
