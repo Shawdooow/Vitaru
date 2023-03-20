@@ -834,6 +834,7 @@ namespace Vitaru.Play.Characters.Players
     {
         [Description("Offense")] Offense,
         [Description("Defense")] Defense,
+        [Description("Tank")] Tank,
         [Description("Support")] Support,
         [Description("Specialized")] Specialized,
     }
