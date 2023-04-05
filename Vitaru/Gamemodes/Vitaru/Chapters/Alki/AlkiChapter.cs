@@ -1,7 +1,7 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using Vitaru.Chapters;
+using Vitaru.Gamemodes.Chapters;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.One;
 using Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three;
@@ -17,29 +17,29 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki
 
         public override string Description => null;
 
-        public override Player[] GetPlayers(Gamefield gamefield = null) => global::Vitaru.Vitaru.EnableIncompleteCharacters
+        public override Player[] GetPlayers(PlayManager manager) => global::Vitaru.Vitaru.EnableIncompleteCharacters
             ? new Player[]
             {
-                new Arysa(gamefield),
-                new Tyle(gamefield),
-                new Alice(gamefield),
-                new Sarah(gamefield),
-                new Claire(gamefield),
-                new Yuie(gamefield),
-                new Frost(gamefield),
-                new Jack(gamefield),
-                new Nick(gamefield),
-                new Muris(gamefield),
-                new Vuira(gamefield),
-                new Lucifer(gamefield),
-                new Cuiria(gamefield),
+                new Arysa(manager),
+                new Tyle(manager),
+                new Alice(manager),
+                new Sarah(manager),
+                new Claire(manager),
+                new Yuie(manager),
+                new Frost(manager),
+                new Jack(manager),
+                new Nick(manager),
+                new Muris(manager),
+                new Vuira(manager),
+                new Lucifer(manager),
+                new Cuiria(manager),
             }
             : new Player[]
             {
-                new Tyle(gamefield),
-                new Alice(gamefield),
-                new Claire(gamefield),
-                new Yuie(gamefield),
+                new Tyle(manager),
+                new Alice(manager),
+                new Claire(manager),
+                new Yuie(manager),
             };
     }
 }

@@ -1,16 +1,16 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Drawing;
-using System.Numerics;
-using System.Runtime.InteropServices;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Screenshots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
+using System;
+using System.Drawing;
+using System.Numerics;
+using System.Runtime.InteropServices;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -34,7 +34,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
 
         private Box box;
         private Sprite screenshot;
-        private Gamefield.GamefieldBorder border;
+        //private Gamefield.GamefieldBorder border;
 
         private byte[] pixels;
         private bool queued;
@@ -128,7 +128,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
             if (screenshot != null)
             {
                 box.Alpha = screenshot.Alpha;
-                border.Alpha = screenshot.Alpha;
+                //border.Alpha = screenshot.Alpha;
             }
         }
 
@@ -174,14 +174,14 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Abilities
                         Color = Color.Black,
                     });
                     overlays.Add(screenshot);
-                    overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
-                    {
-                        ParentOrigin = Mounts.CenterRight,
-                        Origin = Mounts.CenterLeft,
-
-                        X = screenshot.X,
-                        Color = player.SecondaryColor,
-                    });
+                    //overlays.Add(border = new Gamefield.GamefieldBorder(screenshot.Size)
+                    //{
+                    //    ParentOrigin = Mounts.CenterRight,
+                    //    Origin = Mounts.CenterLeft,
+                    //
+                    //    X = screenshot.X,
+                    //    Color = player.SecondaryColor,
+                    //});
                 }
                 else
                     screenshot.Texture = texture;

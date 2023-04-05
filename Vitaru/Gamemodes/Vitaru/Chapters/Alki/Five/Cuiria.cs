@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
 using Prion.Nucleus.Utilities;
+using System.Drawing;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -34,6 +34,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Five
 
         public override string Description => "Is a complete bitch and we all hate her.";
 
-        public Cuiria(Gamefield gamefield) : base(gamefield) { }
+        public Cuiria(PlayManager manager) : base(manager) { }
     }
 }

@@ -1,9 +1,8 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
-using System.Numerics;
-using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers._2D;
 
 namespace Vitaru.Play.Characters.Enemies
 {
@@ -11,10 +10,8 @@ namespace Vitaru.Play.Characters.Enemies
     {
         public override string Name { get; set; } = nameof(DrawableEnemy);
 
-        public DrawableEnemy(Enemy enemy) : base(enemy, Game.TextureStore.GetTexture("Gameplay\\enemy.png"))
+        public DrawableEnemy(Character character, Layer2D<IDrawable2D> layer) : base(character, layer)
         {
-            Scale = new Vector2(0.12f);
-            Sprite.Color = enemy?.PrimaryColor ?? Color.White;
         }
     }
 }

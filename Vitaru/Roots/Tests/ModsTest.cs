@@ -1,13 +1,13 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Roots;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Mods;
 using Vitaru.Tracks;
 
@@ -23,7 +23,7 @@ namespace Vitaru.Roots.Tests
 
         private VitaruTrackController controller;
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
             foreach (Mod mod in Modloader.LoadedMods)
             {
@@ -56,7 +56,7 @@ namespace Vitaru.Roots.Tests
                 ParentOrigin = Mounts.BottomRight,
             });
 
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
         }
 
         protected override void OnResume()

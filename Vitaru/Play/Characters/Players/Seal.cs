@@ -1,15 +1,13 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Numerics;
-using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Nucleus.Utilities;
+using System;
+using System.Numerics;
 using Vitaru.Input;
 
 namespace Vitaru.Play.Characters.Players
@@ -26,25 +24,25 @@ namespace Vitaru.Play.Characters.Players
         public readonly Text2D RightValue;
         public readonly Text2D LeftValue;
 
-        private readonly CircularMask circular;
+        public readonly CircularMask Circular;
 
-        private Player player;
-
-        private const double duration = 200;
+        protected readonly Player Player;
 
         public Seal(Player player)
         {
-            this.player = player;
+            Player = player;
+
             Size = new Vector2(256);
 
             Children = new IDrawable2D[]
             {
-                circular = new CircularMask(player),
-                Sign = new Sprite(Game.TextureStore.GetTexture(player.Seal))
+                Circular = new CircularMask(),
+                Sign = new Sprite
                 {
                     Scale = new Vector2(0.3f),
-                    Alpha = 0.5f,
                     Color = player.SecondaryColor,
+                    Alpha = 0.5f,
+                    Texture = Vitaru.TextureStore.GetTexture(player.Seal)
                 },
 
                 EnergyValue = new Text2D(false)
@@ -83,99 +81,47 @@ namespace Vitaru.Play.Characters.Players
                     Color = player.ComplementaryColor,
                 },
             };
+
+            Sign.Size = Sign.Texture.Size;
         }
 
-        public void Update()
+        public override void PreRender()
         {
-            float amount = player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
+            base.PreRender();
+            float amount = Player.GetBind(VitaruActions.Sneak) ? 1500 : 1000;
 
-            if (!player.SpellActive)
-                Sign.Rotation += (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
+            if (!Player.SpellActive)
+                Sign.Rotation += (float)(Clock.LastElapsedTime / amount * Player.SealRotationSpeed);
             else
-                Sign.Rotation -= (float)(player.Clock.LastElapsedTime / amount * player.SealRotationSpeed);
+                Sign.Rotation -= (float)(Clock.LastElapsedTime / amount * Player.SealRotationSpeed);
 
-            EnergyValue.Text = $"{Math.Round(player.Energy, 0)}SP";
-            HealthValue.Text = $"{Math.Round(player.Health, 0)}HP";
-
-            Sign.Alpha = PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, 0.1f);
+            EnergyValue.Text = $"{Math.Round(Player.Energy, 0)}SP";
+            HealthValue.Text = $"{Math.Round(Player.Health, 0)}HP";
         }
 
-        public void Shoot(double flash) { }
-
-        public void Pressed(VitaruActions action)
-        {
-            if (action == VitaruActions.Sneak)
-            {
-                Sign.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
-
-                circular.ScaleTo(new Vector2(0.2f), duration, Easings.OutCubic);
-
-                EnergyValue.FadeTo(0.8f, duration);
-                EnergyValue.MoveTo(new Vector2(-40, 40), duration, Easings.OutCubic);
-
-                HealthValue.FadeTo(0.8f, duration);
-                HealthValue.MoveTo(new Vector2(40, 40), duration, Easings.OutCubic);
-
-                LeftValue.MoveTo(new Vector2(40, 0), duration, Easings.OutCubic);
-                RightValue.MoveTo(new Vector2(-40, 0), duration, Easings.OutCubic);
-            }
-        }
-
-        public void Released(VitaruActions action)
-        {
-            if (action == VitaruActions.Sneak)
-            {
-                Sign.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
-
-                circular.ScaleTo(new Vector2(0.3f), duration, Easings.OutCubic);
-
-                EnergyValue.FadeTo(0, duration);
-                EnergyValue.MoveTo(new Vector2(-60, 10), duration, Easings.OutCubic);
-
-                HealthValue.FadeTo(0, duration);
-                HealthValue.MoveTo(new Vector2(60, 10), duration, Easings.OutCubic);
-
-                LeftValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
-                RightValue.MoveTo(Vector2.Zero, duration, Easings.OutCubic);
-            }
-        }
-
-        protected override void Dispose(bool isDisposing)
-        {
-            player = null;
-            base.Dispose(isDisposing);
-        }
-
-        private class CircularMask : CircularLayer<MaskSprite>
+        public class CircularMask : CircularLayer<MaskSprite>
         {
             public override string Name { get; set; } = nameof(CircularMask);
 
-            private readonly Player player;
+            public readonly MaskSprite Energy;
+            public readonly MaskSprite Health;
 
-            private readonly MaskSprite energy;
-            private readonly MaskSprite health;
+            public float EnergyProgress;
+            public float HealthProgress;
 
-            public CircularMask(Player player)
+            private const float start = 0;
+            private const float end = MathF.PI * 2;
+
+            public CircularMask()
             {
-                this.player = player;
-
                 Scale = new Vector2(0.3f);
 
                 Children = new[]
                 {
-                    energy = new MaskSprite(Game.TextureStore.GetTexture(player.EnergyRing))
-                    {
-                        Color = player.SecondaryColor,
-                    },
-                    health = new MaskSprite(Game.TextureStore.GetTexture(player.HealthRing))
-                    {
-                        Color = player.PrimaryColor,
-                    },
+                    Energy = new MaskSprite(),
+                    Health = new MaskSprite(),
                 };
             }
-
-            private const float start = 0;
-            private const float end = MathF.PI * 2;
 
             public override void Render()
             {
@@ -183,21 +129,19 @@ namespace Vitaru.Play.Characters.Players
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.CircularProgram;
 
                 Renderer.ShaderManager.UpdateFloat("startAngle", start);
-                Renderer.ShaderManager.UpdateFloat("endAngle",
-                    PrionMath.Remap(player.Energy, 0, player.EnergyCapacity, start, end));
-                energy.Render();
+                Renderer.ShaderManager.UpdateFloat("endAngle", EnergyProgress);
+                Energy.Render();
 
-                Renderer.ShaderManager.UpdateFloat("startAngle",
-                    PrionMath.Remap(player.Health, 0, player.HealthCapacity, end, start));
+                Renderer.ShaderManager.UpdateFloat("startAngle", HealthProgress);
                 Renderer.ShaderManager.UpdateFloat("endAngle", end);
-                health.Render();
+                Health.Render();
 
                 Renderer.SpriteProgram.SetActive();
                 Renderer.ShaderManager.ActiveShaderProgram = Renderer.SpriteProgram;
             }
         }
 
-        private class MaskSprite : Sprite
+        public class MaskSprite : Sprite
         {
             public MaskSprite() { }
 

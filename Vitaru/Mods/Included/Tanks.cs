@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
 using System;
@@ -42,7 +42,7 @@ namespace Vitaru.Mods.Included
     {
         public override string Name => nameof(Tanks);
 
-        public override bool Disabled => !Renderer._3D_AVAILABLE || !Vitaru.EnableTanks;
+        public override bool Disabled => true;//!Renderer._3D_AVAILABLE || !Vitaru.EnableTanks;
 
         public override Button GetMenuButton() =>
             new()

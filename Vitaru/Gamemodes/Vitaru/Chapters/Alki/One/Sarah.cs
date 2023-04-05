@@ -1,9 +1,9 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using Prion.Nucleus.Utilities;
 using System.Drawing;
 using System.Numerics;
-using Prion.Nucleus.Utilities;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
@@ -46,12 +46,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         private double lastMovement;
 
-        public Sarah(Gamefield gamefield) : base(gamefield) { }
+        public Sarah(PlayManager manager) : base(manager) { }
 
         protected override void SpellActivate(VitaruActions action)
         {
             base.SpellActivate(action);
-            nextCharge = Gamefield.Current + chargeTime;
+            nextCharge = PlayManager.Current + chargeTime;
         }
 
         protected override void SpellUpdate()
@@ -68,7 +68,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
         {
             Vector2 position = base.GetPositionOffset(playerSpeed);
 
-            if (Position != position) lastMovement = Gamefield.Current;
+            if (Position != position) lastMovement = PlayManager.Current;
 
             return position;
         }

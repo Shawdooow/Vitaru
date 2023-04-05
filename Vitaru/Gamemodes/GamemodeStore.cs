@@ -1,13 +1,13 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
+using Prion.Nucleus.Debug;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Prion.Nucleus.Debug;
-using Vitaru.Chapters;
+using Vitaru.Gamemodes.Chapters;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -97,14 +97,14 @@ namespace Vitaru.Gamemodes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static Player GetPlayer(string name, Gamefield gamefield = null)
+        public static Player GetPlayer(string name, PlayManager manager = null)
         {
             string[] split = name.Split(':');
             foreach (LoadedGamemode set in LoadedGamemodes)
                 if (set.Gamemode.Name == split[0])
                     foreach (Chapter c in set.Chapters)
                         if (c.Title == split[1])
-                            foreach (Player p in c.GetPlayers(gamefield))
+                            foreach (Player p in c.GetPlayers(manager))
                                 if (p.Name == split[2])
                                     return p;
             return null;
@@ -140,7 +140,7 @@ namespace Vitaru.Gamemodes
                     Chapters.Add(v);
 
                 foreach (Chapter c in Chapters)
-                    foreach (Player v in c.GetPlayers())
+                    foreach (Player v in c.GetPlayers(null))
                     {
                         bool add = true;
                         foreach (KeyValuePair<Chapter, Player> p in Players)
@@ -149,7 +149,7 @@ namespace Vitaru.Gamemodes
                                 add = false;
                                 break;
                             }
-
+                
                         if (add)
                             Players.Add(new KeyValuePair<Chapter, Player>(c, v));
                     }

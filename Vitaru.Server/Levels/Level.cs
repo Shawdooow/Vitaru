@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Prion.Nucleus.Utilities;
 using Prion.Nucleus.Utilities.Interfaces;
 using Prion.Ribosome.Audio;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Vitaru.Server.Levels
 {
@@ -47,6 +47,11 @@ namespace Vitaru.Server.Levels
         /// </summary>
         public string EnemyData = "null";
 
+        /// <summary>
+        ///     The serialized projectile data
+        /// </summary>
+        public string ProjectileData = "null";
+
         public byte[] Serialize()
         {
             List<byte> data = new();
@@ -59,6 +64,7 @@ namespace Vitaru.Server.Levels
             byte[] difficulty = BitConverter.GetBytes(Difficulty);
             byte[] gamemode = Gamemode.ToLengthAndBytes();
             byte[] enemy = EnemyData.ToLengthAndBytes();
+            byte[] projectile = ProjectileData.ToLengthAndBytes();
 
             //now lets add all the data to the master list
             data.AddRange(metadata);
@@ -68,6 +74,7 @@ namespace Vitaru.Server.Levels
             data.AddRange(difficulty);
             data.AddRange(gamemode);
             data.AddRange(enemy);
+            data.AddRange(projectile);
 
             //last we stick the size in.
             //while it is technically possible to deduce the size of the data on the other side it is wildly impractical to implement
@@ -152,6 +159,16 @@ namespace Vitaru.Server.Levels
             offset += enemy.Length;
 
             EnemyData = Encoding.ASCII.GetString(enemy);
+
+            //Projectile
+            length = data.SubArray(offset, 4);
+            offset += length.Length;
+            size = BitConverter.ToInt32(length);
+
+            byte[] projectile = data.SubArray(offset, size);
+            offset += projectile.Length;
+
+            ProjectileData = Encoding.ASCII.GetString(projectile);
         }
     }
 }

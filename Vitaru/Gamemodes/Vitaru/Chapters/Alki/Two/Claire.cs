@@ -1,20 +1,22 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
+using Prion.Golgi.Utilities;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Gamemodes.Vitaru.Chapters.Abilities;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 using Vitaru.Play.Projectiles;
+using Vitaru.Play.Teams;
 
 namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
 {
@@ -70,12 +72,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         #endregion
 
 
-        public Claire(Gamefield gamefield) : base(gamefield) { }
+        public Claire(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(Camera = new Camera(this, Gamefield.OverlaysLayer)
+            PlayManager.Layers.OverlayLayer.Add(Camera = new Camera(this, PlayManager.Layers.OverlayLayer)
             {
                 OnScreenshot = screenshot => Screenshot = screenshot,
             });
@@ -88,14 +90,15 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
             if (Screenshot != null)
             {
                 Buffs = 0;
-                foreach (Gamefield.ProjectilePack pack in Gamefield.ProjectilePacks)
+                foreach (TeamList team in PlayManager.Teams)
                 {
-                    if (pack.Team == Team) continue;
+                    if (team.Team == Team) continue;
 
-                    IReadOnlyList<Projectile> projectiles = pack.Children;
-                    for (int i = 0; i < projectiles.Count; i++)
+                    IReadOnlyList<IHasTeam> members = team.Members;
+                    for (int i = 0; i < members.Count; i++)
                     {
-                        Projectile projectile = projectiles[i];
+                        Projectile projectile = (Projectile)members[i];
+                        if (projectile == null) continue;
 
                         //Hack to disable bullets we shouldn't interact with
                         if (!projectile.Active)
@@ -114,8 +117,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                                     bullet.CircularHitbox.Position.Y <= Camera.Hitbox.Position.Y + border.Y)
                                 {
                                     Buffs += (1 / BUFFS_DIVISOR);
-                                    Gamefield.Remove(projectile);
-                                    projectile.Collision();
+                                    PlayManager.ProjectileManager.Remove(projectile);
+                                    //projectile.Collision();
                                     break;
                                 }
                                 else

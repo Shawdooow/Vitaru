@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
 using Prion.Nucleus.Utilities;
+using System.Drawing;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
 
@@ -26,6 +26,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Three
 
         public override string OriginMedia => "Alki.Three";
 
-        public Nick(Gamefield gamefield) : base(gamefield) { }
+        public Nick(PlayManager manager) : base(manager) { }
     }
 }

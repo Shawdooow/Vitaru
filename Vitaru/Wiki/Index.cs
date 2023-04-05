@@ -1,16 +1,15 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
-using Vitaru.Gamemodes;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Mods;
 using Vitaru.Wiki.Included;
 
@@ -75,13 +74,13 @@ namespace Vitaru.Wiki
                 new EditorWiki(),
             };
 
-            foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
-            {
-                WikiPanel p = gamemode.Gamemode.GetWikiPanel();
-
-                if (p != null)
-                    panels.Add(p);
-            }
+            //foreach (GamemodeStore.LoadedGamemode gamemode in GamemodeStore.LoadedGamemodes)
+            //{
+            //    WikiPanel p = gamemode.Gamemode.GetWikiPanel();
+            //
+            //    if (p != null)
+            //        panels.Add(p);
+            //}
 
             foreach (Mod mod in Modloader.LoadedMods)
             {

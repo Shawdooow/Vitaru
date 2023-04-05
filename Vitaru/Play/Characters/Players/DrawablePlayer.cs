@@ -1,9 +1,11 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Numerics;
 using Prion.Mitochondria;
+using Prion.Mitochondria.Graphics.Drawables;
+using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Nucleus.Groups;
+using System.Numerics;
 
 namespace Vitaru.Play.Characters.Players
 {
@@ -13,12 +15,12 @@ namespace Vitaru.Play.Characters.Players
 
         public Seal Seal { get; }
 
-        public DrawablePlayer(Player player) : base(player, Game.TextureStore.GetTexture("Gameplay\\player.png"))
+        public DrawablePlayer(Player player, Layer2D<IDrawable2D> layer) : base(player, layer)
         {
-            Sprite.Color = player.PrimaryColor;
-            Sprite.Scale = new Vector2(0.3f);
+            Texture = Game.TextureStore.GetTexture("Gameplay\\player.png");
+            CharacterSprite.Scale = new Vector2(0.3f);
 
-            Add(Seal = new Seal(player), AddPosition.First);
+            CharacterLayer.Add(Seal = new Seal(player), AddPosition.First);
         }
     }
 }

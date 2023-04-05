@@ -1,13 +1,13 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
@@ -65,12 +65,12 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
 
         protected bool Soul = true;
 
-        public Alice(Gamefield gamefield) : base(gamefield) { }
+        public Alice(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {
             base.LoadingComplete();
-            Gamefield.OverlaysLayer.Add(TargetA = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            PlayManager.Layers.OverlayLayer.Add(TargetA = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
             {
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 200,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 100),
@@ -79,7 +79,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                 Color = PrimaryColor,
             });
 
-            Gamefield.OverlaysLayer.Add(TargetB = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
+            PlayManager.Layers.OverlayLayer.Add(TargetB = new Sprite(Game.TextureStore.GetTexture("Gameplay\\glow.png"))
             {
                 Position = new Vector2(GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().X / -2 + 100,
                     GamemodeStore.SelectedGamemode.Gamemode.GetGamefieldSize().Y / 2 - 200),
@@ -123,10 +123,10 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     TargetB.Alpha = 1;
 
                     Drawable.Alpha = 0.5f;
-                    Gamefield.Shade = Shades.Gray;
-                    Gamefield.Intensity = 0.2f;
+                    PlayManager.Layers.Shade = Shades.Gray;
+                    PlayManager.Layers.Intensity = 0.2f;
 
-                    Gamefield.Add(Homunculus = new Alice(Gamefield)
+                    PlayManager.Add(Homunculus = new Alice(PlayManager)
                     {
                         Position = Position,
                         Health = HealthCapacity / 2,
@@ -155,13 +155,13 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
                     TargetB.Alpha = 0.5f;
 
                     Drawable.Alpha = 1f;
-                    Gamefield.Shade = Shades.None;
-                    Gamefield.Intensity = 1f;
+                    PlayManager.Layers.Shade = Shades.None;
+                    PlayManager.Layers.Intensity = 1f;
 
                     if (Homunculus != null)
                     {
                         Heal(Homunculus.Health);
-                        Gamefield.Remove(Homunculus);
+                        PlayManager.Remove(Homunculus);
                         Homunculus = null;
                     }
 
@@ -186,7 +186,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             base.Die();
             if (SpellActive && !Homunculus.Dead)
             {
-                Gamefield.Remove(this);
+                PlayManager.Remove(this);
 
                 //"Transfer our soul back to our body"
                 Homunculus.AI = global::Vitaru.Vitaru.VitaruSettings.GetBool(VitaruSetting.BotHacks);
@@ -199,8 +199,8 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.One
             if (Homunculus != null)
                 Homunculus.OnDie = null;
 
-            Gamefield.OverlaysLayer.Remove(TargetA);
-            Gamefield.OverlaysLayer.Remove(TargetB);
+            PlayManager.Layers.OverlayLayer.Remove(TargetA);
+            PlayManager.Layers.OverlayLayer.Remove(TargetB);
         }
     }
 }

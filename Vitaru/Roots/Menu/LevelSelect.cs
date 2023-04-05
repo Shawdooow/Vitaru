@@ -1,8 +1,6 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -12,6 +10,8 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
 using Prion.Ribosome.Audio;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Levels;
 
 namespace Vitaru.Roots.Menu
@@ -68,7 +68,7 @@ namespace Vitaru.Roots.Menu
 
                 for (int i = 0; i < pack.Levels.Length; i++)
                 {
-                    if (pack.Levels[i].Format == LevelStore.BLANK_LEVEL) continue;
+                    if (pack.Levels[i].Format == LevelStore.BLANK) continue;
                     LevelItem item = new(i, pack.Levels[i].Name);
                     item.OnClick = () =>
                     {

@@ -1,6 +1,9 @@
-﻿using System;
-using System.Numerics;
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
+// Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
+
 using Prion.Nucleus.Utilities;
+using System;
+using System.Numerics;
 using Vitaru.Editor.KeyFrames.Interfaces;
 
 namespace Vitaru.Editor.KeyFrames

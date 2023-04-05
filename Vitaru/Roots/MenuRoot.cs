@@ -1,8 +1,6 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Graphics.Overlays;
 using Prion.Golgi.Themes;
@@ -15,6 +13,8 @@ using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
 using Prion.Nucleus.Utilities;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Graphics.UI;
 
 namespace Vitaru.Roots
@@ -31,16 +31,18 @@ namespace Vitaru.Roots
 
         protected virtual bool InvertParallax => false;
 
-        protected readonly Layer2D<IDrawable2D> BackgroundLayer;
-        protected readonly Sprite Background;
-        protected readonly Box Dim;
+        protected Layer2D<IDrawable2D> BackgroundLayer;
+        protected Sprite Background;
+        protected Box Dim;
         protected VitaruButton Back;
 
         private string bg = string.Empty;
         private bool ft = true;
 
-        protected MenuRoot()
+        public override void RenderingPreLoading()
         {
+            base.RenderingPreLoading();
+
             Add(BackgroundLayer = new Layer2D<IDrawable2D>
             {
                 Children = new[]
@@ -77,9 +79,9 @@ namespace Vitaru.Roots
                         TrackManager.CurrentTrack.Metadata.Filtering);
         }
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
             TrackManager.OnTrackChange += TrackChange;
 
             if (Back == null)

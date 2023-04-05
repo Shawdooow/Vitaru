@@ -1,14 +1,14 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Debug.Benchmarking;
 using Prion.Nucleus.Utilities;
 using Prion.Ribosome.Audio;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Vitaru.Server.Levels;
 
 namespace Vitaru.Levels
@@ -32,21 +32,15 @@ namespace Vitaru.Levels
 
         #region Versions
 
-
+        public const string BLANK = "BLANK";
         public const string STABLE = VERSION_01;
         public const string EXPERIMENTAL = VERSION_02;
 
-        public const string BLANK_LEVEL = "BLANK";
-
         public const string VERSION_01 = "preview5.2";
-
         public const string VERSION_02 = "0.12.0";
 
-        //Migrate to separate Header + Content files to make loading large libraries faster
+        //binary rendered content files
         public const string VERSION_03 = "before 1.0.0?";
-
-        //Migrate to a binary format for ultimate speed!
-        public const string VERSION_04 = "before 1.0.0?";
 
 
         #endregion
@@ -172,7 +166,7 @@ namespace Vitaru.Levels
                     if (audio != string.Empty)
                         levels.Add(new Level
                         {
-                            Format = BLANK_LEVEL,
+                            Format = BLANK,
                             Metadata = new TrackMetadata
                             {
                                 Title = pack.Title,
@@ -232,8 +226,6 @@ namespace Vitaru.Levels
             b.Record();
             Logger.Benchmark(b);
         }
-
-        public static void PopulateDefaults() { }
 
         public static void SetLevelPack(LevelPack p, int index = 0) => SetLevelPack(p, p.Levels[index]);
 
@@ -376,13 +368,11 @@ namespace Vitaru.Levels
                             $"Name={CurrentLevel.Name}{Environment.NewLine}" +
                             $"EnemyData={CurrentLevel.EnemyData}";
 
-            using (StreamWriter writer =
-                   new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate)))
-            {
-                Logger.Log($"Saving Current Level: {path}...", LogType.IO);
-                writer.Write(header);
-                Logger.Log("Current Level Saved!", LogType.IO);
-            }
+            using StreamWriter writer =
+                   new(Vitaru.LevelStorage.GetStream(path, FileAccess.Write, FileMode.Truncate));
+            Logger.Log($"Saving Current Level: {path}...", LogType.IO);
+            writer.Write(header);
+            Logger.Log("Current Level Saved!", LogType.IO);
         }
     }
 }

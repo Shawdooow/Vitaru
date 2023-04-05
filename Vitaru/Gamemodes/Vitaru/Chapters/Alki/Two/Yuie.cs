@@ -1,12 +1,12 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Drawing;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Nucleus.Debug;
 using Prion.Nucleus.Timing;
 using Prion.Nucleus.Utilities;
+using System;
+using System.Drawing;
 using Vitaru.Input;
 using Vitaru.Play;
 using Vitaru.Play.Characters.Players;
@@ -67,7 +67,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
         #endregion
 
 
-        public Yuie(Gamefield gamefield) : base(gamefield) { }
+        public Yuie(PlayManager manager) : base(manager) { }
 
         public override void LoadingComplete()
         {
@@ -98,7 +98,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate + 0.05d, 2)
                         : Math.Round(SetRate + 0.25d, 2), 2d);
                 intensity();
-                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+                PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -109,7 +109,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         ? Math.Round(SetRate - 0.05d, 2)
                         : Math.Round(SetRate - 0.25d, 2), -2d);
                 intensity();
-                Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+                PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
                 return;
             }
 
@@ -129,26 +129,26 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                 spellEndTime = Clock.LastCurrent - 2000;
 
             intensity();
-            Gamefield.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
-            DrawablePlayer.Sprite.Color = ComplementaryColor;
-            DrawablePlayer.HitboxOutline.Color = ComplementaryColor;
-            DrawablePlayer.Seal.Sign.Color = PrimaryColor;
+            PlayManager.Layers.Shade = SetRate > 1 ? Shades.Blue : Shades.Red;
+            DrawablePlayer.Color = ComplementaryColor;
+            DrawablePlayer.SecondaryColor = ComplementaryColor;
+            DrawablePlayer.ComplementaryColor = PrimaryColor;
         }
 
         protected override void SpellDeactivate(VitaruActions action)
         {
             base.SpellDeactivate(action);
 
-            DrawablePlayer.Sprite.Color = PrimaryColor;
-            DrawablePlayer.HitboxOutline.Color = SecondaryColor;
-            DrawablePlayer.Seal.Sign.Color = SecondaryColor;
+            DrawablePlayer.Color = PrimaryColor;
+            DrawablePlayer.SecondaryColor = SecondaryColor;
+            DrawablePlayer.ComplementaryColor = ComplementaryColor;
         }
 
         private void intensity()
         {
             float scale = (float)Easing.ApplyEasing(Easings.OutQuad,
                 Math.Min(PrionMath.Remap(currentRate, 1d, currentRate > 1d ? 2d : 0.5d), 1d));
-            Gamefield.Intensity = scale;
+            PlayManager.Layers.Intensity = scale;
         }
 
         protected override void SpellUpdate()
@@ -173,7 +173,7 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                         currentRate = originalRate;
                         applyToTrack(currentRate);
 
-                        Gamefield.Shade = Shades.None;
+                        PlayManager.Layers.Shade = Shades.None;
                     }
 
                     intensity();
@@ -212,13 +212,6 @@ namespace Vitaru.Gamemodes.Vitaru.Chapters.Alki.Two
                 TrackManager.CurrentTrack.Pitch = (float)speed;
 
             MovementSpeedMultiplier = 1 / speed;
-        }
-
-        protected override void BulletAddRad(float speed, float angle, Color color, float size, float damage,
-            float distance)
-        {
-            if (SpellActive && color == PrimaryColor) color = ComplementaryColor;
-            base.BulletAddRad(speed, angle, color, size, damage, distance);
         }
     }
 }

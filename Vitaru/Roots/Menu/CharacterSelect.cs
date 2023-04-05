@@ -1,19 +1,18 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Numerics;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Layers._2D;
 using Prion.Mitochondria.Graphics.Sprites;
 using Prion.Mitochondria.Graphics.Text;
 using Prion.Mitochondria.Input.Events;
-using Vitaru.Chapters;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Gamemodes;
-using Vitaru.Play;
+using Vitaru.Gamemodes.Chapters;
 using Vitaru.Play.Characters.Players;
 
 namespace Vitaru.Roots.Menu
@@ -86,7 +85,7 @@ namespace Vitaru.Roots.Menu
             private readonly Box flash;
 
             private readonly KeyValuePair<Chapter, Player> pair;
-            private Sprite sign;
+            private DrawablePlayer drawable;
 
             public SelectableCharacter(KeyValuePair<Chapter, Player> pair, int index)
             {
@@ -122,11 +121,13 @@ namespace Vitaru.Roots.Menu
             {
                 base.LoadingComplete();
 
-                DrawableGameEntity drawable = pair.Value.GenerateDrawable();
+                //Load the Drawable here
+                drawable = new DrawablePlayer(pair.Value, this);
                 drawable.Position = Vector2.Zero;
+                drawable.HitboxAlpha = 1;
+
                 AddArray(new IDrawable2D[]
                 {
-                    drawable,
                     new Text2D
                     {
                         ParentOrigin = Mounts.TopCenter,
@@ -148,19 +149,6 @@ namespace Vitaru.Roots.Menu
                             Color.Black : Color.Red : Color.Yellow,
                         FontScale = 1f,
                     });
-
-                if (drawable is DrawablePlayer p)
-                {
-                    sign = p.Seal.Sign;
-                    p.Hitbox.Alpha = 1;
-                    p.HitboxOutline.Alpha = 1;
-                }
-            }
-
-            public override void PreRender()
-            {
-                base.PreRender();
-                sign.Rotation += (float)(Clock.LastElapsedTime / 1000 * pair.Value.SealRotationSpeed);
             }
 
             public override bool OnMouseDown(MouseButtonEvent e)

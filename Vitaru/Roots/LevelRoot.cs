@@ -1,14 +1,13 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.UI;
+using System.Numerics;
 using Vitaru.Roots.Menu;
-using Vitaru.Roots.Tests;
 using Vitaru.Settings;
 using Vitaru.Tracks;
 
@@ -20,11 +19,12 @@ namespace Vitaru.Roots
 
         protected override bool UseLevelBackground => true;
 
-        private readonly VitaruTrackController controller;
+        private VitaruTrackController controller;
 
-        public LevelRoot()
+        public override void RenderingPreLoading()
         {
-            Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, TrackManager.CurrentTrack.Pitch);
+            base.RenderingPreLoading();
+
             Add(new Button
             {
                 ParentOrigin = Mounts.TopRight,
@@ -40,7 +40,7 @@ namespace Vitaru.Roots
 
                 Text = "Play",
 
-                OnClick = () => AddRoot(new PlayTest()),
+                OnClick = () => AddRoot(new PlayRoot()),
             });
             Add(new TrackSelect());
             Add(new LevelSelect());
@@ -54,9 +54,9 @@ namespace Vitaru.Roots
             });
         }
 
-        public override void LoadingComplete()
+        public override void RenderingLoadingComplete()
         {
-            base.LoadingComplete();
+            base.RenderingLoadingComplete();
             Vitaru.VitaruSettings.SetValue(VitaruSetting.Speed, 1f);
             Add(new HacksSelect());
 

@@ -1,12 +1,6 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Numerics;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
@@ -21,14 +15,21 @@ using Prion.Nucleus.IO;
 using Prion.Nucleus.Platform;
 using Prion.Nucleus.Settings;
 using Prion.Nucleus.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Numerics;
+using Vitaru.Debug;
 using Vitaru.Gamemodes;
 using Vitaru.Input;
 using Vitaru.Levels;
 using Vitaru.Mods;
-using Vitaru.Roots;
 using Vitaru.Server;
 using Vitaru.Settings;
 using Vitaru.Themes;
+using static Prion.Nucleus.Debug.Console;
 
 namespace Vitaru
 {
@@ -123,13 +124,16 @@ namespace Vitaru
 
             //OK Now buckle your fuckle, we are ready to go!
             Vitaru vitaru = new(v);
+#if !PUBLISH
+            vitaru.Start(new DebugMenu(vitaru));
+#else
             vitaru.Start(new MainMenu(vitaru));
+#endif
         }
 
         public static bool EnableIncompleteCharacters => FEATURES >= Features.Experimental;
-        public static bool EnableTanks => FEATURES >= Features.Upcoming;
+        public static bool EnableTanks => FEATURES >= Features.Radioactive;
         public static bool EnableMulti => FEATURES >= Features.Radioactive;
-        public static bool EnableKeyFrames => false;// FEATURES >= Features.Experimental;
 
         public static VitaruSettingsManager VitaruSettings { get; private set; }
 

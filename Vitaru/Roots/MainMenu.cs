@@ -1,20 +1,17 @@
-﻿// Copyright (c) 2018-2022 Shawn Bozek.
+﻿// Copyright (c) 2018-2023 Shawn Bozek.
 // Licensed under EULA https://docs.google.com/document/d/1xPyZLRqjLYcKMxXLHLmA5TxHV-xww7mHYVUuWLt2q9g/edit?usp=sharing
 
-using System.Drawing;
-using System.Numerics;
 using Prion.Golgi.Audio.Tracks;
 using Prion.Golgi.Themes;
 using Prion.Mitochondria;
 using Prion.Mitochondria.Graphics;
 using Prion.Mitochondria.Graphics.Drawables;
 using Prion.Mitochondria.Graphics.Text;
-using Prion.Mitochondria.Graphics.UI;
 using Prion.Mitochondria.Input;
+using System.Drawing;
+using System.Numerics;
 using Vitaru.Graphics.UI;
-using Vitaru.Levels;
 using Vitaru.Roots.Menu;
-using Vitaru.Roots.Multi;
 using Vitaru.Roots.Tests;
 using Vitaru.Tracks;
 
@@ -26,7 +23,9 @@ namespace Vitaru.Roots
 
         protected override bool Parallax => true;
 
-        private readonly VitaruTrackController controller;
+        private readonly Vitaru vitaru;
+
+        private VitaruTrackController controller;
 
         private const int x = 100;
         private const int y = 50;
@@ -35,6 +34,12 @@ namespace Vitaru.Roots
 
         public MainMenu(Vitaru vitaru)
         {
+            this.vitaru = vitaru;
+        }
+
+        public override void RenderingPreLoading()
+        {
+            base.RenderingPreLoading();
             Add(new VitaruButton
             {
                 Position = new Vector2(-x, -y - height / 2),
@@ -61,13 +66,13 @@ namespace Vitaru.Roots
 
                 Text = "Multi",
 
-                Disabled = !Vitaru.EnableMulti,
+                Disabled = true,//!Vitaru.EnableMulti,
 
-                OnClick = () =>
-                {
-                    if (Vitaru.EnableMulti && TrackManager.CurrentTrack != null)
-                        AddRoot(new MultiMenu());
-                },
+                //OnClick = () =>
+                //{
+                //    if (Vitaru.EnableMulti && TrackManager.CurrentTrack != null)
+                //        AddRoot(new MultiMenu());
+                //},
             });
             Add(new VitaruButton
             {
@@ -79,11 +84,12 @@ namespace Vitaru.Roots
 
                 Text = "Edit",
 
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new EditorRoot());
-                },
+                Disabled = true,
+                //OnClick = () =>
+                //{
+                //    if (TrackManager.CurrentTrack != null)
+                //        AddRoot(new EditorRoot());
+                //},
             });
             Add(new VitaruButton
             {
@@ -112,11 +118,12 @@ namespace Vitaru.Roots
 
                 Text = "Wiki",
 
-                OnClick = () =>
-                {
-                    if (TrackManager.CurrentTrack != null)
-                        AddRoot(new WikiRoot());
-                },
+                Disabled = true,
+                //OnClick = () =>
+                //{
+                //    if (TrackManager.CurrentTrack != null)
+                //        AddRoot(new WikiRoot());
+                //},
             });
             Add(new VitaruButton
             {
@@ -155,6 +162,7 @@ namespace Vitaru.Roots
             Renderer.Window.CursorHidden = true;
         }
 
+#if PUBLISH
         public override void LoadingComplete()
         {
             base.LoadingComplete();
@@ -183,6 +191,7 @@ namespace Vitaru.Roots
 
             controller.PrimeTrackManager();
         }
+#endif
 
         protected override void OnResume()
         {
@@ -203,7 +212,7 @@ namespace Vitaru.Roots
             //base.DropRoot();
         }
 
-        private class Exit : VitaruButton
+        public class Exit : VitaruButton
         {
             public Exit(Vitaru vitaru)
             {
